@@ -1,6 +1,8 @@
 //
 // ectyper - In-silico prediction of Escherichia coli serotype
 //
+nextflow.preview.types = true
+
 include { ECTYPER as ECTYPER_MODULE } from '../../modules/ectyper/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow ECTYPER {
     ECTYPER_MODULE(fasta)
 
     // Merge results
-    ECTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}.set{ ch_merge_ectyper }
+    ch_merge_ectyper = ECTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}
     CSVTK_CONCAT(ch_merge_ectyper, 'tsv', 'tsv')
 
     emit:

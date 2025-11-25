@@ -1,6 +1,8 @@
 //
 // mashtree - Quickly create a tree using Mash distances
 //
+nextflow.preview.types = true
+
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
 
 workflow MASHTREE {
@@ -8,7 +10,7 @@ workflow MASHTREE {
     fasta // channel: [ [meta], [assemblies] ]
 
     main:
-    fasta.collect{_meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}.set{ ch_merge_fna }
+    ch_merge_fna = fasta.collect{_meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}
     MASHTREE_MODULE(ch_merge_fna)
 
     emit:

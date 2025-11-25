@@ -1,7 +1,7 @@
 //
-// Subworkflow with functionality specific to the Bactopia Tools
+// Subworkflow with functionality specific to the main Bactopia workflow
 //
-
+nextflow.preview.types = true
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS
@@ -9,7 +9,6 @@
 */
 include { bactopiaInputs     } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,7 +29,7 @@ workflow BACTOPIA_INIT {
     }
 
     // Collect inputs, and create appropriate tuples for 'samples' channel
-    def ch_samples = channel.empty()
+    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Path>>
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
@@ -54,9 +53,9 @@ workflow BACTOPIA_INIT {
             sample[2].each { it -> r2 << file(it) }
         } 
 
-        ch_samples << tuple(meta, r1, r2, extra)
+        ch_samples << tuple(meta, r1.toSet(), r2.toSet(), extra)
     }.println()
 
     emit:
-    samples = ch_samples
+    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Path>> = ch_samples
 }

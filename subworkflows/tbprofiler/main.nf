@@ -1,6 +1,8 @@
 //
 // tbprofiler - Detect resistance and lineages of Mycobacterium tuberculosis genomes
 //
+nextflow.preview.types = true
+
 include { TBPROFILER_PROFILE } from '../../modules/tbprofiler/profile/main'
 include { TBPROFILER_COLLATE } from '../../modules/tbprofiler/collate/main'
 
@@ -12,7 +14,7 @@ workflow TBPROFILER {
     TBPROFILER_PROFILE(reads)
 
     // Merge results
-    TBPROFILER_PROFILE.out.json.collect{_meta, json -> json}.map{ json -> [[id:'tbprofiler'], json]}.set{ ch_merge_tbprofiler }
+    ch_merge_tbprofiler = TBPROFILER_PROFILE.out.json.collect{_meta, json -> json}.map{ json -> [[id:'tbprofiler'], json]}
     TBPROFILER_COLLATE(ch_merge_tbprofiler)
 
     emit:

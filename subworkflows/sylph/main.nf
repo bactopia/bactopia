@@ -1,6 +1,8 @@
 //
 // sylph - Taxonomic profiling by abundance-corrected minhash
 //
+nextflow.preview.types = true
+
 include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
 
 workflow SYLPH {

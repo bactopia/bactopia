@@ -1,6 +1,8 @@
 //
 // phispy - Predict prophages in bacterial genomes
 //
+nextflow.preview.types = true
+
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow PHISPY {
     PHISPY_MODULE(gbk)
 
     // Merge results
-    PHISPY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'phispy'], tsv]}.set{ ch_merge_phispy }
+    ch_merge_phispy = PHISPY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'phispy'], tsv]}
     CSVTK_CONCAT(ch_merge_phispy, 'tsv', 'tsv')
 
     emit:

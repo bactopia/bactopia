@@ -13,11 +13,10 @@ process CHECKM2_DOWNLOAD {
     logs = file("logs/*", optional: true)
 
     script:
-    zenodo_id = 5571251
-    // Default to latest version 
-    api_data = (new groovy.json.JsonSlurper()).parseText(file("https://zenodo.org/api/records/${zenodo_id}").text)
-    db_version = api_data.metadata.version
-    checksum = api_data.files[0].checksum.replaceFirst(/^md5:/, "md5=")
+    // Check for latest versions at https://doi.org/10.5281/zenodo.4626518
+    zenodo_id = 14897628
+    db_version = 3
+    checksum = "07c10655620843b517d0df0c160d911f"
     """
     # Automatic download is broken when using singularity/apptainer (https://github.com/chklovski/CheckM2/issues/73)
     # So it's necessary to download the database manually

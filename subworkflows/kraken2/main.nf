@@ -1,6 +1,8 @@
 //
 // kraken2 - Taxonomic classification of sequence reads 
 //
+nextflow.preview.types = true
+
 include { KRAKEN2 as KRAKEN2_MODULE } from '../../modules/kraken2/main'
 
 workflow KRAKEN2 {

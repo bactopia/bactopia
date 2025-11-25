@@ -14,8 +14,8 @@ process IQTREE {
     output:
     supplemental = tuple(meta, file("${process_name}/*"))
     phylogeny    = tuple(meta, file(treefile))
-    alignment    = tuple(meta, file(alignment))
-    aln_tree     = tuple(meta, file(alignment), file(treefile))
+    alignment    = tuple(meta, alignment)
+    aln_tree     = tuple(meta, alignment, file(treefile))
     logs         = tuple(meta, file("*.{log,err}", optional: true))
     nf_begin     = tuple(meta, file(".command.begin"))
     nf_err       = tuple(meta, file(".command.err"))

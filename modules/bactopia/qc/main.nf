@@ -44,18 +44,18 @@ process QC {
     meta.output_dir = "${prefix}/main/${task.ext.process_name}/"
     meta.logs_dir = "${prefix}/main/${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
-    meta.single_end = "${fq[1]}" == "${prefix}.fastq.gz" ? true : false
+    meta.single_end = "${fq.toList()[0]}" == "${prefix}.fastq.gz" ? true : false
     meta.genome_size = _meta.genome_size ?: 0
     meta.species = _meta.species ?: null
     meta.runtype = _meta.runtype
 
     // WF specific parameters
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
-    fq1 = meta.single_end ? fq : fq[0]
-    fq2 = meta.single_end ? null : fq[1]
+    fq1 = fq.toList()[0]
+    fq2 = meta.single_end ? null : fq.toList()[1]
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
-    adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters
-    phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix
+    adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters.getName()
+    phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix.getName()
     adapter_opts = meta.single_end ? "" : "in2=repair-r2.fq out2=adapter-r2.fq"
     phix_opts = meta.single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"

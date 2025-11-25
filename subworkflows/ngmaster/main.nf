@@ -1,6 +1,8 @@
 //
 // ngmaster - Multi-antigen sequence typing for Neisseria gonorrhoeae
 //
+nextflow.preview.types = true
+
 include { NGMASTER as NGMASTER_MODULE } from '../../modules/ngmaster/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow NGMASTER {
     NGMASTER_MODULE(fasta)
 
     // Merge results
-    NGMASTER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}.set{ ch_merge_ngmaster }
+    ch_merge_ngmaster = NGMASTER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ngmaster'], tsv]}
     CSVTK_CONCAT(ch_merge_ngmaster, 'tsv', 'tsv')
 
     emit:

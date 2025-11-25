@@ -1,6 +1,8 @@
 //
 // ncbigenomedownload - Quickly download assemblies from NCBI's Assembly database
 //
+nextflow.preview.types = true
+
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'
 
 workflow NCBIGENOMEDOWNLOAD {
@@ -10,7 +12,7 @@ workflow NCBIGENOMEDOWNLOAD {
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
-    NCBIGENOMEDOWNLOAD_MODULE.out.all.map { path -> [[id: file(path).getSimpleName()], file(path)] }.set{ ch_to_bactopia_tools }
+    ch_to_bactopia_tools = NCBIGENOMEDOWNLOAD_MODULE.out.all.map { path -> [[id: file(path).getSimpleName()], file(path)] }
 
     emit:
     // Individual outputs

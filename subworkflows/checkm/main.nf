@@ -1,6 +1,8 @@
 //
 // checkm - Assess the assembly quality of your samples
 //
+nextflow.preview.types = true
+
 include { CHECKM_LINEAGEWF } from '../../modules/checkm/lineagewf/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow CHECKM {
     CHECKM_LINEAGEWF(fasta)
 
     // Merge results
-    CHECKM_LINEAGEWF.out.tsv.collect{ _meta, tsv -> tsv }.map{ tsv -> [[id:'checkm'], tsv] }.set{ ch_merge_checkm }
+    ch_merge_checkm = CHECKM_LINEAGEWF.out.tsv.collect{ _meta, tsv -> tsv }.map{ tsv -> [[id:'checkm'], tsv] }
     CSVTK_CONCAT(ch_merge_checkm, 'tsv', 'tsv')
 
     emit:

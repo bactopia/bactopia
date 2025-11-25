@@ -1,11 +1,34 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    bactopia : String
+    includes : String
+    excludes : String
+    workflow : Map
+    rundir   : String
+
+    // Tool-specific parameters
+    bakta_db              : Path
+    download_bakta        : Boolean
+    bakta_save_as_tarball : Boolean
+    bakta_proteins        : Path
+    bakta_prodigal_tf     : Path
+    replicons             : Path
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { BAKTA             } from '../../../subworkflows/bakta/main'
 
 /*
@@ -17,20 +40,20 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    BACTOPIATOOL_INIT()
     BAKTA(
-        BACTOPIATOOL_INIT.out.samples,
-        params.bakta_db ? file(params.bakta_db) : [],
+        formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types),
+        params.bakta_db ? [params.bakta_db] : [],
         params.download_bakta,
         params.bakta_save_as_tarball,
-        params.bakta_proteins ? file(params.bakta_proteins, checkIfExists: true) : [],
-        params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf, checkIfExists: true) : [],
-        params.replicons ? file(params.replicons, checkIfExists: true) : []
+        params.bakta_proteins ? [params.bakta_proteins] : [],
+        params.bakta_prodigal_tf ? [params.bakta_prodigal_tf] : [],
+        params.replicons ? [params.replicons] : []
     )
 
     // Collect outputs

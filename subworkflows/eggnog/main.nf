@@ -1,6 +1,8 @@
 //
 // eggnog - Functional annotation of proteins using orthologous groups and phylogenies
 //
+nextflow.preview.types = true
+
 include { EGGNOG_DOWNLOAD } from '../../modules/eggnog/download/main'
 include { EGGNOG_MAPPER } from '../../modules/eggnog/mapper/main'
 

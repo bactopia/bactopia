@@ -1,6 +1,8 @@
 //
 // amrfinderplus - Identify antimicrobial resistance in genes or proteins
 //
+nextflow.preview.types = true
+
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -14,7 +16,7 @@ workflow AMRFINDERPLUS {
     AMRFINDERPLUS_RUN(fasta, db)
 
     // Merge results
-    AMRFINDERPLUS_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:'amrfinderplus'], report]}.set{ ch_merge_report }
+    ch_merge_report = AMRFINDERPLUS_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:'amrfinderplus'], report]}
     CSVTK_CONCAT(ch_merge_report, 'tsv', 'tsv')
 
     emit:

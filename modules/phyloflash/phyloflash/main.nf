@@ -8,7 +8,7 @@ process PHYLOFLASH {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
+    (_meta, reads) : Tuple<Map, List<Path>>
     _silva_db       : Path
     _univec_db      : Path
 

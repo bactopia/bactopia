@@ -1,6 +1,7 @@
 //
 // Subworkflow with functionality specific to the Bactopia Tools
 //
+nextflow.preview.types = true
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -10,7 +11,6 @@
 include { bactopiaToolInputs } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'
 
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Subworkflow to initialize the Bactopia Tools
@@ -18,12 +18,6 @@ include { validateParameters } from 'plugin/nf-bactopia'
 */
 
 workflow BACTOPIATOOL_INIT {
-
-    take:
-    bactopia_path
-    workflow_ext
-    include_path
-    exclude_path
 
     main:
     // Handle parameters
@@ -36,8 +30,9 @@ workflow BACTOPIATOOL_INIT {
     }
 
     // Collect inputs, and create appropriate tuples for 'samples' channel
-    def ch_samples = channel.empty()
-    def collectedInputs = bactopiaToolInputs(bactopia_path, workflow_ext, include_path, exclude_path)
+    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
+    def types = [false,false,false]
+    def collectedInputs = bactopiaToolInputs()
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
         error(" ")
@@ -46,35 +41,32 @@ workflow BACTOPIATOOL_INIT {
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->
-        def meta = sample[0]
-        def inputs = []
-        def extra = []
-        def extra2 = []
+        def meta  : Map<String, String> = sample[0]
+        def inputs: List<Path> = []
+        def extra : List<Path> = []
+        def extra2: List<Path> = []
 
         // Convert string inputs to files
         if (sample[1].size() > 0) {
             sample[1].each { it -> inputs << file(it) }
+            types[0] = true
         }
 
         if (sample[2].size() > 0) {
             sample[2].each { it -> extra << file(it) }
+            types[1] = true
         } 
 
         if (sample[3].size() > 0) {
             sample[3].each { it -> extra2 << file(it) }
-            
+            types[2] = true
         } 
 
-        // Create the expected tuple
-        if (extra2.size() > 0) {
-            ch_samples << tuple(meta, inputs, extra, extra2)
-        } else if (extra.size() > 0) {
-            ch_samples << tuple(meta, inputs, extra)
-        } else {
-            ch_samples << tuple(meta, inputs)
-        }
-    }.println()
+        // Always create 4-element tuple with empty sets for missing data
+        ch_samples << tuple(meta, inputs.toSet(), extra.toSet(), extra2.toSet())
+    }
 
     emit:
-    samples = ch_samples
+    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
+    data_types: Value<Integer> = types.count(true)
 }

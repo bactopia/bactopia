@@ -8,7 +8,7 @@ process ASSEMBLER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fq, extra) : Tuple<Map, Path, Path>
+    (_meta, fq, extra) : Tuple<Map, Set<Path>, Set<Path>>
 
     output:
     fna          = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true))
@@ -45,17 +45,15 @@ process ASSEMBLER {
     r1 = null
     r2 = null
     se = null
-    if (fq[2]) {
-        r1 = fq[0].getName().endsWith('_R1.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R1.fastq.gz') ? fq[1] : fq[2]
-        r2 = fq[0].getName().endsWith('_R2.fastq.gz') ? fq[0] : fq[1].getName().endsWith('_R2.fastq.gz') ? fq[1] : fq[2]
-        se = !fq[0].getName().matches('.*_R[12].fastq.gz') ? fq[0] : !fq[1].getName().matches('.*_R[12].fastq.gz') ? fq[1] : fq[2]
-    }
-    else if (fq[1]) {
-        r1 = fq[0]
-        r2 = fq[1]
-    }
-    else {
-        se = fq[0]
+    fq.toList().each { file ->
+        def fileName = file.getName()
+        if (fileName.contains('_R1.fastq.gz') && r1 == null) {
+            r1 = file
+        } else if (fileName.contains('_R2.fastq.gz') && r2 == null) {
+            r2 = file
+        } else if (!(fileName =~ /.*_R[12]\.fastq\.gz/) && se == null) {
+            se = file
+        }
     }
 
     // Unicycler
@@ -63,7 +61,7 @@ process ASSEMBLER {
 
     // Shovill
     contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
-    shovill_ram = task.memory.toString().split(' ')[0].toInteger() - 1
+    shovill_ram = task.memory.toGiga() - 1
     shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
     // Dragonflye

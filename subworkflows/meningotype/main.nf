@@ -1,6 +1,8 @@
 //
 // meningotype - Serotyping of Neisseria meningitidis
 //
+nextflow.preview.types = true
+
 include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../modules/meningotype/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow MENINGOTYPE {
     MENINGOTYPE_MODULE(fasta)
 
     // Merge results
-    MENINGOTYPE_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meningotype'], tsv]}.set{ ch_merge_meningotype }
+    ch_merge_meningotype = MENINGOTYPE_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meningotype'], tsv]}
     CSVTK_CONCAT(ch_merge_meningotype, 'tsv', 'tsv')
 
     emit:

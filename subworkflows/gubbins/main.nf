@@ -1,6 +1,8 @@
 //
 // gubbins - Rapid phylogenetic analysis of recombinant bacterial sequences
 //
+nextflow.preview.types = true
+
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
 include { SNPDISTS                  } from '../snpdists/main'
 
@@ -12,7 +14,7 @@ workflow GUBBINS {
     GUBBINS_MODULE(alignment)
     
     // Per-sample SNP distances
-    GUBBINS_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.masked.distance", process_name: "snpdists-masked"], aln]}.set{ ch_masked_aln }
+    ch_masked_aln = GUBBINS_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.masked.distance", process_name: "snpdists-masked"], aln]}
     SNPDISTS(ch_masked_aln)
 
     emit:

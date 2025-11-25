@@ -1,6 +1,8 @@
 //
 // scoary - GWAS analysis using pangenome outputs
 //
+nextflow.preview.types = true
+
 include { SCOARY as SCOARY_MODULE } from '../../modules/scoary/main'
 
 workflow SCOARY {

@@ -1,6 +1,8 @@
 //
 // stecfinder - Serotype of Shigatoxin producing E. coli using Illumina reads or assemblies
 //
+nextflow.preview.types = true
+
 include { STECFINDER as STECFINDER_MODULE } from '../../modules/stecfinder/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow STECFINDER {
     STECFINDER_MODULE(seqs)
 
     // Merge results
-    STECFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}.set{ ch_merge_stecfinder }
+    ch_merge_stecfinder = STECFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'stecfinder'], tsv]}
     CSVTK_CONCAT(ch_merge_stecfinder, 'tsv', 'tsv')
 
     emit:

@@ -1,6 +1,8 @@
 //
 // lissero - Serogroup typing prediction for Listeria monocytogenes
 //
+nextflow.preview.types = true
+
 include { LISSERO as LISSERO_MODULE } from '../../modules/lissero/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow LISSERO {
     LISSERO_MODULE(fasta)
 
     // Merge results
-    LISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'lissero'], tsv]}.set{ ch_merge_lissero }
+    ch_merge_lissero = LISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'lissero'], tsv]}
     CSVTK_CONCAT(ch_merge_lissero, 'tsv', 'tsv')
 
     emit:

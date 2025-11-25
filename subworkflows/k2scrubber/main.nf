@@ -1,6 +1,8 @@
 //
 // k2scrubber - Scrub human reads from FASTQ files using Kraken2 and human pangenome reference
 //
+nextflow.preview.types = true
+
 include { WGET    } from '../../modules/wget/main'
 include { KRAKEN2 } from '../../modules/kraken2/main'
 

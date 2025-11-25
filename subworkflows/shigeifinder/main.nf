@@ -1,6 +1,8 @@
 //
 // shigeifinder - Shigella and EIEC serotyping from assemblies
 //
+nextflow.preview.types = true
+
 include { SHIGEIFINDER as SHIGEIFINDER_MODULE } from '../../modules/shigeifinder/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SHIGEIFINDER {
     SHIGEIFINDER_MODULE(fasta)
 
     // Merge results
-    SHIGEIFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigeifinder'], tsv]}.set{ ch_merge_shigeifinder }
+    ch_merge_shigeifinder = SHIGEIFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigeifinder'], tsv]}
     CSVTK_CONCAT(ch_merge_shigeifinder, 'tsv', 'tsv')
 
     emit:

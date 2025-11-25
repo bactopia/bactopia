@@ -1,6 +1,8 @@
 //
 // plasmidfinder - Plasmid identification from assemblies
 //
+nextflow.preview.types = true
+
 include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../modules/plasmidfinder/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow PLASMIDFINDER {
     PLASMIDFINDER_MODULE(fasta)
 
     // Merge results
-    PLASMIDFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'plasmidfinder'], tsv]}.set{ ch_merge_plasmidfinder }
+    ch_merge_plasmidfinder = PLASMIDFINDER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'plasmidfinder'], tsv]}
     CSVTK_CONCAT(ch_merge_plasmidfinder, 'tsv', 'tsv')
 
     emit:

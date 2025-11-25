@@ -1,6 +1,8 @@
 //
 // seroba - Serotyping of Streptococcus pneumoniae from sequence reads
 //
+nextflow.preview.types = true
+
 include { SEROBA_RUN } from '../../modules/seroba/run/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SEROBA {
     SEROBA_RUN(fasta)
 
     // Merge results
-    SEROBA_RUN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seroba'], tsv]}.set{ ch_merge_seroba }
+    ch_merge_seroba = SEROBA_RUN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seroba'], tsv]}
     CSVTK_CONCAT(ch_merge_seroba, 'tsv', 'tsv')
 
     emit:

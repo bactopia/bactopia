@@ -10,7 +10,7 @@ process SNIPPY_CORE {
     input:
     (_meta, _vcf, _aligned_fa) : Tuple<Map, Path, Path>
     (_ref_meta, reference)   : Tuple<Map, Path>
-    mask                     : Path
+    mask                     : List<Path>
 
     output:
     supplemental   = tuple(meta, file("snippy-core/*"))
@@ -43,7 +43,7 @@ process SNIPPY_CORE {
     meta.process_name = task.ext.process_name
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs"
-    def mask_opt = mask ? "--mask ${mask[0]}" : ""
+    def mask_opt = mask.size() == 1 ? "--mask ${mask[0].getName()}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")
     """

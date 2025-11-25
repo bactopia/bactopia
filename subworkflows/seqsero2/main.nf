@@ -1,6 +1,8 @@
 //
 // seqsero2 - Salmonella serotype prediction from reads or assemblies
 //
+nextflow.preview.types = true
+
 include { SEQSERO2 as SEQSERO2_MODULE } from '../../modules/seqsero2/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SEQSERO2 {
     SEQSERO2_MODULE(seqs)
 
     // Merge results
-    SEQSERO2_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seqsero2'], tsv]}.set{ ch_merge_seqsero2 }
+    ch_merge_seqsero2 = SEQSERO2_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'seqsero2'], tsv]}
     CSVTK_CONCAT(ch_merge_seqsero2, 'tsv', 'tsv')
 
     emit:

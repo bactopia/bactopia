@@ -1,6 +1,8 @@
 //
 // ismapper - Identify insertion sites positions in bacterial genomes
 //
+nextflow.preview.types = true
+
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
 
 workflow ISMAPPER {

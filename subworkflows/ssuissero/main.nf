@@ -1,6 +1,8 @@
 //
 // ssuissero - Serotype prediction of Streptococcus suis assemblies
 //
+nextflow.preview.types = true
+
 include { SSUISSERO as SSUISSERO_MODULE } from '../../modules/ssuissero/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SSUISSERO {
     SSUISSERO_MODULE(fasta)
 
     // Merge results
-    SSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ssuissero'], tsv]}.set{ ch_merge_ssuissero }
+    ch_merge_ssuissero = SSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ssuissero'], tsv]}
     CSVTK_CONCAT(ch_merge_ssuissero, 'tsv', 'tsv')
 
     emit:

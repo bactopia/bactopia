@@ -1,6 +1,8 @@
 //
 // gather - Tools to gather all samples in one place
 //
+nextflow.preview.types = true
+
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT } from '../../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow GATHER {
     GATHER_MODULE(reads)
 
     // Merge meta values for each sample
-    GATHER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meta'], tsv]}.set{ ch_merge_stats }
+    ch_merge_stats = GATHER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meta'], tsv]}
     CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
 
     emit:

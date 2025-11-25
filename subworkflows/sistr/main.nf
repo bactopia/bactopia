@@ -1,6 +1,8 @@
 //
 // sistr - Serovar prediction of Salmonella assemblies
 //
+nextflow.preview.types = true
+
 include { SISTR as SISTR_MODULE } from '../../modules/sistr/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SISTR {
     SISTR_MODULE(fasta)
 
     // Merge results
-    SISTR_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sistr'], tsv]}.set{ ch_merge_sistr }
+    ch_merge_sistr = SISTR_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sistr'], tsv]}
     CSVTK_CONCAT(ch_merge_sistr, 'tsv', 'tsv')
 
     emit:

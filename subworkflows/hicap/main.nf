@@ -1,6 +1,8 @@
 //
 // hicap - Identify cap locus serotype and structure in your Haemophilus influenzae assemblies
 //
+nextflow.preview.types = true
+
 include { HICAP as HICAP_MODULE } from '../../modules/hicap/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -14,7 +16,7 @@ workflow HICAP {
     HICAP_MODULE(fasta, database_dir, model_fp)
 
     // Merge results
-    HICAP_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hicap'], tsv]}.set{ ch_merge_hicap }
+    ch_merge_hicap = HICAP_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hicap'], tsv]}
     CSVTK_CONCAT(ch_merge_hicap, 'tsv', 'tsv')
 
     emit:

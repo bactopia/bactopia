@@ -1,6 +1,8 @@
 //
 // shigapass - Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
 //
+nextflow.preview.types = true
+
 include { SHIGAPASS as SHIGAPASS_MODULE } from '../../modules/shigapass/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SHIGAPASS {
     SHIGAPASS_MODULE(fasta)
 
     // Merge results
-    SHIGAPASS_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigapass'], tsv]}.set{ ch_merge_shigapass }
+    ch_merge_shigapass = SHIGAPASS_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigapass'], tsv]}
     CSVTK_CONCAT(ch_merge_shigapass, 'tsv', 'tsv')
 
     emit:

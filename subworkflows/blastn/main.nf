@@ -1,6 +1,8 @@
 //
 // blastn - Search against nucleotide BLAST databases using nucleotide queries
 //
+nextflow.preview.types = true
+
 include { BLAST_BLASTN as BLASTN_MODULE } from '../../modules/blast/blastn/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow BLASTN {
     BLASTN_MODULE(fasta, query)
 
     // Merge results
-    BLASTN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastn'], tsv]}.set{ ch_merge_blastn }
+    ch_merge_blastn = BLASTN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastn'], tsv]}
     CSVTK_CONCAT(ch_merge_blastn, 'tsv', 'tsv')
 
     emit:

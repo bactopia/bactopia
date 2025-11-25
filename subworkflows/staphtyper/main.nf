@@ -1,6 +1,8 @@
 //
 // staphtyper - Determine the agr, spa and SCCMEC types for S. aureus assemblies
 //
+nextflow.preview.types = true
+
 include { AGRVATE } from '../agrvate/main'
 include { SPATYPER } from '../spatyper/main'
 include { SCCMEC } from '../sccmec/main'

@@ -25,7 +25,6 @@
             "title": "Filtering Parameters",
             "type": "object",
             "description": "Use these parameters to specify which samples to include or exclude.",
-            "default": "",
             "fa_icon": "fa-solid fa-filter",
             "properties": {
                 "include": {
@@ -356,12 +355,6 @@
                 },
                 "nfdir": {
                     "type": "boolean",
-                    "description": "Print directory Nextflow has pulled Bactopia to",
-                    "fa_icon": "fas fa-remove-format",
-                    "hidden": true
-                },
-                "workflow": {
-                    "type": "array",
                     "description": "Print directory Nextflow has pulled Bactopia to",
                     "fa_icon": "fas fa-remove-format",
                     "hidden": true

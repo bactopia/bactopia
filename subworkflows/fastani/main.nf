@@ -1,6 +1,8 @@
 //
 // fastani - fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
 //
+nextflow.preview.types = true
+
 include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -10,12 +12,12 @@ workflow FASTANI {
     reference // channel: [ val(meta), [ fasta ] ]
 
     main:
-    query.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}.set{ ch_fastani_query }
-    reference.map{_meta, fasta -> fasta}.set{ ch_fastani_reference }
+    ch_fastani_query = query.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}
+    ch_fastani_reference = reference.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'reference'], fasta]}
     FASTANI_MODULE(ch_fastani_query, ch_fastani_reference)
 
     // Merge results
-    FASTANI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}.set{ ch_merge_fastani }
+    ch_merge_fastani = FASTANI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}
     CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')
 
     emit:

@@ -1,6 +1,8 @@
 //
 // clonalframeml - Predict recombination events in bacterial genomes
 //
+nextflow.preview.types = true
+
 include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalframeml/main'
 include { IQTREE                                } from '../iqtree/main'
 include { SNPDISTS                              } from '../snpdists/main'
@@ -10,13 +12,13 @@ workflow CLONALFRAMEML {
     alignment // channel: [ val(meta), [ aln ] ]
 
     main:
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     
     // Create a quick start tree
-    alignment.collect{_meta, aln -> aln}.map{ aln -> [[name: "iqtree-fast", process_name: "iqtree-fast"], aln]}.set{ ch_aln }
+    ch_aln = alignment.collect{_meta, aln -> aln}.map{ aln -> [[name: "iqtree-fast", process_name: "iqtree-fast"], aln]}
     IQTREE(ch_aln)
     ch_results = ch_results.mix(IQTREE.out.results)
     ch_logs = ch_logs.mix(IQTREE.out.logs)
@@ -24,7 +26,7 @@ workflow CLONALFRAMEML {
     ch_versions = ch_versions.mix(IQTREE.out.versions)
 
     // Run ClonalFrameML
-    IQTREE.out.aln_tree.collect{_meta, aln, treefile -> [aln, treefile]}.map{ aln, treefile -> [[name: "core-genome", process_name: "clonalframeml"], aln, treefile]}.set{ ch_aln_tree }
+    ch_aln_tree = IQTREE.out.aln_tree.collect{_meta, aln, treefile -> [aln, treefile]}.map{ aln, treefile -> [[name: "core-genome", process_name: "clonalframeml"], aln, treefile]}
     CLONALFRAMEML_MODULE(ch_aln_tree)
     ch_results = ch_results.mix(
         CLONALFRAMEML_MODULE.out.emsim,
@@ -39,7 +41,7 @@ workflow CLONALFRAMEML {
     ch_logs = ch_logs.mix(CLONALFRAMEML_MODULE.out.logs)
 
     // Per-sample SNP distances
-    CLONALFRAMEML_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.masked.distance", process_name: "snpdists-masked"], aln]}.set{ ch_masked_aln }
+    ch_masked_aln = CLONALFRAMEML_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.masked.distance", process_name: "snpdists-masked"], aln]}
     SNPDISTS(ch_masked_aln)
     ch_results = ch_results.mix(SNPDISTS.out.tsv)
     ch_logs = ch_logs.mix(SNPDISTS.out.logs)

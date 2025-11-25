@@ -1,4 +1,33 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    rundir   : String
+
+    // Tool-specific parameters
+    adapters              : Path
+    phix                  : Path
+    use_bakta             : Boolean
+    bakta_db              : Path
+    download_bakta        : Boolean
+    bakta_save_as_tarball : Boolean
+    bakta_proteins        : Path
+    bakta_prodigal_tf     : Path
+    bakta_replicons       : Path
+    prokka_proteins       : Path
+    prokka_prodigal_tf    : Path
+    emmtyper_blastdb      : Path
+    hicap_database_dir    : Path
+    hicap_model_fp        : Path
+    ask_merlin            : Boolean
+    spatyper_repeats      : Path
+    spatyper_repeat_order : Path
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -6,7 +35,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 // Core
-include { BACTOPIA_INIT   } from './subworkflows/utils/bactopia'
+include { BACTOPIA_INIT   } from './subworkflows/utils/bactopia/main'
 include { AMRFINDERPLUS   } from './subworkflows/amrfinderplus/main'
 include { ASSEMBLER       } from './subworkflows/bactopia/assembler/main'
 include { DATASETS        } from './modules/bactopia/datasets/main'
@@ -31,10 +60,10 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     BACTOPIA_INIT()
 
     // Core steps
@@ -50,8 +79,8 @@ workflow {
     // QC samples
     QC(
         GATHER.out.raw_fastq,
-        params.adapters ? file(params.adapters, checkIfExists: true) : [],
-        params.phix ? file(params.phix, checkIfExists: true) : []
+        params.adapters ? [params.adapters] : [],
+        params.phix ? [params.phix] : []
     )
     ch_results = ch_results.mix(QC.out.results)
     ch_logs = ch_logs.mix(QC.out.logs)
@@ -77,12 +106,12 @@ workflow {
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,
-            params.bakta_db ? file(params.bakta_db) : [],
+            params.bakta_db ? [params.bakta_db] : [],
             params.download_bakta,
             params.bakta_save_as_tarball,
-            params.bakta_proteins ? file(params.bakta_proteins, checkIfExists: true) : [],
-            params.bakta_prodigal_tf ? file(params.bakta_prodigal_tf, checkIfExists: true) : [],
-            params.bakta_replicons ? file(params.bakta_replicons, checkIfExists: true) : []
+            params.bakta_proteins ? [params.bakta_proteins] : [],
+            params.bakta_prodigal_tf ? [params.bakta_prodigal_tf] : [],
+            params.bakta_replicons ? [params.bakta_replicons] : []
         )
         ch_results = ch_results.mix(BAKTA.out.results)
         ch_logs = ch_logs.mix(BAKTA.out.logs)
@@ -92,8 +121,8 @@ workflow {
     } else {
         PROKKA(
             ASSEMBLER.out.fna,
-            params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
-            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
+            params.prokka_proteins ? [params.prokka_proteins] : [],
+            params.prokka_prodigal_tf ? [params.prokka_prodigal_tf] : []
         )
         ch_results = ch_results.mix(PROKKA.out.results)
         ch_logs = ch_logs.mix(PROKKA.out.logs)
@@ -121,13 +150,13 @@ workflow {
             ASSEMBLER.out.fna.join(QC.out.fastq_only, by:[0]),
             DATASETS.out.mash_db,
             // emmtyper
-            params.emmtyper_blastdb ? file(params.emmtyper_blastdb, checkIfExists: true) : [],
+            params.emmtyper_blastdb ? [params.emmtyper_blastdb] : [],
             // hicap
-            params.database_dir ? file(params.database_dir, checkIfExists: true) : [],
-            params.model_fp ? file(params.model_fp, checkIfExists: true) : [],
+            params.hicap_database_dir ? [params.hicap_database_dir] : [],
+            params.hicap_model_fp ? [params.hicap_model_fp] : [],
             // staphtyper
-            params.repeats ? file(params.repeats, checkIfExists: true) : [],
-            params.repeat_order ? file(params.repeat_order, checkIfExists: true) : []
+            params.spatyper_repeats ? [params.spatyper_repeats] : [],
+            params.spatyper_repeat_order ? [params.spatyper_repeat_order] : []
         )
         ch_results = ch_results.mix(MERLIN.out.results)
         ch_logs = ch_logs.mix(MERLIN.out.logs)

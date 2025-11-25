@@ -8,18 +8,18 @@ process GATHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, extra) : Tuple<Map, Set<Path>, Set<Path>, Path>
+    (_meta, r1, r2, extra) : Tuple<Map, List<Path>, List<Path>, Path>
 
     stage:
     stageAs '*???-r1', r1
     stageAs '*???-r2', r2
 
     output:
-    raw_fastq  = tuple(meta, file("fastqs/${prefix}*.fastq.gz", optional: true), file("extra/*.gz", optional: true))
-    fastq_only = tuple(meta, file("fastqs/${prefix}*.fastq.gz", optional: true))
+    raw_fastq  = tuple(meta, files("fastqs/${prefix}*.fastq.gz"), files("extra/*.gz"))
+    fastq_only = tuple(meta, files("fastqs/${prefix}*.fastq.gz"))
     tsv        = tuple(meta, file("${prefix}-meta.tsv"))
-    error      = tuple(meta, file("*-{error,merged}.txt", optional: true))
-    logs       = tuple(meta, file("*.{log,err}", optional: true))
+    error      = tuple(meta, files("*-{error,merged}.txt"))
+    logs       = tuple(meta, files("*.{log,err}"))
     nf_begin   = tuple(meta, file(".command.begin"))
     nf_err     = tuple(meta, file(".command.err"))
     nf_log     = tuple(meta, file(".command.log"))
@@ -85,21 +85,21 @@ process GATHER {
 
     if [ "${runtype}" == "paired-end" ]; then
         # Paired-End Reads
-        cp -L ${r1[0]} fastqs/${prefix}_R1.fastq.gz
-        cp -L ${r2[0]} fastqs/${prefix}_R2.fastq.gz
+        cp -L ${r1.toList()[0]} fastqs/${prefix}_R1.fastq.gz
+        cp -L ${r2.toList()[0]} fastqs/${prefix}_R2.fastq.gz
         touch extra/empty.fna.gz
     elif [ "${runtype}" == "single-end" ]; then
         # Single-End Reads
-        cp -L ${r1[0]} fastqs/${prefix}.fastq.gz
+        cp -L ${r1.toList()[0]} fastqs/${prefix}.fastq.gz
         touch extra/empty.fna.gz
     elif [ "${runtype}" == "ont" ]; then
         # Nanopore reads
-        cp -L ${r1[0]} fastqs/${prefix}.fastq.gz
+        cp -L ${r1.toList()[0]} fastqs/${prefix}.fastq.gz
         touch extra/empty.fna.gz
     elif  [ "${runtype}" == "hybrid" ] || [ "${runtype}" == "short_polish" ]; then 
         # Paired-End Reads
-        cp -L ${r1[0]} fastqs/${prefix}_R1.fastq.gz
-        cp -L ${r2[0]} fastqs/${prefix}_R2.fastq.gz
+        cp -L ${r1.toList()[0]} fastqs/${prefix}_R1.fastq.gz
+        cp -L ${r2.toList()[0]} fastqs/${prefix}_R2.fastq.gz
         cp -L ${extra} extra/${prefix}.fastq.gz
     elif [ "${runtype}" == "merge-pe" ] || [ "${runtype}" == "hybrid-merge-pe" ] || [ "${runtype}" == "short_polish-merge-pe" ]; then 
         # Merge Paired-End Reads

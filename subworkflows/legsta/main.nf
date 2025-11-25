@@ -1,6 +1,8 @@
 //
 // legsta - Typing of Legionella pneumophila assemblies
 //
+nextflow.preview.types = true
+
 include { LEGSTA as LEGSTA_MODULE } from '../../modules/legsta/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow LEGSTA {
     LEGSTA_MODULE(fasta)
 
     // Merge results
-    LEGSTA_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'legsta'], tsv]}.set{ ch_merge_legsta }
+    ch_merge_legsta = LEGSTA_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'legsta'], tsv]}
     CSVTK_CONCAT(ch_merge_legsta, 'tsv', 'tsv')
 
     emit:

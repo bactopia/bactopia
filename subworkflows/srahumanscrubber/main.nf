@@ -1,6 +1,8 @@
 //
 // srahumanscrubber - Scrub human reads from FASTQ files using SRA Human Scrubber
 //
+nextflow.preview.types = true
+
 include { SRAHUMANSCRUBBER_INITDB } from '../../modules/srahumanscrubber/initdb/main'
 include { SRAHUMANSCRUBBER_SCRUB } from '../../modules/srahumanscrubber/scrub/main'
 

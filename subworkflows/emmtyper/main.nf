@@ -1,6 +1,8 @@
 //
 // emmtyper - emm-typing of Streptococcus pyogenes assemblies
 //
+nextflow.preview.types = true
+
 include { EMMTYPER as EMMTYPER_MODULE } from '../../modules/emmtyper/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow EMMTYPER {
     EMMTYPER_MODULE(fasta, blastdb)
 
     // Merge results
-    EMMTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'emmtyper'], tsv]}.set{ ch_merge_emmtyper }
+    ch_merge_emmtyper = EMMTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'emmtyper'], tsv]}
     CSVTK_CONCAT(ch_merge_emmtyper, 'tsv', 'tsv')
 
     emit:

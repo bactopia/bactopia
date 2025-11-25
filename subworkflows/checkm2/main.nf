@@ -1,6 +1,8 @@
 //
 // checkm2 - Assess the assembly quality of your samples
 //
+nextflow.preview.types = true
+
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'
 include { CHECKM2_PREDICT } from '../../modules/checkm2/predict/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
@@ -20,7 +22,7 @@ workflow CHECKM2 {
     }
 
     // Merge results
-    CHECKM2_PREDICT.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'checkm2'], tsv]}.set{ ch_merge_checkm2 }
+    ch_merge_checkm2 = CHECKM2_PREDICT.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'checkm2'], tsv]}
     CSVTK_CONCAT(ch_merge_checkm2, 'tsv', 'tsv')
 
     emit:

@@ -1,6 +1,8 @@
 //
 // defensefinder - Systematic search of all known anti-phage systems
 //
+nextflow.preview.types = true
+
 include { DEFENSEFINDER_UPDATE } from '../../modules/defensefinder/update/main'
 include { DEFENSEFINDER_RUN    } from '../../modules/defensefinder/run/main'
 include { CSVTK_CONCAT as GENES_CONCAT   } from '../../modules/csvtk/concat/main'
@@ -16,13 +18,13 @@ workflow DEFENSEFINDER {
     DEFENSEFINDER_RUN(fasta, DEFENSEFINDER_UPDATE.out.db)
 
     // Merge results
-    DEFENSEFINDER_RUN.out.genes_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-genes'], tsv]}.set{ ch_merge_genes }
+    ch_merge_genes = DEFENSEFINDER_RUN.out.genes_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-genes'], tsv]}
     GENES_CONCAT(ch_merge_genes, 'tsv', 'tsv')
 
-    DEFENSEFINDER_RUN.out.hmmer_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-hmmer'], tsv]}.set{ ch_merge_hmmer }
+    ch_merge_hmmer = DEFENSEFINDER_RUN.out.hmmer_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-hmmer'], tsv]}
     HMMER_CONCAT(ch_merge_hmmer, 'tsv', 'tsv')
 
-    DEFENSEFINDER_RUN.out.systems_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-systems'], tsv]}.set{ ch_merge_systems }
+    ch_merge_systems = DEFENSEFINDER_RUN.out.systems_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-systems'], tsv]}
     SYSTEMS_CONCAT(ch_merge_systems, 'tsv', 'tsv')
 
     emit:

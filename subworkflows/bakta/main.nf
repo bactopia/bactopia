@@ -1,6 +1,8 @@
 //
 // bakta - Rapid annotation of bacterial genomes and plasmids
 //
+nextflow.preview.types = true
+
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
 include { BAKTA_RUN } from '../../modules/bakta/run/main'
 
@@ -54,8 +56,7 @@ workflow BAKTA {
         BAKTA_RUN.out.gff,
         BAKTA_RUN.out.hypotheticals_faa,
         BAKTA_RUN.out.hypotheticals_tsv,
-        BAKTA_RUN.out.blastdb,
-        BAKTA_RUN.out.annotations
+        BAKTA_RUN.out.blastdb
     )
     logs = BAKTA_RUN.out.logs
     nf_logs = BAKTA_RUN.out.nf_begin.mix(

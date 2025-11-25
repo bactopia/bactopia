@@ -7,10 +7,6 @@ nextflow.preview.types = true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
     rundir   : String
 }
 
@@ -19,7 +15,8 @@ params {
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { ABRICATE          } from '../../../subworkflows/abricate/main'
 
 /*
@@ -32,13 +29,13 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty() as Channel<Tuple<Map,Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map,Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map,Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map,Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.includes, params.excludes)
-    ABRICATE(BACTOPIATOOL_INIT.out.samples)
+    BACTOPIATOOL_INIT()
+    ABRICATE(formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types))
 
     // Collect outputs
     ch_results = ch_results.mix(ABRICATE.out.results)
@@ -80,34 +77,34 @@ workflow {
 
 output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results {
+    run_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
     }
-    run_logs {
+    run_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
-    run_nf_logs {
-        path { meta, file -> {
+    run_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    run_versions {
+    run_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
 
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results {
+    sample_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    sample_logs {
+    sample_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    sample_nf_logs {
-        path { meta, file -> {
+    sample_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    sample_versions {
+    sample_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

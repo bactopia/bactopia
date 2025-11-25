@@ -1,6 +1,8 @@
 //
 // mcroni - Sequence variation in mcr-1 genes (mobilized colistin resistance)
 //
+nextflow.preview.types = true
+
 include { MCRONI as MCRONI_MODULE } from '../../modules/mcroni/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow MCRONI {
     MCRONI_MODULE(fasta)
 
     // Merge results
-    MCRONI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mcroni'], tsv]}.set{ ch_merge_mcroni }
+    ch_merge_mcroni = MCRONI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mcroni'], tsv]}
     CSVTK_CONCAT(ch_merge_mcroni, 'tsv', 'tsv')
 
     emit:

@@ -1,6 +1,8 @@
 //
 // agrvate - Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
 //
+nextflow.preview.types = true
+
 include { AGRVATE as AGRVATE_MODULE } from '../../modules/agrvate/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow AGRVATE {
     AGRVATE_MODULE(fasta)
 
     // Merge results
-    AGRVATE_MODULE.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}.set{ ch_merge_agrvate }
+    ch_merge_agrvate = AGRVATE_MODULE.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:'agrvate'], summary]}
     CSVTK_CONCAT(ch_merge_agrvate, 'tsv', 'tsv')
 
     emit:

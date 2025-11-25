@@ -1,6 +1,8 @@
 //
 // pangenome - Pangenome analysis with optional core-genome phylogeny
 //
+nextflow.preview.types = true
+
 include { PIRATE   } from '../pirate/main'
 include { ROARY    } from '../roary/main'
 include { PANAROO  } from '../panaroo/main'
@@ -8,17 +10,19 @@ include { SNPDISTS } from '../snpdists/main'
 
 workflow PANGENOME {
     take:
-    gff // channel: [ val(meta), [ gff ] ]
-    use_pirate
-    use_roary
+    gff        : Channel<Tuple<Map, List<Path>>>
+    use_pirate : Boolean
+    use_roary  : Boolean
 
     main:
-    ch_aln = channel.empty()
-    ch_csv = channel.empty()
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+
+    // Initialize channels
+    ch_aln = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_csv = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
     // Choose pangenome tool based on params
     if (use_pirate) {
@@ -48,7 +52,9 @@ workflow PANGENOME {
     }
 
     // Per-sample SNP distances
-    ch_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.distance", process_name: "snpdists"], aln]}.set{ ch_unmasked_aln }
+    ch_unmasked_aln = ch_aln.map({ _meta, aln -> 
+        tuple([name: "core-genome.distance", process_name: "snpdists"], aln)
+    })
     SNPDISTS(ch_unmasked_aln)
     ch_results = ch_results.mix(SNPDISTS.out.results)
     ch_logs = ch_logs.mix(SNPDISTS.out.logs)
@@ -57,12 +63,12 @@ workflow PANGENOME {
 
     emit:
     // Individual outputs
-    aln = ch_aln
-    csv = ch_csv
+    aln: Channel<Tuple<Map, Path>> = ch_aln
+    csv: Channel<Tuple<Map, Path>> = ch_csv
 
     // Generic aggregate outputs
-    results = ch_results
-    logs = ch_logs
-    nf_logs = ch_nf_logs
-    versions = ch_versions
+    results: Channel<Tuple<Map, Path>> = ch_results
+    logs: Channel<Tuple<Map, Path>> = ch_logs
+    nf_logs: Channel<Tuple<Map, Path>> = ch_nf_logs
+    versions: Channel<Tuple<Map, Path>> = ch_versions
 }

@@ -1,6 +1,8 @@
 //
 // mlst - Automatic MLST calling from assembled contigs
 //
+nextflow.preview.types = true
+
 include { MLST as MLST_MODULE } from '../../modules/mlst/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow MLST {
     MLST_MODULE(fasta, db)
 
     // Merge results
-    MLST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mlst'], tsv]}.set{ ch_merge_mlst }
+    ch_merge_mlst = MLST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'mlst'], tsv]}
     CSVTK_CONCAT(ch_merge_mlst, 'tsv', 'tsv')
 
     emit:

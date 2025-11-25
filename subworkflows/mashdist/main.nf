@@ -1,6 +1,8 @@
 //
 // mashdist - Calculate Mash distances between sequences
 //
+nextflow.preview.types = true
+
 include { MASH_DIST } from '../../modules/mash/dist/main'
 include { MERLIN_DIST } from '../../modules/mash/dist/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
@@ -14,7 +16,7 @@ workflow MASHDIST {
     MASH_DIST(seqs, reference)
 
     // Merge results
-    MASH_DIST.out.dist.collect{_meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}.set{ ch_merge_mashdist }
+    ch_merge_mashdist = MASH_DIST.out.dist.collect{_meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}
     CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
 
     emit:

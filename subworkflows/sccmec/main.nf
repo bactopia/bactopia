@@ -1,6 +1,8 @@
 //
 // sccmec - A tool for typing SCCmec cassettes in assemblies
 //
+nextflow.preview.types = true
+
 include { SCCMEC as SCCMEC_MODULE } from '../../modules/sccmec/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SCCMEC {
     SCCMEC_MODULE(fasta)
 
     // Merge results
-    SCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sccmec'], tsv]}.set{ ch_merge_sccmec }
+    ch_merge_sccmec = SCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sccmec'], tsv]}
     CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
 
     emit:

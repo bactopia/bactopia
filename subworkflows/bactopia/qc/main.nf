@@ -1,6 +1,8 @@
 //
 // qc - Quality control of Illumina and ONT reads
 //
+nextflow.preview.types = true
+
 include { QC as QC_MODULE } from '../../../modules/bactopia/qc/main'
 
 workflow QC {

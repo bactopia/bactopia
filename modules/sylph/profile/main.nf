@@ -8,7 +8,7 @@ process SYLPH_PROFILE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
+    (_meta, reads) : Tuple<Map, List<Path>>
     db             : Path
 
     output:
@@ -34,7 +34,7 @@ process SYLPH_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def query_reads = meta.single_end ? "${reads}" : "--first-pairs ${reads[0]} --second-pairs ${reads[1]}"
+    def query_reads = meta.single_end ? "${reads[0]}" : "--first-pairs ${reads[0]} --second-pairs ${reads[1]}"
     """
     sylph \\
         profile \\

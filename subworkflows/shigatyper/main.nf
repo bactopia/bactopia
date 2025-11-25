@@ -1,6 +1,8 @@
 //
 // shigatyper - Shigella serotype from Illumina or Oxford Nanopore reads
 //
+nextflow.preview.types = true
+
 include { SHIGATYPER as SHIGATYPER_MODULE } from '../../modules/shigatyper/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow SHIGATYPER {
     SHIGATYPER_MODULE(reads)
 
     // Merge results
-    SHIGATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigatyper'], tsv]}.set{ ch_merge_shigatyper }
+    ch_merge_shigatyper = SHIGATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'shigatyper'], tsv]}
     CSVTK_CONCAT(ch_merge_shigatyper, 'tsv', 'tsv')
 
     emit:

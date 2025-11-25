@@ -8,7 +8,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
+    (_meta, reads) : Tuple<Map, List<Path>>
     db             : Path
 
     output:
@@ -40,8 +40,8 @@ process SRAHUMANSCRUBBER_SCRUB {
     meta.output_dir = "${prefix}/tools/${output_folder}"
     meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    meta.single_end = reads[1] == null ? true : false
-    meta.is_paired = reads[1] == null ? false : true
+    meta.single_end = reads.size() == 1 ? true : false
+    meta.is_paired = reads.size() == 2 ? true : false
     meta.runtype = _meta.runtype
     special_meta = [:]
     special_meta.id = prefix

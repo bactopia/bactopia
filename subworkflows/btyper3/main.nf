@@ -1,6 +1,8 @@
 //
 // btyper3 - Taxonomic classification of Bacillus cereus group isolates
 //
+nextflow.preview.types = true
+
 include { BTYPER3 as BTYPER3_MODULE } from '../../modules/btyper3/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow BTYPER3 {
     BTYPER3_MODULE(fasta)
 
     // Merge results
-    BTYPER3_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'btyper3'], tsv]}.set{ ch_merge_btyper3 }
+    ch_merge_btyper3 = BTYPER3_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'btyper3'], tsv]}
     CSVTK_CONCAT(ch_merge_btyper3, 'tsv', 'tsv')
 
     emit:

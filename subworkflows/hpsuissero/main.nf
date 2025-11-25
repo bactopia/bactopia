@@ -1,6 +1,8 @@
 //
 // hpsuissero - Serotype prediction of Haemophilus parasuis assemblies
 //
+nextflow.preview.types = true
+
 include { HPSUISSERO as HPSUISSERO_MODULE } from '../../modules/hpsuissero/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow HPSUISSERO {
     HPSUISSERO_MODULE(fasta)
 
     // Merge results
-    HPSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hpsuissero'], tsv]}.set{ ch_merge_hpsuissero }
+    ch_merge_hpsuissero = HPSUISSERO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'hpsuissero'], tsv]}
     CSVTK_CONCAT(ch_merge_hpsuissero, 'tsv', 'tsv')
 
     emit:

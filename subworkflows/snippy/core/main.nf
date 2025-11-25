@@ -1,6 +1,8 @@
 //
 // snippy - Rapid variant calling from sequence reads
 //
+nextflow.preview.types = true
+
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE  } from '../../../modules/snippy/core/main'
 include { SNPDISTS                           } from '../../snpdists/main'
 workflow SNIPPY_CORE {
@@ -13,7 +15,7 @@ workflow SNIPPY_CORE {
     SNIPPY_CORE_MODULE(alignments, reference, mask)
 
     // Per-sample SNP distances
-    SNIPPY_CORE_MODULE.out.clean_full_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.distance", process_name: "snpdists"], aln]}.set{ ch_unmasked_aln }
+    ch_unmasked_aln = SNIPPY_CORE_MODULE.out.clean_full_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.distance", process_name: "snpdists"], aln]}
     SNPDISTS(ch_unmasked_aln)
 
     emit:

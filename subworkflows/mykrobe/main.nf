@@ -1,6 +1,8 @@
 //
 // mykrobe - Antimicrobial resistance detection for specific species
 //
+nextflow.preview.types = true
+
 include { MYKROBE_PREDICT }  from '../../modules/mykrobe/predict/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow MYKROBE {
     MYKROBE_PREDICT(reads, mykrobe_species)
     
     // Merge results
-    MYKROBE_PREDICT.out.csv.collect{_meta, csv -> csv}.map{ csv -> [[id:'mykrobe'], csv]}.set{ ch_merge_mykrobe }
+    ch_merge_mykrobe = MYKROBE_PREDICT.out.csv.collect{_meta, csv -> csv}.map{ csv -> [[id:'mykrobe'], csv]}
     CSVTK_CONCAT(ch_merge_mykrobe, 'csv', 'csv')
 
     emit:

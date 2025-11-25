@@ -1,6 +1,8 @@
 //
 // pneumocat - Assign capsular type to Streptococcus pneumoniae from sequence reads
 //
+nextflow.preview.types = true
+
 include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
 
 workflow PNEUMOCAT {

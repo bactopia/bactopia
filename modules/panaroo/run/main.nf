@@ -9,7 +9,7 @@ process PANAROO_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, gff) : Tuple<Map, Set<Path>>
+    (_meta, gff) : Tuple<Map, List<Path>>
 
     stage:
     stageAs 'gff-tmp/*', gff

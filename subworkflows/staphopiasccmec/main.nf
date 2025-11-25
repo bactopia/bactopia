@@ -1,6 +1,8 @@
 //
 // staphopiasccmec - Primer based SCCmec typing of Staphylococcus aureus genomes
 //
+nextflow.preview.types = true
+
 include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE} from '../../modules/staphopiasccmec/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow STAPHOPIASCCMEC {
     STAPHOPIASCCMEC_MODULE(fasta)
 
     // Merge results
-    STAPHOPIASCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}.set{ ch_merge_sccmec }
+    ch_merge_sccmec = STAPHOPIASCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'staphopiasccmec'], tsv]}
     CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
 
     emit:

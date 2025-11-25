@@ -9,8 +9,8 @@ process PROKKA {
 
     input:
     (_meta, fasta) : Tuple<Map, Path>
-    proteins       : Path
-    prodigal_tf    : Path
+    proteins       : List<Path>
+    prodigal_tf    : List<Path>
 
     stage:
     stageAs "input/*", fasta
@@ -39,8 +39,8 @@ process PROKKA {
     versions    = tuple(meta, file("versions.yml"))
 
     script:
-    def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
-    def prodigal_opt = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
+    def proteins_opt = proteins.size() == 1 ? "--proteins ${proteins[0].getName()}" : ""
+    def prodigal_opt = prodigal_tf.size() == 1 ? "--prodigaltf ${prodigal_tf[0].getName()}" : ""
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
     def fasta_name = fasta.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"

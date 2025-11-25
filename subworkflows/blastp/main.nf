@@ -1,6 +1,8 @@
 //
 // blastp - Search against protein BLAST databases using protein queries
 //
+nextflow.preview.types = true
+
 include { BLAST_BLASTP as BLASTP_MODULE } from '../../modules/blast/blastp/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow BLASTP {
     BLASTP_MODULE(fasta, query)
 
     // Merge results
-    BLASTP_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastp'], tsv]}.set{ ch_merge_blastp }
+    ch_merge_blastp = BLASTP_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastp'], tsv]}
     CSVTK_CONCAT(ch_merge_blastp, 'tsv', 'tsv')
 
     emit:

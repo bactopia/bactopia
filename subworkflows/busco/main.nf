@@ -13,7 +13,7 @@ workflow BUSCO {
     BUSCO_MODULE(fasta)
 
     // Merge the results
-    BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:"busco-${busco_lineage}"], tsv]}.set{ ch_merge_busco }
+    ch_merge_busco = BUSCO_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:"busco-${busco_lineage}"], tsv]}
     CSVTK_CONCAT(ch_merge_busco, 'tsv', 'tsv')
 
     emit:

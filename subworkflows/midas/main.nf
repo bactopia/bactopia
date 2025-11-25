@@ -1,6 +1,8 @@
 //
 // midas - Estimate species abundances from FASTQ files
 //
+nextflow.preview.types = true
+
 include { MIDAS_SPECIES } from '../../modules/midas/species/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow MIDAS {
     MIDAS_SPECIES(reads, database)
     
     // Merge results
-    MIDAS_SPECIES.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'midas'], tsv]}.set{ ch_merge_midas }
+    ch_merge_midas = MIDAS_SPECIES.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'midas'], tsv]}
     CSVTK_CONCAT(ch_merge_midas, 'tsv', 'tsv')
 
     emit:

@@ -1,11 +1,33 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    bactopia : String
+    includes : String
+    excludes : String
+    workflow : Map
+    rundir   : String
+
+    // Tool-specific parameters
+    emmtyper_blastdb      : Path
+    hicap_database_dir    : Path
+    hicap_model_fp        : Path
+    spatyper_repeats      : Path
+    spatyper_repeat_order : Path
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { DATASETS          } from '../../../modules/bactopia/datasets/main'
 include { MERLIN            } from '../../../subworkflows/merlin/main'
 
@@ -18,24 +40,24 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    BACTOPIATOOL_INIT()
     DATASETS()
     MERLIN(
-        BACTOPIATOOL_INIT.out.samples,
+        formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types),
         DATASETS.out.mash_db,
         // emmtyper
-        params.emmtyper_blastdb ? file(params.emmtyper_blastdb, checkIfExists: true) : [],
+        params.emmtyper_blastdb ? [params.emmtyper_blastdb] : [],
         // hicap
-        params.hicap_database_dir ? file(params.hicap_database_dir, checkIfExists: true) : [],
-        params.hicap_model_fp ? file(params.hicap_model_fp, checkIfExists: true) : [],
+        params.hicap_database_dir ? [params.hicap_database_dir] : [],
+        params.hicap_model_fp ? [params.hicap_model_fp] : [],
         // staphtyper
-        params.spatyper_repeats ? file(params.spatyper_repeats, checkIfExists: true) : [],
-        params.spatyper_repeat_order ? file(params.spatyper_repeat_order, checkIfExists: true) : []
+        params.spatyper_repeats ? [params.spatyper_repeats] : [],
+        params.spatyper_repeat_order ? [params.spatyper_repeat_order] : []
     )
 
     // Collect outputs

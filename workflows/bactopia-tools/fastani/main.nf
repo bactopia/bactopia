@@ -1,15 +1,24 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    rundir   : String
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { FASTANI            } from '../../../subworkflows/fastani/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-include { paramsHelp         } from 'plugin/nf-bactopia'
-include { workflowSummary    } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -20,12 +29,12 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    BACTOPIATOOL_INIT()
 
     // Reference if applicable
     ch_reference = channel.empty()
@@ -40,9 +49,9 @@ workflow {
     }
 
     // Add query if pairwise
-    ch_query = BACTOPIATOOL_INIT.out.samples
+    ch_query = formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types)
     if (params.fastani_pairwise) {
-        ch_reference = ch_reference.mix(BACTOPIATOOL_INIT.out.samples)
+        ch_reference = ch_reference.mix(ch_query)
         ch_query = ch_reference
     }
 

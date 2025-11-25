@@ -1,6 +1,8 @@
 //
 // prokka - Whole genome annotation of small genomes (bacterial, archeal, viral)
 //
+nextflow.preview.types = true
+
 include { PROKKA as PROKKA_MODULE } from '../../modules/prokka/main'
 
 workflow PROKKA {

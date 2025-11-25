@@ -1,6 +1,8 @@
 //
 // sketcher - Assortment of tools for sketching sequences
 //
+nextflow.preview.types = true
+
 include { SKETCHER as SKETCHER_MODULE } from '../../../modules/bactopia/sketcher/main'
 
 workflow SKETCHER {

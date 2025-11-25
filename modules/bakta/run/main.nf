@@ -10,9 +10,9 @@ process BAKTA_RUN {
     input:
     (_meta, fasta) : Tuple<Map, Path>
     db             : Path
-    proteins       : Path
-    prodigal_tf    : Path
-    replicons      : Path
+    proteins       : List<Path>
+    prodigal_tf    : List<Path>
+    replicons      : List<Path>
 
     output:
     annotations       = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}"))
@@ -48,9 +48,9 @@ process BAKTA_RUN {
     meta.output_dir = "${prefix}/main/annotator/bakta/"
     meta.logs_dir = "${prefix}/main/annotator/bakta/logs/"
     meta.process_name = task.ext.process_name
-    def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
-    def prodigal_opt = prodigal_tf ? "--prodigal-tf ${prodigal_tf[0]}" : ""
-    def replicons_opt = replicons ? "--replicons ${replicons[0]}" : ""
+    def proteins_opt = proteins.size() ? "--proteins ${proteins[0].getName()}" : ""
+    def prodigal_opt = prodigal_tf.size() ? "--prodigal-tf ${prodigal_tf[0].getName()}" : ""
+    def replicons_opt = replicons.size() ? "--replicons ${replicons[0].getName()}" : ""
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then

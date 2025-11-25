@@ -1,6 +1,8 @@
 //
 // iqtree - Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm
 //
+nextflow.preview.types = true
+
 include { IQTREE as IQTREE_MODULE } from '../../modules/iqtree/main'
 
 workflow IQTREE {

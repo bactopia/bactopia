@@ -1,6 +1,8 @@
 //
 // blastx - Search against protein BLAST databases using translated nucleotide queries
 //
+nextflow.preview.types = true
+
 include { BLAST_BLASTX as BLASTX_MODULE } from '../../modules/blast/blastx/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow BLASTX {
     BLASTX_MODULE(fasta, query)
 
     // Merge results
-    BLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastx'], tsv]}.set{ ch_merge_blastx }
+    ch_merge_blastx = BLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'blastx'], tsv]}
     CSVTK_CONCAT(ch_merge_blastx, 'tsv', 'tsv')
 
     emit:

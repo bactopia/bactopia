@@ -1,6 +1,8 @@
 //
 // gamma - A tool for identification, classification, and annotation of translated gene matches
 //
+nextflow.preview.types = true
+
 include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow GAMMA {
     GAMMA_MODULE(fasta, db)
 
     // Merge results
-    GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}.set{ ch_merge_gamma }
+    ch_merge_gamma = GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}
     CSVTK_CONCAT(ch_merge_gamma, 'tsv', 'tsv')
 
     emit:

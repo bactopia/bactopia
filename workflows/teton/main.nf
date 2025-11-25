@@ -1,4 +1,18 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    rundir   : String
+
+    // Tool-specific parameters
+    kraken2_db      : Path
+    use_srascrubber : Boolean
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8,8 +22,6 @@
 include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia'
 include { GATHER          } from '../../subworkflows/bactopia/gather/main'
 include { TETON           } from '../../subworkflows/teton/main'
-include { paramsHelp      } from 'plugin/nf-bactopia'
-include { workflowSummary } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -19,10 +31,10 @@ include { workflowSummary } from 'plugin/nf-bactopia'
 workflow {
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     BACTOPIA_INIT()
 
     // Gather samples in one place
@@ -35,7 +47,7 @@ workflow {
     // Run Teton
     TETON(
         GATHER.out.fastq_only,
-        file(params.kraken2_db, checkIfExists: true),
+        params.kraken2_db,
         params.use_srascrubber
     )
     ch_results = ch_results.mix(TETON.out.results)

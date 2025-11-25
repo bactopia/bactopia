@@ -1,6 +1,8 @@
 //
 // tblastx - Search against translated nucleotide BLAST databases using translated nucleotide queries
 //
+nextflow.preview.types = true
+
 include { BLAST_TBLASTX as TBLASTX_MODULE } from '../../modules/blast/tblastx/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -13,7 +15,7 @@ workflow TBLASTX {
     TBLASTX_MODULE(fasta, query)
 
     // Merge results
-    TBLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'tblastx'], tsv]}.set{ ch_merge_tblastx }
+    ch_merge_tblastx = TBLASTX_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'tblastx'], tsv]}
     CSVTK_CONCAT(ch_merge_tblastx, 'tsv', 'tsv')
 
     emit:

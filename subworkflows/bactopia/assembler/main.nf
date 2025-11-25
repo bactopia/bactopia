@@ -1,6 +1,8 @@
 //
 // assembler - Assembly of Illumina and ONT reads
 //
+nextflow.preview.types = true
+
 include { ASSEMBLER as ASSEMBLER_MODULE } from '../../../modules/bactopia/assembler/main'
 include { CSVTK_CONCAT } from '../../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow ASSEMBLER {
     ASSEMBLER_MODULE(reads)
 
     // Merge results
-    ASSEMBLER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'assembly-scan'], tsv]}.set{ ch_merge_stats }
+    ch_merge_stats = ASSEMBLER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'assembly-scan'], tsv]}
     CSVTK_CONCAT(ch_merge_stats, 'tsv', 'tsv')
 
     emit:

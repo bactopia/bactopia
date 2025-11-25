@@ -1,4 +1,20 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    rundir   : String
+
+    // Tool-specific parameters
+    use_k2scrubber  : Boolean
+    use_srascrubber : Boolean
+    adapters        : Path
+    phix            : Path
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -6,11 +22,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 // Core
-include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia'
+include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia/main'
 include { GATHER          } from '../../subworkflows/bactopia/gather/main'
 include { QC              } from '../../subworkflows/bactopia/qc/main'
-include { paramsHelp      } from 'plugin/nf-bactopia'
-include { workflowSummary } from 'plugin/nf-bactopia'
 
 // Scrubber
 include { SCRUBBER        } from '../../subworkflows/scrubber/main'
@@ -23,10 +37,10 @@ include { SCRUBBER        } from '../../subworkflows/scrubber/main'
 workflow {
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     BACTOPIA_INIT()
 
     // Gather samples in one place
@@ -47,15 +61,15 @@ workflow {
         // Clean up scrubbed reads
         QC(
             SCRUBBER.out.scrubbed_extra,
-            params.adapters ? file(params.adapters, checkIfExists: true) : [],
-            params.phix ? file(params.phix, checkIfExists: true) : []
+            params.adapters ? [params.adapters] : [],
+            params.phix ? [params.phix] : []
         )
     } else {
         // Clean up raw reads
         QC(
             GATHER.out.raw_fastq,
-            params.adapters ? file(params.adapters, checkIfExists: true) : [],
-            params.phix ? file(params.phix, checkIfExists: true) : []
+            params.adapters ? [params.adapters] : [],
+            params.phix ? [params.phix] : []
         )
     }
     ch_results = ch_results.mix(QC.out.results)

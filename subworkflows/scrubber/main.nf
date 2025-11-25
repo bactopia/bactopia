@@ -1,6 +1,8 @@
 //
 // scrubber - Scrub human reads from FASTQ files
 //
+nextflow.preview.types = true
+
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { K2SCRUBBER       } from '../k2scrubber/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
@@ -11,10 +13,10 @@ workflow SCRUBBER {
     use_srascrubber
 
     main:
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     ch_scrub_report = channel.empty()
     ch_special_report = channel.empty()
     ch_scrubbed = channel.empty()
@@ -43,8 +45,8 @@ workflow SCRUBBER {
     }
 
     // Merge results
-    ch_scrub_report.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'scrubber'], tsv]}.set{ ch_merge_sccmec }
-    CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
+    ch_merge_scrub = ch_scrub_report.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'scrubber'], tsv]}
+    CSVTK_CONCAT(ch_merge_scrub, 'tsv', 'tsv')
 
     emit:
     // Individual outputs

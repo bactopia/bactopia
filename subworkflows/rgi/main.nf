@@ -1,6 +1,8 @@
 //
 // rgi - Predict antibiotic resistance from assemblies
 //
+nextflow.preview.types = true
+
 include { RGI_MAIN } from '../../modules/rgi/main/main'
 include { RGI_HEATMAP } from '../../modules/rgi/heatmap/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
@@ -13,11 +15,11 @@ workflow RGI {
     RGI_MAIN(fasta)
 
     // Merge TSVs
-    RGI_MAIN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'rgi'], tsv]}.set{ ch_merge_rgi }
+    ch_merge_rgi = RGI_MAIN.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'rgi'], tsv]}
     CSVTK_CONCAT(ch_merge_rgi, 'tsv', 'tsv')
 
     // Create Heatmap
-    RGI_MAIN.out.json.collect{_meta, json -> json}.map{ json -> [[id:'rgi'], json]}.set{ ch_merge_json }
+    ch_merge_json = RGI_MAIN.out.json.collect{_meta, json -> json}.map{ json -> [[id:'rgi'], json]}
     RGI_HEATMAP(ch_merge_json)
 
     emit:

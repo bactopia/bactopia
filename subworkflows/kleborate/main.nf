@@ -1,6 +1,8 @@
 //
 // kleborate - Screening Klebsiella genome assemblies for MLST, sub-species, and other Klebsiella related genes of interest
 //
+nextflow.preview.types = true
+
 include { KLEBORATE as KLEBORATE_MODULE } from '../../modules/kleborate/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow KLEBORATE {
     KLEBORATE_MODULE(fasta)
 
     // Merge results
-    KLEBORATE_MODULE.out.txt.collect{_meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}.set{ ch_merge_kleborate }
+    ch_merge_kleborate = KLEBORATE_MODULE.out.txt.collect{_meta, txt -> txt}.map{ txt -> [[id:'kleborate'], txt]}
     CSVTK_CONCAT(ch_merge_kleborate, 'tsv', 'tsv')
 
     emit:

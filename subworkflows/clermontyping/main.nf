@@ -1,6 +1,8 @@
 //
 // clermontyping - in silico phylotyping of Escherichia genus
 //
+nextflow.preview.types = true
+
 include { CLERMONTYPING as CLERMONTYPING_MODULE } from '../../modules/clermontyping/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow CLERMONTYPING {
     CLERMONTYPING_MODULE(fasta)
 
     // Merge results
-    CLERMONTYPING_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'clermontyping'], tsv]}.set{ ch_merge_clermontyping }
+    ch_merge_clermontyping = CLERMONTYPING_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'clermontyping'], tsv]}
     CSVTK_CONCAT(ch_merge_clermontyping, 'tsv', 'tsv')
 
     emit:

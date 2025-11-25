@@ -7,7 +7,7 @@ process STECFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta, reads) : Tuple<Map, Path, Path>
+    (_meta, fasta, reads) : Tuple<Map, Path, List<Path>>
 
     output:
     tsv      = tuple(meta, file("*.tsv"))
@@ -33,7 +33,7 @@ process STECFINDER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def is_compressed = (fasta.getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
-    def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads
+    def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads.join(" ")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fasta} > ${seq_name}

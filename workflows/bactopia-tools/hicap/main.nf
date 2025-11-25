@@ -1,11 +1,30 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    bactopia : String
+    includes : String
+    excludes : String
+    workflow : Map
+    rundir   : String
+
+    // Tool-specific parameters
+    hicap_database_dir : Path
+    hicap_model_fp     : Path
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { HICAP             } from '../../../subworkflows/hicap/main'
 
 /*
@@ -17,16 +36,16 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    BACTOPIATOOL_INIT()
     HICAP(
-        BACTOPIATOOL_INIT.out.samples,
-        params.hicap_database_dir ? file(params.hicap_database_dir, checkIfExists: true) : [],
-        params.hicap_model_fp ? file(params.hicap_model_fp, checkIfExists: true) : []
+        formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types),
+        params.hicap_database_dir ? [params.hicap_database_dir] : [],
+        params.hicap_model_fp ? [params.hicap_model_fp] : []
     ) 
 
     // Collect outputs

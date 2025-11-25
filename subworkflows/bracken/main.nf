@@ -1,6 +1,8 @@
 //
 // bracken - Estimate taxonomic abundance of samples from Kraken2 results
 //
+nextflow.preview.types = true
+
 include { BRACKEN as BRACKEN_MODULE } from '../../modules/bracken/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_TSV } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_ADJUSTED } from '../../modules/csvtk/concat/main'
@@ -14,11 +16,11 @@ workflow BRACKEN {
     BRACKEN_MODULE(reads, database)
 
     // Merge Bracken Primary/Secondary Species abundance
-    BRACKEN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'bracken-species-abundance'], tsv]}.set{ ch_merge_tsv }
+    ch_merge_tsv = BRACKEN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'bracken-species-abundance'], tsv]}
     CSVTK_CONCAT_TSV(ch_merge_tsv, 'tsv', 'tsv')
 
     // Merge Bracken adjusted abundance
-    BRACKEN_MODULE.out.adjusted_abundances.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'bracken-adjusted'], tsv]}.set{ ch_merge_adjusted_abundances }
+    ch_merge_adjusted_abundances = BRACKEN_MODULE.out.adjusted_abundances.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'bracken-adjusted'], tsv]}
     CSVTK_CONCAT_ADJUSTED(ch_merge_adjusted_abundances, 'tsv', 'tsv')
 
     emit:

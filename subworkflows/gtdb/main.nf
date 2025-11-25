@@ -1,6 +1,8 @@
 //
 // gtdb - Identify marker genes and assign taxonomic classifications
 //
+nextflow.preview.types = true
+
 include { GTDBTK_DOWNLOAD as DOWNLOAD } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../modules/gtdbtk/classifywf/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
@@ -27,7 +29,7 @@ workflow GTDB {
     }
     
     // Merge results
-    CLASSIFY.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'gtdb'], tsv]}.set{ ch_merge_gtdb }
+    ch_merge_gtdb = CLASSIFY.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'gtdb'], tsv]}
     CSVTK_CONCAT(ch_merge_gtdb, 'tsv', 'tsv')
 
     emit:

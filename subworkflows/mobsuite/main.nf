@@ -1,6 +1,8 @@
 //
 // mobsuite - Reconstruct and annotate plasmids in bacterial assemblies
 //
+nextflow.preview.types = true
+
 include { MOBSUITE_RECON } from '../../modules/mobsuite/recon/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow MOBSUITE {
     MOBSUITE_RECON(fasta)
     
     // Merge results
-    MOBSUITE_RECON.out.txt.collect{_meta, summary -> summary}.map{ summary -> [[id:'mobsuite'], summary]}.set{ ch_merge_mobsuite }
+    ch_merge_mobsuite = MOBSUITE_RECON.out.txt.collect{_meta, summary -> summary}.map{ summary -> [[id:'mobsuite'], summary]}
     CSVTK_CONCAT(ch_merge_mobsuite, 'tsv', 'tsv')
 
     emit:

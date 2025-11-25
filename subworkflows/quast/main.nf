@@ -1,6 +1,8 @@
 //
 // quast - A module for assessing the quality of assembled contigs
 //
+nextflow.preview.types = true
+
 include { QUAST as QUAST_MODULE } from '../../modules/quast/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow QUAST {
     QUAST_MODULE(fasta)
 
     // Merge results
-    QUAST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'quast'], tsv]}.set{ ch_merge_quast}
+    ch_merge_quast = QUAST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'quast'], tsv]}
     CSVTK_CONCAT(ch_merge_quast, 'tsv', 'tsv')
 
     emit:

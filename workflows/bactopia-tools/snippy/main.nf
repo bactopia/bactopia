@@ -1,18 +1,38 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    bactopia : String
+    includes : String
+    excludes : String
+    workflow : Map
+    rundir   : String
+
+    // Tool-specific parameters
+    reference          : Path
+    accession          : String
+    snippy_core_mask   : Path
+    skip_recombination : Boolean
+    skip_phylogeny     : Boolean
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 include { SNIPPY             } from '../../../subworkflows/snippy/run/main'
 include { SNIPPY_CORE        } from '../../../subworkflows/snippy/core/main'
 include { GUBBINS            } from '../../../subworkflows/gubbins/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
-include { paramsHelp         } from 'plugin/nf-bactopia'
-include { workflowSummary    } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -23,35 +43,38 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    BACTOPIATOOL_INIT()
 
     // Download if applicable
     ch_reference = channel.empty()
     if (params.reference) {
-        ch_reference = [[id: 'snippy'], file(params.reference)]
+        ch_reference = [[id: 'snippy'], params.reference]
     } else if (params.accession) {
         NCBIGENOMEDOWNLOAD([])
         ch_reference = NCBIGENOMEDOWNLOAD.out.bactopia_tools.first()
     }
 
     // Run Snippy per-sample
-    SNIPPY(BACTOPIATOOL_INIT.out.samples, ch_reference)
+    SNIPPY(
+        formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types),
+        ch_reference
+    )
     ch_results = ch_results.mix(SNIPPY.out.results)
     ch_logs = ch_logs.mix(SNIPPY.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SNIPPY.out.nf_logs)
     ch_versions = ch_versions.mix(SNIPPY.out.versions)
 
     // Identify core SNPs
-    SNIPPY.out.vcf.collect{_meta, vcf -> vcf}.map{ vcf -> [[id:'core-snp'], vcf]}.set{ ch_merge_vcf }
-    SNIPPY.out.aligned_fa.collect{_meta, aligned_fa -> aligned_fa}.map{ aligned_fa -> [[id:'core-snp'], aligned_fa]}.set{ ch_merge_aligned_fa }
-    ch_merge_vcf.join( ch_merge_aligned_fa ).set{ ch_snippy_core }
+    ch_merge_vcf = SNIPPY.out.vcf.collect{_meta, vcf -> vcf}.map{ vcf -> [[id:'core-snp'], vcf]}
+    ch_merge_aligned_fa = SNIPPY.out.aligned_fa.collect{_meta, aligned_fa -> aligned_fa}.map{ aligned_fa -> [[id:'core-snp'], aligned_fa]}
+    ch_snippy_core = ch_merge_vcf.join( ch_merge_aligned_fa )
 
     // Identify core SNPs
-    SNIPPY_CORE(ch_snippy_core, ch_reference, params.snippy_core_mask ? file(params.snippy_core_mask, checkIfExists: true) : [])
+    SNIPPY_CORE(ch_snippy_core, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
     ch_results = ch_results.mix(SNIPPY_CORE.out.results)
     ch_logs = ch_logs.mix(SNIPPY_CORE.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SNIPPY_CORE.out.nf_logs)

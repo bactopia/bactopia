@@ -1,6 +1,8 @@
 //
 // SpaTyper - Computational method for finding spa types in Staphylococcus aureus
 //
+nextflow.preview.types = true
+
 include { SPATYPER as SPATYPER_MODULE } from '../../modules/spatyper/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -14,7 +16,7 @@ workflow SPATYPER {
     SPATYPER_MODULE(fasta, repeats, repeat_order)
 
     // Merge results
-    SPATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'spatyper'], tsv]}.set{ ch_merge_spatyper }
+    ch_merge_spatyper = SPATYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'spatyper'], tsv]}
     CSVTK_CONCAT(ch_merge_spatyper, 'tsv', 'tsv')
 
     emit:

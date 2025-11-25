@@ -1,6 +1,8 @@
 //
 // genotyphi - Salmonella Typhi genotyping with Mykrobe outputs
 //
+nextflow.preview.types = true
+
 include { MYKROBE_PREDICT } from '../../modules/mykrobe/predict/main'
 include { GENOTYPHI_PARSE  } from '../../modules/genotyphi/parse/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
@@ -14,7 +16,7 @@ workflow GENOTYPHI {
     GENOTYPHI_PARSE(MYKROBE_PREDICT.out.json)
     
     // Merge results
-    GENOTYPHI_PARSE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'genotyphi'], tsv]}.set{ ch_merge_genotyphi }
+    ch_merge_genotyphi = GENOTYPHI_PARSE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'genotyphi'], tsv]}
     CSVTK_CONCAT(ch_merge_genotyphi, 'tsv', 'tsv')
 
     emit:

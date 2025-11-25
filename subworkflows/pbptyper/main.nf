@@ -1,6 +1,8 @@
 //
 // pbptyper - Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae
 //
+nextflow.preview.types = true
+
 include { PBPTYPER as PBPTYPER_MODULE } from '../../modules/pbptyper/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
 
@@ -12,7 +14,7 @@ workflow PBPTYPER {
     PBPTYPER_MODULE(fasta)
 
     // Merge results
-    PBPTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'pbptyper'], tsv]}.set{ ch_merge_pbptyper }
+    ch_merge_pbptyper = PBPTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'pbptyper'], tsv]}
     CSVTK_CONCAT(ch_merge_pbptyper, 'tsv', 'tsv')
 
     emit:

@@ -1,19 +1,28 @@
 #!/usr/bin/env nextflow
+nextflow.preview.types = true
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WORKFLOW PARAMETERS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+params {
+    rundir   : String
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools'
+include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
+include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 include { PROKKA             } from '../../../subworkflows/prokka/main'
 include { PANGENOME          } from '../../../subworkflows/pangenome/main'
 include { CLONALFRAMEML      } from '../../../subworkflows/clonalframeml/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
 include { SCOARY             } from '../../../subworkflows/scoary/main'
-include { paramsHelp         } from 'plugin/nf-bactopia'
-include { workflowSummary    } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -24,13 +33,13 @@ workflow {
 
     main:
     // Initialize and execute the workflow
-    ch_results = channel.empty()
-    ch_logs = channel.empty()
-    ch_nf_logs = channel.empty()
-    ch_versions = channel.empty()
+    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
-    BACTOPIATOOL_INIT(params.bactopia, params.workflow.ext, params.include, params.exclude)
-    ch_samples = BACTOPIATOOL_INIT.out.samples
+    BACTOPIATOOL_INIT()
+    ch_samples = formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types)
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
@@ -44,7 +53,7 @@ workflow {
     }
 
     // Create the pangenome
-    ch_samples.collect{_meta, gff -> gff}.map{ gff -> [[id: params.use_pirate? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff]}.set{ ch_merge_gff }
+    ch_merge_gff = ch_samples.collect{_meta, gff -> gff}.map{ gff -> [[id: params.use_pirate? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff]}
     PANGENOME(ch_merge_gff, params.use_pirate, params.use_roary)
     ch_results = ch_results.mix(PANGENOME.out.results)
     ch_logs = ch_logs.mix(PANGENOME.out.logs)
@@ -65,9 +74,9 @@ workflow {
     if (!params.skip_phylogeny) {
         ch_final_aln = channel.empty()
         if (params.skip_recombination) {
-            PANGENOME.out.aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome", process_name: "iqtree"], aln]}.set{ ch_final_aln }
+            ch_final_aln = PANGENOME.out.aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome", process_name: "iqtree"], aln]}
         } else {
-            CLONALFRAMEML.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome", process_name: "iqtree"], aln]}.set{ ch_final_aln }
+            ch_final_aln = CLONALFRAMEML.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome", process_name: "iqtree"], aln]}
         }
         IQTREE(ch_final_aln)
         ch_results = ch_results.mix(IQTREE.out.results)
