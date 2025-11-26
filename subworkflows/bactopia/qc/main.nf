@@ -4,39 +4,35 @@
 nextflow.preview.types = true
 
 include { QC as QC_MODULE } from '../../../modules/bactopia/qc/main'
+include { flattenPaths    } from 'plugin/nf-bactopia'
+include { gather          } from 'plugin/nf-bactopia'
 
 workflow QC {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
-    adapters
-    phix
+    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    adapters: Path?
+    phix: Path?
 
     main:
     QC_MODULE(reads, adapters, phix)
 
     emit:
     // Individual outputs
-    fastq = QC_MODULE.out.fastq
-    fastq_only = QC_MODULE.out.fastq_only
-    txt = QC_MODULE.out.txt
-    error = QC_MODULE.out.error
-    error_fastq = QC_MODULE.out.error_fastq
+    fastq: Channel<Tuple<Map, Path>> = QC_MODULE.out.fastq
+    fastq_only: Channel<Tuple<Map, Path>> = QC_MODULE.out.fastq_only
+    txt: Channel<Tuple<Map, Path>> = QC_MODULE.out.txt
+    error: Channel<Tuple<Map, Path>> = QC_MODULE.out.error
+    error_fastq: Channel<Tuple<Map, Path>> = QC_MODULE.out.error_fastq
 
     // Generic aggregate outputs
-    results = QC_MODULE.out.fastq_only.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        QC_MODULE.out.fastq_only,
         QC_MODULE.out.txt,
         QC_MODULE.out.supplemental,
         QC_MODULE.out.error,
         QC_MODULE.out.error_fastq
-    )
-    logs = QC_MODULE.out.versions
-    nf_logs = QC_MODULE.out.nf_begin.mix(
-        QC_MODULE.out.nf_err,
-        QC_MODULE.out.nf_log,
-        QC_MODULE.out.nf_out,
-        QC_MODULE.out.nf_run,
-        QC_MODULE.out.nf_sh,
-        QC_MODULE.out.nf_trace
-    )
-    versions = QC_MODULE.out.logs
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.versions])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.logs])
 }

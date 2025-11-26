@@ -16,9 +16,9 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { FASTANI            } from '../../../subworkflows/fastani/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

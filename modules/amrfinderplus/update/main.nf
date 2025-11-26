@@ -9,7 +9,7 @@ process AMRFINDERPLUS_UPDATE {
 
     output:
     db   = file("updater/amrfinderplus.tar.gz")
-    logs = file("updater/logs/*", optional: true)
+    logs = files("updater/logs/*", optional: true)
 
     script:
     """

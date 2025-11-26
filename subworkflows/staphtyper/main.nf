@@ -3,15 +3,17 @@
 //
 nextflow.preview.types = true
 
-include { AGRVATE } from '../agrvate/main'
-include { SPATYPER } from '../spatyper/main'
-include { SCCMEC } from '../sccmec/main'
+include { AGRVATE      } from '../agrvate/main'
+include { SPATYPER     } from '../spatyper/main'
+include { SCCMEC       } from '../sccmec/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
 
 workflow STAPHTYPER {
     take:
-    fasta // channel: [ val(meta), [ assemblies ] ]
-    repeats
-    repeat_order
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
+    repeats: Channel<Tuple<Map, Path>>
+    repeat_order: Channel<Tuple<Map, Path>>
 
     main:
     // agrvate - agr locus type and agr operon variants
@@ -24,20 +26,24 @@ workflow STAPHTYPER {
     SCCMEC(fasta)
 
     emit:
-    results = AGRVATE.out.results.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        AGRVATE.out.results,
         SPATYPER.out.results,
-        SCCMEC.out.results,
-    )
-    logs = AGRVATE.out.logs.mix(
+        SCCMEC.out.results
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        AGRVATE.out.logs,
         SPATYPER.out.logs,
-        SCCMEC.out.logs,
-    )
-    nf_logs = AGRVATE.out.nf_logs.mix(
+        SCCMEC.out.logs
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        AGRVATE.out.nf_logs,
         SPATYPER.out.nf_logs,
-        SCCMEC.out.nf_logs,
-    )
-    versions = AGRVATE.out.versions.mix(
+        SCCMEC.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        AGRVATE.out.versions,
         SPATYPER.out.versions,
-        SCCMEC.out.versions,
-    )
+        SCCMEC.out.versions
+    ])
 }

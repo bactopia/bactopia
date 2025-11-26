@@ -8,6 +8,9 @@ nextflow.preview.types = true
 */
 params {
     rundir   : String
+
+    // Tool-specific parameters
+    amrfinder_db : Path?
 }
 
 /*
@@ -16,9 +19,9 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { AMRFINDERPLUS     } from '../../../subworkflows/amrfinderplus/main'
 include { DATASETS          } from '../../../modules/bactopia/datasets/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -40,7 +43,7 @@ workflow {
         // User specified database
         AMRFINDERPLUS(
             formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types),
-            file(params.amrfinder_db
+            file(params.amrfinder_db)
         )
     } else {
         // Use default database

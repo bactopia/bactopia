@@ -4,55 +4,46 @@
 nextflow.preview.types = true
 
 include { SCCMEC as SCCMEC_MODULE } from '../../modules/sccmec/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
+include { flattenPaths            } from 'plugin/nf-bactopia'
+include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     SCCMEC_MODULE(fasta)
-
-    // Merge results
-    ch_merge_sccmec = SCCMEC_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sccmec'], tsv]}
-    CSVTK_CONCAT(ch_merge_sccmec, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SCCMEC_MODULE.out.tsv, 'sccmec'), 'tsv', 'tsv')
 
     emit:
     // Individual output
-    tsv = SCCMEC_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
-    targets = SCCMEC_MODULE.out.targets
-    target_details = SCCMEC_MODULE.out.target_details
-    regions = SCCMEC_MODULE.out.regions
-    regions_details = SCCMEC_MODULE.out.regions_details
+    tsv: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    targets: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.targets
+    target_details: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.target_details
+    regions: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.regions
+    regions_details: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.regions_details
 
     // Generic aggregate output
-    results = SCCMEC_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        SCCMEC_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv,
         SCCMEC_MODULE.out.targets,
         SCCMEC_MODULE.out.target_details,
         SCCMEC_MODULE.out.regions,
         SCCMEC_MODULE.out.regions_details
-    )
-    logs = SCCMEC_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        SCCMEC_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = SCCMEC_MODULE.out.nf_begin.mix(
-        SCCMEC_MODULE.out.nf_err,
-        SCCMEC_MODULE.out.nf_log,
-        SCCMEC_MODULE.out.nf_out,
-        SCCMEC_MODULE.out.nf_run,
-        SCCMEC_MODULE.out.nf_sh,
-        SCCMEC_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = SCCMEC_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        SCCMEC_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        SCCMEC_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

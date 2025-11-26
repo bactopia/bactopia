@@ -5,35 +5,35 @@ nextflow.preview.types = true
 
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
 include { SNPDISTS                  } from '../snpdists/main'
+include { flattenPaths              } from 'plugin/nf-bactopia'
+include { gather                    } from 'plugin/nf-bactopia'
 
 workflow GUBBINS {
     take:
-    alignment // channel: [ val(meta), [ aln ] ]
+    alignment: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ aln ] ]
 
     main:
     GUBBINS_MODULE(alignment)
-    
-    // Per-sample SNP distances
-    ch_masked_aln = GUBBINS_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-snp.masked.distance", process_name: "snpdists-masked"], aln]}
-    SNPDISTS(ch_masked_aln)
+    SNPDISTS(gather(GUBBINS_MODULE.out.masked_aln, 'core-snp.masked.distance', 'name: "core-snp.masked.distance", process_name: "snpdists-masked"'))
 
     emit:
     // Individual outputs
-    masked_aln = GUBBINS_MODULE.out.masked_aln
-    fasta = GUBBINS_MODULE.out.fasta
-    gff = GUBBINS_MODULE.out.gff
-    vcf = GUBBINS_MODULE.out.vcf
-    stats = GUBBINS_MODULE.out.stats
-    phylip = GUBBINS_MODULE.out.phylip
-    embl_predicted = GUBBINS_MODULE.out.embl_predicted
-    embl_branch = GUBBINS_MODULE.out.embl_branch
-    tree = GUBBINS_MODULE.out.tree
-    tree_labelled = GUBBINS_MODULE.out.tree_labelled
-    bootstrap_tree = GUBBINS_MODULE.out.bootstrap_tree
-    tsv = SNPDISTS.out.tsv
+    masked_aln: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.masked_aln
+    fasta: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.fasta
+    gff: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.gff
+    vcf: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.vcf
+    stats: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.stats
+    phylip: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.phylip
+    embl_predicted: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.embl_predicted
+    embl_branch: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.embl_branch
+    tree: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.tree
+    tree_labelled: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.tree_labelled
+    bootstrap_tree: Channel<Tuple<Map, Path>> = GUBBINS_MODULE.out.bootstrap_tree
+    tsv: Channel<Tuple<Map, Path>> = SNPDISTS.out.tsv
 
     // Generic aggregate outputs
-    results = GUBBINS_MODULE.out.masked_aln.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        GUBBINS_MODULE.out.masked_aln,
         GUBBINS_MODULE.out.fasta,
         GUBBINS_MODULE.out.gff,
         GUBBINS_MODULE.out.vcf,
@@ -45,20 +45,17 @@ workflow GUBBINS {
         GUBBINS_MODULE.out.tree_labelled,
         GUBBINS_MODULE.out.bootstrap_tree,
         SNPDISTS.out.results
-    )
-    logs = GUBBINS_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        GUBBINS_MODULE.out.logs,
         SNPDISTS.out.logs
-    )
-    nf_logs = GUBBINS_MODULE.out.nf_begin.mix(
-        GUBBINS_MODULE.out.nf_err,
-        GUBBINS_MODULE.out.nf_log,
-        GUBBINS_MODULE.out.nf_out,
-        GUBBINS_MODULE.out.nf_run,
-        GUBBINS_MODULE.out.nf_sh,
-        GUBBINS_MODULE.out.nf_trace,
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        GUBBINS_MODULE.out.nf_logs,
         SNPDISTS.out.nf_logs
-    )
-    versions = GUBBINS_MODULE.out.versions.mix(
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        GUBBINS_MODULE.out.versions,
         SNPDISTS.out.versions
-    )
+    ])
 }

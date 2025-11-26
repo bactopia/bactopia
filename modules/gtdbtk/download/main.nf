@@ -8,9 +8,9 @@ process GTDBTK_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db         = file("gtdbtk/", optional: true)
+    db         = files("gtdbtk/", optional: true)
     db_tarball = file("gtdbtk.tar.gz", optional: true)
-    logs       = file("logs/*", optional: true)
+    logs       = files("logs/*", optional: true)
 
     script:
     """

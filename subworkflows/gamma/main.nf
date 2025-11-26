@@ -4,54 +4,45 @@
 nextflow.preview.types = true
 
 include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
+include { flattenPaths          } from 'plugin/nf-bactopia'
+include { gather                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
-    db
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    db: Channel<Tuple<Map, Path>>
 
     main:
     GAMMA_MODULE(fasta, db)
-
-    // Merge results
-    ch_merge_gamma = GAMMA_MODULE.out.gamma.collect{_meta, gamma -> gamma}.map{ gamma -> [[id:'gamma'], gamma]}
-    CSVTK_CONCAT(ch_merge_gamma, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(GAMMA_MODULE.out.gamma, 'gamma'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    gamma = GAMMA_MODULE.out.gamma
-    merged_gamma = CSVTK_CONCAT.out.csv
-    psl = GAMMA_MODULE.out.psl
-    fasta = GAMMA_MODULE.out.fasta
-    gff = GAMMA_MODULE.out.gff
+    gamma: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.gamma
+    merged_gamma: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    psl: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.psl
+    fasta: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.fasta
+    gff: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.gff
 
     // Generic aggregate outputs
-    results = GAMMA_MODULE.out.gamma.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        GAMMA_MODULE.out.gamma,
         CSVTK_CONCAT.out.csv,
         GAMMA_MODULE.out.psl,
         GAMMA_MODULE.out.fasta,
         GAMMA_MODULE.out.gff
-    )
-    logs = GAMMA_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        GAMMA_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = GAMMA_MODULE.out.nf_begin.mix(
-        GAMMA_MODULE.out.nf_err,
-        GAMMA_MODULE.out.nf_log,
-        GAMMA_MODULE.out.nf_out,
-        GAMMA_MODULE.out.nf_run,
-        GAMMA_MODULE.out.nf_sh,
-        GAMMA_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = GAMMA_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        GAMMA_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        GAMMA_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

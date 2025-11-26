@@ -16,13 +16,13 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 include { PROKKA             } from '../../../subworkflows/prokka/main'
 include { PANGENOME          } from '../../../subworkflows/pangenome/main'
 include { CLONALFRAMEML      } from '../../../subworkflows/clonalframeml/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
 include { SCOARY             } from '../../../subworkflows/scoary/main'
+include { formatSamples      } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

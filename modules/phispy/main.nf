@@ -20,14 +20,8 @@ process PHISPY {
     prophage_gff   = tuple(meta, file("supplemental/${prefix}_prophage.gff3", optional: true))
     prophage_tbl   = tuple(meta, file("supplemental/${prefix}_prophage.tbl", optional: true))
     prophage_tsv   = tuple(meta, file("supplemental/${prefix}_prophage.tsv", optional: true))
-    logs           = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin       = tuple(meta, file(".command.begin"))
-    nf_err         = tuple(meta, file(".command.err"))
-    nf_log         = tuple(meta, file(".command.log"))
-    nf_out         = tuple(meta, file(".command.out"))
-    nf_run         = tuple(meta, file(".command.run"))
-    nf_sh          = tuple(meta, file(".command.sh"))
-    nf_trace       = tuple(meta, file(".command.trace"))
+    logs           = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, file("versions.yml"))
 
     script:

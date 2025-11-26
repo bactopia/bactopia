@@ -11,19 +11,13 @@ process PLASMIDFINDER {
     (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    json        = tuple(meta, file("*.json"))
-    txt         = tuple(meta, file("*.txt"))
+    json        = tuple(meta, files("*.json"))
+    txt         = tuple(meta, files("*.txt"))
     tsv         = tuple(meta, file("${prefix}.tsv"))
-    genome_seq  = tuple(meta, file("*-hit_in_genome_seq.fsa.gz"))
-    plasmid_seq = tuple(meta, file("*-plasmid_seqs.fsa.gz"))
-    logs        = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin    = tuple(meta, file(".command.begin"))
-    nf_err      = tuple(meta, file(".command.err"))
-    nf_log      = tuple(meta, file(".command.log"))
-    nf_out      = tuple(meta, file(".command.out"))
-    nf_run      = tuple(meta, file(".command.run"))
-    nf_sh       = tuple(meta, file(".command.sh"))
-    nf_trace    = tuple(meta, file(".command.trace"))
+    genome_seq  = tuple(meta, files("*-hit_in_genome_seq.fsa.gz"))
+    plasmid_seq = tuple(meta, files("*-plasmid_seqs.fsa.gz"))
+    logs        = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs     = tuple(meta, files(".command.*"))
     versions    = tuple(meta, file("versions.yml"))
 
     script:

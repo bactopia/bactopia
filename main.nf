@@ -10,8 +10,8 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    adapters              : Path
-    phix                  : Path
+    adapters              : Path?
+    phix                  : Path?
     use_bakta             : Boolean
     bakta_db              : Path
     download_bakta        : Boolean
@@ -79,8 +79,8 @@ workflow {
     // QC samples
     QC(
         GATHER.out.raw_fastq,
-        params.adapters ? [params.adapters] : [],
-        params.phix ? [params.phix] : []
+        file(params.adapters),
+        file(params.phix)
     )
     ch_results = ch_results.mix(QC.out.results)
     ch_logs = ch_logs.mix(QC.out.logs)

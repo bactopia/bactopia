@@ -27,12 +27,12 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples      } from '../../../subworkflows/utils/generic/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 include { SNIPPY             } from '../../../subworkflows/snippy/run/main'
 include { SNIPPY_CORE        } from '../../../subworkflows/snippy/core/main'
 include { GUBBINS            } from '../../../subworkflows/gubbins/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
+include { formatSamples      } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

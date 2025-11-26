@@ -10,7 +10,7 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    kraken2_db      : Path
+    kraken2_db      : Path?
     use_srascrubber : Boolean
 }
 
@@ -47,7 +47,7 @@ workflow {
     // Run Teton
     TETON(
         GATHER.out.fastq_only,
-        params.kraken2_db,
+        file(params.kraken2_db),
         params.use_srascrubber
     )
     ch_results = ch_results.mix(TETON.out.results)

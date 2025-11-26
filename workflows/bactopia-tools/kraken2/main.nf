@@ -23,8 +23,8 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { KRAKEN2           } from '../../../subworkflows/kraken2/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

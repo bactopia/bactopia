@@ -3,10 +3,12 @@
 //
 nextflow.preview.types = true
 
-include { PIRATE   } from '../pirate/main'
-include { ROARY    } from '../roary/main'
-include { PANAROO  } from '../panaroo/main'
-include { SNPDISTS } from '../snpdists/main'
+include { PIRATE       } from '../pirate/main'
+include { ROARY        } from '../roary/main'
+include { PANAROO      } from '../panaroo/main'
+include { SNPDISTS     } from '../snpdists/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
 
 workflow PANGENOME {
     take:
@@ -67,8 +69,8 @@ workflow PANGENOME {
     csv: Channel<Tuple<Map, Path>> = ch_csv
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = ch_results
-    logs: Channel<Tuple<Map, Path>> = ch_logs
-    nf_logs: Channel<Tuple<Map, Path>> = ch_nf_logs
-    versions: Channel<Tuple<Map, Path>> = ch_versions
+    results: Channel<Tuple<Map, Path>> = flattenPaths([ch_results])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([ch_versions])
 }

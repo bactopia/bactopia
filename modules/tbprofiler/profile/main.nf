@@ -11,19 +11,13 @@ process TBPROFILER_PROFILE {
     (_meta, reads) : Tuple<Map, List<Path>>
 
     output:
-    bam      = tuple(meta, file("bam/*.bam"))
-    csv      = tuple(meta, file("supplemental/*.csv", optional: true))
-    json     = tuple(meta, file("supplemental/*.json.gz"))
-    txt      = tuple(meta, file("supplemental/*.txt", optional: true))
-    vcf      = tuple(meta, file("vcf/*.vcf.gz"))
-    logs     = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin = tuple(meta, file(".command.begin"))
-    nf_err   = tuple(meta, file(".command.err"))
-    nf_log   = tuple(meta, file(".command.log"))
-    nf_out   = tuple(meta, file(".command.out"))
-    nf_run   = tuple(meta, file(".command.run"))
-    nf_sh    = tuple(meta, file(".command.sh"))
-    nf_trace = tuple(meta, file(".command.trace"))
+    bam      = tuple(meta, files("bam/*.bam"))
+    csv      = tuple(meta, files("supplemental/*.csv", optional: true))
+    json     = tuple(meta, files("supplemental/*.json.gz"))
+    txt      = tuple(meta, files("supplemental/*.txt", optional: true))
+    vcf      = tuple(meta, files("vcf/*.vcf.gz"))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
 
     script:

@@ -8,29 +8,23 @@ process QC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fq, extra) : Tuple<Map, Path, Path>
-    adapters           : Path
-    phix               : Path
+    (_meta, fq, extra) : Tuple<Map, Set<Path>, Path>
+    adapters           : Path?
+    phix               : Path?
 
     stage:
     stageAs 'inputs/*', fq
     stageAs 'extras/*', extra
 
     output:
-    fastq        = tuple(meta, file("${prefix}*.fastq.gz", optional: true), file("extra/*", optional: true))
-    fastq_only   = tuple(meta, file("${prefix}*.fastq.gz", optional: true))
-    error_fastq  = tuple(meta, file("${prefix}*-fastq.gz", optional: true))
+    fastq        = tuple(meta, files("${prefix}*.fastq.gz", optional: true), files("extra/*", optional: true))
+    fastq_only   = tuple(meta, files("${prefix}*.fastq.gz", optional: true))
+    error_fastq  = tuple(meta, files("${prefix}*-fastq.gz", optional: true))
     txt          = tuple(meta, file("${prefix}.txt", optional: true))
-    supplemental = tuple(meta, file("supplemental/*", optional: true))
-    error        = tuple(meta, file("*-error.txt", optional: true))
-    logs         = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin     = tuple(meta, file(".command.begin"))
-    nf_err       = tuple(meta, file(".command.err"))
-    nf_log       = tuple(meta, file(".command.log"))
-    nf_out       = tuple(meta, file(".command.out"))
-    nf_run       = tuple(meta, file(".command.run"))
-    nf_sh        = tuple(meta, file(".command.sh"))
-    nf_trace     = tuple(meta, file(".command.trace"))
+    supplemental = tuple(meta, files("supplemental/*", optional: true))
+    error        = tuple(meta, files("*-error.txt", optional: true))
+    logs         = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, file("versions.yml"))
 
     script:
@@ -67,9 +61,6 @@ process QC {
     // set Xmx to 95% of what was allocated, to avoid going over
     xmx = Math.round(task.memory.toBytes() * 0.95)
     """
-    echo ${fq[1]}
-    echo ${prefix}.fastq.gz
-    echo ${meta.single_end}
     mkdir -p supplemental
     ERROR=0
     MIN_COVERAGE=\$(( ${task.ext.min_coverage}*${meta.genome_size} ))

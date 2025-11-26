@@ -4,6 +4,8 @@
 nextflow.preview.types = true
 
 include { SNPDISTS as SNPDISTS_MODULE } from '../../modules/snpdists/main'
+include { flattenPaths                } from 'plugin/nf-bactopia'
+include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SNPDISTS {
     take:
@@ -19,13 +21,6 @@ workflow SNPDISTS {
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.tsv
     logs: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.nf_begin.mix(
-        SNPDISTS_MODULE.out.nf_err,
-        SNPDISTS_MODULE.out.nf_log,
-        SNPDISTS_MODULE.out.nf_out,
-        SNPDISTS_MODULE.out.nf_run,
-        SNPDISTS_MODULE.out.nf_sh,
-        SNPDISTS_MODULE.out.nf_trace
-    )
+    nf_logs: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.nf_logs
     versions: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.versions
 }

@@ -4,34 +4,29 @@
 nextflow.preview.types = true
 
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
+include { flattenPaths                } from 'plugin/nf-bactopia'
+include { gather                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
-    fasta // channel: [ [meta], [assemblies] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ [meta], [assemblies] ]
 
     main:
-    ch_merge_fna = fasta.collect{_meta, fna -> fna}.map{ fna -> [[id: 'mashtree'], fna]}
-    MASHTREE_MODULE(ch_merge_fna)
+    MASHTREE_MODULE(gather(fasta, 'mashtree', 'fna'))
 
     emit:
     // Individual outputs
-    matrix = MASHTREE_MODULE.out.matrix
-    sketches = MASHTREE_MODULE.out.sketches
-    tree = MASHTREE_MODULE.out.tree
+    matrix: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.matrix
+    sketches: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.sketches
+    tree: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.tree
 
     // Generic aggregate outputs
-    results = MASHTREE_MODULE.out.matrix.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        MASHTREE_MODULE.out.matrix,
         MASHTREE_MODULE.out.sketches,
         MASHTREE_MODULE.out.tree
-    )
-    logs = MASHTREE_MODULE.out.logs
-    nf_logs = MASHTREE_MODULE.out.nf_begin.mix(
-        MASHTREE_MODULE.out.nf_err,
-        MASHTREE_MODULE.out.nf_log,
-        MASHTREE_MODULE.out.nf_out,
-        MASHTREE_MODULE.out.nf_run,
-        MASHTREE_MODULE.out.nf_sh,
-        MASHTREE_MODULE.out.nf_trace
-    )
-    versions = MASHTREE_MODULE.out.versions
+    ])
+    logs: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.logs
+    nf_logs: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.nf_logs
+    versions: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.versions
 }

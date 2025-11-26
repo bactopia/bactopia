@@ -4,48 +4,39 @@
 nextflow.preview.types = true
 
 include { QUAST as QUAST_MODULE } from '../../modules/quast/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
+include { flattenPaths          } from 'plugin/nf-bactopia'
+include { gather                } from 'plugin/nf-bactopia'
 
 workflow QUAST {
     take:
-    fasta // channel: [ val(meta), [ fasta ], [ meta_files ] ]
+    fasta: Channel<Tuple<Map, Path, Path>> // channel: [ val(meta), [ fasta ], [ meta_files ] ]
 
     main:
     QUAST_MODULE(fasta)
-
-    // Merge results
-    ch_merge_quast = QUAST_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'quast'], tsv]}
-    CSVTK_CONCAT(ch_merge_quast, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(QUAST_MODULE.out.tsv, 'quast'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = QUAST_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = QUAST_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = QUAST_MODULE.out.supplemental.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        QUAST_MODULE.out.supplemental,
         QUAST_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv
-    )
-    logs = QUAST_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        QUAST_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = QUAST_MODULE.out.nf_begin.mix(
-        QUAST_MODULE.out.nf_err,
-        QUAST_MODULE.out.nf_log,
-        QUAST_MODULE.out.nf_out,
-        QUAST_MODULE.out.nf_run,
-        QUAST_MODULE.out.nf_sh,
-        QUAST_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = QUAST_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        QUAST_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        QUAST_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

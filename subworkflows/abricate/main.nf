@@ -3,9 +3,10 @@
 //
 nextflow.preview.types = true
 
-include { ABRICATE_RUN         } from '../../modules/abricate/run/main'
-include { ABRICATE_SUMMARY     } from '../../modules/abricate/summary/main'
-include { flattenPaths; gather } from '../utils/generic/main'
+include { ABRICATE_RUN     } from '../../modules/abricate/run/main'
+include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'
+include { flattenPaths     } from 'plugin/nf-bactopia'
+include { gather           } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
     take:

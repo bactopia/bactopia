@@ -11,21 +11,15 @@ process CLONALFRAMEML {
     (_meta, msa, newick) : Tuple<Map, Path, Path>
 
     output:
-    emsim      = tuple(meta, file("${task.ext.process_name}/*.emsim.txt", optional: true))
-    em         = tuple(meta, file("${task.ext.process_name}/*.em.txt"))
-    status     = tuple(meta, file("${task.ext.process_name}/*.importation_status.txt"))
-    newick     = tuple(meta, file("${task.ext.process_name}/*.labelled_tree.newick"))
-    fasta      = tuple(meta, file("${task.ext.process_name}/*.ML_sequence.fasta.gz"))
-    pos_ref    = tuple(meta, file("${task.ext.process_name}/*.position_cross_reference.txt.gz"))
-    masked_aln = tuple(meta, file("*.masked.aln.gz"))
-    logs       = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin   = tuple(meta, file(".command.begin"))
-    nf_err     = tuple(meta, file(".command.err"))
-    nf_log     = tuple(meta, file(".command.log"))
-    nf_out     = tuple(meta, file(".command.out"))
-    nf_run     = tuple(meta, file(".command.run"))
-    nf_sh      = tuple(meta, file(".command.sh"))
-    nf_trace   = tuple(meta, file(".command.trace"))
+    emsim      = tuple(meta, files("${task.ext.process_name}/*.emsim.txt", optional: true))
+    em         = tuple(meta, files("${task.ext.process_name}/*.em.txt"))
+    status     = tuple(meta, files("${task.ext.process_name}/*.importation_status.txt"))
+    newick     = tuple(meta, files("${task.ext.process_name}/*.labelled_tree.newick"))
+    fasta      = tuple(meta, files("${task.ext.process_name}/*.ML_sequence.fasta.gz"))
+    pos_ref    = tuple(meta, files("${task.ext.process_name}/*.position_cross_reference.txt.gz"))
+    masked_aln = tuple(meta, files("*.masked.aln.gz"))
+    logs       = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs   = tuple(meta, files(".command.*"))
     versions   = tuple(meta, file("versions.yml"))
 
     script:

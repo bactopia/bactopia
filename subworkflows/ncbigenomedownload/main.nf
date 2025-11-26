@@ -4,11 +4,13 @@
 nextflow.preview.types = true
 
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'
+include { flattenPaths                                    } from 'plugin/nf-bactopia'
+include { gather                                          } from 'plugin/nf-bactopia'
 
 workflow NCBIGENOMEDOWNLOAD {
 
     take:
-    accessions
+    accessions: Channel<String>
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
@@ -16,23 +18,24 @@ workflow NCBIGENOMEDOWNLOAD {
 
     emit:
     // Individual outputs
-    bactopia_tools = ch_to_bactopia_tools
-    gbk = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
-    fna = NCBIGENOMEDOWNLOAD_MODULE.out.fna
-    rm = NCBIGENOMEDOWNLOAD_MODULE.out.rm
-    features = NCBIGENOMEDOWNLOAD_MODULE.out.features
-    gff = NCBIGENOMEDOWNLOAD_MODULE.out.gff
-    faa = NCBIGENOMEDOWNLOAD_MODULE.out.faa
-    gpff = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
-    wgs_gbk = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
-    cds = NCBIGENOMEDOWNLOAD_MODULE.out.cds
-    rna = NCBIGENOMEDOWNLOAD_MODULE.out.rna
-    rna_fna = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
-    report = NCBIGENOMEDOWNLOAD_MODULE.out.report
-    stats = NCBIGENOMEDOWNLOAD_MODULE.out.stats
+    bactopia_tools: Channel<Tuple<Map, Path>> = ch_to_bactopia_tools
+    gbk: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
+    fna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.fna
+    rm: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rm
+    features: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.features
+    gff: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gff
+    faa: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.faa
+    gpff: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
+    wgs_gbk: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
+    cds: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.cds
+    rna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna
+    rna_fna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
+    report: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.report
+    stats: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.stats
 
     // Generic aggregate outputs
-    results = NCBIGENOMEDOWNLOAD_MODULE.out.gbk.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        NCBIGENOMEDOWNLOAD_MODULE.out.gbk,
         NCBIGENOMEDOWNLOAD_MODULE.out.fna,
         NCBIGENOMEDOWNLOAD_MODULE.out.rm,
         NCBIGENOMEDOWNLOAD_MODULE.out.features,
@@ -45,15 +48,8 @@ workflow NCBIGENOMEDOWNLOAD {
         NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna,
         NCBIGENOMEDOWNLOAD_MODULE.out.report,
         NCBIGENOMEDOWNLOAD_MODULE.out.stats
-    )
-    logs = NCBIGENOMEDOWNLOAD_MODULE.out.logs
-    nf_logs = NCBIGENOMEDOWNLOAD_MODULE.out.nf_begin.mix(
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_err,
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_log,
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_out,
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_run,
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_sh,
-        NCBIGENOMEDOWNLOAD_MODULE.out.nf_trace
-    )
-    versions = NCBIGENOMEDOWNLOAD_MODULE.out.versions
+    ])
+    logs: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.logs
+    nf_logs: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.nf_logs
+    versions: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.versions
 }

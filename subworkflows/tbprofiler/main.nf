@@ -5,32 +5,32 @@ nextflow.preview.types = true
 
 include { TBPROFILER_PROFILE } from '../../modules/tbprofiler/profile/main'
 include { TBPROFILER_COLLATE } from '../../modules/tbprofiler/collate/main'
+include { flattenPaths       } from 'plugin/nf-bactopia'
+include { gather             } from 'plugin/nf-bactopia'
 
 workflow TBPROFILER {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
 
     main:
     TBPROFILER_PROFILE(reads)
-
-    // Merge results
-    ch_merge_tbprofiler = TBPROFILER_PROFILE.out.json.collect{_meta, json -> json}.map{ json -> [[id:'tbprofiler'], json]}
-    TBPROFILER_COLLATE(ch_merge_tbprofiler)
+    TBPROFILER_COLLATE(gather(TBPROFILER_PROFILE.out.json, 'tbprofiler', 'json'))
 
     emit:
     // Individual outputs
-    csv = TBPROFILER_PROFILE.out.csv
-    json = TBPROFILER_PROFILE.out.json
-    txt = TBPROFILER_PROFILE.out.txt
-    bam = TBPROFILER_PROFILE.out.bam
-    vcf = TBPROFILER_PROFILE.out.vcf
-    merged_csv = TBPROFILER_COLLATE.out.csv
-    variants_csv = TBPROFILER_COLLATE.out.variants_csv
-    variants_txt = TBPROFILER_COLLATE.out.variants_txt
-    itol = TBPROFILER_COLLATE.out.itol
+    csv: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.csv
+    json: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.json
+    txt: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.txt
+    bam: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.bam
+    vcf: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.vcf
+    merged_csv: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.csv
+    variants_csv: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.variants_csv
+    variants_txt: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.variants_txt
+    itol: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.itol
 
     // Generic aggregate outputs
-    results = TBPROFILER_PROFILE.out.csv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBPROFILER_PROFILE.out.csv,
         TBPROFILER_PROFILE.out.json,
         TBPROFILER_PROFILE.out.txt,
         TBPROFILER_PROFILE.out.bam,
@@ -39,19 +39,17 @@ workflow TBPROFILER {
         TBPROFILER_COLLATE.out.variants_csv,
         TBPROFILER_COLLATE.out.variants_txt,
         TBPROFILER_COLLATE.out.itol
-    )
-    logs = TBPROFILER_PROFILE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBPROFILER_PROFILE.out.logs,
         TBPROFILER_COLLATE.out.logs
-    )
-    nf_logs = TBPROFILER_PROFILE.out.nf_begin.mix(
-        TBPROFILER_PROFILE.out.nf_err,
-        TBPROFILER_PROFILE.out.nf_log,
-        TBPROFILER_PROFILE.out.nf_out,
-        TBPROFILER_PROFILE.out.nf_run,
-        TBPROFILER_PROFILE.out.nf_sh,
-        TBPROFILER_PROFILE.out.nf_trace
-    )
-    versions = TBPROFILER_PROFILE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBPROFILER_PROFILE.out.nf_logs,
+        TBPROFILER_COLLATE.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBPROFILER_PROFILE.out.versions,
         TBPROFILER_COLLATE.out.versions
-    )
+    ])
 }

@@ -4,13 +4,15 @@
 nextflow.preview.types = true
 
 include { EGGNOG_DOWNLOAD } from '../../modules/eggnog/download/main'
-include { EGGNOG_MAPPER } from '../../modules/eggnog/mapper/main'
+include { EGGNOG_MAPPER   } from '../../modules/eggnog/mapper/main'
+include { flattenPaths    } from 'plugin/nf-bactopia'
+include { gather          } from 'plugin/nf-bactopia'
 
 workflow EGGNOG {
     take:
-    faa // channel: [ val(meta), [ fasta ] ]
-    database
-    download_eggnog
+    faa: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    database: Channel<Tuple<Map, Path>>
+    download_eggnog: Channel<Tuple<Map, Path>>
 
     main:
     if (download_eggnog) {
@@ -23,18 +25,19 @@ workflow EGGNOG {
 
     emit:
     // Individual outputs
-    hits = EGGNOG_MAPPER.out.hits
-    seed_orthologs = EGGNOG_MAPPER.out.seed_orthologs
-    annotations = EGGNOG_MAPPER.out.annotations
-    xlsx = EGGNOG_MAPPER.out.xlsx
-    orthologs = EGGNOG_MAPPER.out.orthologs
-    genepred = EGGNOG_MAPPER.out.genepred
-    gff = EGGNOG_MAPPER.out.gff
-    no_anno = EGGNOG_MAPPER.out.no_anno
-    pfam = EGGNOG_MAPPER.out.pfam
+    hits: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.hits
+    seed_orthologs: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.seed_orthologs
+    annotations: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.annotations
+    xlsx: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.xlsx
+    orthologs: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.orthologs
+    genepred: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.genepred
+    gff: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.gff
+    no_anno: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.no_anno
+    pfam: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.pfam
 
     // Generic aggregate outputs
-    results = EGGNOG_MAPPER.out.hits.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        EGGNOG_MAPPER.out.hits,
         EGGNOG_MAPPER.out.seed_orthologs,
         EGGNOG_MAPPER.out.annotations,
         EGGNOG_MAPPER.out.xlsx,
@@ -43,15 +46,8 @@ workflow EGGNOG {
         EGGNOG_MAPPER.out.gff,
         EGGNOG_MAPPER.out.no_anno,
         EGGNOG_MAPPER.out.pfam
-    )
-    logs = EGGNOG_MAPPER.out.logs
-    nf_logs = EGGNOG_MAPPER.out.nf_begin.mix(
-        EGGNOG_MAPPER.out.nf_err,
-        EGGNOG_MAPPER.out.nf_log,
-        EGGNOG_MAPPER.out.nf_out,
-        EGGNOG_MAPPER.out.nf_run,
-        EGGNOG_MAPPER.out.nf_sh,
-        EGGNOG_MAPPER.out.nf_trace
-    )
-    versions = EGGNOG_MAPPER.out.versions
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.versions])
 }

@@ -4,6 +4,8 @@
 nextflow.preview.types = true
 
 include { ROARY as ROARY_MODULE } from '../../modules/roary/main'
+include { flattenPaths          } from 'plugin/nf-bactopia'
+include { gather                } from 'plugin/nf-bactopia'
 
 workflow ROARY {
     take:
@@ -18,18 +20,12 @@ workflow ROARY {
     csv: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.csv
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.supplemental.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        ROARY_MODULE.out.supplemental,
         ROARY_MODULE.out.aln,
         ROARY_MODULE.out.csv
-    )
+    ])
     logs: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.nf_begin.mix(
-        ROARY_MODULE.out.nf_err,
-        ROARY_MODULE.out.nf_log,
-        ROARY_MODULE.out.nf_out,
-        ROARY_MODULE.out.nf_run,
-        ROARY_MODULE.out.nf_sh,
-        ROARY_MODULE.out.nf_trace
-    )
+    nf_logs: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.nf_logs
     versions: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.versions
 }

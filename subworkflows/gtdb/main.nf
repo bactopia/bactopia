@@ -3,16 +3,18 @@
 //
 nextflow.preview.types = true
 
-include { GTDBTK_DOWNLOAD as DOWNLOAD } from '../../modules/gtdbtk/download/main'
+include { GTDBTK_DOWNLOAD as DOWNLOAD   } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../modules/gtdbtk/classifywf/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
+include { flattenPaths                  } from 'plugin/nf-bactopia'
+include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
-    fasta // channel: [ val(meta), [ assemblies ] ]
-    database
-    download_gtdb
-    save_as_tarball
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
+    database: Channel<Tuple<Map, Path>>
+    download_gtdb: Boolean
+    save_as_tarball: Boolean
 
     main:
     if (download_gtdb) {
@@ -27,40 +29,29 @@ workflow GTDB {
     } else {
         CLASSIFY(fasta, database)
     }
-    
-    // Merge results
-    ch_merge_gtdb = CLASSIFY.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'gtdb'], tsv]}
-    CSVTK_CONCAT(ch_merge_gtdb, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CLASSIFY.out.tsv, 'gtdb'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = CLASSIFY.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = CLASSIFY.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = CLASSIFY.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        CLASSIFY.out.tsv,
         CLASSIFY.out.supplemental,
         CSVTK_CONCAT.out.csv
-    )
-    logs = CLASSIFY.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        CLASSIFY.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = CLASSIFY.out.nf_begin.mix(
-        CLASSIFY.out.nf_err,
-        CLASSIFY.out.nf_log,
-        CLASSIFY.out.nf_out,
-        CLASSIFY.out.nf_run,
-        CLASSIFY.out.nf_sh,
-        CLASSIFY.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = CLASSIFY.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        CLASSIFY.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        CLASSIFY.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

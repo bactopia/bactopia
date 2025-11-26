@@ -12,21 +12,15 @@ process KRAKEN2 {
     db             : Path
 
     output:
-    kraken2_report       = tuple(meta, file('*.kraken2.report.txt'))
-    scrub_report         = tuple(meta, file('*.scrub.report.tsv', optional: true))
-    scrub_special_report = tuple(special_meta, file('*.scrub.report.tsv', optional: true))
-    classified           = tuple(meta, file("*.${classified_naming}*.fastq.gz", optional: true))
-    unclassified         = tuple(meta, file("*.${unclassified_naming}*.fastq.gz", optional: true))
-    classified_extra     = tuple(meta, file("*.${classified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
-    unclassified_extra   = tuple(meta, file("*.${unclassified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
-    logs                 = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin             = tuple(meta, file(".command.begin"))
-    nf_err               = tuple(meta, file(".command.err"))
-    nf_log               = tuple(meta, file(".command.log"))
-    nf_out               = tuple(meta, file(".command.out"))
-    nf_run               = tuple(meta, file(".command.run"))
-    nf_sh                = tuple(meta, file(".command.sh"))
-    nf_trace             = tuple(meta, file(".command.trace"))
+    kraken2_report       = tuple(meta, files('*.kraken2.report.txt'))
+    scrub_report         = tuple(meta, files('*.scrub.report.tsv', optional: true))
+    scrub_special_report = tuple(special_meta, files('*.scrub.report.tsv', optional: true))
+    classified           = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true))
+    unclassified         = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true))
+    classified_extra     = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
+    unclassified_extra   = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
+    logs                 = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs              = tuple(meta, files(".command.*"))
     versions             = tuple(meta, file("versions.yml"))
 
     script:

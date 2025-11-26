@@ -3,7 +3,9 @@
 //
 nextflow.preview.types = true
 
-include { PANAROO_RUN } from '../../modules/panaroo/run/main'
+include { PANAROO_RUN  } from '../../modules/panaroo/run/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
 
 workflow PANAROO {
     take:
@@ -20,20 +22,14 @@ workflow PANAROO {
     panaroo_csv: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.panaroo_csv
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.supplemental.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        PANAROO_RUN.out.supplemental,
         PANAROO_RUN.out.csv,
         PANAROO_RUN.out.aln,
         PANAROO_RUN.out.filtered_aln,
         PANAROO_RUN.out.panaroo_csv
-    )
+    ])
     logs: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.nf_begin.mix(
-        PANAROO_RUN.out.nf_err,
-        PANAROO_RUN.out.nf_log,
-        PANAROO_RUN.out.nf_out,
-        PANAROO_RUN.out.nf_run,
-        PANAROO_RUN.out.nf_sh,
-        PANAROO_RUN.out.nf_trace
-    )
+    nf_logs: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.nf_logs
     versions: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.versions
 }

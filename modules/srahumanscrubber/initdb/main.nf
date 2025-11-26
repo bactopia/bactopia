@@ -7,8 +7,8 @@ process SRAHUMANSCRUBBER_INITDB {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = file("${prefix}/*human_filter.db*")
-    logs = file("${prefix}/logs/*", optional: true)
+    db   = files("${prefix}/*human_filter.db*")
+    logs = files("${prefix}/logs/*", optional: true)
 
     script:
     prefix = task.ext.process_name

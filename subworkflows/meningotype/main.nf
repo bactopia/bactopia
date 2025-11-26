@@ -4,47 +4,38 @@
 nextflow.preview.types = true
 
 include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../modules/meningotype/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT                      } from '../../modules/csvtk/concat/main'
+include { flattenPaths                      } from 'plugin/nf-bactopia'
+include { gather                            } from 'plugin/nf-bactopia'
 
 workflow MENINGOTYPE {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     MENINGOTYPE_MODULE(fasta)
-
-    // Merge results
-    ch_merge_meningotype = MENINGOTYPE_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'meningotype'], tsv]}
-    CSVTK_CONCAT(ch_merge_meningotype, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out.tsv, 'meningotype'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = MENINGOTYPE_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = MENINGOTYPE_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = MENINGOTYPE_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        MENINGOTYPE_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv
-    )
-    logs = MENINGOTYPE_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        MENINGOTYPE_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace,
-        MENINGOTYPE_MODULE.out.nf_begin,
-        MENINGOTYPE_MODULE.out.nf_err,
-        MENINGOTYPE_MODULE.out.nf_log,
-        MENINGOTYPE_MODULE.out.nf_out,
-        MENINGOTYPE_MODULE.out.nf_run,
-        MENINGOTYPE_MODULE.out.nf_sh,
-        MENINGOTYPE_MODULE.out.nf_trace
-    )
-    versions = MENINGOTYPE_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        CSVTK_CONCAT.out.nf_logs,
+        MENINGOTYPE_MODULE.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        MENINGOTYPE_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

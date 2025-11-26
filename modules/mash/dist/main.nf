@@ -12,15 +12,9 @@ process MASH_DIST {
     reference      : Path
 
     output:
-    dist     = tuple(meta, file("*.txt"))
-    logs     = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin = tuple(meta, file(".command.begin"))
-    nf_err   = tuple(meta, file(".command.err"))
-    nf_log   = tuple(meta, file(".command.log"))
-    nf_out   = tuple(meta, file(".command.out"))
-    nf_run   = tuple(meta, file(".command.run"))
-    nf_sh    = tuple(meta, file(".command.sh"))
-    nf_trace = tuple(meta, file(".command.trace"))
+    dist     = tuple(meta, files("*.txt"))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
 
     script:
@@ -73,7 +67,7 @@ process MERLIN_DIST {
     stageAs 'inputs/*', reads
 
     output:
-    dist               = tuple(meta, file("*.txt"))
+    dist               = tuple(meta, files("*.txt"))
     escherichia        = tuple(meta, query, file("escherichia.*", optional: true))
     escherichia_fq     = tuple(meta, reads, file("escherichia.*", optional: true))
     escherichia_fna_fq = tuple(meta, query, reads, file("escherichia.*", optional: true))
@@ -90,15 +84,9 @@ process MERLIN_DIST {
     staphylococcus     = tuple(meta, query, file("staphylococcus.*", optional: true))
     streptococcus      = tuple(meta, query, file("streptococcus.*", optional: true))
     streptococcus_fq   = tuple(meta, reads, file("streptococcus.*", optional: true))
-    genus              = tuple(meta, file("*.genus", optional: true))
-    logs               = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin           = tuple(meta, file(".command.begin"))
-    nf_err             = tuple(meta, file(".command.err"))
-    nf_log             = tuple(meta, file(".command.log"))
-    nf_out             = tuple(meta, file(".command.out"))
-    nf_run             = tuple(meta, file(".command.run"))
-    nf_sh              = tuple(meta, file(".command.sh"))
-    nf_trace           = tuple(meta, file(".command.trace"))
+    genus              = tuple(meta, files("*.genus", optional: true))
+    logs               = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs            = tuple(meta, files(".command.*"))
     versions           = tuple(meta, file("versions.yml"))
 
     script:

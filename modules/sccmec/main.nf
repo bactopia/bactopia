@@ -12,18 +12,12 @@ process SCCMEC {
 
     output:
     tsv             = tuple(meta, file("${prefix}.tsv"))
-    targets         = tuple(meta, file("*.targets.blastn.tsv"))
-    target_details  = tuple(meta, file("*.targets.details.tsv"))
-    regions         = tuple(meta, file("*.regions.blastn.tsv"))
-    regions_details = tuple(meta, file("*.regions.details.tsv"))
-    logs            = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin        = tuple(meta, file(".command.begin"))
-    nf_err          = tuple(meta, file(".command.err"))
-    nf_log          = tuple(meta, file(".command.log"))
-    nf_out          = tuple(meta, file(".command.out"))
-    nf_run          = tuple(meta, file(".command.run"))
-    nf_sh           = tuple(meta, file(".command.sh"))
-    nf_trace        = tuple(meta, file(".command.trace"))
+    targets         = tuple(meta, file("${prefix}.targets.blastn.tsv"))
+    target_details  = tuple(meta, file("${prefix}.targets.details.tsv"))
+    regions         = tuple(meta, file("${prefix}.regions.blastn.tsv"))
+    regions_details = tuple(meta, file("${prefix}.regions.details.tsv"))
+    logs            = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs         = tuple(meta, files(".command.*"))
     versions        = tuple(meta, file("versions.yml"))
 
     script:

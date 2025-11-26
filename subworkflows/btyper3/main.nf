@@ -4,48 +4,39 @@
 nextflow.preview.types = true
 
 include { BTYPER3 as BTYPER3_MODULE } from '../../modules/btyper3/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
+include { flattenPaths              } from 'plugin/nf-bactopia'
+include { gather                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     BTYPER3_MODULE(fasta)
-
-    // Merge results
-    ch_merge_btyper3 = BTYPER3_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'btyper3'], tsv]}
-    CSVTK_CONCAT(ch_merge_btyper3, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BTYPER3_MODULE.out.tsv, 'btyper3'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = BTYPER3_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = BTYPER3_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = BTYPER3_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        BTYPER3_MODULE.out.tsv,
         BTYPER3_MODULE.out.supplemental,
         CSVTK_CONCAT.out.csv
-    )
-    logs = BTYPER3_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        BTYPER3_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = BTYPER3_MODULE.out.nf_begin.mix(
-        BTYPER3_MODULE.out.nf_err,
-        BTYPER3_MODULE.out.nf_log,
-        BTYPER3_MODULE.out.nf_out,
-        BTYPER3_MODULE.out.nf_run,
-        BTYPER3_MODULE.out.nf_sh,
-        BTYPER3_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = BTYPER3_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        BTYPER3_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        BTYPER3_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

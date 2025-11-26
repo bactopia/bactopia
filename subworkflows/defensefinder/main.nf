@@ -3,44 +3,42 @@
 //
 nextflow.preview.types = true
 
-include { DEFENSEFINDER_UPDATE } from '../../modules/defensefinder/update/main'
-include { DEFENSEFINDER_RUN    } from '../../modules/defensefinder/run/main'
+include { DEFENSEFINDER_UPDATE           } from '../../modules/defensefinder/update/main'
+include { DEFENSEFINDER_RUN              } from '../../modules/defensefinder/run/main'
 include { CSVTK_CONCAT as GENES_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as HMMER_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as SYSTEMS_CONCAT } from '../../modules/csvtk/concat/main'
+include { flattenPaths                   } from 'plugin/nf-bactopia'
+include { gather                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     DEFENSEFINDER_UPDATE()
     DEFENSEFINDER_RUN(fasta, DEFENSEFINDER_UPDATE.out.db)
 
     // Merge results
-    ch_merge_genes = DEFENSEFINDER_RUN.out.genes_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-genes'], tsv]}
-    GENES_CONCAT(ch_merge_genes, 'tsv', 'tsv')
-
-    ch_merge_hmmer = DEFENSEFINDER_RUN.out.hmmer_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-hmmer'], tsv]}
-    HMMER_CONCAT(ch_merge_hmmer, 'tsv', 'tsv')
-
-    ch_merge_systems = DEFENSEFINDER_RUN.out.systems_tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'defensefinder-systems'], tsv]}
-    SYSTEMS_CONCAT(ch_merge_systems, 'tsv', 'tsv')
+    GENES_CONCAT(gather(DEFENSEFINDER_RUN.out.genes_tsv, 'defensefinder-genes'), 'tsv', 'tsv')
+    HMMER_CONCAT(gather(DEFENSEFINDER_RUN.out.hmmer_tsv, 'defensefinder-hmmer'), 'tsv', 'tsv')
+    SYSTEMS_CONCAT(gather(DEFENSEFINDER_RUN.out.systems_tsv, 'defensefinder-systems'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    genes_tsv = DEFENSEFINDER_RUN.out.genes_tsv
-    merged_genes_tsv = GENES_CONCAT.out.csv
-    hmmer_tsv = DEFENSEFINDER_RUN.out.hmmer_tsv
-    merged_hmmer_tsv = HMMER_CONCAT.out.csv
-    systems_tsv = DEFENSEFINDER_RUN.out.systems_tsv
-    merged_systems_tsv = SYSTEMS_CONCAT.out.csv
-    proteins = DEFENSEFINDER_RUN.out.proteins
-    proteins_index = DEFENSEFINDER_RUN.out.proteins_index
-    macsydata_raw = DEFENSEFINDER_RUN.out.macsydata_raw
+    genes_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.genes_tsv
+    merged_genes_tsv: Channel<Tuple<Map, Path>> = GENES_CONCAT.out.csv
+    hmmer_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.hmmer_tsv
+    merged_hmmer_tsv: Channel<Tuple<Map, Path>> = HMMER_CONCAT.out.csv
+    systems_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.systems_tsv
+    merged_systems_tsv: Channel<Tuple<Map, Path>> = SYSTEMS_CONCAT.out.csv
+    proteins: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.proteins
+    proteins_index: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.proteins_index
+    macsydata_raw: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.macsydata_raw
 
     // Generic aggregate outputs
-    results = DEFENSEFINDER_RUN.out.genes_tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        DEFENSEFINDER_RUN.out.genes_tsv,
         GENES_CONCAT.out.csv,
         DEFENSEFINDER_RUN.out.hmmer_tsv,
         HMMER_CONCAT.out.csv,
@@ -49,44 +47,23 @@ workflow DEFENSEFINDER {
         DEFENSEFINDER_RUN.out.proteins,
         DEFENSEFINDER_RUN.out.proteins_index,
         DEFENSEFINDER_RUN.out.macsydata_raw
-    )
-    logs = DEFENSEFINDER_RUN.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        DEFENSEFINDER_RUN.out.logs,
         GENES_CONCAT.out.logs,
         HMMER_CONCAT.out.logs,
         SYSTEMS_CONCAT.out.logs
-    )
-    nf_logs = DEFENSEFINDER_RUN.out.nf_begin.mix(
-        DEFENSEFINDER_RUN.out.nf_err,
-        DEFENSEFINDER_RUN.out.nf_log,
-        DEFENSEFINDER_RUN.out.nf_out,
-        DEFENSEFINDER_RUN.out.nf_run,
-        DEFENSEFINDER_RUN.out.nf_sh,
-        DEFENSEFINDER_RUN.out.nf_trace,
-        GENES_CONCAT.out.nf_begin,
-        GENES_CONCAT.out.nf_err,
-        GENES_CONCAT.out.nf_log,
-        GENES_CONCAT.out.nf_out,
-        GENES_CONCAT.out.nf_run,
-        GENES_CONCAT.out.nf_sh,
-        GENES_CONCAT.out.nf_trace,
-        HMMER_CONCAT.out.nf_begin,
-        HMMER_CONCAT.out.nf_err,
-        HMMER_CONCAT.out.nf_log,
-        HMMER_CONCAT.out.nf_out,
-        HMMER_CONCAT.out.nf_run,
-        HMMER_CONCAT.out.nf_sh,
-        HMMER_CONCAT.out.nf_trace,
-        SYSTEMS_CONCAT.out.nf_begin,
-        SYSTEMS_CONCAT.out.nf_err,
-        SYSTEMS_CONCAT.out.nf_log,
-        SYSTEMS_CONCAT.out.nf_out,
-        SYSTEMS_CONCAT.out.nf_run,
-        SYSTEMS_CONCAT.out.nf_sh,
-        SYSTEMS_CONCAT.out.nf_trace
-    )
-    versions = DEFENSEFINDER_RUN.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        DEFENSEFINDER_RUN.out.nf_logs,
+        GENES_CONCAT.out.nf_logs,
+        HMMER_CONCAT.out.nf_logs,
+        SYSTEMS_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        DEFENSEFINDER_RUN.out.versions,
         GENES_CONCAT.out.versions,
         HMMER_CONCAT.out.versions,
         SYSTEMS_CONCAT.out.versions
-    )
+    ])
 }

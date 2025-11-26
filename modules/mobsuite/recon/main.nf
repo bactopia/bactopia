@@ -13,16 +13,10 @@ process MOBSUITE_RECON {
     output:
     chromosome    = tuple(meta, file("${prefix}-chromosome.fasta.gz"))
     contig_report = tuple(meta, file("${prefix}-contig_report.txt"))
-    plasmids      = tuple(meta, file("plasmid_*.fasta.gz", optional: true))
+    plasmids      = tuple(meta, files("plasmid_*.fasta.gz", optional: true))
     txt           = tuple(meta, file("${prefix}-mobtyper.txt", optional: true))
-    logs          = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin      = tuple(meta, file(".command.begin"))
-    nf_err        = tuple(meta, file(".command.err"))
-    nf_log        = tuple(meta, file(".command.log"))
-    nf_out        = tuple(meta, file(".command.out"))
-    nf_run        = tuple(meta, file(".command.run"))
-    nf_sh         = tuple(meta, file(".command.sh"))
-    nf_trace      = tuple(meta, file(".command.trace"))
+    logs          = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs       = tuple(meta, files(".command.*"))
     versions      = tuple(meta, file("versions.yml"))
 
     script:

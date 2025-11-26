@@ -12,7 +12,7 @@ process ARIBA_GETREF {
 
     output:
     db   = file("ariba/ariba-${db_name}.tar.gz")
-    logs = file("ariba/logs/*", optional: true)
+    logs = files("ariba/logs/*", optional: true)
 
     script:
     """

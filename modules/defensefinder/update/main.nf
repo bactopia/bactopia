@@ -9,7 +9,7 @@ process DEFENSEFINDER_UPDATE {
 
     output:
     db   = file("defense-finder/defense-finder-models-${task.ext.df_models_version}.tar")
-    logs = file("defense-finder/logs/*", optional: true)
+    logs = files("defense-finder/logs/*", optional: true)
 
     script:
     """

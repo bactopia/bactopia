@@ -11,7 +11,7 @@ process WGET {
 
     output:
     download = file("${prefix}/${filename}")
-    logs     = file("${prefix}/logs/*", optional: true)
+    logs     = files("${prefix}/logs/*", optional: true)
 
     script:
     prefix = _meta.name

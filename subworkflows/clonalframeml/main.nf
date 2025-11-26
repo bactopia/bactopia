@@ -6,10 +6,12 @@ nextflow.preview.types = true
 include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalframeml/main'
 include { IQTREE                                } from '../iqtree/main'
 include { SNPDISTS                              } from '../snpdists/main'
+include { flattenPaths                          } from 'plugin/nf-bactopia'
+include { gather                                } from 'plugin/nf-bactopia'
 
 workflow CLONALFRAMEML {
     take:
-    alignment // channel: [ val(meta), [ aln ] ]
+    alignment: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ aln ] ]
 
     main:
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
@@ -18,14 +20,13 @@ workflow CLONALFRAMEML {
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
     
     // Create a quick start tree
-    ch_aln = alignment.collect{_meta, aln -> aln}.map{ aln -> [[name: "iqtree-fast", process_name: "iqtree-fast"], aln]}
-    IQTREE(ch_aln)
+    IQTREE(gather(alignment, 'iqtree-fast', 'name: "iqtree-fast", process_name: "iqtree-fast"'))
     ch_results = ch_results.mix(IQTREE.out.results)
     ch_logs = ch_logs.mix(IQTREE.out.logs)
     ch_nf_logs = ch_nf_logs.mix(IQTREE.out.nf_logs)
     ch_versions = ch_versions.mix(IQTREE.out.versions)
 
-    // Run ClonalFrameML
+    // Run ClonalFrameML - gather alignment and tree together
     ch_aln_tree = IQTREE.out.aln_tree.collect{_meta, aln, treefile -> [aln, treefile]}.map{ aln, treefile -> [[name: "core-genome", process_name: "clonalframeml"], aln, treefile]}
     CLONALFRAMEML_MODULE(ch_aln_tree)
     ch_results = ch_results.mix(
@@ -41,8 +42,7 @@ workflow CLONALFRAMEML {
     ch_logs = ch_logs.mix(CLONALFRAMEML_MODULE.out.logs)
 
     // Per-sample SNP distances
-    ch_masked_aln = CLONALFRAMEML_MODULE.out.masked_aln.collect{_meta, aln -> aln}.map{ aln -> [[name: "core-genome.masked.distance", process_name: "snpdists-masked"], aln]}
-    SNPDISTS(ch_masked_aln)
+    SNPDISTS(gather(CLONALFRAMEML_MODULE.out.masked_aln, 'core-genome.masked.distance', 'name: "core-genome.masked.distance", process_name: "snpdists-masked"'))
     ch_results = ch_results.mix(SNPDISTS.out.tsv)
     ch_logs = ch_logs.mix(SNPDISTS.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SNPDISTS.out.nf_logs)
@@ -50,19 +50,14 @@ workflow CLONALFRAMEML {
 
     emit:
     // Individual outputs
-    masked_aln = CLONALFRAMEML_MODULE.out.masked_aln
+    masked_aln: Channel<Tuple<Map, Path>> = CLONALFRAMEML_MODULE.out.masked_aln
 
     // Generic aggregate outputs
-    results = ch_results
-    logs = ch_logs
-    nf_logs = ch_nf_logs.mix(
-        CLONALFRAMEML_MODULE.out.nf_begin,
-        CLONALFRAMEML_MODULE.out.nf_err,
-        CLONALFRAMEML_MODULE.out.nf_log,
-        CLONALFRAMEML_MODULE.out.nf_out,
-        CLONALFRAMEML_MODULE.out.nf_run,
-        CLONALFRAMEML_MODULE.out.nf_sh,
-        CLONALFRAMEML_MODULE.out.nf_trace
-    )
-    versions = ch_versions
+    results: Channel<Tuple<Map, Path>> = flattenPaths([ch_results])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ch_nf_logs,
+        CLONALFRAMEML_MODULE.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([ch_versions])
 }

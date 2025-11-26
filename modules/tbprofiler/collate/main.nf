@@ -17,15 +17,9 @@ process TBPROFILER_COLLATE {
     csv          = tuple(meta, file("tbprofiler.csv"))
     variants_csv = tuple(meta, file("tbprofiler.variants.csv"))
     variants_txt = tuple(meta, file("tbprofiler.variants.txt"))
-    itol         = tuple(meta, file("*.itol.*.txt", optional: true))
-    logs         = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin     = tuple(meta, file(".command.begin"))
-    nf_err       = tuple(meta, file(".command.err"))
-    nf_log       = tuple(meta, file(".command.log"))
-    nf_out       = tuple(meta, file(".command.out"))
-    nf_run       = tuple(meta, file(".command.run"))
-    nf_sh        = tuple(meta, file(".command.sh"))
-    nf_trace     = tuple(meta, file(".command.trace"))
+    itol         = tuple(meta, files("*.itol.*.txt", optional: true))
+    logs         = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, file("versions.yml"))
 
     script:

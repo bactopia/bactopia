@@ -3,70 +3,52 @@
 //
 nextflow.preview.types = true
 
-include { ARIBA_GETREF } from '../../modules/ariba/getref/main'
-include { ARIBA_RUN    } from '../../modules/ariba/run/main'
-include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT } from '../../modules/csvtk/concat/main'
+include { ARIBA_GETREF                         } from '../../modules/ariba/getref/main'
+include { ARIBA_RUN                            } from '../../modules/ariba/run/main'
+include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT  } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../modules/csvtk/concat/main'
+include { flattenPaths                         } from 'plugin/nf-bactopia'
+include { gather                               } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
-    db
+    reads: Channel<Tuple<Map, Path>>
+    db: Channel<Tuple<Map, Path>>
 
     main:
-    // Build database and run Ariba
     ARIBA_GETREF(db)
     ARIBA_RUN(reads, ARIBA_GETREF.out.db)
-
-    // Merge results
-    ch_merge_report = ARIBA_RUN.out.report.collect{_meta, report -> report}.map{ report -> [[id:"${db}-report", args:'-C "$" --lazy-quotes'], report]}
-    CSVTK_CONCAT_REPORT(ch_merge_report, 'tsv', 'tsv')
-
-    ch_merge_summary = ARIBA_RUN.out.summary.collect{_meta, summary -> summary}.map{ summary -> [[id:"${db}-summary", args:'--lazy-quotes'], summary]}
-    CSVTK_CONCAT_SUMMARY(ch_merge_summary, 'csv', 'csv')
+    CSVTK_CONCAT_REPORT(gather(ARIBA_RUN.out.report, "${db}-report", '-C "$" --lazy-quotes'), 'tsv', 'tsv')
+    CSVTK_CONCAT_SUMMARY(gather(ARIBA_RUN.out.summary, "${db}-summary", '--lazy-quotes'), 'csv', 'csv')
 
     emit:
     // Individual outputs
-    report = ARIBA_RUN.out.report
-    summary = ARIBA_RUN.out.summary
-    merged_report = CSVTK_CONCAT_REPORT.out.csv
-    merged_summary = CSVTK_CONCAT_SUMMARY.out.csv
+    report: Channel<Tuple<Map, Path>> = ARIBA_RUN.out.report
+    summary: Channel<Tuple<Map, Path>> = ARIBA_RUN.out.summary
+    merged_report: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_REPORT.out.csv
+    merged_summary: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_SUMMARY.out.csv
 
     // Generic aggregate outputs
-    results = ARIBA_RUN.out.report.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        ARIBA_RUN.out.report,
         ARIBA_RUN.out.summary,
         ARIBA_RUN.out.supplemental,
         CSVTK_CONCAT_REPORT.out.csv,
         CSVTK_CONCAT_SUMMARY.out.csv
-    )
-    logs = ARIBA_RUN.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ARIBA_RUN.out.logs,
         CSVTK_CONCAT_REPORT.out.logs,
         CSVTK_CONCAT_SUMMARY.out.logs
-    )
-    nf_logs = ARIBA_RUN.out.nf_begin.mix(
-        ARIBA_RUN.out.nf_err,
-        ARIBA_RUN.out.nf_log,
-        ARIBA_RUN.out.nf_out,
-        ARIBA_RUN.out.nf_run,
-        ARIBA_RUN.out.nf_sh,
-        ARIBA_RUN.out.nf_trace,
-        CSVTK_CONCAT_REPORT.out.nf_begin,
-        CSVTK_CONCAT_REPORT.out.nf_err,
-        CSVTK_CONCAT_REPORT.out.nf_log,
-        CSVTK_CONCAT_REPORT.out.nf_out,
-        CSVTK_CONCAT_REPORT.out.nf_run,
-        CSVTK_CONCAT_REPORT.out.nf_sh,
-        CSVTK_CONCAT_REPORT.out.nf_trace,
-        CSVTK_CONCAT_SUMMARY.out.nf_begin,
-        CSVTK_CONCAT_SUMMARY.out.nf_err,
-        CSVTK_CONCAT_SUMMARY.out.nf_log,
-        CSVTK_CONCAT_SUMMARY.out.nf_out,
-        CSVTK_CONCAT_SUMMARY.out.nf_run,
-        CSVTK_CONCAT_SUMMARY.out.nf_sh,
-        CSVTK_CONCAT_SUMMARY.out.nf_trace
-    )
-    versions = ARIBA_RUN.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ARIBA_RUN.out.nf_logs,
+        CSVTK_CONCAT_REPORT.out.nf_logs,
+        CSVTK_CONCAT_SUMMARY.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        ARIBA_RUN.out.versions,
         CSVTK_CONCAT_REPORT.out.versions,
         CSVTK_CONCAT_SUMMARY.out.versions
-    )
+    ])
 }

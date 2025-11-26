@@ -6,11 +6,13 @@ nextflow.preview.types = true
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { K2SCRUBBER       } from '../k2scrubber/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
+include { flattenPaths     } from 'plugin/nf-bactopia'
+include { gather           } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
-    use_srascrubber
+    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    use_srascrubber: Boolean
 
     main:
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
@@ -44,36 +46,32 @@ workflow SCRUBBER {
         ch_scrubbed_extra = ch_scrubbed_extra.mix(K2SCRUBBER.out.scrubbed_extra)
     }
 
-    // Merge results
-    ch_merge_scrub = ch_scrub_report.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'scrubber'], tsv]}
-    CSVTK_CONCAT(ch_merge_scrub, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(ch_scrub_report, 'scrubber'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = ch_scrub_report
-    special_tsv = ch_special_report
-    merged_tsv = CSVTK_CONCAT.out.csv
-    scrubbed = ch_scrubbed
-    scrubbed_extra = ch_scrubbed_extra
+    tsv: Channel<Tuple<Map, Path>> = ch_scrub_report
+    special_tsv: Channel<Tuple<Map, Path>> = ch_special_report
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    scrubbed: Channel<Tuple<Map, Path>> = ch_scrubbed
+    scrubbed_extra: Channel<Tuple<Map, Path>> = ch_scrubbed_extra
 
     // Generic aggregate outputs
-    results = ch_scrub_report.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        ch_scrub_report,
         ch_scrubbed,
         CSVTK_CONCAT.out.csv
-    )
-    logs = ch_logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ch_logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = ch_nf_logs.mix(
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = ch_versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ch_nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        ch_versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

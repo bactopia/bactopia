@@ -2,30 +2,32 @@
 // merlin - MinmER assisted species-specific bactopia tool seLectIoN
 //
 
-include { MERLINDIST } from '../mashdist/main';
+include { MERLINDIST    } from '../mashdist/main';
 include { CLERMONTYPING } from '../clermontyping/main';
-include { ECTYPER } from '../ectyper/main';
-include { EMMTYPER } from '../emmtyper/main';
-include { HICAP } from '../hicap/main';
-include { HPSUISSERO } from '../hpsuissero/main';
-include { GENOTYPHI } from '../genotyphi/main';
-include { KLEBORATE } from '../kleborate/main';
-include { LEGSTA } from '../legsta/main';
-include { LISSERO } from '../lissero/main';
-include { MENINGOTYPE } from '../meningotype/main';
-include { NGMASTER } from '../ngmaster/main';
-include { PASTY } from '../pasty/main';
-include { PBPTYPER } from '../pbptyper/main';
-include { SEQSERO2 } from '../seqsero2/main';
-include { SEROBA } from '../seroba/main';
-include { SHIGAPASS } from '../shigapass/main';
-include { SHIGATYPER } from '../shigatyper/main';
-include { SHIGEIFINDER } from '../shigeifinder/main';
-include { SISTR } from '../sistr/main';
-include { SSUISSERO } from '../ssuissero/main';
-include { STAPHTYPER } from '../staphtyper/main';
-include { STECFINDER } from '../stecfinder/main';
-include { TBPROFILER } from '../tbprofiler/main';
+include { ECTYPER       } from '../ectyper/main';
+include { EMMTYPER      } from '../emmtyper/main';
+include { HICAP         } from '../hicap/main';
+include { HPSUISSERO    } from '../hpsuissero/main';
+include { GENOTYPHI     } from '../genotyphi/main';
+include { KLEBORATE     } from '../kleborate/main';
+include { LEGSTA        } from '../legsta/main';
+include { LISSERO       } from '../lissero/main';
+include { MENINGOTYPE   } from '../meningotype/main';
+include { NGMASTER      } from '../ngmaster/main';
+include { PASTY         } from '../pasty/main';
+include { PBPTYPER      } from '../pbptyper/main';
+include { SEQSERO2      } from '../seqsero2/main';
+include { SEROBA        } from '../seroba/main';
+include { SHIGAPASS     } from '../shigapass/main';
+include { SHIGATYPER    } from '../shigatyper/main';
+include { SHIGEIFINDER  } from '../shigeifinder/main';
+include { SISTR         } from '../sistr/main';
+include { SSUISSERO     } from '../ssuissero/main';
+include { STAPHTYPER    } from '../staphtyper/main';
+include { STECFINDER    } from '../stecfinder/main';
+include { TBPROFILER    } from '../tbprofiler/main';
+include { flattenPaths  } from 'plugin/nf-bactopia'
+include { gather        } from 'plugin/nf-bactopia'
 
 workflow MERLIN {
     take:

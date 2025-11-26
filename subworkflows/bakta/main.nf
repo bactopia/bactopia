@@ -4,17 +4,19 @@
 nextflow.preview.types = true
 
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
-include { BAKTA_RUN } from '../../modules/bakta/run/main'
+include { BAKTA_RUN      } from '../../modules/bakta/run/main'
+include { flattenPaths   } from 'plugin/nf-bactopia'
+include { gather         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
-    database
-    download_bakta
-    save_as_tarball
-    proteins
-    prodigal_tf
-    replicons
+    fasta: Channel<Tuple<Map, Path>>
+    database: Channel<Tuple<Map, Path>>
+    download_bakta: Channel<Tuple<Map, Path>>
+    save_as_tarball: Channel<Tuple<Map, Path>>
+    proteins: Channel<Tuple<Map, Path>>
+    prodigal_tf: Channel<Tuple<Map, Path>>
+    replicons: Channel<Tuple<Map, Path>>
 
     main:
     if (download_bakta) {
@@ -32,21 +34,22 @@ workflow BAKTA {
 
     emit:
     // Individual outputs
-    tsv = BAKTA_RUN.out.tsv
-    txt = BAKTA_RUN.out.txt
-    embl = BAKTA_RUN.out.embl
-    faa = BAKTA_RUN.out.faa
-    ffn = BAKTA_RUN.out.ffn
-    fna = BAKTA_RUN.out.fna
-    gbff = BAKTA_RUN.out.gbff
-    gff = BAKTA_RUN.out.gff
-    hypotheticals_faa = BAKTA_RUN.out.hypotheticals_faa
-    hypotheticals_tsv = BAKTA_RUN.out.hypotheticals_tsv
-    blastdb = BAKTA_RUN.out.blastdb
-    annotations = BAKTA_RUN.out.annotations
+    tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.tsv
+    txt: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.txt
+    embl: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.embl
+    faa: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.faa
+    ffn: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.ffn
+    fna: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.fna
+    gbff: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.gbff
+    gff: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.gff
+    hypotheticals_faa: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_faa
+    hypotheticals_tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_tsv
+    blastdb: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.blastdb
+    annotations: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.annotations
 
     // Generic aggregate outputs
-    results = BAKTA_RUN.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        BAKTA_RUN.out.tsv,
         BAKTA_RUN.out.txt,
         BAKTA_RUN.out.embl,
         BAKTA_RUN.out.faa,
@@ -57,15 +60,8 @@ workflow BAKTA {
         BAKTA_RUN.out.hypotheticals_faa,
         BAKTA_RUN.out.hypotheticals_tsv,
         BAKTA_RUN.out.blastdb
-    )
-    logs = BAKTA_RUN.out.logs
-    nf_logs = BAKTA_RUN.out.nf_begin.mix(
-        BAKTA_RUN.out.nf_err,
-        BAKTA_RUN.out.nf_log,
-        BAKTA_RUN.out.nf_out,
-        BAKTA_RUN.out.nf_run,
-        BAKTA_RUN.out.nf_sh,
-        BAKTA_RUN.out.nf_trace
-    )
-    versions = BAKTA_RUN.out.versions
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.versions])
 }

@@ -4,11 +4,13 @@
 nextflow.preview.types = true
 
 include { SRAHUMANSCRUBBER_INITDB } from '../../modules/srahumanscrubber/initdb/main'
-include { SRAHUMANSCRUBBER_SCRUB } from '../../modules/srahumanscrubber/scrub/main'
+include { SRAHUMANSCRUBBER_SCRUB  } from '../../modules/srahumanscrubber/scrub/main'
+include { flattenPaths            } from 'plugin/nf-bactopia'
+include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SRAHUMANSCRUBBER {
     take:
-    reads // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
 
     main:
     SRAHUMANSCRUBBER_INITDB()
@@ -16,23 +18,17 @@ workflow SRAHUMANSCRUBBER {
 
     emit:
     // Individual outputs
-    scrubbed = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
-    scrubbed_extra = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
-    scrub_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
-    scrub_special_report = SRAHUMANSCRUBBER_SCRUB.out.scrub_special_report
+    scrubbed: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
+    scrubbed_extra: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
+    scrub_report: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
+    scrub_special_report: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_special_report
 
     // Generic aggregate outputs
-    results = SRAHUMANSCRUBBER_SCRUB.out.scrubbed.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        SRAHUMANSCRUBBER_SCRUB.out.scrubbed,
         SRAHUMANSCRUBBER_SCRUB.out.scrub_report
-    )
-    logs = SRAHUMANSCRUBBER_SCRUB.out.logs
-    nf_logs = SRAHUMANSCRUBBER_SCRUB.out.nf_begin.mix(
-        SRAHUMANSCRUBBER_SCRUB.out.nf_err,
-        SRAHUMANSCRUBBER_SCRUB.out.nf_log,
-        SRAHUMANSCRUBBER_SCRUB.out.nf_out,
-        SRAHUMANSCRUBBER_SCRUB.out.nf_run,
-        SRAHUMANSCRUBBER_SCRUB.out.nf_sh,
-        SRAHUMANSCRUBBER_SCRUB.out.nf_trace
-    )
-    versions = SRAHUMANSCRUBBER_SCRUB.out.versions
+    ])
+    logs: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.logs
+    nf_logs: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.nf_logs
+    versions: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.versions
 }

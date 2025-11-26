@@ -10,7 +10,7 @@ process CHECKM2_DOWNLOAD {
     output:
     db   = file("checkm2_db_v${db_version}.dmnd")
     json = file("contents.json")
-    logs = file("logs/*", optional: true)
+    logs = files("logs/*", optional: true)
 
     script:
     // Check for latest versions at https://doi.org/10.5281/zenodo.4626518

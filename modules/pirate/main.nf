@@ -15,17 +15,11 @@ process PIRATE {
     stageAs 'gff-tmp/*', gff
 
     output:
-    supplemental = tuple(meta, file("pirate/*"))
+    supplemental = tuple(meta, files("pirate/*"))
     aln          = tuple(meta, file("core-genome.aln.gz", optional: true))
     csv          = tuple(meta, file("pirate/gene_presence_absence.csv", optional: true))
-    logs         = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin     = tuple(meta, file(".command.begin"))
-    nf_err       = tuple(meta, file(".command.err"))
-    nf_log       = tuple(meta, file(".command.log"))
-    nf_out       = tuple(meta, file(".command.out"))
-    nf_run       = tuple(meta, file(".command.run"))
-    nf_sh        = tuple(meta, file(".command.sh"))
-    nf_trace     = tuple(meta, file(".command.trace"))
+    logs         = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, file("versions.yml"))
 
     script:

@@ -4,49 +4,40 @@
 nextflow.preview.types = true
 
 include { ECTYPER as ECTYPER_MODULE } from '../../modules/ectyper/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
+include { flattenPaths              } from 'plugin/nf-bactopia'
+include { gather                    } from 'plugin/nf-bactopia'
 
 workflow ECTYPER {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     ECTYPER_MODULE(fasta)
-
-    // Merge results
-    ch_merge_ectyper = ECTYPER_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'ectyper'], tsv]}
-    CSVTK_CONCAT(ch_merge_ectyper, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(ECTYPER_MODULE.out.tsv, 'ectyper'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = ECTYPER_MODULE.out.tsv
-    txt = ECTYPER_MODULE.out.txt
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = ECTYPER_MODULE.out.tsv
+    txt: Channel<Tuple<Map, Path>> = ECTYPER_MODULE.out.txt
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = ECTYPER_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        ECTYPER_MODULE.out.tsv,
         ECTYPER_MODULE.out.txt,
         CSVTK_CONCAT.out.csv
-    )
-    logs = ECTYPER_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        ECTYPER_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = CSVTK_CONCAT.out.nf_begin.mix(
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace,
-        ECTYPER_MODULE.out.nf_begin,
-        ECTYPER_MODULE.out.nf_err,
-        ECTYPER_MODULE.out.nf_log,
-        ECTYPER_MODULE.out.nf_out,
-        ECTYPER_MODULE.out.nf_run,
-        ECTYPER_MODULE.out.nf_sh,
-        ECTYPER_MODULE.out.nf_trace
-    )
-    versions = ECTYPER_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        CSVTK_CONCAT.out.nf_logs,
+        ECTYPER_MODULE.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        ECTYPER_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

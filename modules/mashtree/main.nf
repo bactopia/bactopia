@@ -11,17 +11,11 @@ process MASHTREE {
     (_meta, seqs) : Tuple<Map, Path>
 
     output:
-    tree     = tuple(meta, file("*.dnd"))
-    matrix   = tuple(meta, file("*.tsv"))
-    sketches = tuple(meta, file("sketches/*", optional: true))
-    logs     = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin = tuple(meta, file(".command.begin"))
-    nf_err   = tuple(meta, file(".command.err"))
-    nf_log   = tuple(meta, file(".command.log"))
-    nf_out   = tuple(meta, file(".command.out"))
-    nf_run   = tuple(meta, file(".command.run"))
-    nf_sh    = tuple(meta, file(".command.sh"))
-    nf_trace = tuple(meta, file(".command.trace"))
+    tree     = tuple(meta, file("${prefix}.dnd"))
+    matrix   = tuple(meta, file("${prefix}.tsv"))
+    sketches = tuple(meta, files("sketches/*", optional: true))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
 
     script:

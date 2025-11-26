@@ -4,49 +4,40 @@
 nextflow.preview.types = true
 
 include { PASTY as PASTY_MODULE } from '../../modules/pasty/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
+include { flattenPaths          } from 'plugin/nf-bactopia'
+include { gather                } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     PASTY_MODULE(fasta)
-
-    // Merge results
-    ch_merge_pasty = PASTY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'pasty'], tsv]}
-    CSVTK_CONCAT(ch_merge_pasty, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PASTY_MODULE.out.tsv, 'pasty'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = PASTY_MODULE.out.tsv
-    merged_tsv = channel.of(CSVTK_CONCAT.out.csv)
-    blast = PASTY_MODULE.out.blast
+    tsv: Channel<Tuple<Map, Path>> = PASTY_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    blast: Channel<Tuple<Map, Path>> = PASTY_MODULE.out.blast
 
     // Generic aggregate outputs
-    results = PASTY_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        PASTY_MODULE.out.tsv,
         PASTY_MODULE.out.blast,
         CSVTK_CONCAT.out.csv
-    )
-    logs = PASTY_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        PASTY_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = PASTY_MODULE.out.nf_begin.mix(
-        PASTY_MODULE.out.nf_err,
-        PASTY_MODULE.out.nf_log,
-        PASTY_MODULE.out.nf_out,
-        PASTY_MODULE.out.nf_run,
-        PASTY_MODULE.out.nf_sh,
-        PASTY_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace,
-    )
-    versions = PASTY_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        PASTY_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        PASTY_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

@@ -4,48 +4,39 @@
 nextflow.preview.types = true
 
 include { BLAST_TBLASTN as TBLASTN_MODULE } from '../../modules/blast/tblastn/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
+include { flattenPaths                    } from 'plugin/nf-bactopia'
+include { gather                          } from 'plugin/nf-bactopia'
 
 workflow TBLASTN {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
-    query
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    query: Channel<Tuple<Map, Path>>
 
     main:
     TBLASTN_MODULE(fasta, query)
-
-    // Merge results
-    ch_merge_tblastn = TBLASTN_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'tblastn'], tsv]}
-    CSVTK_CONCAT(ch_merge_tblastn, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(TBLASTN_MODULE.out.tsv, 'tblastn'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = TBLASTN_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = TBLASTN_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = TBLASTN_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBLASTN_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv
-    )
-    logs = TBLASTN_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBLASTN_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = TBLASTN_MODULE.out.nf_begin.mix(
-        TBLASTN_MODULE.out.nf_err,
-        TBLASTN_MODULE.out.nf_log,
-        TBLASTN_MODULE.out.nf_out,
-        TBLASTN_MODULE.out.nf_run,
-        TBLASTN_MODULE.out.nf_sh,
-        TBLASTN_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = TBLASTN_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBLASTN_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        TBLASTN_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

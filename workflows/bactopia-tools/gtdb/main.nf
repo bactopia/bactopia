@@ -25,8 +25,8 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { GTDB              } from '../../../subworkflows/gtdb/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

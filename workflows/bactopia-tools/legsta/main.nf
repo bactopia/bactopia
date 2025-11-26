@@ -16,8 +16,8 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { LEGSTA            } from '../../../subworkflows/legsta/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

@@ -8,8 +8,8 @@ process EGGNOG_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = file("eggnog/eggnog*")
-    logs = file("eggnog/logs/*")
+    db   = files("eggnog/eggnog*")
+    logs = files("eggnog/logs/*")
 
     script:
     def args = task.ext.args ?: ''

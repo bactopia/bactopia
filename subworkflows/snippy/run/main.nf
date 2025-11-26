@@ -3,7 +3,10 @@
 //
 nextflow.preview.types = true
 
-include { SNIPPY_RUN  } from '../../../modules/snippy/run/main'
+include { SNIPPY_RUN   } from '../../../modules/snippy/run/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
+
 workflow SNIPPY {
     take:
     reads     : Channel<Tuple<Map, List<Path>>>

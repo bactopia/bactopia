@@ -5,6 +5,9 @@ nextflow.preview.types = true
 
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE  } from '../../../modules/snippy/core/main'
 include { SNPDISTS                           } from '../../snpdists/main'
+include { flattenPaths                       } from 'plugin/nf-bactopia'
+include { gather                             } from 'plugin/nf-bactopia'
+
 workflow SNIPPY_CORE {
     take:
     alignments // channel: [ val(meta), [ reads ] ]

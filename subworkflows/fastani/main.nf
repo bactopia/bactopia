@@ -4,50 +4,39 @@
 nextflow.preview.types = true
 
 include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
+include { flattenPaths              } from 'plugin/nf-bactopia'
+include { gather                    } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
     take:
-    query // channel: [ val(meta), [ fasta ] ]
-    reference // channel: [ val(meta), [ fasta ] ]
+    query: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    reference: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
-    ch_fastani_query = query.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'query'], fasta]}
-    ch_fastani_reference = reference.collect{_meta, fasta -> fasta}.map{ fasta -> [[id:'reference'], fasta]}
-    FASTANI_MODULE(ch_fastani_query, ch_fastani_reference)
-
-    // Merge results
-    ch_merge_fastani = FASTANI_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'fastani'], tsv]}
-    CSVTK_CONCAT(ch_merge_fastani, 'tsv', 'tsv')
+    FASTANI_MODULE(gather(query, 'query', 'fasta'), gather(reference, 'reference', 'fasta'))
+    CSVTK_CONCAT(gather(FASTANI_MODULE.out.tsv, 'fastani'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = FASTANI_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Path>> = FASTANI_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results = FASTANI_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        FASTANI_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv
-    )
-    logs = FASTANI_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        FASTANI_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = FASTANI_MODULE.out.nf_begin.mix(
-        FASTANI_MODULE.out.nf_err,
-        FASTANI_MODULE.out.nf_log,
-        FASTANI_MODULE.out.nf_out,
-        FASTANI_MODULE.out.nf_run,
-        FASTANI_MODULE.out.nf_sh,
-        FASTANI_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = FASTANI_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        FASTANI_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        FASTANI_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

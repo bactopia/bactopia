@@ -3,52 +3,43 @@
 //
 nextflow.preview.types = true
 
-include { MASH_DIST } from '../../modules/mash/dist/main'
-include { MERLIN_DIST } from '../../modules/mash/dist/main'
+include { MASH_DIST    } from '../../modules/mash/dist/main'
+include { MERLIN_DIST  } from '../../modules/mash/dist/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
     take:
-    seqs      // channel: [ val(meta), [ query ] ]
-    reference // channel: reference sketch file
+    seqs: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ query ] ]
+    reference: Channel<Tuple<Map, Path>> // channel: reference sketch file
 
     main:
     MASH_DIST(seqs, reference)
-
-    // Merge results
-    ch_merge_mashdist = MASH_DIST.out.dist.collect{_meta, dist -> dist}.map{ dist -> [[id:'mashdist'], dist]}
-    CSVTK_CONCAT(ch_merge_mashdist, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MASH_DIST.out.dist, 'mashdist', 'dist'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    dist = MASH_DIST.out.dist
-    merged_dist = CSVTK_CONCAT.out.csv
+    dist: Channel<Tuple<Map, Path>> = MASH_DIST.out.dist
+    merged_dist: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
-    results  = MASH_DIST.out.dist.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        MASH_DIST.out.dist,
         CSVTK_CONCAT.out.csv
-    )
-    logs = MASH_DIST.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        MASH_DIST.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs  = MASH_DIST.out.nf_begin.mix(
-        MASH_DIST.out.nf_err,
-        MASH_DIST.out.nf_log,
-        MASH_DIST.out.nf_out,
-        MASH_DIST.out.nf_run,
-        MASH_DIST.out.nf_sh,
-        MASH_DIST.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = MASH_DIST.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        MASH_DIST.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        MASH_DIST.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }
 
 workflow MERLINDIST {
@@ -60,35 +51,27 @@ workflow MERLINDIST {
     MERLIN_DIST(ch_seqs, ch_mash_db)
 
     emit:
-    // Individual outputs
-    dist = MERLIN_DIST.out.dist
-    escherichia = MERLIN_DIST.out.escherichia
-    escherichia_fq = MERLIN_DIST.out.escherichia_fq
-    escherichia_fna_fq = MERLIN_DIST.out.escherichia_fna_fq
-    haemophilus = MERLIN_DIST.out.haemophilus
-    klebsiella = MERLIN_DIST.out.klebsiella
-    legionella = MERLIN_DIST.out.legionella
-    listeria = MERLIN_DIST.out.listeria
-    mycobacterium = MERLIN_DIST.out.mycobacterium
-    mycobacterium_fq = MERLIN_DIST.out.mycobacterium_fq
-    neisseria = MERLIN_DIST.out.neisseria
-    pseudomonas = MERLIN_DIST.out.pseudomonas
-    salmonella = MERLIN_DIST.out.salmonella
-    salmonella_fq = MERLIN_DIST.out.salmonella_fq
-    staphylococcus = MERLIN_DIST.out.staphylococcus
-    streptococcus = MERLIN_DIST.out.streptococcus
-    streptococcus_fq = MERLIN_DIST.out.streptococcus_fq
+    dist: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.dist
+    escherichia: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.escherichia
+    escherichia_fq: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.escherichia_fq
+    escherichia_fna_fq: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.escherichia_fna_fq
+    haemophilus: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.haemophilus
+    klebsiella: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.klebsiella
+    legionella: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.legionella
+    listeria: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.listeria
+    mycobacterium: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.mycobacterium
+    mycobacterium_fq: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.mycobacterium_fq
+    neisseria: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.neisseria
+    pseudomonas: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.pseudomonas
+    salmonella: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.salmonella
+    salmonella_fq: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.salmonella_fq
+    staphylococcus: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.staphylococcus
+    streptococcus: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.streptococcus
+    streptococcus_fq: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.streptococcus_fq
 
     // Generic aggregate outputs
-    results = MERLIN_DIST.out.dist
-    logs = MERLIN_DIST.out.logs
-    nf_logs = MERLIN_DIST.out.nf_begin.mix(
-        MERLIN_DIST.out.nf_err,
-        MERLIN_DIST.out.nf_log,
-        MERLIN_DIST.out.nf_out,
-        MERLIN_DIST.out.nf_run,
-        MERLIN_DIST.out.nf_sh,
-        MERLIN_DIST.out.nf_trace
-    )
-    versions = MERLIN_DIST.out.versions
+    results: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.dist
+    logs: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.logs
+    nf_logs: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.nf_logs
+    versions: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.versions
 }

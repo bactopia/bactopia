@@ -4,53 +4,44 @@
 nextflow.preview.types = true
 
 include { SISTR as SISTR_MODULE } from '../../modules/sistr/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
+include { flattenPaths          } from 'plugin/nf-bactopia'
+include { gather                } from 'plugin/nf-bactopia'
 
 workflow SISTR {
     take:
-    fasta // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     SISTR_MODULE(fasta)
-
-    // Merge results
-    ch_merge_sistr = SISTR_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'sistr'], tsv]}
-    CSVTK_CONCAT(ch_merge_sistr, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SISTR_MODULE.out.tsv, 'sistr'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv = SISTR_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
-    allele_fasta = SISTR_MODULE.out.allele_fasta
-    allele_json = SISTR_MODULE.out.allele_json
-    cgmlst_csv = SISTR_MODULE.out.cgmlst_csv
+    tsv: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    allele_fasta: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.allele_fasta
+    allele_json: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.allele_json
+    cgmlst_csv: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.cgmlst_csv
 
     // Generic aggregate outputs
-    results = SISTR_MODULE.out.tsv.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        SISTR_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv,
         SISTR_MODULE.out.allele_fasta,
         SISTR_MODULE.out.allele_json,
         SISTR_MODULE.out.cgmlst_csv
-    )
-    logs = SISTR_MODULE.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        SISTR_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = SISTR_MODULE.out.nf_begin.mix(
-        SISTR_MODULE.out.nf_err,
-        SISTR_MODULE.out.nf_log,
-        SISTR_MODULE.out.nf_out,
-        SISTR_MODULE.out.nf_run,
-        SISTR_MODULE.out.nf_sh,
-        SISTR_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = SISTR_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        SISTR_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        SISTR_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

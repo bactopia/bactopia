@@ -3,12 +3,14 @@
 //
 nextflow.preview.types = true
 
-include { WGET    } from '../../modules/wget/main'
-include { KRAKEN2 } from '../../modules/kraken2/main'
+include { WGET         } from '../../modules/wget/main'
+include { KRAKEN2      } from '../../modules/kraken2/main'
+include { flattenPaths } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
 
 workflow K2SCRUBBER {
     take:
-    reads // channel: [ val(meta), [ fasta ] ]
+    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
 
     main:
     WGET([
@@ -20,27 +22,21 @@ workflow K2SCRUBBER {
 
     emit:
     // Individual outputs
-    human = KRAKEN2.out.classified
-    kraken2_report = KRAKEN2.out.kraken2_report
-    scrub_report = KRAKEN2.out.scrub_report
-    scrub_special_report = KRAKEN2.out.scrub_special_report
-    scrubbed = KRAKEN2.out.unclassified
-    scrubbed_extra = KRAKEN2.out.unclassified_extra
+    human: Channel<Tuple<Map, Path>> = KRAKEN2.out.classified
+    kraken2_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.kraken2_report
+    scrub_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.scrub_report
+    scrub_special_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.scrub_special_report
+    scrubbed: Channel<Tuple<Map, Path>> = KRAKEN2.out.unclassified
+    scrubbed_extra: Channel<Tuple<Map, Path>> = KRAKEN2.out.unclassified_extra
 
     // Generic aggregate outputs
-    results = KRAKEN2.out.classified.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        KRAKEN2.out.classified,
         KRAKEN2.out.kraken2_report,
         KRAKEN2.out.scrub_report,
-        KRAKEN2.out.unclassified,
-    )
-    logs = KRAKEN2.out.logs
-    nf_logs = KRAKEN2.out.nf_begin.mix(
-        KRAKEN2.out.nf_err,
-        KRAKEN2.out.nf_log,
-        KRAKEN2.out.nf_out,
-        KRAKEN2.out.nf_run,
-        KRAKEN2.out.nf_sh,
-        KRAKEN2.out.nf_trace
-    )
-    versions = KRAKEN2.out.versions
+        KRAKEN2.out.unclassified
+    ])
+    logs: Channel<Tuple<Map, Path>> = KRAKEN2.out.logs
+    nf_logs: Channel<Tuple<Map, Path>> = KRAKEN2.out.nf_logs
+    versions: Channel<Tuple<Map, Path>> = KRAKEN2.out.versions
 }

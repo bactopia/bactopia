@@ -12,18 +12,12 @@ process GAMMA {
     db             : Path
 
     output:
-    gamma    = tuple(meta, file("*.gamma"))
-    psl      = tuple(meta, file("*.psl"))
-    gff      = tuple(meta, file("*.gff", optional: true))
-    fasta    = tuple(meta, file("*.fasta", optional: true))
-    logs     = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin = tuple(meta, file(".command.begin"))
-    nf_err   = tuple(meta, file(".command.err"))
-    nf_log   = tuple(meta, file(".command.log"))
-    nf_out   = tuple(meta, file(".command.out"))
-    nf_run   = tuple(meta, file(".command.run"))
-    nf_sh    = tuple(meta, file(".command.sh"))
-    nf_trace = tuple(meta, file(".command.trace"))
+    gamma    = tuple(meta, files("*.gamma"))
+    psl      = tuple(meta, files("*.psl"))
+    gff      = tuple(meta, files("*.gff", optional: true))
+    fasta    = tuple(meta, files("*.fasta", optional: true))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
 
     script:

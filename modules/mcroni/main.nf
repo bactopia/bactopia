@@ -11,16 +11,10 @@ process MCRONI {
     (_meta, fasta) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, file("*.tsv"))
-    fa       = tuple(meta, file("*.fa", optional: true))
-    logs     = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin = tuple(meta, file(".command.begin"))
-    nf_err   = tuple(meta, file(".command.err"))
-    nf_log   = tuple(meta, file(".command.log"))
-    nf_out   = tuple(meta, file(".command.out"))
-    nf_run   = tuple(meta, file(".command.run"))
-    nf_sh    = tuple(meta, file(".command.sh"))
-    nf_trace = tuple(meta, file(".command.trace"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
+    fa       = tuple(meta, files("*.fa", optional: true))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
 
     script:
@@ -54,6 +48,7 @@ process MCRONI {
     fi
 
     # Cleanup
+    mv ${prefix}_table.tsv ${prefix}.tsv
     rm -rf ${fasta_name} ${fasta_name}.ndb ${fasta_name}.not ${fasta_name}.ntf ${fasta_name}.nto
 
     cat <<-END_VERSIONS > versions.yml

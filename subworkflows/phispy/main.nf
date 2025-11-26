@@ -4,41 +4,31 @@
 nextflow.preview.types = true
 
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
+include { flattenPaths            } from 'plugin/nf-bactopia'
+include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PHISPY {
     take:
-    gbk // channel: [ val(meta), [ gbk ] ]
+    gbk: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ gbk ] ]
 
     main:
     PHISPY_MODULE(gbk)
-
-    // Merge results
-    ch_merge_phispy = PHISPY_MODULE.out.tsv.collect{_meta, tsv -> tsv}.map{ tsv -> [[id:'phispy'], tsv]}
-    CSVTK_CONCAT(ch_merge_phispy, 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PHISPY_MODULE.out.tsv, 'phispy'), 'tsv', 'tsv')
 
     emit:
-    tsv = PHISPY_MODULE.out.tsv
-    merged_tsv = CSVTK_CONCAT.out.csv
-    logs = PHISPY_MODULE.out.logs.mix(
+    tsv: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        PHISPY_MODULE.out.logs,
         CSVTK_CONCAT.out.logs
-    )
-    nf_logs = PHISPY_MODULE.out.nf_begin.mix(
-        PHISPY_MODULE.out.nf_err,
-        PHISPY_MODULE.out.nf_log,
-        PHISPY_MODULE.out.nf_out,
-        PHISPY_MODULE.out.nf_run,
-        PHISPY_MODULE.out.nf_sh,
-        PHISPY_MODULE.out.nf_trace,
-        CSVTK_CONCAT.out.nf_begin,
-        CSVTK_CONCAT.out.nf_err,
-        CSVTK_CONCAT.out.nf_log,
-        CSVTK_CONCAT.out.nf_out,
-        CSVTK_CONCAT.out.nf_run,
-        CSVTK_CONCAT.out.nf_sh,
-        CSVTK_CONCAT.out.nf_trace
-    )
-    versions = PHISPY_MODULE.out.versions.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        PHISPY_MODULE.out.nf_logs,
+        CSVTK_CONCAT.out.nf_logs
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        PHISPY_MODULE.out.versions,
         CSVTK_CONCAT.out.versions
-    )
+    ])
 }

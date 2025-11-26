@@ -27,9 +27,9 @@ params {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { formatSamples     } from '../../../subworkflows/utils/generic/main'
 include { DATASETS          } from '../../../modules/bactopia/datasets/main'
 include { MERLIN            } from '../../../subworkflows/merlin/main'
+include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================

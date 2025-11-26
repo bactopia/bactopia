@@ -8,9 +8,9 @@ process BAKTA_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db         = file("bakta-${task.ext.bakta_db_type}/*", optional: true)
+    db         = files("bakta-${task.ext.bakta_db_type}/*", optional: true)
     db_tarball = file("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true)
-    logs       = file("logs/*", optional: true)
+    logs       = files("logs/*", optional: true)
 
     script:
     """

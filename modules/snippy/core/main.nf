@@ -13,7 +13,7 @@ process SNIPPY_CORE {
     mask                     : List<Path>
 
     output:
-    supplemental   = tuple(meta, file("snippy-core/*"))
+    supplemental   = tuple(meta, files("snippy-core/*"))
     aln            = tuple(meta, file("snippy-core/${prefix}.aln.gz"))
     full_aln       = tuple(meta, file("${prefix}.full.aln.gz"))
     clean_full_aln = tuple(meta, file("${prefix}-clean.full.aln.gz"))
@@ -21,14 +21,8 @@ process SNIPPY_CORE {
     vcf            = tuple(meta, file("snippy-core/${prefix}.vcf.gz"))
     txt            = tuple(meta, file("snippy-core/${prefix}.txt"))
     samples        = tuple(meta, file("${reference_name}.samples.txt"))
-    logs           = tuple(meta, file("*.{log,err}", optional: true))
-    nf_begin       = tuple(meta, file(".command.begin"))
-    nf_err         = tuple(meta, file(".command.err"))
-    nf_log         = tuple(meta, file(".command.log"))
-    nf_out         = tuple(meta, file(".command.out"))
-    nf_run         = tuple(meta, file(".command.run"))
-    nf_sh          = tuple(meta, file(".command.sh"))
-    nf_trace       = tuple(meta, file(".command.trace"))
+    logs           = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, file("versions.yml"))
 
     script:
