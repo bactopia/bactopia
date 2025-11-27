@@ -9,7 +9,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PIRATE {
     take:
-    gff: Channel<Tuple<Map, Path>>
+    gff: Channel<Tuple<Map, Set<Path>>>
 
     main:
     PIRATE_MODULE(gff)

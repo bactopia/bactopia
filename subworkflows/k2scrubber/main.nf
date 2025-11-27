@@ -10,7 +10,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow K2SCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    reads: Channel<Tuple<Map, Set<Path>>>
 
     main:
     WGET([

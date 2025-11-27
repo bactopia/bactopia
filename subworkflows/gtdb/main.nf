@@ -11,8 +11,8 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
-    database: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    database: Set<Path>
     download_gtdb: Boolean
     save_as_tarball: Boolean
 

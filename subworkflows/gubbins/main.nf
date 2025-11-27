@@ -10,7 +10,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow GUBBINS {
     take:
-    alignment: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ aln ] ]
+    alignment: Channel<Tuple<Map, Set<Path>>>
 
     main:
     GUBBINS_MODULE(alignment)

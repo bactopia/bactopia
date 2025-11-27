@@ -10,13 +10,13 @@ include { gather         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
     take:
-    fasta: Channel<Tuple<Map, Path>>
-    database: Channel<Tuple<Map, Path>>
-    download_bakta: Channel<Tuple<Map, Path>>
-    save_as_tarball: Channel<Tuple<Map, Path>>
-    proteins: Channel<Tuple<Map, Path>>
-    prodigal_tf: Channel<Tuple<Map, Path>>
-    replicons: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    database: Path?
+    download_bakta: Boolean
+    save_as_tarball: Boolean
+    proteins: Path?
+    prodigal_tf: Path?
+    replicons: Path?
 
     main:
     if (download_bakta) {

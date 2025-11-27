@@ -10,9 +10,9 @@ include { gather                             } from 'plugin/nf-bactopia'
 
 workflow SNIPPY_CORE {
     take:
-    alignments // channel: [ val(meta), [ reads ] ]
-    reference  // channel: [ val(meta), [ fasta ] ]
-    mask
+    alignments: Channel<Map, Set<Path>, Set<Path>>
+    reference: Path
+    mask: Path?
 
     main:
     SNIPPY_CORE_MODULE(alignments, reference, mask)

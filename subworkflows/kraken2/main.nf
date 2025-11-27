@@ -9,8 +9,8 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow KRAKEN2 {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    database: Channel<Tuple<Map, Path>>
+    reads: Channel<Tuple<Map, Set<Path>>>
+    database: Path
 
     main:
     KRAKEN2_MODULE(reads, database)

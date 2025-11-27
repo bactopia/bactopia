@@ -11,7 +11,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow GENOTYPHI {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>>>
 
     main:
     MYKROBE_PREDICT(reads, "typhi")

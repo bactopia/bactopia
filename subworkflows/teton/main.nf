@@ -16,7 +16,7 @@ include { gather                                   } from 'plugin/nf-bactopia'
 
 workflow TETON {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>>>
     db: Path?
     use_srascrubber: Boolean
 

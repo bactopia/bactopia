@@ -11,7 +11,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow RGI {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     RGI_MAIN(fasta)

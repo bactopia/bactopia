@@ -10,7 +10,7 @@ process GTDBTK_CLASSIFYWF {
 
     input:
     (_meta, fna) : Tuple<Map, Set<Path>>
-    db           : Path
+    db           : Set<Path>
 
     stage:
     stageAs 'fna-tmp/*', fna

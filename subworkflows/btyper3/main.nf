@@ -10,7 +10,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     BTYPER3_MODULE(fasta)

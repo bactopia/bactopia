@@ -10,8 +10,8 @@ include { gather            } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:
-    fasta: Channel<Tuple<Map, Path>>
-    db: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
+    db: Path
 
     main:
     AMRFINDERPLUS_RUN(fasta, db)

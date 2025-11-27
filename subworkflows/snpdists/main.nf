@@ -9,7 +9,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SNPDISTS {
     take:
-    alignment: Channel<Tuple<Map, Path>>
+    alignment: Channel<Tuple<Map, Set<Path>>>
 
     main:
     SNPDISTS_MODULE(alignment)

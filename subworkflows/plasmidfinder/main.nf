@@ -10,7 +10,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow PLASMIDFINDER {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     PLASMIDFINDER_MODULE(fasta)

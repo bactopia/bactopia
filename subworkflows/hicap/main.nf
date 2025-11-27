@@ -10,9 +10,9 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow HICAP {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    database_dir: Channel<Tuple<Map, Path>>
-    model_fp: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    database_dir: Path?
+    model_fp: Path?
 
     main:
     HICAP_MODULE(fasta, database_dir, model_fp)

@@ -10,7 +10,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow ABRITAMR {
     take:
-    fasta: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     ABRITAMR_RUN(fasta)

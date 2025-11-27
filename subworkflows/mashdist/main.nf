@@ -11,8 +11,8 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
     take:
-    seqs: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ query ] ]
-    reference: Channel<Tuple<Map, Path>> // channel: reference sketch file
+    seqs: Channel<Tuple<Map, Set<Path>>>
+    reference: Path
 
     main:
     MASH_DIST(seqs, reference)

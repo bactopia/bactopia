@@ -10,7 +10,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow AGRVATE {
     take:
-    fasta: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     AGRVATE_MODULE(fasta)

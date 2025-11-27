@@ -10,7 +10,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     CHECKM_LINEAGEWF(fasta)

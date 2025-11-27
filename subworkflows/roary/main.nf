@@ -9,7 +9,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow ROARY {
     take:
-    gff : Channel<Tuple<Map, List<Path>>>
+    gff : Channel<Tuple<Map, Set<Path>>>
 
     main:
     ROARY_MODULE(gff)

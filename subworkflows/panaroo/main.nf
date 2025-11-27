@@ -9,7 +9,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow PANAROO {
     take:
-    gff: Channel<Tuple<Map, List<Path>>>
+    gff: Channel<Tuple<Map, Set<Path>>>
 
     main:
     PANAROO_RUN(gff)

@@ -10,7 +10,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SRAHUMANSCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>>>
 
     main:
     SRAHUMANSCRUBBER_INITDB()

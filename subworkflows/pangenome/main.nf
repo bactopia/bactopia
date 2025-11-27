@@ -12,7 +12,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow PANGENOME {
     take:
-    gff        : Channel<Tuple<Map, List<Path>>>
+    gff        : Channel<Tuple<Map, Set<Path>>>
     use_pirate : Boolean
     use_roary  : Boolean
 

@@ -10,8 +10,8 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
     take:
-    query: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    reference: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    query: Channel<Tuple<Map, Set<Path>>>
+    reference: Path
 
     main:
     FASTANI_MODULE(gather(query, 'query', 'fasta'), gather(reference, 'reference', 'fasta'))

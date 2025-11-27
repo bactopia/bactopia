@@ -10,7 +10,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     SCCMEC_MODULE(fasta)

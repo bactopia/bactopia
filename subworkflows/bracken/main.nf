@@ -11,8 +11,8 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow BRACKEN {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    database: Channel<Tuple<Map, Path>>
+    reads: Channel<Tuple<Map, Set<Path>>>
+    database: Path
 
     main:
     BRACKEN_MODULE(reads, database)

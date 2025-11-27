@@ -1,6 +1,7 @@
 //
 // merlin - MinmER assisted species-specific bactopia tool seLectIoN
 //
+nextflow.preview.types = true
 
 include { MERLINDIST    } from '../mashdist/main';
 include { CLERMONTYPING } from '../clermontyping/main';
@@ -31,22 +32,22 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow MERLIN {
     take:
-    assembly // channel: [ val(meta), [ assembly ] ]
-    mash_db // channel: [ mash_db ]
-    emmtyper_blastdb
-    hicap_database_dir
-    hicap_model_fp
-    staphtyper_repeats
-    staphtyper_repeat_order
+    assembly: Channel<Tuple<Map, Set<Path>, Set<Path>>>
+    mash_db: Path
+    emmtyper_blastdb: Path?
+    hicap_database_dir: Path?
+    hicap_model_fp: Path?
+    staphtyper_repeats: Path?
+    staphtyper_repeat_order: Path?
 
     main:
     // ID potential species
     MERLINDIST(assembly, mash_db)
 
     // Escherichia/Shigella
-    ch_escherichia = MERLINDIST.out.escherichia.map{_meta, _assembly, _found -> [_meta, _assembly]}
-    ch_escherichia_fq = MERLINDIST.out.escherichia_fq.map{_meta, _reads, _found -> [_meta, _reads]}
-    ch_escherichia_fna_fq = MERLINDIST.out.escherichia_fna_fq.map{_meta, _assembly, _reads, _found -> [_meta, _assembly, _reads]}
+    ch_escherichia = MERLINDIST.out.escherichia.map{meta, fasta, _found -> [meta, fasta]}
+    ch_escherichia_fq = MERLINDIST.out.escherichia_fq.map{meta, reads, _found -> [meta, reads]}
+    ch_escherichia_fna_fq = MERLINDIST.out.escherichia_fna_fq.map{meta, fasta, reads, _found -> [meta, fasta, reads]}
     CLERMONTYPING(ch_escherichia)
     ECTYPER(ch_escherichia)
     SHIGAPASS(ch_escherichia)
@@ -104,7 +105,8 @@ workflow MERLIN {
     SSUISSERO(ch_streptococcus)
 
     emit:
-    results = MERLINDIST.out.results.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        MERLINDIST.out.results,
         CLERMONTYPING.out.results,
         ECTYPER.out.results,
         EMMTYPER.out.results,
@@ -128,8 +130,9 @@ workflow MERLIN {
         SSUISSERO.out.results,
         STAPHTYPER.out.results,
         TBPROFILER.out.results
-    )
-    logs = MERLINDIST.out.logs.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        MERLINDIST.out.logs,
         CLERMONTYPING.out.logs,
         ECTYPER.out.logs,
         EMMTYPER.out.logs,
@@ -153,8 +156,9 @@ workflow MERLIN {
         SSUISSERO.out.logs,
         STAPHTYPER.out.logs,
         TBPROFILER.out.logs
-    )
-    nf_logs = MERLINDIST.out.nf_logs.mix(
+    ])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        MERLINDIST.out.nf_logs,
         CLERMONTYPING.out.nf_logs,
         ECTYPER.out.nf_logs,
         EMMTYPER.out.nf_logs,
@@ -165,7 +169,6 @@ workflow MERLIN {
         LEGSTA.out.nf_logs,
         LISSERO.out.nf_logs,
         MENINGOTYPE.out.nf_logs,
-        MERLINDIST.out.nf_logs,
         NGMASTER.out.nf_logs,
         PASTY.out.nf_logs,
         PBPTYPER.out.nf_logs,
@@ -179,8 +182,9 @@ workflow MERLIN {
         SSUISSERO.out.nf_logs,
         STAPHTYPER.out.nf_logs,
         TBPROFILER.out.nf_logs
-    )
-    versions = MERLINDIST.out.versions.mix(
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        MERLINDIST.out.versions,
         CLERMONTYPING.out.versions,
         ECTYPER.out.versions,
         EMMTYPER.out.versions,
@@ -204,5 +208,5 @@ workflow MERLIN {
         SSUISSERO.out.versions,
         STAPHTYPER.out.versions,
         TBPROFILER.out.versions
-    )
+    ])
 }

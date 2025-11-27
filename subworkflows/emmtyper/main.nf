@@ -10,8 +10,8 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow EMMTYPER {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    blastdb: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    blastdb: Path?
 
     main:
     EMMTYPER_MODULE(fasta, blastdb)

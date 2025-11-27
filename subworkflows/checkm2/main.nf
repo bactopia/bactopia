@@ -11,9 +11,9 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    database: Channel<Tuple<Map, Path>> // channel: [ database ]
-    download_checkm2: Channel<Tuple<Map, Path>> // boolean
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    database: Path
+    download_checkm2: Boolean
 
     main:
     if (download_checkm2) {

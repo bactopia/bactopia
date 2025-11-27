@@ -10,7 +10,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SEQSERO2 {
     take:
-    seqs: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fastqs or assemblies ] ]
+    seqs: Channel<Tuple<Map, Set<Path>>>
 
     main:
     SEQSERO2_MODULE(seqs)

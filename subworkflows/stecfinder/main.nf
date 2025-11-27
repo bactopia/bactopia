@@ -10,7 +10,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow STECFINDER {
     take:
-    seqs: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ seqs ] ]
+    seqs: Channel<Tuple<Map, Set<Path>, Set<Path>>>
 
     main:
     STECFINDER_MODULE(seqs)

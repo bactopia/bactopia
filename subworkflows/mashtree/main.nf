@@ -9,7 +9,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ [meta], [assemblies] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     MASHTREE_MODULE(gather(fasta, 'mashtree', 'fna'))

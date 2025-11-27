@@ -11,9 +11,9 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow STAPHTYPER {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
-    repeats: Channel<Tuple<Map, Path>>
-    repeat_order: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    repeats: Path?
+    repeat_order: Path?
 
     main:
     // agrvate - agr locus type and agr operon variants

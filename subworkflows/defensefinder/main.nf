@@ -13,7 +13,7 @@ include { gather                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     DEFENSEFINDER_UPDATE()

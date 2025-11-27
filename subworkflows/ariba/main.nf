@@ -12,8 +12,8 @@ include { gather                               } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:
-    reads: Channel<Tuple<Map, Path>>
-    db: Channel<Tuple<Map, Path>>
+    reads: Channel<Tuple<Map, Set<Path>>>
+    db: String
 
     main:
     ARIBA_GETREF(db)

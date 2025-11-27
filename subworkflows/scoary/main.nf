@@ -9,8 +9,8 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCOARY {
     take:
-    csv: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ csv ] ]
-    traits: Channel<Tuple<Map, Path>>
+    csv: Channel<Tuple<Map, Set<Path>>>
+    traits: Path?
 
     main:    
     SCOARY_MODULE(csv, traits)

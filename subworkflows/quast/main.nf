@@ -10,7 +10,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow QUAST {
     take:
-    fasta: Channel<Tuple<Map, Path, Path>> // channel: [ val(meta), [ fasta ], [ meta_files ] ]
+    fasta: Channel<Tuple<Map, Set<Path>, Set<Path>>>
 
     main:
     QUAST_MODULE(fasta)

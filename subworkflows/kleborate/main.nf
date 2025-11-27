@@ -10,7 +10,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow KLEBORATE {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     KLEBORATE_MODULE(fasta)

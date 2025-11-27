@@ -8,8 +8,8 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
-    busco_lineage: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    busco_lineage: String
 
     main:
     BUSCO_MODULE(fasta)

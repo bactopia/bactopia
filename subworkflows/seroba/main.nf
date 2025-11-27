@@ -10,7 +10,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
 
     main:
     SEROBA_RUN(fasta)

@@ -10,7 +10,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PHISPY {
     take:
-    gbk: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ gbk ] ]
+    gbk: Channel<Tuple<Map, Set<Path>>>
 
     main:
     PHISPY_MODULE(gbk)

@@ -10,7 +10,7 @@ include { gather             } from 'plugin/nf-bactopia'
 
 workflow TBPROFILER {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>>>
 
     main:
     TBPROFILER_PROFILE(reads)

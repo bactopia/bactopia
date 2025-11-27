@@ -9,8 +9,8 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow SYLPH {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
-    database: Channel<Tuple<Map, Path>>
+    reads: Channel<Tuple<Map, Set<Path>>>
+    database: Path
 
     main:
     SYLPH_PROFILE(reads, database)

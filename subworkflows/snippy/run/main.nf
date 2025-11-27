@@ -9,8 +9,8 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow SNIPPY {
     take:
-    reads     : Channel<Tuple<Map, List<Path>>>
-    reference : Tuple<Map, Path>
+    reads : Channel<Tuple<Map, Set<Path>>>
+    reference : Path
 
     main:
     SNIPPY_RUN(reads, reference)

@@ -10,8 +10,8 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow TBLASTN {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    query: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    query: Path
 
     main:
     TBLASTN_MODULE(fasta, query)

@@ -10,8 +10,8 @@ include { gather              } from 'plugin/nf-bactopia'
 
 workflow MLST {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
-    db: Channel<Tuple<Map, Path>> // channel: [ mlst_db ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    db: Path
 
     main:
     MLST_MODULE(fasta, db)

@@ -10,8 +10,8 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTX {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    query: Channel<Tuple<Map, Path>> // channel: [ fasta ]
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    query: Path
 
     main:
     BLASTX_MODULE(fasta, query)

@@ -13,20 +13,20 @@ params {
     adapters              : Path?
     phix                  : Path?
     use_bakta             : Boolean
-    bakta_db              : Path
+    bakta_db              : Path?
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Path
-    bakta_prodigal_tf     : Path
-    bakta_replicons       : Path
-    prokka_proteins       : Path
-    prokka_prodigal_tf    : Path
-    emmtyper_blastdb      : Path
-    hicap_database_dir    : Path
-    hicap_model_fp        : Path
+    bakta_proteins        : Path?
+    bakta_prodigal_tf     : Path?
+    bakta_replicons       : Path?
+    prokka_proteins       : Path?
+    prokka_prodigal_tf    : Path?
+    emmtyper_blastdb      : Path?
+    hicap_database_dir    : Path?
+    hicap_model_fp        : Path?
     ask_merlin            : Boolean
-    spatyper_repeats      : Path
-    spatyper_repeat_order : Path
+    spatyper_repeats      : Path?
+    spatyper_repeat_order : Path?
 }
 
 /*
@@ -79,8 +79,8 @@ workflow {
     // QC samples
     QC(
         GATHER.out.raw_fastq,
-        file(params.adapters),
-        file(params.phix)
+        params.adapters,
+        params.phix
     )
     ch_results = ch_results.mix(QC.out.results)
     ch_logs = ch_logs.mix(QC.out.logs)
@@ -106,12 +106,12 @@ workflow {
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,
-            params.bakta_db ? [params.bakta_db] : [],
+            params.bakta_db,
             params.download_bakta,
             params.bakta_save_as_tarball,
-            params.bakta_proteins ? [params.bakta_proteins] : [],
-            params.bakta_prodigal_tf ? [params.bakta_prodigal_tf] : [],
-            params.bakta_replicons ? [params.bakta_replicons] : []
+            params.bakta_proteins,
+            params.bakta_prodigal_tf,
+            params.bakta_replicons
         )
         ch_results = ch_results.mix(BAKTA.out.results)
         ch_logs = ch_logs.mix(BAKTA.out.logs)

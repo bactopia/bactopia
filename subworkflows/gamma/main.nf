@@ -10,8 +10,8 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    db: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    db: Path
 
     main:
     GAMMA_MODULE(fasta, db)

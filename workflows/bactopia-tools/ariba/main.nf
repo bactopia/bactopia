@@ -8,6 +8,9 @@ nextflow.preview.types = true
 */
 params {
     rundir   : String
+
+    // Tool-specific parameters
+    ariba_db : String
 }
 
 /*

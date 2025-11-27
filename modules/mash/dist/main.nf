@@ -59,7 +59,7 @@ process MERLIN_DIST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, query, reads) : Tuple<Map, Path, Path>
+    (_meta, query, reads) : Tuple<Map, Set<Path>, Path>
     reference             : Path
 
     stage:
@@ -68,22 +68,22 @@ process MERLIN_DIST {
 
     output:
     dist               = tuple(meta, files("*.txt"))
-    escherichia        = tuple(meta, query, file("escherichia.*", optional: true))
-    escherichia_fq     = tuple(meta, reads, file("escherichia.*", optional: true))
-    escherichia_fna_fq = tuple(meta, query, reads, file("escherichia.*", optional: true))
-    haemophilus        = tuple(meta, query, file("haemophilus.*", optional: true))
-    klebsiella         = tuple(meta, query, file("klebsiella.*", optional: true))
-    legionella         = tuple(meta, query, file("legionella.*", optional: true))
-    listeria           = tuple(meta, query, file("listeria.*", optional: true))
-    mycobacterium      = tuple(meta, query, file("mycobacterium.*", optional: true))
-    mycobacterium_fq   = tuple(meta, reads, file("mycobacterium.*", optional: true))
-    neisseria          = tuple(meta, query, file("neisseria.*", optional: true))
-    pseudomonas        = tuple(meta, query, file("pseudomonas.*", optional: true))
-    salmonella         = tuple(meta, query, file("salmonella.*", optional: true))
-    salmonella_fq      = tuple(meta, reads, file("salmonella.*", optional: true))
-    staphylococcus     = tuple(meta, query, file("staphylococcus.*", optional: true))
-    streptococcus      = tuple(meta, query, file("streptococcus.*", optional: true))
-    streptococcus_fq   = tuple(meta, reads, file("streptococcus.*", optional: true))
+    escherichia        = tuple(meta, query, file("escherichia.genus", optional: true))
+    escherichia_fq     = tuple(meta, reads, file("escherichia.genus", optional: true))
+    escherichia_fna_fq = tuple(meta, query, reads, file("escherichia.genus", optional: true))
+    haemophilus        = tuple(meta, query, file("haemophilus.genus", optional: true))
+    klebsiella         = tuple(meta, query, file("klebsiella.genus", optional: true))
+    legionella         = tuple(meta, query, file("legionella.genus", optional: true))
+    listeria           = tuple(meta, query, file("listeria.genus", optional: true))
+    mycobacterium      = tuple(meta, query, file("mycobacterium.genus", optional: true))
+    mycobacterium_fq   = tuple(meta, reads, file("mycobacterium.genus", optional: true))
+    neisseria          = tuple(meta, query, file("neisseria.genus", optional: true))
+    pseudomonas        = tuple(meta, query, file("pseudomonas.genus", optional: true))
+    salmonella         = tuple(meta, query, file("salmonella.genus", optional: true))
+    salmonella_fq      = tuple(meta, reads, file("salmonella.genus", optional: true))
+    staphylococcus     = tuple(meta, query, file("staphylococcus.genus", optional: true))
+    streptococcus      = tuple(meta, query, file("streptococcus.genus", optional: true))
+    streptococcus_fq   = tuple(meta, reads, file("streptococcus.genus", optional: true))
     genus              = tuple(meta, files("*.genus", optional: true))
     logs               = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs            = tuple(meta, files(".command.*"))

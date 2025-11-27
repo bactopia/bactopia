@@ -11,7 +11,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow CLONALFRAMEML {
     take:
-    alignment: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ aln ] ]
+    alignment: Channel<Tuple<Map, Set<Path>>>
 
     main:
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>

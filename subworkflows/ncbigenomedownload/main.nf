@@ -10,7 +10,7 @@ include { gather                                          } from 'plugin/nf-bact
 workflow NCBIGENOMEDOWNLOAD {
 
     take:
-    accessions: Channel<String>
+    accessions: String
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)

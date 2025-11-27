@@ -10,9 +10,9 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow EGGNOG {
     take:
-    faa: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fasta ] ]
-    database: Channel<Tuple<Map, Path>>
-    download_eggnog: Channel<Tuple<Map, Path>>
+    faa: Channel<Tuple<Map, Set<Path>>>
+    database: Path
+    download_eggnog: Boolean
 
     main:
     if (download_eggnog) {

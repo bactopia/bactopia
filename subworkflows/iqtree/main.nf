@@ -9,7 +9,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow IQTREE {
     take:
-    aln: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    aln: Channel<Tuple<Map, Set<Path>>>
 
     main:
     IQTREE_MODULE(aln)

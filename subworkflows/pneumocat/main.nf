@@ -9,7 +9,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:
-    fastq: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ fastq ] ]
+    fastq: Channel<Tuple<Map, Set<Path>>>
 
     main:
     PNEUMOCAT_MODULE(fastq)

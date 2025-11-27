@@ -9,9 +9,9 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PROKKA {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
-    proteins: Channel<Tuple<Map, Path>>
-    prodigal_tf: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    proteins: Path?
+    prodigal_tf: Path?
 
     main:
     PROKKA_MODULE(fasta, proteins, prodigal_tf)

@@ -10,9 +10,9 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SPATYPER {
     take:
-    fasta: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ assemblies ] ]
-    repeats: Channel<Tuple<Map, Path>>
-    repeat_order: Channel<Tuple<Map, Path>>
+    fasta: Channel<Tuple<Map, Set<Path>>>
+    repeats: Path?
+    repeat_order: Path?
 
     main:
     SPATYPER_MODULE(fasta, repeats, repeat_order)

@@ -9,9 +9,9 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:
-    ch_reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
-    ch_reference: Channel<Tuple<Map, Path>> // channel: reference genome file
-    ch_insertions: Channel<Tuple<Map, Path>> // channel: insertion sequences file
+    ch_reads: Channel<Tuple<Map, Set<Path>>>
+    ch_reference: Path
+    ch_insertions: Path
 
     main:
     ISMAPPER_MODULE(ch_reads, ch_reference, ch_insertions)
