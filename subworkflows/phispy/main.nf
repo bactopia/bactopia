@@ -19,6 +19,28 @@ workflow PHISPY {
     emit:
     tsv: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    information: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.information
+    bacteria_fasta: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.bacteria_fasta
+    bacteria_gbk: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.bacteria_gbk
+    phage_fasta: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.phage_fasta
+    phage_gbk: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.phage_gbk
+    prophage_gff: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.prophage_gff
+    prophage_tbl: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.prophage_tbl
+    prophage_tsv: Channel<Tuple<Map, Path>> = PHISPY_MODULE.out.prophage_tsv
+
+    // Generic aggregate outputs
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        PHISPY_MODULE.out.tsv,
+        CSVTK_CONCAT.out.csv,
+        PHISPY_MODULE.out.information,
+        PHISPY_MODULE.out.bacteria_fasta,
+        PHISPY_MODULE.out.bacteria_gbk,
+        PHISPY_MODULE.out.phage_fasta,
+        PHISPY_MODULE.out.phage_gbk,
+        PHISPY_MODULE.out.prophage_gff,
+        PHISPY_MODULE.out.prophage_tbl,
+        PHISPY_MODULE.out.prophage_tsv
+    ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([
         PHISPY_MODULE.out.logs,
         CSVTK_CONCAT.out.logs

@@ -10,7 +10,7 @@ include { gather                                          } from 'plugin/nf-bact
 workflow NCBIGENOMEDOWNLOAD {
 
     take:
-    accessions: String
+    accessions: Path?
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
@@ -49,7 +49,7 @@ workflow NCBIGENOMEDOWNLOAD {
         NCBIGENOMEDOWNLOAD_MODULE.out.report,
         NCBIGENOMEDOWNLOAD_MODULE.out.stats
     ])
-    logs: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.versions])
 }

@@ -34,7 +34,7 @@ process GTDBTK_CLASSIFYWF {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+    def is_tarball = db.toList()[0].getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then
         mkdir database

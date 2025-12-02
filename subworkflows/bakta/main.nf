@@ -11,7 +11,7 @@ include { gather         } from 'plugin/nf-bactopia'
 workflow BAKTA {
     take:
     fasta: Channel<Tuple<Map, Set<Path>>>
-    database: Path?
+    database: Path
     download_bakta: Boolean
     save_as_tarball: Boolean
     proteins: Path?

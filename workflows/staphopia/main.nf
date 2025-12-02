@@ -10,19 +10,19 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    adapters              : Path
-    phix                  : Path
+    adapters              : Path?
+    phix                  : Path?
     use_bakta             : Boolean
-    bakta_db              : Path
+    bakta_db              : Path?
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Path
-    bakta_prodigal_tf     : Path
-    bakta_replicons       : Path
-    prokka_proteins       : Path
-    prokka_prodigal_tf    : Path
-    spatyper_repeats      : Path
-    spatyper_repeat_order : Path
+    bakta_proteins        : Path?
+    bakta_prodigal_tf     : Path?
+    bakta_replicons       : Path?
+    prokka_proteins       : Path?
+    prokka_prodigal_tf    : Path?
+    spatyper_repeats      : Path?
+    spatyper_repeat_order : Path?
 }
 
 /*
@@ -75,8 +75,8 @@ workflow {
     // QC samples
     QC(
         GATHER.out.raw_fastq,
-        params.adapters ? [params.adapters] : [],
-        params.phix ? [params.phix] : []
+        params.adapters,
+        params.phix
     )
     ch_results = ch_results.mix(QC.out.results)
     ch_logs = ch_logs.mix(QC.out.logs)
@@ -102,12 +102,12 @@ workflow {
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,
-            params.bakta_db ? [params.bakta_db] : [],
+            params.bakta_db,
             params.download_bakta,
             params.bakta_save_as_tarball,
-            params.bakta_proteins ? [params.bakta_proteins] : [],
-            params.bakta_prodigal_tf ? [params.bakta_prodigal_tf] : [],
-            params.bakta_replicons ? [params.bakta_replicons] : []
+            params.bakta_proteins,
+            params.bakta_prodigal_tf,
+            params.bakta_replicons
         )
         ch_results = ch_results.mix(BAKTA.out.results)
         ch_logs = ch_logs.mix(BAKTA.out.logs)
@@ -117,8 +117,8 @@ workflow {
     } else {
         PROKKA(
             ASSEMBLER.out.fna,
-            params.prokka_proteins ? [params.prokka_proteins] : [],
-            params.prokka_prodigal_tf ? [params.prokka_prodigal_tf] : []
+            params.prokka_proteins,
+            params.prokka_prodigal_tf
         )
         ch_results = ch_results.mix(PROKKA.out.results)
         ch_logs = ch_logs.mix(PROKKA.out.logs)
@@ -144,8 +144,8 @@ workflow {
     // Staphtyper
     STAPHTYPER(
         ASSEMBLER.out.fna,
-        params.spatyper_repeats ? [params.spatyper_repeats] : [],
-        params.spatyper_repeat_order ? [params.spatyper_repeat_order] : []
+        params.spatyper_repeats,
+        params.spatyper_repeat_order
     )
     ch_results = ch_results.mix(STAPHTYPER.out.results)
     ch_logs = ch_logs.mix(STAPHTYPER.out.logs)
@@ -186,34 +186,34 @@ workflow {
 
 output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results {
+    run_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
     }
-    run_logs {
+    run_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
-    run_nf_logs {
-        path { meta, file -> {
+    run_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    run_versions {
+    run_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
 
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results {
+    sample_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    sample_logs {
+    sample_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    sample_nf_logs {
-        path { meta, file -> {
+    sample_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    sample_versions {
+    sample_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

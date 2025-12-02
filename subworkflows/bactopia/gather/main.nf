@@ -22,9 +22,9 @@ workflow GATHER {
     // Individual outputs
     tsv: Channel<Tuple<Map, Path>> = GATHER_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    fastq_only: Channel<Tuple<Map, Path>> = GATHER_MODULE.out.fastq_only
-    raw_fastq: Channel<Tuple<Map, Path>> = GATHER_MODULE.out.raw_fastq
-    error: Channel<Tuple<Map, Path>> = GATHER_MODULE.out.error
+    fastq_only: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.fastq_only
+    raw_fastq: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.raw_fastq
+    error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

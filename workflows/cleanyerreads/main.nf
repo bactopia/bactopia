@@ -12,8 +12,8 @@ params {
     // Tool-specific parameters
     use_k2scrubber  : Boolean
     use_srascrubber : Boolean
-    adapters        : Path
-    phix            : Path
+    adapters        : Path?
+    phix            : Path?
 }
 
 /*
@@ -61,15 +61,15 @@ workflow {
         // Clean up scrubbed reads
         QC(
             SCRUBBER.out.scrubbed_extra,
-            params.adapters ? [params.adapters] : [],
-            params.phix ? [params.phix] : []
+            params.adapters,
+            params.phix
         )
     } else {
         // Clean up raw reads
         QC(
             GATHER.out.raw_fastq,
-            params.adapters ? [params.adapters] : [],
-            params.phix ? [params.phix] : []
+            params.adapters,
+            params.phix
         )
     }
     ch_results = ch_results.mix(QC.out.results)
@@ -111,34 +111,34 @@ workflow {
 
 output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results {
+    run_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
     }
-    run_logs {
+    run_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
-    run_nf_logs {
-        path { meta, file -> {
+    run_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    run_versions {
+    run_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
 
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results {
+    sample_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    sample_logs {
+    sample_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    sample_nf_logs {
-        path { meta, file -> {
+    sample_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    sample_versions {
+    sample_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

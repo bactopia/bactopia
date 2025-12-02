@@ -10,7 +10,7 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    kraken2_db      : Path?
+    kraken2_db      : Path
     use_srascrubber : Boolean
 }
 
@@ -47,7 +47,7 @@ workflow {
     // Run Teton
     TETON(
         GATHER.out.fastq_only,
-        file(params.kraken2_db),
+        params.kraken2_db,
         params.use_srascrubber
     )
     ch_results = ch_results.mix(TETON.out.results)
@@ -89,34 +89,34 @@ workflow {
 
 output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results {
+    run_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
     }
-    run_logs {
+    run_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
-    run_nf_logs {
-        path { meta, file -> {
+    run_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    run_versions {
+    run_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
 
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results {
+    sample_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    sample_logs {
+    sample_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    sample_nf_logs {
-        path { meta, file -> {
+    sample_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    sample_versions {
+    sample_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

@@ -17,7 +17,6 @@ params {
 */
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { ABRICATE          } from '../../../subworkflows/abricate/main'
-include { formatSamples     } from 'plugin/nf-bactopia'
 
 /*
 ========================================================================================
@@ -35,7 +34,7 @@ workflow {
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
     BACTOPIATOOL_INIT()
-    ABRICATE(formatSamples(BACTOPIATOOL_INIT.out.samples, BACTOPIATOOL_INIT.out.data_types))
+    ABRICATE(BACTOPIATOOL_INIT.out.samples)
 
     // Collect outputs
     ch_results = ch_results.mix(ABRICATE.out.results)

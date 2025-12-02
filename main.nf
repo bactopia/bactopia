@@ -102,7 +102,7 @@ workflow {
     ch_versions = ch_versions.mix(SKETCHER.out.versions)
 
     // Annotate samples
-    ch_annotations = channel.empty()
+    ch_annotations = channel.empty() as Channel<Tuple<Map, Path>>
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,
@@ -121,8 +121,8 @@ workflow {
     } else {
         PROKKA(
             ASSEMBLER.out.fna,
-            params.prokka_proteins ? [params.prokka_proteins] : [],
-            params.prokka_prodigal_tf ? [params.prokka_prodigal_tf] : []
+            params.prokka_proteins,
+            params.prokka_prodigal_tf
         )
         ch_results = ch_results.mix(PROKKA.out.results)
         ch_logs = ch_logs.mix(PROKKA.out.logs)
@@ -150,13 +150,13 @@ workflow {
             ASSEMBLER.out.fna.join(QC.out.fastq_only, by:[0]),
             DATASETS.out.mash_db,
             // emmtyper
-            params.emmtyper_blastdb ? [params.emmtyper_blastdb] : [],
+            params.emmtyper_blastdb,
             // hicap
-            params.hicap_database_dir ? [params.hicap_database_dir] : [],
-            params.hicap_model_fp ? [params.hicap_model_fp] : [],
+            params.hicap_database_dir,
+            params.hicap_model_fp,
             // staphtyper
-            params.spatyper_repeats ? [params.spatyper_repeats] : [],
-            params.spatyper_repeat_order ? [params.spatyper_repeat_order] : []
+            params.spatyper_repeats,
+            params.spatyper_repeat_order
         )
         ch_results = ch_results.mix(MERLIN.out.results)
         ch_logs = ch_logs.mix(MERLIN.out.logs)
@@ -198,34 +198,34 @@ workflow {
 
 output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results {
+    run_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
     }
-    run_logs {
+    run_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
-    run_nf_logs {
-        path { meta, file -> {
+    run_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    run_versions {
+    run_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
     }
 
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results {
+    sample_results: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.output_dir}/" }
     }
-    sample_logs {
+    sample_logs: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
-    sample_nf_logs {
-        path { meta, file -> {
+    sample_nf_logs: Channel<Tuple<Map, Path>> {
+        path { meta, file ->
             file >> "${meta.logs_dir}/nf${file.name}"
-        } }
+        }
     }
-    sample_versions {
+    sample_versions: Channel<Tuple<Map, Path>> {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }

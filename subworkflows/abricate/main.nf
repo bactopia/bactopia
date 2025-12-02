@@ -22,9 +22,10 @@ workflow ABRICATE {
     merged_tsv: Channel<Tuple<Map, Path>> = ABRICATE_SUMMARY.out.report
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = ABRICATE_RUN.out.report.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        ABRICATE_RUN.out.report,
         ABRICATE_SUMMARY.out.report
-    )
+    ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([
         ABRICATE_RUN.out.logs,
         ABRICATE_SUMMARY.out.logs
@@ -33,7 +34,8 @@ workflow ABRICATE {
         ABRICATE_RUN.out.nf_logs,
         ABRICATE_SUMMARY.out.nf_logs
     ])
-    versions: Channel<Tuple<Map, Path>> = ABRICATE_RUN.out.versions.mix(
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([
+        ABRICATE_RUN.out.versions,
         ABRICATE_SUMMARY.out.versions
-    )
+    ])
 }

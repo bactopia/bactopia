@@ -11,7 +11,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 workflow FASTANI {
     take:
     query: Channel<Tuple<Map, Set<Path>>>
-    reference: Path
+    reference: Channel<Tuple<Map, Set<Path>>>
 
     main:
     FASTANI_MODULE(gather(query, 'query', 'fasta'), gather(reference, 'reference', 'fasta'))
