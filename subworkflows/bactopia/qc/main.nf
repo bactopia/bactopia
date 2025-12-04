@@ -9,7 +9,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow QC {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>, Set<Path>>>
     adapters: Path?
     phix: Path?
 
@@ -18,11 +18,11 @@ workflow QC {
 
     emit:
     // Individual outputs
-    fastq: Channel<Tuple<Map, Path>> = QC_MODULE.out.fastq
-    fastq_only: Channel<Tuple<Map, Path>> = QC_MODULE.out.fastq_only
+    fastq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = QC_MODULE.out.fastq
+    fastq_only: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.fastq_only
     txt: Channel<Tuple<Map, Path>> = QC_MODULE.out.txt
-    error: Channel<Tuple<Map, Path>> = QC_MODULE.out.error
-    error_fastq: Channel<Tuple<Map, Path>> = QC_MODULE.out.error_fastq
+    error: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.error
+    error_fastq: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.error_fastq
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

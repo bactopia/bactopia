@@ -11,7 +11,8 @@ process ASSEMBLER {
     (_meta, fq, extra) : Tuple<Map, Set<Path>, Set<Path>>
 
     output:
-    fna          = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true))
+    fna          = tuple(meta, files("${prefix}.{fna,fna.gz}", optional: true))
+    fna_fq       = tuple(meta, files("${prefix}.{fna,fna.gz}"), fq)
     tsv          = tuple(meta, file("${prefix}.tsv", optional: true))
     supplemental = tuple(meta, files("supplemental/*"))
     error        = tuple(meta, file("${prefix}-assembly-error.txt", optional: true))

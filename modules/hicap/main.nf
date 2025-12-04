@@ -8,9 +8,9 @@ process HICAP {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
-    database_dir   : Path
-    model_fp       : Path
+    (_meta, fasta) : Tuple<Map, Set<Path>>
+    database_dir   : Path?
+    model_fp       : Path?
 
     output:
     gbk      = tuple(meta, files("*.gbk", optional: true))
@@ -33,8 +33,8 @@ process HICAP {
     meta.process_name = task.ext.process_name
     def database_args = database_dir ? "--database_dir ${database_dir}" : ""
     def model_args = model_fp ? "--model_fp ${model_fp}" : ""
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fasta} > ${fasta_name}

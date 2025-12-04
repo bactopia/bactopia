@@ -297,7 +297,7 @@
         "work",
         ".skeleton"
     ],
-    "nextflow.telemetry.enabled": false,
+    "nextflow.telemetry.enabled": true,
     "yaml.schemas": {
         "https://www.schemastore.org/eslintrc.json": "file:///home/rpetit3/repos/bactopia/conf/workflows.yaml"
     },

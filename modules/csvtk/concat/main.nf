@@ -8,7 +8,7 @@ process CSVTK_CONCAT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, csv) : Tuple<Map, List<Path>>
+    (_meta, csv) : Tuple<Map, Set<Path>>
     in_format    : String
     out_format   : String
 

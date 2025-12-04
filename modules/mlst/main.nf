@@ -8,7 +8,7 @@ process MLST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, fasta) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:

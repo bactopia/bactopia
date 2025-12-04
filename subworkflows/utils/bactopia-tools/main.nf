@@ -10,7 +10,9 @@ workflow BACTOPIATOOL_INIT {
 
     main:
     // Handle parameters
-    def validation = validateParameters(null, true)
+    println "Validating parameters for Bactopia Tools..."
+    def validation = validateParameters(true)
+    println "Validation complete."
     if (validation.hasErrors) {
         log.info validation.error
         error(" ")

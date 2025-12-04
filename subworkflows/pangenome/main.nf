@@ -26,6 +26,7 @@ workflow PANGENOME {
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
+    // Execute subworkflows
     // Choose pangenome tool based on params
     if (use_pirate) {
         PIRATE(gff)

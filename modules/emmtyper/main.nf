@@ -8,8 +8,8 @@ process EMMTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
-    blastdb        : Path
+    (_meta, fasta) : Tuple<Map, Set<Path>>
+    blastdb        : Path?
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -28,8 +28,8 @@ process EMMTYPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fasta} > ${fasta_name}

@@ -19,6 +19,8 @@ workflow SCRUBBER {
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+
+    // Execute subworkflows
     ch_scrub_report = channel.empty()
     ch_special_report = channel.empty()
     ch_scrubbed = channel.empty()

@@ -8,7 +8,7 @@ process QC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fq, extra) : Tuple<Map, Set<Path>, Path>
+    (_meta, fq, extra) : Tuple<Map, Set<Path>, Set<Path>>
     adapters           : Path?
     phix               : Path?
 
@@ -55,7 +55,7 @@ process QC {
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
     reformat_opts = meta.single_end ? "" : "in2=filt-r2.fq out2=subsample-r2.fq"
     fastp_fqs = meta.single_end ? "" : "--in2 ${fq2} --out2 filt-r2.fq --detect_adapter_for_pe"
-    ont_fq = meta.runtype == 'ont' ? fq1 : extra
+    ont_fq = meta.runtype == 'ont' ? fq1 : extra.toList()[0]
     meta.single_end = meta.runtype == 'short_polish' ? true : meta.single_end
 
     // set Xmx to 95% of what was allocated, to avoid going over

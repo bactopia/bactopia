@@ -1,11 +1,6 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOW PARAMETERS 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 params {
     rundir   : String
 
@@ -25,11 +20,6 @@ params {
     spatyper_repeat_order : Path?
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 // Core
 include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia'
 include { AMRFINDERPLUS   } from '../../subworkflows/amrfinderplus/main'
@@ -47,19 +37,15 @@ include { PROKKA          } from '../../subworkflows/prokka/main'
 // Merlin
 include { STAPHTYPER      } from '../../subworkflows/staphtyper/main'
 
-/*
-========================================================================================
-    RUN MAIN WORKFLOW
-========================================================================================
-*/
 workflow {
-
     main:
-    // Initialize and execute the workflow
+    // Initialize output channels
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+
+    // Execute subworkflows
     BACTOPIA_INIT()
 
     // Core steps
@@ -217,9 +203,3 @@ output {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
-/*
-========================================================================================
-    THE END
-========================================================================================
-*/

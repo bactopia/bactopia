@@ -10,7 +10,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 workflow PROKKA {
     take:
     fasta: Channel<Tuple<Map, Set<Path>>>
-    proteins: Path?
+    proteins: Path
     prodigal_tf: Path?
 
     main:
@@ -18,8 +18,8 @@ workflow PROKKA {
 
     emit:
     // Individual outputs
-    annotations: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.annotations
-    blastdb: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.blastdb
+    annotations: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = PROKKA_MODULE.out.annotations
+    blastdb: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.blastdb
     faa: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.faa
     ffn: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.ffn
     fna: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.fna
@@ -45,7 +45,7 @@ workflow PROKKA {
         PROKKA_MODULE.out.sqn,
         PROKKA_MODULE.out.tbl
     ])
-    logs: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([PROKKA_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([PROKKA_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([PROKKA_MODULE.out.versions])
 }

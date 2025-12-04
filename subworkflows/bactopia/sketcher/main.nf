@@ -9,9 +9,9 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SKETCHER {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
-    mash_db: Channel<Tuple<Map, Path>> // channel: [ mash_db ]
-    sourmash_db: Channel<Tuple<Map, Path>> // channel: [ sourmash_db ]
+    reads: Channel<Tuple<Map, Set<Path>>>
+    mash_db: Path
+    sourmash_db: Path
 
     main:
     SKETCHER_MODULE(reads, mash_db, sourmash_db)
@@ -19,7 +19,7 @@ workflow SKETCHER {
     emit:
     // Individual outputs
     sig: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sig
-    msh: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.msh
+    msh: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.msh
     mash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.mash
     sourmash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sourmash
 

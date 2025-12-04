@@ -59,7 +59,7 @@ process MERLIN_DIST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, query, reads) : Tuple<Map, Set<Path>, Path>
+    (_meta, query, reads) : Tuple<Map, Set<Path>, Set<Path>>
     reference             : Path
 
     stage:

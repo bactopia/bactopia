@@ -1,39 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOW PARAMETERS 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 params {
     rundir   : String
 
     // Tool-specific parameters
+    // QC
     adapters              : Path?
     phix                  : Path?
+
+    // Annotation
     use_bakta             : Boolean
-    bakta_db              : Path?
+    bakta_db              : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Path?
-    bakta_prodigal_tf     : Path?
-    bakta_replicons       : Path?
-    prokka_proteins       : Path?
-    prokka_prodigal_tf    : Path?
-    emmtyper_blastdb      : Path?
-    hicap_database_dir    : Path?
-    hicap_model_fp        : Path?
+    bakta_proteins        : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
+    bakta_prodigal_tf     : Path? = "${projectDir}/data/empty/EMPTY_PRODIGAL_TF" // TODO: Remove when Path? is fixed
+    bakta_replicons       : Path? = "${projectDir}/data/empty/EMPTY_REPLICONS"   // TODO: Remove when Path? is fixed
+    prokka_proteins       : Path
+    prokka_prodigal_tf    : Path? = "${projectDir}/data/empty/EMPTY_PRODIGAL_TF" // TODO: Remove when Path? is fixed
+
+    // Merlin
+    emmtyper_blastdb      : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
+    hicap_database_dir    : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
+    hicap_model_fp        : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
     ask_merlin            : Boolean
-    spatyper_repeats      : Path?
-    spatyper_repeat_order : Path?
+    spatyper_repeats      : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
+    spatyper_repeat_order : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 // Core
 include { BACTOPIA_INIT   } from './subworkflows/utils/bactopia/main'
 include { AMRFINDERPLUS   } from './subworkflows/amrfinderplus/main'
@@ -51,19 +46,15 @@ include { PROKKA          } from './subworkflows/prokka/main'
 // Merlin
 include { MERLIN          } from './subworkflows/merlin/main'
 
-/*
-========================================================================================
-    RUN MAIN WORKFLOW
-========================================================================================
-*/
 workflow {
-
     main:
-    // Initialize and execute the workflow
+    // Initialize output channels
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+
+    // Execute subworkflows
     BACTOPIA_INIT()
 
     // Core steps
@@ -102,7 +93,7 @@ workflow {
     ch_versions = ch_versions.mix(SKETCHER.out.versions)
 
     // Annotate samples
-    ch_annotations = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_annotations = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.fna,
@@ -145,9 +136,10 @@ workflow {
     ch_nf_logs = ch_nf_logs.mix(MLST.out.nf_logs)
     ch_versions = ch_versions.mix(MLST.out.versions)
 
+    // Merlin
     if (params.ask_merlin) {
         MERLIN(
-            ASSEMBLER.out.fna.join(QC.out.fastq_only, by:[0]),
+            ASSEMBLER.out.fna_fq,
             DATASETS.out.mash_db,
             // emmtyper
             params.emmtyper_blastdb,
@@ -229,9 +221,3 @@ output {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
-/*
-========================================================================================
-    THE END
-========================================================================================
-*/

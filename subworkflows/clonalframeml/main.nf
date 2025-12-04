@@ -18,7 +18,8 @@ workflow CLONALFRAMEML {
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
-    
+
+    // Execute subworkflows
     // Create a quick start tree
     IQTREE(gather(alignment, 'iqtree-fast', 'name: "iqtree-fast", process_name: "iqtree-fast"'))
     ch_results = ch_results.mix(IQTREE.out.results)

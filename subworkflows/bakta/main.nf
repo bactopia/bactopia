@@ -11,7 +11,7 @@ include { gather         } from 'plugin/nf-bactopia'
 workflow BAKTA {
     take:
     fasta: Channel<Tuple<Map, Set<Path>>>
-    database: Path
+    database: Path?
     download_bakta: Boolean
     save_as_tarball: Boolean
     proteins: Path?
@@ -34,6 +34,7 @@ workflow BAKTA {
 
     emit:
     // Individual outputs
+    annotations: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = BAKTA_RUN.out.annotations
     tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.tsv
     txt: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.txt
     embl: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.embl
@@ -45,7 +46,6 @@ workflow BAKTA {
     hypotheticals_faa: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_faa
     hypotheticals_tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_tsv
     blastdb: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.blastdb
-    annotations: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.annotations
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

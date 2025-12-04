@@ -8,7 +8,7 @@ process GATHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, extra) : Tuple<Map, List<Path>, List<Path>, Path>
+    (_meta, r1, r2, extra) : Tuple<Map, Set<Path>, Set<Path>, Path>
 
     stage:
     stageAs '*???-r1', r1
@@ -18,8 +18,8 @@ process GATHER {
     raw_fastq  = tuple(meta, files("fastqs/${prefix}*.fastq.gz"), files("extra/*.gz"))
     fastq_only = tuple(meta, files("fastqs/${prefix}*.fastq.gz"))
     tsv        = tuple(meta, file("${prefix}-meta.tsv"))
-    error      = tuple(meta, files("*-{error,merged}.txt"))
-    logs       = tuple(meta, files("*.{log,err}"))
+    error      = tuple(meta, files("*-{error,merged}.txt", optional: true))
+    logs       = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs    = tuple(meta, files(".command.*"))
     versions   = tuple(meta, file("versions.yml"))
 

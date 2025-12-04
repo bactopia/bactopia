@@ -10,7 +10,7 @@ workflow BACTOPIA_INIT {
 
     main:
     // Handle parameters
-    def validation = validateParameters(null, false)
+    def validation = validateParameters(false)
     if (validation.hasErrors) {
         log.info validation.error
         error(" ")

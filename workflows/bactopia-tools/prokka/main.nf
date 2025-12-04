@@ -1,11 +1,6 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOW PARAMETERS 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 params {
     bactopia : String
     includes : String
@@ -18,28 +13,18 @@ params {
     prokka_prodigal_tf : Path?
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { PROKKA            } from '../../../subworkflows/prokka/main'
 
-/*
-========================================================================================
-    RUN MAIN WORKFLOW
-========================================================================================
-*/
 workflow {
-
     main:
-    // Initialize and execute the workflow
+    // Initialize output channels
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
+    // Execute subworkflows
     BACTOPIATOOL_INIT()
     PROKKA(
         BACTOPIATOOL_INIT.out.samples,
@@ -118,9 +103,3 @@ output {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
-/*
-========================================================================================
-    THE END
-========================================================================================
-*/

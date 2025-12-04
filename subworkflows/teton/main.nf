@@ -26,6 +26,7 @@ workflow TETON {
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
+    // Execute subworkflows
     // Remove host reads
     SCRUBBER(reads, use_srascrubber)
     ch_results = ch_results.mix(SCRUBBER.out.results)

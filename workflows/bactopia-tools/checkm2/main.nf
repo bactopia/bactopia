@@ -1,11 +1,6 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOW PARAMETERS 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 params {
     rundir   : String
 
@@ -14,28 +9,18 @@ params {
     download_checkm2  : Boolean
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { CHECKM2           } from '../../../subworkflows/checkm2/main'
 
-/*
-========================================================================================
-    RUN MAIN WORKFLOW
-========================================================================================
-*/
 workflow {
-
     main:
-    // Initialize and execute the workflow
+    // Initialize output channels
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
 
+    // Execute subworkflows
     BACTOPIATOOL_INIT()
     CHECKM2(
         BACTOPIATOOL_INIT.out.samples,
@@ -114,9 +99,3 @@ output {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
-/*
-========================================================================================
-    THE END
-========================================================================================
-*/

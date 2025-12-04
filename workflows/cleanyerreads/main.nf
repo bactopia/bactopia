@@ -1,11 +1,6 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOW PARAMETERS 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 params {
     rundir   : String
 
@@ -16,11 +11,6 @@ params {
     phix            : Path?
 }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 // Core
 include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia/main'
 include { GATHER          } from '../../subworkflows/bactopia/gather/main'
@@ -29,18 +19,15 @@ include { QC              } from '../../subworkflows/bactopia/qc/main'
 // Scrubber
 include { SCRUBBER        } from '../../subworkflows/scrubber/main'
 
-/*
-========================================================================================
-    RUN MAIN WORKFLOW
-========================================================================================
-*/
 workflow {
     main:
-    // Initialize and execute the workflow
+    // Initialize output channels
     ch_results = channel.empty() as Channel<Tuple<Map, Path>>
     ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
     ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+
+    // Execute subworkflows
     BACTOPIA_INIT()
 
     // Gather samples in one place
@@ -142,9 +129,3 @@ output {
         path { meta, _file -> "${meta.logs_dir}/" }
     }
 }
-
-/*
-========================================================================================
-    THE END
-========================================================================================
-*/

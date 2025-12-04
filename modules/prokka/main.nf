@@ -8,15 +8,15 @@ process PROKKA {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
-    proteins       : List<Path>
-    prodigal_tf    : List<Path>
+    (_meta, fasta) : Tuple<Map, Set<Path>>
+    proteins       : Path?
+    prodigal_tf    : Path?
 
     stage:
     stageAs "input/*", fasta
 
     output:
-    annotations = tuple(meta, file("${prefix}.{fna,fna.gz}"), file("${prefix}.{faa,faa.gz}"), file("${prefix}.{gff,gff.gz}"))
+    annotations = tuple(meta, files("${prefix}.{fna,fna.gz}"), files("${prefix}.{faa,faa.gz}"), files("${prefix}.{gff,gff.gz}"))
     gff         = tuple(meta, file("${prefix}.{gff,gff.gz}"))
     gbk         = tuple(meta, file("${prefix}.{gbk,gbk.gz}"))
     fna         = tuple(meta, file("${prefix}.{fna,fna.gz}"))
@@ -27,16 +27,16 @@ process PROKKA {
     tbl         = tuple(meta, file("${prefix}.{tbl,tbl.gz}"))
     txt         = tuple(meta, file("${prefix}.txt"))
     tsv         = tuple(meta, file("${prefix}.tsv"))
-    blastdb     = tuple(meta, file("${prefix}-blastdb.tar.gz"))
+    blastdb     = tuple(meta, files("${prefix}-blastdb.tar.gz"))
     logs        = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs     = tuple(meta, files(".command.*"))
     versions    = tuple(meta, file("versions.yml"))
 
     script:
-    def proteins_opt = proteins.size() == 1 ? "--proteins ${proteins[0].getName()}" : ""
-    def prodigal_opt = prodigal_tf.size() == 1 ? "--prodigaltf ${prodigal_tf[0].getName()}" : ""
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed
+    def prodigal_opt = prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
+    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -63,6 +63,7 @@ process PROKKA {
         compliant = "--compliant"
     }
     """
+    echo "${proteins}"
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fasta} > ${fasta_name}
     fi

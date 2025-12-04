@@ -10,7 +10,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow ASSEMBLER {
     take:
-    reads: Channel<Tuple<Map, Path>> // channel: [ val(meta), [ reads ] ]
+    reads: Channel<Tuple<Map, Set<Path>, Set<Path>>>
 
     main:
     ASSEMBLER_MODULE(reads)
@@ -18,7 +18,8 @@ workflow ASSEMBLER {
 
     emit:
     // Individual outputs
-    fna: Channel<Tuple<Map, Path>> = ASSEMBLER_MODULE.out.fna
+    fna: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.fna
+    fna_fq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = ASSEMBLER_MODULE.out.fna_fq
     tsv: Channel<Tuple<Map, Path>> = ASSEMBLER_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 

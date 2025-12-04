@@ -8,7 +8,7 @@ process SKETCHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, fasta) : Tuple<Map, Set<Path>>
     mash_db        : Path
     sourmash_db    : Path
 
