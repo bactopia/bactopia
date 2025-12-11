@@ -1,3 +1,37 @@
+/**
+ * ${$MODULE_DESCRIPTION}
+.
+ *
+ * This process executes qc to perform analysis
+ *
+ * @status stable
+ * @keywords ${MODULE_KEYWORDS}
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
+ * @citation qc
+ *
+ * @note Uses EMPTY_* placeholder files for optional parameters
+ *
+ * @input tuple(meta, fq, extra)
+ * - `meta`: Groovy Map containing sample information
+ * - `fq`: Input file
+ * - `extra`: Input file
+ *
+ * @input adapters
+ * Optional Path parameter for adapters
+ *
+ * @input phix
+ * Optional Path parameter for phix
+ *
+ * @output fastq        Fastq
+ * @output fastq_only   Fastq Only
+ * @output error_fastq  Error Fastq
+ * @output txt          Txt
+ * @output supplemental Supplemental
+ * @output error        Error
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process QC {

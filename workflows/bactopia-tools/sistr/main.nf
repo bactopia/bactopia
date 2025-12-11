@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Sistr.
+ *
+ * Serovar prediction of Salmonella assemblies
+ * The `sistr` module uses [Salmonella In Silico Typing Resource](https://github.com/phac-nml/sistr_cmd),
+ * or SISTR, for serovar prediction of Salmonella assemblies.
+ *
+ * @status stable
+ * @keywords fasta, salmonella, typing
+ *
+ * @subworkflows bactopiatool_init, sistr
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,3 +1,27 @@
+/**
+ * EMM typing of Streptococcus pyogenes assemblies.
+ *
+ * This process executes emmtyper to perform analysis
+ *
+ * @status stable
+ * @keywords streptococcus, pyogenes, emm, typing
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic, database-dependent
+ * @citation emmtyper
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly in FASTA format
+ *
+ * @input blastdb
+ * Optional custom BLAST database
+ *
+ * @output tsv      Tab-delimited emmtyper results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process EMMTYPER {

@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Mcroni.
+ *
+ * Sequence variation in mcr-1 genes (mobilized colistin resistance)
+ * The `mcroni` module uses [mcroni](https://github.com/liampshaw/mcroni) to identify _mcr-1_ genes in
+ * assemblies. If _mcr-1_ is found, the variations will be reported and available in an output FASTA file.
+ *
+ * @status stable
+ * @keywords fasta, antimicrobial resistance
+ *
+ * @subworkflows bactopiatool_init, mcroni
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Kraken2.
+ *
+ * Taxonomic classifications of sequence reads
+ * The `kraken2` module uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic
+ * classifications to your sequence reads.
+ *
+ * @status stable
+ * @keywords classify, metagenomics, fastq
+ *
+ * @subworkflows bactopiatool_init, kraken2
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Shigeifinder.
+ *
+ * Shigella and EIEC serotyping from assemblies
+ * The `shigeifinder` module uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct
+ * _in silico_ prediction of serotype for Shigella and EIEC. It uses the genome assemblies
+ * tp provide basic species identification and the predicted serotype (e.g. O174:H21).
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, shigeifinder
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

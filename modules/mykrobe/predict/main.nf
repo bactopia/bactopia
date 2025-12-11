@@ -1,3 +1,26 @@
+/**
+ * AMR predictions for supported species.
+ *
+ * This process executes mykrobe_predict to perform analysis
+ *
+ * @status stable
+ * @keywords fastq, bam, antimicrobial resistance
+ * @tags complexity:simple input-type:multiple output-type:multiple
+ * @citation mykrobe_predict
+ *
+ * @input tuple(meta, seqs)
+ * - `meta`: Groovy Map containing sample information
+ * - `seqs`: BAM or FASTQ file
+ *
+ * @input species
+ * Species to make AMR prediction against
+ *
+ * @output csv      AMR predictions in CSV format
+ * @output json     AMR predictions in JSON format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MYKROBE_PREDICT {

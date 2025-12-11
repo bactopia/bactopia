@@ -1,6 +1,37 @@
-//
-// ncbigenomedownload - Quickly download assemblies from NCBI's Assembly database
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules ncbigenomedownload as ncbigenomedownload_module
+ *
+ * @input accessions
+ * Channel containing accessions data
+ *
+ * @output bactopia_tools Bactopia Tools
+ * @output gbk            Gbk
+ * @output fna            Fna
+ * @output rm             Rm
+ * @output features       Features
+ * @output gff            Gff
+ * @output faa            Faa
+ * @output gpff           Gpff
+ * @output wgs_gbk        Wgs Gbk
+ * @output cds            Cds
+ * @output rna            Rna
+ * @output rna_fna        Rna Fna
+ * @output report         Report
+ * @output stats          Stats
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'

@@ -1,3 +1,28 @@
+/**
+ * ${$MODULE_DESCRIPTION}
+.
+ *
+ * This process executes assembler to perform analysis
+ *
+ * @status stable
+ * @keywords ${MODULE_KEYWORDS}
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation assembler
+ *
+ * @input tuple(meta, fq, extra)
+ * - `meta`: Groovy Map containing sample information
+ * - `fq`: Input file
+ * - `extra`: Input file
+ *
+ * @output fna          Fna
+ * @output fna_fq       Fna Fq
+ * @output tsv          Tsv
+ * @output supplemental Supplemental
+ * @output error        Error
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ASSEMBLER {

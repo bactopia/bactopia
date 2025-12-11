@@ -1,3 +1,32 @@
+/**
+ * Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences.
+ *
+ * This process executes gubbins to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, recombination, phylogeny, gubbins
+ * @tags complexity:complex input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation gubbins
+ *
+ * @input tuple(meta, msa)
+ * - `meta`: Groovy Map containing sample information
+ * - `msa`: Multiple sequence alignment file
+ *
+ * @output masked_aln     Masked alignment with recombinant regions removed
+ * @output fasta          FASTA format alignment
+ * @output gff            GFF file of recombination predictions
+ * @output vcf            VCF file of SNP calls
+ * @output stats          Per-branch statistics
+ * @output phylip         Phylip format alignment
+ * @output embl_predicted Recombination predictions in EMBL format
+ * @output embl_branch    Branch base reconstruction in EMBL format
+ * @output tree           Final phylogenetic tree
+ * @output tree_labelled  Node labelled final tree
+ * @output bootstrap_tree Final bootstrapped tree (optional)
+ * @output logs           Optional tool execution logs
+ * @output nf_logs        Nextflow execution logs
+ * @output versions       Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process GUBBINS {

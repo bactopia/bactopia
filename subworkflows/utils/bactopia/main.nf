@@ -1,6 +1,16 @@
-//
-// Subworkflow with functionality specific to the main Bactopia workflow
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows bactopiainputs, validateparameters
+ * @output samples Samples
+ */
 nextflow.preview.types = true
 
 include { bactopiaInputs     } from 'plugin/nf-bactopia'
@@ -35,6 +45,19 @@ workflow BACTOPIA_INIT {
         def extra = file(sample[3])
 
         // Convert string inputs to files
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (sample[1].size() > 0) {
             sample[1].each { it -> r1 << file(it) }
         }

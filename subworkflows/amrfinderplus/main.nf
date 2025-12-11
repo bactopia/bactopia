@@ -1,6 +1,44 @@
-//
-// amrfinderplus - Identify antimicrobial resistance in genes or proteins
-//
+/**
+
+
+
+
+
+
+
+
+
+
+
+
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, amrfinderplus_run
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input db
+ * Channel containing db data
+ *
+ * @output report          Report
+ * @output merged_tsv      Merged Tsv
+ * @output mutation_report Mutation Report
+ * @output results         Aggregated results channel containing all output files
+ * @output logs            Aggregated logs channel containing all execution logs
+ * @output nf_logs         Aggregated Nextflow execution logs from all processes
+ * @output versions        Aggregated version information from all executed tools
+ 
+ 
+ 
+ */
 nextflow.preview.types = true
 
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'

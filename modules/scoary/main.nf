@@ -1,3 +1,25 @@
+/**
+ * Pan-genome wide association studies.
+ *
+ * This process executes scoary to perform analysis
+ *
+ * @status stable
+ * @keywords pangenome, GWAS, association, Roary
+ * @tags complexity:simple input-type:multiple output-type:single
+ * @citation scoary
+ *
+ * @input tuple(meta, genes)
+ * - `meta`: Groovy Map containing sample information
+ * - `genes`: Gene presence/absence file from Roary
+ *
+ * @input traits
+ * Path parameter for traits
+ *
+ * @output csv      Scoary results files
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SCOARY {

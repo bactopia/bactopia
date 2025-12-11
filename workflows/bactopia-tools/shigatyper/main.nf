@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Shigatyper.
+ *
+ * Shigella serotype from Illumina or Oxford Nanopore reads
+ * The `shigatyper` module uses [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper) to rapidly determine
+ * Shigella serotype using Illumina (single or paired-end) or Oxford Nanopore reads.
+ *
+ * @status stable
+ * @keywords fastq, shigella, serotype
+ *
+ * @subworkflows bactopiatool_init, shigatyper
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

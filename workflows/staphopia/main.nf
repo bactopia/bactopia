@@ -1,5 +1,93 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Staphopia.
+ *
+ * Comprehensive analysis pipeline for Staphylococcus aureus isolates.
+ * This workflow performs complete bacterial analysis including quality control,
+ * assembly, annotation, antimicrobial resistance detection, MLST typing,
+ * and Staphylococcus-specific analysis.
+ *
+ * @status stable
+ * @keywords Staphylococcus aureus, assembly, annotation, AMR, MLST, typing
+ *
+ * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher, 
+ * @subworkflows mlst, qc, bakta, prokka, staphtyper
+ *
+ * @input rundir
+ * Directory containing raw sequencing reads
+ *
+ * @input adapters
+ * Path to adapter sequences file for removal
+ *
+ * @input phix
+ * Path to PhiX sequences for contamination removal
+ *
+ * @input use_bakta
+ * Use Bakta for genome annotation instead of Prokka
+ *
+ * @input bakta_db
+ * Path to Bakta database (optional)
+ *
+ * @input download_bakta
+ * Download Bakta database if not provided
+ *
+ * @input bakta_save_as_tarball
+ * Save Bakta database as tarball
+ *
+ * @input bakta_proteins
+ * Path to trusted protein sequences for Bakta
+ *
+ * @input bakta_prodigal_tf
+ * Path to Prodigal training file for Bakta
+ *
+ * @input bakta_replicons
+ * Path to replicon sequences for Bakta
+ *
+ * @input prokka_proteins
+ * Path to protein sequences for Prokka
+ *
+ * @input prokka_prodigal_tf
+ * Path to Prodigal training file for Prokka
+ *
+ * @input spatyper_repeats
+ * Path to repeats database for Spatyper
+ *
+ * @input spatyper_repeat_order
+ * Path to repeat order file for Spatyper
+ *
+ * @section Quality Control
+ * @publish fastqc/*   FastQC quality control reports
+ * @publish multiqc/*   MultiQC aggregated quality reports
+ *
+ * @section Assembly
+ * @publish *.fasta   Assembled genome sequences
+ * @publish assembly-stats.txt Assembly quality metrics
+ *
+ * @section Annotation
+ * @publish *.gff    Genome annotation in GFF3 format
+ * @publish *.gbk    Genome annotation in GenBank format
+ * @publish *.faa    Protein sequences
+ * @publish *.fna    Nucleotide sequences
+ *
+ * @section Typing
+ * @publish mlst.txt   MLST sequence type results
+ * @publish staphtyper.txt  Staphylococcus typing results
+ *
+ * @section Antimicrobial Resistance
+ * @publish amrfinderplus.tsv AMR gene detection results
+ *
+ * @section Comparative Analysis
+ * @publish mash-dist.tsv Mash distance matrix
+ * @publish sketch.msh Mash sketch files
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

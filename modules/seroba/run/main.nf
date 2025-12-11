@@ -1,3 +1,23 @@
+/**
+ * k-mer based Streptococcus pneumoniae serotyping.
+ *
+ * This process executes seroba_run to perform analysis
+ *
+ * @status stable
+ * @keywords Streptococcus pneumoniae, serotype, k-mer
+ * @tags complexity:simple input-type:single output-type:multiple
+ * @citation seroba_run
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end FASTQ files
+ *
+ * @output tsv      SeroBA prediction results
+ * @output txt      Detailed serogroup information
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SEROBA_RUN {

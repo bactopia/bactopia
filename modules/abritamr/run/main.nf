@@ -1,3 +1,26 @@
+/**
+ * A NATA accredited tool for reporting the presence of antimicrobial resistance genes in bacterial genomes.
+ *
+ * This process executes abritamr_run to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antibiotic resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation abritamr_run
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembled contigs in FASTA format
+ *
+ * @output matches   Tab-delimited file, with a row per sequence, and columns representing functional drug classes
+ * @output partials  Tab-delimited file, with a row per sequence, and columns representing partial hits to functional drug classes
+ * @output virulence Tab-delimited file, with a row per sequence, and columns representing AMRFinderPlus virulence gene classification
+ * @output amrfinder Amrfinder
+ * @output summary   Summary
+ * @output logs      Optional tool execution logs
+ * @output nf_logs   Nextflow execution logs
+ * @output versions  Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ABRITAMR_RUN {

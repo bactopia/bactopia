@@ -1,3 +1,29 @@
+/**
+ * Efficient inference of recombination in bacterial genomes.
+ *
+ * This process executes clonalframeml to perform analysis
+ *
+ * @status stable
+ * @keywords recombination, phylogeny, bacteria
+ * @tags complexity:complex input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation clonalframeml
+ *
+ * @input tuple(meta, msa, newick)
+ * - `meta`: Groovy Map containing sample information
+ * - `msa`: Multiple sequence alignment file
+ * - `newick`: Phylogenetic tree in Newick format
+ *
+ * @output emsim      Uncertainty estimation results
+ * @output em         EM algorithm results
+ * @output status     Importation status for each branch
+ * @output newick     Tree with internal nodes labelled
+ * @output fasta      Reconstructed sequences
+ * @output pos_ref    Position cross reference
+ * @output masked_aln Alignment with recombination masked
+ * @output logs       Optional tool execution logs
+ * @output nf_logs    Nextflow execution logs
+ * @output versions   Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process CLONALFRAMEML {

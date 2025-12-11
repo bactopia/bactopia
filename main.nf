@@ -1,5 +1,112 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia.
+ *
+ * Comprehensive bacterial analysis pipeline for complete genomic characterization.
+ * This workflow performs end-to-end analysis including quality control, assembly,
+ * annotation, antimicrobial resistance detection, MLST typing, and optional
+ * pathogen-specific analysis through Merlin.
+ *
+ * @status stable
+ * @keywords bacteria, assembly, annotation, AMR, MLST, genomics
+ *
+ * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
+ * @subworkflows mlst, qc, bakta, prokka, merlin
+ *
+ * @input rundir
+ * Directory containing raw sequencing reads
+ *
+ * @input adapters
+ * Path to adapter sequences file for removal during QC
+ *
+ * @input phix
+ * Path to PhiX sequences for contamination removal during QC
+ *
+ * @input use_bakta
+ * Use Bakta for genome annotation instead of Prokka
+ *
+ * @input bakta_db
+ * Path to Bakta database for annotation
+ *
+ * @input download_bakta
+ * Download Bakta database if not provided
+ *
+ * @input bakta_save_as_tarball
+ * Save Bakta database as tarball for reuse
+ *
+ * @input bakta_proteins
+ * Path to trusted protein sequences for Bakta annotation
+ *
+ * @input bakta_prodigal_tf
+ * Path to Prodigal training file for Bakta
+ *
+ * @input bakta_replicons
+ * Path to replicon sequences for Bakta
+ *
+ * @input prokka_proteins
+ * Path to protein sequences for Prokka annotation
+ *
+ * @input prokka_prodigal_tf
+ * Path to Prodigal training file for Prokka
+ *
+ * @input emmtyper_blastdb
+ * Path to emmtyper BLAST database for Merlin
+ *
+ * @input hicap_database_dir
+ * Path to HiCap database directory for Merlin
+ *
+ * @input hicap_model_fp
+ * Path to HiCap model file for Merlin
+ *
+ * @input ask_merlin
+ * Enable Merlin pathogen-specific analysis
+ *
+ * @input spatyper_repeats
+ * Path to Spatyper repeats database for Merlin
+ *
+ * @input spatyper_repeat_order
+ * Path to Spatyper repeat order file for Merlin
+ *
+ * @section Quality Control
+ * @publish fastqc/*   FastQC quality control reports
+ * @publish multiqc/*   MultiQC aggregated quality reports
+ *
+ * @section Assembly
+ * @publish *.fasta   Assembled genome sequences
+ * @publish assembly-stats.txt Assembly quality metrics
+ * @publish quast.html   QUAST assembly quality report
+ *
+ * @section Annotation
+ * @publish *.gff    Genome annotation in GFF3 format
+ * @publish *.gbk    Genome annotation in GenBank format
+ * @publish *.faa    Protein sequences
+ * @publish *.fna    Nucleotide sequences
+ * @publish *.tsv    Annotation summary tables
+ *
+ * @section Typing
+ * @publish mlst.txt   MLST sequence type results
+ *
+ * @section Antimicrobial Resistance
+ * @publish amrfinderplus.tsv AMR gene detection results
+ * @publish amrfinderplus.mutation.tsv AMR mutation results
+ *
+ * @section Comparative Analysis
+ * @publish mash-dist.tsv Mash distance matrix
+ * @publish sketch.msh Mash sketch files
+ * @publish sourmash.sig Sourmash signatures
+ *
+ * @section Pathogen-Specific Analysis
+ * @note Only created if --ask_merlin is enabled
+ * @publish merlin/     Merlin pathogen-specific analysis results
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+ */
 
 params {
     rundir   : String

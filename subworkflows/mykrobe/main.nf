@@ -1,6 +1,29 @@
-//
-// mykrobe - Antimicrobial resistance detection for specific species
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules mykrobe_predict, csvtk_concat
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input mykrobe_species
+ * Channel containing mykrobe_species data
+ *
+ * @output csv        Csv
+ * @output json       Json
+ * @output merged_csv Merged Csv
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { MYKROBE_PREDICT }  from '../../modules/mykrobe/predict/main'

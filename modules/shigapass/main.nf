@@ -1,3 +1,23 @@
+/**
+ * Predict Shigella serotypes and virulence genes.
+ *
+ * This process executes shigapass to perform analysis
+ *
+ * @status stable
+ * @keywords Shigella, serotype, virulence, IPABC
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation shigapass
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @output tsv      ShigaPass summary results in TSV format
+ * @output flex_tsv ShigaPass Flex summary results in TSV format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SHIGAPASS {

@@ -1,5 +1,35 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Mashtree.
+ *
+ * Quickly create a tree using Mash distances
+ * The `mashtree` module uses [Mashtree](https://github.com/lskatz/mashtree) to create a tree of your samples
+ * using [Mash](https://github.com/marbl/Mash) distances.
+ * You can also use `--species` or `-accessions` to see how your samples compare to completed genomes. If used,
+ * [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will download available completed
+ * genomes available from RefSeq and they will be included in your tree.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, mashtree
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

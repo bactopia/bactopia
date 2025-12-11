@@ -1,3 +1,22 @@
+/**
+ * In silico Legionella pneumophila sequence based typing.
+ *
+ * This process executes legsta to perform analysis
+ *
+ * @status stable
+ * @keywords legionella, pneumophila, typing, sbt
+ * @tags complexity:simple input-type:single output-type:single features:compression
+ * @citation legsta
+ *
+ * @input tuple(meta, seqs)
+ * - `meta`: Groovy Map containing sample information
+ * - `seqs`: FASTA file of contigs or genome
+ *
+ * @output tsv      Tab-delimited legsta results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process LEGSTA {

@@ -1,6 +1,33 @@
-//
-// phispy - Predict prophages in bacterial genomes
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules phispy as phispy_module, csvtk_concat
+ *
+ * @input gbk
+ * Channel containing gbk data
+ *
+ * @output tsv            Tsv
+ * @output merged_tsv     Merged Tsv
+ * @output information    Information
+ * @output bacteria_fasta Bacteria Fasta
+ * @output bacteria_gbk   Bacteria Gbk
+ * @output phage_fasta    Phage Fasta
+ * @output phage_gbk      Phage Gbk
+ * @output prophage_gff   Prophage Gff
+ * @output prophage_tbl   Prophage Tbl
+ * @output prophage_tsv   Prophage Tsv
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'

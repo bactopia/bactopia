@@ -1,3 +1,41 @@
+/**
+ * Annotate prokaryotic genomes.
+ *
+ * This process executes prokka to perform analysis
+ *
+ * @status stable
+ * @keywords prokka, annotation, prokaryotic
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
+ * @citation prokka
+ *
+ * @note Uses EMPTY_* placeholder files for optional parameters
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Input FASTA file (contigs or complete genome)
+ *
+ * @input proteins
+ * Fasta file of trusted proteins to first annotate from
+ *
+ * @input prodigal_tf
+ * Training file to use for gene prediction
+ *
+ * @output annotations Annotations
+ * @output gff         annotation in GFF3 format, containing both sequences and annotations
+ * @output gbk         annotation in GenBank format, containing both sequences and annotations
+ * @output fna         nucleotide FASTA file of the input contig sequences
+ * @output faa         protein FASTA file of the annotated genes
+ * @output ffn         nucleotide FASTA file of the annotated genes
+ * @output sqn         an ASN1 format "Sequin" file for submission to GenBank
+ * @output fsa         nucleotide FASTA file of the input contig sequences (with adjusted sequence headers)
+ * @output tbl         feature table file
+ * @output txt         summary statistics about the annotation
+ * @output tsv         tab-separated file of all features (locus_tag,ftype,gene,EC_number,COG,product)
+ * @output blastdb     a compressed tar.gz archive of BLAST databases created from the input sequences and annotations
+ * @output logs        Optional tool execution logs
+ * @output nf_logs     Nextflow execution logs
+ * @output versions    Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PROKKA {

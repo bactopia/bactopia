@@ -1,5 +1,43 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Pangenome.
+ *
+ * Pangenome analysis with optional core-genome phylogeny
+ * The `pangenome` subworkflow allows you to create a pan-genome with [PIRATE](https://github.com/SionBayliss/PIRATE),
+ * [Panaroo](https://github.com/gtonkinhill/panaroo), or [Roary](https://github.com/sanger-pathogens/Roary)) of your samples.
+ * You can further supplement your pan-genome by including completed genomes. This is possible using the `--species`
+ * or `--accessions` parameters. If used, [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will
+ * download available completed genomes available from RefSeq. Any downloaded genomes will be annotated with
+ * [Prokka](https://github.com/tseemann/prokka) to create compatible GFF3 files.
+ * A phylogeny, based on the core-genome alignment, will be created by [IQ-Tree](https://github.com/Cibiv/IQ-TREE). Optionally
+ * a recombination-masked core-genome alignment can be created with [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML)
+ * and [maskrc-svg](https://github.com/kwongj/maskrc-svg).
+ * Finally, the core genome pair-wise SNP distance for each sample is also calculated with
+ * [snp-dists](https://github.com/tseemann/snp-dists) and additional pan-genome wide association studies can be conducted
+ * using [Scoary](https://github.com/AdmiralenOla/Scoary).
+ *
+ * @status stable
+ * @keywords alignment, core-genome, pan-genome, phylogeny
+ *
+ * @subworkflows bactopiatool_init, pangenome
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

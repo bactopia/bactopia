@@ -1,6 +1,28 @@
-//
-// blastp - Search against protein BLAST databases using protein queries
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, blast_blastp as blastp_module
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input query
+ * Channel containing query data
+ *
+ * @output tsv        Tsv
+ * @output merged_tsv Merged Tsv
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { BLAST_BLASTP as BLASTP_MODULE } from '../../modules/blast/blastp/main'

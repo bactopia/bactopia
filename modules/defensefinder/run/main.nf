@@ -1,3 +1,32 @@
+/**
+ * Run Defense-Finder to detect defense systems in bacterial genomes.
+ *
+ * This process executes defensefinder_run to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, defense, crispr, phage, defense-finder
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation defensefinder_run
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Input fasta/multi-fasta file containing protein sequences (regular or gzipped)
+ *
+ * @input db
+ * Defense-Finder models database
+ *
+ * @output genes_tsv      TSV file containing defense genes
+ * @output hmmer_tsv      TSV file containing hmmer hits
+ * @output systems_tsv    TSV file containing defense systems
+ * @output proteins       Protein sequences file
+ * @output proteins_index Protein sequences index file
+ * @output macsydata_raw  Raw macsydata files (optional)
+ * @output logs           Optional tool execution logs
+ * @output nf_logs        Nextflow execution logs
+ * @output versions       Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process DEFENSEFINDER_RUN {

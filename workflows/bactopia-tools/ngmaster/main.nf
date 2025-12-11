@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Ngmaster.
+ *
+ * Multi-antigen sequence typing for _Neisseria gonorrhoeae_
+ * The `ngmaster` module uses [ngmaster](https://github.com/MDU-PHL/ngmaster) for
+ * _in silico_ multi-antigen sequence typing for _Neisseria gonorrhoeae_ (NG-MAST).
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, ngmaster
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

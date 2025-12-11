@@ -1,3 +1,22 @@
+/**
+ * Parse GenoTyphi results from Mykrobe JSON output.
+ *
+ * This process executes genotyphi_parse to perform analysis
+ *
+ * @status stable
+ * @keywords salmonella, typhi, genotyping, parse
+ * @tags complexity:simple input-type:single output-type:single
+ * @citation genotyphi_parse
+ *
+ * @input tuple(meta, json)
+ * - `meta`: Groovy Map containing sample information
+ * - `json`: Mykrobe JSON output file
+ *
+ * @output tsv      Tab-delimited genotyphi results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process GENOTYPHI_PARSE {

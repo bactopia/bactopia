@@ -1,6 +1,32 @@
-//
-// defensefinder - Systematic search of all known anti-phage systems
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat as hmmer_concat, csvtk_concat as genes_concat, csvtk_concat as systems_concat, defensefinder_run, defensefinder_update
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output genes_tsv          Genes Tsv
+ * @output merged_genes_tsv   Merged Genes Tsv
+ * @output hmmer_tsv          Hmmer Tsv
+ * @output merged_hmmer_tsv   Merged Hmmer Tsv
+ * @output systems_tsv        Systems Tsv
+ * @output merged_systems_tsv Merged Systems Tsv
+ * @output proteins           Proteins
+ * @output proteins_index     Proteins Index
+ * @output macsydata_raw      Macsydata Raw
+ * @output results            Aggregated results channel containing all output files
+ * @output logs               Aggregated logs channel containing all execution logs
+ * @output nf_logs            Aggregated Nextflow execution logs from all processes
+ * @output versions           Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { DEFENSEFINDER_UPDATE           } from '../../modules/defensefinder/update/main'

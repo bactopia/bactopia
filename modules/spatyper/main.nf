@@ -1,3 +1,28 @@
+/**
+ * Computational method for finding spa types in Staphylococcus aureus.
+ *
+ * This process executes spatyper to perform analysis
+ *
+ * @status stable
+ * @keywords Staphylococcus aureus, spa typing, repeat
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @citation spatyper
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @input repeats
+ * Custom repeat file
+ *
+ * @input repeat_order
+ * Custom repeat order file
+ *
+ * @output tsv      spa typing results in TSV format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SPATYPER {

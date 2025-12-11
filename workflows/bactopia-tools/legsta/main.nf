@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Legsta.
+ *
+ * Typing of Legionella pneumophila assemblies
+ * The `legsta` module uses [legsta](https://github.com/tseemann/legsta) for
+ * _in silico_ _Legionella pneumophila_ Sequence Based Typing (SBT).
+ *
+ * @status stable
+ * @keywords fasta, legionella, typing
+ *
+ * @subworkflows bactopiatool_init, legsta
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

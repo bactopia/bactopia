@@ -1,3 +1,17 @@
+/**
+ * Download the latest AMRFinderPlus database.
+ *
+ * This process executes amrfinderplus_update to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, database, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, database-dependent
+ * @citation amrfinderplus_update
+ *
+ * @note Requires external database to be available
+ * @output db   The latest AMRFinder+ database in a compressed tarball
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process AMRFINDERPLUS_UPDATE {

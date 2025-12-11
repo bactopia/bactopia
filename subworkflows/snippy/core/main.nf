@@ -1,6 +1,25 @@
-//
-// snippy - Rapid variant calling from sequence reads
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows snpdists
+ * @modules snippy_core as snippy_core_module
+ *
+ * @input alignments
+ * Channel containing alignments data
+ *
+ * @input reference
+ * Channel containing reference data
+ *
+ * @input mask
+ * Channel containing mask data
+ */
 nextflow.preview.types = true
 
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE  } from '../../../modules/snippy/core/main'
@@ -32,6 +51,19 @@ workflow SNIPPY_CORE {
     tsv = SNPDISTS.out.tsv
 
     // Generic aggregate outputs
+
+
+
+
+
+
+
+
+
+
+
+
+
     results = SNIPPY_CORE_MODULE.out.supplemental.mix(
         SNIPPY_CORE_MODULE.out.aln,
         SNIPPY_CORE_MODULE.out.full_aln,

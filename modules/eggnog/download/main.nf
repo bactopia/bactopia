@@ -1,3 +1,15 @@
+/**
+ * Download eggNOG database files for annotation.
+ *
+ * This process executes eggnog_download to perform analysis
+ *
+ * @status stable
+ * @keywords eggnog, database, download, annotation
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic, resource-download
+ * @citation eggnog_download
+ * @output db   Directory containing downloaded eggNOG database files
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process EGGNOG_DOWNLOAD {

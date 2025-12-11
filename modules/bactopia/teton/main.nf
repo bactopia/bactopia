@@ -1,3 +1,24 @@
+/**
+ * Create sample sheets for Teton workflow based on species classification.
+ *
+ * This process executes bactopia_samplesheet to perform analysis
+ *
+ * @status stable
+ * @keywords bactopia, sample sheet, classification, teton
+ * @tags complexity:moderate input-type:single output-type:multiple
+ * @citation bactopia_samplesheet
+ *
+ * @input tuple(meta, classification)
+ * - `meta`: Groovy Map containing sample information
+ * - `classification`: Classification results file
+ *
+ * @output bacteria_tsv    Sample sheet for bacterial samples
+ * @output nonbacteria_tsv Sample sheet for non-bacterial samples
+ * @output sizemeup        Genome size predictions
+ * @output logs            Optional tool execution logs
+ * @output nf_logs         Nextflow execution logs
+ * @output versions        Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BACTOPIA_SAMPLESHEET {

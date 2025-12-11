@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Ectyper.
+ *
+ * In-silico prediction of _Escherichia coli_ serotype
+ * The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
+ * _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
+ * tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, ectyper
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

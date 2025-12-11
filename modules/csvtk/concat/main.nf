@@ -1,3 +1,28 @@
+/**
+ * Concatenate two or more CSV (or TSV) tables into a single table.
+ *
+ * This process executes csvtk_concat to perform analysis
+ *
+ * @status stable
+ * @keywords concatenate, tsv, csv
+ * @tags complexity:simple input-type:multiple output-type:single
+ * @citation csvtk_concat
+ *
+ * @input tuple(meta, csv)
+ * - `meta`: Groovy Map containing sample information
+ * - `csv`: CSV/TSV formatted files
+ *
+ * @input in_format
+ * Input format (csv, tab, or a delimiting character)
+ *
+ * @input out_format
+ * Output format (csv, tab, or a delimiting character)
+ *
+ * @output csv      Concatenated CSV/TSV file
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process CSVTK_CONCAT {

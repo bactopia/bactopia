@@ -1,6 +1,27 @@
-//
-// panaroo - Pipeline for pangenome investigations
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules panaroo_run
+ *
+ * @input gff
+ * Channel containing gff data
+ *
+ * @output csv          Csv
+ * @output aln          Aln
+ * @output filtered_aln Filtered Aln
+ * @output panaroo_csv  Panaroo Csv
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output versions     Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { PANAROO_RUN  } from '../../modules/panaroo/run/main'

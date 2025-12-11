@@ -1,3 +1,28 @@
+/**
+ * Identify insertion sites positions in bacterial genomes.
+ *
+ * This process executes ismapper to perform analysis
+ *
+ * @status stable
+ * @keywords fastq, insertion sequences
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @citation ismapper
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: A set of paired-end FASTQ files
+ *
+ * @input reference
+ * Reference genome in GenBank format
+ *
+ * @input query
+ * Insertion sequences to query in FASTA format
+ *
+ * @output supplemental Supplemental
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ISMAPPER {

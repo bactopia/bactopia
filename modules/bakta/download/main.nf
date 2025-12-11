@@ -1,3 +1,16 @@
+/**
+ * Annotation of bacterial genomes (isolates, MAGs) and plasmids.
+ *
+ * This process executes bakta_download to perform analysis
+ *
+ * @status stable
+ * @keywords annotation, fasta, bacteria
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
+ * @citation bakta_download
+ * @output db         A database for Bakta
+ * @output db_tarball Db Tarball
+ * @output logs       Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process BAKTA_DOWNLOAD {

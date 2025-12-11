@@ -1,6 +1,29 @@
-//
-// plasmidfinder - Plasmid identification from assemblies
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules plasmidfinder as plasmidfinder_module, csvtk_concat
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output tsv         Tsv
+ * @output merged_tsv  Merged Tsv
+ * @output json        Json
+ * @output txt         Txt
+ * @output genome_seq  Genome Seq
+ * @output plasmid_seq Plasmid Seq
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution logs from all processes
+ * @output versions    Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../modules/plasmidfinder/main'

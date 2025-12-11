@@ -1,3 +1,23 @@
+/**
+ * Screen assemblies for antimicrobial resistance against multiple databases.
+ *
+ * This process executes abricate_run to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, assembly, antimicrobial resistance
+ * @tags complexity:simple input-type:single output-type:single
+ * @citation abricate_run
+ *
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: FASTA, GenBank or EMBL formatted file
+ *
+ *
+ * @output report   Tab-delimited report of results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ABRICATE_RUN {

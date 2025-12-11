@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Clermontyping.
+ *
+ * in silico phylotyping of Escherichia genus
+ * The `clermontyping` module used [ClermonTyping](https://github.com/happykhan/ClermonTyping)
+ * to conduct _in silico_ prediction of phylotype for _Escherichia_ genomes. It uses the
+ * genome assemblies to be assign them to _E. albertii_, _E. fergusonii_, _Escherichia_
+ * clades I–V, _E. coli sensu stricto_ as well as to the main _E. coli_ phylogroups
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, clermontyping
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

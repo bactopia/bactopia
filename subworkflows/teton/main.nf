@@ -1,6 +1,37 @@
-//
-// teton - Taxonomic classification and estimated species abundances
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows scrubber, bracken
+ * @modules csvtk_join, bactopia_samplesheet, csvtk_concat as csvtk_concat_nonbacteria, csvtk_concat as csvtk_concat_bacteria, csvtk_concat, csvtk_concat as csvtk_concat_sizemeup
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input db
+ * Channel containing db data
+ *
+ * @input use_srascrubber
+ * Channel containing use_srascrubber data
+ *
+ * @output bacteria_tsv           Bacteria Tsv
+ * @output merged_bacteria_tsv    Merged Bacteria Tsv
+ * @output nonbacteria_tsv        Nonbacteria Tsv
+ * @output merged_nonbacteria_tsv Merged Nonbacteria Tsv
+ * @output sizemeup               Sizemeup
+ * @output merged_sizemeup        Merged Sizemeup
+ * @output report                 Report
+ * @output results                Aggregated results channel containing all output files
+ * @output logs                   Aggregated logs channel containing all execution logs
+ * @output nf_logs                Aggregated Nextflow execution logs from all processes
+ * @output versions               Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { SCRUBBER                                 } from '../scrubber/main'

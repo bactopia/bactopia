@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Stecfinder.
+ *
+ * Serotype of Shigatoxin producing E. coli using Illumina reads or assemblies
+ * The `stecfinder` module uses [STECFinder](https://github.com/LanLab/STECFinder) to identify
+ * the serotype of Shigatoxin producing _E. coli_ (STEC). STECFinder identifies the serotype
+ * as well as the O-antigen and H-antigens.
+ *
+ * @status stable
+ * @keywords stec, serotype
+ *
+ * @subworkflows bactopiatool_init, stecfinder
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

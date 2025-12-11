@@ -1,3 +1,26 @@
+/**
+ * A fast and scalable tool for bacterial pangenome analysis.
+ *
+ * This process executes panaroo_run to perform analysis
+ *
+ * @status stable
+ * @keywords gff, pan-genome, alignment
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation panaroo_run
+ *
+ * @input tuple(meta, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `gff`: A set of GFF3 formatted files
+ *
+ * @output supplemental Supplemental
+ * @output aln          Core-genome alignment produced by Panaroo (Optional)
+ * @output filtered_aln Filtered Aln
+ * @output csv          Gene presence absence in Roary format (Optional)
+ * @output panaroo_csv  Gene presence absence in Panaroo format (Optional)
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PANAROO_RUN {

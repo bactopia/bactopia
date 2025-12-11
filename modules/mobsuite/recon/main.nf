@@ -1,3 +1,25 @@
+/**
+ * A tool to reconstruct plasmids in bacterial assemblies.
+ *
+ * This process executes mobsuite_recon to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, plasmid
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation mobsuite_recon
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: A bacterial genome assembly in FASTA format
+ *
+ * @output chromosome    FASTA file of all contigs found to belong to the chromosome
+ * @output contig_report Assignment of the contig to chromosome or a particular plasmid grouping
+ * @output plasmids      Each plasmid group is written to an individual FASTA
+ * @output txt           Txt
+ * @output logs          Optional tool execution logs
+ * @output nf_logs       Nextflow execution logs
+ * @output versions      Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MOBSUITE_RECON {

@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Defensefinder.
+ *
+ * Systematic search of all known anti-phage systems
+ * The `defensefinder` module uses the [defense-finder](https://github.com/mdmparis/defense-finder)
+ * for the identification of all known anti-phage systems.
+ *
+ * @status stable
+ * @keywords phage, fasta
+ *
+ * @subworkflows bactopiatool_init, defensefinder
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

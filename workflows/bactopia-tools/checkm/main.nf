@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Checkm.
+ *
+ * Assess the assembly quality of your samples
+ * The `checkm` module is used [CheckM](https://github.com/Ecogenomics/CheckM) to assess the quality of microbial
+ * genomes recovered from isolates, single cells, and metagenomes.
+ *
+ * @status stable
+ * @keywords fasta, assembly quality
+ *
+ * @subworkflows bactopiatool_init, checkm
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Abricate.
+ *
+ * Performs mass screening of contigs for antimicrobial resistance and virulence genes.
+ * This Bactopia Tool uses [Abricate](https://github.com/tseemann/abricate) to screen
+ * assemblies against multiple resistance and virulence gene databases.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance, virulence
+ * @citation abricate
+ *
+ * @subworkflows bactopiatool_init, abricate
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *.txt    Tab-delimited report of Abricate screening results
+ *
+ * @section Merged Results
+ * @publish abricate.tsv    Merged TSV file with Abricate results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,3 +1,30 @@
+/**
+ * Remove human reads from FASTQ files using SRA Human Scrubber.
+ *
+ * This process executes srahumanscrubber_scrub to perform analysis
+ *
+ * @status stable
+ * @keywords human, contamination, scrubber, decontamination
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
+ * @citation srahumanscrubber_scrub
+ *
+ * @note Uses EMPTY_* placeholder files for optional parameters
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FASTQ file(s) to be scrubbed
+ *
+ * @input db
+ * SRA Human Scrubber database directory
+ *
+ * @output scrubbed             Scrubbed FASTQ files with human reads removed
+ * @output scrubbed_extra       Scrubbed FASTQ files with placeholder for pipeline compatibility
+ * @output scrub_report         Report of scrubbing statistics
+ * @output scrub_special_report Scrub Special Report
+ * @output logs                 Optional tool execution logs
+ * @output nf_logs              Nextflow execution logs
+ * @output versions             Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SRAHUMANSCRUBBER_SCRUB {

@@ -1,3 +1,16 @@
+/**
+ * Download and setup GTDB-Tk database.
+ *
+ * This process executes gtdbtk_download to perform analysis
+ *
+ * @status stable
+ * @keywords gtdb, database, download, setup
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
+ * @citation gtdbtk_download
+ * @output db         GTDB database directory
+ * @output db_tarball GTDB database tarball (optional)
+ * @output logs       Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process GTDBTK_DOWNLOAD {

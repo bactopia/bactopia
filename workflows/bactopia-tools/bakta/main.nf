@@ -1,5 +1,40 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Bakta.
+ *
+ * Rapid annotation of bacterial genomes and plasmids
+ * The `bakta` module uses [Bakta](https://github.com/oschwengers/bakta) to rapidly annotate bacterial
+ * genomes and plasmids in a standardized fashion. Bakta makes use of a large database ([40+ GB](https://doi.org/10.5281/zenodo.4247252))
+ * to provide extensive annotations including: tRNA, tmRNA, rRNA, ncRNA, CRISPR, CDS, and sORFs.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, bakta
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *.gff    Genome annotation in GFF3 format
+ * @publish *.gbk    Genome annotation in GenBank format
+ * @publish *.faa    Protein sequences
+ * @publish *.fna    Nucleotide sequences
+ * @publish *.ffn    Feature nucleotide sequences
+ *
+ * @section Merged Results
+ *
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ *
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ *
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

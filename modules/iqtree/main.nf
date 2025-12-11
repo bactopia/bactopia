@@ -1,3 +1,25 @@
+/**
+ * Efficient software for phylogenomic inference.
+ *
+ * This process executes iqtree to perform analysis
+ *
+ * @status stable
+ * @keywords phylogeny, iqtree, tree
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation iqtree
+ *
+ * @input tuple(meta, alignment)
+ * - `meta`: Groovy Map containing sample information
+ * - `alignment`: Multiple sequence alignment file
+ *
+ * @output supplemental Supplemental
+ * @output phylogeny    Phylogenetic tree file
+ * @output alignment    Alignment
+ * @output aln_tree     Tuple containing alignment and tree files
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process IQTREE {

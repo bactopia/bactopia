@@ -1,3 +1,22 @@
+/**
+ * Cluster informed identification of both Shigella and EIEC.
+ *
+ * This process executes shigeifinder to perform analysis
+ *
+ * @status stable
+ * @keywords Shigella, EIEC, virulence, ipaH, cluster
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation shigeifinder
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @output tsv      ShigEiFinder results in TSV format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SHIGEIFINDER {

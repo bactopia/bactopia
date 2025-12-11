@@ -1,3 +1,23 @@
+/**
+ * Assign PBP type of Streptococcus pneumoniae assemblies.
+ *
+ * This process executes pbptyper to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, pbp, fasta, assembly
+ * @tags complexity:simple input-type:single output-type:multiple
+ * @citation pbptyper
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: An assembly in FASTA format
+ *
+ * @output tsv      A tab-delimited file with the predicted PBP type
+ * @output blast    A tab-delimited file of all blast hits
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PBPTYPER {

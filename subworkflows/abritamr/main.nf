@@ -1,6 +1,29 @@
-//
-// abritamr - A NATA accredited tool for reporting the presence of antimicrobial resistance genes
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules abritamr_run, csvtk_concat
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output summary_tsv        Summary Tsv
+ * @output merged_summary_tsv Merged Summary Tsv
+ * @output matches_tsv        Matches Tsv
+ * @output partials_tsv       Partials Tsv
+ * @output virulence_tsv      Virulence Tsv
+ * @output amrfinder_tsv      Amrfinder Tsv
+ * @output results            Aggregated results channel containing all output files
+ * @output logs               Aggregated logs channel containing all execution logs
+ * @output nf_logs            Aggregated Nextflow execution logs from all processes
+ * @output versions           Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { ABRITAMR_RUN } from '../../modules/abritamr/run/main'

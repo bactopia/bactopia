@@ -1,3 +1,15 @@
+/**
+ * Download Defense-Finder models database.
+ *
+ * This process executes defensefinder_update to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, defense, database, download, defense-finder
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, resource-download
+ * @citation defensefinder_update
+ * @output db   Defense-Finder models database
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process DEFENSEFINDER_UPDATE {

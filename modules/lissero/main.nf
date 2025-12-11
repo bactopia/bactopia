@@ -1,3 +1,22 @@
+/**
+ * In silico serotyping of Listeria monocytogenes.
+ *
+ * This process executes lissero to perform analysis
+ *
+ * @status stable
+ * @keywords listeria, monocytogenes, serotype, typing
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation lissero
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly in FASTA format
+ *
+ * @output tsv      Tab-delimited lissero results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process LISSERO {

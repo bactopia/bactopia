@@ -1,3 +1,28 @@
+/**
+ * Profile Mycobacterium tuberculosis for drug resistance and strain type.
+ *
+ * This process executes tbprofiler_profile to perform analysis
+ *
+ * @status stable
+ * @keywords tuberculosis, drug resistance, typing, variant calling
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, database-dependent
+ * @citation tbprofiler_profile
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FastQ files (single or paired-end)
+ *
+ * @output bam      Aligned BAM file
+ * @output csv      Results in CSV format (optional)
+ * @output json     Compressed JSON results file
+ * @output txt      Results in text format (optional)
+ * @output vcf      Compressed VCF file with variants
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process TBPROFILER_PROFILE {

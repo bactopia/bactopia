@@ -1,3 +1,28 @@
+/**
+ * GTDB-Tk classification workflow for bacterial and archaeal genomes.
+ *
+ * This process executes gtdbtk_classifywf to perform analysis
+ *
+ * @status stable
+ * @keywords gtdb, taxonomy, classification, archaea, bacteria
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation gtdbtk_classifywf
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fna)
+ * - `meta`: Groovy Map containing sample information
+ * - `fna`: Genome assemblies in FASTA format
+ *
+ * @input db
+ * GTDB database directory or tarball
+ *
+ * @output supplemental Supplemental
+ * @output tsv          Summary classification file
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process GTDBTK_CLASSIFYWF {

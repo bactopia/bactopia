@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Quast.
+ *
+ * A module for assessing the quality of assembled contigs
+ * The `quast` module uses [QUAST](https://github.com/ablab/quast) to assess the quality of
+ * assembled contigs. To assist assessment, QUAST produces a number of plots and tables that
+ * can be evaluated.
+ *
+ * @status stable
+ * @keywords assembly, quality
+ *
+ * @subworkflows bactopiatool_init, quast
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,3 +1,23 @@
+/**
+ * Find STEC gene markers in E. coli genomes.
+ *
+ * This process executes stecfinder to perform analysis
+ *
+ * @status stable
+ * @keywords STEC, E. coli, virulence, typing
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation stecfinder
+ *
+ * @input tuple(meta, fasta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly file in FASTA format
+ * - `reads`: Reads file (if using reads mode)
+ *
+ * @output tsv      TSV file with STEC gene markers results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process STECFINDER {

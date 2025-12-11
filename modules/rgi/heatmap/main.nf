@@ -1,3 +1,22 @@
+/**
+ * Creates heatmaps from RGI JSON output files.
+ *
+ * This process executes rgi_heatmap to perform analysis
+ *
+ * @status stable
+ * @keywords resistance, antimicrobial resistance, CARD, RGI, heatmap, visualization
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @citation rgi_heatmap
+ *
+ * @input tuple(meta, json)
+ * - `meta`: Groovy Map containing sample information
+ * - `json`: RGI JSON output files
+ *
+ * @output heatmap  Heatmap files in various formats (CSV, EPS, PNG)
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process RGI_HEATMAP {

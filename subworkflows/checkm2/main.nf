@@ -1,6 +1,31 @@
-//
-// checkm2 - Assess the assembly quality of your samples
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, checkm2_predict, checkm2_download
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @input download_checkm2
+ * Channel containing download_checkm2 data
+ *
+ * @output report         Report
+ * @output merged_reports Merged Reports
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'

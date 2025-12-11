@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Emmtyper.
+ *
+ * emm-typing of _Streptococcus pyogenes_ assemblies
+ * The `emmtyper` module uses [emmtyper](https://github.com/MDU-PHL/emmtyper) for
+ * emm-typing of _Streptococcus pyogenes_ using a de novo or complete assembly.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, emmtyper
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

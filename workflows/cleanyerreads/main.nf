@@ -1,5 +1,47 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Clean Yer Reads.
+ *
+ * Quality control and optional host read removal from raw sequencing reads.
+ * This workflow performs read trimming, adapter removal, quality filtering,
+ * and optionally removes host contamination using Kraken2 or SRA Scrubber.
+ *
+ * @status stable
+ * @keywords reads, quality control, trimming, filtering, host removal
+ *
+ * @subworkflows bactopia_init, gather, qc, scrubber
+ *
+ * @input rundir
+ * Directory containing raw sequencing reads
+ *
+ * @input use_k2scrubber
+ * Remove host reads using Kraken2 scrubber
+ *
+ * @input use_srascrubber
+ * Remove host reads using SRA scrubber
+ *
+ * @input adapters
+ * Path to adapter sequences file for removal
+ *
+ * @input phix
+ * Path to PhiX sequences for contamination removal
+ *
+ * @section Quality Reports
+ * @publish fastqc/*   FastQC quality control reports
+ * @publish multiqc/*   MultiQC aggregated quality reports
+ *
+ * @section Cleaned Reads
+ * @publish *.fastq.gz   Quality controlled and trimmed reads
+ * @publish *.scrubbed.fastq.gz   Host-decontaminated reads (if scrubber used)
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

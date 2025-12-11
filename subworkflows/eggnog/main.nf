@@ -1,6 +1,38 @@
-//
-// eggnog - Functional annotation of proteins using orthologous groups and phylogenies
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules eggnog_mapper, eggnog_download
+ *
+ * @input faa
+ * Channel containing faa data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @input download_eggnog
+ * Channel containing download_eggnog data
+ *
+ * @output hits           Hits
+ * @output seed_orthologs Seed Orthologs
+ * @output annotations    Annotations
+ * @output xlsx           Xlsx
+ * @output orthologs      Orthologs
+ * @output genepred       Genepred
+ * @output gff            Gff
+ * @output no_anno        No Anno
+ * @output pfam           Pfam
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { EGGNOG_DOWNLOAD } from '../../modules/eggnog/download/main'

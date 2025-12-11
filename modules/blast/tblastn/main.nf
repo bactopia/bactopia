@@ -1,3 +1,25 @@
+/**
+ * Searches translated nucleotide databases using a protein query.
+ *
+ * This process executes blast_tblastn to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, blast, tblastn, protein query, nucleotide database
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression
+ * @citation blast_tblastn
+ *
+ * @input tuple(meta, blastdb)
+ * - `meta`: Groovy Map containing sample information
+ * - `blastdb`: BLAST nucleotide database tarball
+ *
+ * @input query
+ * Input fasta file containing protein query sequences
+ *
+ * @output tsv      Tab-separated file containing tblastn hits
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BLAST_TBLASTN {

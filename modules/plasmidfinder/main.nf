@@ -1,3 +1,26 @@
+/**
+ * Identify plasmids in bacterial sequences and assemblies.
+ *
+ * This process executes plasmidfinder to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, fastq, plasmid
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation plasmidfinder
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Input FASTA formatted genome sequences
+ *
+ * @output json        The results from analysis in JSON format
+ * @output txt         The summary of results from analysis
+ * @output tsv         The results from analysis in TSV format
+ * @output genome_seq  FASTA of sequences in the input with a hit
+ * @output plasmid_seq FASTA of plasmid sequences with a hit against the input
+ * @output logs        Optional tool execution logs
+ * @output nf_logs     Nextflow execution logs
+ * @output versions    Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PLASMIDFINDER {

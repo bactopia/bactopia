@@ -1,3 +1,34 @@
+/**
+ * ${$MODULE_DESCRIPTION}
+.
+ *
+ * This process executes sketcher to perform analysis
+ *
+ * @status stable
+ * @keywords ${MODULE_KEYWORDS}
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation sketcher
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Input file
+ *
+ * @input mash_db
+ * Path parameter for mash_db
+ *
+ * @input sourmash_db
+ * Path parameter for sourmash_db
+ *
+ * @output sig      Sig
+ * @output msh      Msh
+ * @output mash     Mash
+ * @output sourmash Sourmash
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SKETCHER {

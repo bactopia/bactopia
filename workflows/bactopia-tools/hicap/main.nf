@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Hicap.
+ *
+ * Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
+ * The `hicap` module uses [hicap](https://github.com/scwatts/hicap) along wih an assembly for
+ * the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, hicap
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

@@ -1,3 +1,30 @@
+/**
+ * Predict prophages in bacterial genomes.
+ *
+ * This process executes phispy to perform analysis
+ *
+ * @status stable
+ * @keywords genomics, virus, phage, prophage, annotation, identification
+ * @tags complexity:complex input-type:single output-type:multiple
+ * @citation phispy
+ *
+ * @input tuple(meta, gbk)
+ * - `meta`: Groovy Map containing sample information
+ * - `gbk`: Genome file in .gbk or .gbff format.
+ *
+ * @output tsv            Coordinates of each prophage identified in the genome
+ * @output information    Prophage information details
+ * @output bacteria_fasta Bacterial sequences with prophages removed
+ * @output bacteria_gbk   Bacterial GenBank file with prophages removed
+ * @output phage_fasta    Phage sequences
+ * @output phage_gbk      Phage GenBank file
+ * @output prophage_gff   Prophage predictions in GFF3 format
+ * @output prophage_tbl   Prophage predictions in table format
+ * @output prophage_tsv   Prophage predictions in TSV format
+ * @output logs           Optional tool execution logs
+ * @output nf_logs        Nextflow execution logs
+ * @output versions       Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PHISPY {

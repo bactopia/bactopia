@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Midas.
+ *
+ * Estimate species abundances from FASTQ files
+ * The `midas` module uses [MIDAS](https://github.com/snayfach/MIDAS) to estimate the
+ * abundance of bacterial species in a sample. MIDAS makes use of a database with
+ * more than 30,000 reference genomes to estimate abundances.
+ *
+ * @status stable
+ * @keywords classify, metagenomics, fastq
+ *
+ * @subworkflows bactopiatool_init, midas
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

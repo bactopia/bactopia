@@ -1,3 +1,25 @@
+/**
+ * Queries a BLAST protein database.
+ *
+ * This process executes blast_blastp to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, blast, blastp, protein sequence
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression
+ * @citation blast_blastp
+ *
+ * @input tuple(meta, blastdb)
+ * - `meta`: Groovy Map containing sample information
+ * - `blastdb`: BLAST database tarball
+ *
+ * @input query
+ * Input fasta file containing query sequences
+ *
+ * @output tsv      Tab-separated file containing blastp hits
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BLAST_BLASTP {

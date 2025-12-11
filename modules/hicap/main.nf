@@ -1,3 +1,32 @@
+/**
+ * In silico typing of the H. influenzae capsule locus.
+ *
+ * This process executes hicap to perform analysis
+ *
+ * @status stable
+ * @keywords haemophilus, influenzae, capsule, typing, serotype
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation hicap
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly in FASTA format
+ *
+ * @input database_dir
+ * Optional path to database directory
+ *
+ * @input model_fp
+ * Optional path to prodigal model file
+ *
+ * @output gbk      GenBank file of cap locus (optional)
+ * @output svg      SVG visualization of cap locus (optional)
+ * @output tsv      Tab-delimited hicap results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process HICAP {

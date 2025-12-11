@@ -1,3 +1,25 @@
+/**
+ * Calculate Mash distances between reference and query seqeunces.
+ *
+ * This process executes mash_dist to perform analysis
+ *
+ * @status stable
+ * @keywords mash/dist
+ * @tags complexity:moderate input-type:multiple output-type:single features:compression, conditional-logic
+ * @citation mash_dist
+ *
+ * @input tuple(meta, query)
+ * - `meta`: Groovy Map containing sample information
+ * - `query`: FASTA, FASTQ or Mash sketch
+ *
+ * @input reference
+ * FASTA, FASTQ or Mash sketch
+ *
+ * @output dist     The results from mash dist
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MASH_DIST {

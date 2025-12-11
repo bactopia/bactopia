@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Bracken.
+ *
+ * Estimate taxonomic abundance of samples from Kraken2 results
+ * The `bracken` module uses [Bracken](https://github.com/jenniferlu717/Bracken) to estimate
+ * taxonomic abundance of samples. This Bactopia Tool will also run [Kraken2](https://ccb.jhu.edu/software/kraken2/),
+ * automatically and generate [Krona](https://github.com/marbl/Krona) charts for both Bracken and Kraken2.
+ *
+ * @status stable
+ * @keywords classify, metagenomics, fastq
+ *
+ * @subworkflows bactopiatool_init, bracken
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

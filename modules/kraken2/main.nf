@@ -1,3 +1,34 @@
+/**
+ * Taxonomic classification of reads using Kraken2.
+ *
+ * This process executes kraken2 to perform analysis
+ *
+ * @status stable
+ * @keywords kraken2, classification, taxonomy, fastq, metagenomics
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent, path-workarounds
+ * @citation kraken2
+ *
+ * @note Uses EMPTY_* placeholder files for optional parameters
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end or single-end fastq files
+ *
+ * @input db
+ * Kraken2 database directory or tarball
+ *
+ * @output kraken2_report       Kraken2 report file
+ * @output scrub_report         Scrubbing report (optional)
+ * @output scrub_special_report Scrub Special Report
+ * @output classified           Classified reads (optional)
+ * @output unclassified         Unclassified reads (optional)
+ * @output classified_extra     Classified reads with extra placeholder file
+ * @output unclassified_extra   Unclassified reads with extra placeholder file
+ * @output logs                 Optional tool execution logs
+ * @output nf_logs              Nextflow execution logs
+ * @output versions             Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process KRAKEN2 {

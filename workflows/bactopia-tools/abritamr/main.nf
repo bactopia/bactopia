@@ -1,5 +1,35 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Abritamr.
+ *
+ * A NATA accredited tool for reporting the presence of antimicrobial resistance genes
+ * The `abritamr` module uses [abriTAMR](https://github.com/MDU-PHL/abritamr) for the
+ * detection of antimicrobial resistance and virulence genes. It makes use of
+ * [AMRFinderPlus](https://github.com/ncbi/amr) and its accredited by NATA for use in
+ * reporting presence of reportable AMR genes in Victoria Australia.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ *
+ * @subworkflows bactopiatool_init, abritamr
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir: String

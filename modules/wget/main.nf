@@ -1,3 +1,19 @@
+/**
+ * Download files using wget.
+ *
+ * This process executes wget to perform analysis
+ *
+ * @status stable
+ * @keywords download, wget, fetch
+ * @tags complexity:simple input-type:single output-type:single features:resource-download
+ * @citation wget
+ *
+ * @input _meta
+ * Path parameter for _meta
+ *
+ * @output download Downloaded file
+ * @output logs     Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process WGET {

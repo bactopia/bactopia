@@ -1,3 +1,21 @@
+/**
+ * Download and prepare database for Ariba analysis.
+ *
+ * This process executes ariba_getref to perform analysis
+ *
+ * @status stable
+ * @keywords fastq, assembly, resistance, virulence
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, database-dependent, resource-download
+ * @citation ariba_getref
+ *
+ * @note Requires external database to be available
+ *
+ * @input db_name
+ * A database to setup up for Ariba
+ *
+ * @output db   An Ariba prepared database
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process ARIBA_GETREF {

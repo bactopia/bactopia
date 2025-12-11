@@ -1,3 +1,25 @@
+/**
+ * Salmonella In Silico Typing Resource.
+ *
+ * This process executes sistr to perform analysis
+ *
+ * @status stable
+ * @keywords Salmonella, serotype, cgMLST, typing
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation sistr
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @output tsv          SISTR prediction results in TSV format
+ * @output allele_fasta Novel alleles in FASTA format
+ * @output allele_json  Alleles in JSON format
+ * @output cgmlst_csv   cgMLST profile in CSV format
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SISTR {

@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Shigapass.
+ *
+ * Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
+ * The `shigapass` module uses [ShigaPass](https://github.com/imanyass/ShigaPass) for
+ * _in silico_ prediction of serotypes in _Shigella_ assemblies. It will also differentiate
+ * between _Shigella_, EIEC (Enteroinvasive _E. coli_) and non _Shigella_/EIEC.
+ *
+ * @status stable
+ * @keywords shigella, eiec, fasta, serotype
+ *
+ * @subworkflows bactopiatool_init, shigapass
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

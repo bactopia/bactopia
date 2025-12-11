@@ -1,3 +1,23 @@
+/**
+ * Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
+ *
+ * This process executes agrvate to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, virulence, Staphylococcus aureus
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation agrvate
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: A Staphylococcus aureus fasta file.
+ *
+ * @output summary      A summary of the agrvate assessement
+ * @output supplemental Supplemental
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process AGRVATE {

@@ -1,3 +1,22 @@
+/**
+ * Screening genomic assemblies of Klebsiella for clinically relevant determinants.
+ *
+ * This process executes kleborate to perform analysis
+ *
+ * @status stable
+ * @keywords klebsiella, resistance, virulence, typing
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @citation kleborate
+ *
+ * @input tuple(meta, fastas)
+ * - `meta`: Groovy Map containing sample information
+ * - `fastas`: Assembly files in FASTA format
+ *
+ * @output txt      Tab-delimited Kleborate results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process KLEBORATE {

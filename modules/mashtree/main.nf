@@ -1,3 +1,24 @@
+/**
+ * Quickly create a tree using Mash distances.
+ *
+ * This process executes mashtree to perform analysis
+ *
+ * @status stable
+ * @keywords tree, mash, fasta, fastq
+ * @tags complexity:moderate input-type:single output-type:multiple
+ * @citation mashtree
+ *
+ * @input tuple(meta, seqs)
+ * - `meta`: Groovy Map containing sample information
+ * - `seqs`: FASTA, FASTQ, GenBank, or Mash sketch files
+ *
+ * @output tree     A Newick formatted tree file
+ * @output matrix   A TSV matrix of pair-wise Mash distances
+ * @output sketches Sketches
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MASHTREE {

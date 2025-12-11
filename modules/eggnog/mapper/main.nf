@@ -1,3 +1,35 @@
+/**
+ * Functional annotation of proteins using eggNOG orthology data.
+ *
+ * This process executes eggnog_mapper to perform analysis
+ *
+ * @status stable
+ * @keywords eggnog, annotation, orthology, proteins
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation eggnog_mapper
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Protein sequences in FASTA format
+ *
+ * @input db
+ * eggNOG database directory or tarball
+ *
+ * @output hits           Diamond/MMseqs2 hits file
+ * @output seed_orthologs Seed orthologs file
+ * @output annotations    Tab-delimited annotations file
+ * @output xlsx           Excel format annotations (optional)
+ * @output orthologs      Orthologs file (optional)
+ * @output genepred       Predicted genes (optional)
+ * @output gff            GFF format annotations (optional)
+ * @output no_anno        Sequences without annotations (optional)
+ * @output pfam           PFAM annotations (optional)
+ * @output logs           Optional tool execution logs
+ * @output nf_logs        Nextflow execution logs
+ * @output versions       Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process EGGNOG_MAPPER {

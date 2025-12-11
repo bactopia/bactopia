@@ -1,3 +1,22 @@
+/**
+ * Serotyping of Neisseria meningitidis assemblies.
+ *
+ * This process executes meningotype to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, Neisseria meningitidis, serotype
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation meningotype
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA assembly file
+ *
+ * @output tsv      Tab-delimited result file
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MENINGOTYPE {

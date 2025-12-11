@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Sccmec.
+ *
+ * A tool for typing SCCmec cassettes in assemblies
+ * The `sccmec` module uses [sccmec](https://github.com/rpetit3/sccmec) for typing
+ * SCCmec cassettes in _Staphylococcus aureus_ assemblies.
+ *
+ * @status stable
+ * @keywords fasta, resistance, Staphylococcus aureus
+ *
+ * @subworkflows bactopiatool_init, sccmec
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

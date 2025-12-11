@@ -1,3 +1,23 @@
+/**
+ * Use RGI (Resistance Gene Identifier) to predict resistome(s) from protein or nucleotide data.
+ *
+ * This process executes rgi_main to perform analysis
+ *
+ * @status stable
+ * @keywords resistance, antimicrobial resistance, CARD, RGI
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @citation rgi_main
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing nucleotide or protein sequences
+ *
+ * @output json     RGI results in JSON format
+ * @output tsv      RGI results in tab-separated format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process RGI_MAIN {

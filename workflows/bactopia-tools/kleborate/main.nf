@@ -1,5 +1,37 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Kleborate.
+ *
+ * Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
+ * The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of
+ * _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
+ * - MLST, species,
+ * - ICEKp associated virulence loci
+ * - virulence plasmid associated loci
+ * - antimicrobial resistance determinants,
+ * - K (capsule) and O antigen (LPS) serotype prediction.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, kleborate
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

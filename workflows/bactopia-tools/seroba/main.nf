@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Seroba.
+ *
+ * Serotyping of Streptococcus pneumoniae from sequence reads
+ * The `seroba` module uses [Seroba](https://github.com/sanger-pathogens/seroba) to predict the
+ * serotype of _Streptococcus pneumoniae_ samples with Illumina paired-end reads.
+ *
+ * @status stable
+ * @keywords serotype, fastq, Streptococcus pneumoniae
+ *
+ * @subworkflows bactopiatool_init, seroba
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

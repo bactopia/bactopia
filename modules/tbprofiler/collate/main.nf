@@ -1,3 +1,27 @@
+/**
+ * Collate TB-Profiler results from multiple samples.
+ *
+ * This process executes tbprofiler_collate to perform analysis
+ *
+ * @status stable
+ * @keywords tuberculosis, drug resistance, collate, summary
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, database-dependent
+ * @citation tbprofiler_collate
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, json)
+ * - `meta`: Groovy Map containing sample information
+ * - `json`: TB-Profiler JSON output files
+ *
+ * @output csv          Main collated results in CSV format
+ * @output variants_csv Collated variants in CSV format
+ * @output variants_txt Collated variants in text format
+ * @output itol         iTOL formatted files (optional)
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process TBPROFILER_COLLATE {

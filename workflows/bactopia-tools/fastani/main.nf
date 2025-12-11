@@ -1,5 +1,36 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Fastani.
+ *
+ * fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
+ * The `fastani` module uses [FastANI](https://github.com/ParBLiSS/FastANI) to calculate the average
+ * nucleotide identity (ANI) between your samples.
+ * Although, sometimes you might be more interested in calculating the ANI of your samples against
+ * a reference genome. Fortunately, using [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download),
+ * the `fastani` module allows you specify either a specific NCBI Assembly RefSeq accession (`--accession`)
+ * or a species name (`--species`) for which to download all RefSeq genomes.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, fastani
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

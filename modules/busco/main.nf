@@ -1,3 +1,23 @@
+/**
+ * Benchmarking Universal Single Copy Orthologs.
+ *
+ * This process executes busco to perform analysis
+ *
+ * @status stable
+ * @keywords quality control, genome, transcriptome, proteome
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
+ * @citation busco
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Nucleic or amino acid sequence file in FASTA format.
+ *
+ * @output supplemental Supplemental
+ * @output tsv          Tsv
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BUSCO {

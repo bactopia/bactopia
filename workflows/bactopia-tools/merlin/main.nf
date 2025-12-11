@@ -1,5 +1,50 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Merlin.
+ *
+ * MinmER assisted species-specific bactopia tool seLectIoN
+ * _MinmER assisted species-specific bactopia tool seLectIoN_, or Merlin, uses distances based
+ * on the RefSeq sketch downloaded by `bactopia datasets` to automatically run species-specific tools.
+ * Currently Merlin knows 16 spells for which cover the following:
+ * | Genus/Species | Tools |
+ * |---------------|-------|
+ * | Escherichia / Shigella   | [ECTyper](../bactopia-tools/ectyper.md), [ShigaTyper](../bactopia-tools/shigatyper.md), [ShigEiFinder](../bactopia-tools/shigeifinder.md)  |
+ * | Haemophilus   | [hicap](../bactopia-tools/hicap.md), [HpsuisSero](../bactopia-tools/ssuissero.md) |
+ * | Klebsiella | [Kleborate](../bactopia-tools/kleborate.md) |
+ * | Legionella | [legsta](../bactopia-tools/legsta.md) |
+ * | Listeria | [LisSero](../bactopia-tools/lissero.md) |
+ * | Mycobacterium | [TBProfiler](../bactopia-tools/tbprofiler.md) |
+ * | Neisseria | [meningotype](../bactopia-tools/meningotype.md), [ngmaster](../bactopia-tools/ngmaster.md) |
+ * | Pseudomonas | [pasty](../bactopia-tools/pasty.md) |
+ * | Salmonella | [SeqSero2](../bactopia-tools/seqsero2.md), [SISTR](../bactopia-tools/sistr.md) |
+ * | Staphylococcus | [AgrVATE](../bactopia-tools/agrvate.md), [spaTyper](../bactopia-tools/spatyper.md), [staphopia-sccmec](../bactopia-tools/staphopiasccmec.md) |
+ * | Streptococcus | [emmtyper](../bactopia-tools/emmtyper.md), [pbptyper](../bactopia-tools/pbptyper.md), [SsuisSero](../bactopia-tools/ssuissero.md) |
+ * Merlin is avialable as an independent Bactopia Tool, or in the Bactopia with the `--ask_merlin` parameter. Even better,
+ * if you want to force Merlin to execute all species-specific tools (no matter the distance), you can use `--full_merlin`.
+ * Then all the spells will be unleashed!
+ *
+ * @status stable
+ * @keywords serotype, species-specific
+ *
+ * @subworkflows bactopiatool_init, merlin
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

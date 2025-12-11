@@ -1,5 +1,38 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Staphtyper.
+ *
+ * Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
+ * The `staphtyper` subworkflow includes multiple tools that are specific for typing certain features
+ * of *Staphylococcus aureus*. Currently `staphtyper` includes
+ * 1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
+ * 2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
+ * 3. [sccmec](https://github.com/rpetit3/sccmec) - SCCmec type
+ * This tool will evolve with *S. aureus* genomics, so you can expect it to add more typing methods
+ * (maybe even replace current methods) in the future. If a certain typing method for *S. aureus*
+ * please feel free to suggest it be added!~
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, staphtyper
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

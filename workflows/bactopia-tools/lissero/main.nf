@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Lissero.
+ *
+ * Serogroup typing prediction for _Listeria monocytogenes_
+ * The `lissero` module uses [LisSero](https://github.com/MDU-PHL/LisSero) for
+ * _in silico_ serotype prediction for _Listeria monocytogenes_ assemblies.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, lissero
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Agrvate.
+ *
+ * Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
+ * The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)
+ * to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ assemblies.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, agrvate
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

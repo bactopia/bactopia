@@ -1,6 +1,32 @@
-//
-// tbprofiler - Detect resistance and lineages of Mycobacterium tuberculosis genomes
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules tbprofiler_profile, tbprofiler_collate
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @output csv          Csv
+ * @output json         Json
+ * @output txt          Txt
+ * @output bam          Bam
+ * @output vcf          Vcf
+ * @output merged_csv   Merged Csv
+ * @output variants_csv Variants Csv
+ * @output variants_txt Variants Txt
+ * @output itol         Itol
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output versions     Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { TBPROFILER_PROFILE } from '../../modules/tbprofiler/profile/main'

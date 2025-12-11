@@ -1,3 +1,23 @@
+/**
+ * Capsular typing of Streptococcus pneumoniae from Illumina reads.
+ *
+ * This process executes pneumocat to perform analysis
+ *
+ * @status stable
+ * @keywords pneumocat, Streptococcus pneumoniae, capsular typing, serotyping
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @citation pneumocat
+ *
+ * @input tuple(meta, meta)
+ * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Map containing sample information
+ *
+ * @output xml      The pneumocat result files in xml format
+ * @output txt      A file containing the coverage information acrosss the genes
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PNEUMOCAT {

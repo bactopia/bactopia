@@ -1,3 +1,25 @@
+/**
+ * Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI).
+ *
+ * This process executes fastani to perform analysis
+ *
+ * @status stable
+ * @keywords fastani
+ * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @citation fastani
+ *
+ * @input tuple(meta, query)
+ * - `meta`: Groovy Map containing sample information
+ * - `query`: Fasta file(s) to be queried
+ *
+ * @input reference
+ * Fasta file(s) to be used as reference for the query
+ *
+ * @output tsv      Results of the query
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process FASTANI {

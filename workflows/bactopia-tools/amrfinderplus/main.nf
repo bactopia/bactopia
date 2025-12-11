@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Amrfinderplus.
+ *
+ * Identify antimicrobial resistance in genes or proteins
+ * The `amrfinderplus` module uses [AMRFinder+](https://github.com/ncbi/amr) to screen assemblies and proteins
+ * for antimicrobial resistance and virulence genes.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, amrfinderplus
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

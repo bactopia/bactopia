@@ -1,3 +1,23 @@
+/**
+ * Salmonella serotype prediction from genome sequencing data.
+ *
+ * This process executes seqsero2 to perform analysis
+ *
+ * @status stable
+ * @keywords Salmonella, serotype, prediction
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation seqsero2
+ *
+ * @input tuple(meta, seqs)
+ * - `meta`: Groovy Map containing sample information
+ * - `seqs`: FASTA or FASTQ file(s)
+ *
+ * @output tsv      SeqSero2 results in TSV format
+ * @output txt      SeqSero2 results in text format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SEQSERO2 {

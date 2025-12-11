@@ -1,3 +1,30 @@
+/**
+ * Identify antimicrobial resistance in gene or protein sequences.
+ *
+ * This process executes amrfinderplus_run to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antibiotic resistance
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation amrfinderplus_run
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, genes, proteins, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `genes`: Input file
+ * - `proteins`: Input file
+ * - `gff`: Input file
+ *
+ * @input db
+ * A compressed tarball of the AMRFinderPlus database to query
+ *
+ * @output report          AMRFinder+ final report
+ * @output mutation_report Mutation Report
+ * @output logs            Optional tool execution logs
+ * @output nf_logs         Nextflow execution logs
+ * @output versions        Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process AMRFINDERPLUS_RUN {

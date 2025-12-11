@@ -1,6 +1,32 @@
-//
-// scrubber - Scrub human reads from FASTQ files
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows srahumanscrubber, k2scrubber
+ * @modules csvtk_concat
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input use_srascrubber
+ * Channel containing use_srascrubber data
+ *
+ * @output tsv            Tsv
+ * @output special_tsv    Special Tsv
+ * @output merged_tsv     Merged Tsv
+ * @output scrubbed       Scrubbed
+ * @output scrubbed_extra Scrubbed Extra
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'

@@ -1,6 +1,31 @@
-//
-// pangenome - Pangenome analysis with optional core-genome phylogeny
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows pirate, roary, panaroo, snpdists
+ *
+ * @input gff
+ * Channel containing gff data
+ *
+ * @input use_pirate
+ * Channel containing use_pirate data
+ *
+ * @input use_roary
+ * Channel containing use_roary data
+ *
+ * @output aln      Aln
+ * @output csv      Csv
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { PIRATE       } from '../pirate/main'

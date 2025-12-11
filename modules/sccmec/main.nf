@@ -1,3 +1,26 @@
+/**
+ * Identify SCCmec elements in Staphylococcus aureus genomes.
+ *
+ * This process executes sccmec to perform analysis
+ *
+ * @status stable
+ * @keywords SCCmec, Staphylococcus aureus, antimicrobial resistance, cassette chromosome
+ * @tags complexity:moderate input-type:single output-type:multiple
+ * @citation sccmec
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @output tsv             Main results file with SCCmec typing
+ * @output targets         BLAST results for target sequences
+ * @output target_details  Detailed results for target matches
+ * @output regions         BLAST results for SCCmec regions
+ * @output regions_details Detailed results for SCCmec region matches
+ * @output logs            Optional tool execution logs
+ * @output nf_logs         Nextflow execution logs
+ * @output versions        Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SCCMEC {

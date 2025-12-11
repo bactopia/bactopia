@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Eggnog.
+ *
+ * Functional annotation of proteins using orthologous groups and phylogenies
+ * The `eggnog` module uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign
+ * functional annotation to protein sequences. eggNOG-mapper uses orthologous groups and phylogenies
+ * from the eggNOG database to more precisely functionally annotate than traditional homology methods.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, eggnog
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

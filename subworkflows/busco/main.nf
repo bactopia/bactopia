@@ -1,6 +1,32 @@
 //
 // busco - Assembly completeness based on evolutionarily informed expectations
 // 
+
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, busco as busco_module
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input busco_lineage
+ * Channel containing busco_lineage data
+ *
+ * @output tsv        Tsv
+ * @output merged_tsv Merged Tsv
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { BUSCO as BUSCO_MODULE } from '../../modules/busco/main'

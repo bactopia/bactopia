@@ -1,6 +1,39 @@
-//
-// bracken - Estimate taxonomic abundance of samples from Kraken2 results
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat as csvtk_concat_tsv, bracken as bracken_module, csvtk_concat as csvtk_concat_adjusted
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @output tsv                        Tsv
+ * @output special_tsv                Special Tsv
+ * @output classified                 Classified
+ * @output unclassified               Unclassified
+ * @output kraken2_report             Kraken2 Report
+ * @output kraken2_output             Kraken2 Output
+ * @output bracken_report             Bracken Report
+ * @output krona                      Krona
+ * @output abundances                 Abundances
+ * @output classification             Classification
+ * @output adjusted_abundances        Adjusted Abundances
+ * @output merged_tsv                 Merged Tsv
+ * @output merged_adjusted_abundances Merged Adjusted Abundances
+ * @output results                    Aggregated results channel containing all output files
+ * @output logs                       Aggregated logs channel containing all execution logs
+ * @output nf_logs                    Aggregated Nextflow execution logs from all processes
+ * @output versions                   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { BRACKEN as BRACKEN_MODULE             } from '../../modules/bracken/main'

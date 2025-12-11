@@ -1,5 +1,32 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Tbprofiler.
+ *
+ * Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
+ * The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler)
+ * for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, tbprofiler
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

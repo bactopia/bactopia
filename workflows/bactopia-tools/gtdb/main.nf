@@ -1,5 +1,36 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Gtdb.
+ *
+ * Identify marker genes and assign taxonomic classifications
+ * The `gtdb` tool uses [GTDB-Tk's](https://github.com/Ecogenomics/GTDBTk) classify
+ * workflow to assign taxonomic classifications to your set of samples. This is
+ * done through the use of the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/).
+ * If you are unsure of your sequences, `gtdb` is useful tool to help determine
+ * the taxonomy of your samples.
+ *
+ * @status stable
+ * @keywords taxonomy
+ *
+ * @subworkflows bactopiatool_init, gtdb
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

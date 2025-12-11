@@ -1,5 +1,37 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Genotyphi.
+ *
+ * Salmonella Typhi genotyping with Mykrobe outputs
+ * The `genotyphi` module uses [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) to
+ * call Typhi lineages, AMR determinants, and plasmid markers in Salmonella Typhi samples.
+ * Samples are first processed by [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) using `mykrobe predict`
+ * with `typhi` specified as the species. Then the Mykrobe results are then processed by the
+ * [parse_typhi_mykrobe.py](https://github.com/typhoidgenomics/genotyphi/blob/main/typhimykrobe/parse_typhi_mykrobe.py)
+ * script available from GenoTyphi.
+ *
+ * @status stable
+ * @keywords fastq, genotype, Salmonella Typhi
+ *
+ * @subworkflows bactopiatool_init, genotyphi
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

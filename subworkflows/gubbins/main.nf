@@ -1,6 +1,36 @@
-//
-// gubbins - Rapid phylogenetic analysis of recombinant bacterial sequences
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @subworkflows snpdists
+ * @modules gubbins as gubbins_module
+ *
+ * @input alignment
+ * Channel containing alignment data
+ *
+ * @output masked_aln     Masked Aln
+ * @output fasta          Fasta
+ * @output gff            Gff
+ * @output vcf            Vcf
+ * @output stats          Stats
+ * @output phylip         Phylip
+ * @output embl_predicted Embl Predicted
+ * @output embl_branch    Embl Branch
+ * @output tree           Tree
+ * @output tree_labelled  Tree Labelled
+ * @output bootstrap_tree Bootstrap Tree
+ * @output tsv            Tsv
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output versions       Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'

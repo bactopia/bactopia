@@ -1,6 +1,26 @@
-//
-// mcroni - Sequence variation in mcr-1 genes (mobilized colistin resistance)
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, mcroni as mcroni_module
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output tsv        Tsv
+ * @output merged_tsv Merged Tsv
+ * @output fa         Fa
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { MCRONI as MCRONI_MODULE } from '../../modules/mcroni/main'

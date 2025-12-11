@@ -1,3 +1,22 @@
+/**
+ * In silico serotyping of Streptococcus suis.
+ *
+ * This process executes ssuissero to perform analysis
+ *
+ * @status stable
+ * @keywords Streptococcus suis, serotype, typing
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation ssuissero
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file containing the genome assembly
+ *
+ * @output tsv      SsuisSero results in TSV format
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SSUISSERO {

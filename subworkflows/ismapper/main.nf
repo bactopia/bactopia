@@ -1,6 +1,31 @@
-//
-// ismapper - Identify insertion sites positions in bacterial genomes
-//
+/**
+ * Identify insertion sites positions in bacterial genomes.
+ *
+ * This subworkflow orchestrates the execution of main.nf analysis components.
+ *
+ * @status stable
+ * @keywords main.nf, subworkflow, analysis
+ * @tags complexity:simple input-type:multiple output-type:multiple
+ * @citation main.nf
+ *
+ * @modules ismapper as ismapper_module
+ *
+ * @input ch_reads
+ * Channel containing tuples with metadata and file paths
+ *
+ * @input ch_reference
+ * Input channel
+ *
+ * @input ch_insertions
+ * Input channel
+ *
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
+
+
 nextflow.preview.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'

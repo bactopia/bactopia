@@ -1,6 +1,28 @@
-//
-// sistr - Serovar prediction of Salmonella assemblies
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules sistr as sistr_module, csvtk_concat
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output tsv          Tsv
+ * @output merged_tsv   Merged Tsv
+ * @output allele_fasta Allele Fasta
+ * @output allele_json  Allele Json
+ * @output cgmlst_csv   Cgmlst Csv
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output versions     Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { SISTR as SISTR_MODULE } from '../../modules/sistr/main'

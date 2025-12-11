@@ -1,6 +1,28 @@
-//
-// staphtyper - Determine the agr, spa and SCCMEC types for S. aureus assemblies
-//
+/**
+ * Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.
+ *
+ * This subworkflow orchestrates the execution of main.nf analysis components.
+ *
+ * @status stable
+ * @keywords main.nf, subworkflow, analysis
+ * @tags complexity:simple input-type:multiple output-type:multiple features:components
+ * @citation main.nf
+ *
+ *
+ * @input fasta
+ * Channel containing tuples with metadata and file paths
+ *
+ * @input repeats
+ * Input channel
+ *
+ * @input repeat_order
+ * Input channel
+ *
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { AGRVATE      } from '../agrvate/main'
@@ -23,6 +45,11 @@ workflow STAPHTYPER {
     SPATYPER(fasta, repeats, repeat_order)
 
     // sccmec - SCCmec type based on targets and full cassettes
+
+
+
+
+
     SCCMEC(fasta)
 
     emit:

@@ -1,6 +1,34 @@
-//
-// qc - Quality control of Illumina and ONT reads
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules qc as qc_module
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input adapters
+ * Channel containing adapters data
+ *
+ * @input phix
+ * Channel containing phix data
+ *
+ * @output fastq       Fastq
+ * @output fastq_only  Fastq Only
+ * @output txt         Txt
+ * @output error       Error
+ * @output error_fastq Error Fastq
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution logs from all processes
+ * @output versions    Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { QC as QC_MODULE } from '../../../modules/bactopia/qc/main'

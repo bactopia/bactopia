@@ -1,3 +1,23 @@
+/**
+ * Shigella serotyping from Illumina or Oxford Nanopore reads.
+ *
+ * This process executes shigatyper to perform analysis
+ *
+ * @status stable
+ * @keywords Shigella, serotype, typing, reads
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @citation shigatyper
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FASTQ file(s) (single-end, paired-end, or ONT)
+ *
+ * @output tsv      ShigaTyper results in TSV format
+ * @output hits     Detailed hits from ShigaTyper
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SHIGATYPER {

@@ -1,5 +1,42 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Teton.
+ *
+ * Taxonomic classification and abundance profiling of metagenomic reads.
+ * This workflow performs metagenomic classification using Kraken2 and Bracken,
+ * with optional host read removal using SRA Scrubber.
+ *
+ * @status stable
+ * @keywords metagenomics, classification, kraken2, bracken, abundance, profiling
+ *
+ * @subworkflows bactopia_init, gather, teton
+ *
+ * @input rundir
+ * Directory containing metagenomic sequencing reads
+ *
+ * @input kraken2_db
+ * Path to Kraken2 database for classification
+ *
+ * @input use_srascrubber
+ * Remove host reads using SRA scrubber before classification
+ *
+ * @section Classification Results
+ * @publish *.kraken2.report.txt Kraken2 classification report
+ * @publish *.bracken.report.txt Bracken abundance estimates
+ * @publish *.krona.html Krona interactive visualization
+ *
+ * @section Summary Reports
+ * @publish teton-summary.tsv Summary of classification results across all samples
+ * @publish teton-matrix.tsv Abundance matrix for downstream analysis
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

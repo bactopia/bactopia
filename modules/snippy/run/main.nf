@@ -1,3 +1,48 @@
+/**
+ * Rapid haploid variant calling.
+ *
+ * This process executes snippy_run to perform analysis
+ *
+ * @status stable
+ * @keywords variant, fastq, bacteria
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation snippy_run
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+ * respectively.
+ * 
+ *
+ * @input tuple(meta, reference)
+ * - `meta`: Groovy Map containing sample information
+ * - `reference`: Input file
+ *
+ * @output aligned_fa               A version of the reference but with - at position with depth=0 and N for 0 < depth < --mincov (does not have variants)
+ * @output vcf                      The final annotated variants in VCF format
+ * @output aligned_fa_error         Aligned Fa Error
+ * @output vcf_error                Vcf Error
+ * @output error                    Error
+ * @output annotated_vcf            Annotated Vcf
+ * @output bam                      The alignments in BAM format. Includes unmapped, multimapping reads. Excludes duplicates.
+ * @output bai                      Index for the .bam file
+ * @output bed                      The variants in BED format
+ * @output consensus_fa             A version of the reference genome with all variants instantiated
+ * @output consensus_subs_fa        A version of the reference genome with only substitution variants instantiated
+ * @output consensus_subs_masked_fa Consensus Subs Masked Fa
+ * @output coverage                 Coverage
+ * @output csv                      A comma-separated version of the .tab file
+ * @output filt_vcf                 The filtered variant calls from Freebayes
+ * @output gff                      The variants in GFF3 format
+ * @output html                     A HTML version of the .tab file
+ * @output raw_vcf                  The unfiltered variant calls from Freebayes
+ * @output subs_vcf                 Subs Vcf
+ * @output tab                      A simple tab-separated summary of all the variants
+ * @output txt                      Tab-separated columnar list of statistics
+ * @output logs                     Optional tool execution logs
+ * @output nf_logs                  Nextflow execution logs
+ * @output versions                 Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SNIPPY_RUN {

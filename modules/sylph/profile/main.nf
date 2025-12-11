@@ -1,3 +1,25 @@
+/**
+ * Profile metagenome samples against a database using Sylph.
+ *
+ * This process executes sylph_profile to perform analysis
+ *
+ * @status stable
+ * @keywords metagenomics, profiling, taxonomy, abundance
+ * @tags complexity:moderate input-type:multiple output-type:single features:compression, conditional-logic
+ * @citation sylph_profile
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FastQ files (single or paired-end)
+ *
+ * @input db
+ * Path parameter for db
+ *
+ * @output tsv      TSV file with profiling results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SYLPH_PROFILE {

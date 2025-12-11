@@ -1,6 +1,40 @@
-//
-// merlin - MinmER assisted species-specific bactopia tool seLectIoN
-//
+/**
+ * MinmER assisted species-specific bactopia tool seLectIoN.
+ *
+ * This subworkflow orchestrates the execution of main.nf analysis components.
+ *
+ * @status stable
+ * @keywords serotype, species-specific
+ * @tags complexity:simple input-type:multiple output-type:multiple features:components
+ * @citation main.nf
+ *
+ *
+ * @input assembly
+ * Channel containing tuples with metadata and file paths
+ *
+ * @input mash_db
+ * Input channel
+ *
+ * @input emmtyper_blastdb
+ * Input channel
+ *
+ * @input hicap_database_dir
+ * Input channel
+ *
+ * @input hicap_model_fp
+ * Input channel
+ *
+ * @input staphtyper_repeats
+ * Input channel
+ *
+ * @input staphtyper_repeat_order
+ * Input channel
+ *
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { MERLINDIST    } from '../mashdist/main';
@@ -97,6 +131,11 @@ workflow MERLIN {
     STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
+
+
+
+
+
     ch_streptococcus = MERLINDIST.out.streptococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}
     ch_streptococcus_fq = MERLINDIST.out.streptococcus_fq.map{_meta, _reads, _found -> [_meta, _reads]}
     EMMTYPER(ch_streptococcus, emmtyper_blastdb)

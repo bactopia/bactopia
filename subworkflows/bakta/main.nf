@@ -1,6 +1,64 @@
-//
-// bakta - Rapid annotation of bacterial genomes and plasmids
-//
+/**
+
+
+
+
+
+
+
+
+
+
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules bakta_download, bakta_run
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @input download_bakta
+ * Channel containing download_bakta data
+ *
+ * @input save_as_tarball
+ * Channel containing save_as_tarball data
+ *
+ * @input proteins
+ * Channel containing proteins data
+ *
+ * @input prodigal_tf
+ * Channel containing prodigal_tf data
+ *
+ * @input replicons
+ * Channel containing replicons data
+ *
+ * @output annotations       Annotations
+ * @output tsv               Tsv
+ * @output txt               Txt
+ * @output embl              Embl
+ * @output faa               Faa
+ * @output ffn               Ffn
+ * @output fna               Fna
+ * @output gbff              Gbff
+ * @output gff               Gff
+ * @output hypotheticals_faa Hypotheticals Faa
+ * @output hypotheticals_tsv Hypotheticals Tsv
+ * @output blastdb           Blastdb
+ * @output results           Aggregated results channel containing all output files
+ * @output logs              Aggregated logs channel containing all execution logs
+ * @output nf_logs           Aggregated Nextflow execution logs from all processes
+ * @output versions          Aggregated version information from all executed tools
+ 
+ */
 nextflow.preview.types = true
 
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'

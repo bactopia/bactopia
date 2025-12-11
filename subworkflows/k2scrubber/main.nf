@@ -1,6 +1,29 @@
-//
-// k2scrubber - Scrub human reads from FASTQ files using Kraken2 and human pangenome reference
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules wget, kraken2
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @output human                Human
+ * @output kraken2_report       Kraken2 Report
+ * @output scrub_report         Scrub Report
+ * @output scrub_special_report Scrub Special Report
+ * @output scrubbed             Scrubbed
+ * @output scrubbed_extra       Scrubbed Extra
+ * @output results              Aggregated results channel containing all output files
+ * @output logs                 Aggregated logs channel containing all execution logs
+ * @output nf_logs              Aggregated Nextflow execution logs from all processes
+ * @output versions             Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { WGET         } from '../../modules/wget/main'

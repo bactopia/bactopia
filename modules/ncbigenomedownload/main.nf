@@ -1,3 +1,35 @@
+/**
+ * A tool to quickly download assemblies from NCBI's Assembly database.
+ *
+ * This process executes ncbigenomedownload to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, download, assembly
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic, resource-download
+ * @citation ncbigenomedownload
+ *
+ * @input accessions
+ * List of accessions (one per line) to download
+ *
+ * @output all        All downloaded files
+ * @output gbk        GenBank format of the genomic sequence(s) in the assembly
+ * @output fna        FASTA format of the genomic sequence(s) in the assembly.
+ * @output rm         RepeatMasker output for eukaryotes.
+ * @output features   Tab-delimited text file reporting locations and attributes for a subset of annotated features
+ * @output gff        Annotation of the genomic sequence(s) in GFF3 format
+ * @output faa        FASTA format of the accessioned protein products annotated on the genome assembly.
+ * @output gpff       GenPept format of the accessioned protein products annotated on the genome assembly.
+ * @output wgs_gbk    GenBank flat file format of the WGS master for the assembly
+ * @output cds        FASTA format of the nucleotide sequences corresponding to all CDS features
+ * @output rna        FASTA format of accessioned RNA products annotated on the genome assembly
+ * @output rna_fna    FASTA format of the nucleotide sequences corresponding to all RNA features
+ * @output report     Tab-delimited text file reporting the name, role and relationships of assembly units and sequences
+ * @output stats      Tab-delimited text file reporting statistics for the assembly
+ * @output accessions Accession list files
+ * @output logs       Optional tool execution logs
+ * @output nf_logs    Nextflow execution logs
+ * @output versions   Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process NCBIGENOMEDOWNLOAD {

@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Ariba.
+ *
+ * Gene identification through local assemblies
+ * The `ariba` module uses [ARIBA](https://github.com/sanger-pathogens/ariba)
+ * to rapidly identify genes in a database by creating local assemblies.
+ *
+ * @status stable
+ * @keywords fastq, assembly, resistance, virulence
+ *
+ * @subworkflows bactopiatool_init, ariba
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

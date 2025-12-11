@@ -1,3 +1,28 @@
+/**
+ * Gene Allele Mutation Microbial Assessment.
+ *
+ * This process executes gamma to perform analysis
+ *
+ * @status stable
+ * @keywords gamma, gene-calling
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation gamma
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA file
+ *
+ * @input db
+ * Database in FASTA format
+ *
+ * @output gamma    GAMMA file with annotated gene matches
+ * @output psl      PSL file with all gene matches found
+ * @output gff      GFF file
+ * @output fasta    multifasta file of the gene matches
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process GAMMA {

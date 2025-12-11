@@ -1,6 +1,26 @@
-//
-// pbptyper - Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules pbptyper as pbptyper_module, csvtk_concat
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output tsv        Tsv
+ * @output merged_tsv Merged Tsv
+ * @output blast      Blast
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { PBPTYPER as PBPTYPER_MODULE } from '../../modules/pbptyper/main'

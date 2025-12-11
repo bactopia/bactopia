@@ -1,6 +1,31 @@
-//
-// gamma - A tool for identification, classification, and annotation of translated gene matches
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, gamma as gamma_module
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input db
+ * Channel containing db data
+ *
+ * @output gamma        Gamma
+ * @output merged_gamma Merged Gamma
+ * @output psl          Psl
+ * @output fasta        Fasta
+ * @output gff          Gff
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output versions     Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'

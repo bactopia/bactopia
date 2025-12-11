@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Mlst.
+ *
+ * Automatic MLST calling from assembled contigs
+ * The `mlst` module uses [mlst](https://github.com/tseemann/mlst) scan assemblies and determine the sequence type.
+ * It makes use of [PubMLST](https://pubmlst.org/) schemes and by default automatically scans each schema. To specify
+ * a specific scheme to scan, you can provide it with `--scheme`.
+ *
+ * @status stable
+ * @keywords fasta, mlst, typing
+ *
+ * @subworkflows bactopiatool_init, mlst
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

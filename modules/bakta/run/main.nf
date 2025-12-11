@@ -1,3 +1,48 @@
+/**
+ * Bakta is a rapid & standardized annotation of bacterial genomes & plasmids.
+ *
+ * This process executes bakta_run to perform analysis
+ *
+ * @status stable
+ * @keywords annotation, fasta, genome
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent, path-workarounds
+ * @citation bakta_run
+ *
+ * @note Uses EMPTY_* placeholder files for optional parameters
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Genome assembly in FASTA format
+ *
+ * @input db
+ * Bakta database or tarball
+ *
+ * @input proteins
+ * Fasta file of trusted proteins to first annotate from
+ *
+ * @input prodigal_tf
+ * Training file to use for CDS prediction
+ *
+ * @input replicons
+ * Replicons/plasmids file for replicon detection
+ *
+ * @output annotations       Tuple containing the main annotation files (fna, faa, gff3)
+ * @output embl              Annotations in EMBL format
+ * @output faa               Protein CDS sequences
+ * @output ffn               Nucleotide CDS sequences
+ * @output fna               Nucleotide sequences of the features
+ * @output gbff              Annotations in GenBank format
+ * @output gff               Annotations in GFF3 format
+ * @output hypotheticals_tsv Summary of hypothetical proteins
+ * @output hypotheticals_faa Hypothetical protein sequences
+ * @output tsv               Summary of annotated features
+ * @output txt               Sequence and annotation statistics
+ * @output blastdb           BLAST database of contigs, genes, and proteins
+ * @output logs              Optional tool execution logs
+ * @output nf_logs           Nextflow execution logs
+ * @output versions          Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BAKTA_RUN {

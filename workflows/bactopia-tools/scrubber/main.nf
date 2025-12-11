@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Scrubber.
+ *
+ * Scrub human reads from FASTQ files
+ * The `scrubber` module uses [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/)
+ * to identify and remove any potential human reads.
+ *
+ * @status stable
+ * @keywords filter, human
+ *
+ * @subworkflows bactopiatool_init, scrubber
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     bactopia : String

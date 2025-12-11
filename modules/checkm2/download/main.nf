@@ -1,3 +1,18 @@
+/**
+ * Download CheckM2 database for genome quality assessment.
+ *
+ * This process executes checkm2_download to perform analysis
+ *
+ * @status stable
+ * @keywords checkm2, download, database
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, database-dependent, resource-download
+ * @citation checkm2_download
+ *
+ * @note Requires external database to be available
+ * @output db   CheckM2 database file
+ * @output json Database contents metadata
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process CHECKM2_DOWNLOAD {

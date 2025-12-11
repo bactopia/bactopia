@@ -1,3 +1,22 @@
+/**
+ * Serotyping of Haemophilus parasuis.
+ *
+ * This process executes hpsuissero to perform analysis
+ *
+ * @status stable
+ * @keywords haemophilus, parasuis, serotype, typing
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation hpsuissero
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly in FASTA format
+ *
+ * @output tsv      Tab-delimited serotyping results
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process HPSUISSERO {

@@ -1,3 +1,28 @@
+/**
+ * ${$MODULE_DESCRIPTION}
+.
+ *
+ * This process executes gather to perform analysis
+ *
+ * @status stable
+ * @keywords ${MODULE_KEYWORDS}
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
+ * @citation gather
+ *
+ * @input tuple(meta, r1, r2, extra)
+ * - `meta`: Groovy Map containing sample information
+ * - `r1`: Input file
+ * - `r2`: Input file
+ * - `extra`: Input file
+ *
+ * @output raw_fastq  Raw Fastq
+ * @output fastq_only Fastq Only
+ * @output tsv        Tsv
+ * @output error      Error
+ * @output logs       Optional tool execution logs
+ * @output nf_logs    Nextflow execution logs
+ * @output versions   Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process GATHER {

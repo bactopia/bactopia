@@ -1,3 +1,18 @@
+/**
+ * Download datasets to be used by Bactopia.
+ *
+ * This process executes datasets to perform analysis
+ *
+ * @status stable
+ * @keywords download, datasets, bactopia
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, resource-download
+ * @citation datasets
+ *
+ * @output amrfinderplus_db AMRFinderPlus database
+ * @output mlst_db          MLST database
+ * @output mash_db          Mash database
+ * @output sourmash_db      Sourmash database
+ */
 nextflow.preview.types = true
 
 process DATASETS {

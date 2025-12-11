@@ -1,6 +1,27 @@
-//
-// sylph - Taxonomic profiling by abundance-corrected minhash
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules sylph_profile
+ *
+ * @input reads
+ * Channel containing reads data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @output tsv      Tsv
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'

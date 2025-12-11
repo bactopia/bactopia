@@ -1,3 +1,24 @@
+/**
+ * Pangenome toolbox for bacterial genomes.
+ *
+ * This process executes pirate to perform analysis
+ *
+ * @status stable
+ * @keywords gff, pan-genome, alignment
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation pirate
+ *
+ * @input tuple(meta, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `gff`: A set of GFF3 formatted files
+ *
+ * @output supplemental Supplemental
+ * @output aln          Core-genome alignment produced by PIRATE (Optional)
+ * @output csv          Gene presence/absence CSV compatible with Scoary
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PIRATE {

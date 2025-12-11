@@ -1,3 +1,22 @@
+/**
+ * Serotyping Neisseria gonorrhoeae assemblies.
+ *
+ * This process executes ngmaster to perform analysis
+ *
+ * @status stable
+ * @keywords fasta, Neisseria gonorrhoeae, serotype
+ * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @citation ngmaster
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: FASTA assembly file
+ *
+ * @output tsv      Tab-delimited result file
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process NGMASTER {

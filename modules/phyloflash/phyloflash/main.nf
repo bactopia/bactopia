@@ -1,3 +1,30 @@
+/**
+ * phyloFlash is a pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset..
+ *
+ * This process executes phyloflash to perform analysis
+ *
+ * @status stable
+ * @keywords metagenomics, illumina datasets, phylogenetic composition
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
+ * @citation phyloflash
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Channel containing single or paired-end reads
+ *
+ * @input _silva_db
+ * Path parameter for _silva_db
+ *
+ * @input _univec_db
+ * Path parameter for _univec_db
+ *
+ * @output supplemental Supplemental
+ * @output aln          Alignment file
+ * @output summary      JSON summary file
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PHYLOFLASH {

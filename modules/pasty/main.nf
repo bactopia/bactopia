@@ -1,3 +1,24 @@
+/**
+ * Serogroup Pseudomonas aeruginosa assemblies.
+ *
+ * This process executes pasty to perform analysis
+ *
+ * @status stable
+ * @keywords bacteria, serogroup, fasta, assembly
+ * @tags complexity:moderate input-type:single output-type:multiple
+ * @citation pasty
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: An assembly in FASTA format
+ *
+ * @output tsv      A tab-delimited file with the predicted serogroup
+ * @output blast    A tab-delimited file of all blast hits
+ * @output details  A tab-delimited file with details for each serogroup
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process PASTY {

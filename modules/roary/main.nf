@@ -1,3 +1,24 @@
+/**
+ * Rapid large-scale prokaryote pan genome analysis.
+ *
+ * This process executes roary to perform analysis
+ *
+ * @status stable
+ * @keywords pangenome, orthology, core genome
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation roary
+ *
+ * @input tuple(meta, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `gff`: GFF3 files to be analyzed
+ *
+ * @output supplemental Supplemental
+ * @output aln          Core genome alignment in FASTA format
+ * @output csv          Gene presence/absence table
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ROARY {

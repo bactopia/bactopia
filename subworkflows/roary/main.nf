@@ -1,6 +1,25 @@
-//
-// roary - Rapid large-scale prokaryote pangenome analysis
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules roary as roary_module
+ *
+ * @input gff
+ * Channel containing gff data
+ *
+ * @output aln      Aln
+ * @output csv      Csv
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { ROARY as ROARY_MODULE } from '../../modules/roary/main'

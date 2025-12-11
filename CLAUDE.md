@@ -54,7 +54,8 @@ This document contains essential information about the Bactopia pipeline archite
 10. [Common Examples](#common-examples)
 11. [Important Notes](#important-notes)
 12. [Version Requirements](#version-requirements)
-13. [Glossary](#glossary)
+13. [Groovydoc Documentation Standards](#groovydoc-documentation-standards)
+14. [Glossary](#glossary)
 
 ## Repository Structure
 
@@ -1158,8 +1159,6 @@ Tags are placed in comment blocks at the top of main.nf files:
 **Aggregation Module (csvtk concat):**
 `[complexity: simple] [input-type: multiple] [output-type: single] [features: aggregation]`
 
-For detailed examples and reference implementations, see the complete [tag taxonomy documentation](tag-taxonomy.md).
-
 ## Configuration System
 
 ### Configuration Hierarchy
@@ -1508,6 +1507,313 @@ workflow SUBWORKFLOW_NAME {
 ### Breaking Changes to Watch
 - Future versions may remove need for EMPTY_* files
 - Static typing may become default (no preview flag needed)
+
+## Groovydoc Documentation Standards
+
+Bactopia uses standardized Groovydoc templates for consistent documentation across all components. Three distinct templates exist for different component types:
+
+### Component Type Distinctions
+- **Modules**: Internal tool execution with `@output` channels
+- **Subworkflows**: Internal orchestration with `@output` channels
+- **Entry Workflows**: Published results for end users with `@publish` files
+
+### Standard Fields
+- **Required**: @status, @keywords, @citation
+- **Optional**: @name (workflows only), @subworkflows, @modules, @note
+- **Modules/Subworkflows**: @tags for classification
+- **Entry Workflows**: @section to group related outputs
+
+### Formatting Rules
+- **No type annotations** in documentation (visible in code)
+- **Multi-line inputs** for clarity
+- **Single-line outputs** for readability
+- **No comment markers** (e.g., // --- OUTPUTS ---)
+
+## Module Template
+
+For individual processes/modules that execute tools:
+
+```groovy
+/**
+ * <Short summary of what this module does>.
+ *
+ * <Detailed description of the process>. You can use [Markdown links](url)
+ * and multiple lines to explain the tool's purpose.
+ *
+ * @status <stable|beta|deprecated>
+ * @keywords <comma, separated, keywords>
+ * @tags complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<single|multiple> features:<features>
+ * @citation <comma, separated, bibtex_keys>
+ *
+ * @note <Optional: Additional note about behavior/requirements>
+ *
+ * @input <channel_name>
+ * <Description of a simple input>.
+ *
+ * @input tuple(<name1>, <name2>)
+ * - `<name1>`: <Description of the first element>
+ * - `<name2>`: <Description of the second element>
+ *
+ * @output <channel_name>    <Description of the output channel>
+ * @output logs              Optional tool execution logs
+ * @output nf_logs           Nextflow execution logs
+ * @output versions          Software version information (YAML format)
+ */
+```
+
+### Module Tag Categories
+- **complexity**: `simple`, `moderate`, or `complex`
+- **input-type**: `single` or `multiple`
+- **output-type**: `single` or `multiple`
+- **features**: Comma-separated list of applicable features:
+  - `database-dependent`: Requires external database
+  - `path-workarounds`: Uses EMPTY_* files for optional parameters
+  - `conditional-input`: Accepts optional inputs
+  - `conditional-logic`: Contains if/else statements
+  - `compression`: Handles file compression/decompression
+  - `archive-output`: Creates compressed archives
+  - `resource-download`: Downloads external resources
+  - `filtering`: Filters input data
+  - `custom-outputs`: Non-standard output patterns
+  - `aggregation`: Combines multiple results
+
+## Subworkflow Template
+
+For workflow components that orchestrate modules/subworkflows:
+
+```groovy
+/**
+ * <Short summary of what this workflow does>.
+ *
+ * <Detailed description of the orchestration>. Can include conditional logic,
+ * aggregation steps, and the relationship between included components.
+ *
+ * <Explain the flow, e.g. "Creates a pangenome using optional annotation with
+ * Prokka, followed by optional phylogeny construction with IQ-TREE">.
+ *
+ * @status <stable|beta|deprecated>
+ * @keywords <comma, separated, keywords>
+ * @tags complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<multiple> features:<features>
+ * @citation <comma, separated, bibtex_keys>
+ *
+ * @subworkflows <optional> <comma, separated, list_of_subworkflows>
+ * @modules <optional> <comma, separated, list_of_modules>
+ *
+ * @note <Optional: Additional notes about workflow behavior>
+ *
+ * @input <channel_or_param_name>
+ * <Description of input>.
+ *
+ * @input tuple(<name1>, <name2>)
+ * - `<name1>`: <Description>
+ * - `<name2>`: <Description>
+ *
+ * @output <specific_output> <Description of a specific, useful output channel>
+ * @output results           Aggregated results channel containing all output files
+ * @output logs              Aggregated logs channel containing all execution logs
+ * @output nf_logs           Aggregated Nextflow execution logs from all processes
+ * @output versions          Aggregated version information from all executed tools
+ */
+```
+
+### Subworkflow Tag Categories
+- **features**: Can include `aggregation`, `conditional-logic`, `components` (when using @subworkflows/@modules)
+
+## Entry Workflow Template
+
+For user-facing entry workflows (Bactopia Tools and Named Workflows):
+
+```groovy
+/**
+ * Bactopia Tool: <Tool Name>.
+ *
+ * <Short summary of the tool>.
+ *
+ * <Detailed description>. Uses [Tool Name](URL) to <task>.
+ *
+ * @status <stable|beta|deprecated>
+ * @keywords <comma, separated, keywords>
+ * @citation <comma, separated, bibtex_keys>
+ *
+ * @subworkflows <optional> <comma, separated, list_of_subworkflows>
+ * @modules <optional> <comma, separated, list_of_modules>
+ *
+ * @note <Optional: General tool notes/requirements>
+ *
+ * @input <param_name>
+ * <Description of a specific parameter input>.
+ *
+ * @section <Group Name>
+ * @note <Optional: Section-specific note, e.g. "Only created if --save_raw is used">
+ * @publish <file_pattern>    <Description of the published file>
+ * @publish <file_pattern>    <Description of the published file>
+ */
+```
+
+## Quick Reference
+
+```groovy
+// Module: Use @output for channels
+@output report     Abricate screening results
+@output logs       Tool execution logs
+
+// Subworkflow: Use @output for channels, include 4 standard channels
+@output results    Aggregate of all result files
+@output logs       Aggregate of all execution logs
+@output nf_logs    Nextflow execution logs
+@output versions   Software version information
+
+// Entry Workflow: Use @publish for published files
+@section Analysis Results
+@publish *.vcf     Variant calls in VCF format
+@publish *.txt     Summary statistics
+```
+
+## Examples
+
+### Simple Module Example (Abricate)
+
+```groovy
+/**
+ * Screen assemblies for antimicrobial resistance genes.
+ *
+ * This process screens assembled contigs against resistance gene databases
+ * using [Abricate](https://github.com/tseemann/abricate). It quickly identifies
+ * antimicrobial resistance, virulence genes, and other relevant sequences in
+ * bacterial genomes.
+ *
+ * @status stable
+ * @keywords bacteria, assembly, antimicrobial resistance, screening
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent
+ * @citation abricate
+ *
+ * @input tuple(meta, assembly)
+ * Input assembly and metadata. The meta map contains sample information
+ * such as sample ID, name, and other metadata. The assembly set contains
+ * the assembled contigs in FASTA format to be screened.
+ *
+ * @output report    Abricate screening results (TSV format with resistance gene hits)
+ * @output logs      Optional tool log files containing execution information
+ * @output nf_logs   Nextflow execution logs including command, stdout, stderr, and exit code
+ * @output versions  Software version information in YAML format
+ */
+```
+
+### Complex Module Example (Prokka)
+
+```groovy
+/**
+ * Annotate bacterial genomes with functional information.
+ *
+ * This process annotates bacterial contigs or complete genomes using [Prokka](https://github.com/tseemann/prokka).
+ * It rapidly calls genes, translates them, and searches them against multiple protein databases
+ * to produce comprehensive annotation in various standard formats.
+ *
+ * @status stable
+ * @keywords bacteria, annotation, genome, prokaryote, functional annotation
+ * @tags complexity:complex input-type:single output-type:multiple features:path-workarounds conditional-input conditional-logic compression archive-output
+ * @citation prokka
+ *
+ * @note Optional: Proteins and training files improve annotation quality
+ *
+ * @input tuple(meta, assembly)
+ * Input assembly for annotation. The meta map contains sample information,
+ * and the assembly set contains the assembled contigs in FASTA format.
+ *
+ * @input proteins
+ * Optional protein sequences for homology search. When provided, these trusted
+ * protein sequences are used to improve annotation accuracy through homology.
+ *
+ * @input prodigal_tf
+ * Optional Prodigal training file. Species-specific training data that improves
+ * gene prediction accuracy.
+ *
+ * @output annotations Complete annotation package containing GFF, GBK, FASTA, and other formats
+ * @output gff         Genome annotation in GFF3 format (standard for genome browsers)
+ * @output gbk         Genome annotation in GenBank format (rich format suitable for NCBI submission)
+ * @output logs        Optional tool log files containing execution information
+ * @output nf_logs     Nextflow execution logs including command, stdout, stderr, and exit code
+ * @output versions    Software version information in YAML format
+ */
+```
+
+### Subworkflow Example (Pangenome)
+
+```groovy
+/**
+ * Perform pangenome analysis with optional core-genome phylogeny.
+ *
+ * This subworkflow creates a pangenome from GFF3 annotation files using one of three
+ * tools: PIRATE (default), Roary, or Panaroo. It generates core-genome alignments
+ * and gene presence/absence matrices, followed by SNP distance calculations using
+ * snp-dists. The workflow conditionally executes the selected pangenome tool based
+ * on Boolean parameters.
+ *
+ * @status stable
+ * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation pirate, panaroo, roary, snpdists
+ *
+ * @subworkflows pirate, panaroo, roary, snpdists
+ *
+ * @note Optional: SNP distance calculation is always performed on core-genome alignment
+ *
+ * @input gff
+ * GFF3 annotation files from assembled genomes. Each tuple contains metadata
+ * about the sample and a set of GFF3 files representing the annotation.
+ *
+ * @input use_pirate
+ * Use PIRATE for pangenome analysis (default). When true, executes PIRATE
+ * which is suitable for highly diverse datasets.
+ *
+ * @output aln          Core-genome alignment file containing genes present across all input genomes
+ * @output csv          Gene presence/absence matrix showing which genes are present in each genome
+ * @output results      Aggregate of all result files from pangenome analysis and SNP distances
+ * @output logs         Aggregate of all log files from executed tools
+ * @output nf_logs      Nextflow execution logs from all processes
+ * @output versions     Software version information from all executed tools
+ */
+```
+
+### Entry Workflow Example (Pangenome Bactopia Tool)
+
+```groovy
+/**
+ * Bactopia Tool: Pangenome Analysis.
+ *
+ * Performs comprehensive pangenome analysis from bacterial genomes.
+ * Creates gene presence/absence matrices and builds phylogenetic trees.
+ *
+ * @status stable
+ * @keywords pangenome, comparative genomics, phylogeny
+ * @citation pirate, panaroo, roary, iqtree, scoary, clonalframeml
+ *
+ * @subworkflows ncbigenomedownload, prokka, pangenome, clonalframeml, iqtree, scoary
+ *
+ * @note Optional: Requires trait file for GWAS analysis with SCOARY
+ *
+ * @input scoary_traits
+ * Path to trait file for genome-wide association studies.
+ *
+ * @section Pangenome Analysis
+ * @publish *.csv         Gene presence/absence matrix
+ * @publish *.aln         Core-genome alignment
+ * @publish *.tree        Phylogenetic tree file
+ *
+ * @section GWAS Analysis
+ * @note Only created if --scoary_traits is specified
+ * @publish scoary/*.csv  Association results between genes and traits
+ * @publish scoary/*.txt  Statistical summary of GWAS results
+ *
+ * @section Recombination Analysis
+ * @note Only created if --skip_recombination is false
+ * @publish *.masked.aln Recombination-masked alignment
+ * @publish clonalframe/*.json ClonalFrameML analysis results
+ *
+ * @section Versions
+ * @publish versions.yml   Software version information
+ */
+```
 
 ## Glossary
 

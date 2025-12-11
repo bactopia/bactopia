@@ -1,5 +1,33 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Mykrobe.
+ *
+ * Antimicrobial resistance detection for specific species
+ * The `mykrobe` module uses the command-line version of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to predict
+ * antimicrobial resistance for _Mycobacterium tuberculosis_, _Staphylococcus aureus_, _Shigella sonnei_, and _Salmonella typhi_.
+ *
+ * @status stable
+ * @keywords fastq, antimicrobial resistance
+ *
+ * @subworkflows bactopiatool_init, mykrobe
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir   : String

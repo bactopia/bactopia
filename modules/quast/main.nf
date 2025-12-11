@@ -1,3 +1,24 @@
+/**
+ * Quality Assessment Tool for Genome Assemblies.
+ *
+ * This process executes quast to perform analysis
+ *
+ * @status stable
+ * @keywords assembly, quality assessment, contig analysis
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation quast
+ *
+ * @input tuple(meta, fasta, meta_file)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly file in FASTA format
+ * - `meta_file`: Meta file containing reference size information
+ *
+ * @output tsv          Transposed report in TSV format
+ * @output supplemental Supplemental
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process QUAST {

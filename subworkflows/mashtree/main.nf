@@ -1,6 +1,26 @@
-//
-// mashtree - Quickly create a tree using Mash distances
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules mashtree as mashtree_module
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @output matrix   Matrix
+ * @output sketches Sketches
+ * @output tree     Tree
+ * @output results  Aggregated results channel containing all output files
+ * @output logs     Aggregated logs channel containing all execution logs
+ * @output nf_logs  Aggregated Nextflow execution logs from all processes
+ * @output versions Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'

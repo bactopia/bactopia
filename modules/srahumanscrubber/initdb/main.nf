@@ -1,3 +1,15 @@
+/**
+ * Initialize human read removal database for SRA Human Scrubber.
+ *
+ * This process executes srahumanscrubber_initdb to perform analysis
+ *
+ * @status stable
+ * @keywords human read removal, database, sra, scrubber
+ * @tags complexity:simple input-type:single output-type:single features:resource-download
+ * @citation srahumanscrubber_initdb
+ * @output db   SRA Human Scrubber database file
+ * @output logs Optional tool execution logs
+ */
 nextflow.preview.types = true
 
 process SRAHUMANSCRUBBER_INITDB {

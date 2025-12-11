@@ -1,6 +1,34 @@
-//
-// gtdb - Identify marker genes and assign taxonomic classifications
-//
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ *
+ * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation abricate
+ *
+ * @modules csvtk_concat, gtdbtk_classifywf as classify, gtdbtk_download as download
+ *
+ * @input fasta
+ * Channel containing fasta data
+ *
+ * @input database
+ * Channel containing database data
+ *
+ * @input download_gtdb
+ * Channel containing download_gtdb data
+ *
+ * @input save_as_tarball
+ * Channel containing save_as_tarball data
+ *
+ * @output tsv        Tsv
+ * @output merged_tsv Merged Tsv
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output versions   Aggregated version information from all executed tools
+ */
 nextflow.preview.types = true
 
 include { GTDBTK_DOWNLOAD as DOWNLOAD   } from '../../modules/gtdbtk/download/main'

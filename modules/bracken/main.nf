@@ -1,3 +1,37 @@
+/**
+ * Bracken (Bayesian Reestimation of Abundance with KrakEN) re-estimates abundance at any taxonomic level from Kraken2 output.
+ *
+ * This process executes bracken to perform analysis
+ *
+ * @status stable
+ * @keywords metagenomics, classification, kraken2, bracken, taxonomic abundance
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @citation bracken
+ *
+ * @note Requires external database to be available
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: List of input FastQ files
+ *
+ * @input db
+ * Kraken2 database (can be tar.gz)
+ *
+ * @output tsv                 Bracken summary file
+ * @output special_tsv         Special Tsv
+ * @output classified          Reads classified by Kraken2
+ * @output unclassified        Reads not classified by Kraken2
+ * @output kraken2_report      Kraken2 report
+ * @output kraken2_output      Kraken2 raw output
+ * @output bracken_report      Bracken report
+ * @output krona               Krona HTML visualization
+ * @output abundances          Bracken abundances
+ * @output classification      Bracken classification
+ * @output adjusted_abundances Bracken adjusted abundances
+ * @output logs                Optional tool execution logs
+ * @output nf_logs             Nextflow execution logs
+ * @output versions            Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BRACKEN {

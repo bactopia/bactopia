@@ -1,3 +1,37 @@
+/**
+ * Core-SNP alignment from Snippy outputs.
+ *
+ * This process executes snippy_core to perform analysis
+ *
+ * @status stable
+ * @keywords core, alignment, bacteria
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation snippy_core
+ *
+ * @input tuple(meta, meta, meta)
+ * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Map containing sample information
+ *
+ * @input tuple(meta, reference)
+ * - `meta`: Groovy Map containing sample information
+ * - `reference`: Reference genome in GenBank format
+ *
+ * @input mask
+ * Optional BED file of sites to mask
+ *
+ * @output supplemental   Supplemental
+ * @output aln            A core SNP alignment in FASTA format
+ * @output full_aln       A whole genome SNP alignment (includes invariant sites)
+ * @output clean_full_aln A whole genome SNP alignment (includes invariant sites) with Ns
+ * @output tab            Tab-separated columnar list of core SNP sites with alleles but NO annotations
+ * @output vcf            Multi-sample VCF file with genotype GT tags for all discovered alleles
+ * @output txt            Tab-separated columnar list of alignment/core-size statistics
+ * @output samples        Samples
+ * @output logs           Optional tool execution logs
+ * @output nf_logs        Nextflow execution logs
+ * @output versions       Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process SNIPPY_CORE {

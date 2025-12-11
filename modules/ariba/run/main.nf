@@ -1,3 +1,27 @@
+/**
+ * Query input FASTQs against Ariba formatted databases.
+ *
+ * This process executes ariba_run to perform analysis
+ *
+ * @status stable
+ * @keywords fastq, assembly, resistance, virulence
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression
+ * @citation ariba_run
+ *
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end reads in FASTQ format
+ *
+ * @input db
+ * An Ariba prepared database
+ *
+ * @output report       Report
+ * @output summary      Summary
+ * @output supplemental Supplemental
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process ARIBA_RUN {

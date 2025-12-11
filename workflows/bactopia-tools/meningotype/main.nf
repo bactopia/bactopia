@@ -1,5 +1,34 @@
 #!/usr/bin/env nextflow
 nextflow.preview.types = true
+/**
+ * Bactopia Tool: Meningotype.
+ *
+ * Serotyping of Neisseria meningitidis
+ * The `meningotype` module uses [meningotype](https://github.com/MDU-PHL/meningotype)
+ * for _in silico_ typing of _Neisseria meningitidis_ genomes. It uses the contigs from
+ * assemblies to determine the serotype, MLST, finetyping  (_porA_, _fetA_, _porB_), and
+ * Bexsero antigen sequence typing (BAST) (_fHbp_, _NHBA_, _NadA_, _PorA_).
+ *
+ * @status stable
+ *
+ * @subworkflows bactopiatool_init, meningotype
+ *
+ * @input rundir
+ * Run directory containing Bactopia results
+ *
+ * @section Per-Sample Results
+ * @publish *    Analysis results
+ *
+ * @section Merged Results
+ * @publish merged-*    Aggregated results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution logs
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+   */
 
 params {
     rundir : String

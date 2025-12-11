@@ -1,3 +1,23 @@
+/**
+ * Analysis of mcr-1 gene (mobilized colistin resistance) for sequence variation.
+ *
+ * This process executes mcroni to perform analysis
+ *
+ * @status stable
+ * @keywords resistance, fasta
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation mcroni
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: A fasta file.
+ *
+ * @output tsv      mcroni results in TSV format
+ * @output fa       mcr-1 matching sequences
+ * @output logs     Optional tool execution logs
+ * @output nf_logs  Nextflow execution logs
+ * @output versions Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process MCRONI {

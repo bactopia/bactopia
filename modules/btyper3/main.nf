@@ -1,3 +1,23 @@
+/**
+ * In silico typing and characterization of Bacillus cereus group genomes.
+ *
+ * This process executes btyper3 to perform analysis
+ *
+ * @status stable
+ * @keywords bacillus, typing, virulence
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @citation btyper3
+ *
+ * @input tuple(meta, fasta)
+ * - `meta`: Groovy Map containing sample information
+ * - `fasta`: Assembly in FASTA format
+ *
+ * @output tsv          BTyper3 final results
+ * @output supplemental Supplemental
+ * @output logs         Optional tool execution logs
+ * @output nf_logs      Nextflow execution logs
+ * @output versions     Software version information (YAML format)
+ */
 nextflow.preview.types = true
 
 process BTYPER3 {
