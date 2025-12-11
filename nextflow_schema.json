@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia.json",
     "title": "bactopia",
-    "description": "Bactopia is a flexible pipeline for complete analysis of bacterial genomes",
+    "description": "The main end-to-end Bactopia pipeline for bacterial genomes",
     "type": "object",
     "$defs": {
         "input_parameters": {

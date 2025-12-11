@@ -16,7 +16,7 @@
                     "title": "Reference genome in FASTA format",
                     "type": "string",
                     "description": "Path to reference genome in FASTA format",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-file-alt"
                 },
                 "fastani_kmer": {
                     "type": "integer",

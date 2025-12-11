@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "busco",
-    "description": "Assembly completeness based on evolutionarily informed expectations",
+    "description": "Assembly completeness based on evolutionarily expectations",
     "type": "object",
     "$defs": {
         "input_parameters": {

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "blastp",
-    "description": "Search against protein BLAST databases using protein queries",
+    "description": "Search protein databases using protein queries",
     "type": "object",
     "$defs": {
         "input_parameters": {

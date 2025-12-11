@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "eggnog",
-    "description": "Functional annotation of proteins using orthologous groups and phylogenies",
+    "description": "Functional annotation using orthologous groups and phylogenies",
     "type": "object",
     "$defs": {
         "input_parameters": {

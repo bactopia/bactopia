@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "gamma",
-    "description": "Identification, classification, and annotation of translated gene matches",
+    "description": "Identification, classification, and annotation of gene matches",
     "type": "object",
     "$defs": {
         "input_parameters": {

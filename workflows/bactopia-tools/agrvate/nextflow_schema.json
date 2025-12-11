@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "agrvate",
-    "description": "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants",
+    "description": "Rapid ID of S. aureus agr locus type and agr operon variants",
     "type": "object",
     "$defs": {
         "input_parameters": {

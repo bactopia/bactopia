@@ -25,6 +25,7 @@
             "title": "Filtering Parameters",
             "type": "object",
             "description": "Use these parameters to specify which samples to include or exclude.",
+            "default": "",
             "fa_icon": "fa-solid fa-filter",
             "properties": {
                 "include": {

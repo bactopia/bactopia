@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "hicap",
-    "description": "Identify cap locus serotype and structure in your Haemophilus influenzae assemblies",
+    "description": "cap locus serotype and structure of Haemophilus influenzae",
     "type": "object",
     "$defs": {
         "input_parameters": {

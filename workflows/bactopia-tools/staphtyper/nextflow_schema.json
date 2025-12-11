@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "staphtyper",
-    "description": "Includes AgrVATE, SpaTyper and sccmec for Staphylococcus aureus",
+    "description": "Includes AgrVATE, SpaTyper and sccmec for S. aureus",
     "type": "object",
     "$defs": {
         "input_parameters": {

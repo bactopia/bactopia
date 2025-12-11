@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "snippy",
-    "description": "Rapid variant calling from Illumina sequence reads with optional core-SNP phylogeny",
+    "description": "Variant calling from Illumina reads with core-SNP phylogeny",
     "type": "object",
     "$defs": {
         "input_parameters": {

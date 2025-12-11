@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "fastani",
-    "description": "Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)",
+    "description": "Alignment-free computation of whole-genome ANI",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -51,48 +51,57 @@
             "properties": {
                 "species": {
                     "type": "string",
-                    "default": "",
-                    "description": "Name of the species to download assemblies"
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accession": {
                     "type": "string",
-                    "default": "",
-                    "description": "An NCBI Assembly accession to be downloaded"
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "accessions": {
                     "type": "string",
-                    "default": "",
-                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded"
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-italic"
                 },
                 "format": {
                     "type": "string",
                     "default": "fasta",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic"
                 },
                 "section": {
                     "type": "string",
                     "default": "refseq",
-                    "description": "NCBI section to download"
+                    "description": "NCBI section to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "assembly_level": {
                     "type": "string",
                     "default": "complete",
-                    "description": "Comma separated list of assembly levels to download"
+                    "description": "Comma separated list of assembly levels to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "kingdom": {
                     "type": "string",
                     "default": "bacteria",
-                    "description": "Comma separated list of formats to download"
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
                 },
                 "limit": {
                     "type": "string",
-                    "default": "",
-                    "description": "Limit the number of assemblies to download"
+                    "description": "Limit the number of assemblies to download",
+                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
+                    "fa_icon": "fas fa-italic"
                 },
                 "keep_downloads": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Save downloaded files into the bactopia-runs folder"
+                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "fa_icon": "fas fa-italic"
                 }
             }
         },
@@ -107,32 +116,31 @@
                     "title": "Reference genome in FASTA format",
                     "type": "string",
                     "description": "Path to reference genome in FASTA format",
-                    "fa_icon": "fas fa-file-alt",
-                    "default": null
+                    "fa_icon": "fas fa-file-alt"
                 },
-                "kmer": {
+                "fastani_kmer": {
                     "type": "integer",
                     "default": 16,
                     "description": "kmer size (<= 16) for ANI calculation ",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "min_fraction": {
+                "fastani_min_fraction": {
                     "type": "number",
                     "default": 0.2,
                     "description": "Minimum fraction of genome that must be shared for trusting ANI.",
                     "help": "If reference and query genome size differ, smaller one among the two is considered.",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "frag_len": {
+                "fastani_frag_len": {
                     "type": "integer",
                     "default": 3000,
                     "description": "fragment length",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "fastani_pairwise": {
+                "fastani_skip_pairwise": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Conduct All-vs-All pairwise ANI calculations",
+                    "description": "Only use RefSeq or local assemblies for ANI calculations",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 }
             }
@@ -143,7 +151,15 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {}
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-italic",
+                    "hidden": true
+                }
+            }
         },
         "optional_parameters": {
             "title": "Optional Parameters",

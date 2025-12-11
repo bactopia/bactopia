@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "kleborate",
-    "description": "Screen for MLST, sub-species, and other Klebsiella related genes of interest",
+    "description": "Screen Klebsiella for MLST, sub-species, and genes of interest",
     "type": "object",
     "$defs": {
         "input_parameters": {
