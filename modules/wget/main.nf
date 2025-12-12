@@ -1,18 +1,19 @@
 /**
  * Download files using wget.
  *
- * This process executes wget to perform analysis
+ * Uses [wget](https://www.gnu.org/software/wget/) to retrieve files from the web using HTTP,
+ * HTTPS, and FTP protocols. It is a robust utility for downloading files from the internet.
  *
  * @status stable
- * @keywords download, wget, fetch
- * @tags complexity:simple input-type:single output-type:single features:resource-download
+ * @keywords download, wget, fetch, utility, internet
+ * @tags complexity:simple input-type:single output-type:single features:internet-access,resource-download
  * @citation wget
  *
- * @input _meta
- * Path parameter for _meta
+ * @input meta
+ * Groovy Map containing download information (e.g. output filename)
  *
- * @output download Downloaded file
- * @output logs     Optional tool execution logs
+ * @output download The downloaded file
+ * @output logs     Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

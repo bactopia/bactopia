@@ -1,21 +1,23 @@
 /**
- * Screening genomic assemblies of Klebsiella for clinically relevant determinants.
+ * Genotyping and screening of *Klebsiella* genome assemblies.
  *
- * This process executes kleborate to perform analysis
+ * Uses [Kleborate](https://github.com/katholt/Kleborate) to screen *Klebsiella* assemblies
+ * for Multi-Locus Sequence Type (MLST), species identity, antimicrobial resistance determinants,
+ * virulence plasmids (e.g., *ybt*, *iuc*, *iro*), and capsular serotype prediction (K and O loci).
  *
  * @status stable
- * @keywords klebsiella, resistance, virulence, typing
- * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @keywords bacteria, klebsiella, amr, virulence, typing, mlst, serotype, k-locus, o-locus
+ * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation kleborate
  *
- * @input tuple(meta, fastas)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fastas`: Assembly files in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output txt      Tab-delimited Kleborate results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output txt       A tab-delimited summary of the Kleborate results (genotype, resistance, virulence)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process KLEBORATE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fastas) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     txt      = tuple(meta, files("*.txt"))
@@ -51,7 +53,7 @@ process KLEBORATE {
     kleborate \\
         ${task.ext.args} \\
         --outdir results/ \\
-        --assemblies ${fastas}
+        --assemblies ${assembly}
 
     # Rename output file to include the prefix name
     find results/ -name "*output.txt" -print0 | while read -d \$'\0' file; do mv "\$file" "${prefix}.txt"; done

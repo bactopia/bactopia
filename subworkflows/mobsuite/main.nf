@@ -1,26 +1,30 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Reconstruct and type plasmids from bacterial genome assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct
+ * and type plasmids from draft genome assemblies. It separates plasmid from chromosomal
+ * sequences, determines plasmid replicon types using the MOB-suite database, and provides
+ * comprehensive reports on plasmid content and organization.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords plasmid, reconstruction, typing, mobilome, bacterial genome
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation mobsuite
  *
- * @modules csvtk_concat, mobsuite_recon
+ * @modules mobsuite_recon, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output txt            Txt
- * @output merged_reports Merged Reports
- * @output chromosome     Chromosome
- * @output contig_report  Contig Report
- * @output plasmids       Plasmids
+ * @output txt            Per-sample TSV files containing MOB-suite reconstruction results
+ * @output merged_reports Consolidated TSV file containing reconstruction results from all samples
+ * @output chromosome      Chromosomal sequences separated from plasmids
+ * @output contig_report  Report detailing classification of each contig (chromosome/plasmid)
+ * @output plasmids        Reconstructed plasmid sequences
  * @output results        Aggregated results channel containing all output files
  * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -32,10 +36,10 @@ include { gather         } from 'plugin/nf-bactopia'
 
 workflow MOBSUITE {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    MOBSUITE_RECON(fasta)
+    MOBSUITE_RECON(assembly)
     CSVTK_CONCAT(gather(MOBSUITE_RECON.out.txt, 'mobsuite', 'summary'), 'tsv', 'tsv')
 
     emit:

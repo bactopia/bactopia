@@ -1,22 +1,24 @@
 /**
- * Benchmarking Universal Single Copy Orthologs.
+ * Assess genome assembly completeness using single-copy orthologs.
  *
- * This process executes busco to perform analysis
+ * Uses [BUSCO](https://gitlab.com/ezlab/busco) (Benchmarking Universal Single-Copy Orthologs)
+ * to measure the completeness of genome assemblies, gene sets, or transcriptomes by matching
+ * them against a lineage-specific set of conserved orthologs.
  *
  * @status stable
- * @keywords quality control, genome, transcriptome, proteome
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
+ * @keywords quality control, completeness, genome, assembly, orthologs, busco
+ * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download
  * @citation busco
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Nucleic or amino acid sequence file in FASTA format.
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output supplemental Supplemental
- * @output tsv          Tsv
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           A text summary report of the completeness score (C/S/D/F/M%)
+ * @output supplemental  Directory containing full tables, missing gene lists, and lineage data
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,11 +30,11 @@ process BUSCO {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    supplemental = tuple(meta, files("supplemental/*"))
     tsv          = tuple(meta, file("${prefix}-summary.txt"))
+    supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, file("versions.yml"))
@@ -49,13 +51,13 @@ process BUSCO {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     lineage = task.ext.busco_lineage
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     # Have to put FASTA in a directory to force batch mode in busco
     mkdir tmp-fasta
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > tmp-fasta/${fasta_name}
+        gzip -c -d ${assembly} > tmp-fasta/${assembly_name}
     fi
 
     # Nextflow changes the container --entrypoint to /bin/bash (container default entrypoint: /usr/local/env-execute)
@@ -91,8 +93,8 @@ process BUSCO {
     find supplemental/ -type f -name "*.faa" | xargs -I {} gzip {}
     find supplemental/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
     mv supplemental/batch_summary.txt supplemental/${prefix}-summary.txt
-    mv supplemental/${fasta_name}/* supplemental/
-    rm -rf supplemental/${fasta_name} busco_downloads/ tmp*/
+    mv supplemental/${assembly_name}/* supplemental/
+    rm -rf supplemental/${assembly_name} busco_downloads/ tmp*/
 
     # Busco outputs additional trailing tabs, clean them up
     sed -i 's/\t\t\t\$//' supplemental/${prefix}-summary.txt

@@ -1,27 +1,30 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Search protein sequences against protein database.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&PROGRAM=blastp)
+ * from the NCBI BLAST+ suite to search protein sequences against a protein database.
+ * It processes each assembly individually and aggregates the results into a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords blast, protein, alignment, database
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation blast
  *
- * @modules csvtk_concat, blast_blastp as blastp_module
+ * @modules blastp, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `assembly`: Set of assembled contigs in FASTA format that will be translated and searched
  *
  * @input query
- * Channel containing query data
+ * Path to protein database for searching against translated sequences
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing BLASTP alignment results
+ * @output merged_tsv  Consolidated TSV file containing BLASTP results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -32,11 +35,11 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTP {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     query: Path
 
     main:
-    BLASTP_MODULE(fasta, query)
+    BLASTP_MODULE(assembly, query)
     CSVTK_CONCAT(gather(BLASTP_MODULE.out.tsv, 'blastp'), 'tsv', 'tsv')
 
     emit:

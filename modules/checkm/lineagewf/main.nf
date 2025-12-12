@@ -1,22 +1,29 @@
 /**
- * CheckM provides a set of tools for assessing the quality of bacterial and archaeal genomes.
+ * Assess genome quality using lineage-specific marker sets.
  *
- * This process executes checkm_lineagewf to perform analysis
+ * Uses [CheckM](https://github.com/Ecogenomics/CheckM) to estimate the completeness and
+ * contamination of genome assemblies. It places the genome into a reference tree to select
+ * an appropriate set of single-copy marker genes, then calculates quality metrics based on
+ * the recovery of these markers.
  *
  * @status stable
- * @keywords quality assessment, completeness, contamination, bacteria, archaea
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
- * @citation checkm_lineagewf
+ * @keywords quality control, completeness, contamination, marker genes, lineage, bacteria, archaea
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
+ * @citation checkm
  *
- * @input tuple(meta, fasta)
+ * @note Database Required
+ * Requires the CheckM reference database (~275GB uncompressed) to be configured via the
+ * `CHECKM_DATA_PATH` environment variable or pre-installed in the container.
+ *
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Genome assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv          CheckM results in tab-delimited format
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           A tab-delimited report of quality metrics (Completeness, Contamination, Heterogeneity). See [CheckM's lineage_wf documentation](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow) for details.
+ * @output supplemental  Directory containing lineage files, marker gene stats, and storage logs
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +35,7 @@ process CHECKM_LINEAGEWF {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv          = tuple(meta, file("${prefix}.tsv"))
@@ -48,11 +55,11 @@ process CHECKM_LINEAGEWF {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     checkm \\
@@ -69,7 +76,7 @@ process CHECKM_LINEAGEWF {
     mv supplemental/${prefix}-results.txt ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

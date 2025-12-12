@@ -1,36 +1,39 @@
 /**
- * ${$MODULE_DESCRIPTION}
-.
+ * Automated quality control, error correction, and read subsampling.
  *
- * This process executes qc to perform analysis
+ * A comprehensive QC pipeline that adapts to the input read type:
+ * - **Illumina:** Adapter/PhiX removal (Fastp/BBDuk), Error Correction (Lighter), and Subsampling (BBMap).
+ * - **Nanopore:** Adapter removal (Porechop), Quality filtering (Nanoq), and Subsampling (Rasusa).
+ * - **Hybrid:** Processes both short and long reads
+ *
+ * Generates detailed quality reports using FastQC and NanoPlot.
  *
  * @status stable
- * @keywords ${MODULE_KEYWORDS}
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
- * @citation qc
+ * @keywords fastq, qc, adapter removal, error correction, subsampling, bbduk, lighter, porechop, nanoq, fastqc
+ * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,compression,path-workarounds
+ * @citation bbmap, fastp, fastqc, fastq-scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *
  * @input tuple(meta, fq, extra)
  * - `meta`: Groovy Map containing sample information
- * - `fq`: Input file
- * - `extra`: Input file
+ * - `fq`: Primary reads (Illumina paired-end or Nanopore)
+ * - `extra`: Secondary reads (Nanopore for hybrid) or original Assembly (if simulated)
  *
  * @input adapters
- * Optional Path parameter for adapters
+ * Optional filepath for custom adapter sequences (FASTA).
  *
  * @input phix
- * Optional Path parameter for phix
+ * Optional filepath for custom PhiX sequences (FASTA).
  *
- * @output fastq        Fastq
- * @output fastq_only   Fastq Only
- * @output error_fastq  Error Fastq
- * @output txt          Txt
- * @output supplemental Supplemental
- * @output error        Error
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output fastq        A tuple containing the metadata, clean FASTQs, and any extra files
+ * @output fastq_only   A tuple containing only the metadata and clean FASTQs
+ * @output error_fastq  Reads preserved from samples that failed QC (e.g. low coverage) for debugging
+ * @output supplemental QC reports (FastQC/NanoPlot), JSON metrics, and original/final FASTQs for comparison
+ * @output error        Captured error messages if QC failed (e.g. reads empty after trimming)
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -54,7 +57,6 @@ process QC {
     fastq        = tuple(meta, files("${prefix}*.fastq.gz", optional: true), files("extra/*", optional: true))
     fastq_only   = tuple(meta, files("${prefix}*.fastq.gz", optional: true))
     error_fastq  = tuple(meta, files("${prefix}*-fastq.gz", optional: true))
-    txt          = tuple(meta, file("${prefix}.txt", optional: true))
     supplemental = tuple(meta, files("supplemental/*", optional: true))
     error        = tuple(meta, files("*-error.txt", optional: true))
     logs         = tuple(meta, files("*.{log,err}", optional: true))

@@ -1,25 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict antimicrobial resistance from protein or nucleotide data.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses the [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to predict
+ * resistomes based on homology and SNP models. It includes analysis of resistance genes,
+ * creation of summary visualizations, and aggregation of results across samples.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, assembly, antimicrobial resistance, resistome, homology
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation rgi
  *
- * @modules rgi_main, csvtk_concat, rgi_heatmap
+ * @modules rgi_main, rgi_heatmap, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format for resistome prediction
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output json       Json
- * @output heatmap    Heatmap
+ * @output tsv        RGI prediction results in TSV format for each sample
+ * @output merged_tsv  Combined RGI results from all samples in a single TSV file
+ * @output json       Detailed RGI predictions in JSON format for each sample
+ * @output heatmap    Heatmap visualization of resistance gene presence across all samples
  * @output results    Aggregated results channel containing all output files
  * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions   Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -32,10 +35,10 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow RGI {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    RGI_MAIN(fasta)
+    RGI_MAIN(assembly)
     CSVTK_CONCAT(gather(RGI_MAIN.out.tsv, 'rgi'), 'tsv', 'tsv')
     RGI_HEATMAP(gather(RGI_MAIN.out.json, 'rgi', 'json'))
 

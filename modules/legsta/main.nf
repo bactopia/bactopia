@@ -1,21 +1,23 @@
 /**
- * In silico Legionella pneumophila sequence based typing.
+ * In silico Sequence Based Typing (SBT) of *Legionella pneumophila*.
  *
- * This process executes legsta to perform analysis
+ * Uses [Legsta](https://github.com/tseemann/legsta) to determine the Sequence Based Type (SBT)
+ * of *L. pneumophila* isolates. It aligns the assembly against the standard 7-gene schema
+ * (flaA, pilE, asd, mip, mompS, proA, neuA) to assign allele numbers and the resulting Sequence Type.
  *
  * @status stable
- * @keywords legionella, pneumophila, typing, sbt
- * @tags complexity:simple input-type:single output-type:single features:compression
+ * @keywords bacteria, legionella, pneumophila, typing, sbt, mlst, serogroup
+ * @tags complexity:simple input-type:single output-type:single
  * @citation legsta
  *
- * @input tuple(meta, seqs)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: FASTA file of contigs or genome
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      Tab-delimited legsta results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the assigned Sequence Type and allele profiles
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process LEGSTA {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, seqs) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -49,7 +51,7 @@ process LEGSTA {
     """
     legsta \\
         ${task.ext.args} \\
-        ${seqs} | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
+        ${assembly} | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

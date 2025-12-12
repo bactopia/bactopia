@@ -1,30 +1,34 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Remove contaminant sequences from metagenomic data.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow removes human and other contaminant sequences from metagenomic reads using either
+ * the [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or a Kraken2-based approach (k2scrubber)
+ * with the HPRC human database. It provides flexible contamination removal with detailed reporting
+ * and aggregates results across multiple samples.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, decontamination, human removal, read filtering
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, aggregation
+ * @citation kraken2, srahumanscrubber
  *
  * @subworkflows srahumanscrubber, k2scrubber
  * @modules csvtk_concat
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Metagenomic reads potentially contaminated with human sequences
  *
  * @input use_srascrubber
- * Channel containing use_srascrubber data
+ * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination.
  *
- * @output tsv            Tsv
- * @output special_tsv    Special Tsv
- * @output merged_tsv     Merged Tsv
- * @output scrubbed       Scrubbed
- * @output scrubbed_extra Scrubbed Extra
+ * @output tsv            Individual sample contamination screening reports
+ * @output special_tsv    Extended contamination reports with additional metrics
+ * @output merged_tsv     Merged contamination reports across all samples
+ * @output scrubbed       Clean metagenomic reads after contaminant removal
+ * @output scrubbed_extra Additional cleaned reads from extended filtering
  * @output results        Aggregated results channel containing all output files
  * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

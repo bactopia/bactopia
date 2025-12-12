@@ -1,22 +1,23 @@
 /**
- * Screen assemblies for antimicrobial resistance against multiple databases.
+ * Mass screening of contigs for antimicrobial and virulence genes.
  *
- * This process executes abricate_run to perform analysis
+ * Screens assemblies for antimicrobial resistance and virulence genes using
+ * [Abricate](https://github.com/tseemann/abricate). It bundles several databases
+ * including NCBI, CARD, ResFinder, PlasmidFinder, ARG-ANNOT, and VFDB.
  *
  * @status stable
- * @keywords bacteria, assembly, antimicrobial resistance
+ * @keywords bacteria, assembly, fasta, antimicrobial resistance, virulence, plasmid, mobile genetic elements
  * @tags complexity:simple input-type:single output-type:single
- * @citation abricate_run
+ * @citation abricate
  *
  * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: FASTA, GenBank or EMBL formatted file
+ * - `assembly`: Assembled contigs in FASTA format
  *
- *
- * @output report   Tab-delimited report of results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output report   A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -31,7 +32,7 @@ process ABRICATE_RUN {
     (_meta, assembly): Tuple<Map, Set<Path>>
 
     output:
-    report   = tuple(meta, file("${prefix}.txt"))
+    report   = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, file("versions.yml"))
@@ -51,7 +52,7 @@ process ABRICATE_RUN {
     abricate \\
         $assembly \\
         $task.ext.args \\
-        --threads $task.cpus > ${prefix}.txt
+        --threads $task.cpus > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

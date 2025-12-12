@@ -1,24 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * In silico serotype prediction for Listeria monocytogenes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs serotype prediction for Listeria monocytogenes
+ * using [LisSero](https://github.com/MDU-PHL/LisSero), which identifies specific
+ * serotype markers in genome assemblies. The tool provides rapid classification
+ * into the major L. monocytogenes serotypes, which is important for outbreak
+ * investigation and tracking.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Listeria, monocytogenes, serotype, outbreak
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation lissero
  *
- * @modules lissero as lissero_module, csvtk_concat
+ * @modules csvtk_concat, lissero
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for L. monocytogenes serotype prediction
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         LisSero serotype prediction results in TSV format
+ * @output merged_tsv  Combined TSV file containing serotype results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +34,10 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow LISSERO {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    LISSERO_MODULE(fasta)
+    LISSERO_MODULE(assembly)
     CSVTK_CONCAT(gather(LISSERO_MODULE.out.tsv, 'lissero'), 'tsv', 'tsv')
 
     emit:

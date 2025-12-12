@@ -1,14 +1,21 @@
 /**
- * Download eggNOG database files for annotation.
+ * Download the eggNOG database for functional annotation.
  *
- * This process executes eggnog_download to perform analysis
+ * Fetches the pre-computed orthology data and Diamond database required by
+ * [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper). This includes the massive
+ * protein database and taxonomic information needed for accurate ortholog assignment.
  *
  * @status stable
- * @keywords eggnog, database, download, annotation
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic, resource-download
- * @citation eggnog_download
- * @output db   Directory containing downloaded eggNOG database files
- * @output logs Optional tool execution logs
+ * @keywords eggnog, database, download, annotation, functional, orthology
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download
+ * @citation eggnog_mapper
+ *
+ * @note Internet & Storage Required
+ * This process requires an active internet connection and significant disk space (often >50GB)
+ * to store the uncompressed database files.
+ *
+ * @output db        The eggNOG database files (Diamond database and taxonomy info)
+ * @output logs      Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

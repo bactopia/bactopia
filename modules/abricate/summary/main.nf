@@ -1,21 +1,22 @@
 /**
- * Screen assemblies for antimicrobial resistance against multiple databases.
+ * Summarize Abricate screening results.
  *
- * This process executes abricate_summary to perform analysis
+ * Uses [Abricate](https://github.com/tseemann/abricate) to aggregate the
+ * per-sample screening reports into a single tab-delimited summary file.
  *
  * @status stable
- * @keywords bacteria, assembly, antimicrobial reistance
+ * @keywords bacteria, tab-delimited, antimicrobial resistance
  * @tags complexity:simple input-type:single output-type:single
- * @citation abricate_summary
+ * @citation abricate
  *
  * @input tuple(meta, reports)
  * - `meta`: Groovy Map containing sample information
- * - `reports`: Input file
+ * - `reports`: A collection of Abricate report files from multiple samples
  *
- * @output report   Report
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output report   A merged tab-delimited file with [Abricate](https://github.com/tseemann/abricate) results from all samples
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

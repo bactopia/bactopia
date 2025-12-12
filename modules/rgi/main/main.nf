@@ -1,22 +1,24 @@
 /**
- * Use RGI (Resistance Gene Identifier) to predict resistome(s) from protein or nucleotide data.
+ * Predict antibiotic resistance from assemblies.
  *
- * This process executes rgi_main to perform analysis
+ * Uses [RGI](https://github.com/arpcard/rgi) (Resistance Gene Identifier) to predict
+ * resistomes from protein or nucleotide data based on homology and SNP models using
+ * the Comprehensive Antibiotic Resistance Database (CARD).
  *
  * @status stable
- * @keywords resistance, antimicrobial resistance, CARD, RGI
- * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @keywords resistance, antimicrobial resistance, card, rgi, amr
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation rgi_main
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing nucleotide or protein sequences
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output json     RGI results in JSON format
  * @output tsv      RGI results in tab-separated format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +30,7 @@ process RGI_MAIN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     json     = tuple(meta, files("*.json", optional: true))
@@ -56,7 +58,7 @@ process RGI_MAIN {
         --data wgs \\
         --num_threads ${task.cpus} \\
         --output_file ${prefix} \\
-        --input_sequence ${fasta}
+        --input_sequence ${assembly}
 
     # Remove empty json files
     if grep "^{}\$" ${prefix}.json; then

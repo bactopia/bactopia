@@ -1,22 +1,24 @@
 /**
- * Predict Shigella serotypes and virulence genes.
+ * Predict Shigella serotypes and differentiate Shigella/EIEC.
  *
- * This process executes shigapass to perform analysis
+ * Uses [ShigaPass](https://github.com/Munch-Lab/ShigaPass) to identify *Shigella* serotypes and
+ * distinguish *Shigella* species from Enteroinvasive *Escherichia coli* (EIEC) using specific
+ * genomic markers from assembled contigs.
  *
  * @status stable
- * @keywords Shigella, serotype, virulence, IPABC
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords shigella, eiec, serotype, virulence, prediction
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation shigapass
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv      ShigaPass summary results in TSV format
  * @output flex_tsv ShigaPass Flex summary results in TSV format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +30,7 @@ process SHIGAPASS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -49,27 +51,27 @@ process SHIGAPASS {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     # ShigaPass does not accept compressed FASTA files
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     # Convert our genome path to a file with a path in it
-    ls ${fasta_name} > ${fasta_name}_tmp.txt
+    ls ${assembly_name} > ${assembly_name}_tmp.txt
 
     # Run ShigaPass
     ShigaPass.sh \\
-        -l ${fasta_name}_tmp.txt \\
+        -l ${assembly_name}_tmp.txt \\
         ${task.ext.args} \\
         -p "\$(dirname \$(which ShigaPass.sh))/../share/shigapass-${SHIGAPASS_VERSION}/db" \\
         -t ${task.cpus} \\
         -o ${prefix}
 
     # Remove the temporary file from above
-    rm ${fasta_name}_tmp.txt ${fasta_name}
+    rm ${assembly_name}_tmp.txt ${assembly_name}
 
     # Convert to tab delimited and move to the pwd
     sed 's/;/\t/g' ${prefix}/ShigaPass_summary.csv > ${prefix}.tsv

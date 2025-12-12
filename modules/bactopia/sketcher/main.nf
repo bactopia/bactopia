@@ -1,33 +1,37 @@
 /**
- * ${$MODULE_DESCRIPTION}
-.
+ * Create genomic sketches and perform rapid taxonomic classification.
  *
- * This process executes sketcher to perform analysis
+ * Uses [Mash](https://mash.readthedocs.io/) and [Sourmash](https://sourmash.readthedocs.io/) to
+ * create MinHash sketches of the input sequences. These sketches are then queried against
+ * pre-built databases ([RefSeq](https://www.ncbi.nlm.nih.gov/refseq/) and
+ * [GTDB](https://gtdb.ecogenomic.org/) to identify the closest reference genomes.
  *
  * @status stable
- * @keywords ${MODULE_KEYWORDS}
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation sketcher
+ * @keywords bacteria, taxonomy, classification, minhash, sketch, mash, sourmash, refseq, gtdb
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
+ * @citation mash, sourmash
  *
- * @note Requires external database to be available
+ * @note Databases Required
+ * Requires the pre-compiled RefSeq (Mash) and GTDB (Sourmash) databases, usually downloaded
+ * by the `datasets` module.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Input file
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input mash_db
- * Path parameter for mash_db
+ * Path to the Mash RefSeq database 
  *
  * @input sourmash_db
- * Path parameter for sourmash_db
+ * Path to the Sourmash GTDB LCA database
  *
- * @output sig      Sig
- * @output msh      Msh
- * @output mash     Mash
- * @output sourmash Sourmash
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output sig       The Sourmash signature file (*.sig)
+ * @output msh       The Mash sketch files for k=21 and k=31 (*.msh)
+ * @output mash      A classification report of Mash Screen results against RefSeq database
+ * @output sourmash  A classification report from Sourmash LCA against GTDB database
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -39,7 +43,7 @@ process SKETCHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     mash_db        : Path
     sourmash_db    : Path
 
@@ -70,13 +74,13 @@ process SKETCHER {
         xz -c -d ${mash_db} > ${mash_name}
     fi
 
-    gzip -cd ${fasta} | mash sketch -o ${prefix}-k21 -k 21 ${task.ext.args} -I ${prefix} -
-    gzip -cd ${fasta} | mash sketch -o ${prefix}-k31 -k 31 ${task.ext.args} -I ${prefix} -
-    sourmash sketch dna ${task.ext.args2} --merge ${prefix} -o ${prefix}.sig ${fasta}
+    gzip -cd ${assembly} | mash sketch -o ${prefix}-k21 -k 21 ${task.ext.args} -I ${prefix} -
+    gzip -cd ${assembly} | mash sketch -o ${prefix}-k31 -k 31 ${task.ext.args} -I ${prefix} -
+    sourmash sketch dna ${task.ext.args2} --merge ${prefix} -o ${prefix}.sig ${assembly}
 
     # Mash Screen
     echo "identity<TAB>shared-hashes<TAB>median-multiplicity<TAB>p-value<TAB>query-ID<TAB>query-comment" | sed 's/<TAB>/\t/g' > ${prefix}-mash-refseq88-k21.txt
-    gzip -cd ${fasta} | mash screen ${task.ext.args3} -p ${task.cpus} ${mash_name} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
+    gzip -cd ${assembly} | mash screen ${task.ext.args3} -p ${task.cpus} ${mash_name} - | sort -gr >> ${prefix}-mash-refseq88-k21.txt
 
     # Sourmash classify
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt

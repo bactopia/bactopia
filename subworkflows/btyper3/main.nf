@@ -1,24 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * In silico taxonomic classification of Bacillus cereus group genomes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs taxonomic classification of Bacillus cereus group
+ * genomes using [BTyper3](https://github.com/lmc297/BTyper3), which provides
+ * comprehensive classification including species, lineage, and toxin gene detection.
+ * The results from individual samples are aggregated into a combined summary file.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Bacillus, cereus, taxonomy, typing, toxin genes
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation btyper3
  *
- * @modules csvtk_concat, btyper3 as btyper3_module
+ * @modules csvtk_concat, btyper3
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for Bacillus cereus group classification
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         BTyper3 classification results with detailed taxonomic information
+ * @output merged_tsv  Combined TSV file containing classification results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +33,10 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    BTYPER3_MODULE(fasta)
+    BTYPER3_MODULE(assembly)
     CSVTK_CONCAT(gather(BTYPER3_MODULE.out.tsv, 'btyper3'), 'tsv', 'tsv')
 
     emit:

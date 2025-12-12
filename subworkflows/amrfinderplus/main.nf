@@ -1,43 +1,32 @@
 /**
-
-
-
-
-
-
-
-
-
-
-
-
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Find antimicrobial resistance genes and point mutations.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [AMRFinderPlus](https://github.com/ncbi/amr) to identify acquired antimicrobial
+ * resistance genes and some point mutations in protein or assembled nucleotide sequences.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, assembly, antimicrobial resistance, gene prediction
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation amrfinderplus
  *
  * @modules csvtk_concat, amrfinderplus_run
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, nucleotide, protein, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `nucleotide`: Assembled contigs in FASTA format for AMR gene detection
+ * - `protein`: Optional protein sequences in FASTA format
+ * - `gff`: Optional GFF3 annotation file
  *
  * @input db
- * Channel containing db data
+ * Path to the AMRFinderPlus database directory containing reference data for AMR gene detection.
  *
- * @output report          Report
- * @output merged_tsv      Merged Tsv
- * @output mutation_report Mutation Report
+ * @output report          AMR gene detection results for each sample in TSV format
+ * @output merged_tsv      Combined AMR detection results from all samples in a single TSV file
+ * @output mutation_report Point mutations associated with antimicrobial resistance
  * @output results         Aggregated results channel containing all output files
  * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution logs from all processes
+ * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions        Aggregated version information from all executed tools
- 
- 
- 
  */
 nextflow.preview.types = true
 

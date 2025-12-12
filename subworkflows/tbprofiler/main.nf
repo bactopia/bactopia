@@ -1,30 +1,35 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Profiling tool for Mycobacterium tuberculosis to detect resistance and strain type.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs comprehensive profiling of Mycobacterium tuberculosis
+ * from sequencing reads using [TBProfiler](https://github.com/jodyphelan/TBProfiler).
+ * The tool detects drug resistance mutations, determines lineage and strain type,
+ * and provides detailed variant calling results. It combines individual sample
+ * results with population-level analysis for surveillance and epidemiological studies.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords Mycobacterium, tuberculosis, drug resistance, lineage, variants
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation tbprofiler
  *
  * @modules tbprofiler_profile, tbprofiler_collate
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Sequencing reads for M. tuberculosis resistance profiling and strain typing
  *
- * @output csv          Csv
- * @output json         Json
- * @output txt          Txt
- * @output bam          Bam
- * @output vcf          Vcf
- * @output merged_csv   Merged Csv
- * @output variants_csv Variants Csv
- * @output variants_txt Variants Txt
- * @output itol         Itol
+ * @output csv          TBProfiler resistance and lineage results in CSV format
+ * @output json         Detailed analysis results with variant information in JSON format
+ * @output txt          Summary report of resistance mutations and lineage
+ * @output bam          Aligned reads in BAM format for visualization
+ * @output vcf          Variant calls in VCF format
+ * @output merged_csv   Combined resistance and lineage results from all samples
+ * @output variants_csv Collated variant information across all samples
+ * @output variants_txt Summary of detected resistance mutations
+ * @output itol         iTOL input file for phylogenetic tree annotation
  * @output results      Aggregated results channel containing all output files
  * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

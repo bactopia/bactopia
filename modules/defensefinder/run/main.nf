@@ -1,31 +1,34 @@
 /**
- * Run Defense-Finder to detect defense systems in bacterial genomes.
+ * Detect anti-phage defense systems using HMM profiles.
  *
- * This process executes defensefinder_run to perform analysis
+ * Uses [DefenseFinder](https://github.com/mdmparis/defense-finder) to systematically search
+ * protein sequences for known antiviral defense systems (e.g., CRISPR-Cas, Restriction-Modification,
+ * TA systems, CBASS) using MacSyFinder and a dedicated database of HMM models.
  *
  * @status stable
- * @keywords bacteria, defense, crispr, phage, defense-finder
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation defensefinder_run
+ * @keywords bacteria, defense systems, antiviral, phage, crispr, restriction-modification, hmm, macsyfinder
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
+ * @citation defensefinder
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires the DefenseFinder HMM database to be available.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, proteins)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Input fasta/multi-fasta file containing protein sequences (regular or gzipped)
+ * - `proteins`: Protein sequences in FASTA format (amino acids)
  *
  * @input db
- * Defense-Finder models database
+ * Directory containing the DefenseFinder models database
  *
- * @output genes_tsv      TSV file containing defense genes
- * @output hmmer_tsv      TSV file containing hmmer hits
- * @output systems_tsv    TSV file containing defense systems
- * @output proteins       Protein sequences file
- * @output proteins_index Protein sequences index file
- * @output macsydata_raw  Raw macsydata files (optional)
- * @output logs           Optional tool execution logs
- * @output nf_logs        Nextflow execution logs
- * @output versions       Software version information (YAML format)
+ * @output genes_tsv     Tab-delimited list of detected defense genes
+ * @output hmmer_tsv     Tab-delimited list of HMMER hits used for detection
+ * @output systems_tsv   Tab-delimited summary of detected defense systems
+ * @output proteins      Protein sequences of the detected defense genes (*.prt)
+ * @output proteins_index Index file for the protein sequences (*.prt.idx)
+ * @output macsydata_raw compressed tarball of raw MacSyFinder data (optional)
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -37,7 +40,7 @@ process DEFENSEFINDER_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, proteins) : Tuple<Map, Path>
     db             : Path
 
     output:
@@ -83,7 +86,7 @@ process DEFENSEFINDER_RUN {
         ${task.ext.args} \\
         --workers ${task.cpus} \\
         --models-dir defense-finder/ \\
-        ${fasta}
+        ${proteins}
 
     if [ "${task.ext.df_preserveraw}" == "true" ]; then
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/

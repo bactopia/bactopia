@@ -1,24 +1,27 @@
 /**
- * Searches translated nucleotide databases using a translated nucleotide query.
+ * Search a translated nucleotide database using a translated nucleotide query.
  *
- * This process executes blast_tblastx to perform analysis
+ * Uses [TBLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi) to align nucleotide query sequences
+ * (translated in all six frames) against a nucleotide BLAST database (also translated in all
+ * six frames). This is useful for identifying distant relationships between nucleotide sequences
+ * that have significant divergence but conserved protein structure.
  *
  * @status stable
- * @keywords fasta, blast, tblastx, translated nucleotide
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression
- * @citation blast_tblastx
+ * @keywords blast, tblastx, alignment, translation, dna, search, fasta
+ * @tags complexity:moderate input-type:multiple output-type:single features:compression
+ * @citation blast
  *
  * @input tuple(meta, blastdb)
  * - `meta`: Groovy Map containing sample information
- * - `blastdb`: BLAST nucleotide database tarball
+ * - `blastdb`: A compressed tarball containing the nucleotide BLAST database
  *
  * @input query
- * Input fasta file containing nucleotide query sequences
+ * FASTA file containing nucleotide query sequences
  *
- * @output tsv      Tab-separated file containing tblastx hits
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

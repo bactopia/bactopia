@@ -1,24 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict serotypes of Neisseria meningitidis from genome assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [meningotype](https://github.com/MDU-PHL/meningotype) to perform
+ * in silico serotyping, finetyping and Bexsero antigen sequence typing of *Neisseria meningitidis*
+ * strains from assembled genomes. It processes each sample individually and aggregates the
+ * results into a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords neisseria meningitidis, serotype, finetype, bexsero, meningococcal
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation meningotype
  *
- * @modules csvtk_concat, meningotype as meningotype_module
+ * @modules csvtk_concat, meningotype
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing meningococcal typing results
+ * @output merged_tsv  Consolidated TSV file containing meningococcal typing from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +33,10 @@ include { gather                            } from 'plugin/nf-bactopia'
 
 workflow MENINGOTYPE {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    MENINGOTYPE_MODULE(fasta)
+    MENINGOTYPE_MODULE(assembly)
     CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out.tsv, 'meningotype'), 'tsv', 'tsv')
 
     emit:

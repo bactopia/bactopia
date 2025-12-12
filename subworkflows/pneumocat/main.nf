@@ -1,24 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Perform capsular typing of Streptococcus pneumoniae from NGS data.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT) to
+ * identify serotype-specific capsular loci and determine serotypes from next-generation
+ * sequencing data. It provides comprehensive serotype determination including coverage
+ * statistics and confidence scores for each sample.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords streptococcus pneumoniae, serotype, capsular typing, typing
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
+ * @citation pneumocat
  *
- * @modules pneumocat as pneumocat_module
+ * @modules pneumocat
  *
- * @input fastq
- * Channel containing fastq data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end reads in FASTQ format
  *
- * @output xml      Xml
- * @output txt      Txt
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output xml          Per-sample PneumoCaT detailed results in XML format with coverage information
+ * @output txt          Per-sample summary reports with serotype calls and statistics
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -28,10 +32,10 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:
-    fastq: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    PNEUMOCAT_MODULE(fastq)
+    PNEUMOCAT_MODULE(reads)
 
     emit:
     // Individual outputs

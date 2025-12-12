@@ -1,22 +1,27 @@
 /**
  * Capsular typing of Streptococcus pneumoniae from Illumina reads.
  *
- * This process executes pneumocat to perform analysis
+ * Uses [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT) (Pneumococcal Capsular Typing)
+ * to assign capsular types to *Streptococcus pneumoniae* using a two-step approach: first matching
+ * reads to a global database, then using a mapped-based approach for specific serogroup differentiation.
  *
  * @status stable
- * @keywords pneumocat, Streptococcus pneumoniae, capsular typing, serotyping
- * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @keywords pneumocat, streptococcus pneumoniae, capsular typing, serotyping
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation pneumocat
  *
- * @input tuple(meta, meta)
- * - `meta`: Groovy Map containing sample information
- * - `meta`: Groovy Map containing sample information
+ * @note
+ * Negative results will cause non-0 exit codes from PneumoCaT
  *
- * @output xml      The pneumocat result files in xml format
- * @output txt      A file containing the coverage information acrosss the genes
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FASTQ sequence reads
+ *
+ * @output xml      The PneumoCaT result files in XML format
+ * @output txt      A file containing the coverage information across the genes
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

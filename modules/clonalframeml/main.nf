@@ -1,28 +1,31 @@
 /**
- * Efficient inference of recombination in bacterial genomes.
+ * Inference of recombination in bacterial genomes.
  *
- * This process executes clonalframeml to perform analysis
+ * Uses [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML) to detect recombination
+ * events in bacterial genomes. It corrects the phylogenetic tree for recombination and produces
+ * a "masked" alignment where recombinant regions are removed, allowing for more accurate
+ * phylogenetic inference.
  *
  * @status stable
- * @keywords recombination, phylogeny, bacteria
- * @tags complexity:complex input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, recombination, phylogeny, alignment, msa, evolution
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,compression
  * @citation clonalframeml
  *
  * @input tuple(meta, msa, newick)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment file
- * - `newick`: Phylogenetic tree in Newick format
+ * - `msa`: Multiple sequence alignment in FASTA format
+ * - `newick`: Initial phylogenetic tree in Newick format
  *
- * @output emsim      Uncertainty estimation results
- * @output em         EM algorithm results
- * @output status     Importation status for each branch
- * @output newick     Tree with internal nodes labelled
- * @output fasta      Reconstructed sequences
- * @output pos_ref    Position cross reference
- * @output masked_aln Alignment with recombination masked
- * @output logs       Optional tool execution logs
- * @output nf_logs    Nextflow execution logs
- * @output versions   Software version information (YAML format)
+ * @output emsim       Uncertainty estimation results (if requested)
+ * @output em          Final parameter estimates from the EM algorithm
+ * @output status      Tab-delimited list of predicted recombination events (importations)
+ * @output newick      The input tree with internal nodes labelled
+ * @output fasta       Reconstructed ancestral sequences (*.fasta.gz)
+ * @output pos_ref     Position cross-reference table (*.txt.gz)
+ * @output masked_aln  The input alignment with recombinant regions masked (*.aln.gz)
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -45,7 +48,7 @@ process CLONALFRAMEML {
     pos_ref    = tuple(meta, files("${task.ext.process_name}/*.position_cross_reference.txt.gz"))
     masked_aln = tuple(meta, files("*.masked.aln.gz"))
     logs       = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs   = tuple(meta, files(".command.*"))
+    nf_logs    = tuple(meta, files(".command.*"))
     versions   = tuple(meta, file("versions.yml"))
 
     script:

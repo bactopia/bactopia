@@ -1,27 +1,33 @@
 /**
  * Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.
  *
- * This subworkflow orchestrates the execution of main.nf analysis components.
+ * This subworkflow performs comprehensive typing of *Staphylococcus aureus* genomes by
+ * determining the agr locus type using [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE),
+ * spa repeat type using [spaTyper](https://github.com/HCGB-IGTP/spaTyper), and SCCmec element
+ * type using SCCmec typing. It combines results from multiple typing methods to provide
+ * a complete characterization of *S. aureus* strains.
  *
  * @status stable
- * @keywords main.nf, subworkflow, analysis
- * @tags complexity:simple input-type:multiple output-type:multiple features:components
- * @citation main.nf
+ * @keywords staphylococcus aureus, agr typing, spa typing, sccmec, strain characterization
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation, database-dependent
+ * @citation agrvate, spatyper, sccmec
  *
+ * @subworkflows agrvate, spatyper, sccmec
  *
- * @input fasta
- * Channel containing tuples with metadata and file paths
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input repeats
- * Input channel
+ * Optional spa repeats database for improved spa typing
  *
  * @input repeat_order
- * Input channel
+ * Optional spa repeat order file for improved spa typing
  *
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output results      Aggregated results channel containing all typing results from agr, spa, and SCCmec analysis
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -33,24 +39,19 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow STAPHTYPER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     repeats: Path?
     repeat_order: Path?
 
     main:
     // agrvate - agr locus type and agr operon variants
-    AGRVATE(fasta)
+    AGRVATE(assembly)
 
     // spatyper - spa typing
-    SPATYPER(fasta, repeats, repeat_order)
+    SPATYPER(assembly, repeats, repeat_order)
 
     // sccmec - SCCmec type based on targets and full cassettes
-
-
-
-
-
-    SCCMEC(fasta)
+    SCCMEC(assembly)
 
     emit:
     results: Channel<Tuple<Map, Path>> = flattenPaths([

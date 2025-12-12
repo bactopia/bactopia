@@ -1,27 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Classify metagenomic reads using Kraken2.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs taxonomic classification of metagenomic reads using [Kraken2](https://github.com/DerrickWood/kraken2),
+ * a fast taxonomic classification system. It assigns taxonomic labels to sequencing reads based on k-mer matching against a reference database.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, taxonomic classification, kraken2, k-mer
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent
+ * @citation kraken2
  *
- * @modules kraken2 as kraken2_module
+ * @modules kraken2
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Metagenomic reads for taxonomic classification
  *
  * @input database
- * Channel containing database data
+ * Path to the Kraken2 database for taxonomic classification.
  *
- * @output classified     Classified
- * @output kraken2_report Kraken2 Report
- * @output unclassified   Unclassified
+ * @output classified     Taxonomically classified reads in FASTA format
+ * @output kraken2_report Kraken2 classification report with read counts per taxon
+ * @output unclassified   Unclassified reads not assigned to any taxa
  * @output results        Aggregated results channel containing all output files
  * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -50,7 +52,7 @@ workflow KRAKEN2 {
         KRAKEN2_MODULE.out.kraken2_report,
         KRAKEN2_MODULE.out.unclassified
     ])
-    logs: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2_MODULE.out.versions])
 }

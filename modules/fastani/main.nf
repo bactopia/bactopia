@@ -1,24 +1,26 @@
 /**
- * Fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI).
+ * Compute whole-genome Average Nucleotide Identity (ANI).
  *
- * This process executes fastani to perform analysis
+ * Uses [FastANI](https://github.com/ParBLiSS/FastANI) to perform alignment-free computation
+ * of ANI between the input query genomes and a reference genome. This is the standard method
+ * for species definition (typically >95% ANI) and is much faster than traditional BLAST-based approaches.
  *
  * @status stable
- * @keywords fastani
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @keywords fastani, ani, average nucleotide identity, taxonomy, genomic distance, comparison
+ * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation fastani
  *
  * @input tuple(meta, query)
  * - `meta`: Groovy Map containing sample information
- * - `query`: Fasta file(s) to be queried
+ * - `query`: One or more assembled contigs in FASTA format (Query genomes)
  *
  * @input reference
- * Fasta file(s) to be used as reference for the query
+ * The reference genome assembly in FASTA format to compare against
  *
- * @output tsv      Results of the query
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the ANI scores, matched fragments, and total fragments
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

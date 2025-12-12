@@ -1,29 +1,31 @@
 /**
- * phyloFlash is a pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset..
+ * Rapidly reconstruct SSU rRNAs and determine phylogenetic composition.
  *
- * This process executes phyloflash to perform analysis
+ * Uses [phyloFlash](https://github.com/HRGV/phyloFlash) to map Illumina reads to a reference
+ * SSU rRNA database (typically SILVA). It then performs read-based assembly of the SSU rRNA genes
+ * to accurately determine the phylogenetic composition and relative abundance of taxa in the sample.
  *
  * @status stable
- * @keywords metagenomics, illumina datasets, phylogenetic composition
- * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
+ * @keywords metagenomics, taxonomy, phylogeny, ssu rrna, silva, ribosomal rna, abundance
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent
  * @citation phyloflash
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Channel containing single or paired-end reads
+ * - `reads`: Paired-end or single-end reads in FASTQ format
  *
  * @input _silva_db
- * Path parameter for _silva_db
+ * Path to the SILVA SSU rRNA database used for read mapping
  *
  * @input _univec_db
- * Path parameter for _univec_db
+ * Path to the UniVec database for screening contaminants (typically optional)
  *
- * @output supplemental Supplemental
- * @output aln          Alignment file
- * @output summary      JSON summary file
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental Directory containing various intermediate files and detailed outputs
+ * @output aln         Reconstructed SSU rRNA sequences, aligned in FASTA format
+ * @output summary     JSON summary file containing taxonomic hits and abundance statistics
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

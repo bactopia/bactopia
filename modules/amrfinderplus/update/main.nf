@@ -1,16 +1,22 @@
 /**
- * Download the latest AMRFinderPlus database.
+* Download and index the latest AMRFinder+ database.
  *
- * This process executes amrfinderplus_update to perform analysis
+ * Fetches the most recent [AMRFinder+](https://github.com/ncbi/amr) databases from NCBI,
+ * indexes them, and packages them into a tarball.
  *
  * @status stable
- * @keywords bacteria, database, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, database-dependent
- * @citation amrfinderplus_update
+ * @keywords bacteria, database, antimicrobial resistance, update, download, ncbi
+ * @tags complexity:simple input-type:none output-type:single features:internet-access, archive-output, compression, database-dependent
+ * @citation amrfinderplus
  *
- * @note Requires external database to be available
- * @output db   The latest AMRFinder+ database in a compressed tarball
- * @output logs Optional tool execution logs
+ * @note Internal Maintenance
+ * This process is primarily used internally by Bactopia to build and update the
+ * built-in datasets.
+ *
+ * @output db       A compressed tarball of the latest [AMRFinder+](https://github.com/ncbi/amr) database
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

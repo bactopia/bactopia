@@ -1,25 +1,27 @@
 /**
  * Identify SCCmec elements in Staphylococcus aureus genomes.
  *
- * This process executes sccmec to perform analysis
+ * Uses [SCCmec](https://github.com/rpetit3/sccmec) to identify the Staphylococcal Cassette
+ * Chromosome mec (SCCmec) element in *Staphylococcus aureus* assemblies. It predicts the type
+ * based on the presence of specific *mec* and *ccr* gene complexes.
  *
  * @status stable
- * @keywords SCCmec, Staphylococcus aureus, antimicrobial resistance, cassette chromosome
+ * @keywords sccmec, staphylococcus aureus, mrsa, antimicrobial resistance, typing
  * @tags complexity:moderate input-type:single output-type:multiple
  * @citation sccmec
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv             Main results file with SCCmec typing
  * @output targets         BLAST results for target sequences
  * @output target_details  Detailed results for target matches
  * @output regions         BLAST results for SCCmec regions
  * @output regions_details Detailed results for SCCmec region matches
- * @output logs            Optional tool execution logs
- * @output nf_logs         Nextflow execution logs
- * @output versions        Software version information (YAML format)
+ * @output logs            Optional software execution logs containing warnings/errors
+ * @output nf_logs         Nextflow execution scripts and logs for debugging
+ * @output versions        A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -31,7 +33,7 @@ process SCCMEC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv             = tuple(meta, file("${prefix}.tsv"))
@@ -58,7 +60,7 @@ process SCCMEC {
     sccmec \\
         ${task.ext.args} \\
         --prefix ${prefix} \\
-        --input ${fasta}
+        --input ${assembly}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

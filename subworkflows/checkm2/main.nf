@@ -1,30 +1,38 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Assess metagenome bin completeness using CheckM2.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow evaluates the quality and completeness of metagenome-assembled genomes
+ * (MAGs) using [CheckM2](https://github.com/chklovski/CheckM2). It provides an improved
+ * assessment using machine learning models trained on high-quality reference genomes,
+ * offering more accurate completeness and contamination estimates. The workflow can either
+ * download the required database or use a user-provided database path.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenome, bin, completeness, contamination, mag, quality, machine-learning
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, database-dependent
+ * @citation checkm2
  *
  * @modules csvtk_concat, checkm2_predict, checkm2_download
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
+ *   about the sample and a set of genome bins in FASTA format.
  *
  * @input database
- * Channel containing database data
+ * Path to CheckM2 database directory. If download_checkm2 is true, this can be
+ * a placeholder as the database will be downloaded automatically.
  *
  * @input download_checkm2
- * Channel containing download_checkm2 data
+ * Boolean flag to automatically download the CheckM2 database if not available.
+ * When true, downloads the required reference database before prediction.
  *
- * @output report         Report
- * @output merged_reports Merged Reports
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output report        Per-bin CheckM2 quality assessment results in TSV format
+ * @output merged_reports Combined CheckM2 results summary across all bins
+ * @output results       Aggregated results channel containing all output files
+ * @output logs          Aggregated logs channel containing all execution logs
+ * @output nf_logs       Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions      Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -36,16 +44,16 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     database: Path
     download_checkm2: Boolean
 
     main:
     if (download_checkm2) {
         CHECKM2_DOWNLOAD()
-        CHECKM2_PREDICT(fasta, CHECKM2_DOWNLOAD.out.db)
+        CHECKM2_PREDICT(assembly, CHECKM2_DOWNLOAD.out.db)
     } else {
-        CHECKM2_PREDICT(fasta, database)
+        CHECKM2_PREDICT(assembly, database)
     }
 
     // Merge results

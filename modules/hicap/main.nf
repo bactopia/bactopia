@@ -1,31 +1,31 @@
 /**
- * In silico typing of the H. influenzae capsule locus.
+ * Predict *Haemophilus influenzae* capsule serotype.
  *
- * This process executes hicap to perform analysis
+ * Uses [hicap](https://github.com/scwatts/hicap) to identify the capsule locus in *H. influenzae*
+ * genome assemblies. It predicts the serotype (a, b, c, d, e, f, or Non-Typeable/NTHi) and
+ * can optionally generate visualizations of the locus structure.
  *
  * @status stable
- * @keywords haemophilus, influenzae, capsule, typing, serotype
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @keywords bacteria, haemophilus influenzae, serotype, capsule, typing, nthi
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation hicap
  *
- * @note Requires external database to be available
- *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input database_dir
- * Optional path to database directory
+ * Optional path to a custom hicap reference database directory
  *
  * @input model_fp
- * Optional path to prodigal model file
+ * Optional path to a custom Prodigal training model file
  *
- * @output gbk      GenBank file of cap locus (optional)
- * @output svg      SVG visualization of cap locus (optional)
- * @output tsv      Tab-delimited hicap results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output gbk       GenBank file containing the annotated capsule locus region (optional)
+ * @output svg       SVG visualization of the capsule locus gene arrangement (optional)
+ * @output tsv       A tab-delimited summary of the predicted serotype and locus coverage
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -37,7 +37,7 @@ process HICAP {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     database_dir   : Path?
     model_fp       : Path?
 
@@ -62,15 +62,15 @@ process HICAP {
     meta.process_name = task.ext.process_name
     def database_args = database_dir ? "--database_dir ${database_dir}" : ""
     def model_args = model_fp ? "--model_fp ${model_fp}" : ""
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     hicap \\
-        --query_fp ${fasta_name} \\
+        --query_fp ${assembly_name} \\
         ${database_args} \\
         ${model_args} \\
         ${task.ext.args} \\
@@ -86,7 +86,7 @@ process HICAP {
     fi
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

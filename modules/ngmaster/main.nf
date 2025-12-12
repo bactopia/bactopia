@@ -1,21 +1,23 @@
 /**
- * Serotyping Neisseria gonorrhoeae assemblies.
+ * Serotyping and Multi-Antigen Sequence Typing (MAST) of *Neisseria gonorrhoeae*.
  *
- * This process executes ngmaster to perform analysis
+ * Uses [NG-MAST](https://github.com/phac-nml/NG-MASTER) to identify the alleles of the
+ * *porB* and *tbpB* genes in *N. gonorrhoeae* assemblies, which is the basis for the
+ * internationally recognized MAST genotyping scheme.
  *
  * @status stable
- * @keywords fasta, Neisseria gonorrhoeae, serotype
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords bacteria, neisseria gonorrhoeae, serotype, typing, mast, porb, tbpb
+ * @tags complexity:simple input-type:single output-type:single
  * @citation ngmaster
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA assembly file
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      Tab-delimited result file
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary containing the allele profile and the resulting MAST sequence type (ST)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process NGMASTER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -46,20 +48,20 @@ process NGMASTER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     ngmaster \\
         ${task.ext.args} \\
-        ${fasta_name} \\
+        ${assembly_name} \\
         > ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

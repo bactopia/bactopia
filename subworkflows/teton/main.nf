@@ -1,35 +1,40 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Perform taxonomic classification and estimate bacterial genome sizes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow processes raw sequencing reads through a taxonomic classification
+ * pipeline using [Kraken2](https://github.com/DerrickWood/kraken2) and [Bracken](https://github.com/jenniferlu717/Bracken)
+ * to estimate bacterial genome sizes and separate bacterial from non-bacterial organisms.
+ * It first removes host reads using the scrubber subworkflow, then classifies reads,
+ * and finally creates sample sheets with genome size estimates for downstream Bactopia analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent, conditional-logic
+ * @citation kraken2, bracken
  *
  * @subworkflows scrubber, bracken
- * @modules csvtk_join, bactopia_samplesheet, csvtk_concat as csvtk_concat_nonbacteria, csvtk_concat as csvtk_concat_bacteria, csvtk_concat, csvtk_concat as csvtk_concat_sizemeup
+ * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: FASTQ reads (Illumina or Nanopore)
  *
  * @input db
- * Channel containing db data
+ * Optional Kraken2 database path for taxonomic classification
  *
  * @input use_srascrubber
- * Channel containing use_srascrubber data
+ * Boolean flag to use SRA scrubber for host read removal
  *
- * @output bacteria_tsv           Bacteria Tsv
- * @output merged_bacteria_tsv    Merged Bacteria Tsv
- * @output nonbacteria_tsv        Nonbacteria Tsv
- * @output merged_nonbacteria_tsv Merged Nonbacteria Tsv
- * @output sizemeup               Sizemeup
- * @output merged_sizemeup        Merged Sizemeup
- * @output report                 Report
+ * @output bacteria_tsv           Per-sample TSV files containing bacterial organisms and their properties
+ * @output merged_bacteria_tsv    Consolidated TSV file of all bacterial organisms across samples
+ * @output nonbacteria_tsv        Per-sample TSV files containing non-bacterial organisms
+ * @output merged_nonbacteria_tsv Consolidated TSV file of all non-bacterial organisms across samples
+ * @output sizemeup               Per-sample TSV files with genome size estimates
+ * @output merged_sizemeup        Consolidated TSV file of genome size estimates across samples
+ * @output report                 Joined TSV file combining scrubber and classification results
  * @output results                Aggregated results channel containing all output files
  * @output logs                   Aggregated logs channel containing all execution logs
- * @output nf_logs                Aggregated Nextflow execution logs from all processes
+ * @output nf_logs                Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions               Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

@@ -1,30 +1,34 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict spa types of Staphylococcus aureus from genome assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to predict
+ * the spa types of *Staphylococcus aureus* strains from assembled genomes based on
+ * the polymorphic X region of the protein A gene (spa). It processes each sample
+ * individually and aggregates the results into a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords staphylococcus aureus, spa typing, protein a, mrsa
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation spatyper
  *
- * @modules csvtk_concat, spatyper as spatyper_module
+ * @modules csvtk_concat, spatyper
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input repeats
- * Channel containing repeats data
+ * Optional custom repeats database for spa typing
  *
  * @input repeat_order
- * Channel containing repeat_order data
+ * Optional custom repeat order file for spa typing
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing spa typing results
+ * @output merged_tsv  Consolidated TSV file containing spa typing from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -35,12 +39,12 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SPATYPER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     repeats: Path?
     repeat_order: Path?
 
     main:
-    SPATYPER_MODULE(fasta, repeats, repeat_order)
+    SPATYPER_MODULE(assembly, repeats, repeat_order)
     CSVTK_CONCAT(gather(SPATYPER_MODULE.out.tsv, 'spatyper'), 'tsv', 'tsv')
 
     emit:
@@ -49,19 +53,6 @@ workflow SPATYPER {
     merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate output
-
-
-
-
-
-
-
-
-
-
-
-
-
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         SPATYPER_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv

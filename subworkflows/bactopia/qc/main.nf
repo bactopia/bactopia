@@ -1,33 +1,38 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Perform comprehensive quality control on sequencing reads.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow processes raw sequencing reads through a comprehensive quality control pipeline.
+ * It adapts to different read types (Illumina paired-end, single-end, and Nanopore long reads),
+ * performing adapter/PhiX removal, error correction, quality filtering, and coverage reduction.
+ * Generates detailed quality reports using [FastQC](https://github.com/s-andrews/FastQC) and [NanoPlot](https://github.com/wdecoster/NanoPlot).
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords quality control, adapters, error correction, subsampling, fastq, illumina, nanopore
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, path-workarounds
+ * @citation bbmap, fastp, fastqc, fastq-scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
- * @modules qc as qc_module
+ * @modules qc
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads, extra)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Primary reads (Illumina paired-end, single-end, or Nanopore)
+ * - `extra`: Secondary reads for hybrid assembly or original assembly (Optional)
  *
  * @input adapters
- * Channel containing adapters data
+ * Optional adapter sequences in FASTA format for removal from Illumina reads
  *
  * @input phix
- * Channel containing phix data
+ * Optional PhiX sequences in FASTA format for removal from Illumina reads
  *
- * @output fastq       Fastq
- * @output fastq_only  Fastq Only
- * @output txt         Txt
- * @output error       Error
- * @output error_fastq Error Fastq
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution logs from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output fastq        Tuple containing clean reads and any extra files for downstream analysis
+ * @output fastq_only   Tuple containing only the clean reads
+ * @output error_fastq  Reads preserved from samples that failed QC for debugging
+ * @output supplemental  QC reports, quality metrics, and original/final FASTQ comparisons
+ * @output error        Error messages from QC failures
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

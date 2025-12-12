@@ -1,36 +1,41 @@
 /**
- * Bracken (Bayesian Reestimation of Abundance with KrakEN) re-estimates abundance at any taxonomic level from Kraken2 output.
+ * Taxonomic classification and abundance estimation.
  *
- * This process executes bracken to perform analysis
+ * Uses [Kraken2](https://github.com/DerrickWood/kraken2) to classify reads against a
+ * taxonomic database, followed by [Bracken](https://github.com/jenniferlu717/Bracken)
+ * (Bayesian Reestimation of Abundance with KrakEN) to estimate relative abundances at
+ * a specific taxonomic level. It also generates an interactive [Krona](https://github.com/marbl/Krona/wiki)
+ * plot for visualization.
  *
  * @status stable
- * @keywords metagenomics, classification, kraken2, bracken, taxonomic abundance
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation bracken
+ * @keywords metagenomics, classification, taxonomy, abundance, kraken2, bracken, krona
+ * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
+ * @citation bracken, kraken2, krona
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires a compatible Kraken2/Bracken database (tarball).
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: List of input FastQ files
+ * - `reads`: Paired-end or Single-end reads in FASTQ format
  *
  * @input db
- * Kraken2 database (can be tar.gz)
+ * A compressed tarball containing the Kraken2/Bracken database
  *
- * @output tsv                 Bracken summary file
- * @output special_tsv         Special Tsv
- * @output classified          Reads classified by Kraken2
- * @output unclassified        Reads not classified by Kraken2
- * @output kraken2_report      Kraken2 report
- * @output kraken2_output      Kraken2 raw output
- * @output bracken_report      Bracken report
- * @output krona               Krona HTML visualization
- * @output abundances          Bracken abundances
- * @output classification      Bracken classification
- * @output adjusted_abundances Bracken adjusted abundances
- * @output logs                Optional tool execution logs
- * @output nf_logs             Nextflow execution logs
- * @output versions            Software version information (YAML format)
+ * @output tsv                 Tab-delimited summary of Bracken primary and secondary species abundances
+ * @output special_tsv         A duplicate of the Bracken TSV with modified metadata (Internal use)
+ * @output classified          Reads classified to belong to any of the taxa on the Kraken2 database
+ * @output unclassified        Reads not classified to belong to any of the taxa on the Kraken2 database
+ * @output kraken2_report      Kraken2 report containing stats about classified and not classified reads See [Kraken2 - Output Formats](https://github.com/DerrickWood/kraken2/wiki/Manual#output-formats) for more details
+ * @output kraken2_output      Kraken2 output file containing the taxonomic classification of each read
+ * @output bracken_report      Bracken report containing stats about classified and not classified reads See [Bracken - Output Formats](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more details
+ * @output krona               Interactive Krona HTML visualization
+ * @output abundances          Bracken abundance estimates for each taxon
+ * @output classification      Bracken per-read classification details
+ * @output adjusted_abundances Bracken abundance estimates for each taxon adjusted for inclusion of unclassified reads
+ * @output logs                Optional software execution logs containing warnings/errors
+ * @output nf_logs             Nextflow execution scripts and logs for debugging
+ * @output versions            A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -42,7 +47,7 @@ process BRACKEN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
@@ -87,7 +92,7 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
-    meta.teton_reads = reads.join(",")
+    meta.teton_reads = reads.toList().join(",")
     """
     if [ "${is_tarball}" == "true" ]; then
         mkdir database

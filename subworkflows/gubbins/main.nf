@@ -1,35 +1,41 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Detect and filter recombination regions in bacterial alignments.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [Gubbins](https://github.com/nickjcroucher/gubbins) (Globally
+ * Optimised Bacterial Phylogenomic analysis) to identify recombination regions in
+ * bacterial core-genome alignments. It iteratively filters out recombination to
+ * produce a recombination-free phylogeny, then calculates SNP distances from the
+ * masked alignment. Gubbins is essential for accurate phylogenetic reconstruction
+ * of recombining bacterial species.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords recombination, phylogeny, filter, snp, core-genome
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation
+ * @citation gubbins, snpdists
  *
  * @subworkflows snpdists
- * @modules gubbins as gubbins_module
+ * @modules gubbins
  *
- * @input alignment
- * Channel containing alignment data
+ * @input tuple(meta, alignment)
+ * - `meta`: Groovy Map containing sample information
+ * - `alignment`: Multiple sequence alignment in FASTA format
  *
- * @output masked_aln     Masked Aln
- * @output fasta          Fasta
- * @output gff            Gff
- * @output vcf            Vcf
- * @output stats          Stats
- * @output phylip         Phylip
- * @output embl_predicted Embl Predicted
- * @output embl_branch    Embl Branch
- * @output tree           Tree
- * @output tree_labelled  Tree Labelled
- * @output bootstrap_tree Bootstrap Tree
- * @output tsv            Tsv
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output masked_aln          Recombination-masked alignment in FASTA format
+ * @output fasta              Concatenated alignment before masking in FASTA format
+ * @output gff                GFF file containing recombination region coordinates
+ * @output vcf                VCF file containing SNPs filtered by Gubbins
+ * @output stats              Summary statistics of the Gubbins analysis
+ * @output phylip             Recombination-masked alignment in PHYLIP format
+ * @output embl_predicted     Recombination predictions in EMBL format
+ * @output embl_branch        Branch-specific recombination in EMBL format
+ * @output tree               Maximum likelihood tree from filtered SNPs in Newick format
+ * @output tree_labelled      Annotated tree with node labels in Newick format
+ * @output bootstrap_tree     Bootstrapped phylogenetic tree in Newick format
+ * @output tsv                Pairwise SNP distances from masked alignment in TSV format
+ * @output results            Aggregated results channel containing all output files
+ * @output logs               Aggregated logs channel containing all execution logs
+ * @output nf_logs            Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions           Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

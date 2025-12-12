@@ -1,21 +1,22 @@
 /**
  * Create a SNP distance matrix from a multiple sequence alignment.
  *
- * This process executes snpdists to perform analysis
+ * Uses [snp-dists](https://github.com/tseemann/snp-dists) to read a FASTA alignment and
+ * compute a pairwise SNP distance matrix between all sequences.
  *
  * @status stable
- * @keywords SNP, distance, matrix, alignment
- * @tags complexity:simple input-type:single output-type:single
+ * @keywords snp, distance, matrix, alignment, phylogeny
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation snpdists
  *
  * @input tuple(meta, alignment)
  * - `meta`: Groovy Map containing sample information
  * - `alignment`: Multiple sequence alignment in FASTA format
  *
- * @output tsv      Pairwise SNP distance matrix
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv      Pairwise SNP distance matrix in TSV format
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,33 +1,38 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Taxonomic classification with the Genome Taxonomy Database.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow assigns objective taxonomic classifications to bacterial and
+ * archaeal genomes using [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk), which
+ * is based on the Genome Taxonomy Database (GTDB). The workflow can optionally
+ * download the GTDB database and supports both unpacked and tarball database formats.
+ * It provides taxonomic placement and phylogenetic marker gene identification.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords taxonomy, classification, GTDB, phylogeny, marker genes
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, resource-download
+ * @citation gtdb_tk
  *
- * @modules csvtk_concat, gtdbtk_classifywf as classify, gtdbtk_download as download
+ * @modules csvtk_concat, gtdbtk_classifywf, gtdbtk_download
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for taxonomic classification
  *
  * @input database
- * Channel containing database data
+ * Path to GTDB reference database (optional, will download if not provided)
  *
  * @input download_gtdb
- * Channel containing download_gtdb data
+ * Boolean flag to trigger GTDB database download if not provided
  *
  * @input save_as_tarball
- * Channel containing save_as_tarball data
+ * Boolean flag to use tarball format database when downloading
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         GTDB-Tk classification results with taxonomic assignments
+ * @output merged_tsv  Combined TSV file containing classification results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -39,7 +44,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     database: Path
     download_gtdb: Boolean
     save_as_tarball: Boolean
@@ -50,12 +55,12 @@ workflow GTDB {
         DOWNLOAD()
 
         if (save_as_tarball) {
-            CLASSIFY(fasta, DOWNLOAD.out.db_tarball)
+            CLASSIFY(assembly, DOWNLOAD.out.db_tarball)
         } else {
-            CLASSIFY(fasta, DOWNLOAD.out.db)
+            CLASSIFY(assembly, DOWNLOAD.out.db)
         }
     } else {
-        CLASSIFY(fasta, database)
+        CLASSIFY(assembly, database)
     }
     CSVTK_CONCAT(gather(CLASSIFY.out.tsv, 'gtdb'), 'tsv', 'tsv')
 

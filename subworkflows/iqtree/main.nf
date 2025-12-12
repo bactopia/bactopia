@@ -1,25 +1,31 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Construct maximum likelihood phylogenetic trees from alignments.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [IQ-TREE](https://github.com/Cibiv/IQ-TREE) to build
+ * maximum likelihood phylogenetic trees from multiple sequence alignments. IQ-TREE
+ * implements fast and effective stochastic algorithms for phylogenetic inference,
+ * including automatic model selection via ModelFinder. It produces phylogenetic trees
+ * with bootstrap support and various supplementary files for tree visualization
+ * and analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords phylogeny, maximum likelihood, tree, bootstrap, model selection
+ * @tags complexity:moderate input-type:single output-type:multiple
+ * @citation iqtree
  *
- * @modules iqtree as iqtree_module
+ * @modules iqtree
  *
- * @input aln
- * Channel containing aln data
+ * @input tuple(meta, alignment)
+ * - `meta`: Groovy Map containing sample information
+ * - `alignment`: Multiple sequence alignment in FASTA format
  *
- * @output phylogeny Phylogeny
- * @output alignment Alignment
- * @output aln_tree  Aln Tree
- * @output results   Aggregated results channel containing all output files
- * @output logs      Aggregated logs channel containing all execution logs
- * @output nf_logs   Aggregated Nextflow execution logs from all processes
- * @output versions  Aggregated version information from all executed tools
+ * @output phylogeny        Maximum likelihood tree in Newick format with bootstrap support
+ * @output alignment        Processed alignment file used for tree construction
+ * @output aln_tree         Combined alignment and tree file for visualization
+ * @output results          Aggregated results channel containing all output files
+ * @output logs             Aggregated logs channel containing all execution logs
+ * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions         Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -46,7 +52,7 @@ workflow IQTREE {
         IQTREE_MODULE.out.alignment,
         IQTREE_MODULE.out.supplemental
     ])
-    logs: Channel<Tuple<Map, Path>> = IQTREE_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = IQTREE_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = IQTREE_MODULE.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([IQTREE_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([IQTREE_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([IQTREE_MODULE.out.versions])
 }

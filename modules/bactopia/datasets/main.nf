@@ -1,17 +1,21 @@
 /**
- * Download datasets to be used by Bactopia.
+ * Download pre-compiled datasets required by Bactopia.
  *
- * This process executes datasets to perform analysis
+ * Fetches the core datasets (AMR, MLST, Mash, Sourmash) hosted by the Bactopia project.
+ * These are used to populate the local cache for offline use.
  *
  * @status stable
- * @keywords download, datasets, bactopia
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, resource-download
- * @citation datasets
+ * @keywords download, database, setup, amr, mlst, minhash, sourmash, gtdb
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download
+ * @citation bactopia, amrfinderplus, mlst, mash, sourmash
  *
- * @output amrfinderplus_db AMRFinderPlus database
- * @output mlst_db          MLST database
- * @output mash_db          Mash database
- * @output sourmash_db      Sourmash database
+ * @note Internet Required
+ * This process requires an active internet connection to fetch files from `datasets.bactopia.com`.
+ *
+ * @output amrfinderplus_db A compressed tarball of the [AMRFinderPlus](https://github.com/ncbi/amr) database
+ * @output mlst_db          A compressed tarball of the [PubMLST](https://pubmlst.org/) schemes
+ * @output mash_db          Pre-computed [Mash](https://github.com/marbl/Mash) sketches (RefSeq)
+ * @output sourmash_db      Pre-computed [Sourmash](https://github.com/sourmash-bio/sourmash) signatures (GTDB)
  */
 nextflow.preview.types = true
 

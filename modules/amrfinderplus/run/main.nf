@@ -1,29 +1,32 @@
 /**
- * Identify antimicrobial resistance in gene or protein sequences.
+ * Identify antimicrobial resistance and virulence genes in gene or protein sequences.
  *
- * This process executes amrfinderplus_run to perform analysis
+ * Uses [AMRFinder+](https://github.com/ncbi/amr) to screen nucleotide or protein
+ * sequences against NCBI's [Reference Gene Database](https://www.ncbi.nlm.nih.gov/pathogens/isolates#/refgene/).
+ * It identifies AMR genes, resistance-associated point mutations, and select other classes of
+ * genes using protein annotations and/or assembled nucleotide sequences.
  *
  * @status stable
- * @keywords bacteria, fasta, antibiotic resistance
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation amrfinderplus_run
+ * @keywords bacteria, fasta, antimicrobial resistance, virulence, ncbi, amr, genes, proteins
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent
+ * @citation amrfinderplus
  *
  * @note Requires external database to be available
  *
  * @input tuple(meta, genes, proteins, gff)
  * - `meta`: Groovy Map containing sample information
- * - `genes`: Input file
- * - `proteins`: Input file
- * - `gff`: Input file
+ * - `genes`: Nucleotide sequences of genes in FASTA format
+ * - `proteins`: Amino acid sequences of proteins in FASTA format
+ * - `gff`: Genome annotation in GFF3 format
  *
  * @input db
  * A compressed tarball of the AMRFinderPlus database to query
  *
- * @output report          AMRFinder+ final report
- * @output mutation_report Mutation Report
- * @output logs            Optional tool execution logs
- * @output nf_logs         Nextflow execution logs
- * @output versions        Software version information (YAML format)
+ * @output report          Tab-delimited report of identified AMR genes and virulence factors
+ * @output mutation_report Tab-delimited report of identified point mutations (if applicable)
+ * @output logs            Optional software execution logs containing warnings/errors
+ * @output nf_logs         Nextflow execution scripts and logs for debugging
+ * @output versions        A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

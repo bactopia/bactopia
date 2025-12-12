@@ -1,24 +1,27 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Identify Staphylococcus aureus agr locus type and operon variants.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) to rapidly identify the
+ * accessory gene regulator (agr) locus type and detect agr operon variants in Staphylococcus aureus.
+ * The agr system is a key quorum-sensing regulator of virulence in S. aureus.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords staphylococcus aureus, assembly, agr locus, virulence, quorum sensing
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation agrvate
  *
- * @modules csvtk_concat, agrvate as agrvate_module
+ * @modules agrvate, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format for agr locus detection
  *
- * @output tsv          Tsv
- * @output supplemental Supplemental
- * @output merged_tsv   Merged Tsv
+ * @output tsv          Agr locus typing results in TSV format for each sample
+ * @output supplemental Additional detailed results including variant analysis
+ * @output merged_tsv   Combined agr typing results from all samples in a single TSV file
  * @output results      Aggregated results channel containing all output files
  * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -30,10 +33,10 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow AGRVATE {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    AGRVATE_MODULE(fasta)
+    AGRVATE_MODULE(assembly)
     CSVTK_CONCAT(gather(AGRVATE_MODULE.out.summary, 'agrvate'), 'tsv', 'tsv')
 
     emit:
@@ -43,19 +46,6 @@ workflow AGRVATE {
     merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate output
-
-
-
-
-
-
-
-
-
-
-
-
-
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         AGRVATE_MODULE.out.summary,
         AGRVATE_MODULE.out.supplemental,

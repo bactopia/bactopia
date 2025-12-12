@@ -1,21 +1,24 @@
 /**
- * In silico serotyping of Listeria monocytogenes.
+ * Predict *Listeria monocytogenes* serogroup.
  *
- * This process executes lissero to perform analysis
+ * Uses [LisSero](https://github.com/MDU-PHL/LisSero) to predict the serogroup of
+ * *L. monocytogenes* isolates. It simulates a PCR assay by detecting specific marker genes
+ * (lmo1118, lmo0737, ORF2110, ORF2819, prs) to assign the isolate to one of the major
+ * molecular serogroups (IIa, IIb, IIc, IVb).
  *
  * @status stable
- * @keywords listeria, monocytogenes, serotype, typing
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords bacteria, listeria, monocytogenes, serotype, serogroup, typing, pcr
+ * @tags complexity:simple input-type:single output-type:single
  * @citation lissero
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      Tab-delimited lissero results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the predicted serogroup and gene hits
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +30,7 @@ process LISSERO {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -46,21 +49,21 @@ process LISSERO {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     lissero \\
         ${task.ext.args} \\
-        ${fasta_name} \\
+        ${assembly_name} \\
         > ${prefix}.tsv
-    sed -i 's/^.*${fasta_name}/${fasta_name}/' ${prefix}.tsv
+    sed -i 's/^.*${assembly_name}/${assembly_name}/' ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

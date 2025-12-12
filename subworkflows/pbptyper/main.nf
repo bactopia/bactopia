@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict penicillin binding protein (PBP) types of Streptococcus pneumoniae from genome assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [pbptyper](https://github.com/rpetit3/pbptyper) to predict
+ * the penicillin binding protein (PBP) types and predict antimicrobial susceptibility
+ * of *Streptococcus pneumoniae* strains from assembled genomes. It processes each sample
+ * individually and aggregates the results into a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords streptococcus pneumoniae, pbp typing, penicillin, antimicrobial resistance
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation pbptyper
  *
- * @modules pbptyper as pbptyper_module, csvtk_concat
+ * @modules pbptyper, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output blast      Blast
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing PBP typing results
+ * @output merged_tsv  Consolidated TSV file containing PBP typing from all samples
+ * @output blast       Per-sample BLAST results for PBP sequence matches
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -30,10 +34,10 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow PBPTYPER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    PBPTYPER_MODULE(fasta)
+    PBPTYPER_MODULE(assembly)
     CSVTK_CONCAT(gather(PBPTYPER_MODULE.out.tsv, 'pbptyper'), 'tsv', 'tsv')
 
     emit:

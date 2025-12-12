@@ -1,23 +1,25 @@
 /**
- * Serogroup Pseudomonas aeruginosa assemblies.
+ * Predict O-antigen serogroup of Pseudomonas aeruginosa isolates.
  *
- * This process executes pasty to perform analysis
+ * Uses [Pasty](https://github.com/rpetit3/pasty) (in silico serogrouping of *Pseudomonas aeruginosa* isolates)
+ * to predict the O-antigen serogroup by searching the genome assembly for specific serogroup-associated
+ * genes within the O-antigen locus.
  *
  * @status stable
- * @keywords bacteria, serogroup, fasta, assembly
- * @tags complexity:moderate input-type:single output-type:multiple
+ * @keywords bacteria, pseudomonas aeruginosa, serogroup, o-antigen, typing, blast
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation pasty
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: An assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      A tab-delimited file with the predicted serogroup
- * @output blast    A tab-delimited file of all blast hits
- * @output details  A tab-delimited file with details for each serogroup
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv      A tab-delimited summary file with the predicted O-antigen serogroup
+ * @output blast    A tab-delimited file of all raw BLAST hits used for the prediction
+ * @output details  A tab-delimited file with detailed gene hits for each serogroup tested
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,7 +31,7 @@ process PASTY {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -54,7 +56,7 @@ process PASTY {
     pasty \\
         ${task.ext.args} \\
         --prefix ${prefix} \\
-        --input ${fasta}
+        --input ${assembly}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

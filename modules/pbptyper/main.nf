@@ -1,22 +1,25 @@
 /**
- * Assign PBP type of Streptococcus pneumoniae assemblies.
+ * Predict Penicillin Binding Protein (PBP) type of *Streptococcus pneumoniae* assemblies.
  *
- * This process executes pbptyper to perform analysis
+ * Uses [PBPtyper](https://github.com/rpetit3/pbptyper) to detect variations in the three
+ * key PBP genes (*pbp1a*, *pbp2b*, and *pbp2x*) in *S. pneumoniae*. Typing these genes is
+ * essential for predicting reduced susceptibility or full resistance to penicillin and other
+ * $\beta$-lactam antibiotics.
  *
  * @status stable
- * @keywords bacteria, pbp, fasta, assembly
- * @tags complexity:simple input-type:single output-type:multiple
+ * @keywords bacteria, streptococcus pneumoniae, penicillin, amr, resistance, pbp, typing
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation pbptyper
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: An assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      A tab-delimited file with the predicted PBP type
- * @output blast    A tab-delimited file of all blast hits
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary file with the predicted PBP type for each gene
+ * @output blast     A tab-delimited file of the raw TBLASTN hits used for gene identification
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +31,7 @@ process PBPTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -52,7 +55,7 @@ process PBPTYPER {
     pbptyper \\
         ${task.ext.args} \\
         --prefix ${prefix} \\
-        --input ${fasta}
+        --input ${assembly}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

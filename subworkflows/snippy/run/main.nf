@@ -10,8 +10,9 @@
  *
  * @modules snippy_run
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Sequencing reads for variant calling
  *
  * @input reference
  * Channel containing reference data
@@ -39,7 +40,7 @@
  * @output txt                      Txt
  * @output results                  Aggregated results channel containing all output files
  * @output logs                     Aggregated logs channel containing all execution logs
- * @output nf_logs                  Aggregated Nextflow execution logs from all processes
+ * @output nf_logs                  Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions                 Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -80,7 +81,9 @@ workflow SNIPPY {
     txt: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.txt
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.aligned_fa.mix(
+    results: Channel<Tuple<Map, Path>> = flattenPaths([
+        SNIPPY_RUN.out.aligned_fa,
+        SNIPPY_RUN.out.vcf,
         SNIPPY_RUN.out.annotated_vcf,
         SNIPPY_RUN.out.bam,
         SNIPPY_RUN.out.bai,
@@ -101,15 +104,16 @@ workflow SNIPPY {
         SNIPPY_RUN.out.aligned_fa_error,
         SNIPPY_RUN.out.vcf_error,
         SNIPPY_RUN.out.error
-    )
-    logs: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.nf_begin.mix(
+    ])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([SNIPPY_RUN.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
+        SNIPPY_RUN.out.nf_begin,
         SNIPPY_RUN.out.nf_err,
         SNIPPY_RUN.out.nf_log,
         SNIPPY_RUN.out.nf_out,
         SNIPPY_RUN.out.nf_run,
         SNIPPY_RUN.out.nf_sh,
         SNIPPY_RUN.out.nf_trace
-    )
-    versions: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.versions
+    ])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([SNIPPY_RUN.out.versions])
 }

@@ -9,7 +9,7 @@
  * @citation bakta_download
  * @output db         A database for Bakta
  * @output db_tarball Db Tarball
- * @output logs       Optional tool execution logs
+ * @output logs       Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

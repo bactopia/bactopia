@@ -1,24 +1,30 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Assess metagenome bin completeness using CheckM.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow evaluates the quality and completeness of metagenome-assembled genomes
+ * (MAGs) using [CheckM](https://github.com/Ecogenomics/CheckM). It provides a comprehensive
+ * assessment based on lineage-specific marker sets, estimating completeness and contamination
+ * of genome bins. The workflow generates detailed reports including marker gene statistics,
+ * taxonomy predictions, and quality metrics for each bin.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords metagenome, bin, completeness, contamination, mag, quality
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation checkm
  *
  * @modules csvtk_concat, checkm_lineagewf
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
+ *   about the sample and a set of genome bins in FASTA format.
  *
- * @output report         Report
- * @output merged_reports Merged Reports
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output report        Per-bin CheckM quality assessment results in TSV format
+ * @output merged_reports Combined CheckM results summary across all bins
+ * @output results       Aggregated results channel containing all output files
+ * @output logs          Aggregated logs channel containing all execution logs
+ * @output nf_logs       Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions      Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +35,10 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    CHECKM_LINEAGEWF(fasta)
+    CHECKM_LINEAGEWF(assembly)
     CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out.tsv, 'checkm'), 'tsv', 'tsv')
 
     emit:

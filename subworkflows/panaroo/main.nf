@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Build a pangenome from GFF3 annotations using Panaroo.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow creates a pangenome from bacterial genome annotations using [Panaroo](https://github.com/gtonkinhill/panaroo).
+ * Panaroo is a pangenome pipeline that produces polished pangenomes by removing errors and
+ * contamination from input annotations. It generates gene presence/absence matrices and core-genome
+ * alignments suitable for downstream phylogenetic analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords pangenome, pan-genome, comparative genomics, core-genome, alignment
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation panaroo
  *
  * @modules panaroo_run
  *
- * @input gff
- * Channel containing gff data
+ * @input tuple(meta, gff)
+ * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
- * @output csv          Csv
- * @output aln          Aln
- * @output filtered_aln Filtered Aln
- * @output panaroo_csv  Panaroo Csv
+ * @output csv          Gene presence/absence matrix in CSV format showing which genes are present in each genome
+ * @output aln          Core-genome alignment file containing genes present across all input genomes
+ * @output filtered_aln Filtered core-genome alignment with recombination regions removed (if enabled)
+ * @output panaroo_csv  Detailed Panaroo output including gene cluster information and statistics
  * @output results      Aggregated results channel containing all output files
  * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -50,7 +54,7 @@ workflow PANAROO {
         PANAROO_RUN.out.filtered_aln,
         PANAROO_RUN.out.panaroo_csv
     ])
-    logs: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([PANAROO_RUN.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([PANAROO_RUN.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([PANAROO_RUN.out.versions])
 }

@@ -1,14 +1,20 @@
 /**
- * Download Defense-Finder models database.
+ * Download and package the DefenseFinder and CasFinder model databases.
  *
- * This process executes defensefinder_update to perform analysis
+ * Fetches the latest HMM profiles from the [DefenseFinder](https://github.com/mdmparis/defense-finder-models)
+ * and [CasFinder](https://github.com/macsy-models/CasFinder) repositories, then packages them
+ * into a single tarball for use by the DefenseFinder module.
  *
  * @status stable
- * @keywords bacteria, defense, database, download, defense-finder
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, resource-download
- * @citation defensefinder_update
- * @output db   Defense-Finder models database
- * @output logs Optional tool execution logs
+ * @keywords bacteria, defense, database, download, hmm, casfinder, crispr
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download,archive-output
+ * @citation defensefinder
+ *
+ * @note Internet Required
+ * This process requires an active internet connection to fetch the models from GitHub.
+ *
+ * @output db        A compressed tarball containing both DefenseFinder and CasFinder models
+ * @output logs      Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

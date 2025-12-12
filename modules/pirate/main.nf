@@ -1,23 +1,26 @@
 /**
- * Pangenome toolbox for bacterial genomes.
+ * Pangenome Identification and Reconciliation Analysis Tool for Epidemiology (PIRATE).
  *
- * This process executes pirate to perform analysis
+ * Uses [PIRATE](https://github.com/SionBayliss/PIRATE) to construct the pangenome of a
+ * collection of bacterial isolates. It clusters orthologous genes and generates the core
+ * genome alignment and a gene presence/absence matrix, which is compatible with downstream
+ * analysis tools like Scoary for association testing.
  *
  * @status stable
- * @keywords gff, pan-genome, alignment
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords pan-genome, orthologs, core genome, gene presence-absence, epidemiology, annotation
+ * @tags complexity:high input-type:multiple output-type:multiple features:compression
  * @citation pirate
  *
  * @input tuple(meta, gff)
  * - `meta`: Groovy Map containing sample information
- * - `gff`: A set of GFF3 formatted files
+ * - `gff`: A list of annotated genome files in GFF3 format
  *
- * @output supplemental Supplemental
- * @output aln          Core-genome alignment produced by PIRATE (Optional)
- * @output csv          Gene presence/absence CSV compatible with Scoary
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental  Directory containing various intermediate files and detailed outputs
+ * @output aln           The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
+ * @output csv           Gene presence/absence matrix in CSV format, compatible with Scoary
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

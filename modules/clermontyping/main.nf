@@ -1,22 +1,24 @@
 /**
- * In silico PCR for typing Escherichia coli isolates.
+ * Determine the phylogroup of Escherichia coli isolates.
  *
- * This process executes clermontyping to perform analysis
+ * Uses [ClermonTyping](https://github.com/A-BN/ClermonTyping) to perform in silico PCR
+ * detection of specific marker genes (arpA, chuA, yjaA, TspE4.C2). This assigns the
+ * isolate to one of the main *E. coli* phylogroups (A, B1, B2, C, D, E, F, G, or Cryptic).
  *
  * @status stable
- * @keywords escherichia coli, phylotyping, typing
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, escherichia coli, typing, phylotyping, pcr, phylogroup
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation clermontyping
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Genome assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv          ClermonTyping phylogroup results
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           A tab-delimited report containing the assigned phylogroup and genotype
+ * @output supplemental  Directory containing detailed analysis files and HTML reports
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +30,7 @@ process CLERMONTYPING {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv          = tuple(meta, file("${prefix}.tsv"))
@@ -48,20 +50,20 @@ process CLERMONTYPING {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     clermonTyping.sh \\
-        --fasta ${fasta_name} \\
+        --fasta ${assembly_name} \\
         --name supplemental \\
         ${task.ext.args}
 
     # Remove temporary files and rename outputs
-    rm supplemental/${fasta_name} ${fasta_name}
+    rm supplemental/${assembly_name} ${assembly_name}
     rm -rf supplemental/db
     rm -rf supplemental/supplemental.R
     mv supplemental/${fasta_name}.xml supplemental/${prefix}.blast.xml

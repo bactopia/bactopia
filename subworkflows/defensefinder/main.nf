@@ -1,30 +1,33 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Systematically search for anti-phage defense systems.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [DefenseFinder](https://github.com/mdmparis/defense-finder) to identify and classify
+ * anti-phage defense systems in bacterial genomes. It detects defense genes, HMM hits, and complete
+ * defense systems, providing comprehensive analysis of bacterial antiviral mechanisms.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, assembly, anti-phage, defense systems, immunity
+ * @tags complexity:complex input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation defensefinder
  *
- * @modules csvtk_concat as hmmer_concat, csvtk_concat as genes_concat, csvtk_concat as systems_concat, defensefinder_run, defensefinder_update
+ * @modules defensefinder_run, defensefinder_update, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format for defense system detection
  *
- * @output genes_tsv          Genes Tsv
- * @output merged_genes_tsv   Merged Genes Tsv
- * @output hmmer_tsv          Hmmer Tsv
- * @output merged_hmmer_tsv   Merged Hmmer Tsv
- * @output systems_tsv        Systems Tsv
- * @output merged_systems_tsv Merged Systems Tsv
- * @output proteins           Proteins
- * @output proteins_index     Proteins Index
- * @output macsydata_raw      Macsydata Raw
+ * @output genes_tsv          Individual anti-phage genes detected in TSV format
+ * @output merged_genes_tsv   Combined anti-phage genes from all samples in a single TSV file
+ * @output hmmer_tsv          HMM search results for defense system proteins in TSV format
+ * @output merged_hmmer_tsv   Combined HMM results from all samples in a single TSV file
+ * @output systems_tsv        Complete anti-phage defense systems identified in TSV format
+ * @output merged_systems_tsv Combined defense systems from all samples in a single TSV file
+ * @output proteins           Defense system protein sequences in FASTA format
+ * @output proteins_index     Diamond protein index for rapid similarity searches
+ * @output macsydata_raw      Raw MacSyFinder output files for detailed analysis
  * @output results            Aggregated results channel containing all output files
  * @output logs               Aggregated logs channel containing all execution logs
- * @output nf_logs            Aggregated Nextflow execution logs from all processes
+ * @output nf_logs            Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions           Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -39,11 +42,11 @@ include { gather                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
     DEFENSEFINDER_UPDATE()
-    DEFENSEFINDER_RUN(fasta, DEFENSEFINDER_UPDATE.out.db)
+    DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.db)
 
     // Merge results
     GENES_CONCAT(gather(DEFENSEFINDER_RUN.out.genes_tsv, 'defensefinder-genes'), 'tsv', 'tsv')

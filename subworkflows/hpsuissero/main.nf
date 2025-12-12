@@ -1,24 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Rapid Haemophilus parasuis serotyping.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs serotyping of Haemophilus parasuis using
+ * [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero), which identifies
+ * serotype-specific markers in genome assemblies. The tool provides rapid
+ * classification of H. parasuis isolates into their respective serotypes,
+ * which is important for epidemiological surveillance and vaccine development.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Haemophilus, parasuis, serotype, epidemiology
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation hpsuissero
  *
- * @modules csvtk_concat, hpsuissero as hpsuissero_module
+ * @modules csvtk_concat, hpsuissero
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for H. parasuis serotype prediction
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         HpsuisSero serotype prediction results in TSV format
+ * @output merged_tsv  Combined TSV file containing serotype results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +34,10 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow HPSUISSERO {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    HPSUISSERO_MODULE(fasta)
+    HPSUISSERO_MODULE(assembly)
     CSVTK_CONCAT(gather(HPSUISSERO_MODULE.out.tsv, 'hpsuissero'), 'tsv', 'tsv')
 
     emit:

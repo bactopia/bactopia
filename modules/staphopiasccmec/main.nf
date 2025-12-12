@@ -1,21 +1,23 @@
 /**
- * Predicts SCCmec types for Staphylococcus aureus genomes.
+ * Primer based SCCmec typing of S. aureus genomes.
  *
- * This process executes staphopiasccmec to perform analysis
+ * Uses [Staphopia SCCmec](https://github.com/staphopia/staphopia-sccmec) to determine the
+ * SCCmec type of *Staphylococcus aureus* assemblies. It includes a primer-based approach
+ * to identify SCCmec types I-XI.
  *
  * @status stable
- * @keywords staphylococcus, SCCmec, typing
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords staphylococcus aureus, sccmec, typing, mrsa, primers
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation staphopiasccmec
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly file in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv      TSV file with SCCmec typing results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process STAPHOPIASCCMEC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -46,14 +48,14 @@ process STAPHOPIASCCMEC {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
-    staphopia-sccmec --assembly ${fasta_name} ${task.ext.args} > ${prefix}.tsv
+    staphopia-sccmec --assembly ${assembly_name} ${task.ext.args} > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

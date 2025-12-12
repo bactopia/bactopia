@@ -1,18 +1,18 @@
 /**
- * Remove human reads from FASTQ files using SRA Human Scrubber.
+ * Scrub human reads from FASTQ files.
  *
- * This process executes srahumanscrubber_scrub to perform analysis
+ * Uses [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) to identify and remove
+ * human reads from sequencing data. It relies on a specific k-mer database to mask or remove
+ * sequences that align to human references.
  *
  * @status stable
- * @keywords human, contamination, scrubber, decontamination
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
+ * @keywords human, contamination, scrubber, decontamination, ncbi, sra
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation srahumanscrubber_scrub
- *
- * @note Uses EMPTY_* placeholder files for optional parameters
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ file(s) to be scrubbed
+ * - `reads`: FASTQ reads to be scrubbed
  *
  * @input db
  * SRA Human Scrubber database directory
@@ -20,10 +20,10 @@
  * @output scrubbed             Scrubbed FASTQ files with human reads removed
  * @output scrubbed_extra       Scrubbed FASTQ files with placeholder for pipeline compatibility
  * @output scrub_report         Report of scrubbing statistics
- * @output scrub_special_report Scrub Special Report
- * @output logs                 Optional tool execution logs
- * @output nf_logs              Nextflow execution logs
- * @output versions             Software version information (YAML format)
+ * @output scrub_special_report Special report output for downstream aggregation
+ * @output logs                 Optional software execution logs containing warnings/errors
+ * @output nf_logs              Nextflow execution scripts and logs for debugging
+ * @output versions             A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

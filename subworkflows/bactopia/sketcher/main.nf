@@ -1,32 +1,36 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Create genomic sketches and perform rapid taxonomic classification.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow generates MinHash sketches from assembled genomes using [Mash](https://github.com/marbl/Mash)
+ * and [Sourmash](https://github.com/dib-lab/sourmash). The sketches are compared against reference databases
+ * to identify taxonomic classification and find closely related genomes. Mash queries against RefSeq while
+ * Sourmash uses the GTDB database for comprehensive taxonomic placement.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords taxonomy, classification, minhash, sketch, mash, sourmash, refseq, gtdb
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, compression
+ * @citation mash, sourmash
  *
- * @modules sketcher as sketcher_module
+ * @modules sketcher
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input mash_db
- * Channel containing mash_db data
+ * Path to the Mash RefSeq database for taxonomic classification
  *
  * @input sourmash_db
- * Channel containing sourmash_db data
+ * Path to the Sourmash GTDB LCA database for taxonomic classification
  *
- * @output sig      Sig
- * @output msh      Msh
- * @output mash     Mash
- * @output sourmash Sourmash
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output sig       Sourmash signature files for downstream comparative analyses
+ * @output msh       Mash sketch files created at k=21 and k=31
+ * @output mash      Classification report from Mash Screen against RefSeq database
+ * @output sourmash  Classification report from Sourmash LCA against GTDB database
+ * @output results   Aggregated results channel containing all output files
+ * @output logs      Aggregated logs channel containing all execution logs
+ * @output nf_logs   Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions  Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

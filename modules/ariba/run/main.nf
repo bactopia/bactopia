@@ -1,26 +1,27 @@
 /**
- * Query input FASTQs against Ariba formatted databases.
+ * Identify genes by local assembly of reads.
  *
- * This process executes ariba_run to perform analysis
+ * Uses [ARIBA](https://github.com/sanger-pathogens/ariba) (Antimicrobial Resistance Identification 
+ * By Assembly) to detect AMR and virulence genes by creating local assemblies from paired-end reads.
  *
  * @status stable
- * @keywords fastq, assembly, resistance, virulence
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression
- * @citation ariba_run
+ * @keywords fastq, local assembly, antimicrobial resistance, virulence, ariba
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output,compression
+ * @citation ariba
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
  * - `reads`: Paired-end reads in FASTQ format
  *
  * @input db
- * An Ariba prepared database
+ * An [ARIBA](https://github.com/sanger-pathogens/ariba) prepared database
  *
- * @output report       Report
- * @output summary      Summary
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output report       A tab-delimited report of the [ARIBA](https://github.com/sanger-pathogens/ariba) analysis
+ * @output summary      A comma-delimited summary of the report created using `ariba summary`
+ * @output supplemental Supplemental output files from [ARIBA](https://github.com/sanger-pathogens/ariba)
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

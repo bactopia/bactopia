@@ -1,30 +1,37 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Perform pangenome analysis with optional core-genome phylogeny.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow creates a pangenome from GFF3 annotation files using one of three
+ * tools: [Panaroo](https://github.com/gtonkinhill/panaroo) (default),
+ * [PIRATE](https://github.com/SionBayliss/PIRATE), or
+ * [Roary](https://github.com/sanger-pathogens/roary). It generates core-genome alignments
+ * and gene presence/absence matrices, followed by SNP distance calculations using
+ * [snp-dists](https://github.com/tseemann/snp-dists). The workflow conditionally executes
+ * the selected pangenome tool based on Boolean parameters.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, conditional-logic
+ * @citation pirate, panaroo, roary, snpdists
  *
  * @subworkflows pirate, roary, panaroo, snpdists
  *
- * @input gff
- * Channel containing gff data
+ * @input tuple(meta, gff)
+ * - `meta`: Groovy Map containing sample information
+ * - `gff`: Set of GFF3 annotation files from assembled genomes
  *
  * @input use_pirate
- * Channel containing use_pirate data
+ * Boolean flag to use PIRATE for pangenome analysis
  *
  * @input use_roary
- * Channel containing use_roary data
+ * Boolean flag to use Roary for pangenome analysis
  *
- * @output aln      Aln
- * @output csv      Csv
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output aln          Core-genome alignment file containing genes present across all input genomes
+ * @output csv          Gene presence/absence matrix showing which genes are present in each genome
+ * @output results      Aggregate of all result files from pangenome analysis and SNP distances
+ * @output logs         Aggregate of all log files from executed tools
+ * @output nf_logs      Nextflow execution scripts and logs for debugging from all processes
+ * @output versions     Software version information from all executed tools
  */
 nextflow.preview.types = true
 

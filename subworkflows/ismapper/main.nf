@@ -1,28 +1,32 @@
 /**
- * Identify insertion sites positions in bacterial genomes.
+ * Identify transposase insertion sites in bacterial genomes.
  *
- * This subworkflow orchestrates the execution of main.nf analysis components.
+ * This subworkflow maps insertion sequence (IS) positions in bacterial genomes
+ * using [ISMapper](https://github.com/jhawkey/IS_mapper). The tool identifies
+ * transposase insertion sites from short read sequence data by mapping reads
+ * to reference sequences and detecting insertion sites with high precision.
  *
  * @status stable
- * @keywords main.nf, subworkflow, analysis
- * @tags complexity:simple input-type:multiple output-type:multiple
- * @citation main.nf
+ * @keywords insertion, sequence, transposase, mobile genetic elements
+ * @tags complexity:simple input-type:multiple output-type:single
+ * @citation ismapper
  *
- * @modules ismapper as ismapper_module
+ * @modules ismapper
  *
- * @input ch_reads
- * Channel containing tuples with metadata and file paths
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end sequencing reads for IS element mapping
  *
- * @input ch_reference
- * Input channel
+ * @input reference
+ * Reference genome in FASTA format for mapping
  *
- * @input ch_insertions
- * Input channel
+ * @input insertions
+ * Insertion sequence reference file containing IS elements to map
  *
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output results     ISMapper results including insertion site coordinates and supporting read information
+ * @output logs        Execution logs from the ISMapper analysis
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    Software version information
  */
 
 
@@ -34,16 +38,16 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:
-    ch_reads: Channel<Tuple<Map, Set<Path>>>
-    ch_reference: Path
-    ch_insertions: Path
+    reads: Channel<Tuple<Map, Set<Path>>>
+    reference: Path
+    insertions: Path
 
     main:
-    ISMAPPER_MODULE(ch_reads, ch_reference, ch_insertions)
+    ISMAPPER_MODULE(reads, reference, insertions)
 
     emit:
-    results: Channel<Tuple<Map, Path>> = ISMAPPER_MODULE.out.supplemental
-    logs: Channel<Tuple<Map, Path>> = ISMAPPER_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = ISMAPPER_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = ISMAPPER_MODULE.out.versions
+    results: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.supplemental])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.versions])
 }

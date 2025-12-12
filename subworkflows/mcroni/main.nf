@@ -1,25 +1,30 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Scripts for finding and processing promoter variants upstream of mcr-1.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow identifies and characterizes promoter variants upstream of
+ * the mcr-1 colistin resistance gene using [mcroni](https://github.com/liampshaw/mcroni).
+ * The tool searches for mutations in the promoter region that may affect expression
+ * levels of mcr-1, which is important for understanding the regulation of
+ * plasmid-mediated colistin resistance.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords mcr-1, colistin, resistance, promoter, variant
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation mcroni
  *
- * @modules csvtk_concat, mcroni as mcroni_module
+ * @modules csvtk_concat, mcroni
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for mcr-1 promoter analysis
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output fa         Fa
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         mcroni analysis results with identified promoter variants
+ * @output merged_tsv  Combined TSV file containing promoter variant results from all samples
+ * @output fa          Extracted promoter sequences in FASTA format
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -30,10 +35,10 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow MCRONI {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    MCRONI_MODULE(fasta)
+    MCRONI_MODULE(assembly)
     CSVTK_CONCAT(gather(MCRONI_MODULE.out.tsv, 'mcroni'), 'tsv', 'tsv')
 
     emit:

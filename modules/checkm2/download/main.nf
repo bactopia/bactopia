@@ -1,17 +1,20 @@
 /**
- * Download CheckM2 database for genome quality assessment.
+ * Download the pre-trained CheckM2 database.
  *
- * This process executes checkm2_download to perform analysis
+ * Fetches the required Diamond database used by [CheckM2](https://github.com/chklovski/CheckM2)
+ * for genome quality prediction. This database contains the machine learning model training data.
  *
  * @status stable
- * @keywords checkm2, download, database
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, database-dependent, resource-download
- * @citation checkm2_download
+ * @keywords checkm2, download, database, diamond, machine learning
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download
+ * @citation checkm2
  *
- * @note Requires external database to be available
- * @output db   CheckM2 database file
- * @output json Database contents metadata
- * @output logs Optional tool execution logs
+ * @note Internet Required
+ * This process requires an active internet connection to fetch the database.
+ *
+ * @output db        The CheckM2 Diamond database file (*.dmnd)
+ * @output json      Metadata file describing the database contents
+ * @output logs      Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

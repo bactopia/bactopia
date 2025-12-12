@@ -1,24 +1,25 @@
 /**
- * Queries a BLAST protein database.
+ * Search a protein database using a protein query.
  *
- * This process executes blast_blastp to perform analysis
+ * Uses [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi) to align amino acid query sequences
+ * (FASTA) against a protein BLAST database. It is used to identify homologous proteins.
  *
  * @status stable
- * @keywords fasta, blast, blastp, protein sequence
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression
- * @citation blast_blastp
+ * @keywords blast, blastp, alignment, protein, amino acid, search, fasta
+ * @tags complexity:moderate input-type:multiple output-type:single features:compression
+ * @citation blast
  *
  * @input tuple(meta, blastdb)
  * - `meta`: Groovy Map containing sample information
- * - `blastdb`: BLAST database tarball
+ * - `blastdb`: A compressed tarball containing the protein BLAST database
  *
  * @input query
- * Input fasta file containing query sequences
+ * FASTA file containing amino acid query sequences
  *
- * @output tsv      Tab-separated file containing blastp hits
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

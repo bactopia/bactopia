@@ -1,24 +1,26 @@
 /**
- * A tool to reconstruct plasmids in bacterial assemblies.
+ * Reconstruct and type plasmids from a bacterial genome assembly.
  *
- * This process executes mobsuite_recon to perform analysis
+ * Uses [MobSuite's mob_recon](https://github.com/phac-nml/mob-suite) to reconstruct plasmids
+ * by grouping relevant contigs. It then uses the Mob-typer component to classify the plasmids
+ * based on replicon type, incompatibility group (Inc type), and predicted mobility.
  *
  * @status stable
- * @keywords bacteria, plasmid
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
- * @citation mobsuite_recon
+ * @keywords bacteria, plasmid, reconstruction, mobtyper, replicon, contigs, assembly
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
+ * @citation mobsuite
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: A bacterial genome assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output chromosome    FASTA file of all contigs found to belong to the chromosome
- * @output contig_report Assignment of the contig to chromosome or a particular plasmid grouping
- * @output plasmids      Each plasmid group is written to an individual FASTA
- * @output txt           Txt
- * @output logs          Optional tool execution logs
- * @output nf_logs       Nextflow execution logs
- * @output versions      Software version information (YAML format)
+ * @output chromosome    FASTA file containing all contigs assigned to the chromosome
+ * @output contig_report Assignment of each input contig to the chromosome or a specific plasmid group
+ * @output plasmids      Individual FASTA files for each reconstructed plasmid group
+ * @output txt           The final Mob-typer classification report (replicon, Inc type, mobility)
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,24 +1,26 @@
 /**
- * Searches protein databases using a translated nucleotide query.
+ * Search a protein database using a translated nucleotide query.
  *
- * This process executes blast_blastx to perform analysis
+ * Uses [BLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi) to translate nucleotide query sequences
+ * (FASTA) in all six reading frames and align them against a protein BLAST database. This is useful
+ * for identifying potential coding regions in unannotated DNA.
  *
  * @status stable
- * @keywords fasta, blast, blastx, protein database, nucleotide query
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression
- * @citation blast_blastx
+ * @keywords blast, blastx, alignment, translation, protein, dna, search, fasta
+ * @tags complexity:moderate input-type:multiple output-type:single features:compression
+ * @citation blast
  *
  * @input tuple(meta, blastdb)
  * - `meta`: Groovy Map containing sample information
- * - `blastdb`: BLAST protein database tarball
+ * - `blastdb`: A compressed tarball containing the protein BLAST database
  *
  * @input query
- * Input fasta file containing nucleotide query sequences
+ * FASTA file containing nucleotide query sequences
  *
- * @output tsv      Tab-separated file containing blastx hits
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

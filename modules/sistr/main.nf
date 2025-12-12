@@ -1,24 +1,26 @@
 /**
- * Salmonella In Silico Typing Resource.
+ * Serovar prediction of Salmonella assemblies.
  *
- * This process executes sistr to perform analysis
+ * Uses [SISTR](https://github.com/phac-nml/sistr_cmd) (Salmonella In Silico Typing Resource) to
+ * predict serovars of *Salmonella* from draft genome assemblies using core genome Multi-Locus
+ * Sequence Typing (cgMLST).
  *
  * @status stable
- * @keywords Salmonella, serotype, cgMLST, typing
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords salmonella, serotype, cgmlst, typing, prediction
+ * @tags complexity:moderate input-type:single output-type:multiple
  * @citation sistr
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv          SISTR prediction results in TSV format
  * @output allele_fasta Novel alleles in FASTA format
  * @output allele_json  Alleles in JSON format
  * @output cgmlst_csv   cgMLST profile in CSV format
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -30,7 +32,7 @@ process SISTR {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv          = tuple(meta, file("${prefix}.tsv"))
@@ -52,11 +54,11 @@ process SISTR {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     sistr \\
@@ -68,14 +70,14 @@ process SISTR {
         --cgmlst-profiles ${prefix}-cgmlst.csv \\
         --output-prediction ${prefix} \\
         --output-format tab \\
-        ${fasta_name}
+        ${assembly_name}
 
     mv ${prefix}.tab ${prefix}.tsv
     gzip ${prefix}-allele.json
     gzip ${prefix}-allele.fasta
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

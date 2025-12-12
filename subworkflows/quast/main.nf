@@ -1,23 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Evaluate assembly quality using QUAST.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow assesses genome assembly quality using [QUAST](http://quast.sourceforge.net/)
+ * (Quality Assessment Tool for Genome Assemblies). It provides comprehensive metrics
+ * including N50, L50, GC content, total length, and other quality statistics. The workflow
+ * generates both individual sample reports and a combined summary for comparative analysis
+ * across all assemblies.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords assembly, quality, assessment, metrics, n50, evaluation
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation quast
  *
- * @modules csvtk_concat, quast as quast_module
+ * @modules csvtk_concat, quast
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Genome assemblies to evaluate. Each tuple contains metadata about the sample
+ *   and sets of assembled contigs in FASTA format (primary and optional secondary assemblies).
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
+ * @output tsv        Per-sample QUAST quality assessment results in TSV format
+ * @output merged_tsv Combined QUAST results summary across all samples
  * @output results    Aggregated results channel containing all output files
  * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions   Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

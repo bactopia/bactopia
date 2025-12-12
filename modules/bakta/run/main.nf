@@ -1,47 +1,49 @@
 /**
- * Bakta is a rapid & standardized annotation of bacterial genomes & plasmids.
+ * Rapid and standardized annotation of bacterial genomes and plasmids.
  *
- * This process executes bakta_run to perform analysis
+ * Uses [Bakta](https://github.com/oschwengers/bakta) to annotate genomes via alignment-free
+ * sequence identification. It detects CDS, sORFs, tRNAs, tmRNAs, rRNAs, ncRNAs, and CRISPR
+ * arrays, assigning functions from a comprehensive database.
  *
  * @status stable
- * @keywords annotation, fasta, genome
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent, path-workarounds
- * @citation bakta_run
+ * @keywords bacteria, annotation, genome, assembly, prodigal, compliant, genbank, ena
+ * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic,archive-output
+ * @citation bakta
  *
- * @note Uses EMPTY_* placeholder files for optional parameters
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires a Bakta database (directory or tarball) to be available.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Genome assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input db
- * Bakta database or tarball
+ * Path to the Bakta database (Directory or compressed tarball)
  *
  * @input proteins
- * Fasta file of trusted proteins to first annotate from
+ * Optional FASTA file of trusted proteins to use for first-pass annotation
  *
  * @input prodigal_tf
- * Training file to use for CDS prediction
+ * Optional Prodigal training file for CDS prediction
  *
  * @input replicons
- * Replicons/plasmids file for replicon detection
+ * Optional table (TSV/CSV) of replicon information for origin detection
  *
- * @output annotations       Tuple containing the main annotation files (fna, faa, gff3)
- * @output embl              Annotations in EMBL format
- * @output faa               Protein CDS sequences
- * @output ffn               Nucleotide CDS sequences
- * @output fna               Nucleotide sequences of the features
- * @output gbff              Annotations in GenBank format
- * @output gff               Annotations in GFF3 format
- * @output hypotheticals_tsv Summary of hypothetical proteins
- * @output hypotheticals_faa Hypothetical protein sequences
- * @output tsv               Summary of annotated features
- * @output txt               Sequence and annotation statistics
- * @output blastdb           BLAST database of contigs, genes, and proteins
- * @output logs              Optional tool execution logs
- * @output nf_logs           Nextflow execution logs
- * @output versions          Software version information (YAML format)
+ * @output annotations       A tuple containing the main files (fna, faa, gff3) for downstream pipelines
+ * @output embl              Annotations in EMBL format (*.embl.gz)
+ * @output faa               Predicted CDS/sORF amino acid sequences (*.faa.gz)
+ * @output ffn               Predicted feature nucleotide sequences (*.ffn.gz)
+ * @output fna               Nucleotide sequences of the contigs/replicons (*.fna.gz)
+ * @output gbff              Annotations in GenBank format (*.gbff.gz)
+ * @output gff               Annotations in GFF3 format (*.gff3.gz)
+ * @output hypotheticals_tsv Tab-delimited summary of hypothetical proteins
+ * @output hypotheticals_faa FASTA amino-acid sequences of hypothetical proteins
+ * @output tsv               Tab-delimited summary of all annotated features
+ * @output txt               Text file containing a broad summary of annotations
+ * @output blastdb           A compressed BLAST+ database of the contigs, genes, and proteins
+ * @output logs              Optional software execution logs containing warnings/errors
+ * @output nf_logs           Nextflow execution scripts and logs for debugging
+ * @output versions          A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -53,7 +55,7 @@ process BAKTA_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     db             : Set<Path>?
     proteins       : Path?
     prodigal_tf    : Path?
@@ -109,7 +111,7 @@ process BAKTA_RUN {
         ${proteins_opt} \\
         ${prodigal_opt} \\
         ${replicons_opt} \\
-        ${fasta}
+        ${assembly}
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb

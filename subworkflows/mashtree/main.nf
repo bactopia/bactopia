@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Create phylogenetic trees using Mash distances.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [Mashtree](https://github.com/lskatz/mashtree) to rapidly compare
+ * whole genome sequence files and generate phylogenetic trees. It creates Mash sketches
+ * of input genomes, calculates pairwise distances, and constructs a tree based on
+ * the distance matrix.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords phylogeny, tree, mash, distance, comparison
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation mashtree
  *
- * @modules mashtree as mashtree_module
+ * @modules mashtree
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output matrix   Matrix
- * @output sketches Sketches
- * @output tree     Tree
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output matrix          Pairwise distance matrix containing Mash distances between all samples
+ * @output sketches        Mash sketch files for each input assembly
+ * @output tree            Newick-format phylogenetic tree constructed from Mash distances
+ * @output results         Aggregated results channel containing all output files
+ * @output logs            Aggregated logs channel containing all execution logs
+ * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions        Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +33,10 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    MASHTREE_MODULE(gather(fasta, 'mashtree', 'fna'))
+    MASHTREE_MODULE(gather(assembly, 'mashtree', 'fna'))
 
     emit:
     // Individual outputs
@@ -46,7 +50,7 @@ workflow MASHTREE {
         MASHTREE_MODULE.out.sketches,
         MASHTREE_MODULE.out.tree
     ])
-    logs: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([MASHTREE_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([MASHTREE_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([MASHTREE_MODULE.out.versions])
 }

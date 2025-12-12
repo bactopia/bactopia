@@ -1,34 +1,36 @@
 /**
- * A tool to quickly download assemblies from NCBI's Assembly database.
+ * Download assemblies and annotation files from NCBI's Assembly database.
  *
- * This process executes ncbigenomedownload to perform analysis
+ * Uses [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) to efficiently fetch
+ * one or more complete genome assemblies and their associated annotation and report files from
+ * the NCBI FTP site based on accession numbers, species name, or assembly ID.
  *
  * @status stable
- * @keywords fasta, download, assembly
- * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic, resource-download
- * @citation ncbigenomedownload
+ * @keywords ncbi, download, genome, assembly, fasta, genbank, utility
+ * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download,conditional-logic
+ * @citation ncbi_genome_download
  *
  * @input accessions
- * List of accessions (one per line) to download
+ * A path to a text file containing a list of NCBI Assembly accession numbers (one per line)
  *
- * @output all        All downloaded files
- * @output gbk        GenBank format of the genomic sequence(s) in the assembly
- * @output fna        FASTA format of the genomic sequence(s) in the assembly.
- * @output rm         RepeatMasker output for eukaryotes.
- * @output features   Tab-delimited text file reporting locations and attributes for a subset of annotated features
- * @output gff        Annotation of the genomic sequence(s) in GFF3 format
- * @output faa        FASTA format of the accessioned protein products annotated on the genome assembly.
- * @output gpff       GenPept format of the accessioned protein products annotated on the genome assembly.
- * @output wgs_gbk    GenBank flat file format of the WGS master for the assembly
+ * @output all        All downloaded files, including sequence, annotation, and reports
+ * @output fna        FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
+ * @output faa        FASTA format of the accessioned protein products (*_protein.faa.gz)
  * @output cds        FASTA format of the nucleotide sequences corresponding to all CDS features
- * @output rna        FASTA format of accessioned RNA products annotated on the genome assembly
+ * @output rna        FASTA format of accessioned RNA products
  * @output rna_fna    FASTA format of the nucleotide sequences corresponding to all RNA features
- * @output report     Tab-delimited text file reporting the name, role and relationships of assembly units and sequences
- * @output stats      Tab-delimited text file reporting statistics for the assembly
- * @output accessions Accession list files
- * @output logs       Optional tool execution logs
- * @output nf_logs    Nextflow execution logs
- * @output versions   Software version information (YAML format)
+ * @output gbk        GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
+ * @output gff        Annotation of the genomic sequence(s) in GFF3 format (*_genomic.gff.gz)
+ * @output gpff       GenPept format of the accessioned protein products
+ * @output wgs_gbk    GenBank flat file format of the WGS master
+ * @output features   Tab-delimited text file reporting locations and attributes for a subset of features
+ * @output rm         RepeatMasker output for eukaryotes (optional)
+ * @output report     Tab-delimited text file reporting the name, role, and relationships of assembly units and sequences
+ * @output stats      Tab-delimited text file reporting assembly statistics
+ * @output accessions The generated accession list files
+ * @output logs       Optional software execution logs containing warnings/errors
+ * @output nf_logs    Nextflow execution scripts and logs for debugging
+ * @output versions   A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

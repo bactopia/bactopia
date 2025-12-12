@@ -1,27 +1,31 @@
 /**
- * A tool to estimate bacterial species abundance.
+ * Estimate bacterial species abundance from metagenomic reads.
  *
- * This process executes midas_species to perform analysis
+ * Uses [MIDAS](https://github.com/snayfach/MIDAS) (Metagenomic Intra-Species Diversity Analysis System)
+ * to estimate the abundance of bacterial species in metagenomic data. It maps reads to a database
+ * of universal single-copy marker genes (15 genes) to provide accurate coverage and relative
+ * abundance estimates.
  *
  * @status stable
- * @keywords bacteria, metagenomic, abundance
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation midas_species
+ * @keywords metagenomics, abundance, species, midas, marker genes, diversity
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent,conditional-logic
+ * @citation midas
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires a compatible MIDAS database (containing marker gene sequences and taxonomy).
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Reads in FASTQ format
+ * - `reads`: Paired-end or Single-end reads in FASTQ format
  *
  * @input db
- * A database formatted for MIDAS
+ * Directory containing the MIDAS database
  *
- * @output tsv        Tab-delimited summary of MIDAS results
- * @output abundances Species abundance profile from MIDAS
- * @output logs       Optional tool execution logs
- * @output nf_logs    Nextflow execution logs
- * @output versions   Software version information (YAML format)
+ * @output tsv         A tab-delimited summary of species abundance and coverage
+ * @output abundances  Detailed species abundance profile (*.abundances.txt)
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

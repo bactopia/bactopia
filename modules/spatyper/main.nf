@@ -1,27 +1,29 @@
 /**
- * Computational method for finding spa types in Staphylococcus aureus.
+ * Finding spa types in Staphylococcus aureus.
  *
- * This process executes spatyper to perform analysis
+ * Uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to determine the *spa* type of
+ * *Staphylococcus aureus* genomes by identifying the repeats in the polymorphic X region
+ * of the protein A gene (*spa*).
  *
  * @status stable
- * @keywords Staphylococcus aureus, spa typing, repeat
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @keywords staphylococcus aureus, spa typing, repeat, mrsa, typing
+ * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation spatyper
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input repeats
- * Custom repeat file
+ * Custom repeat sequences file (Optional)
  *
  * @input repeat_order
- * Custom repeat order file
+ * Custom repeat order file (Optional)
  *
  * @output tsv      spa typing results in TSV format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -33,7 +35,7 @@ process SPATYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     repeats        : Path?
     repeat_order   : Path?
 
@@ -55,21 +57,21 @@ process SPATYPER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     def input_args = repeats && repeat_order ? "-r ${repeats} -o ${repeat_order}" : ""
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     spaTyper \\
         ${task.ext.args} \\
         ${input_args} \\
-        --fasta ${fasta_name} \\
+        --fasta ${assembly_name} \\
         --output ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

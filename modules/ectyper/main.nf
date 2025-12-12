@@ -1,22 +1,24 @@
 /**
- * In silico prediction of Escherichia coli serotype.
+ * Predict *Escherichia coli* serotype (O and H antigens).
  *
- * This process executes ectyper to perform analysis
+ * Uses [ECTyper](https://github.com/phac-nml/ectyper) to identify the O-antigen (lipopolysaccharide)
+ * and H-antigen (flagella) genes in *E. coli* genome assemblies via BLAST. It provides a
+ * standardized serotype prediction (e.g., O157:H7).
  *
  * @status stable
- * @keywords escherichia coli, e. coli, serotype, typing
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, escherichia coli, serotype, o-antigen, h-antigen, typing
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation ectyper
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA formatted assembly file
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      Tab-delimited ectyper output
- * @output txt      Detailed output file
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the predicted O and H serotypes
+ * @output txt       Detailed report containing gene hit percentages and locations
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +30,7 @@ process ECTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -48,22 +50,22 @@ process ECTYPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     ectyper \\
         ${task.ext.args} \\
         --cores ${task.cpus} \\
         --output ./ \\
-        --input ${fasta_name}
+        --input ${assembly_name}
     mv output.tsv ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

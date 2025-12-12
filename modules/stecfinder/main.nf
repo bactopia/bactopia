@@ -1,23 +1,44 @@
 /**
- * Find STEC gene markers in E. coli genomes.
+ * Serotype of Shigatoxin producing E. coli using reads/assemblies.
  *
- * This process executes stecfinder to perform analysis
+ * Uses [STECFinder](https://github.com/LanLab/STECFinder) to identify Shiga toxin-producing
+ * *Escherichia coli* (STEC) serotypes and virulence factors from genome assemblies or sequencing reads.
  *
  * @status stable
- * @keywords STEC, E. coli, virulence, typing
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords stec, e. coli, virulence, serotype, typing
+ * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation stecfinder
  *
- * @input tuple(meta, fasta, reads)
+ * @input tuple(meta, assembly, reads)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly file in FASTA format
- * - `reads`: Reads file (if using reads mode)
+ * - `assembly`: Assembled contigs in FASTA format
+ * - `reads`: FASTQ reads (Illumina or Nanopore)
  *
  * @output tsv      TSV file with STEC gene markers results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
+process STECFINDER {
+    tag "${prefix}"
+    label 'process_low'
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+
+    input:
+    tuple val(meta), path(assembly), path(reads)
+
+    output:
+    tuple val(meta), path("${prefix}.tsv")           , emit: tsv
+    tuple val(meta), path("*.{log,err}")             , emit: logs, optional: true
+    tuple val(meta), path(".command.*")              , emit: nf_logs
+    tuple val(meta), path("versions.yml")            , emit: versions
+
+    script:
+    // Process script contents would go here
+    """
+    """
+}
 nextflow.preview.types = true
 
 process STECFINDER {
@@ -27,7 +48,7 @@ process STECFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta, reads) : Tuple<Map, Path, List<Path>>
+    (_meta, assembly, reads) : Tuple<Map, Path, List<Path>>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -46,11 +67,11 @@ process STECFINDER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = (fasta.getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
-    def seq_name = is_compressed ? fasta.getName().replace(".gz", "") : reads.join(" ")
+    def is_compressed = (assembly.getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
+    def seq_name = is_compressed ? assembly.getName().replace(".gz", "") : reads.join(" ")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${seq_name}
+        gzip -c -d ${assembly} > ${seq_name}
     fi
 
     stecfinder \\

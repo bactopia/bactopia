@@ -1,27 +1,30 @@
 /**
- * Identify insertion sites positions in bacterial genomes.
+ * Identify insertion sites and orientation of mobile genetic elements.
  *
- * This process executes ismapper to perform analysis
+ * Uses [ISMapper](https://github.com/jhawkey/IS_mapper) to identify the position and orientation
+ * of specific insertion sequences (IS) in a bacterial genome. It works by mapping paired-end reads
+ * to a library of IS queries and a reference genome to determine where the IS elements are located
+ * relative to the reference coordinates.
  *
  * @status stable
- * @keywords fastq, insertion sequences
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic
+ * @keywords bacteria, mobile elements, insertion sequences, mapping, structural variation, ismapper
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation ismapper
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: A set of paired-end FASTQ files
+ * - `reads`: Paired-end reads in FASTQ format
  *
  * @input reference
- * Reference genome in GenBank format
+ * Reference genome in GenBank format (*.gbk) to map insertion sites against
  *
  * @input query
- * Insertion sequences to query in FASTA format
+ * FASTA file containing the insertion sequences to search for
  *
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental  Directory containing the final tables of insertion sites and visual summaries
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

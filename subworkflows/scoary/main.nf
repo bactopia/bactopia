@@ -1,26 +1,31 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Pan-genome wide association studies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs genome-wide association studies (GWAS) on pan-genome data
+ * using [Scoary](https://github.com/AdmiralenOla/Scoary). The tool identifies genes
+ * associated with binary traits such as pathogenicity, host specificity, or antibiotic
+ * resistance. It calculates statistical associations between gene presence/absence
+ * and phenotypic traits across multiple bacterial isolates.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords GWAS, association, pan-genome, traits, statistical
+ * @tags complexity:simple input-type:multiple output-type:single features:conditional-input
+ * @citation scoary
  *
- * @modules scoary as scoary_module
+ * @modules scoary
  *
- * @input csv
- * Channel containing csv data
+ * @input tuple(meta, csv)
+ * - `meta`: Groovy Map containing sample information
+ * - `csv`: Gene presence/absence matrix from pan-genome analysis in CSV format
  *
  * @input traits
- * Channel containing traits data
+ * Trait file containing binary phenotypic characteristics for each isolate (optional)
  *
- * @output csv      Csv
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output csv         Scoary GWAS results with statistical associations between genes and traits
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Execution logs from the Scoary analysis
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    Software version information
  */
 nextflow.preview.types = true
 
@@ -41,8 +46,8 @@ workflow SCOARY {
     csv: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.csv
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.csv
-    logs: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.versions
+    results: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.csv])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.versions])
 }

@@ -1,22 +1,25 @@
 /**
- * Analysis of mcr-1 gene (mobilized colistin resistance) for sequence variation.
+ * Detect sequence variations in the *mcr-1* colistin resistance gene.
  *
- * This process executes mcroni to perform analysis
+ * Uses [Mcroni](https://github.com/tseemann/mcroni) to screen genome assemblies for the
+ * *mcr-1* gene (Mobilized Colistin Resistance). It extracts the gene sequence and reports
+ * any variations (mutations) relative to the reference, which is critical for tracking
+ * resistance to colistin, a last-resort antibiotic.
  *
  * @status stable
- * @keywords resistance, fasta
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, amr, resistance, colistin, mcr-1, plasmid, variation
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation mcroni
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: A fasta file.
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      mcroni results in TSV format
- * @output fa       mcr-1 matching sequences
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the *mcr-1* detection and variation
+ * @output fa        The extracted *mcr-1* nucleotide sequences (if found)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

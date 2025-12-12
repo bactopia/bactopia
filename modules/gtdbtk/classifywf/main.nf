@@ -1,27 +1,30 @@
 /**
- * GTDB-Tk classification workflow for bacterial and archaeal genomes.
+ * Taxonomic classification of bacterial and archaeal genomes using GTDB-Tk.
  *
- * This process executes gtdbtk_classifywf to perform analysis
+ * Uses [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) to assign objective taxonomic
+ * classifications to genome assemblies based on the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/).
+ * It identifies marker genes, aligns them, and places the genome into the reference tree to determine taxonomy.
  *
  * @status stable
- * @keywords gtdb, taxonomy, classification, archaea, bacteria
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation gtdbtk_classifywf
+ * @keywords taxonomy, classification, phylogeny, gtdb, bacteria, archaea, marker genes
+ * @tags complexity:high input-type:multiple output-type:multiple features:database-dependent,conditional-logic
+ * @citation gtdbtk
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires the massive GTDB-Tk database (~60GB+) to be available.
  *
  * @input tuple(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `fna`: Genome assemblies in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
- * GTDB database directory or tarball
+ * Path (or Set of paths) to the GTDB-Tk reference database
  *
- * @output supplemental Supplemental
- * @output tsv          Summary classification file
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           The main classification summary file containing the taxonomic assignment
+ * @output supplemental  Directory containing the reference tree, alignments, and detailed logs
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

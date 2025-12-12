@@ -14,7 +14,7 @@
  * A database to setup up for Ariba
  *
  * @output db   An Ariba prepared database
- * @output logs Optional tool execution logs
+ * @output logs Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

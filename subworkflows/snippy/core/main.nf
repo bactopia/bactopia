@@ -51,19 +51,6 @@ workflow SNIPPY_CORE {
     tsv = SNPDISTS.out.tsv
 
     // Generic aggregate outputs
-
-
-
-
-
-
-
-
-
-
-
-
-
     results = SNIPPY_CORE_MODULE.out.supplemental.mix(
         SNIPPY_CORE_MODULE.out.aln,
         SNIPPY_CORE_MODULE.out.full_aln,

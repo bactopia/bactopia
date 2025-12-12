@@ -1,63 +1,59 @@
 /**
-
-
-
-
-
-
-
-
-
-
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Rapid bacterial genome annotation.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [Bakta](https://github.com/oschwengers/bakta) to provide
+ * rapid, comprehensive annotation of bacterial genomes. It can download and prepare
+ * the Bakta database on-demand or use a pre-existing database. The workflow processes
+ * each sample individually, producing multiple output formats including GFF3, GenBank,
+ * protein sequences, nucleotide sequences, and a BLAST database.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, annotation, genome, functional annotation, taxonomy
+ * @tags complexity:complex input-type:single output-type:multiple features:database-dependent, conditional-logic, archive-output, resource-download
+ * @citation bakta
  *
  * @modules bakta_download, bakta_run
  *
- * @input fasta
- * Channel containing fasta data
+ * @note Database can be automatically downloaded or provided as pre-existing tarball
+ *
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input database
- * Channel containing database data
+ * Optional pre-existing Bakta database path
  *
  * @input download_bakta
- * Channel containing download_bakta data
+ * Boolean flag to trigger automatic database download
  *
  * @input save_as_tarball
- * Channel containing save_as_tarball data
+ * Boolean flag to save downloaded database as tarball
  *
  * @input proteins
- * Channel containing proteins data
+ * Optional trusted protein sequences for homology search
  *
  * @input prodigal_tf
- * Channel containing prodigal_tf data
+ * Optional Prodigal training file for improved gene prediction
  *
  * @input replicons
- * Channel containing replicons data
+ * Optional replicon sequences for plasmid identification
  *
- * @output annotations       Annotations
- * @output tsv               Tsv
- * @output txt               Txt
- * @output embl              Embl
- * @output faa               Faa
- * @output ffn               Ffn
- * @output fna               Fna
- * @output gbff              Gbff
- * @output gff               Gff
- * @output hypotheticals_faa Hypotheticals Faa
- * @output hypotheticals_tsv Hypotheticals Tsv
- * @output blastdb           Blastdb
+ * @output annotations       Complete annotation package containing GFF3, GBK, FAA, FFN, FNA, and other formats
+ * @output tsv               Tab-delimited summary of annotation results
+ * @output txt               Text summary of annotation results
+ * @output embl              EMBL format annotation file
+ * @output faa               Amino acid sequences of predicted proteins
+ * @output ffn               Nucleotide sequences of predicted features
+ * @output fna               Nucleotide sequences of contigs
+ * @output gbff              GenBank format annotation file
+ * @output gff               Genome annotation in GFF3 format
+ * @output hypotheticals_faa Amino acid sequences of hypothetical proteins
+ * @output hypotheticals_tsv Tab-delimited summary of hypothetical proteins
+ * @output blastdb           BLAST database created from annotation results
  * @output results           Aggregated results channel containing all output files
  * @output logs              Aggregated logs channel containing all execution logs
- * @output nf_logs           Aggregated Nextflow execution logs from all processes
+ * @output nf_logs           Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions          Aggregated version information from all executed tools
- 
  */
 nextflow.preview.types = true
 
@@ -68,7 +64,7 @@ include { gather         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     database: Path?
     download_bakta: Boolean
     save_as_tarball: Boolean
@@ -82,12 +78,12 @@ workflow BAKTA {
         BAKTA_DOWNLOAD()
 
         if (save_as_tarball) {
-            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db_tarball, proteins, prodigal_tf, replicons)
+            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.db_tarball, proteins, prodigal_tf, replicons)
         } else {
-            BAKTA_RUN(fasta, BAKTA_DOWNLOAD.out.db, proteins, prodigal_tf, replicons)
+            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.db, proteins, prodigal_tf, replicons)
         }
     } else {
-        BAKTA_RUN(fasta, database, proteins, prodigal_tf, replicons)
+        BAKTA_RUN(assembly, database, proteins, prodigal_tf, replicons)
     }
 
     emit:

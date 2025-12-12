@@ -1,27 +1,30 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Remove human reads from metagenomic data using Kraken2.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow identifies and removes human sequences from metagenomic reads using [Kraken2](https://github.com/DerrickWood/kraken2)
+ * with a specialized human genome database. It downloads the k2_HPRC human reference database,
+ * classifies reads, and separates human (contaminant) sequences from microbial reads for downstream analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, human decontamination, read filtering, kraken2
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, resource-download
+ * @citation kraken2
  *
  * @modules wget, kraken2
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Metagenomic reads potentially contaminated with human sequences
  *
- * @output human                Human
- * @output kraken2_report       Kraken2 Report
- * @output scrub_report         Scrub Report
- * @output scrub_special_report Scrub Special Report
- * @output scrubbed             Scrubbed
- * @output scrubbed_extra       Scrubbed Extra
+ * @output human                Reads classified as human (contaminant sequences)
+ * @output kraken2_report       Kraken2 classification report showing human vs. non-human read counts
+ * @output scrub_report         Human contamination screening report with detailed statistics
+ * @output scrub_special_report Extended human screening report with additional metrics
+ * @output scrubbed             Clean metagenomic reads after human sequence removal
+ * @output scrubbed_extra       Additional cleaned reads from extended filtering
  * @output results              Aggregated results channel containing all output files
  * @output logs                 Aggregated logs channel containing all execution logs
- * @output nf_logs              Aggregated Nextflow execution logs from all processes
+ * @output nf_logs              Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions             Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -59,7 +62,7 @@ workflow K2SCRUBBER {
         KRAKEN2.out.scrub_report,
         KRAKEN2.out.unclassified
     ])
-    logs: Channel<Tuple<Map, Path>> = KRAKEN2.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = KRAKEN2.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = KRAKEN2.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.versions])
 }

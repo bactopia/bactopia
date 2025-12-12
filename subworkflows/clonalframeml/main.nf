@@ -1,24 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Detect and mask recombination events in bacterial phylogenies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML) to
+ * detect and mask recombination events in bacterial phylogenies. It first builds a quick
+ * phylogenetic tree using [IQ-TREE](https://github.com/iqtree/iqtree2), then identifies
+ * recombination regions and creates a recombination-masked alignment. Finally, it
+ * calculates SNP distances from the masked alignment using [snp-dists](https://github.com/tseemann/snp-dists).
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords recombination, phylogeny, masking, clonalframe, bacterial evolution
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation clonalframeml, iqtree, snpdists
  *
  * @subworkflows iqtree, snpdists
- * @modules clonalframeml as clonalframeml_module
+ * @modules clonalframeml
  *
- * @input alignment
- * Channel containing alignment data
+ * @input tuple(meta, alignment)
+ * - `meta`: Groovy Map containing sample information
+ * - `alignment`: Core-genome alignment in FASTA format
  *
- * @output masked_aln Masked Aln
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output masked_aln     Recombination-masked alignment file with detected recombination regions removed
+ * @output results        Aggregated results channel containing all output files from ClonalFrameML, IQ-TREE, and snp-dists
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

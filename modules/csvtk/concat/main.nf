@@ -1,27 +1,29 @@
 /**
- * Concatenate two or more CSV (or TSV) tables into a single table.
+ * Concatenate multiple CSV or TSV files into a single table.
  *
- * This process executes csvtk_concat to perform analysis
+ * Uses [csvtk concat](https://github.com/shenwei356/csvtk) to merge a list of delimited files
+ * by row. It handles header processing (keeping only one header) and supports format conversion
+ * (e.g., merging CSVs but outputting a TSV).
  *
  * @status stable
- * @keywords concatenate, tsv, csv
- * @tags complexity:simple input-type:multiple output-type:single
- * @citation csvtk_concat
+ * @keywords utility, table, merge, concat, csv, tsv, csvtk
+ * @tags complexity:simple input-type:list output-type:single features:conditional-logic
+ * @citation csvtk
  *
  * @input tuple(meta, csv)
  * - `meta`: Groovy Map containing sample information
- * - `csv`: CSV/TSV formatted files
+ * - `csv`: A list of CSV/TSV files to be concatenated
  *
  * @input in_format
- * Input format (csv, tab, or a delimiting character)
+ * Input format string ('csv', 'tsv', or a specific delimiter character)
  *
  * @input out_format
- * Output format (csv, tab, or a delimiting character)
+ * Output format string ('csv', 'tsv', or a specific delimiter character)
  *
- * @output csv      Concatenated CSV/TSV file
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output csv       The concatenated tabular file (*.csv or *.tsv)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

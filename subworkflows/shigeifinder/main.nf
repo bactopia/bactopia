@@ -1,24 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict serotypes of Shigella and EIEC from assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to predict
+ * serotypes of *Shigella* and Enteroinvasive *E. coli* (EIEC) from assembled genomes.
+ * It uses a cluster-informed approach to identify specific serotype markers and classify
+ * isolates based on their antigenic profiles.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords shigella, eiec, serotype, typing, cluster analysis
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation shigeifinder
  *
- * @modules csvtk_concat, shigeifinder as shigeifinder_module
+ * @modules shigeifinder, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing Shigella/EIEC serotype predictions
+ * @output merged_tsv  Consolidated TSV file containing serotype predictions from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +33,10 @@ include { gather                              } from 'plugin/nf-bactopia'
 
 workflow SHIGEIFINDER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    SHIGEIFINDER_MODULE(fasta)
+    SHIGEIFINDER_MODULE(assembly)
     CSVTK_CONCAT(gather(SHIGEIFINDER_MODULE.out.tsv, 'shigeifinder'), 'tsv', 'tsv')
 
     emit:

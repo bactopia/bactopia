@@ -1,37 +1,37 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Estimate species abundance from metagenomic reads.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs taxonomic classification and abundance estimation using [Kraken2](https://github.com/DerrickWood/kraken2)
+ * and [Bracken](https://github.com/jenniferlu717/Bracken). It processes metagenomic reads, classifies them against a reference database,
+ * and generates abundance estimates at different taxonomic levels with optional abundance correction.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, taxonomic classification, abundance estimation, kraken2, bracken
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, conditional-logic, aggregation
+ * @citation kraken2, bracken
  *
- * @modules csvtk_concat as csvtk_concat_tsv, bracken as bracken_module, csvtk_concat as csvtk_concat_adjusted
+ * @modules bracken, csvtk_concat as csvtk_concat_tsv, csvtk_concat as csvtk_concat_adjusted
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Metagenomic reads for taxonomic classification
  *
  * @input database
- * Channel containing database data
+ * Path to the Kraken2 database for taxonomic classification.
  *
- * @output tsv                        Tsv
- * @output special_tsv                Special Tsv
- * @output classified                 Classified
- * @output unclassified               Unclassified
- * @output kraken2_report             Kraken2 Report
- * @output kraken2_output             Kraken2 Output
- * @output bracken_report             Bracken Report
- * @output krona                      Krona
- * @output abundances                 Abundances
- * @output classification             Classification
- * @output adjusted_abundances        Adjusted Abundances
- * @output merged_tsv                 Merged Tsv
- * @output merged_adjusted_abundances Merged Adjusted Abundances
+ * @output classified                 Taxonomically classified reads in FASTA format
+ * @output unclassified               Unclassified reads not assigned to any taxa
+ * @output kraken2_report             Kraken2 classification report with read counts per taxon
+ * @output kraken2_output             Detailed Kraken2 classification output for each read
+ * @output bracken_report             Bracken abundance estimation report
+ * @output krona                      Krona-compatible XML file for interactive taxonomic visualization
+ * @output abundances                 Species-level abundance estimates from Bracken
+ * @output adjusted_abundances        Read count-adjusted abundance estimates
+ * @output merged_tsv                 Merged abundance TSV files across all samples
+ * @output merged_adjusted_abundances Merged adjusted abundance TSV files across all samples
  * @output results                    Aggregated results channel containing all output files
  * @output logs                       Aggregated logs channel containing all execution logs
- * @output nf_logs                    Aggregated Nextflow execution logs from all processes
+ * @output nf_logs                    Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions                   Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

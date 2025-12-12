@@ -1,24 +1,26 @@
 /**
- * Efficient software for phylogenomic inference.
+ * Efficient phylogenomic inference using Maximum Likelihood.
  *
- * This process executes iqtree to perform analysis
+ * Uses [IQ-TREE](http://www.iqtree.org/) to construct a maximum-likelihood phylogenetic tree
+ * from a multiple sequence alignment. It automatically determines the best-fit substitution model
+ * (via ModelFinder) and assesses branch support using the Ultrafast Bootstrap approximation.
  *
  * @status stable
- * @keywords phylogeny, iqtree, tree
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords phylogeny, tree, maximum likelihood, bootstrap, model selection, iqtree
+ * @tags complexity:high input-type:single output-type:multiple features:model-selection,bootstrap
  * @citation iqtree
  *
  * @input tuple(meta, alignment)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Multiple sequence alignment file
+ * - `alignment`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
  *
- * @output supplemental Supplemental
- * @output phylogeny    Phylogenetic tree file
- * @output alignment    Alignment
- * @output aln_tree     Tuple containing alignment and tree files
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental  Directory containing the detailed report (*.iqtree), distance matrix, and model parameters
+ * @output phylogeny     The final maximum-likelihood phylogenetic tree (Newick format)
+ * @output alignment     The input alignment (passed through)
+ * @output aln_tree      A convenience tuple containing both the alignment and the tree
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

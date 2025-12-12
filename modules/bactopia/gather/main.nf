@@ -1,27 +1,30 @@
 /**
- * ${$MODULE_DESCRIPTION}
-.
+ * Search, validate, gather, or simulate input samples.
  *
- * This process executes gather to perform analysis
+ * This process is the entry point for data ingestion. It handles:
+ * - **Validation:** Verifies FASTQ formatting and gzip integrity.
+ * - **Merging:** Combines multiple runs (lanes) into a single sample.
+ * - **Downloading:** Fetches reads (SRA/ENA) or assemblies (NCBI) from accessions.
+ * - **Simulation:** Generates synthetic reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art) to enable read-based analysis.
  *
  * @status stable
- * @keywords ${MODULE_KEYWORDS}
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
- * @citation gather
+ * @keywords fastq, validation, sra, ena, download, merging, simulation, art, ncbi
+ * @tags complexity:high input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
+ * @citation bactopia, art, fastq-dl, fastq-scan, ncbi-genome-download, pigz
  *
  * @input tuple(meta, r1, r2, extra)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Input file
- * - `r2`: Input file
- * - `extra`: Input file
+ * - `r1`: First pair of reads
+ * - `r2`: Second pair of reads
+ * - `extra`: Extra files such as an assembly or long reads
  *
- * @output raw_fastq  Raw Fastq
- * @output fastq_only Fastq Only
- * @output tsv        Tsv
- * @output error      Error
- * @output logs       Optional tool execution logs
- * @output nf_logs    Nextflow execution logs
- * @output versions   Software version information (YAML format)
+ * @output raw_fastq    A tuple containing the metadata, standardized FASTQs, and any extra files
+ * @output fastq_only   A tuple containing only the metadata and standardized FASTQs
+ * @output tsv          A tab-delimited metadata file describing the valid samples
+ * @output error        Captured error messages for validation or download failures
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

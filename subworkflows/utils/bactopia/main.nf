@@ -45,19 +45,6 @@ workflow BACTOPIA_INIT {
         def extra = file(sample[3])
 
         // Convert string inputs to files
-
-
-
-
-
-
-
-
-
-
-
-
-
         if (sample[1].size() > 0) {
             sample[1].each { it -> r1 << file(it) }
         }

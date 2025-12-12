@@ -1,28 +1,32 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Identify SCCmec elements in Staphylococcus aureus genomes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [SCCmec](https://github.com/rpetit3/sccmec) to identify the
+ * Staphylococcal Cassette Chromosome mec (SCCmec) element in *Staphylococcus aureus*
+ * assemblies. It predicts the type based on the presence of specific *mec* and *ccr*
+ * gene complexes, generating detailed BLAST results and typing information.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords sccmec, staphylococcus aureus, mrsa, antimicrobial resistance, typing
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation sccmec
  *
- * @modules csvtk_concat, sccmec as sccmec_module
+ * @modules sccmec, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv             Tsv
- * @output merged_tsv      Merged Tsv
- * @output targets         Targets
- * @output target_details  Target Details
- * @output regions         Regions
- * @output regions_details Regions Details
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution logs from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output tsv              Per-sample TSV files with SCCmec typing results
+ * @output merged_tsv       Consolidated TSV file containing SCCmec typing from all samples
+ * @output targets          Per-sample BLAST results for target sequences
+ * @output target_details   Per-sample detailed results for target matches
+ * @output regions          Per-sample BLAST results for SCCmec regions
+ * @output regions_details  Per-sample detailed results for SCCmec region matches
+ * @output results          Aggregated results channel containing all output files
+ * @output logs             Aggregated logs channel containing all execution logs
+ * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions         Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -33,10 +37,10 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    SCCMEC_MODULE(fasta)
+    SCCMEC_MODULE(assembly)
     CSVTK_CONCAT(gather(SCCMEC_MODULE.out.tsv, 'sccmec'), 'tsv', 'tsv')
 
     emit:
@@ -49,19 +53,6 @@ workflow SCCMEC {
     regions_details: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.regions_details
 
     // Generic aggregate output
-
-
-
-
-
-
-
-
-
-
-
-
-
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         SCCMEC_MODULE.out.tsv,
         CSVTK_CONCAT.out.csv,

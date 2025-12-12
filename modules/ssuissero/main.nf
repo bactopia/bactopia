@@ -1,21 +1,23 @@
 /**
- * In silico serotyping of Streptococcus suis.
+ * Serotype prediction of Streptococcus suis assemblies.
  *
- * This process executes ssuissero to perform analysis
+ * Uses [SsuisSero](https://github.com/idmc-cnr/SsuisSero) to predict the serotype of
+ * *Streptococcus suis* strains from genome assemblies based on the presence of specific
+ * capsular genes.
  *
  * @status stable
- * @keywords Streptococcus suis, serotype, typing
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords streptococcus suis, serotype, typing, prediction
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation ssuissero
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv      SsuisSero results in TSV format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process SSUISSERO {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, files("*.tsv"))
@@ -48,22 +50,22 @@ process SSUISSERO {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     SsuisSero.sh \\
-        -i ${fasta_name} \\
+        -i ${assembly_name} \\
         -o ./ \\
         -s ${prefix} \\
         -x fasta \\
         -t ${task.cpus}
 
     # Cleanup
-    rm -rf ${fasta_name} blast_res/
+    rm -rf ${assembly_name} blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

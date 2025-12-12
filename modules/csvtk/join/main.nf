@@ -1,31 +1,33 @@
 /**
- * Concatenate two or more CSV (or TSV) tables into a single table.
+ * Join two CSV or TSV files based on common fields.
  *
- * This process executes csvtk_join to perform analysis
+ * Uses [csvtk join](https://github.com/shenwei356/csvtk) to merge two tabular files horizontally
+ * by matching values in a specified key column (similar to a SQL JOIN). It supports inner, left,
+ * right, and outer joins via optional arguments.
  *
  * @status stable
- * @keywords concatenate, tsv, csv
- * @tags complexity:simple input-type:multiple output-type:single
- * @citation csvtk_join
+ * @keywords utility, table, join, merge, csv, tsv, csvtk, relational
+ * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
+ * @citation csvtk
  *
  * @input tuple(meta, csv1, csv2)
  * - `meta`: Groovy Map containing sample information
- * - `csv1`: Input file
- * - `csv2`: Input file
+ * - `csv1`: The first CSV/TSV file (Left table)
+ * - `csv2`: The second CSV/TSV file (Right table)
  *
  * @input in_format
- * Input format (csv, tab, or a delimiting character)
+ * Input format string ('csv', 'tsv', or a specific delimiter character)
  *
  * @input out_format
- * Output format (csv, tab, or a delimiting character)
+ * Output format string ('csv', 'tsv', or a specific delimiter character)
  *
  * @input key
- * Path parameter for key
+ * The column name(s) or index(es) to use as the join key (e.g., "sample_id" or "1")
  *
- * @output csv      Concatenated CSV/TSV file
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output csv       The joined tabular file (*.csv or *.tsv)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,34 +1,37 @@
 /**
  * Functional annotation of proteins using eggNOG orthology data.
  *
- * This process executes eggnog_mapper to perform analysis
+ * Uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign functional annotations
+ * to protein sequences. It uses precomputed orthologous groups (OGs) to infer functions like
+ * COG categories, KEGG pathways, GO terms, and CAZymes with high precision.
  *
  * @status stable
- * @keywords eggnog, annotation, orthology, proteins
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
+ * @keywords functional annotation, orthology, cog, kegg, go, proteins, eggnog
+ * @tags complexity:complex input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation eggnog_mapper
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires the eggNOG database (including the diamond database and taxonomic data) to be available.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, proteins)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Protein sequences in FASTA format
+ * - `proteins`: Protein sequences in FASTA format (amino acids)
  *
  * @input db
- * eggNOG database directory or tarball
+ * Directory or compressed tarball containing the eggNOG database
  *
- * @output hits           Diamond/MMseqs2 hits file
- * @output seed_orthologs Seed orthologs file
- * @output annotations    Tab-delimited annotations file
- * @output xlsx           Excel format annotations (optional)
- * @output orthologs      Orthologs file (optional)
- * @output genepred       Predicted genes (optional)
- * @output gff            GFF format annotations (optional)
- * @output no_anno        Sequences without annotations (optional)
- * @output pfam           PFAM annotations (optional)
- * @output logs           Optional tool execution logs
- * @output nf_logs        Nextflow execution logs
- * @output versions       Software version information (YAML format)
+ * @output hits            Raw search hits (Diamond/MMseqs2) against the eggNOG database
+ * @output seed_orthologs  List of identified seed orthologs used for annotation transfer
+ * @output annotations     Main tab-delimited annotation file (COGs, KEGG, GO, etc.)
+ * @output xlsx            Excel format of the annotations file
+ * @output orthologs       List of fine-grained orthologs (optional)
+ * @output genepred        Predicted gene sequences (optional)
+ * @output gff             Annotations in GFF format (optional)
+ * @output no_anno         FASTA file of sequences that failed to be annotated (optional)
+ * @output pfam            Raw PFAM domain hits (optional)
+ * @output logs            Optional software execution logs containing warnings/errors
+ * @output nf_logs         Nextflow execution scripts and logs for debugging
+ * @output versions        A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -40,7 +43,7 @@ process EGGNOG_MAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, proteins) : Tuple<Map, Path>
     db             : Path
 
     output:
@@ -83,7 +86,7 @@ process EGGNOG_MAPPER {
         --cpu ${task.cpus} \\
         --data_dir \$EGGNOG_DB \\
         --output ${prefix} \\
-        -i ${fasta}
+        -i ${proteins}
 
     # Cleanup
     if [ "${is_tarball}" == "true" ]; then

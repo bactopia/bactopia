@@ -3,29 +3,35 @@
 // 
 
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Assess genome assembly completeness using BUSCO.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow evaluates genome assembly completeness by searching for
+ * single-copy orthologs against the [BUSCO](https://busco.ezlab.org/) database.
+ * It generates comprehensive completeness reports including missing, duplicated,
+ * fragmented, and complete single-copy orthologs. The workflow includes individual
+ * sample assessments and a merged summary report across all samples.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords assembly, completeness, quality, assessment, orthologs, evaluation
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation busco
  *
- * @modules csvtk_concat, busco as busco_module
+ * @modules csvtk_concat, busco
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Genome assemblies to evaluate for completeness. Each tuple contains metadata
+ *   about the sample and a set of assembled contigs in FASTA format.
  *
  * @input busco_lineage
- * Channel containing busco_lineage data
+ * BUSCO lineage dataset to use for assessment (e.g., bacteria_odb10).
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv          Per-sample BUSCO completeness assessment results in TSV format
+ * @output merged_tsv   Combined BUSCO results summary across all samples
+ * @output results      Aggregated results channel containing all output files
+ * @output logs         Aggregated logs channel containing all execution logs
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -36,11 +42,11 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     busco_lineage: String
 
     main:
-    BUSCO_MODULE(fasta)
+    BUSCO_MODULE(assembly)
     CSVTK_CONCAT(gather(BUSCO_MODULE.out.tsv, "busco-${busco_lineage}"), 'tsv', 'tsv')
 
     emit:

@@ -1,23 +1,25 @@
 /**
- * Create sample sheets for Teton workflow based on species classification.
+ * Predict genome size and route samples based on taxonomic classification.
  *
- * This process executes bactopia_samplesheet to perform analysis
+ * Uses [SizeMeUp](https://github.com/bactopia/bactopia) to parse [Bracken](https://github.com/jenniferlu717/Bracken)
+ * abundance reports, estimate the genome size for the identified species, and split samples
+ * into "Bacteria" (for downstream analysis with Bactopia) and "Non-Bacteria" lists.
  *
  * @status stable
- * @keywords bactopia, sample sheet, classification, teton
- * @tags complexity:moderate input-type:single output-type:multiple
- * @citation bactopia_samplesheet
+ * @keywords taxonomy, genome size, routing, filtering, bacteria, sizemeup, bracken
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
+ * @citation bactopia, bracken, sizemeup
  *
  * @input tuple(meta, classification)
  * - `meta`: Groovy Map containing sample information
- * - `classification`: Classification results file
+ * - `classification`: Bracken species abundance report
  *
- * @output bacteria_tsv    Sample sheet for bacterial samples
- * @output nonbacteria_tsv Sample sheet for non-bacterial samples
- * @output sizemeup        Genome size predictions
- * @output logs            Optional tool execution logs
- * @output nf_logs         Nextflow execution logs
- * @output versions        Software version information (YAML format)
+ * @output bacteria_tsv     A tab-delimited samplesheet compatible with Bactopia (--samples) for samples identified as Bacteria
+ * @output nonbacteria_tsv  A tab-delimited samplesheet for samples NOT identified as Bacteria
+ * @output sizemeup         A text file containing the predicted species and genome size
+ * @output logs             Optional software execution logs containing warnings/errors
+ * @output nf_logs          Nextflow execution scripts and logs for debugging
+ * @output versions         A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

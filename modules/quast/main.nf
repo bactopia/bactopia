@@ -1,23 +1,24 @@
 /**
  * Quality Assessment Tool for Genome Assemblies.
  *
- * This process executes quast to perform analysis
+ * Uses [QUAST](https://github.com/ablab/quast) to evaluate genome assemblies by computing various
+ * metrics such as N50, gene counts, and assembly length.
  *
  * @status stable
- * @keywords assembly, quality assessment, contig analysis
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords quast, assembly, quality control, n50, metrics
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation quast
  *
- * @input tuple(meta, fasta, meta_file)
+ * @input tuple(meta, assembly, meta_file)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly file in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  * - `meta_file`: Meta file containing reference size information
  *
  * @output tsv          Transposed report in TSV format
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental Supplemental files including plots and HTML reports
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,7 +30,7 @@ process QUAST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta, meta_file) : Tuple<Map, Path, Path>
+    (_meta, assembly, meta_file) : Tuple<Map, Path, Path>
 
     output:
     tsv          = tuple(meta, file("${prefix}.tsv"))
@@ -49,11 +50,11 @@ process QUAST {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     est_ref_size=""
@@ -63,7 +64,7 @@ process QUAST {
         est_ref_size="--est-ref-size \${ref_size}"
     fi
 
-    quast ${fasta_name} \${est_ref_size} \\
+    quast ${assembly_name} \${est_ref_size} \\
         -o supplemental \\
         --threads ${task.cpus} \\
         ${task.ext.args} \\
@@ -73,7 +74,7 @@ process QUAST {
     mv supplemental/transposed_report.tsv ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

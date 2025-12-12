@@ -1,27 +1,31 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Identify antimicrobial resistance genes using AMRFinderPlus.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [abriTAMR](https://github.com/MDU-PHL/abritamr) to identify
+ * antimicrobial resistance genes in bacterial genomes. It runs AMRFinderPlus on
+ * each sample and collates the results into functional classes, producing detailed
+ * reports on resistance genes, partial matches, and virulence factors.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, antimicrobial resistance, amr, amrfinderplus, classification
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation abritamr
  *
  * @modules abritamr_run, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output summary_tsv        Summary Tsv
- * @output merged_summary_tsv Merged Summary Tsv
- * @output matches_tsv        Matches Tsv
- * @output partials_tsv       Partials Tsv
- * @output virulence_tsv      Virulence Tsv
- * @output amrfinder_tsv      Amrfinder Tsv
+ * @output summary_tsv        Per-sample TSV files with AMR gene summaries
+ * @output merged_summary_tsv Consolidated TSV file containing AMR summaries from all samples
+ * @output matches_tsv        Per-sample TSV files with complete AMR gene matches
+ * @output partials_tsv       Per-sample TSV files with partial AMR gene matches
+ * @output virulence_tsv      Per-sample TSV files with virulence gene predictions
+ * @output amrfinder_tsv      Per-sample raw AMRFinderPlus output files
  * @output results            Aggregated results channel containing all output files
  * @output logs               Aggregated logs channel containing all execution logs
- * @output nf_logs            Aggregated Nextflow execution logs from all processes
+ * @output nf_logs            Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions           Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -33,10 +37,10 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow ABRITAMR {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    ABRITAMR_RUN(fasta)
+    ABRITAMR_RUN(assembly)
     CSVTK_CONCAT(gather(ABRITAMR_RUN.out.summary, 'abritamr'), 'tsv', 'tsv')
 
     emit:

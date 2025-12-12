@@ -1,27 +1,33 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Calculate Average Nucleotide Identity (ANI) between genomes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [FastANI](https://github.com/ParBLiSS/FastANI) to compute
+ * whole-genome Average Nucleotide Identity (ANI) values between query genomes
+ * and reference genomes. ANI is a robust measure of genomic similarity used for
+ * species delineation in microbial taxonomy. The results are aggregated into
+ * a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords ani, average nucleotide identity, taxonomy, species, comparison
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation
+ * @citation fastani
  *
- * @modules csvtk_concat, fastani as fastani_module
+ * @modules csvtk_concat, fastani
  *
- * @input query
- * Channel containing query data
+ * @input tuple(meta, query)
+ * - `meta`: Groovy Map containing sample information
+ * - `query`: Query genomes in FASTA format for ANI calculation
  *
- * @input reference
- * Channel containing reference data
+ * @input tuple(meta, reference)
+ * - `meta`: Groovy Map containing sample information
+ * - `reference`: Reference genomes in FASTA format for ANI calculation
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv             Per-sample TSV files containing ANI values against reference genomes
+ * @output merged_tsv      Consolidated TSV file containing ANI values from all comparisons
+ * @output results         Aggregated results channel containing all output files
+ * @output logs            Aggregated logs channel containing all execution logs
+ * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions        Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

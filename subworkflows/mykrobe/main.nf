@@ -1,27 +1,31 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict antibiotic resistance from sequence reads.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to predict antibiotic
+ * resistance directly from sequencing reads. It provides rapid genotype-based resistance predictions
+ * for specific bacterial species.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, reads, antimicrobial resistance, genotype prediction
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent, aggregation
+ * @citation mykrobe
  *
  * @modules mykrobe_predict, csvtk_concat
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Sequencing reads for resistance prediction. Each tuple contains a set of read files (R1/R2) to be analyzed for resistance-conferring mutations
  *
  * @input mykrobe_species
- * Channel containing mykrobe_species data
+ * Target bacterial species for resistance prediction (e.g., "staphylococcus_aureus",
+ * "mycobacterium_tuberculosis", or "enterococcus_faecium").
  *
- * @output csv        Csv
- * @output json       Json
- * @output merged_csv Merged Csv
+ * @output csv        Detailed resistance predictions in CSV format for each sample
+ * @output json       Machine-readable resistance predictions in JSON format for each sample
+ * @output merged_csv Combined resistance predictions from all samples in a single CSV file
  * @output results    Aggregated results channel containing all output files
  * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
+ * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions   Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

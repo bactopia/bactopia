@@ -1,27 +1,32 @@
 /**
- * ${$MODULE_DESCRIPTION}
-.
+ * Assemble bacterial genomes using short read, long read, or hybrid strategies.
  *
- * This process executes assembler to perform analysis
+ * Automatically selects the appropriate assembler based on input read types:
+ * - **Short Paired-End Reads:** Uses [Shovill](https://github.com/tseemann/shovill) (SKESA/SPAdes wrapper).
+ * - **Short Single-End Reads:** Uses [Shovill](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper).
+ * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper).
+ * - **Hybrid:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye (with polishing).
+ * 
+ * Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
  *
  * @status stable
- * @keywords ${MODULE_KEYWORDS}
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
- * @citation assembler
+ * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
+ * @tags complexity:high input-type:multiple output-type:multiple features:conditional-logic,alternative-execution
+ * @citation any2fasta, assembly-scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill-se, skesa, spades, unicycler, velvet
  *
  * @input tuple(meta, fq, extra)
  * - `meta`: Groovy Map containing sample information
- * - `fq`: Input file
- * - `extra`: Input file
+ * - `fq`: Primary reads (Illumina paired-end or Nanopore)
+ * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
  *
- * @output fna          Fna
- * @output fna_fq       Fna Fq
- * @output tsv          Tsv
- * @output supplemental Supplemental
- * @output error        Error
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output fna          Assembled contigs in FASTA format
+ * @output fna_fq       A tuple containing the assembly and primary reads (for downstream analysis)
+ * @output tsv          A tab-delimited report of assembly statistics (N50, length, coverage)
+ * @output supplemental Supplemental files including assembly graphs (*.gfa) and tool-specific logs
+ * @output error        Captured error messages if assembly fails
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,25 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Remove human contamination from sequencing reads for SRA submission.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses the [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) to identify
+ * and remove human reads from sequencing data. It first initializes a human reference database
+ * and then scrubs the input reads to ensure they meet SRA submission requirements.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords contamination, human, scrub, sra, sequencing, fastq
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
+ * @citation srahumanscrubber
  *
  * @modules srahumanscrubber_initdb, srahumanscrubber_scrub
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end sequencing reads from clinical samples that may contain human contamination
  *
- * @output scrubbed             Scrubbed
- * @output scrubbed_extra       Scrubbed Extra
- * @output scrub_report         Scrub Report
- * @output scrub_special_report Scrub Special Report
+ * @output scrubbed             FASTQ files with human reads removed (cleaned reads ready for SRA submission)
+ * @output scrubbed_extra       Additional FASTQ files containing reads removed during scrubbing
+ * @output scrub_report         Summary report of human read detection and removal statistics
+ * @output scrub_special_report Detailed report including read classification and contamination metrics
  * @output results              Aggregated results channel containing all output files
  * @output logs                 Aggregated logs channel containing all execution logs
- * @output nf_logs              Aggregated Nextflow execution logs from all processes
+ * @output nf_logs              Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions             Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -49,7 +52,7 @@ workflow SRAHUMANSCRUBBER {
         SRAHUMANSCRUBBER_SCRUB.out.scrubbed,
         SRAHUMANSCRUBBER_SCRUB.out.scrub_report
     ])
-    logs: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.logs
-    nf_logs: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.nf_logs
-    versions: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.versions
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([SRAHUMANSCRUBBER_SCRUB.out.logs])
+    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([SRAHUMANSCRUBBER_SCRUB.out.nf_logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([SRAHUMANSCRUBBER_SCRUB.out.versions])
 }

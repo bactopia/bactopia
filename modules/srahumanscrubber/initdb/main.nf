@@ -1,14 +1,17 @@
 /**
  * Initialize human read removal database for SRA Human Scrubber.
  *
- * This process executes srahumanscrubber_initdb to perform analysis
+ * Uses [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) to download and
+ * initialize the necessary k-mer database required for scrubbing human reads from
+ * sequencing data.
  *
  * @status stable
- * @keywords human read removal, database, sra, scrubber
- * @tags complexity:simple input-type:single output-type:single features:resource-download
+ * @keywords human, database, scrubber, ncbi, download
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download
  * @citation srahumanscrubber_initdb
- * @output db   SRA Human Scrubber database file
- * @output logs Optional tool execution logs
+ *
+ * @output db   The initialized SRA Human Scrubber database files
+ * @output logs Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true
 

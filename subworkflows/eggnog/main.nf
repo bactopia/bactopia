@@ -1,37 +1,42 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Functional annotation through orthology assignment.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs genome-wide functional annotation using
+ * [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper), which provides fast
+ * functional annotation through orthology assignment. It can optionally download
+ * the eggNOG database if not provided. The pipeline predicts orthologs, functional
+ * categories, and various annotation formats including GFF, Excel, and detailed reports.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords functional, annotation, orthology, eggNOG, protein domains
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, resource-download
+ * @citation eggnog_mapper
  *
- * @modules eggnog_mapper, eggnog_download
+ * @modules eggnog_download, eggnog_mapper
  *
- * @input faa
- * Channel containing faa data
+ * @input tuple(meta, proteins)
+ * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `proteins`: Protein sequences in FASTA format for functional annotation
  *
  * @input database
- * Channel containing database data
+ * Path to pre-downloaded eggNOG database (optional)
  *
  * @input download_eggnog
- * Channel containing download_eggnog data
+ * Boolean flag to trigger database download if not provided
  *
- * @output hits           Hits
- * @output seed_orthologs Seed Orthologs
- * @output annotations    Annotations
- * @output xlsx           Xlsx
- * @output orthologs      Orthologs
- * @output genepred       Genepred
- * @output gff            Gff
- * @output no_anno        No Anno
- * @output pfam           Pfam
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output hits            Best hits from sequence similarity searches
+ * @output seed_orthologs  Seed ortholog assignments for each query
+ * @output annotations     Detailed functional annotations with GO terms, pathways, and COG categories
+ * @output xlsx            Complete annotation results in Excel format
+ * @output orthologs       Ortholog assignments in TSV format
+ * @output genepred        Gene prediction output file
+ * @output gff             Annotation file in GFF3 format
+ * @output no_anno         Sequences with no significant annotation
+ * @output pfam            PFAM domain annotations
+ * @output results         Aggregated results channel containing all output files
+ * @output logs            Aggregated logs channel containing all execution logs
+ * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions        Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -42,7 +47,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow EGGNOG {
     take:
-    faa: Channel<Tuple<Map, Set<Path>>>
+    proteins: Channel<Tuple<Map, Set<Path>>>
     database: Path
     download_eggnog: Boolean
 
@@ -50,9 +55,9 @@ workflow EGGNOG {
     if (download_eggnog) {
         // Force EGGNOG_MAPPER to wait
         EGGNOG_DOWNLOAD()
-        EGGNOG_MAPPER(faa, EGGNOG_DOWNLOAD.out.db)
+        EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.db)
     } else {
-        EGGNOG_MAPPER(faa, database)
+        EGGNOG_MAPPER(proteins, database)
     }
 
     emit:

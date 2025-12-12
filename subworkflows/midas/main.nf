@@ -1,28 +1,33 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Species-level profiling from metagenomic data.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow estimates strain-level genomic variation from metagenomic data
+ * using [MIDAS](https://github.com/snayfach/MIDAS). The pipeline identifies bacterial
+ * species abundances and provides strain-level profiling including SNP analysis.
+ * It uses a comprehensive reference database for accurate species identification
+ * and quantification in complex microbial communities.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords metagenomics, species, profiling, abundance, strain
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation midas
  *
  * @modules csvtk_concat, midas_species
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Metagenomic sequencing reads for species-level profiling
  *
  * @input database
- * Channel containing database data
+ * MIDAS reference database for species identification and quantification
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output abundances Abundances
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Species identification and abundance results in TSV format
+ * @output merged_tsv  Combined TSV file containing species results from all samples
+ * @output abundances  Detailed abundance profiles for detected species
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

@@ -1,15 +1,24 @@
 /**
- * Download and setup GTDB-Tk database.
+ * Download and configure the GTDB-Tk reference database.
  *
- * This process executes gtdbtk_download to perform analysis
+ * Uses the official `download-db.sh` script to fetch the latest Genome Taxonomy Database (GTDB)
+ * files required by [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk). It automatically uncompresses
+ * the data and verifies the installation using `gtdbtk check_install`.
  *
  * @status stable
- * @keywords gtdb, database, download, setup
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
- * @citation gtdbtk_download
- * @output db         GTDB database directory
- * @output db_tarball GTDB database tarball (optional)
- * @output logs       Optional tool execution logs
+ * @keywords gtdb, taxonomy, database, download, setup, bacteria, archaea
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,conditional-logic
+ * @citation gtdbtk
+ *
+ * @note Internet & Storage Required
+ * This process requires an active internet connection and significant disk space (~60GB+ uncompressed)
+ * to store the database files.
+ *
+ * @output db          The directory containing the uncompressed GTDB-Tk database files
+ * @output db_tarball  A compressed tarball of the database (if requested via parameters)
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

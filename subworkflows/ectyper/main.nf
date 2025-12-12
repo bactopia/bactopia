@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * In silico prediction of Escherichia coli serotype.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs serotype prediction for Escherichia coli genomes
+ * using [ECTyper](https://github.com/phac-nml/ecoli_serotyping), which predicts
+ * O and H antigens from whole genome assemblies. The tool identifies specific
+ * serotype markers and provides comprehensive serotype classification.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Escherichia, coli, serotype, O-antigen, H-antigen
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation ectyper
  *
- * @modules csvtk_concat, ectyper as ectyper_module
+ * @modules csvtk_concat, ectyper
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for E. coli serotype prediction
  *
- * @output tsv        Tsv
- * @output txt        Txt
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         ECTyper serotype prediction results in TSV format
+ * @output txt         Additional serotype prediction output in text format
+ * @output merged_tsv  Combined TSV file containing serotype results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -30,10 +34,10 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow ECTYPER {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    ECTYPER_MODULE(fasta)
+    ECTYPER_MODULE(assembly)
     CSVTK_CONCAT(gather(ECTYPER_MODULE.out.tsv, 'ectyper'), 'tsv', 'tsv')
 
     emit:

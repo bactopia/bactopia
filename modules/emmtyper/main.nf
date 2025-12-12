@@ -1,26 +1,26 @@
 /**
- * EMM typing of Streptococcus pyogenes assemblies.
+ * *emm*-typing of *Streptococcus pyogenes* (Group A Strep) assemblies.
  *
- * This process executes emmtyper to perform analysis
+ * Uses [emmtyper](https://github.com/MDU-PHL/emmtyper) to assign *emm* types to
+ * *S. pyogenes* genomes by blasting the assembly against a database of specific
+ * M protein gene (*emm*) subtypes.
  *
  * @status stable
- * @keywords streptococcus, pyogenes, emm, typing
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic, database-dependent
+ * @keywords bacteria, streptococcus pyogenes, gas, typing, emm, virulence, m protein
+ * @tags complexity:moderate input-type:single output-type:single features:database-dependent,conditional-logic
  * @citation emmtyper
  *
- * @note Requires external database to be available
- *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input blastdb
- * Optional custom BLAST database
+ * Optional path to a custom *emm* cluster BLAST database
  *
- * @output tsv      Tab-delimited emmtyper results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the assigned *emm* type and cluster
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -32,7 +32,7 @@ process EMMTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     blastdb        : Path?
 
     output:
@@ -52,18 +52,18 @@ process EMMTYPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     # Conditionally add the database if it is provided by user
     if [ "${blastdb}" == "" ]; then
         emmtyper \\
             ${task.ext.args} \\
-            ${fasta_name} \\
+            ${assembly_name} \\
             > ${prefix}.tsv
     else
         # Make the blast database
@@ -72,15 +72,15 @@ process EMMTYPER {
         emmtyper \\
             --blast_db ${blastdb} \\
             ${task.ext.args} \\
-            ${fasta_name} \\
+            ${assembly_name} \\
             > ${prefix}.tsv
 
         # Remove the blast database
         rm ${blastdb}.*
     fi
 
-    # If 'tmp' is not in ${fasta_name}, remove '.tmp' from the output files contents
-    if [ ${fasta_name} != *.tmp* ]; then
+    # If 'tmp' is not in ${assembly_name}, remove '.tmp' from the output files contents
+    if [ ${assembly_name} != *.tmp* ]; then
         sed -i 's/.tmp\t/\t/g' ${prefix}.tsv
     fi
 

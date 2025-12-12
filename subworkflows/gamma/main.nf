@@ -1,29 +1,33 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Gene Allele Mutation Microbial Assessment.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs rapid identification, classification, and annotation of
+ * translated gene matches from sequencing data using [GAMMA](https://github.com/rastanton/GAMMA).
+ * The tool screens input sequences against a protein database to identify gene
+ * variants, mutations, and allele types, providing detailed annotation and classification.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords gene, allele, mutation, variant, antimicrobial resistance
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation gamma
  *
- * @modules csvtk_concat, gamma as gamma_module
+ * @modules csvtk_concat, gamma
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for gene allele identification
  *
  * @input db
- * Channel containing db data
+ * Protein database file for sequence comparison (required)
  *
- * @output gamma        Gamma
- * @output merged_gamma Merged Gamma
- * @output psl          Psl
- * @output fasta        Fasta
- * @output gff          Gff
+ * @output gamma        GAMMA allele identification and annotation results
+ * @output merged_gamma Combined TSV file containing GAMMA results from all samples
+ * @output psl          PSL (Pattern Space Layout) output format
+ * @output fasta        Matched protein sequences in FASTA format
+ * @output gff          Annotated features in GFF3 format
  * @output results      Aggregated results channel containing all output files
  * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution logs from all processes
+ * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions     Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
@@ -35,11 +39,11 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
     db: Path
 
     main:
-    GAMMA_MODULE(fasta, db)
+    GAMMA_MODULE(assembly, db)
     CSVTK_CONCAT(gather(GAMMA_MODULE.out.gamma, 'gamma'), 'tsv', 'tsv')
 
     emit:

@@ -1,28 +1,32 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Rapidly identify genes by creating local assemblies from paired-end reads.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [ARIBA](https://github.com/sanger-pathogens/ariba)
+ * (Antimicrobial Resistance Identification By Assembly) to rapidly identify genes
+ * in a database by creating local assemblies. It first downloads and prepares an ARIBA database,
+ * then analyzes paired-end reads to identify genes, and finally aggregates results across all samples.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords bacteria, reads, antimicrobial resistance, virulence, local assembly
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent, resource-download
+ * @citation ariba
  *
- * @modules csvtk_concat, ariba_getref, ariba_run
+ * @modules ariba_getref, ariba_run, csvtk_concat
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `reads`: Paired-end reads in FASTQ format
  *
  * @input db
- * Channel containing db data
+ * Database name for ARIBA analysis (e.g., ncbi, card, vfdb, resfinder, argannot)
  *
- * @output report         Report
- * @output summary        Summary
- * @output merged_report  Merged Report
- * @output merged_summary Merged Summary
+ * @output report         Per-sample tab-delimited reports of gene findings
+ * @output summary        Per-sample CSV summaries of gene detection results
+ * @output merged_report  Consolidated report containing gene findings from all samples
+ * @output merged_summary Consolidated summary containing detection results from all samples
  * @output results        Aggregated results channel containing all output files
  * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true

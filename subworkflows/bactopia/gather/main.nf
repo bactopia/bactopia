@@ -1,27 +1,33 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Search, validate, gather, and standardize input samples.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow processes raw input samples through validation, standardization, and metadata
+ * collection. It handles various input types including local FASTQ files, SRA/ENA accessions,
+ * NCBI assembly accessions, and assemblies. The workflow can merge multiple sequencing runs,
+ * download remote data, and simulate reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art).
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, resource-download, conditional-logic
+ * @citation art, fastq-dl, fastq-scan, ncbi-genome-download, pigz
  *
- * @modules csvtk_concat, gather as gather_module
+ * @modules gather, csvtk_concat
  *
- * @input reads
- * Channel containing reads data
+ * @input tuple(meta, r1, r2, extra)
+ * - `meta`: Groovy Map containing sample information
+ * - `r1`: First set of reads or accession information
+ * - `r2`: Second set of reads (for paired-end data)
+ * - `extra`: Extra files such as assemblies or long reads (Optional)
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output fastq_only Fastq Only
- * @output raw_fastq  Raw Fastq
- * @output error      Error
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample metadata files in TSV format
+ * @output merged_tsv  Consolidated metadata file containing information from all samples
+ * @output fastq_only  Tuple containing standardized FASTQ files
+ * @output raw_fastq   Tuple containing standardized FASTQ files and extra files
+ * @output error       Error messages from validation or download failures
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

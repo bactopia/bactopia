@@ -60,19 +60,6 @@ workflow BACTOPIATOOL_INIT {
         } 
 
         // Always create 4-element tuple with empty sets for missing data
-
-
-
-
-
-
-
-
-
-
-
-
-
         ch_samples << tuple(meta, inputs.toSet(), extra.toSet(), extra2.toSet())
     }
 

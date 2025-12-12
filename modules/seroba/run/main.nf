@@ -1,11 +1,12 @@
 /**
  * k-mer based Streptococcus pneumoniae serotyping.
  *
- * This process executes seroba_run to perform analysis
+ * Uses [SeroBA](https://github.com/sanger-pathogens/seroba) to identify the serotype of
+ * *Streptococcus pneumoniae* from Illumina paired-end reads using a k-mer based approach.
  *
  * @status stable
- * @keywords Streptococcus pneumoniae, serotype, k-mer
- * @tags complexity:simple input-type:single output-type:multiple
+ * @keywords streptococcus pneumoniae, serotype, k-mer, prediction, seroba
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation seroba_run
  *
  * @input tuple(meta, reads)
@@ -14,9 +15,9 @@
  *
  * @output tsv      SeroBA prediction results
  * @output txt      Detailed serogroup information
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

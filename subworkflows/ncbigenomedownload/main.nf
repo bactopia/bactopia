@@ -1,36 +1,39 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Download bacterial genomes from NCBI's RefSeq database.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow downloads complete and draft bacterial genomes using the
+ * [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) tool. It fetches
+ * genome assemblies in various formats including GenBank, GFF, and FASTA files
+ * along with associated annotation files and statistics.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords download, ncbi, refseq, genome, assembly, database
+ * @tags complexity:moderate input-type:single output-type:multiple features:resource-download database-dependent
+ * @citation ncbigenomedownload
  *
  * @modules ncbigenomedownload as ncbigenomedownload_module
  *
  * @input accessions
- * Channel containing accessions data
+ * A file containing NCBI accession numbers, one per line. If empty, will download all genomes matching the specified criteria.
  *
- * @output bactopia_tools Bactopia Tools
- * @output gbk            Gbk
- * @output fna            Fna
- * @output rm             Rm
- * @output features       Features
- * @output gff            Gff
- * @output faa            Faa
- * @output gpff           Gpff
- * @output wgs_gbk        Wgs Gbk
- * @output cds            Cds
- * @output rna            Rna
- * @output rna_fna        Rna Fna
- * @output report         Report
- * @output stats          Stats
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output bactopia_tools A channel of downloaded files formatted for Bactopia Tools workflows
+ * @output gbk              GenBank format files containing complete genome annotations
+ * @output fna              FASTA format files containing genomic sequences
+ * @output rm               README.md files with metadata about downloaded genomes
+ * @output features         Feature table files in text format
+ * @output gff              GFF3 format files with genome feature annotations
+ * @output faa              Protein FASTA files of translated CDS sequences
+ * @output gpff             Genomic protein FASTA files
+ * @output wgs_gbk          Whole Genome Shotgun (WGS) project GenBank files
+ * @output cds              Nucleotide FASTA files of CDS sequences
+ * @output rna              RNA FASTA files (rRNA, tRNA, other RNA)
+ * @output rna_fna          RNA sequences in FASTA format
+ * @output report           Summary report of downloaded genomes
+ * @output stats            Statistics files with assembly metrics
+ * @output results          Aggregated results channel containing all output files
+ * @output logs             Aggregated logs channel containing all execution logs
+ * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions         Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

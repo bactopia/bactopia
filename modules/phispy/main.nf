@@ -1,29 +1,31 @@
 /**
- * Predict prophages in bacterial genomes.
+ * Predict prophage regions integrated into bacterial genomes.
  *
- * This process executes phispy to perform analysis
+ * Uses [PhiSpy](https://github.com/linsalrob/PhiSpy) to identify integrated bacteriophage
+ * (prophage) regions in a fully annotated bacterial genome. The prediction relies on scoring
+ * features like strand-switch, AT-skew, unique phage-like proteins, and short coding regions.
  *
  * @status stable
- * @keywords genomics, virus, phage, prophage, annotation, identification
+ * @keywords genomics, virus, phage, prophage, bacteriophage, identification, annotation
  * @tags complexity:complex input-type:single output-type:multiple
  * @citation phispy
  *
  * @input tuple(meta, gbk)
  * - `meta`: Groovy Map containing sample information
- * - `gbk`: Genome file in .gbk or .gbff format.
+ * - `gbk`: Annotated genome file in GenBank (*.gbk or *.gbff) format
  *
- * @output tsv            Coordinates of each prophage identified in the genome
- * @output information    Prophage information details
- * @output bacteria_fasta Bacterial sequences with prophages removed
- * @output bacteria_gbk   Bacterial GenBank file with prophages removed
- * @output phage_fasta    Phage sequences
- * @output phage_gbk      Phage GenBank file
+ * @output tsv            Coordinates (start/end) of each predicted prophage region in the genome
+ * @output information    Detailed information and confidence scores for each prophage
+ * @output bacteria_fasta FASTA sequence of the host genome with prophages excised
+ * @output bacteria_gbk   GenBank file of the host genome with prophages excised
+ * @output phage_fasta    FASTA sequences of the excised prophage elements
+ * @output phage_gbk      GenBank file of the excised prophage elements
  * @output prophage_gff   Prophage predictions in GFF3 format
- * @output prophage_tbl   Prophage predictions in table format
+ * @output prophage_tbl   Prophage predictions in table format (GenBank annotation style)
  * @output prophage_tsv   Prophage predictions in TSV format
- * @output logs           Optional tool execution logs
- * @output nf_logs        Nextflow execution logs
- * @output versions       Software version information (YAML format)
+ * @output logs           Optional software execution logs containing warnings/errors
+ * @output nf_logs        Nextflow execution scripts and logs for debugging
+ * @output versions       A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

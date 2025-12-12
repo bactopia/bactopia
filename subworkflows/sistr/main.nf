@@ -1,27 +1,32 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Salmonella In Silico Typing Resource command-line tool.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs comprehensive typing of Salmonella genomes using
+ * [SISTR](https://github.com/phac-nml/sistr_cmd), which predicts serotype,
+ * determines subspecies, performs MLST typing, and calculates core genome
+ * MLST distances. The tool provides a one-stop solution for Salmonella
+ * classification and epidemiological typing.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords Salmonella, serotype, MLST, cgMLST, typing
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation sistr
  *
- * @modules sistr as sistr_module, csvtk_concat
+ * @modules csvtk_concat, sistr
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for Salmonella typing
  *
- * @output tsv          Tsv
- * @output merged_tsv   Merged Tsv
- * @output allele_fasta Allele Fasta
- * @output allele_json  Allele Json
- * @output cgmlst_csv   Cgmlst Csv
- * @output results      Aggregated results channel containing all output files
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution logs from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output tsv         SISTR comprehensive typing results with serotype and MLST information
+ * @output merged_tsv  Combined TSV file containing typing results from all samples
+ * @output allele_fasta MLST allele sequences in FASTA format
+ * @output allele_json  Detailed MLST allele information in JSON format
+ * @output cgmlst_csv   Core genome MLST distance matrix
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -32,10 +37,10 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow SISTR {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    SISTR_MODULE(fasta)
+    SISTR_MODULE(assembly)
     CSVTK_CONCAT(gather(SISTR_MODULE.out.tsv, 'sistr'), 'tsv', 'tsv')
 
     emit:

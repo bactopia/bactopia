@@ -1,23 +1,26 @@
 /**
- * Quickly create a tree using Mash distances.
+ * Rapid alignment-free phylogenomic tree construction.
  *
- * This process executes mashtree to perform analysis
+ * Uses [Mashtree](https://github.com/lskatz/mashtree) to create a phylogenetic tree
+ * from genome sequences (FASTA, FASTQ, or GenBank) using MinHash distances. It computes
+ * pairwise distances between all inputs and uses the Neighbor-Joining algorithm to
+ * cluster genomes, effectively creating a "distance-based" tree without full alignment.
  *
  * @status stable
- * @keywords tree, mash, fasta, fastq
- * @tags complexity:moderate input-type:single output-type:multiple
+ * @keywords phylogeny, tree, mash, minhash, alignment-free, distance, clustering, neighbor-joining
+ * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation mashtree
  *
  * @input tuple(meta, seqs)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: FASTA, FASTQ, GenBank, or Mash sketch files
+ * - `seqs`: Assembled contigs in FASTA format
  *
- * @output tree     A Newick formatted tree file
- * @output matrix   A TSV matrix of pair-wise Mash distances
- * @output sketches Sketches
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tree      The final phylogenetic tree in Newick format (*.dnd)
+ * @output matrix    The pairwise distance matrix used to build the tree (*.tsv)
+ * @output sketches  Directory containing the individual Mash sketches (optional)
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,7 +32,7 @@ process MASHTREE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, seqs) : Tuple<Map, Path>
+    (_meta, seqs) : Tuple<Map, Set<Path>>
 
     output:
     tree     = tuple(meta, file("${prefix}.dnd"))

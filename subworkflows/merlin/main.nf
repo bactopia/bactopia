@@ -1,43 +1,52 @@
 /**
- * MinmER assisted species-specific bactopia tool seLectIoN.
+ * MinER assisted species-specific bactopia tool seLectIoN.
  *
- * This subworkflow orchestrates the execution of main.nf analysis components.
+ * This subworkflow performs intelligent species identification and selects appropriate
+ * species-specific typing tools based on the detected organism. It first identifies
+ * potential species using MinHash distance estimation, then runs species-specific
+ * subworkflows for detailed characterization including serotyping, MLST, virulence
+ * factor detection, and antimicrobial resistance profiling.
  *
  * @status stable
- * @keywords serotype, species-specific
- * @tags complexity:simple input-type:multiple output-type:multiple features:components
- * @citation main.nf
+ * @keywords species, identification, typing, serotype, virulence
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic, components
+ * @citation mash
  *
+ * @subworkflows merlindist, clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,
+ *              legsta, lissero, meningotype, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
+ *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
- * @input assembly
- * Channel containing tuples with metadata and file paths
+ * @input tuple(meta, assembly, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files for species identification and typing
+ * - `reads`: Read data for species identification and typing
  *
  * @input mash_db
- * Input channel
+ * Mash sketch database for rapid species identification
  *
  * @input emmtyper_blastdb
- * Input channel
+ * EMMTyper BLAST database for Streptococcus pyogenes emm typing (optional)
  *
  * @input hicap_database_dir
- * Input channel
+ * HiCAP database directory for Haemophilus influenzae serotyping (optional)
  *
  * @input hicap_model_fp
- * Input channel
+ * HiCAP HMM model file for improved detection (optional)
  *
  * @input staphtyper_repeats
- * Input channel
+ * Staphylococcus aureus repeat sequences for spa typing (optional)
  *
  * @input staphtyper_repeat_order
- * Input channel
+ * Staphylococcus aureus repeat order file for spa typing (optional)
  *
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution logs from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output results     Aggregated species-specific typing and characterization results
+ * @output logs        Aggregated logs from all executed subworkflows
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
-include { MERLINDIST    } from '../mashdist/main';
+include { MERLINDIST    } from '../merlindist/main';
 include { CLERMONTYPING } from '../clermontyping/main';
 include { ECTYPER       } from '../ectyper/main';
 include { EMMTYPER      } from '../emmtyper/main';
@@ -131,11 +140,6 @@ workflow MERLIN {
     STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
-
-
-
-
-
     ch_streptococcus = MERLINDIST.out.streptococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}
     ch_streptococcus_fq = MERLINDIST.out.streptococcus_fq.map{_meta, _reads, _found -> [_meta, _reads]}
     EMMTYPER(ch_streptococcus, emmtyper_blastdb)

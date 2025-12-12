@@ -1,24 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * In silico Legionella pneumophila Sequence Based Typing.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs sequence-based typing of Legionella pneumophila
+ * using [legsta](https://github.com/tseemann/legsta), which identifies the
+ * Sequence Type (ST) based on the seven-locus scheme. The tool analyzes
+ * allele profiles and provides epidemiological typing data for outbreak
+ * investigation and population studies.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Legionella, pneumophila, sequence typing, ST, epidemiology
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation legsta
  *
- * @modules csvtk_concat, legsta as legsta_module
+ * @modules csvtk_concat, legsta
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for L. pneumophila sequence typing
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         legsta sequence typing results with ST assignments
+ * @output merged_tsv  Combined TSV file containing typing results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +34,10 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow LEGSTA {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    LEGSTA_MODULE(fasta)
+    LEGSTA_MODULE(assembly)
     CSVTK_CONCAT(gather(LEGSTA_MODULE.out.tsv, 'legsta'), 'tsv', 'tsv')
 
     emit:

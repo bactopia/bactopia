@@ -1,26 +1,29 @@
 /**
- * Run Torsten Seemann's classic MLST on a genome assembly.
+ * Automatic Multi-Locus Sequence Typing (MLST) of genome assemblies.
  *
- * This process executes mlst to perform analysis
+ * Uses [mlst](https://github.com/tseemann/mlst) to scan genome assemblies against traditional
+ * PubMLST schemes. It automatically detects the likely species scheme, identifies the alleles
+ * for the 7 housekeeping genes, and assigns a Sequence Type (ST).
  *
  * @status stable
- * @keywords mlst
- * @tags complexity:moderate input-type:multiple output-type:single features:archive-output, compression, conditional-logic, database-dependent
+ * @keywords bacteria, typing, mlst, sequence type, pubmlst, alleles
+ * @tags complexity:simple input-type:single output-type:single features:database-dependent,conditional-logic
  * @citation mlst
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires the MLST database (derived from PubMLST) to be available.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly fasta file
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input db
- * MLST database
+ * Directory or compressed tarball containing the MLST database schemes
  *
- * @output tsv      MLST calls in tsv format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -32,7 +35,7 @@ process MLST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
@@ -68,7 +71,7 @@ process MLST {
         --blastdb \$MLST_DB/blast/mlst.fa \\
         --datadir \$MLST_DB/pubmlst \\
         ${task.ext.args} \\
-        ${fasta} \\
+        ${assembly} \\
         > ${prefix}.tsv
 
     if [[ -f "\$MLST_DB/DB_VERSION" ]]; then

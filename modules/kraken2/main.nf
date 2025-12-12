@@ -1,33 +1,36 @@
 /**
- * Taxonomic classification of reads using Kraken2.
+ * Taxonomic classification and host filtering of sequence reads.
  *
- * This process executes kraken2 to perform analysis
+ * Uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic labels to short
+ * DNA reads by examining exact k-mer matches against a large reference database. It uses the
+ * Lowest Common Ancestor (LCA) algorithm to provide high-precision classification, making it
+ * ideal for metagenomics or removing host contamination (scrubbing).
  *
  * @status stable
- * @keywords kraken2, classification, taxonomy, fastq, metagenomics
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent, path-workarounds
+ * @keywords metagenomics, taxonomy, classification, contamination, scrubbing, k-mer, lca
+ * @tags complexity:high input-type:multiple output-type:multiple features:database-dependent,conditional-logic
  * @citation kraken2
  *
- * @note Uses EMPTY_* placeholder files for optional parameters
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires a standard Kraken2 database (directory or tarball). Memory usage depends on database size (Standard ~50GB).
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end or single-end fastq files
+ * - `reads`: Paired-end or Single-end reads in FASTQ format
  *
  * @input db
- * Kraken2 database directory or tarball
+ * Kraken2 database (Directory or compressed tarball)
  *
- * @output kraken2_report       Kraken2 report file
- * @output scrub_report         Scrubbing report (optional)
- * @output scrub_special_report Scrub Special Report
- * @output classified           Classified reads (optional)
- * @output unclassified         Unclassified reads (optional)
- * @output classified_extra     Classified reads with extra placeholder file
- * @output unclassified_extra   Unclassified reads with extra placeholder file
- * @output logs                 Optional tool execution logs
- * @output nf_logs              Nextflow execution logs
- * @output versions             Software version information (YAML format)
+ * @output kraken2_report    Standard Kraken2 report containing taxonomic abundance counts
+ * @output scrub_report      Summary report of reads removed during host scrubbing (optional)
+ * @output scrub_special_report Duplicate scrub report with modified metadata (Internal use)
+ * @output classified        Reads assigned to a taxon in the database (FASTQ)
+ * @output unclassified      Reads NOT assigned to any taxon (FASTQ)
+ * @output classified_extra  Duplicate classified channel with placeholder for pipeline routing
+ * @output unclassified_extra Duplicate unclassified channel with placeholder for pipeline routing
+ * @output logs              Optional software execution logs containing warnings/errors
+ * @output nf_logs           Nextflow execution scripts and logs for debugging
+ * @output versions          A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

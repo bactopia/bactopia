@@ -28,7 +28,7 @@ nextflow.preview.types = true
  * @section Execution Logs
  *
  * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution logs
+ * @publish logs/nf-* Nextflow execution scripts and logs for debugging
  *
  * @section Versions
  *

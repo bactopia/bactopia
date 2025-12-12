@@ -1,25 +1,27 @@
 /**
- * Identify plasmids in bacterial sequences and assemblies.
+ * Identify plasmid replicon types in bacterial sequences and assemblies.
  *
- * This process executes plasmidfinder to perform analysis
+ * Uses [PlasmidFinder](https://bitbucket.org/genomicepidemiology/plasmidfinder/src/master/)
+ * to identify plasmid types (replicon typing) by querying the genome assembly against a database
+ * of plasmid sequences. This is a crucial step for understanding the mobility of resistance and virulence genes.
  *
  * @status stable
- * @keywords fasta, fastq, plasmid
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords plasmid, replicon, typing, identification, mobility, amr
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation plasmidfinder
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Input FASTA formatted genome sequences
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output json        The results from analysis in JSON format
- * @output txt         The summary of results from analysis
+ * @output json        The complete analysis results in JSON format
+ * @output txt         The human-readable summary of plasmid findings
  * @output tsv         The results from analysis in TSV format
- * @output genome_seq  FASTA of sequences in the input with a hit
- * @output plasmid_seq FASTA of plasmid sequences with a hit against the input
- * @output logs        Optional tool execution logs
- * @output nf_logs     Nextflow execution logs
- * @output versions    Software version information (YAML format)
+ * @output genome_seq  FASTA of the contig regions in the input assembly that showed a hit
+ * @output plasmid_seq FASTA of the plasmid sequences from the database that had a hit
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,27 +1,30 @@
 /**
- * Gene Allele Mutation Microbial Assessment.
+ * Identification, classification, and annotation of translated gene matches.
  *
- * This process executes gamma to perform analysis
+ * Uses [GAMMA](https://github.com/rastanton/GAMMA) (Gene Allele Mutation Microbial Assessment)
+ * to identify and annotate coding sequences in an assembly that match a specific gene database.
+ * It is particularly useful for detecting specific targets like antimicrobial resistance genes
+ * or virulence factors while accounting for potential mutations.
  *
  * @status stable
- * @keywords gamma, gene-calling
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords gene finding, annotation, homology, alignment, gamma, psl
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation gamma
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input db
- * Database in FASTA format
+ * The reference gene database in FASTA format
  *
- * @output gamma    GAMMA file with annotated gene matches
- * @output psl      PSL file with all gene matches found
- * @output gff      GFF file
- * @output fasta    multifasta file of the gene matches
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output gamma     The main GAMMA output file containing annotated gene matches
+ * @output psl       The raw alignment details in PSL format
+ * @output gff       Gene matches in GFF3 format
+ * @output fasta     Extracted nucleotide sequences of the matched genes
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -33,7 +36,7 @@ process GAMMA {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
     db             : Path
 
     output:
@@ -56,23 +59,23 @@ process GAMMA {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     def VERSION = '2.1'
     // Version information not provided by tool on CLI
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     GAMMA.py \\
         ${task.ext.args} \\
-        ${fasta_name} \\
+        ${assembly_name} \\
         ${db} \\
         ${prefix}
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

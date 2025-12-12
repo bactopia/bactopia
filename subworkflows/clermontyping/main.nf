@@ -1,24 +1,28 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict phylogroups of Escherichia coli from genome assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [ClermontTyping](https://github.com/happykhan/ClermonTyping) to determine
+ * the phylogenetic groups of *Escherichia coli* strains from assembled genomes. It processes
+ * each sample individually and aggregates the results into a single consolidated report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords escherichia coli, phylogroup, typing, clermont
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @citation clermontyping
  *
- * @modules csvtk_concat, clermontyping as clermontyping_module
+ * @modules csvtk_concat, clermontyping
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv            Per-sample TSV files containing ClermontTyping results
+ * @output merged_tsv     Consolidated TSV file containing ClermontTyping from all samples
+ * @output supplemental   Additional supplemental output files from ClermontTyping
+ * @output results        Aggregated results channel containing all output files
+ * @output logs           Aggregated logs channel containing all execution logs
+ * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions       Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -29,10 +33,10 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow CLERMONTYPING {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    CLERMONTYPING_MODULE(fasta)
+    CLERMONTYPING_MODULE(assembly)
     CSVTK_CONCAT(gather(CLERMONTYPING_MODULE.out.tsv, 'clermontyping'), 'tsv', 'tsv')
 
     emit:

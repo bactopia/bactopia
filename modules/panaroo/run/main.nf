@@ -1,25 +1,28 @@
 /**
- * A fast and scalable tool for bacterial pangenome analysis.
+ * Fast and scalable bacterial pangenome analysis using a graph-based approach.
  *
- * This process executes panaroo_run to perform analysis
+ * Uses [Panaroo](https://gtonkinhill.github.io/panaroo/) to cluster genes from multiple
+ * annotated bacterial genomes into orthologous groups, correcting for gene splitting and
+ * merges. The primary outputs are the gene presence/absence matrix (the pan-genome) and
+ * a core-genome alignment (for phylogenetics).
  *
  * @status stable
- * @keywords gff, pan-genome, alignment
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
- * @citation panaroo_run
+ * @keywords pan-genome, orthologs, core genome, gene presence-absence, graph-based, annotation
+ * @tags complexity:high input-type:multiple output-type:multiple features:compression
+ * @citation panaroo
  *
  * @input tuple(meta, gff)
  * - `meta`: Groovy Map containing sample information
- * - `gff`: A set of GFF3 formatted files
+ * - `gff`: A list of annotated genome files in GFF3 format (required input)
  *
- * @output supplemental Supplemental
- * @output aln          Core-genome alignment produced by Panaroo (Optional)
- * @output filtered_aln Filtered Aln
- * @output csv          Gene presence absence in Roary format (Optional)
- * @output panaroo_csv  Gene presence absence in Panaroo format (Optional)
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output supplemental  Directory containing the full set of Panaroo intermediate files and data structures
+ * @output aln           The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
+ * @output filtered_aln  The core-genome alignment with highly recombinant regions filtered out (optional)
+ * @output csv           Gene presence/absence matrix in Roary-compatible CSV format (optional)
+ * @output panaroo_csv   Gene presence/absence matrix in Panaroo's native CSV format (optional)
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

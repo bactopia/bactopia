@@ -1,21 +1,23 @@
 /**
- * Creates heatmaps from RGI JSON output files.
+ * Create heatmaps of resistance gene presence/absence.
  *
- * This process executes rgi_heatmap to perform analysis
+ * Uses [RGI](https://github.com/arpcard/rgi) (Resistance Gene Identifier) to generate
+ * heatmaps visualizing the presence or absence of antimicrobial resistance genes across
+ * multiple samples based on RGI JSON results.
  *
  * @status stable
- * @keywords resistance, antimicrobial resistance, CARD, RGI, heatmap, visualization
- * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @keywords resistance, antimicrobial resistance, card, rgi, heatmap, visualization
+ * @tags complexity:simple input-type:multiple output-type:multiple features:conditional-logic
  * @citation rgi_heatmap
  *
  * @input tuple(meta, json)
  * - `meta`: Groovy Map containing sample information
- * - `json`: RGI JSON output files
+ * - `json`: List of RGI results in JSON format
  *
  * @output heatmap  Heatmap files in various formats (CSV, EPS, PNG)
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

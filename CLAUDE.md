@@ -1061,7 +1061,7 @@ All sub-workflows emit four standard "aggregate" output types:
 
 1. **results**: Analysis results
 2. **logs**: Tool execution logs
-3. **nf_logs**: Nextflow execution logs
+3. **nf_logs**: Nextflow execution scripts and logs for debugging
 4. **versions**: Software version information
 
 Each of these four must be converted from `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>` using `flattenPaths` before being emitted.
@@ -1555,9 +1555,9 @@ For individual processes/modules that execute tools:
  * - `<name2>`: <Description of the second element>
  *
  * @output <channel_name>    <Description of the output channel>
- * @output logs              Optional tool execution logs
- * @output nf_logs           Nextflow execution logs
- * @output versions          Software version information (YAML format)
+ * @output logs              Optional software execution logs containing warnings/errors
+ * @output nf_logs           Nextflow execution scripts and logs for debugging
+ * @output versions          A YAML formatted file with software versions
  */
 ```
 
@@ -1611,7 +1611,7 @@ For workflow components that orchestrate modules/subworkflows:
  * @output <specific_output> <Description of a specific, useful output channel>
  * @output results           Aggregated results channel containing all output files
  * @output logs              Aggregated logs channel containing all execution logs
- * @output nf_logs           Aggregated Nextflow execution logs from all processes
+ * @output nf_logs           Aggregated Nextflow execution scripts and logs for debugging from all processes
  * @output versions          Aggregated version information from all executed tools
  */
 ```
@@ -1660,7 +1660,7 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
 // Subworkflow: Use @output for channels, include 4 standard channels
 @output results    Aggregate of all result files
 @output logs       Aggregate of all execution logs
-@output nf_logs    Nextflow execution logs
+@output nf_logs    Nextflow execution scripts and logs for debugging
 @output versions   Software version information
 
 // Entry Workflow: Use @publish for published files
@@ -1694,7 +1694,7 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
  *
  * @output report    Abricate screening results (TSV format with resistance gene hits)
  * @output logs      Optional tool log files containing execution information
- * @output nf_logs   Nextflow execution logs including command, stdout, stderr, and exit code
+ * @output nf_logs   Nextflow execution scripts and logs for debugging including command, stdout, stderr, and exit code
  * @output versions  Software version information in YAML format
  */
 ```
@@ -1732,7 +1732,7 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
  * @output gff         Genome annotation in GFF3 format (standard for genome browsers)
  * @output gbk         Genome annotation in GenBank format (rich format suitable for NCBI submission)
  * @output logs        Optional tool log files containing execution information
- * @output nf_logs     Nextflow execution logs including command, stdout, stderr, and exit code
+ * @output nf_logs     Nextflow execution scripts and logs for debugging including command, stdout, stderr, and exit code
  * @output versions    Software version information in YAML format
  */
 ```
@@ -1770,7 +1770,7 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
  * @output csv          Gene presence/absence matrix showing which genes are present in each genome
  * @output results      Aggregate of all result files from pangenome analysis and SNP distances
  * @output logs         Aggregate of all log files from executed tools
- * @output nf_logs      Nextflow execution logs from all processes
+ * @output nf_logs      Nextflow execution scripts and logs for debugging from all processes
  * @output versions     Software version information from all executed tools
  */
 ```

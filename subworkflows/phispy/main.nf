@@ -1,32 +1,35 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Prediction of prophages from bacterial genomes.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow identifies prophages in bacterial genomes using [PhiSpy](https://github.com/linsalrob/PhiSpy),
+ * which combines similarity-based and composition-based strategies for accurate detection.
+ * The tool identifies integrated phage sequences, extracts bacterial and phage regions,
+ * and provides comprehensive annotation including GFF format for downstream analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords prophage, phage, bacterial, genome, mobile genetic elements
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @citation phispy
  *
- * @modules phispy as phispy_module, csvtk_concat
+ * @modules csvtk_concat, phispy
  *
  * @input gbk
- * Channel containing gbk data
+ * Annotated bacterial genomes in GenBank format for prophage prediction
  *
- * @output tsv            Tsv
- * @output merged_tsv     Merged Tsv
- * @output information    Information
- * @output bacteria_fasta Bacteria Fasta
- * @output bacteria_gbk   Bacteria Gbk
- * @output phage_fasta    Phage Fasta
- * @output phage_gbk      Phage Gbk
- * @output prophage_gff   Prophage Gff
- * @output prophage_tbl   Prophage Tbl
- * @output prophage_tsv   Prophage Tsv
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution logs from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output tsv             PhiSpy prophage prediction results in TSV format
+ * @output merged_tsv      Combined TSV file containing prophage results from all samples
+ * @output information     Detailed information about identified prophages
+ * @output bacteria_fasta  Extracted bacterial genomic sequences in FASTA format
+ * @output bacteria_gbk    Extracted bacterial genomic sequences in GenBank format
+ * @output phage_fasta     Extracted prophage sequences in FASTA format
+ * @output phage_gbk       Extracted prophage sequences in GenBank format
+ * @output prophage_gff    Prophage annotations in GFF3 format
+ * @output prophage_tbl    Prophage protein table file
+ * @output prophage_tsv    Prophage detailed annotations in TSV format
+ * @output results         Aggregated results channel containing all output files
+ * @output logs            Aggregated logs channel containing all execution logs
+ * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions        Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

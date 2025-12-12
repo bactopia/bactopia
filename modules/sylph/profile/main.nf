@@ -1,24 +1,26 @@
 /**
  * Profile metagenome samples against a database using Sylph.
  *
- * This process executes sylph_profile to perform analysis
+ * Uses [Sylph](https://github.com/bluenote-1/sylph) to profile metagenomic samples for taxonomic
+ * abundance and containment ANI against a provided database. It is designed to be extremely fast
+ * and memory-efficient.
  *
  * @status stable
- * @keywords metagenomics, profiling, taxonomy, abundance
- * @tags complexity:moderate input-type:multiple output-type:single features:compression, conditional-logic
+ * @keywords metagenomics, profiling, taxonomy, abundance, ani, sylph
+ * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation sylph_profile
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FastQ files (single or paired-end)
+ * - `reads`: FASTQ reads (single or paired-end)
  *
  * @input db
- * Path parameter for db
+ * Path to the Sylph database file (*.syldb)
  *
  * @output tsv      TSV file with profiling results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

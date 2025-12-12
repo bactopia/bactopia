@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Predict serogroups of Pseudomonas aeruginosa from assemblies.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow uses [Pasty](https://github.com/rpetit3/pasty) to perform in silico
+ * serogrouping of *Pseudomonas aeruginosa* isolates from assembled genomes. It identifies
+ * O-antigen biosynthesis genes to classify isolates into their known serogroups using
+ * BLAST-based homology searches.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords pseudomonas aeruginosa, serogroup, typing, o-antigen, prediction
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @citation pasty
  *
- * @modules csvtk_concat, pasty as pasty_module
+ * @modules pasty, csvtk_concat
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv        Tsv
- * @output merged_tsv Merged Tsv
- * @output blast      Blast
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Per-sample TSV files containing P. aeruginosa serogroup predictions
+ * @output merged_tsv  Consolidated TSV file containing serogroup predictions from all samples
+ * @output blast       Per-sample BLAST results showing hits to O-antigen genes
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -30,10 +34,10 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    PASTY_MODULE(fasta)
+    PASTY_MODULE(assembly)
     CSVTK_CONCAT(gather(PASTY_MODULE.out.tsv, 'pasty'), 'tsv', 'tsv')
 
     emit:

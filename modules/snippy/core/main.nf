@@ -1,36 +1,38 @@
 /**
  * Core-SNP alignment from Snippy outputs.
  *
- * This process executes snippy_core to perform analysis
+ * Uses [Snippy](https://github.com/tseemann/snippy) to generate a core genome alignment
+ * from multiple Snippy outputs. It combines variant calls (VCF) and alignments to produce
+ * a core SNP alignment, which can be used for phylogenetic analysis.
  *
  * @status stable
- * @keywords core, alignment, bacteria
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords snippy, core genome, alignment, phylogeny, snp, bacteria
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation snippy_core
  *
- * @input tuple(meta, meta, meta)
+ * @input tuple(meta, vcf, aligned_fa)
  * - `meta`: Groovy Map containing sample information
- * - `meta`: Groovy Map containing sample information
- * - `meta`: Groovy Map containing sample information
+ * - `vcf`: List of VCF files from Snippy
+ * - `aligned_fa`: List of aligned FASTA files from Snippy
  *
  * @input tuple(meta, reference)
- * - `meta`: Groovy Map containing sample information
- * - `reference`: Reference genome in GenBank format
+ * - `meta`: Groovy Map containing reference information
+ * - `reference`: Reference genome (FASTA or GenBank format)
  *
  * @input mask
- * Optional BED file of sites to mask
+ * Optional BED file of regions to mask in the alignment
  *
- * @output supplemental   Supplemental
+ * @output supplemental   Supplemental files including individual sample alignments
  * @output aln            A core SNP alignment in FASTA format
  * @output full_aln       A whole genome SNP alignment (includes invariant sites)
  * @output clean_full_aln A whole genome SNP alignment (includes invariant sites) with Ns
- * @output tab            Tab-separated columnar list of core SNP sites with alleles but NO annotations
+ * @output tab            Tab-separated list of core SNP sites with alleles (no annotations)
  * @output vcf            Multi-sample VCF file with genotype GT tags for all discovered alleles
- * @output txt            Tab-separated columnar list of alignment/core-size statistics
- * @output samples        Samples
- * @output logs           Optional tool execution logs
- * @output nf_logs        Nextflow execution logs
- * @output versions       Software version information (YAML format)
+ * @output txt            Tab-separated list of alignment and core-size statistics
+ * @output samples        List of samples included in the core alignment
+ * @output logs           Optional software execution logs containing warnings/errors
+ * @output nf_logs        Nextflow execution scripts and logs for debugging
+ * @output versions       A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

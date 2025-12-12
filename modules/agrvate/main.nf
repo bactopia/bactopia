@@ -1,22 +1,23 @@
 /**
- * Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
+ * Determine the agr locus type and operon variants in Staphylococcus aureus.
  *
- * This process executes agrvate to perform analysis
+ * Uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) to type the accessory gene
+ * regulator (agr) locus, a quorum sensing system critical for *Staphylococcus aureus* virulence.
  *
  * @status stable
- * @keywords fasta, virulence, Staphylococcus aureus
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, assembly, fasta, typing, virulence, staphylococcus, aureus, agr
+ * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation agrvate
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: A Staphylococcus aureus fasta file.
+ * - `assembly`: Assembled Staphylococcus aureus contigs in FASTA format
  *
- * @output summary      A summary of the agrvate assessement
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output summary      A tab-delimited report containing the assigned agr type and additional details
+ * @output supplemental Supplemental output files from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,13 +29,13 @@ process AGRVATE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     stage:
-    stageAs 'input/*', fasta
+    stageAs 'input/*', assembly
 
     output:
-    summary      = tuple(meta, file("${prefix}-summary.tab"))
+    summary      = tuple(meta, file("${prefix}.tsv"))
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
@@ -51,24 +52,24 @@ process AGRVATE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = "${prefix}.fna"
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = "${prefix}.fna"
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ./${fasta_name}
+        gzip -c -d ${assembly} > ./${assembly_name}
     else
-        cat ${fasta} > ./${fasta_name}
+        cat ${assembly} > ./${assembly_name}
     fi
 
     agrvate \\
         ${task.ext.args} \\
-        -i ${fasta_name}
+        -i ${assembly_name}
 
-    mv ${meta.name}-results/ supplemental/
-    mv supplemental/${meta.name}-summary.tab ./
+    mv ${prefix}-results/ supplemental/
+    mv supplemental/${prefix}-summary.tab ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

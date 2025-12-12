@@ -1,47 +1,47 @@
 /**
- * Rapid haploid variant calling.
+ * Rapid haploid variant calling and core genome alignment.
  *
- * This process executes snippy_run to perform analysis
+ * Uses [Snippy](https://github.com/tseemann/snippy) to find SNPs and indels between a haploid
+ * reference genome and your Next-Generation Sequencing (NGS) sequence reads. It maps reads to
+ * the reference, calls variants, and generates a consensus sequence.
  *
  * @status stable
- * @keywords variant, fastq, bacteria
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic
- * @citation snippy_run
+ * @keywords snippy, variant calling, snp, indel, alignment, bacteria
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
+ * @citation snippy
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: List of input FastQ files of size 1 and 2 for single-end and paired-end data,
- * respectively.
- * 
+ * - `reads`: FASTQ reads (single-end or paired-end)
  *
  * @input tuple(meta, reference)
- * - `meta`: Groovy Map containing sample information
- * - `reference`: Input file
+ * - `meta`: Groovy Map containing reference information
+ * - `reference`: Reference genome (FASTA or GenBank format)
  *
- * @output aligned_fa               A version of the reference but with - at position with depth=0 and N for 0 < depth < --mincov (does not have variants)
+ * @output aligned_fa               A version of the reference with - at zero coverage positions
  * @output vcf                      The final annotated variants in VCF format
- * @output aligned_fa_error         Aligned Fa Error
- * @output vcf_error                Vcf Error
- * @output error                    Error
- * @output annotated_vcf            Annotated Vcf
- * @output bam                      The alignments in BAM format. Includes unmapped, multimapping reads. Excludes duplicates.
- * @output bai                      Index for the .bam file
+ * @output aligned_fa_error         Aligned FASTA file generated during error state
+ * @output vcf_error                VCF file generated during error state
+ * @output error                    Error log text file
+ * @output annotated_vcf            Annotated VCF file
+ * @output bam                      The alignments in BAM format (includes unmapped/multimapping)
+ * @output bai                      Index for the BAM file
  * @output bed                      The variants in BED format
- * @output consensus_fa             A version of the reference genome with all variants instantiated
- * @output consensus_subs_fa        A version of the reference genome with only substitution variants instantiated
- * @output consensus_subs_masked_fa Consensus Subs Masked Fa
- * @output coverage                 Coverage
- * @output csv                      A comma-separated version of the .tab file
+ * @output consensus_fa             Reference genome with all variants instantiated
+ * @output consensus_subs_fa        Reference genome with only substitution variants instantiated
+ * @output consensus_subs_masked_fa Reference genome with substitutions instantiated and low coverage masked
+ * @output coverage                 Per-base coverage depth information
+ * @output csv                      A comma-separated summary of variants
  * @output filt_vcf                 The filtered variant calls from Freebayes
  * @output gff                      The variants in GFF3 format
- * @output html                     A HTML version of the .tab file
+ * @output html                     A HTML summary of the variants
  * @output raw_vcf                  The unfiltered variant calls from Freebayes
- * @output subs_vcf                 Subs Vcf
- * @output tab                      A simple tab-separated summary of all the variants
- * @output txt                      Tab-separated columnar list of statistics
- * @output logs                     Optional tool execution logs
- * @output nf_logs                  Nextflow execution logs
- * @output versions                 Software version information (YAML format)
+ * @output subs_vcf                 VCF containing only substitution variants
+ * @output tab                      A simple tab-separated summary of all variants
+ * @output txt                      Tab-separated columnar list of alignment statistics
+ * @output logs                     Optional software execution logs containing warnings/errors
+ * @output nf_logs                  Nextflow execution scripts and logs for debugging
+ * @output versions                 A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

@@ -1,22 +1,24 @@
 /**
- * In silico typing and characterization of Bacillus cereus group genomes.
+ * In silico typing and characterization of *Bacillus cereus* group genomes.
  *
- * This process executes btyper3 to perform analysis
+ * Uses [BTyper3](https://github.com/lmc297/BTyper3) to classify *B. cereus* group isolates.
+ * It determines the PanC clade, Multi-Locus Sequence Type (MLST), and screens for virulence
+ * factors, crystal toxins (Bt), and antimicrobial resistance genes.
  *
  * @status stable
- * @keywords bacillus, typing, virulence
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, bacillus, cereus, typing, virulence, toxin, amr, mlst
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation btyper3
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv          BTyper3 final results
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           A tab-delimited final summary report of the typing results
+ * @output supplemental  Directory containing detailed per-gene reports and raw BLAST outputs
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -28,7 +30,7 @@ process BTYPER3 {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv          = tuple(meta, file("${prefix}.tsv"))
@@ -48,24 +50,24 @@ process BTYPER3 {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     # Btyper3 does not accept compressed files
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     btyper3 \\
         ${task.ext.args} \\
         --output ./ \\
-        --input ${fasta_name}
+        --input ${assembly_name}
 
     mv btyper3_final_results/ supplemental/
     mv supplemental/${prefix}_final_results.txt ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fasta_name} ${fasta_name}.njs
+    rm -rf ${assembly_name} ${assembly_name}.njs
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

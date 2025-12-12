@@ -1,25 +1,29 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * k-mer based pipeline to identify the serotype of Streptococcus pneumoniae.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs serotyping of Streptococcus pneumoniae from Illumina
+ * next-generation sequencing reads using [Seroba](https://github.com/sanger-pathogens/seroba).
+ * The tool uses a k-mer based approach to rapidly classify pneumococcal isolates into
+ * their respective serotypes based on the capsular polysaccharide synthesis locus.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords Streptococcus, pneumoniae, serotype, k-mer, capsular
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation seroba
  *
  * @modules csvtk_concat, seroba_run
  *
- * @input fasta
- * Channel containing fasta data
+ * @input tuple(meta, assembly)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembly files in FASTA format for S. pneumoniae serotype prediction
  *
- * @output tsv        Tsv
- * @output txt        Txt
- * @output merged_tsv Merged Tsv
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution logs from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output tsv         Seroba serotype prediction results in TSV format
+ * @output txt         Detailed serotype assignment report
+ * @output merged_tsv  Combined TSV file containing serotype results from all samples
+ * @output results     Aggregated results channel containing all output files
+ * @output logs        Aggregated logs channel containing all execution logs
+ * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions    Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 
@@ -30,10 +34,10 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    SEROBA_RUN(fasta)
+    SEROBA_RUN(assembly)
     CSVTK_CONCAT(gather(SEROBA_RUN.out.tsv, 'seroba'), 'tsv', 'tsv')
 
     emit:

@@ -1,23 +1,25 @@
 /**
  * Rapid large-scale prokaryote pan genome analysis.
  *
- * This process executes roary to perform analysis
+ * Uses [Roary](https://github.com/sanger-pathogens/Roary) to calculate the pan genome of a
+ * collection of prokaryotic annotated assemblies. It outputs a core gene alignment and a
+ * gene presence/absence table.
  *
  * @status stable
- * @keywords pangenome, orthology, core genome
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords pangenome, orthology, core genome, alignment, bacteria
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation roary
  *
  * @input tuple(meta, gff)
  * - `meta`: Groovy Map containing sample information
- * - `gff`: GFF3 files to be analyzed
+ * - `gff`: List of GFF3 files to be analyzed (typically from Prokka)
  *
- * @output supplemental Supplemental
+ * @output supplemental Supplemental files including accessory binary genes and graphs
  * @output aln          Core genome alignment in FASTA format
  * @output csv          Gene presence/absence table
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

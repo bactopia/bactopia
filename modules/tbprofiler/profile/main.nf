@@ -1,27 +1,27 @@
 /**
- * Profile Mycobacterium tuberculosis for drug resistance and strain type.
+ * Detect resistance and lineages of Mycobacterium tuberculosis genomes.
  *
- * This process executes tbprofiler_profile to perform analysis
+ * Uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) to profile *Mycobacterium tuberculosis*
+ * data for drug resistance and lineage information by aligning reads to a reference genome and identifying
+ * specific variants.
  *
  * @status stable
- * @keywords tuberculosis, drug resistance, typing, variant calling
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, database-dependent
+ * @keywords tuberculosis, mycobacterium, drug resistance, amr, typing, variant calling
+ * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation tbprofiler_profile
- *
- * @note Requires external database to be available
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FastQ files (single or paired-end)
+ * - `reads`: FASTQ reads (single or paired-end)
  *
  * @output bam      Aligned BAM file
- * @output csv      Results in CSV format (optional)
+ * @output csv      Results in CSV format
  * @output json     Compressed JSON results file
- * @output txt      Results in text format (optional)
+ * @output txt      Results in text format
  * @output vcf      Compressed VCF file with variants
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

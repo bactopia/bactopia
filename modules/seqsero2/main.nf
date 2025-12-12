@@ -1,22 +1,23 @@
 /**
  * Salmonella serotype prediction from genome sequencing data.
  *
- * This process executes seqsero2 to perform analysis
+ * Uses [SeqSero2](https://github.com/denglab/SeqSero2) to predict *Salmonella* serotypes from
+ * raw sequencing reads or genome assemblies using specific O-antigen and H-antigen markers.
  *
  * @status stable
- * @keywords Salmonella, serotype, prediction
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords salmonella, serotype, prediction, seqsero2, antigen
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation seqsero2
  *
  * @input tuple(meta, seqs)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: FASTA or FASTQ file(s)
+ * - `seqs`: FASTQ reads or Assembled contigs
  *
  * @output tsv      SeqSero2 results in TSV format
  * @output txt      SeqSero2 results in text format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

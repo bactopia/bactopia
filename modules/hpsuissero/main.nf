@@ -1,21 +1,23 @@
 /**
- * Serotyping of Haemophilus parasuis.
+ * Predict *Haemophilus parasuis* serotype.
  *
- * This process executes hpsuissero to perform analysis
+ * Uses [HPSuisSero](https://github.com/Abraham-L/HPSuisSero) to predict the serotype of
+ * *Haemophilus parasuis* (syn. *Glaesserella parasuis*) assemblies. It detects specific
+ * capsule loci markers to assign one of the known serovars.
  *
  * @status stable
- * @keywords haemophilus, parasuis, serotype, typing
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords bacteria, haemophilus parasuis, glaesserella parasuis, serotype, typing, capsule
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation hpsuissero
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv      Tab-delimited serotyping results
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output tsv       A tab-delimited summary of the predicted serotype and gene hits
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process HPSUISSERO {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, files("*.tsv"))
@@ -46,22 +48,22 @@ process HPSUISSERO {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     HpsuisSero.sh \\
-        -i ${fasta_name} \\
+        -i ${assembly_name} \\
         -o ./ \\
         -s ${prefix} \\
         -x fasta \\
         -t ${task.cpus}
 
     # Cleanup
-    rm -rf ${fasta_name} blast_res/
+    rm -rf ${assembly_name} blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

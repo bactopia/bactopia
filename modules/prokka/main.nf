@@ -1,40 +1,41 @@
 /**
  * Annotate prokaryotic genomes.
  *
- * This process executes prokka to perform analysis
+ * Uses [Prokka](https://github.com/tseemann/prokka) to rapidly annotate bacterial, archaeal,
+ * and viral genomes, producing standards-compliant output files including GFF3, GenBank, and Sequin.
  *
  * @status stable
- * @keywords prokka, annotation, prokaryotic
- * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, path-workarounds
+ * @keywords prokka, annotation, prokaryotic, bacteria, genbank, gff
+ * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
  * @citation prokka
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Input FASTA file (contigs or complete genome)
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input proteins
- * Fasta file of trusted proteins to first annotate from
+ * FASTA file of trusted proteins to first annotate from (Optional)
  *
  * @input prodigal_tf
- * Training file to use for gene prediction
+ * Training file to use for gene prediction (Optional)
  *
- * @output annotations Annotations
- * @output gff         annotation in GFF3 format, containing both sequences and annotations
- * @output gbk         annotation in GenBank format, containing both sequences and annotations
- * @output fna         nucleotide FASTA file of the input contig sequences
- * @output faa         protein FASTA file of the annotated genes
- * @output ffn         nucleotide FASTA file of the annotated genes
- * @output sqn         an ASN1 format "Sequin" file for submission to GenBank
- * @output fsa         nucleotide FASTA file of the input contig sequences (with adjusted sequence headers)
- * @output tbl         feature table file
- * @output txt         summary statistics about the annotation
- * @output tsv         tab-separated file of all features (locus_tag,ftype,gene,EC_number,COG,product)
- * @output blastdb     a compressed tar.gz archive of BLAST databases created from the input sequences and annotations
- * @output logs        Optional tool execution logs
- * @output nf_logs     Nextflow execution logs
- * @output versions    Software version information (YAML format)
+ * @output annotations  A tuple containing the FASTA, protein FASTA, and GFF3 files
+ * @output gff          Annotation in GFF3 format, containing both sequences and annotations
+ * @output gbk          Annotation in GenBank format, containing both sequences and annotations
+ * @output fna          Nucleotide FASTA file of the input contig sequences
+ * @output faa          Protein FASTA file of the annotated genes
+ * @output ffn          Nucleotide FASTA file of the annotated genes
+ * @output sqn          An ASN1 format "Sequin" file for submission to GenBank
+ * @output fsa          Nucleotide FASTA file of the input contig sequences (with adjusted headers)
+ * @output tbl          Feature table file
+ * @output txt          Summary statistics about the annotation
+ * @output tsv          Tab-separated file of all features
+ * @output blastdb      A compressed tar.gz archive of BLAST databases created from the input
+ * @output logs         Optional software execution logs containing warnings/errors
+ * @output nf_logs      Nextflow execution scripts and logs for debugging
+ * @output versions     A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -46,12 +47,12 @@ process PROKKA {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     proteins       : Path?
     prodigal_tf    : Path?
 
     stage:
-    stageAs "input/*", fasta
+    stageAs "input/*", assembly
 
     output:
     annotations = tuple(meta, files("${prefix}.{fna,fna.gz}"), files("${prefix}.{faa,faa.gz}"), files("${prefix}.{gff,gff.gz}"))
@@ -73,8 +74,8 @@ process PROKKA {
     script:
     def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed
     def prodigal_opt = prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -103,7 +104,7 @@ process PROKKA {
     """
     echo "${proteins}"
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     if [ "${task.ext.prokka_debug}" == "true" ]; then
@@ -118,7 +119,7 @@ process PROKKA {
             ${locustag} \\
             ${proteins_opt} \\
             ${prodigal_opt} \\
-            ${fasta_name}
+            ${assembly_name}
         rm -rf tmp_prokka/
     else
         prokka \\
@@ -129,7 +130,7 @@ process PROKKA {
             ${locustag} \\
             ${proteins_opt} \\
             ${prodigal_opt} \\
-            ${fasta_name}
+            ${assembly_name}
     fi
 
     # Make blastdb of contigs, genes, proteins
@@ -153,7 +154,7 @@ process PROKKA {
     mv ${prefix}/* ./
 
     # Cleanup intermediate files
-    rm -rf ${fasta_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
+    rm -rf ${assembly_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

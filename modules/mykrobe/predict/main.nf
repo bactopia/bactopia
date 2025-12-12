@@ -1,25 +1,27 @@
 /**
- * AMR predictions for supported species.
+ * Predict Antimicrobial Resistance (AMR) for supported bacterial species.
  *
- * This process executes mykrobe_predict to perform analysis
+ * Uses [Mykrobe](https://github.com/mykrobe/mykrobe) to quickly predict resistance and susceptibility
+ * based on short reads (FASTQ) or aligned reads (BAM). It maps k-mers from the input sequences
+ * against a curated database of resistance markers for species like *M. tuberculosis* and *S. aureus*.
  *
  * @status stable
- * @keywords fastq, bam, antimicrobial resistance
- * @tags complexity:simple input-type:multiple output-type:multiple
- * @citation mykrobe_predict
+ * @keywords amr, resistance, susceptibility, k-mer, fastq, bam, mykrobe
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent
+ * @citation mykrobe
  *
- * @input tuple(meta, seqs)
+ * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: BAM or FASTQ file
+ * - `reads`: Sequencing reads in FASTQ format
  *
  * @input species
- * Species to make AMR prediction against
+ * The target species for which to make the AMR prediction (e.g., "tb" or "staph")
  *
- * @output csv      AMR predictions in CSV format
- * @output json     AMR predictions in JSON format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output csv       AMR predictions in machine-readable CSV format
+ * @output json      Detailed AMR prediction results in JSON format
+ * @output logs      Optional software execution logs containing warnings/errors
+ * @output nf_logs   Nextflow execution scripts and logs for debugging
+ * @output versions  A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -31,7 +33,7 @@ process MYKROBE_PREDICT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, seqs) : Tuple<Map, Path>
+    (_meta, reads) : Tuple<Map, Path>
     species       : String
 
     output:
@@ -62,7 +64,7 @@ process MYKROBE_PREDICT {
         --sample ${prefix} \\
         --format json_and_csv \\
         --output ${prefix} \\
-        --seq ${seqs}
+        --seq ${reads}
 
     # Cleanup
     rm -rf mykrobe

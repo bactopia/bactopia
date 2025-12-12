@@ -1,21 +1,23 @@
 /**
- * Cluster informed identification of both Shigella and EIEC.
+ * Shigella and EIEC serotyping from assemblies.
  *
- * This process executes shigeifinder to perform analysis
+ * Uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to differentiate *Shigella* and
+ * Enteroinvasive *E. coli* (EIEC) and predict their serotypes from genome assemblies. It utilizes
+ * cluster-specific marker genes to distinguish these closely related pathovars.
  *
  * @status stable
- * @keywords Shigella, EIEC, virulence, ipaH, cluster
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, conditional-logic
+ * @keywords shigella, eiec, serotype, identification, cluster, virulence
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation shigeifinder
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: FASTA file containing the genome assembly
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @output tsv      ShigEiFinder results in TSV format
- * @output logs     Optional tool execution logs
- * @output nf_logs  Nextflow execution logs
- * @output versions Software version information (YAML format)
+ * @output logs     Optional software execution logs containing warnings/errors
+ * @output nf_logs  Nextflow execution scripts and logs for debugging
+ * @output versions A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -27,7 +29,7 @@ process SHIGEIFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
     tsv      = tuple(meta, file("${prefix}.tsv"))
@@ -48,21 +50,21 @@ process SHIGEIFINDER {
     meta.process_name = task.ext.process_name
     def VERSION = '1.3.2'
     // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     shigeifinder \\
         ${task.ext.args} \\
         --output ${prefix}.tsv \\
         -t ${task.cpus} \\
-        -i ${fasta_name}
+        -i ${assembly_name}
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

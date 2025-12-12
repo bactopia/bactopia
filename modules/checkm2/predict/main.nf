@@ -1,27 +1,31 @@
 /**
- * Rapidly assess the quality of bacterial and archaeal genomes using machine learning.
+ * Assess genome quality using machine learning.
  *
- * This process executes checkm2_predict to perform analysis
+ * Uses [CheckM2](https://github.com/chklovski/CheckM2) to predict the completeness and
+ * contamination of genome assemblies. Unlike the original CheckM, it uses a gradient boost
+ * machine learning model to predict quality without relying on lineage-specific marker sets,
+ * making it more accurate for novel or reduced genomes.
  *
  * @status stable
- * @keywords quality assessment, completeness, contamination, bacteria, archaea, machine learning
- * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output, compression, conditional-logic, database-dependent
- * @citation checkm2_predict
+ * @keywords quality control, completeness, contamination, machine learning, bacteria, archaea
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
+ * @citation checkm2
  *
- * @note Requires external database to be available
+ * @note Database Required
+ * Requires the CheckM2 database (Diamond database file) to be available.
  *
- * @input tuple(meta, fasta)
+ * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `fasta`: Genome assembly in FASTA format
+ * - `assembly`: Assembled contigs in FASTA format
  *
  * @input db
- * CheckM2 database file or directory containing the database
+ * The CheckM2 database file (*.dmnd)
  *
- * @output tsv          CheckM2 quality report in tab-delimited format
- * @output supplemental Supplemental
- * @output logs         Optional tool execution logs
- * @output nf_logs      Nextflow execution logs
- * @output versions     Software version information (YAML format)
+ * @output tsv           A tab-delimited report of quality metrics (Completeness, Contamination)
+ * @output supplemental  Directory containing intermediate protein files and Diamond alignments
+ * @output logs          Optional software execution logs containing warnings/errors
+ * @output nf_logs       Nextflow execution scripts and logs for debugging
+ * @output versions      A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -33,7 +37,7 @@ process CHECKM2_PREDICT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Path>
     db             : Path
 
     output:
@@ -54,12 +58,12 @@ process CHECKM2_PREDICT {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """    
     # Decompress fasta file if compressed
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     # Check if db is a directory - if so, find the diamond database
@@ -82,6 +86,7 @@ process CHECKM2_PREDICT {
 
     # Cleanup
     gzip supplemental/protein_files/*.faa
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

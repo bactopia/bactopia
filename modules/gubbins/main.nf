@@ -1,31 +1,33 @@
 /**
- * Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences.
+ * Detect recombination and construct a recombination-free phylogeny.
  *
- * This process executes gubbins to perform analysis
+ * Uses [Gubbins](https://github.com/nickjcroucher/gubbins) (Genealogies Unbiased By recomBinations In Nucleotide Sequences)
+ * to iteratively identify and mask recombinant regions in a multiple sequence alignment. It generates
+ * a phylogenetic tree based only on vertically inherited point mutations.
  *
  * @status stable
- * @keywords bacteria, recombination, phylogeny, gubbins
- * @tags complexity:complex input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @keywords bacteria, recombination, phylogeny, alignment, msa, evolution, snp
+ * @tags complexity:complex input-type:single output-type:multiple features:compression
  * @citation gubbins
  *
  * @input tuple(meta, msa)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment file
+ * - `msa`: Multiple sequence alignment in FASTA format
  *
- * @output masked_aln     Masked alignment with recombinant regions removed
- * @output fasta          FASTA format alignment
- * @output gff            GFF file of recombination predictions
- * @output vcf            VCF file of SNP calls
- * @output stats          Per-branch statistics
- * @output phylip         Phylip format alignment
- * @output embl_predicted Recombination predictions in EMBL format
- * @output embl_branch    Branch base reconstruction in EMBL format
- * @output tree           Final phylogenetic tree
- * @output tree_labelled  Node labelled final tree
- * @output bootstrap_tree Final bootstrapped tree (optional)
- * @output logs           Optional tool execution logs
- * @output nf_logs        Nextflow execution logs
- * @output versions       Software version information (YAML format)
+ * @output masked_aln      The input alignment with recombinant regions masked (*.masked.aln.gz)
+ * @output fasta           Gubbins internal FASTA alignment
+ * @output gff             Predictions of recombination events in GFF format
+ * @output vcf             SNP calls in VCF format
+ * @output stats           Per-branch statistics on recombination events
+ * @output phylip          Alignment in PHYLIP format
+ * @output embl_predicted  Recombination predictions in EMBL format
+ * @output embl_branch     Branch base reconstruction in EMBL format
+ * @output tree            The final phylogenetic tree constructed from point mutations (*.final_tree.tre)
+ * @output tree_labelled   The final tree with internal node labels
+ * @output bootstrap_tree  The final tree with bootstrap support values (optional)
+ * @output logs            Optional software execution logs containing warnings/errors
+ * @output nf_logs         Nextflow execution scripts and logs for debugging
+ * @output versions        A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
