@@ -1,33 +1,35 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Pbptyper.
+ * Penicillin Binding Protein (PBP) typing for Streptococcus pneumoniae.
  *
- * Penicillin Binding Protein (PBP) typer for Streptococcus pneumoniae
- * The `pbptyper` module uses [pbptyper](https://github.com/rpetit3/pbptyper) for typing
- * the Penicillin Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies.
+ * This Bactopia Tool uses [pbptyper](https://github.com/rpetit3/pbptyper) for typing
+ * the Penicillin Binding Protein (PBP) of _Streptococcus pneumoniae_ assemblies
+ * to predict penicillin susceptibility.
  *
  * @status stable
- * @keywords fasta, resistance, Streptococcus pneumoniae
+ * @keywords streptococcus pneumoniae, pbp, penicillin resistance, typing, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing,resistance
+ * @citation pbptyper
  *
  * @subworkflows bactopiatool_init, pbptyper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            PBP typing results for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish pbptyper.tsv      Merged TSV file containing PBP typing results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

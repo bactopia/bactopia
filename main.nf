@@ -1,15 +1,15 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia.
- *
  * Comprehensive bacterial analysis pipeline for complete genomic characterization.
+ *
  * This workflow performs end-to-end analysis including quality control, assembly,
  * annotation, antimicrobial resistance detection, MLST typing, and optional
- * pathogen-specific analysis through Merlin.
+ * pathogen-specific analysis through Merlin. It processes raw sequencing reads
+ * and produces a complete genomic characterization suitable for downstream analysis.
  *
  * @status stable
- * @keywords bacteria, assembly, annotation, AMR, MLST, genomics
+ * @keywords bacteria, assembly, annotation, AMR, MLST, genomics, pipeline
+ * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
  * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
  * @subworkflows mlst, qc, bakta, prokka, merlin
@@ -69,44 +69,71 @@ nextflow.preview.types = true
  * Path to Spatyper repeat order file for Merlin
  *
  * @section Quality Control
- * @publish fastqc/*   FastQC quality control reports
- * @publish multiqc/*   MultiQC aggregated quality reports
+ * @publish supplemental/*_fastqc.*          FastQC quality control reports for raw and cleaned reads
+ * @publish supplemental/*-NanoPlot.*       NanoPlot reports for Nanopore reads
+ * @publish supplemental/*.fastp.*          Fastp quality reports (when applicable)
+ * @publish supplemental/*_original.json    Quality metrics for original reads
+ * @publish supplemental/*_final.json       Quality metrics for final reads
  *
  * @section Assembly
- * @publish *.fasta   Assembled genome sequences
- * @publish assembly-stats.txt Assembly quality metrics
- * @publish quast.html   QUAST assembly quality report
+ * @publish *.fasta                           Assembled genome sequences
+ * @publish assembly-stats.tsv              Assembly quality metrics
+ * @publish merged-assembly-stats.tsv        Consolidated assembly statistics
  *
  * @section Annotation
- * @publish *.gff    Genome annotation in GFF3 format
- * @publish *.gbk    Genome annotation in GenBank format
- * @publish *.faa    Protein sequences
- * @publish *.fna    Nucleotide sequences
- * @publish *.tsv    Annotation summary tables
+ * @note Output format depends on chosen annotation tool (Bakta or Prokka)
+ * @publish *.gff.gz                         Genome annotation in GFF3 format (compressed)
+ * @publish *.gbk.gz                         Genome annotation in GenBank format (compressed)
+ * @publish *.faa.gz                         Protein sequences (compressed)
+ * @publish *.fna.gz                         Nucleotide sequences from annotation (compressed)
+ * @publish *.ffn.gz                         Feature nucleotide sequences (compressed)
+ * @publish annotation.tsv                   Annotation summary tables
+ * @publish blastdb.*                        BLAST database created from annotation
  *
  * @section Typing
- * @publish mlst.txt   MLST sequence type results
+ * @publish mlst.tsv                          MLST sequence type results
+ * @publish merged-mlst.tsv                   Consolidated MLST results
  *
  * @section Antimicrobial Resistance
- * @publish amrfinderplus.tsv AMR gene detection results
- * @publish amrfinderplus.mutation.tsv AMR mutation results
+ * @publish amrfinderplus.tsv                AMR gene detection results
+ * @publish amrfinderplus.mutation.tsv       AMR point mutation results
+ * @publish merged-amrfinderplus.tsv         Consolidated AMR results
  *
  * @section Comparative Analysis
- * @publish mash-dist.tsv Mash distance matrix
- * @publish sketch.msh Mash sketch files
- * @publish sourmash.sig Sourmash signatures
+ * @publish *-k21.msh                        Mash sketch files (k=21)
+ * @publish *-k31.msh                        Mash sketch files (k=31)
+ * @publish *-mash-refseq88-*.txt            Mash screening results against RefSeq
+ * @publish *.sig                            Sourmash signatures
+ * @publish sourmash-*.txt                   Sourmash classification results
  *
  * @section Pathogen-Specific Analysis
  * @note Only created if --ask_merlin is enabled
- * @publish merlin/     Merlin pathogen-specific analysis results
+ * @publish merlin/clermontyping/*           E. coli phylogroup typing
+ * @publish merlin/ectyper/*                 Enterotoxigenic E. coli typing
+ * @publish merlin/shigatyper/*              Shigella serotype prediction
+ * @publish merlin/shigapass/*               Shigella passive surveillance
+ * @publish merlin/shigeifinder/*            Shigella and EIEC detection
+ * @publish merlin/stecfinder/*              STEC detection and typing
+ * @publish merlin/emmtyper/*                S. pyogenes emm typing
+ * @publish merlin/hicap/*                   H. influenzae capsular typing
+ * @publish merlin/hpsuissero/*              H. parasuis serotyping
+ * @publish merlin/kleborate/*               Klebsiella species typing
+ * @publish merlin/staphtyper/*              S. aureus spa typing
+ * @publish merlin/agrvate/*                 S. aureus agr typing
+ * @publish merlin/sccmec/*                  S. aureus SCCmec typing
+ *
+ * @section Merged Results
+ * @note Run-level aggregated results from all samples
+ * @publish samplesheet.tsv                  Sample metadata and quality metrics
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                          Tool execution logs
+ * @publish logs/nf-*                        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
+ * @publish versions.yml                     Software version information
  */
+nextflow.preview.types = true
 
 params {
     rundir   : String

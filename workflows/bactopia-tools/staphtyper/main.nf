@@ -1,38 +1,35 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Staphtyper.
+ * Comprehensive typing of Staphylococcus aureus genomes.
  *
- * Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes
- * The `staphtyper` subworkflow includes multiple tools that are specific for typing certain features
- * of *Staphylococcus aureus*. Currently `staphtyper` includes
- * 1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - *agr* locus type and *agr* operon variants.
- * 2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - *spa* type
+ * This Bactopia Tool is a subworkflow that includes multiple tools specific for typing
+ * _Staphylococcus aureus_ features. Currently `staphtyper` includes:
+ * 1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - agr locus type and operon variants
+ * 2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - spa type
  * 3. [sccmec](https://github.com/rpetit3/sccmec) - SCCmec type
- * This tool will evolve with *S. aureus* genomics, so you can expect it to add more typing methods
- * (maybe even replace current methods) in the future. If a certain typing method for *S. aureus*
- * please feel free to suggest it be added!~
  *
  * @status stable
+ * @keywords staphylococcus aureus, agr, spa, sccmec, typing, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing,workflow
+ * @citation agrvate, spatyper, sccmec
  *
  * @subworkflows bactopiatool_init, staphtyper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
- *
- * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @section Comprehensive Typing
+ * @note Results from all included typing tools
+ * @publish staphtyper.tsv    Merged summary containing agr, spa, and SCCmec typing results
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs from all typing tools
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml        Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

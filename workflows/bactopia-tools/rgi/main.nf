@@ -1,33 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Rgi.
+ * Prediction of antibiotic resistance genes using RGI.
  *
- * Predict antibiotic resistance from assemblies
- * The `rgi` module uses [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to identify antibiotic
- * resistance genes in assemblies.
+ * This Bactopia Tool uses [Resistance Gene Identifier (RGI)](https://github.com/arpcard/rgi) to identify
+ * and characterize antibiotic resistance genes in bacterial assemblies. RGI integrates with the
+ * Comprehensive Antibiotic Resistance Database (CARD) to provide high-confidence predictions
+ * of resistance determinants, including perfect and strict hits to known resistance genes,
+ * as well as loose hits for novel variants. The tool generates detailed reports in both
+ * JSON and TSV formats, along with heatmap visualizations for comparative analysis
+ * across multiple samples.
  *
  * @status stable
- * @keywords bacteria, fasta, antibiotic resistance
+ * @keywords bacteria, antibiotic resistance, card, resistance genes, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,visualization
+ * @citation csvtk, rgi
  *
  * @subworkflows bactopiatool_init, rgi
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.json                    JSON report containing detailed RGI results for each sample
+ * @publish *.txt                     Tab-delimited report of RGI results for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish rgi.tsv                   Merged TSV file containing RGI results from all samples
+ * @publish rgi-2.{csv,png}           Heatmap representations of resistance genes across all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                    Tool execution logs including RGI output
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

@@ -1,33 +1,44 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Busco.
+ * Assessment of genome assembly completeness using evolutionarily informed expectations.
  *
- * Assembly completeness based on evolutionarily informed expectations
- * The `busco` module uses [BUSCO](https://gitlab.com/ezlab/busco) (_or Benchmarking Universal Single-Copy Orthologs_)
- * to assess the completeness of your assembly.
+ * This Bactopia Tool uses [BUSCO](https://gitlab.com/ezlab/busco) (Benchmarking Universal Single-Copy Orthologs)
+ * to assess the completeness of genome assemblies by searching for single-copy orthologs. The workflow
+ * processes each assembly against a specified lineage dataset and provides comprehensive completeness metrics.
  *
  * @status stable
- * @keywords qc, assembly
+ * @keywords assembly, completeness, assessment, orthologs, quality control
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,database-dependent
+ * @citation busco, csvtk
  *
  * @subworkflows bactopiatool_init, busco
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input busco_lineage
+ * BUSCO lineage dataset for completeness assessment
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish run_*/                      BUSCO analysis output directory for each lineage
+ * @publish run_*/full_table.tsv        Complete results with scores and lengths of BUSCO matches
+ * @publish run_*/missing_busco_list.tsv List of missing BUSCO genes
+ * @publish run_*/short_summary.txt     Summary of BUSCO assessment results
+ * @publish run_*/short_summary.json    Summary of BUSCO assessment in JSON format
+ * @publish */*-summary.txt             Per-sample BUSCO summary file
+ * @publish */*-summary.json            Per-sample BUSCO summary in JSON format
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish busco.tsv                   Merged TSV file containing BUSCO summaries from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/busco/*                Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                   Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

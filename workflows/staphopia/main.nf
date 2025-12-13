@@ -1,39 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Staphopia.
- *
  * Comprehensive analysis pipeline for Staphylococcus aureus isolates.
+ *
  * This workflow performs complete bacterial analysis including quality control,
  * assembly, annotation, antimicrobial resistance detection, MLST typing,
- * and Staphylococcus-specific analysis.
+ * and Staphylococcus-specific analysis using [Spatyper](https://github.com/HCGB-IGTP/spaTyper),
+ * [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE), and [SCCmecFinder](https://github.com/rpetit3/sccmec).
+ * It processes raw sequencing reads and produces a comprehensive genomic characterization for S. aureus isolates.
  *
  * @status stable
- * @keywords Staphylococcus aureus, assembly, annotation, AMR, MLST, typing
+ * @keywords Staphylococcus aureus, assembly, annotation, AMR, MLST, spa typing, agr typing, sccmec
+ * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
- * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher, 
+ * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
  * @subworkflows mlst, qc, bakta, prokka, staphtyper
  *
  * @input rundir
  * Directory containing raw sequencing reads
  *
  * @input adapters
- * Path to adapter sequences file for removal
+ * Path to adapter sequences file for removal during QC
  *
  * @input phix
- * Path to PhiX sequences for contamination removal
+ * Path to PhiX sequences for contamination removal during QC
  *
  * @input use_bakta
  * Use Bakta for genome annotation instead of Prokka
  *
  * @input bakta_db
- * Path to Bakta database (optional)
+ * Path to Bakta database for annotation
  *
  * @input download_bakta
  * Download Bakta database if not provided
  *
  * @input bakta_save_as_tarball
- * Save Bakta database as tarball
+ * Save Bakta database as tarball for reuse
  *
  * @input bakta_proteins
  * Path to trusted protein sequences for Bakta
@@ -57,37 +58,53 @@ nextflow.preview.types = true
  * Path to repeat order file for Spatyper
  *
  * @section Quality Control
- * @publish fastqc/*   FastQC quality control reports
- * @publish multiqc/*   MultiQC aggregated quality reports
+ * @publish supplemental/*_fastqc.*         FastQC quality control reports for raw and cleaned reads
+ * @publish supplemental/*-NanoPlot.*      NanoPlot reports for Nanopore reads
+ * @publish supplemental/*.fastp.*         Fastp quality reports (when applicable)
  *
  * @section Assembly
- * @publish *.fasta   Assembled genome sequences
- * @publish assembly-stats.txt Assembly quality metrics
+ * @publish *.fna                         Assembled genome sequences in FASTA format
+ * @publish assembly-stats.tsv            Assembly quality metrics per sample
  *
  * @section Annotation
- * @publish *.gff    Genome annotation in GFF3 format
- * @publish *.gbk    Genome annotation in GenBank format
- * @publish *.faa    Protein sequences
- * @publish *.fna    Nucleotide sequences
+ * @note Output format depends on chosen annotation tool (Bakta or Prokka)
+ * @publish *.gff.gz                      Genome annotation in GFF3 format (compressed)
+ * @publish *.gbk.gz                      Genome annotation in GenBank format (compressed)
+ * @publish *.faa.gz                      Protein sequences (compressed)
+ * @publish *.fna.gz                      Nucleotide sequences from annotation (compressed)
+ * @publish annotation.tsv                Annotation summary tables
  *
  * @section Typing
- * @publish mlst.txt   MLST sequence type results
- * @publish staphtyper.txt  Staphylococcus typing results
+ * @publish mlst.tsv                      MLST sequence type results
+ * @publish agrvate-*                     Agr locus typing results
+ * @publish spatyper-*                    spa typing results
+ * @publish sccmec-*                      SCCmec typing results (targets, regions, details)
  *
  * @section Antimicrobial Resistance
- * @publish amrfinderplus.tsv AMR gene detection results
+ * @publish amrfinderplus.tsv             AMR gene detection results
+ * @publish amrfinderplus.mutation.tsv    AMR point mutation results
  *
  * @section Comparative Analysis
- * @publish mash-dist.tsv Mash distance matrix
- * @publish sketch.msh Mash sketch files
+ * @publish *-k21.msh                     Mash sketch files (k=21)
+ * @publish *-k31.msh                     Mash sketch files (k=31)
+ * @publish *-mash-refseq88-*.txt         Mash screening results against RefSeq
+ * @publish *.sig                         Sourmash signatures
+ * @publish sourmash-*.txt                Sourmash classification results
+ *
+ * @section Merged Results
+ * @note Run-level aggregated results from all samples
+ * @publish merged-assembly-stats.tsv     Consolidated assembly statistics
+ * @publish merged-mlst.tsv               Consolidated MLST results
+ * @publish staphtyper.tsv                Consolidated Staphylococcus typing summary
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                       Tool execution logs
+ * @publish logs/nf-*                     Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                  Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

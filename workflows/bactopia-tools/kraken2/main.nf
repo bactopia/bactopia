@@ -1,33 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Kraken2.
+ * Taxonomic classification of metagenomic sequence reads.
  *
- * Taxonomic classifications of sequence reads
- * The `kraken2` module uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic
- * classifications to your sequence reads.
+ * This Bactopia Tool uses [Kraken2](https://github.com/DerrickWood/kraken2) to assign taxonomic
+ * classifications to metagenomic sequence reads. It creates reports of taxonomic assignments
+ * and generates interactive Krona plots for visualization of classification results.
  *
  * @status stable
- * @keywords classify, metagenomics, fastq
+ * @keywords taxonomy, metagenomics, classification, fastq, kraken2, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,classification,visualization
+ * @citation kraken2
  *
  * @subworkflows bactopiatool_init, kraken2
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input kraken2_db
+ * Path to Kraken2 database for taxonomic classification
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.report          Kraken2 taxonomic classification report
+ * @publish *.kraken2         Kraken2 classification results
+ * @publish *.html            Krona interactive HTML report
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish merged-report     Merged Kraken2 reports from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

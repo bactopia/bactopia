@@ -1,50 +1,44 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Merlin.
+ * MinMER-assisted species-specific tool selection and execution.
  *
- * MinmER assisted species-specific bactopia tool seLectIoN
- * _MinmER assisted species-specific bactopia tool seLectIoN_, or Merlin, uses distances based
- * on the RefSeq sketch downloaded by `bactopia datasets` to automatically run species-specific tools.
- * Currently Merlin knows 16 spells for which cover the following:
- * | Genus/Species | Tools |
- * |---------------|-------|
- * | Escherichia / Shigella   | [ECTyper](../bactopia-tools/ectyper.md), [ShigaTyper](../bactopia-tools/shigatyper.md), [ShigEiFinder](../bactopia-tools/shigeifinder.md)  |
- * | Haemophilus   | [hicap](../bactopia-tools/hicap.md), [HpsuisSero](../bactopia-tools/ssuissero.md) |
- * | Klebsiella | [Kleborate](../bactopia-tools/kleborate.md) |
- * | Legionella | [legsta](../bactopia-tools/legsta.md) |
- * | Listeria | [LisSero](../bactopia-tools/lissero.md) |
- * | Mycobacterium | [TBProfiler](../bactopia-tools/tbprofiler.md) |
- * | Neisseria | [meningotype](../bactopia-tools/meningotype.md), [ngmaster](../bactopia-tools/ngmaster.md) |
- * | Pseudomonas | [pasty](../bactopia-tools/pasty.md) |
- * | Salmonella | [SeqSero2](../bactopia-tools/seqsero2.md), [SISTR](../bactopia-tools/sistr.md) |
- * | Staphylococcus | [AgrVATE](../bactopia-tools/agrvate.md), [spaTyper](../bactopia-tools/spatyper.md), [staphopia-sccmec](../bactopia-tools/staphopiasccmec.md) |
- * | Streptococcus | [emmtyper](../bactopia-tools/emmtyper.md), [pbptyper](../bactopia-tools/pbptyper.md), [SsuisSero](../bactopia-tools/ssuissero.md) |
- * Merlin is avialable as an independent Bactopia Tool, or in the Bactopia with the `--ask_merlin` parameter. Even better,
- * if you want to force Merlin to execute all species-specific tools (no matter the distance), you can use `--full_merlin`.
- * Then all the spells will be unleashed!
+ * This Bactopia Tool, Merlin, uses MinMER distances based on the RefSeq sketch to automatically
+ * run species-specific analysis tools. Merlin identifies the closest reference genomes
+ * and executes appropriate typing and analysis tools for each detected species.
  *
  * @status stable
- * @keywords serotype, species-specific
+ * @keywords species-specific, automated, mash, minmer, typing, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,conditional-logic,automation
  *
  * @subworkflows bactopiatool_init, merlin
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input minmer_db
+ * Path to Minmer database for species identification
+ *
+ * @input ask_merlin
+ * Interactive mode for species-specific tool selection
+ *
+ * @input full_merlin
+ * Execute all species-specific tools regardless of species match
+ *
+ * @section Species-Specific Analysis
+ * @note Tools executed depend on detected species
+ * @publish */                        Analysis results from all executed species-specific tools
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish merlin.tsv                Merged summary of all species-specific analyses
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                   Tool execution logs from all executed tools
+ * @publish logs/nf-*                 Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml              Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

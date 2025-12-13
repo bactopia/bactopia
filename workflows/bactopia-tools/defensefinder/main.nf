@@ -1,33 +1,43 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Defensefinder.
+ * Systematic identification of anti-phage defense systems.
  *
- * Systematic search of all known anti-phage systems
- * The `defensefinder` module uses the [defense-finder](https://github.com/mdmparis/defense-finder)
- * for the identification of all known anti-phage systems.
+ * This Bactopia Tool uses [DefenseFinder](https://github.com/mdmparis/defense-finder)
+ * to systematically search for and identify all known anti-phage defense systems
+ * in bacterial genomes using HMM-based protein domain detection.
  *
  * @status stable
- * @keywords phage, fasta
+ * @keywords anti-phage, defense systems, hmm, protein domains, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,hmm-search
  *
  * @subworkflows bactopiatool_init, defensefinder
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.prt                          FASTA file containing all proteins found in defense systems
+ * @publish *.prt.idx                      Index file for the proteins file
+ * @publish *defense_finder_genes.tsv      TSV file with each gene found in defense systems
+ * @publish *defense_finder_hmmer.tsv      TSV file with each HMM hit
+ * @publish *defense_finder_systems.tsv    TSV file with information about each system found
+ * @publish *.macsydata.tar.gz             Raw MACSyFinder output file (requires --df_preserveraw)
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish defensefinder-genes.tsv        Merged TSV of all genes found in defense systems
+ * @publish defensefinder-hmmer.tsv        Merged TSV of all HMM hits
+ * @publish defensefinder-systems.tsv      Merged TSV of all information about systems found
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                        Tool execution logs
+ * @publish logs/nf-*                      Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                   Software version information
+ *
+ * @citation defensefinder
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

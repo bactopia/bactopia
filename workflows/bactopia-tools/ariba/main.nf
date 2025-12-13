@@ -1,33 +1,46 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Ariba.
+ * Gene identification through local assemblies.
  *
- * Gene identification through local assemblies
- * The `ariba` module uses [ARIBA](https://github.com/sanger-pathogens/ariba)
- * to rapidly identify genes in a database by creating local assemblies.
+ * This Bactopia Tool uses [ARIBA](https://github.com/sanger-pathogens/ariba) to rapidly
+ * identify genes in a database by creating local assemblies from short-read data.
+ * ARIBA performs reference-based assembly and variant calling for gene detection.
  *
  * @status stable
- * @keywords fastq, assembly, resistance, virulence
+ * @keywords fastq, assembly, resistance, virulence, gene detection, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,database-dependent,gene-identification
+ * @citation ariba
  *
  * @subworkflows bactopiatool_init, ariba
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input ariba_db
+ * Name of the ARIBA database to use for gene identification
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *-report.tsv           Gene detection report for each sample
+ * @publish *-summary.csv          Summary of gene detection results
+ * @publish assembled_genes.fa.gz  Assembled genes in compressed FASTA format
+ * @publish assembled_seqs.fa.gz   Assembled sequences matching references
+ * @publish assemblies.fa.gz       Raw local assemblies
+ * @publish debug.report.tsv       Detailed report including synonymous mutations
+ * @publish log.clusters.gz        Analysis log file
+ * @publish version_info.txt       Version information for ARIBA and dependencies
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish ariba-report.tsv       Merged gene detection reports from all samples
+ * @publish ariba-summary.csv      Merged summary reports from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                Tool execution logs
+ * @publish logs/nf-*              Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml           Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

@@ -1,34 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Midas.
+ * Estimate species abundances from metagenomic samples.
  *
- * Estimate species abundances from FASTQ files
- * The `midas` module uses [MIDAS](https://github.com/snayfach/MIDAS) to estimate the
- * abundance of bacterial species in a sample. MIDAS makes use of a database with
- * more than 30,000 reference genomes to estimate abundances.
+ * This Bactopia Tool uses [MIDAS](https://github.com/snayfach/MIDAS) to estimate
+ * bacterial species abundances in metagenomic samples. MIDAS uses a database
+ * with more than 30,000 reference genomes for accurate species profiling.
  *
  * @status stable
- * @keywords classify, metagenomics, fastq
+ * @keywords metagenomics, species abundance, profiling, midas, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,profiling,database-dependent
+ * @citation midas
  *
  * @subworkflows bactopiatool_init, midas
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input midas_db
+ * Path to MIDAS database
+ *
+ * @section Species Abundance
+ * @publish *.tsv              Species abundance profiles
+ * @publish *-species.tsv       Species-level abundance
+ * @publish *-genes.tsv         Gene-level abundance
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish midas.tsv           Merged TSV file containing MIDAS results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**             Tool execution logs
+ * @publish logs/nf-*           Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml        Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

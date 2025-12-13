@@ -1,37 +1,38 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Kleborate.
+ * Comprehensive screening of Klebsiella genomes for virulence and resistance determinants.
  *
- * Screening Klebsiella genome assemblies for MLST, sub-species, and other related genes of interest
- * The `kleborate` module uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of
+ * This Bactopia Tool uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of
  * _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
- * - MLST, species,
- * - ICEKp associated virulence loci
- * - virulence plasmid associated loci
- * - antimicrobial resistance determinants,
- * - K (capsule) and O antigen (LPS) serotype prediction.
+ * MLST, species, ICEKp associated virulence loci, virulence plasmid associated loci,
+ * antimicrobial resistance determinants, and K (capsule) and O antigen (LPS) serotype.
  *
  * @status stable
+ * @keywords klebsiella, mlst, virulence, amr, serotyping, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,virulence,resistance,typing
+ * @citation kleborate
  *
  * @subworkflows bactopiatool_init, kleborate
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @section Comprehensive Analysis
+ * @publish *.kleborate.tsv      Comprehensive Kleborate report
+ * @publish *-resistance.tsv     AMR determinant summary
+ * @publish *-virulence.tsv      Virulence gene summary
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish kleborate.tsv        Merged TSV file containing Kleborate results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**               Tool execution logs
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml          Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

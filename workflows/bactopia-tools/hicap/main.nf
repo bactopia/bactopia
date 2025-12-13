@@ -1,32 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Hicap.
+ * Identify cap locus serotype and structure in Haemophilus influenzae assemblies.
  *
- * Identify cap locus serotype and structure in your _Haemophilus influenzae_ assemblies
- * The `hicap` module uses [hicap](https://github.com/scwatts/hicap) along wih an assembly for
- * the _in silico_ typing of the _Haemophilus influenzae_ cap locus.
+ * This Bactopia Tool uses [hicap](https://github.com/scwatts/hicap) with assemblies for
+ * _in silico_ typing of the _Haemophilus influenzae_ capsular locus.
  *
  * @status stable
+ * @keywords haemophilus influenzae, serotyping, capsular locus, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation hicap
  *
  * @subworkflows bactopiatool_init, hicap
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input hicap_database_dir
+ * Path to hicap database directory
+ *
+ * @input hicap_model_fp
+ * Path to hicap model file
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.summary       Summary of serotype prediction
+ * @publish *.gff           Annotated capsular locus in GFF format
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish hicap.tsv        Merged TSV file containing hicap results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

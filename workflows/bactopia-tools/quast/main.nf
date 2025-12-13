@@ -1,34 +1,44 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Quast.
+ * Quality assessment of assembled contigs using QUAST.
  *
- * A module for assessing the quality of assembled contigs
- * The `quast` module uses [QUAST](https://github.com/ablab/quast) to assess the quality of
- * assembled contigs. To assist assessment, QUAST produces a number of plots and tables that
- * can be evaluated.
+ * This Bactopia Tool uses [QUAST](https://github.com/ablab/quast) to evaluate the quality
+ * of assembled contigs. QUAST (Quality Assessment Tool for Genome Assemblies) generates
+ * comprehensive reports including numerous plots and tables that help assess assembly
+ * quality metrics such as N50, GC content, genome fraction, and misassembly rates.
+ * It produces both per-sample assessments and merged summaries for comparative analysis
+ * across multiple samples.
  *
  * @status stable
- * @keywords assembly, quality
+ * @keywords assembly, quality, assessment, metrics, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, quast
  *
  * @subworkflows bactopiatool_init, quast
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                      Summary statistics of QUAST assessment for each sample
+ * @publish basic_stats/               Directory containing plots of assembly metrics (GC content, NGx, Nx)
+ * @publish icarus.html                Icarus main menu with links to interactive viewers
+ * @publish icarus_viewers/            Additional reports and viewers for Icarus
+ * @publish predicted_genes/           Directory containing predicted gene information
+ * @publish report.*                   Assessment summary in various formats (html, pdf, tex, tsv, txt)
+ * @publish transposed_report.*        Transposed version of the assessment summary (tex, tsv, txt)
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish quast.tsv                  Merged TSV file with QUAST summary statistics from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                    Tool execution logs including QUAST logs
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

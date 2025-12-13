@@ -1,33 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Blastp.
+ * Search against protein BLAST databases using protein queries.
  *
- * Search against protein BLAST databases using protein queries
- * The `blastp` module uses [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
- * to query protein sequences against protein databases for each sample.
+ * This Bactopia Tool uses [BLASTP](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+ * to query protein sequences against protein databases for sequence similarity search.
+ * BLASTP compares a protein query to a protein database to find similar sequences.
  *
  * @status stable
- * @keywords fasta, blast, alignment
+ * @keywords fasta, blast, alignment, protein, similarity, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
  *
  * @subworkflows bactopiatool_init, blastp
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input blastp_query
+ * Path to protein query sequence in FASTA format
+ *
+ * @input blastp_db
+ * Path to BLAST protein database for searching
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.blastp.tsv        BLASTP alignment results in tabular format
+ * @publish *.blastp.html       Interactive HTML report of BLASTP results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish blastp.tsv          Merged BLASTP results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**            Tool execution logs
+ * @publish logs/nf-*          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
+ * @publish versions.yml        Software version information
    */
+nextflow.preview.types = true
 
 params {
     rundir   : String

@@ -1,36 +1,45 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Gtdb.
+ * Identify marker genes and assign taxonomic classifications using GTDB.
  *
- * Identify marker genes and assign taxonomic classifications
- * The `gtdb` tool uses [GTDB-Tk's](https://github.com/Ecogenomics/GTDBTk) classify
- * workflow to assign taxonomic classifications to your set of samples. This is
- * done through the use of the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/).
- * If you are unsure of your sequences, `gtdb` is useful tool to help determine
- * the taxonomy of your samples.
+ * This Bactopia Tool uses [GTDB-Tk's](https://github.com/Ecogenomics/GTDBTk) classify
+ * workflow to assign taxonomic classifications to samples using the
+ * [Genome Taxonomy Database](https://gtdb.ecogenomic.org/).
  *
  * @status stable
- * @keywords taxonomy
+ * @keywords taxonomy, classification, marker genes, phylogeny, gtdb, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,taxonomy,database-dependent
+ * @citation gtdb
  *
  * @subworkflows bactopiatool_init, gtdb
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input gtdb
+ * Path to GTDB database directory
+ *
+ * @input download_gtdb
+ * Download GTDB database if not found
+ *
+ * @input gtdb_save_as_tarball
+ * Save GTDB database as tarball after download
+ *
+ * @section Taxonomic Classification
+ * @publish *.summary.tsv        Taxonomic classification summary
+ * @publish *.gtdbtk.tsv        Detailed GTDB-Tk results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish gtdb.tsv            Merged TSV file containing GTDB results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**             Tool execution logs
+ * @publish logs/nf-*           Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml        Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

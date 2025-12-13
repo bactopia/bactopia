@@ -1,33 +1,38 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Blastx.
+ * Search against protein BLAST databases using translated nucleotide queries.
  *
- * Search against protein BLAST databases using translated nucleotide queries
- * The `blastx` module uses [BLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
- * to query translated nucleotide sequences against protein databases for each sample.
+ * This Bactopia Tool uses [BLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+ * to query translated nucleotide sequences against protein databases for protein homology search.
  *
  * @status stable
- * @keywords fasta, blast, alignment
+ * @keywords fasta, blast, alignment, protein, translation, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
+ * @citation blast
  *
  * @subworkflows bactopiatool_init, blastx
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input blastx_query
+ * Path to nucleotide query sequence in FASTA format
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.blastx.tsv      BLASTX alignment results in tabular format
+ * @publish *.blastx.html     Interactive HTML report of BLASTX results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish blastx.tsv        Merged BLASTX results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

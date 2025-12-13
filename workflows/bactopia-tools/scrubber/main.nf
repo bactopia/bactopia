@@ -1,33 +1,42 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Scrubber.
+ * Removal of human and contaminant sequences from metagenomic reads.
  *
- * Scrub human reads from FASTQ files
- * The `scrubber` module uses [sra-human-scrubber](https://github.com/ncbi/sra-human-scrubber/)
- * to identify and remove any potential human reads.
+ * This Bactopia Tool removes human and other contaminant sequences from metagenomic reads using
+ * either [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or a Kraken2-based approach
+ * (k2scrubber) with the HPRC human database. The tool provides flexible contamination removal
+ * with detailed reporting of read classification and filtering statistics. It processes paired-end
+ * or single-end reads, producing cleaned FASTQ files with human sequences removed and comprehensive
+ * reports documenting the decontamination process.
  *
  * @status stable
- * @keywords filter, human
+ * @keywords metagenomics, decontamination, human removal, read filtering, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional
+ * @citation kraken2, srahumanscrubber
  *
  * @subworkflows bactopiatool_init, scrubber
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input use_srascrubber
+ * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.scrubbed.fastq.gz          Cleaned reads after human sequence removal
+ * @publish *.scrub.report.tsv           Report of read classification and removal statistics
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish scrubber.tsv                 Merged TSV file containing scrubber reports from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                      Tool execution logs including classification output
+ * @publish logs/nf-*                    Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                 Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

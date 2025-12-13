@@ -1,33 +1,42 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Tblastx.
+ * Search against translated nucleotide databases using translated nucleotide queries.
  *
- * Search against translated nucleotide databases using a translated nucleotide query
- * The `tblastx` module uses [TBLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
- * to query translated nucleotide sequences against translated nucleotide databases for each sample.
+ * This Bactopia Tool uses [TBLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+ * to query translated nucleotide sequences against translated nucleotide databases for
+ * comprehensive homology search at the protein level.
  *
  * @status stable
- * @keywords fasta, blast, alignment
+ * @keywords fasta, blast, alignment, protein, translation, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
+ * @citation blast
  *
  * @subworkflows bactopiatool_init, tblastx
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input tblastx_query
+ * Path to nucleotide query sequence in FASTA format
+ *
+ * @input tblastx_db
+ * Path to TBLASTX database for searching
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tblastx.tsv      TBLASTX alignment results in tabular format
+ * @publish *.tblastx.html     Interactive HTML report of TBLASTX results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish tblastx.tsv        Merged TBLASTX results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**            Tool execution logs
+ * @publish logs/nf-*          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml       Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

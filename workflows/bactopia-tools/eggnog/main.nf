@@ -1,33 +1,49 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Eggnog.
+ * Functional annotation of proteins using orthologous groups and phylogenies.
  *
- * Functional annotation of proteins using orthologous groups and phylogenies
- * The `eggnog` module uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign
+ * This Bactopia Tool uses [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) to assign
  * functional annotation to protein sequences. eggNOG-mapper uses orthologous groups and phylogenies
  * from the eggNOG database to more precisely functionally annotate than traditional homology methods.
  *
  * @status stable
+ * @keywords functional annotation, orthology, proteins, eggnog, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,functional-annotation,orthology,database-dependent
+ * @citation eggnog
  *
  * @subworkflows bactopiatool_init, eggnog
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input eggnog_db
+ * Path to eggNOG database for functional annotation
+ *
+ * @input download_eggnog
+ * Download eggNOG database if not found locally
+ *
+ * @section Annotation
+ * @publish *.emapper.annotations      Results from the annotation phase
+ * @publish *.emapper.hits             Results from the search phase (HMMER, Diamond or MMseqs2)
+ * @publish *.emapper.seed_orthologs   Results from parsing the hits
+ * @publish *.emapper.annotations.xlsx Annotations in Excel format
+ * @publish *.emapper.orthologs        List of orthologs found for each query
+ * @publish *.emapper.genepred.fasta   Sequences of predicted CDS
+ * @publish *.emapper.gff              GFF of predicted CDS
+ * @publish *.emapper.no_annotations.fasta Sequences without annotation
+ * @publish *.emapper.pfam             Positions of PFAM domains identified
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish eggnog.tsv                 Merged annotations from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                    Tool execution logs
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

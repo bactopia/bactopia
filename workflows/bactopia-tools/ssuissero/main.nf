@@ -1,33 +1,34 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Ssuissero.
+ * Serotype prediction of Streptococcus suis assemblies.
  *
- * Serotype prediction of _Streptococcus suis_ assemblies
- * The `ssuissero` module uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict
+ * This Bactopia Tool uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict
  * the serotype of _Streptococcus suis_ assemblies.
  *
  * @status stable
- * @keywords bacteria, fasta, streptococcus
+ * @keywords streptococcus suis, serotyping, fasta, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation ssuissero
  *
  * @subworkflows bactopiatool_init, ssuissero
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Serotype prediction results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish ssuissero.tsv     Merged TSV file containing SsuisSero results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

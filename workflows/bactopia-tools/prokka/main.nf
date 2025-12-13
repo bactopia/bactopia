@@ -1,39 +1,45 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Prokka.
+ * Rapid whole genome annotation of bacterial, archaeal, and viral genomes.
  *
- * Whole genome annotation of small genomes (bacterial, archaeal, viral)
- * The `prokka` module uses [Prokka](https://github.com/tseemann/prokka) to rapidly annotate bacterial
- * genomes in a standardized fashion.
+ * This Bactopia Tool uses [Prokka](https://github.com/tseemann/prokka) to rapidly annotate small genomes
+ * in a standardized fashion. It identifies protein-coding genes, rRNA, tRNA, and other features,
+ * then searches them against multiple reference databases to provide comprehensive functional annotation.
  *
  * @status stable
+ * @keywords annotation, genome, prokaryote, functional annotation, genes
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool
+ * @citation prokka
  *
  * @subworkflows bactopiatool_init, prokka
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *.gff    Genome annotation in GFF3 format
- * @publish *.gbk    Genome annotation in GenBank format
- * @publish *.faa    Protein sequences
- * @publish *.fna    Nucleotide sequences
- * @publish *.ffn    Feature nucleotide sequences
+ * @publish *.gff                 Genome annotation in GFF3 format containing sequences and annotations
+ * @publish *.gbk                 Genome annotation in GenBank format containing sequences and annotations
+ * @publish *.faa                 Protein FASTA file of translated CDS sequences
+ * @publish *.fna                 Nucleotide FASTA file of input contig sequences
+ * @publish *.ffn                 Nucleotide FASTA file of all predicted transcripts
+ * @publish *.fsa                 Nucleotide FASTA file of predicted protein sequences
+ * @publish *.sqn                 ASN1 format Sequin file for GenBank submission
+ * @publish *.tbl                 Feature Table file for GenBank submission
+ * @publish *.tsv                 Tab-separated file of all features with functional information
+ * @publish *.txt                 Statistics report of annotated features
+ * @publish *.blastdb.tar.gz      BLAST+ database archive of contigs, genes, and proteins
  *
  * @section Merged Results
- *
- * @publish merged-*    Aggregated results from all samples
+ * @publish prokka.tsv            Merged TSV file containing annotation summaries from all samples
  *
  * @section Execution Logs
- *
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/prokka/*         Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- *
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml          Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

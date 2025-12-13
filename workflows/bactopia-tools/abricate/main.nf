@@ -1,34 +1,37 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Abricate.
+ * Mass screening of contigs for antimicrobial resistance and virulence genes.
  *
- * Performs mass screening of contigs for antimicrobial resistance and virulence genes.
  * This Bactopia Tool uses [Abricate](https://github.com/tseemann/abricate) to screen
- * assemblies against multiple resistance and virulence gene databases.
+ * assemblies against multiple resistance and virulence gene databases, including
+ * NCBI, CARD, RESFINDER, ARG-ANNOT, VFDB, PLASMIDFINDER, ECOLI_VF, and MEGARES.
+ * It processes a Bactopia analysis directory, runs Abricate on each sample, and
+ * creates a merged summary report.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance, virulence
- * @citation abricate
+ * @keywords bacteria, antimicrobial resistance, virulence, screening, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation abricate, arg_annot, card, csvtk, ecoh, megares2, ncbi_reference_gene_catalog, plasmidfinder, resfinder, vfdb
  *
  * @subworkflows bactopiatool_init, abricate
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *.txt    Tab-delimited report of Abricate screening results
+ * @publish *.tsv            Tab-delimited report of Abricate screening results for each sample
  *
  * @section Merged Results
- * @publish abricate.tsv    Merged TSV file with Abricate results from all samples
+ * @publish abricate.tsv     Merged TSV report containing Abricate results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/abricate/*  Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String
@@ -36,7 +39,6 @@ params {
 
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { ABRICATE          } from '../../../subworkflows/abricate/main'
-
 
 workflow {
     main:

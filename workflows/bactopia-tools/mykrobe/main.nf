@@ -1,33 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mykrobe.
+ * Antimicrobial resistance detection for specific bacterial species.
  *
- * Antimicrobial resistance detection for specific species
- * The `mykrobe` module uses the command-line version of [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to predict
- * antimicrobial resistance for _Mycobacterium tuberculosis_, _Staphylococcus aureus_, _Shigella sonnei_, and _Salmonella typhi_.
+ * This Bactopia Tool uses [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to predict
+ * antimicrobial resistance for _Mycobacterium tuberculosis_, _Staphylococcus aureus_,
+ * _Shigella sonnei_, and _Salmonella typhi_ from sequencing data.
  *
  * @status stable
- * @keywords fastq, antimicrobial resistance
+ * @keywords fastq, antimicrobial resistance, species-specific, mykrobe, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,species-specific
+ * @citation mykrobe
  *
  * @subworkflows bactopiatool_init, mykrobe
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input mykrobe_species
+ * Target species for AMR prediction (e.g., tb, saureus, sonnei, typhi)
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.json            Mykrobe analysis results in JSON format
+ * @publish *.txt             Tab-delimited report of resistance predictions
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mykrobe.tsv       Merged TSV file containing results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

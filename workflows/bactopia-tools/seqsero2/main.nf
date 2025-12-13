@@ -1,32 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Seqsero2.
+ * Salmonella serotype prediction from sequencing reads or assemblies.
  *
- * Salmonella serotype prediction from reads or assemblies
- * The `seqsero2` module uses [SeqSero2](https://github.com/denglab/SeqSero2) for Salmonella
- * serotype prediction from reads and assemblies.
+ * This Bactopia Tool uses [SeqSero2](https://github.com/denglab/SeqSero2) to predict Salmonella
+ * serotypes from both raw sequencing reads and assembled genomes. SeqSero2 is a novel pipeline
+ * for determining Salmonella serotypes using raw sequencing reads or assemblies through
+ * k-mer analysis and targeted identification of O and H antigen genes. The tool provides
+ * accurate serotype predictions following the Kaufmann-White scheme, supporting traditional
+ * and molecular serotyping methods for epidemiological surveillance and outbreak investigation.
  *
  * @status stable
+ * @keywords Salmonella, serotyping, epidemiology, O antigen, H antigen, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, seqsero2
  *
  * @subworkflows bactopiatool_init, seqsero2
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *_result.tsv             Tab-delimited file with detailed SeqSero2 results for each sample
+ * @publish *_result.txt             Text file with key-value pairs of SeqSero2 prediction results
+ * @publish *_log.txt                Detailed log file from SeqSero2 analysis
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish seqsero2.tsv             Merged TSV file containing SeqSero2 results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                  Tool execution logs including SeqSero2 output
+ * @publish logs/nf-*                Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml             Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

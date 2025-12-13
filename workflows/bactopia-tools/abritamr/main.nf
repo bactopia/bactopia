@@ -1,35 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Abritamr.
+ * A NATA accredited tool for reporting the presence of antimicrobial resistance genes.
  *
- * A NATA accredited tool for reporting the presence of antimicrobial resistance genes
- * The `abritamr` module uses [abriTAMR](https://github.com/MDU-PHL/abritamr) for the
- * detection of antimicrobial resistance and virulence genes. It makes use of
- * [AMRFinderPlus](https://github.com/ncbi/amr) and its accredited by NATA for use in
- * reporting presence of reportable AMR genes in Victoria Australia.
+ * This Bactopia Tool uses [abriTAMR](https://github.com/MDU-PHL/abritamr) to identify
+ * antimicrobial resistance genes in bacterial genomes. It runs AMRFinderPlus on each
+ * sample and collates the results into functional classes, producing detailed reports
+ * on resistance genes, partial matches, and virulence factors. It is accredited by NATA
+ * for use in reporting presence of reportable AMR genes in Victoria, Australia.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
+ * @keywords bacteria, antimicrobial resistance, virulence, amr, nata, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation abritamr, amrfinderplus, csvtk
  *
  * @subworkflows bactopiatool_init, abritamr
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.abritamr.txt           Tab-delimited file combining non-empty summary files from abriTAMR
+ * @publish *.amrfinder.out          Raw output from AMRFinderPlus (per sequence)
+ * @publish *.summary_matches.txt    Tab-delimited file with AMR gene matches per sequence
+ * @publish *.summary_partials.txt   Tab-delimited file with partial AMR gene matches
+ * @publish *.summary_virulence.txt  Tab-delimited file with virulence gene classifications
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish abritamr.tsv             Merged TSV file containing AMR summaries from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/abritamr/*          Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml             Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir: String

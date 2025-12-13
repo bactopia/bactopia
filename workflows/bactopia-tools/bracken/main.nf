@@ -1,34 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Bracken.
+ * Estimate taxonomic abundance of metagenomic samples.
  *
- * Estimate taxonomic abundance of samples from Kraken2 results
- * The `bracken` module uses [Bracken](https://github.com/jenniferlu717/Bracken) to estimate
- * taxonomic abundance of samples. This Bactopia Tool will also run [Kraken2](https://ccb.jhu.edu/software/kraken2/),
- * automatically and generate [Krona](https://github.com/marbl/Krona) charts for both Bracken and Kraken2.
+ * This Bactopia Tool uses [Bracken](https://github.com/jenniferlu717/Bracken) to estimate
+ * taxonomic abundance from Kraken2 results. It also runs [Kraken2](https://ccb.jhu.edu/software/kraken2/)
+ * for taxonomic classification and generates [Krona](https://github.com/marbl/Krona) interactive charts.
  *
  * @status stable
- * @keywords classify, metagenomics, fastq
+ * @keywords metagenomics, classification, abundance, kraken2, bracken, krona, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,abundance-profiling,database-dependent
+ * @citation bracken, kraken2, krona
  *
  * @subworkflows bactopiatool_init, bracken
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input kraken2_db
+ * Path to Kraken2 database for taxonomic classification
  *
- * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @section Classification Results
+ * @publish *.kraken2.report.txt   Kraken2 classification report
+ * @publish *.bracken.report.txt   Bracken abundance estimates
+ * @publish *.krona.html          Krona interactive visualization
+ *
+ * @section Summary Reports
+ * @publish bracken-summary.tsv    Summary of classification results across all samples
+ * @publish bracken-matrix.tsv     Abundance matrix for downstream analysis
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                Tool execution logs
+ * @publish logs/nf-*              Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml            Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

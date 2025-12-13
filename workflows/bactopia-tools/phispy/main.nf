@@ -1,33 +1,34 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Phispy.
+ * Prediction of prophages in bacterial and archaeal genomes.
  *
- * Predict prophages in bacterial genomes
- * The `phispy` module uses [PhiSpy](https://github.com/linsalrob/PhiSpy) to identify prophages
- * from bacterial and archaeal genomes.
+ * This Bactopia Tool uses [PhiSpy](https://github.com/linsalrob/PhiSpy) to identify prophages
+ * from bacterial and archaeal genomes using machine learning approaches.
  *
  * @status stable
- * @keywords prophage, annotation
+ * @keywords prophage, phage, annotation, bacterial, archaeal, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,phage-detection
+ * @citation phispy
  *
  * @subworkflows bactopiatool_init, phispy
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Tab-delimited file containing prophage predictions
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish phispy.tsv       Merged TSV file containing prophage predictions from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

@@ -1,33 +1,35 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Btyper3.
+ * Taxonomic classification of Bacillus cereus group isolates.
  *
- * Taxonomic classification of Bacillus cereus group isolates
- * The `btyper3` module uses [BTyper3](https://github.com/lmc297/BTyper3) to classify
+ * This Bactopia Tool uses [BTyper3](https://github.com/lmc297/BTyper3) to classify
  * Bacillus cereus group isolates from genome assemblies.
  *
  * @status stable
- * @keywords classify, bacillus cereus group, fasta
+ * @keywords bacillus cereus, taxonomy, classification, fasta, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,classification
+ * @citation btyper3
  *
  * @subworkflows bactopiatool_init, btyper3
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *_final_results.txt   Final tab-delimited file of BTyper3 results
+ * @publish results/*             Directory of detailed analysis results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish btyper3.tsv           Merged TSV file containing BTyper3 results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**               Tool execution logs
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml          Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

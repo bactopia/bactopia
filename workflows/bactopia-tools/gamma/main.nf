@@ -1,32 +1,37 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Gamma.
+ * Identification, classification, and annotation of translated gene matches.
  *
- * Identification, classification, and annotation of translated gene matches
- * The `gamma` module uses [GAMMA](https://github.com/rastanton/GAMMA) to identify, classify, and annotate
- * translated gene matches from assemblies.
+ * This Bactopia Tool uses [GAMMA](https://github.com/rastanton/GAMMA) to identify, classify, and annotate
+ * translated gene matches from assemblies using a comprehensive protein database.
  *
  * @status stable
+ * @keywords gene annotation, protein classification, translation, gamma, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,annotation
+ * @citation gamma
  *
  * @subworkflows bactopiatool_init, gamma
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input gamma_db
+ * Path to GAMMA database
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv            Tab-delimited file with gene classification results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish gamma.tsv         Merged TSV file containing GAMMA results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

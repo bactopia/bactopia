@@ -1,33 +1,43 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Checkm2.
+ * Machine learning-based assessment of microbial genome assembly quality.
  *
- * Assess the assembly quality of your samples
- * The `checkm2` module is used [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality of microbial
- * genomes recovered from isolates, single cells, and metagenomes.
+ * This Bactopia Tool uses [CheckM2](https://github.com/chklovski/CheckM2) to assess the quality
+ * of microbial genomes recovered from isolates, single cells, and metagenomes using
+ * advanced machine learning approaches.
  *
  * @status stable
- * @keywords fasta, assembly quality
+ * @keywords assembly quality, microbial genomes, machine learning, completeness, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,assembly-qa,machine-learning
+ * @citation checkm2
  *
  * @subworkflows bactopiatool_init, checkm2
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input checkm2_db
+ * Path to CheckM2 database
+ *
+ * @input download_checkm2
+ * Download CheckM2 database if not found locally
+ *
+ * @section Quality Assessment
+ * @publish diamond_output/**    Directory with intermediate results from CheckM2 processing
+ * @publish protein_files/**     Directory containing protein files used for analysis
+ * @publish quality_report.tsv   Output file with completeness statistics
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish checkm2.tsv          Merged TSV file with CheckM2 results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**              Tool execution logs
+ * @publish logs/nf-*            Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml         Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

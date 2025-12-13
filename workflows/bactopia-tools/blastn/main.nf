@@ -1,33 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Blastn.
+ * Search against nucleotide BLAST databases using nucleotide queries.
  *
- * Search against nucleotide BLAST databases using nucleotide queries
- * The `blastn` module uses [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
- * to query nucleotide sequences against nucleotide databases (contigs or genes) for each sample.
+ * This Bactopia Tool uses [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+ * to query nucleotide sequences against nucleotide databases for sequence similarity search.
+ * BLASTN finds regions of local similarity between nucleotide sequences.
  *
  * @status stable
- * @keywords fasta, blast, alignment
+ * @keywords fasta, blast, alignment, nucleotide, similarity, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
  *
  * @subworkflows bactopiatool_init, blastn
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input blastn_query
+ * Path to nucleotide query sequence in FASTA format
+ *
+ * @input blastn_db
+ * Path to BLAST nucleotide database for searching
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.blastn.tsv        BLASTN alignment results in tabular format
+ * @publish *.blastn.html       Interactive HTML report of BLASTN results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish blastn.tsv          Merged BLASTN results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**            Tool execution logs
+ * @publish logs/nf-*          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
+ * @publish versions.yml        Software version information
    */
+nextflow.preview.types = true
 
 params {
     rundir   : String

@@ -1,46 +1,91 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Pangenome.
+ * Pangenome analysis with optional core-genome phylogeny.
  *
- * Pangenome analysis with optional core-genome phylogeny
- * The `pangenome` subworkflow allows you to create a pan-genome with [PIRATE](https://github.com/SionBayliss/PIRATE),
- * [Panaroo](https://github.com/gtonkinhill/panaroo), or [Roary](https://github.com/sanger-pathogens/Roary)) of your samples.
- * You can further supplement your pan-genome by including completed genomes. This is possible using the `--species`
- * or `--accessions` parameters. If used, [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will
- * download available completed genomes available from RefSeq. Any downloaded genomes will be annotated with
- * [Prokka](https://github.com/tseemann/prokka) to create compatible GFF3 files.
- * A phylogeny, based on the core-genome alignment, will be created by [IQ-Tree](https://github.com/Cibiv/IQ-TREE). Optionally
- * a recombination-masked core-genome alignment can be created with [ClonalFrameML](https://github.com/xavierdidelot/ClonalFrameML)
- * and [maskrc-svg](https://github.com/kwongj/maskrc-svg).
- * Finally, the core genome pair-wise SNP distance for each sample is also calculated with
- * [snp-dists](https://github.com/tseemann/snp-dists) and additional pan-genome wide association studies can be conducted
- * using [Scoary](https://github.com/AdmiralenOla/Scoary).
+ * This Bactopia Tool creates a pangenome from GFF3 annotation files using one of three
+ * tools: [Panaroo](https://github.com/gtonkinhill/panaroo) (default),
+ * [PIRATE](https://github.com/SionBayliss/PIRATE), or
+ * [Roary](https://github.com/sanger-pathogens/roary). It generates core-genome alignments
+ * and gene presence/absence matrices, followed by SNP distance calculations.
+ * You can supplement your pangenome with completed genomes using the --species or
+ * --accessions parameters, which downloads genomes from RefSeq and annotates them with
+ * Prokka. A phylogeny based on the core-genome alignment is created by IQ-Tree, with
+ * optional recombination masking using ClonalFrameML. Finally, pan-genome wide
+ * association studies can be conducted using Scoary.
  *
  * @status stable
- * @keywords alignment, core-genome, pan-genome, phylogeny
+ * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
+ * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
  *
- * @subworkflows bactopiatool_init, pangenome
+ * @subworkflows bactopiatool_init, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @section Pangenome Results
+ * @publish *.aln                 Core-genome alignment file containing genes present across all input genomes
+ * @publish *.csv                 Gene presence/absence matrix showing which genes are present in each genome
+ * @publish *.tsv                 SNP distance matrix between all samples
  *
- * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @section Phylogeny Results
+ * @note Only created if --skip_phylogeny is not enabled
+ * @publish *.treefile            Maximum likelihood phylogenetic tree in Newick format
+ * @publish *.iqtree              IQ-Tree analysis report with model selection and support values
+ * @publish *.log                 IQ-Tree execution log
+ *
+ * @section Recombination Analysis
+ * @note Only created if --skip_recombination is not enabled
+ * @publish *.masked.aln          Core-genome alignment with recombination regions masked
+ *
+ * @section Association Analysis
+ * @note Only created if --scoary_traits is specified
+ * @publish scoary/*              Scoary association analysis results and plots
+ *
+ * @section Panaroo Results
+ * @note Only created when Panaroo is selected as the pangenome tool
+ * @publish panaroo/*             Panaroo-specific output files including graph and statistics
+ *
+ * @section PIRATE Results
+ * @note Only created when PIRATE is selected as the pangenome tool
+ * @publish pirate/*              PIRATE-specific output files including gene families and clusters
+ *
+ * @section Roary Results
+ * @note Only created when Roary is selected as the pangenome tool
+ * @publish roary/*               Roary-specific output files including gene presence/absence matrices
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/pangenome/*      Pangenome tool execution logs (stdout/stderr)
+ * @publish logs/clonalframeml/*  ClonalFrameML execution logs (if executed)
+ * @publish logs/iqtree/*         IQ-Tree execution logs (if executed)
+ * @publish logs/scoary/*         Scoary execution logs (if executed)
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml          Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String
+
+    // Pangenome tool selection
+    use_pirate : Boolean
+    use_roary  : Boolean
+
+    // Reference genome parameters
+    species   : String?
+    accession : String?
+    accessions : Path?
+
+    // Prokka parameters
+    prokka_proteins    : Path?
+    prokka_prodigal_tf : Path?
+
+    // Analysis options
+    skip_recombination : Boolean
+    skip_phylogeny     : Boolean
+    scoary_traits      : Path?
 }
 
 include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'

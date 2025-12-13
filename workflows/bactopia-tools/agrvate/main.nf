@@ -1,32 +1,36 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Agrvate.
- *
  * Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.
- * The `agrvate` module uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)
- * to rapidly identify the _agr_ locus type in _Staphylococcus aureus_ assemblies.
+ *
+ * This Bactopia Tool uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) to rapidly
+ * identify the _agr_ locus type and detect agr operon variants in _Staphylococcus aureus_ assemblies.
+ * The agr system is a key quorum-sensing regulator of virulence in S. aureus.
  *
  * @status stable
+ * @keywords staphylococcus aureus, agr, typing, virulence, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation agrvate
  *
  * @subworkflows bactopiatool_init, agrvate
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                 Agr locus typing results in TSV format
+ * @publish supplemental/*        Supplemental output files including detailed agr analysis
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish agrvate.tsv            Combined agr typing results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                Tool execution logs
+ * @publish logs/nf-*              Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml            Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

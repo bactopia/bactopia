@@ -1,33 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Seroba.
+ * Serotyping of Streptococcus pneumoniae from Illumina paired-end reads.
  *
- * Serotyping of Streptococcus pneumoniae from sequence reads
- * The `seroba` module uses [Seroba](https://github.com/sanger-pathogens/seroba) to predict the
- * serotype of _Streptococcus pneumoniae_ samples with Illumina paired-end reads.
+ * This Bactopia Tool uses [Seroba](https://github.com/sanger-pathogens/seroba) to predict the
+ * serotype of *Streptococcus pneumoniae* samples from raw sequencing reads. Seroba employs
+ * a k-mer based approach to identify and type pneumococcal capsules, determining both the
+ * serotype and serogroup based on the presence of specific capsular polysaccharide synthesis
+ * (cps) locus sequences. The tool is specifically designed for Illumina paired-end reads and
+ * provides accurate serotype predictions essential for epidemiological surveillance and vaccine
+ * development studies.
  *
  * @status stable
- * @keywords serotype, fastq, Streptococcus pneumoniae
+ * @keywords serotyping, Streptococcus pneumoniae, capsule, cps locus, vaccine, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, seroba
  *
  * @subworkflows bactopiatool_init, seroba
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                              Tab-delimited file containing predicted serotype for each sample
+ * @publish *detailed_serogroup_info.txt      Detailed information about serotype prediction and coverage
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish seroba.tsv                         Merged TSV file containing serotype predictions from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                            Tool execution logs including Seroba output
+ * @publish logs/nf-*                          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                       Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

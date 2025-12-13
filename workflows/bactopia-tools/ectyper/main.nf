@@ -1,33 +1,36 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Ectyper.
+ * In silico prediction of Escherichia coli serotype.
  *
- * In-silico prediction of _Escherichia coli_ serotype
- * The `ectyper` module used [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
+ * This Bactopia Tool uses [ECTyper](https://github.com/phac-nml/ecoli_serotyping) to conduct
  * _in silico_ prediction of serotype for _Escherichia coli_ genomes. It uses the genome assemblies
- * tp provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
+ * to provide basic species identification and the predicted _E. coli_ serotype (e.g. O174:H21).
  *
  * @status stable
+ * @keywords escherichia coli, serotyping, fasta, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation ectyper
  *
  * @subworkflows bactopiatool_init, ectyper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                  Tab-delimited file with ECTyper result
+ * @publish blast_output_alleles.txt Allele report generated from BLAST results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish ectyper.tsv            Merged TSV file containing ECTyper results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                 Tool execution logs
+ * @publish logs/nf-*               Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml            Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

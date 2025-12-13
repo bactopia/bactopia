@@ -1,33 +1,34 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Pneumocat.
+ * Capsular type assignment to Streptococcus pneumoniae from sequence reads.
  *
- * Assign capsular type to Streptococcus pneumoniae from sequence reads
- * The `pneumocat` module uses [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT) to assign capsular
- * type to _Streptococcus pneumoniae_ from sequence reads.
+ * This Bactopia Tool uses [PneumoCaT](https://github.com/ukhsa-collaboration/PneumoCaT) to assign capsular
+ * type to _Streptococcus pneumoniae_ from sequence reads for epidemiological typing.
  *
  * @status stable
- * @keywords TAGS
+ * @keywords streptococcus pneumoniae, capsular typing, pneumocat, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation pneumocat
  *
  * @subworkflows bactopiatool_init, pneumocat
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Capsular type assignment results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish pneumocat.tsv     Merged TSV file containing PneumoCaT results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

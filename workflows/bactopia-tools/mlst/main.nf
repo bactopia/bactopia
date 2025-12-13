@@ -1,34 +1,36 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mlst.
+ * Automatic Multi-Locus Sequence Type (MLST) calling from assembled contigs.
  *
- * Automatic MLST calling from assembled contigs
- * The `mlst` module uses [mlst](https://github.com/tseemann/mlst) scan assemblies and determine the sequence type.
- * It makes use of [PubMLST](https://pubmlst.org/) schemes and by default automatically scans each schema. To specify
- * a specific scheme to scan, you can provide it with `--scheme`.
+ * This Bactopia Tool uses [mlst](https://github.com/tseemann/mlst) to scan genome assemblies
+ * and determine the sequence type based on [PubMLST](https://pubmlst.org/) schemes. The workflow
+ * automatically detects the appropriate MLST scheme for each organism and provides
+ * standardized sequence type assignments.
  *
  * @status stable
- * @keywords fasta, mlst, typing
+ * @keywords typing, MLST, sequence type, alleles, PubMLST
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, mlst, pubmlst
  *
  * @subworkflows bactopiatool_init, mlst
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                      Tab-delimited file with MLST results including scheme, ST, and allele profiles
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mlst.tsv                   Merged TSV file containing MLST results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/mlst/*                Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

@@ -1,32 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mobsuite.
+ * Reconstruction and annotation of plasmids from bacterial genome assemblies.
  *
- * Reconstruct and annotate plasmids in bacterial assemblies
- * The `mobsuite` module uses [MOB-suite](https://github.com/phac-nml/mob-suite) to reconstruct and annotate plasmids in draft assemblies.
+ * This Bactopia Tool uses [MOB-suite](https://github.com/phac-nml/mob-suite) to identify, reconstruct,
+ * and annotate plasmid sequences from draft genome assemblies. It separates plasmid from chromosomal
+ * contigs, groups plasmid sequences into clusters, and provides comprehensive plasmid typing
+ * and mobility information.
  *
  * @status stable
- * @keywords plasmid, annotation
+ * @keywords plasmid, reconstruction, annotation, mobile genetic elements, typing
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, mobsuite, mobsuite_db
  *
  * @subworkflows bactopiatool_init, mobsuite
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish chromosome.fasta           FASTA file containing all contigs identified as chromosomal
+ * @publish contig_report.txt          Report assigning each contig to chromosome or plasmid group
+ * @publish plasmid_*.fasta            Individual FASTA files for each reconstructed plasmid
+ * @publish *-mobtyper.txt            MOB-typer report with plasmid typing and mobility information
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mobsuite.tsv              Merged TSV file containing MOB-suite results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/mobsuite/*           Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                 Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml              Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

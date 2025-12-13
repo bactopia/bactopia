@@ -1,32 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Tbprofiler.
+ * Detection of antimicrobial resistance and lineage typing of Mycobacterium tuberculosis.
  *
- * Detect resistance and lineages of _Mycobacterium tuberculosis_ genomes
- * The `tbprofiler` module uses [TBProfiler](https://github.com/jodyphelan/TBProfiler)
- * for profiling reads to determine resistance and _Mycobacterium tuberculosis_ strain type.
+ * This Bactopia Tool uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) to profile
+ * Mycobacterium tuberculosis genomes for resistance mutations and strain typing. The workflow
+ * processes sequencing reads to identify resistance-conferring variants and determine
+ * the lineage of each TB isolate.
  *
  * @status stable
+ * @keywords Mycobacterium tuberculosis, resistance, lineage, typing, TB
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation tbprofiler
  *
  * @subworkflows bactopiatool_init, tbprofiler
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.results.txt              Text file containing TBProfiler resistance and strain typing results
+ * @publish *.results.json            JSON file containing detailed TBProfiler analysis results
+ * @publish *.results.csv             CSV file containing TBProfiler results in tabular format
+ * @publish bam/*.bam                 BAM file with read alignment details against reference genomes
+ * @publish vcf/*.targets.csq.vcf.gz   VCF file with variant annotations and functional consequences
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish tbprofiler.tsv             Merged TSV file containing TBProfiler results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/tbprofiler/*          Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

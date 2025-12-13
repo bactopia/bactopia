@@ -1,34 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Clermontyping.
+ * In silico phylotyping of Escherichia genus.
  *
- * in silico phylotyping of Escherichia genus
- * The `clermontyping` module used [ClermonTyping](https://github.com/happykhan/ClermonTyping)
- * to conduct _in silico_ prediction of phylotype for _Escherichia_ genomes. It uses the
- * genome assemblies to be assign them to _E. albertii_, _E. fergusonii_, _Escherichia_
- * clades I–V, _E. coli sensu stricto_ as well as to the main _E. coli_ phylogroups
+ * This Bactopia Tool uses [ClermonTyping](https://github.com/happykhan/ClermonTyping)
+ * to conduct _in silico_ prediction of phylotype for _Escherichia_ genomes. It uses
+ * genome assemblies to assign them to _E. albertii_, _E. fergusonii_, _Escherichia_
+ * clades I–V, _E. coli sensu stricto_ as well as to the main _E. coli_ phylogroups.
  *
  * @status stable
+ * @keywords e coli, phylotyping, phylogroups, clermontyping, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation clermontyping
  *
  * @subworkflows bactopiatool_init, clermontyping
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.blast.xml          BLAST XML file with ClermonTyping analysis results
+ * @publish *.html               HTML file with ClermonTyping analysis results
+ * @publish *.mash.tsv           TSV file with Mash distances
+ * @publish *.phylogroups.txt    TSV file with final phylogroup assignments
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish clermontyping.tsv    Merged TSV file with ClermonTyping results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**              Tool execution logs
+ * @publish logs/nf-*            Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml         Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

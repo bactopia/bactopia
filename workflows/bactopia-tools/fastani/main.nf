@@ -1,28 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Fastani.
+ * Fast alignment-free computation of whole-genome Average Nucleotide Identity.
  *
- * fast alignment-free computation of whole-genome Average Nucleotide Identity (ANI)
- * The `fastani` module uses [FastANI](https://github.com/ParBLiSS/FastANI) to calculate the average
- * nucleotide identity (ANI) between your samples.
- * Although, sometimes you might be more interested in calculating the ANI of your samples against
- * a reference genome. Fortunately, using [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download),
- * the `fastani` module allows you specify either a specific NCBI Assembly RefSeq accession (`--accession`)
- * or a species name (`--species`) for which to download all RefSeq genomes.
+ * This Bactopia Tool uses [FastANI](https://github.com/ParBLiSS/FastANI) to calculate the average
+ * nucleotide identity (ANI) between samples. It can also calculate ANI against reference genomes
+ * by downloading RefSeq assemblies using NCBI genome download.
  *
  * @status stable
+ * @keywords ani, average nucleotide identity, similarity, comparative genomics, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
+ * @citation fastani
  *
- * @subworkflows bactopiatool_init, fastani
+ * @subworkflows bactopiatool_init, fastani, ncbigenomedownload
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input fastani_reference
+ * Path to reference FASTA file for ANI comparison
+ *
+ * @input fastani_pairwise
+ * Perform pairwise ANI calculation between all samples
+ *
+ * @input species
+ * Species name to download all RefSeq genomes for comparison
+ *
+ * @input accession
+ * Specific NCBI Assembly RefSeq accession to download
+ *
+ * @input accessions
+ * Path to file containing list of NCBI accessions to download
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv            FastANI results of samples against reference
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish fastani.tsv       Merged TSV file containing ANI results from all samples
  *
  * @section Execution Logs
  * @publish logs/**   Tool execution logs
@@ -30,7 +43,10 @@ nextflow.preview.types = true
  *
  * @section Versions
  * @publish versions.yml Software version information
+ *
+ * @citation Jain C, Rodriguez-R LM, Phillippy AM, Konstantinidis KT, Aluru S [High throughput ANI analysis of 90K prokaryotic genomes reveals clear species boundaries.](http://dx.doi.org/10.1038/s41467-018-07641-9) _Nat. Commun._ 9, 5114 (2018)
    */
+nextflow.preview.types = true
 
 params {
     rundir   : String

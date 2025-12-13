@@ -1,33 +1,42 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Sccmec.
+ * Typing of SCCmec cassettes in Staphylococcus aureus assemblies.
  *
- * A tool for typing SCCmec cassettes in assemblies
- * The `sccmec` module uses [sccmec](https://github.com/rpetit3/sccmec) for typing
- * SCCmec cassettes in _Staphylococcus aureus_ assemblies.
+ * This Bactopia Tool uses [sccmec](https://github.com/rpetit3/sccmec) to identify and type
+ * Staphylococcal Cassette Chromosome mec (SCCmec) elements in *Staphylococcus aureus* assemblies.
+ * SCCmec cassettes are mobile genetic elements that carry the mecA gene and other methicillin
+ * resistance determinants. The tool performs BLAST searches against target-specific sequences
+ * and full cassette references to determine SCCmec types and subtypes, providing detailed
+ * reports of BLAST hits and type predictions for epidemiological surveillance of MRSA.
  *
  * @status stable
- * @keywords fasta, resistance, Staphylococcus aureus
+ * @keywords resistance, Staphylococcus aureus, MRSA, SCCmec, typing, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, sccmec
  *
  * @subworkflows bactopiatool_init, sccmec
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                           Summary report of predicted SCCmec type for each sample
+ * @publish *.targets.blastn.tsv            Tab-delimited file of all target-specific BLAST hits
+ * @publish *.targets.details.tsv           Detailed breakdown of type predictions based on target hits
+ * @publish *.regions.blastn.tsv            Tab-delimited file of all full cassette BLAST hits
+ * @publish *.regions.details.tsv           Detailed breakdown of type predictions based on full cassettes
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish sccmec.tsv                      Merged TSV file containing SCCmec typing results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                         Tool execution logs including BLAST output
+ * @publish logs/nf-*                       Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                    Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

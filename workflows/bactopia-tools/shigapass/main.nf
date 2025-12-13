@@ -1,34 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Shigapass.
+ * Prediction of Shigella serotypes and differentiation from EIEC.
  *
- * Predict Shigella serotypes and differentiate Shigella, EIEC and non-Shigella/EIEC
- * The `shigapass` module uses [ShigaPass](https://github.com/imanyass/ShigaPass) for
- * _in silico_ prediction of serotypes in _Shigella_ assemblies. It will also differentiate
- * between _Shigella_, EIEC (Enteroinvasive _E. coli_) and non _Shigella_/EIEC.
+ * This Bactopia Tool uses [ShigaPass](https://github.com/imanyass/ShigaPass) for in silico
+ * prediction of serotypes in *Shigella* assemblies and differentiation between *Shigella*,
+ * EIEC (Enteroinvasive *E. coli*) and non-*Shigella*/EIEC strains. ShigaPass analyzes
+ * key antigenic determinants including O-antigen processing genes and invasion plasmid
+ * antigens (ipa genes) to provide accurate serotype predictions following the
+ * White-Kauffmann-Le Minor scheme. This enables rapid serological characterization
+ * essential for epidemiological investigations and outbreak tracking.
  *
  * @status stable
- * @keywords shigella, eiec, fasta, serotype
+ * @keywords Shigella, EIEC, serotyping, O-antigen, ipa genes, epidemiology, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, shigapass
  *
  * @subworkflows bactopiatool_init, shigapass
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.csv                           CSV file containing predicted Shigella or EIEC serotype for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish shigapass.csv                   Merged CSV file containing ShigaPass results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                          Tool execution logs including ShigaPass output
+ * @publish logs/nf-*                        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

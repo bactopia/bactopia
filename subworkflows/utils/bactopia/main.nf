@@ -1,15 +1,19 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Initialize Bactopia parameters and input channels.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow acts as the entry point for Bactopia. It uses internal plugins to
+ * validate command-line parameters and organize input data (FASTQs, assemblies) into
+ * a standardized channel structure for downstream analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords initialization, validation, input-parsing, parameters, workflow
+ * @tags complexity:moderate input-type:parameter output-type:single features:validation,input-parsing
+ * @citation bactopia
  *
- * @subworkflows bactopiainputs, validateparameters
- * @output samples Samples
+ * @input none
+ * This workflow is parameter-driven and does not accept input channels.
+ *
+ * @output samples        Channel containing standardized sample inputs (meta, r1, r2, extra)
  */
 nextflow.preview.types = true
 

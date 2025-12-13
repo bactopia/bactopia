@@ -1,5 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
  * Bactopia Tool: Plasmidfinder.
  *
@@ -26,6 +25,7 @@ nextflow.preview.types = true
  * @section Versions
  * @publish versions.yml Software version information
    */
+nextflow.preview.types = true
 
 params {
     rundir : String

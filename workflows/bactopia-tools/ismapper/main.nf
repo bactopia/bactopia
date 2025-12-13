@@ -1,32 +1,41 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Ismapper.
+ * Identify insertion sequence positions in bacterial genomes.
  *
- * Identify insertion sites positions in bacterial genomes
- * The `ismapper` module uses [ISMapper](https://github.com/jhawkey/IS_mapper) to search for
- * insertion sites in your samples.
+ * This Bactopia Tool uses [ISMapper](https://github.com/jhawkey/IS_mapper) to identify
+ * transposase insertion sites in bacterial genomes from short read sequence data.
  *
  * @status stable
+ * @keywords insertion sequences, transposons, comparative genomics, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
+ * @citation ismapper
  *
  * @subworkflows bactopiatool_init, ismapper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input reference
+ * Reference genome in FASTA format
+ *
+ * @input insertions
+ * File containing insertion sequences to search for
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.vcf            VCF file with insertion site calls
+ * @publish *.txt            Summary of insertion site findings
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish ismapper.tsv      Merged TSV file containing ISMapper results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

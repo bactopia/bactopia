@@ -1,34 +1,35 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Stecfinder.
+ * Serotype identification of Shiga toxin-producing E. coli.
  *
- * Serotype of Shigatoxin producing E. coli using Illumina reads or assemblies
- * The `stecfinder` module uses [STECFinder](https://github.com/LanLab/STECFinder) to identify
- * the serotype of Shigatoxin producing _E. coli_ (STEC). STECFinder identifies the serotype
- * as well as the O-antigen and H-antigens.
+ * This Bactopia Tool uses [STECFinder](https://github.com/LanLab/STECFinder) to identify
+ * the serotype of Shiga toxin-producing _E. coli_ (STEC) from sequencing data.
+ * STECFinder determines the serotype as well as the O-antigen and H-antigens.
  *
  * @status stable
- * @keywords stec, serotype
+ * @keywords stec, serotype, e coli, shiga toxin, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,serotyping
+ * @citation stecfinder
  *
  * @subworkflows bactopiatool_init, stecfinder
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Serotype identification results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish stecfinder.tsv   Merged TSV file containing STECFinder results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

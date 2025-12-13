@@ -1,35 +1,45 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mashtree.
+ * Rapid phylogenetic tree construction using Mash distances.
  *
- * Quickly create a tree using Mash distances
- * The `mashtree` module uses [Mashtree](https://github.com/lskatz/mashtree) to create a tree of your samples
- * using [Mash](https://github.com/marbl/Mash) distances.
- * You can also use `--species` or `-accessions` to see how your samples compare to completed genomes. If used,
- * [ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) will download available completed
- * genomes available from RefSeq and they will be included in your tree.
+ * This Bactopia Tool uses [Mashtree](https://github.com/lskatz/mashtree) to create a phylogenetic tree
+ * of samples using [Mash](https://github.com/marbl/Mash) distances. It can include reference
+ * genomes from RefSeq by downloading them with NCBI genome download.
  *
  * @status stable
+ * @keywords phylogeny, tree, mash, distance, comparative genomics, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,phylogeny,comparative
+ * @citation mashtree
  *
- * @subworkflows bactopiatool_init, mashtree
+ * @subworkflows bactopiatool_init, mashtree, ncbigenomedownload
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input species
+ * Species name to download all RefSeq genomes for comparison
+ *
+ * @input accession
+ * Specific NCBI Assembly RefSeq accession to download
+ *
+ * @input accessions
+ * Path to file containing list of NCBI accessions to download
+ *
+ * @section Phylogenetic Analysis
+ * @publish mashtree.dnd          Newick format tree file
+ * @publish mashtree.tsv          Tab-delimited distance matrix
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mashtree-summary.tsv  Merged summary of all Mashtree results
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**               Tool execution logs
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml          Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

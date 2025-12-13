@@ -1,37 +1,38 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Genotyphi.
+ * Salmonella Typhi genotyping with lineage assignment.
  *
- * Salmonella Typhi genotyping with Mykrobe outputs
- * The `genotyphi` module uses [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) to
+ * This Bactopia Tool uses [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) to
  * call Typhi lineages, AMR determinants, and plasmid markers in Salmonella Typhi samples.
  * Samples are first processed by [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) using `mykrobe predict`
- * with `typhi` specified as the species. Then the Mykrobe results are then processed by the
- * [parse_typhi_mykrobe.py](https://github.com/typhoidgenomics/genotyphi/blob/main/typhimykrobe/parse_typhi_mykrobe.py)
- * script available from GenoTyphi.
+ * with `typhi` specified as the species. Then the Mykrobe results are processed by the
+ * GenoTyphi parse_typhi_mykrobe.py script.
  *
  * @status stable
- * @keywords fastq, genotype, Salmonella Typhi
+ * @keywords salmonella typhi, genotyping, lineage, amr, mykrobe, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,genotyping,lineage
+ * @citation genotyphi, mykrobe
  *
  * @subworkflows bactopiatool_init, genotyphi
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.json           Mykrobe prediction results
+ * @publish *.tsv            GenoTyphi parsed results
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish genotyphi.tsv     Merged TSV file containing GenoTyphi results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

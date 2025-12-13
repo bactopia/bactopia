@@ -1,14 +1,15 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Teton.
- *
  * Taxonomic classification and abundance profiling of metagenomic reads.
- * This workflow performs metagenomic classification using Kraken2 and Bracken,
- * with optional host read removal using SRA Scrubber.
+ *
+ * This workflow performs metagenomic classification using [Kraken2](https://github.com/DerrickWood/kraken2)
+ * and [Bracken](https://github.com/jenniferlu717/Bracken), with optional host read removal
+ * using SRA Scrubber. It processes metagenomic sequencing reads to estimate bacterial
+ * genome sizes and separate bacterial from non-bacterial organisms.
  *
  * @status stable
  * @keywords metagenomics, classification, kraken2, bracken, abundance, profiling
+ * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
  * @subworkflows bactopia_init, gather, teton
  *
@@ -21,22 +22,25 @@ nextflow.preview.types = true
  * @input use_srascrubber
  * Remove host reads using SRA scrubber before classification
  *
- * @section Classification Results
- * @publish *.kraken2.report.txt Kraken2 classification report
- * @publish *.bracken.report.txt Bracken abundance estimates
- * @publish *.krona.html Krona interactive visualization
+ * @section Per-Sample Results
+ * @publish bacteria.tsv               Per-sample TSV files containing bacterial organisms and their properties
+ * @publish nonbacteria.tsv            Per-sample TSV files containing non-bacterial organisms
+ * @publish sizemeup.tsv               Per-sample TSV files with genome size estimates
  *
- * @section Summary Reports
- * @publish teton-summary.tsv Summary of classification results across all samples
- * @publish teton-matrix.tsv Abundance matrix for downstream analysis
+ * @section Merged Results
+ * @publish merged-bacteria.tsv        Consolidated TSV file of all bacterial organisms across samples
+ * @publish merged-nonbacteria.tsv     Consolidated TSV file of all non-bacterial organisms across samples
+ * @publish merged-sizemeup.tsv        Consolidated TSV file of genome size estimates across samples
+ * @publish report.tsv                 Joined TSV file combining scrubber and classification results
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                    Tool execution logs
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml               Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

@@ -1,33 +1,34 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Hpsuissero.
+ * Serotype prediction of Haemophilus parasuis assemblies.
  *
- * Serotype prediction of _Haemophilus parasuis_ assemblies
- * The `hpsuissero` module uses [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero) to predict
+ * This Bactopia Tool uses [HpsuisSero](https://github.com/jimmyliu1326/HpsuisSero) to predict
  * the serotype of _Haemophilus parasuis_ assemblies.
  *
  * @status stable
- * @keywords bacteria, fasta, haemophilus
+ * @keywords haemophilus parasuis, serotyping, fasta, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation hpsuissero
  *
  * @subworkflows bactopiatool_init, hpsuissero
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.summary       Summary of serotype prediction
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish hpsuissero.tsv   Merged TSV file containing HpsuisSero results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml       Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

@@ -1,14 +1,16 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Clean Yer Reads.
- *
  * Quality control and optional host read removal from raw sequencing reads.
- * This workflow performs read trimming, adapter removal, quality filtering,
- * and optionally removes host contamination using Kraken2 or SRA Scrubber.
+ *
+ * This workflow performs comprehensive read quality control including trimming,
+ * adapter removal, quality filtering, and optionally removes host contamination
+ * using [Kraken2](https://github.com/DerrickWood/kraken2) or SRA Scrubber.
+ * It processes raw sequencing reads to produce high-quality clean reads ready
+ * for downstream analysis.
  *
  * @status stable
- * @keywords reads, quality control, trimming, filtering, host removal
+ * @keywords reads, quality control, trimming, filtering, host removal, preprocessing
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
  * @subworkflows bactopia_init, gather, qc, scrubber
  *
@@ -27,21 +29,30 @@ nextflow.preview.types = true
  * @input phix
  * Path to PhiX sequences for contamination removal
  *
- * @section Quality Reports
- * @publish fastqc/*   FastQC quality control reports
- * @publish multiqc/*   MultiQC aggregated quality reports
+ * @section Quality Control Reports
+ * @publish supplemental/*_fastqc.*          FastQC reports for raw and cleaned reads
+ * @publish supplemental/*-NanoPlot.*       NanoPlot reports for Nanopore reads
+ * @publish supplemental/*.fastp.*          Fastp quality reports (when applicable)
+ * @publish supplemental/*_original.json    Quality metrics for original reads
+ * @publish supplemental/*_final.json       Quality metrics for final reads
  *
  * @section Cleaned Reads
- * @publish *.fastq.gz   Quality controlled and trimmed reads
- * @publish *.scrubbed.fastq.gz   Host-decontaminated reads (if scrubber used)
+ * @publish *.fastq.gz                       Quality controlled and trimmed reads
+ * @publish *.unclassified.fastq.gz          Host-decontaminated reads (if scrubber enabled)
+ *
+ * @section Host Decontamination
+ * @note Only created when host removal is enabled
+ * @publish *.kraken2.report.txt             Kraken2 classification report
+ * @publish *.scrub.report.tsv               Human contamination report
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                          Tool execution logs
+ * @publish logs/nf-*                        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

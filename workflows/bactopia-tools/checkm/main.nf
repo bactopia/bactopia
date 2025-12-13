@@ -1,33 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Checkm.
+ * Assessment of microbial genome assembly quality.
  *
- * Assess the assembly quality of your samples
- * The `checkm` module is used [CheckM](https://github.com/Ecogenomics/CheckM) to assess the quality of microbial
- * genomes recovered from isolates, single cells, and metagenomes.
+ * This Bactopia Tool uses [CheckM](https://github.com/Ecogenomics/CheckM) to assess the quality
+ * of microbial genomes recovered from isolates, single cells, and metagenomes using
+ * a set of lineage-specific marker genes.
  *
  * @status stable
- * @keywords fasta, assembly quality
+ * @keywords assembly quality, microbial genomes, completeness, contamination, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,assembly-qa
+ * @citation checkm
  *
  * @subworkflows bactopiatool_init, checkm
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @section Quality Assessment
+ * @publish *.genes.aln          Alignment of multi-copy genes and their AAI identity
+ * @publish *.results.txt        Final results of CheckM's lineage_wf
+ * @publish lineage.ms           Output file describing marker set for each bin
+ * @publish bins/**              Directory with inputs for processing by CheckM
+ * @publish storage/**           Directory with intermediate results from CheckM processing
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish checkm.tsv           Merged TSV file with CheckM results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**              Tool execution logs
+ * @publish logs/nf-*            Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml         Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

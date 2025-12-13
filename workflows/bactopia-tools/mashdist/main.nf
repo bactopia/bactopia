@@ -1,33 +1,37 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mashdist.
+ * Calculate Mash distances between sequences and reference genomes.
  *
- * Calculate Mash distances between sequences
- * The `mashdist` module uses [Mash](https://github.com/marbl/Mash) to determine the Mash
- * distance from a given reference genome(s).
+ * This Bactopia Tool uses [Mash](https://github.com/marbl/Mash) to determine the Mash
+ * distance from samples to reference genome sketches for rapid genomic comparison.
  *
  * @status stable
- * @keywords ani, distance
+ * @keywords mash, distance, similarity, comparative genomics, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,comparative
+ * @citation mash
  *
  * @subworkflows bactopiatool_init, mashdist
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input mash_sketch
+ * Path to Mash sketch file of reference genome(s)
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Mash distance results for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mashdist.tsv      Merged TSV file containing Mash distances from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

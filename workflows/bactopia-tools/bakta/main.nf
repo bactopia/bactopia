@@ -1,46 +1,62 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Bakta.
+ * Rapid annotation of bacterial genomes and plasmids.
  *
- * Rapid annotation of bacterial genomes and plasmids
- * The `bakta` module uses [Bakta](https://github.com/oschwengers/bakta) to rapidly annotate bacterial
+ * This Bactopia Tool uses [Bakta](https://github.com/oschwengers/bakta) to rapidly annotate bacterial
  * genomes and plasmids in a standardized fashion. Bakta makes use of a large database ([40+ GB](https://doi.org/10.5281/zenodo.4247252))
  * to provide extensive annotations including: tRNA, tmRNA, rRNA, ncRNA, CRISPR, CDS, and sORFs.
  *
  * @status stable
+ * @keywords bacteria, fasta, annotation, genbank, gff, proteins, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,annotation,database-dependent
+ * @citation bakta
  *
  * @subworkflows bactopiatool_init, bakta
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *.gff    Genome annotation in GFF3 format
- * @publish *.gbk    Genome annotation in GenBank format
- * @publish *.faa    Protein sequences
- * @publish *.fna    Nucleotide sequences
- * @publish *.ffn    Feature nucleotide sequences
+ * @input bakta_db
+ * Path to Bakta database for genome annotation
+ *
+ * @input download_bakta
+ * Download Bakta database if not found locally
+ *
+ * @input bakta_save_as_tarball
+ * Save Bakta database as compressed tarball for reuse
+ *
+ * @input bakta_proteins
+ * Additional protein sequences for homology search
+ *
+ * @input bakta_prodigal_tf
+ * Path to Prodigal training file for gene prediction
+ *
+ * @input replicons
+ * Additional replicon sequences for contamination screening
+ *
+ * @section Annotation
+ * @publish *.gff3                 Genome annotation in GFF3 format
+ * @publish *.gbff                 Genome annotation in GenBank format
+ * @publish *.faa                  Protein sequences in FASTA format
+ * @publish *.ffn                  Feature nucleotide sequences
+ * @publish *.fna                  Nucleotide sequences of all features
+ * @publish *.hypotheticals.tsv    List of hypothetical proteins
+ * @publish *.tsv                  Annotation summary in TSV format
+ * @publish *.txt                  Detailed annotation report
  *
  * @section Merged Results
- *
- * @publish merged-*    Aggregated results from all samples
+ * @note Merged results are not created for Bakta annotations
  *
  * @section Execution Logs
- *
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                Tool execution logs
+ * @publish logs/nf-*              Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- *
- * @publish versions.yml Software version information
+ * @publish versions.yml            Software version information
    */
+nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
     rundir   : String
 
     // Tool-specific parameters

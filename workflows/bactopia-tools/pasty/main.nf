@@ -1,33 +1,34 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Pasty.
+ * In silico serogrouping of Pseudomonas aeruginosa isolates.
  *
- * in silico serogrouping of Pseudomonas aeruginosa isolates
- * The `pasty` module uses [pasty](https://github.com/rpetit3/pasty) for
- * serogrouping of _Pseudomonas aeruginosa_ isolates.
+ * This Bactopia Tool uses [pasty](https://github.com/rpetit3/pasty) for
+ * serogrouping of _Pseudomonas aeruginosa_ isolates from genome assemblies.
  *
  * @status stable
- * @keywords fasta, serogrouping, Pseudomonas aeruginosa
+ * @keywords fasta, serogrouping, Pseudomonas aeruginosa, typing, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation pasty
  *
  * @subworkflows bactopiatool_init, pasty
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Serogrouping results for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish pasty.tsv        Merged TSV file containing Pasty results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**          Tool execution logs
+ * @publish logs/nf-*        Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml     Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

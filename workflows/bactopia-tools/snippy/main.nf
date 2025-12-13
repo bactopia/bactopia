@@ -1,30 +1,66 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Snippy.
+ * Rapid haplotype variant calling and core genome alignment.
  *
- * Bactopia Tool for snippy analysis
+ * This Bactopia Tool uses [Snippy](https://github.com/tseemann/snippy) to find SNPs between a
+ * reference genome and a set of reads, perform core genome alignment, and generate
+ * phylogenetic trees. It includes optional recombination detection with Gubbins
+ * and phylogenetic tree construction with IQ-Tree.
  *
  * @status stable
+ * @keywords snp, variant calling, phylogeny, core genome, snippy, bactopia-tool
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,comparative,phylogeny
+ * @citation snippy, gubbins, iqtree
  *
- * @subworkflows bactopiatool_init, snippy
+ * @subworkflows bactopiatool_init, ncbigenomedownload, snippy, snippy_core, gubbins, iqtree
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
- * @section Per-Sample Results
- * @publish *    Analysis results
+ * @input reference
+ * Path to reference FASTA file for variant calling
+ *
+ * @input accession
+ * NCBI Assembly RefSeq accession to use as reference
+ *
+ * @input snippy_core_mask
+ * Path to BED file containing core genome regions
+ *
+ * @input skip_recombination
+ * Skip recombination detection with Gubbins
+ *
+ * @input skip_phylogeny
+ * Skip phylogenetic tree construction
+ *
+ * @section Variant Calling
+ * @publish *.vcf            Variant calls in VCF format
+ * @publish *.bam            Alignment file
+ * @publish *.txt            Snippy summary report
+ *
+ * @section Core Genome Alignment
+ * @publish core.full.aln     Full core genome alignment
+ * @publish core.snps.aln     Core SNP alignment
+ *
+ * @section Recombination Analysis
+ * @note Only created if recombination analysis is enabled
+ * @publish *.filtered.aln    Alignment with recombination regions removed
+ * @publish *.gff            Recombination predictions
+ *
+ * @section Phylogeny
+ * @note Only created if phylogeny analysis is enabled
+ * @publish *.treefile       Phylogenetic tree in Newick format
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish snippy.tsv        Merged summary of Snippy analyses
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     bactopia : String

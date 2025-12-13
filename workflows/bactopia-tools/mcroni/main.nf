@@ -1,33 +1,36 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Mcroni.
+ * Sequence variation analysis of mcr-1 genes (mobilized colistin resistance).
  *
- * Sequence variation in mcr-1 genes (mobilized colistin resistance)
- * The `mcroni` module uses [mcroni](https://github.com/liampshaw/mcroni) to identify _mcr-1_ genes in
- * assemblies. If _mcr-1_ is found, the variations will be reported and available in an output FASTA file.
+ * This Bactopia Tool uses [mcroni](https://github.com/liampshaw/mcroni) to identify _mcr-1_ genes in
+ * assemblies and report sequence variations. If _mcr-1_ is found, the variations will be reported
+ * and available in an output FASTA file.
  *
  * @status stable
- * @keywords fasta, antimicrobial resistance
+ * @keywords mcr-1, colistin resistance, antimicrobial resistance, fasta, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,resistance
+ * @citation mcroni
  *
  * @subworkflows bactopiatool_init, mcroni
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            Summary of mcr-1 variants found
+ * @publish *.fasta          FASTA file of mcr-1 variants
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish mcroni.tsv        Merged TSV file containing mcroni results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

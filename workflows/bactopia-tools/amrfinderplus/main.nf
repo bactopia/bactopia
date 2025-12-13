@@ -1,32 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
  * Bactopia Tool: Amrfinderplus.
  *
- * Identify antimicrobial resistance in genes or proteins
- * The `amrfinderplus` module uses [AMRFinder+](https://github.com/ncbi/amr) to screen assemblies and proteins
- * for antimicrobial resistance and virulence genes.
+ * Identify antimicrobial resistance genes and point mutations in bacterial genomes.
+ * This Bactopia Tool uses [AMRFinder+](https://github.com/ncbi/amr) to screen assemblies and proteins
+ * for antimicrobial resistance genes, virulence genes, and resistance-associated point mutations.
+ * It identifies acquired AMR genes and some point mutations in protein or assembled nucleotide sequences.
  *
  * @status stable
+ * @keywords bacteria, fasta, antimicrobial resistance, virulence, genes, proteins, mutations
+ * @tags complexity:moderate input-type:directory output-type:multiple features:database-dependent,amr-detection
+ * @citation amrfinderplus
  *
  * @subworkflows bactopiatool_init, amrfinderplus
  *
  * @input rundir
  * Run directory containing Bactopia results
  *
+ * @input amrfinder_db
+ * Path to AMRFinder+ database for AMR gene detection
+ *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                    AMR gene detection results in TSV format
+ * @publish *-mutations.tsv          Point mutations associated with antimicrobial resistance
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish amrfinderplus.tsv        Combined AMR detection results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                  Tool execution logs
+ * @publish logs/nf-*                Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
+ * @publish versions.yml              Software version information
    */
+nextflow.preview.types = true
 
 params {
     rundir   : String

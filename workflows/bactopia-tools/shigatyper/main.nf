@@ -1,33 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Shigatyper.
+ * Rapid determination of Shigella serotypes from sequencing reads.
  *
- * Shigella serotype from Illumina or Oxford Nanopore reads
- * The `shigatyper` module uses [ShigaTyyper](https://github.com/CFSAN-Biostatistics/shigatyper) to rapidly determine
- * Shigella serotype using Illumina (single or paired-end) or Oxford Nanopore reads.
+ * This Bactopia Tool uses [ShigaTyper](https://github.com/CFSAN-Biostatistics/shigatyper) to rapidly
+ * determine *Shigella* serotypes from both Illumina (single or paired-end) and Oxford Nanopore
+ * reads. ShigaTyper performs k-mer based analysis targeting specific antigenic determinants
+ * and marker genes to predict serotypes according to the White-Kauffmann-Le Minor classification
+ * scheme. The tool supports multiple sequencing platforms and provides detailed hit statistics
+ * for each target gene, enabling rapid serotype identification for epidemiological investigations
+ * and outbreak response.
  *
  * @status stable
- * @keywords fastq, shigella, serotype
+ * @keywords Shigella, serotyping, k-mer, Illumina, Nanopore, epidemiology, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, shigatyper
  *
  * @subworkflows bactopiatool_init, shigatyper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                              Tab-delimited file containing predicted Shigella serotype for each sample
+ * @publish *-hits.tsv                         Detailed statistics about each individual gene hit used for serotype prediction
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish shigatyper.tsv                     Merged TSV file containing ShigaTyper results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**                            Tool execution logs including ShigaTyper output
+ * @publish logs/nf-*                          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                       Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

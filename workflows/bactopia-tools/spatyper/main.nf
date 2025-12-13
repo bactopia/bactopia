@@ -1,31 +1,40 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Spatyper.
+ * spa typing of Staphylococcus aureus assemblies.
  *
- * Computational method for finding spa types in _Staphylococcus aureus_
- * The `spatyper` module uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign _spa_ types to _Staphylococcus aureus_ assemblies.
+ * This Bactopia Tool uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to assign
+ * spa types to _Staphylococcus aureus_ assemblies for epidemiological typing.
  *
  * @status stable
+ * @keywords staphylococcus aureus, spa typing, epidemiology, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing
+ * @citation spatyper
  *
  * @subworkflows bactopiatool_init, spatyper
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input spatyper_repeats
+ * Path to spaTyper repeats database
+ *
+ * @input spatyper_repeat_order
+ * Path to spaTyper repeat order file
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.txt            spa typing results for each sample
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish spatyper.tsv      Merged TSV file containing spaTyper results from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**           Tool execution logs
+ * @publish logs/nf-*         Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml      Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String

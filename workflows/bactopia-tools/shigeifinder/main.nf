@@ -1,33 +1,36 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Shigeifinder.
+ * In silico serotype prediction for Shigella and Enteroinvasive E. coli (EIEC).
  *
- * Shigella and EIEC serotyping from assemblies
- * The `shigeifinder` module uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct
- * _in silico_ prediction of serotype for Shigella and EIEC. It uses the genome assemblies
- * tp provide basic species identification and the predicted serotype (e.g. O174:H21).
+ * This Bactopia Tool uses [ShigEiFinder](https://github.com/LanLab/ShigEiFinder) to conduct rapid
+ * serotype prediction from genome assemblies. It provides species identification and predicts
+ * the traditional O and H antigens for Shigella and EIEC isolates, enabling epidemiological
+ * tracking and surveillance without requiring traditional serological methods.
  *
  * @status stable
+ * @keywords Shigella, EIEC, serotyping, prediction, epidemiology
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation csvtk, shigeifinder
  *
  * @subworkflows bactopiatool_init, shigeifinder
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.tsv                      Tab-delimited file containing predicted Shigella or EIEC serotype
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish shigeifinder.tsv            Merged TSV file containing serotype predictions from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/shigeifinder/*         Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                   Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml                Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir : String

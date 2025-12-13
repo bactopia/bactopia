@@ -1,32 +1,39 @@
 #!/usr/bin/env nextflow
-nextflow.preview.types = true
 /**
- * Bactopia Tool: Sylph.
+ * Taxonomic profiling by abundance-corrected MinHash.
  *
- * Taxonomic profiling by abundance-corrected minhash
- * The `sylph` module uses...
+ * This Bactopia Tool uses [Sylph](https://github.com/bluenote-1577/Sylph) to perform
+ * taxonomic profiling of metagenomic samples using abundance-corrected MinHash sketches
+ * for accurate species-level quantification.
  *
  * @status stable
- * @keywords TAGS
+ * @keywords taxonomic profiling, metagenomics, minhash, abundance, sylph, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,profiling
+ * @citation sylph
  *
  * @subworkflows bactopiatool_init, sylph
  *
  * @input rundir
- * Run directory containing Bactopia results
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input sylph_db
+ * Path to Sylph database for taxonomic classification
  *
  * @section Per-Sample Results
- * @publish *    Analysis results
+ * @publish *.profile.txt       Species abundance profile
+ * @publish *.krona.html        Interactive Krona plot visualization
  *
  * @section Merged Results
- * @publish merged-*    Aggregated results from all samples
+ * @publish sylph.tsv          Merged TSV file containing Sylph profiles from all samples
  *
  * @section Execution Logs
- * @publish logs/**   Tool execution logs
- * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ * @publish logs/**            Tool execution logs
+ * @publish logs/nf-*          Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml Software version information
-   */
+ * @publish versions.yml       Software version information
+ */
+nextflow.preview.types = true
 
 params {
     rundir   : String
