@@ -33,12 +33,12 @@ process MYKROBE_PREDICT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta, reads) : Tuple<Map, Path>
     species       : String
 
     output:
-    csv      = tuple(meta, files("${prefix}.csv"))
-    json     = tuple(meta, files("${prefix}.json"))
+    csv      = tuple(meta, file("${prefix}.csv"))
+    json     = tuple(meta, file("${prefix}.json"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -54,7 +54,8 @@ process MYKROBE_PREDICT {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    is_ont = meta.runtype == "ont" ? "--ont" : ""
+
+    def is_ont = meta.runtype == "ont" ? "--ont" : ""
     """
     mykrobe \\
         predict \\

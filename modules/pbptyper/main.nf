@@ -31,11 +31,12 @@ process PBPTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
-    blast    = tuple(meta, files("*.tblastn.tsv"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
+    blast    = tuple(meta, file("${prefix}.tblastn.tsv"))
+    details  = tuple(meta, file("${prefix}.details.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))

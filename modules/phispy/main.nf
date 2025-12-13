@@ -37,18 +37,18 @@ process PHISPY {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, gbk) : Tuple<Map, Set<Path>>
+    (_meta, gbk) : Tuple<Map, Path>
 
     output:
-    tsv            = tuple(meta, files("${prefix}.tsv"))
-    information    = tuple(meta, files("supplemental/${prefix}_prophage_information.tsv", optional: true))
-    bacteria_fasta = tuple(meta, files("supplemental/${prefix}_bacteria.fasta", optional: true))
-    bacteria_gbk   = tuple(meta, files("supplemental/${prefix}_bacteria.gbk", optional: true))
-    phage_fasta    = tuple(meta, files("supplemental/${prefix}_phage.fasta", optional: true))
-    phage_gbk      = tuple(meta, files("supplemental/${prefix}_phage.gbk", optional: true))
-    prophage_gff   = tuple(meta, files("supplemental/${prefix}_prophage.gff3", optional: true))
-    prophage_tbl   = tuple(meta, files("supplemental/${prefix}_prophage.tbl", optional: true))
-    prophage_tsv   = tuple(meta, files("supplemental/${prefix}_prophage.tsv", optional: true))
+    tsv            = tuple(meta, file("${prefix}.tsv"))
+    information    = tuple(meta, file("supplemental/${prefix}_prophage_information.tsv", optional: true))
+    bacteria_fasta = tuple(meta, file("supplemental/${prefix}_bacteria.fasta", optional: true))
+    bacteria_gbk   = tuple(meta, file("supplemental/${prefix}_bacteria.gbk", optional: true))
+    phage_fasta    = tuple(meta, file("supplemental/${prefix}_phage.fasta", optional: true))
+    phage_gbk      = tuple(meta, file("supplemental/${prefix}_phage.gbk", optional: true))
+    prophage_gff   = tuple(meta, file("supplemental/${prefix}_prophage.gff3", optional: true))
+    prophage_tbl   = tuple(meta, file("supplemental/${prefix}_prophage.tbl", optional: true))
+    prophage_tsv   = tuple(meta, file("supplemental/${prefix}_prophage.tsv", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, files("versions.yml"))

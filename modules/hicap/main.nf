@@ -37,14 +37,14 @@ process HICAP {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
     database_dir   : Path?
     model_fp       : Path?
 
     output:
-    gbk      = tuple(meta, files("*.gbk", optional: true))
-    svg      = tuple(meta, files("*.svg", optional: true))
-    tsv      = tuple(meta, files("${prefix}.tsv"))
+    gbk      = tuple(meta, file("${prefix}.gbk", optional: true))
+    svg      = tuple(meta, file("${prefix}.svg", optional: true))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -60,10 +60,11 @@ process HICAP {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def database_args = database_dir ? "--database_dir ${database_dir}" : ""
     def model_args = model_fp ? "--model_fp ${model_fp}" : ""
-    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${assembly_name}

@@ -38,9 +38,9 @@ process ROARY {
     stageAs 'gff-tmp/*', gff
 
     output:
-    supplemental = tuple(meta, files("roary/*"))
-    aln          = tuple(meta, files("core-genome.aln.gz", optional: true))
+    aln          = tuple(meta, file("${prefix}.aln.gz", optional: true))
     csv          = tuple(meta, files("roary/gene_presence_absence.csv", optional: true))
+    supplemental = tuple(meta, files("roary/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, files("versions.yml"))
@@ -77,7 +77,7 @@ process ROARY {
     gzip supplemental/*.fa
 
     if [[ -f "supplemental/core_gene_alignment.aln.gz" ]]; then
-        cp supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
+        cp supplemental/core_gene_alignment.aln.gz ./${prefix}.aln.gz
     fi
 
     # clean up

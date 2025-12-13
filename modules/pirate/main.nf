@@ -39,9 +39,9 @@ process PIRATE {
     stageAs 'gff-tmp/*', gff
 
     output:
-    supplemental = tuple(meta, files("pirate/*"))
-    aln          = tuple(meta, files("core-genome.aln.gz", optional: true))
+    aln          = tuple(meta, file("${prefix}.aln.gz", optional: true))
     csv          = tuple(meta, files("pirate/gene_presence_absence.csv", optional: true))
+    supplemental = tuple(meta, files("pirate/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, files("versions.yml"))
@@ -79,7 +79,7 @@ process PIRATE {
 
     # Only copy files if they exist
     if [[ -f "supplemental/core_alignment.fasta.gz" ]]; then
-        cp supplemental/core_alignment.fasta.gz ./core-genome.aln.gz
+        cp supplemental/core_alignment.fasta.gz ./${prefix}.aln.gz
     fi
 
     # Cleanup

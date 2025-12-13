@@ -33,14 +33,14 @@ process PLASMIDFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    json        = tuple(meta, files("*.json"))
-    txt         = tuple(meta, files("*.txt"))
-    tsv         = tuple(meta, files("${prefix}.tsv"))
-    genome_seq  = tuple(meta, files("*-hit_in_genome_seq.fsa.gz"))
-    plasmid_seq = tuple(meta, files("*-plasmid_seqs.fsa.gz"))
+    json        = tuple(meta, file("${prefix}.json"))
+    txt         = tuple(meta, file("${prefix}.txt"))
+    tsv         = tuple(meta, file("${prefix}.tsv"))
+    genome_seq  = tuple(meta, file("${prefix}-hit_in_genome_seq.fsa.gz"))
+    plasmid_seq = tuple(meta, file("${prefix}-plasmid_seqs.fsa.gz"))
     logs        = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs     = tuple(meta, files(".command.*"))
     versions    = tuple(meta, files("versions.yml"))
@@ -58,16 +58,17 @@ process PLASMIDFINDER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     plasmidfinder.py \\
         ${task.ext.args} \\
-        -i ${fasta_name} \\
+        -i ${assembly_name} \\
         -o ./ \\
         -x
 
@@ -83,7 +84,7 @@ process PLASMIDFINDER {
 
     # Cleanup
     gzip *.fsa
-    rm -rf ${fasta_name} results_tab.tsv tmp/
+    rm -rf ${assembly_name} results_tab.tsv tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

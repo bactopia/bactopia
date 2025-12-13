@@ -4,7 +4,7 @@
  *
  * This Bactopia Tool uses [ShigaPass](https://github.com/imanyass/ShigaPass) for in silico
  * prediction of serotypes in *Shigella* assemblies and differentiation between *Shigella*,
- * EIEC (Enteroinvasive *E. coli*) and non-*Shigella*/EIEC strains. ShigaPass analyzes
+ * EIEC (Enteroinvasive *E. coli*) and non-*Shigella EIEC strains. ShigaPass analyzes
  * key antigenic determinants including O-antigen processing genes and invasion plasmid
  * antigens (ipa genes) to provide accurate serotype predictions following the
  * White-Kauffmann-Le Minor scheme. This enables rapid serological characterization

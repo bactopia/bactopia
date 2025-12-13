@@ -41,11 +41,11 @@ process PANAROO_RUN {
     stageAs 'gff-tmp/*', gff
 
     output:
-    supplemental = tuple(meta, files("panaroo/*"))
-    aln          = tuple(meta, files("core-genome.aln.gz", optional: true))
-    filtered_aln = tuple(meta, files("core-genome.filtered.aln.gz", optional: true))
-    csv          = tuple(meta, files("panaroo/gene_presence_absence_roary.csv", optional: true))
-    panaroo_csv  = tuple(meta, files("panaroo/gene_presence_absence.csv", optional: true))
+    aln          = tuple(meta, file("${prefix}.aln.gz", optional: true))
+    filtered_aln = tuple(meta, file("${prefix}.filtered.aln.gz", optional: true))
+    csv          = tuple(meta, file("panaroo/gene_presence_absence_roary.csv", optional: true))
+    panaroo_csv  = tuple(meta, file("panaroo/gene_presence_absence.csv", optional: true))
+    supplemental = tuple(meta, file("panaroo/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, files("versions.yml"))
@@ -83,11 +83,11 @@ process PANAROO_RUN {
     find . -name "*.gml" | xargs -I {} -P ${task.cpus} -n 1 gzip {}
 
     if [[ -f "supplemental/core_gene_alignment.aln.gz" ]]; then
-        mv supplemental/core_gene_alignment.aln.gz ./core-genome.aln.gz
+        mv supplemental/core_gene_alignment.aln.gz ./${prefix}.aln.gz
     fi
 
     if [[ -f "supplemental/core_gene_alignment_filtered.aln.gz" ]]; then
-        mv supplemental/core_gene_alignment_filtered.aln.gz ./core-genome.filtered.aln.gz
+        mv supplemental/core_gene_alignment_filtered.aln.gz ./${prefix}.filtered.aln.gz
     fi
 
     if [[ -f "supplemental/gene_data.csv" ]]; then

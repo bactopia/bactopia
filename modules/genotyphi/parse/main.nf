@@ -29,10 +29,10 @@ process GENOTYPHI_PARSE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, json) : Tuple<Map, Set<Path>>
+    (_meta, json) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, files("*.tsv"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -52,6 +52,9 @@ process GENOTYPHI_PARSE {
     parse_typhi_mykrobe.py \\
         --jsons ${json} \\
         --prefix ${prefix}
+
+    // Cleanup
+    mv ${prefix}_predictResults.tsv ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

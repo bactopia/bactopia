@@ -60,6 +60,7 @@ process PHYLOFLASH {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def read_opts = meta.single_end ? "-read1 ${reads.toList()[0]}" : "-read1 ${reads.toList()[0]} -read2 ${reads.toList()[1]}"
     """
     mkdir ${prefix}

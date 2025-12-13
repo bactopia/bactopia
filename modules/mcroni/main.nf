@@ -31,11 +31,11 @@ process MCRONI {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
-    fa       = tuple(meta, files("*.fa", optional: true))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
+    fa       = tuple(meta, file("${prefix}.fasta", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -53,16 +53,17 @@ process MCRONI {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
+
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${assembly_name}
     fi
 
     mcroni \\
         --output ${prefix} \\
-        --fasta ${fasta_name}
+        --fasta ${assembly_name}
 
     EX_COLS=\$(head -n 1 ${prefix}_table.tsv| tr '\\t' '\\n' | wc -l)
     OBS_COLS=\$(tail -n 1 ${prefix}_table.tsv| tr '\\t' '\\n' | wc -l)
@@ -72,7 +73,8 @@ process MCRONI {
 
     # Cleanup
     mv ${prefix}_table.tsv ${prefix}.tsv
-    rm -rf ${fasta_name} ${fasta_name}.ndb ${fasta_name}.not ${fasta_name}.ntf ${fasta_name}.nto
+    mv ${prefix}_sequences.fa ${prefix}.fasta
+    rm -rf ${assembly_name} ${assembly_name}.ndb ${assembly_name}.not ${assembly_name}.ntf ${assembly_name}.nto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -39,20 +39,20 @@ process GUBBINS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa) : Tuple<Map, Set<Path>>
+    (_meta, msa) : Tuple<Map, Path>
 
     output:
-    masked_aln     = tuple(meta, files("*.masked.aln.gz"))
-    fasta          = tuple(meta, files("gubbins/*.fasta.gz"))
-    gff            = tuple(meta, files("gubbins/*.gff.gz"))
-    vcf            = tuple(meta, files("gubbins/*.vcf.gz"))
-    stats          = tuple(meta, files("gubbins/*.csv"))
-    phylip         = tuple(meta, files("gubbins/*.phylip"))
-    embl_predicted = tuple(meta, files("gubbins/*.recombination_predictions.embl.gz"))
-    embl_branch    = tuple(meta, files("gubbins/*.branch_base_reconstruction.embl.gz"))
-    tree           = tuple(meta, files("gubbins/*.final_tree.tre"))
-    tree_labelled  = tuple(meta, files("gubbins/*.node_labelled.final_tree.tre"))
-    bootstrap_tree = tuple(meta, files("gubbins/*.final_bootstrapped_tree.tre", optional: true))
+    masked_aln     = tuple(meta, file("${prefix}.masked.aln.gz"))
+    fasta          = tuple(meta, file("gubbins/${prefix}.filtered_polymorphic_sites.fasta.gz"))
+    gff            = tuple(meta, file("gubbins/${prefix}.recombination_predictions.gff.gz"))
+    vcf            = tuple(meta, file("gubbins/${prefix}.summary_of_snp_distribution.vcf.gz"))
+    stats          = tuple(meta, file("gubbins/${prefix}.per_branch_statistics.csv"))
+    phylip         = tuple(meta, file("gubbins/${prefix}.filtered_polymorphic_sites.phylip"))
+    embl_predicted = tuple(meta, file("gubbins/${prefix}.recombination_predictions.embl.gz"))
+    embl_branch    = tuple(meta, file("gubbins/${prefix}.branch_base_reconstruction.embl.gz"))
+    tree           = tuple(meta, file("gubbins/${prefix}.final_tree.tre"))
+    tree_labelled  = tuple(meta, file("gubbins/${prefix}.node_labelled.final_tree.tre"))
+    bootstrap_tree = tuple(meta, file("gubbins/${prefix}.final_bootstrapped_tree.tre", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, files("versions.yml"))
@@ -68,8 +68,9 @@ process GUBBINS {
     meta.process_name = task.ext.process_name
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs/"
-    def is_compressed = msa.toList()[0].getName().endsWith(".gz") ? true : false
-    def msa_name = msa.toList()[0].getName().replace(".gz", "")
+
+    def is_compressed = msa.getName().endsWith(".gz") ? true : false
+    def msa_name = msa.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${msa} > ${msa_name}

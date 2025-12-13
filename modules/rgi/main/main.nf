@@ -30,11 +30,11 @@ process RGI_MAIN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    json     = tuple(meta, files("*.json", optional: true))
-    tsv      = tuple(meta, files("*.txt"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
+    json     = tuple(meta, file("${prefix}.json", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -64,6 +64,7 @@ process RGI_MAIN {
     if grep "^{}\$" ${prefix}.json; then
         rm ${prefix}.json
     fi
+    mv ${prefix}.txt ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

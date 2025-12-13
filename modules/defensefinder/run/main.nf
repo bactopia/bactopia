@@ -40,16 +40,16 @@ process DEFENSEFINDER_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, proteins) : Tuple<Map, Path>
+    db                : Path
 
     output:
-    genes_tsv      = tuple(meta, files("*_defense_finder_genes.tsv"))
-    hmmer_tsv      = tuple(meta, files("*_defense_finder_hmmer.tsv"))
-    systems_tsv    = tuple(meta, files("*_defense_finder_systems.tsv"))
-    proteins       = tuple(meta, files("*.prt"))
-    proteins_index = tuple(meta, files("*.prt.idx"))
-    macsydata_raw  = tuple(meta, files("${prefix}.macsydata.tar.gz", optional: true))
+    genes_tsv      = tuple(meta, file("${prefix}_defense_finder_genes.tsv"))
+    hmmer_tsv      = tuple(meta, file("${prefix}_defense_finder_hmmer.tsv"))
+    systems_tsv    = tuple(meta, file("${prefix}_defense_finder_systems.tsv"))
+    proteins       = tuple(meta, file("${prefix}.prt"))
+    proteins_index = tuple(meta, file("${prefix}.prt.idx"))
+    macsydata_raw  = tuple(meta, file("${prefix}.macsydata.tar.gz", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, files("versions.yml"))

@@ -86,6 +86,7 @@ process BRACKEN {
     meta.process_name = task.ext.process_name
     special_meta = [:]
     special_meta.id = prefix
+
     def paired = meta.single_end ? "" : "--paired"
     classified = meta.single_end ? "${prefix}.classified.fastq" : "${prefix}.classified#.fastq"
     unclassified = meta.single_end ? "${prefix}.unclassified.fastq" : "${prefix}.unclassified#.fastq"

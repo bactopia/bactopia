@@ -30,11 +30,11 @@ process ECTYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
-    txt      = tuple(meta, files("*.txt"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
+    txt      = tuple(meta, file("${prefix}.blast_alleles.txt"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -50,8 +50,9 @@ process ECTYPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
+
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${assembly_name}
@@ -62,9 +63,10 @@ process ECTYPER {
         --cores ${task.cpus} \\
         --output ./ \\
         --input ${assembly_name}
-    mv output.tsv ${prefix}.tsv
 
     # Cleanup
+    mv output.tsv ${prefix}.tsv
+    mv blast_output_alleles.txt ${prefix}.blast_alleles.txt
     rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml

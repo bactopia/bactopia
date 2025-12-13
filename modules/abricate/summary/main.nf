@@ -31,7 +31,7 @@ process ABRICATE_SUMMARY {
     (_meta, reports): Tuple<Map, Set<Path>>
 
     output:
-    report   = tuple(meta, files("${prefix}.tsv"))
+    report   = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))

@@ -31,7 +31,7 @@ process GTDBTK_DOWNLOAD {
 
     output:
     db         = files("gtdbtk/", optional: true)
-    db_tarball = files("gtdbtk.tar.gz", optional: true)
+    db_tarball = file("gtdbtk.tar.gz", optional: true)
     logs       = files("logs/*", optional: true)
 
     script:

@@ -49,8 +49,9 @@ process SEQSERO2 {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed_fna = seqs.toList()[0].getName().endsWith("fna.gz") ? true : false
-    def seq_name = is_compressed_fna ? seqs.toList()[0].getName().replace(".gz", "") : "${seqs}"
+
+    def is_compressed_fna = seqs.getName().endsWith("fna.gz") ? true : false
+    def seq_name = is_compressed_fna ? seqs.getName().replace(".gz", "") : "${seqs}"
     """
     if [ "${is_compressed_fna}" == "true" ]; then
         gzip -c -d ${seqs} > ${seq_name}

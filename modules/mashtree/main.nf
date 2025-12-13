@@ -35,8 +35,8 @@ process MASHTREE {
     (_meta, seqs) : Tuple<Map, Set<Path>>
 
     output:
-    tree     = tuple(meta, files("${prefix}.dnd"))
-    matrix   = tuple(meta, files("${prefix}.tsv"))
+    tree     = tuple(meta, file("${prefix}.dnd"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
     sketches = tuple(meta, files("sketches/*", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))

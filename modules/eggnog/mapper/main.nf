@@ -43,19 +43,19 @@ process EGGNOG_MAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, proteins) : Tuple<Map, Path>
+    db                : Path
 
     output:
-    hits           = tuple(meta, files("*.emapper.hits"))
-    seed_orthologs = tuple(meta, files("*.emapper.seed_orthologs"))
-    annotations    = tuple(meta, files("*.emapper.annotations"))
-    xlsx           = tuple(meta, files("*.emapper.annotations.xlsx", optional: true))
-    orthologs      = tuple(meta, files("*.emapper.orthologs", optional: true))
-    genepred       = tuple(meta, files("*.emapper.genepred.fasta", optional: true))
-    gff            = tuple(meta, files("*.emapper.gff", optional: true))
-    no_anno        = tuple(meta, files("*.emapper.no_annotations.fasta", optional: true))
-    pfam           = tuple(meta, files("*.emapper.pfam", optional: true))
+    hits           = tuple(meta, file("${prefix}.emapper.hits"))
+    seed_orthologs = tuple(meta, file("${prefix}.emapper.seed_orthologs"))
+    annotations    = tuple(meta, file("${prefix}.emapper.annotations"))
+    xlsx           = tuple(meta, file("${prefix}.emapper.annotations.xlsx", optional: true))
+    orthologs      = tuple(meta, file("${prefix}.emapper.orthologs", optional: true))
+    genepred       = tuple(meta, file("${prefix}.emapper.genepred.fasta", optional: true))
+    gff            = tuple(meta, file("${prefix}.emapper.gff", optional: true))
+    no_anno        = tuple(meta, file("${prefix}.emapper.no_annotations.fasta", optional: true))
+    pfam           = tuple(meta, file("${prefix}.emapper.pfam", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
     versions       = tuple(meta, files("versions.yml"))
@@ -71,6 +71,7 @@ process EGGNOG_MAPPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then

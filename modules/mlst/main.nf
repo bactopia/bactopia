@@ -35,11 +35,11 @@ process MLST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, assembly) : Tuple<Map, Path>
+    db                : Path
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -55,6 +55,7 @@ process MLST {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     # Extract database

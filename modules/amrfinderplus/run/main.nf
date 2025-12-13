@@ -38,12 +38,12 @@ process AMRFINDERPLUS_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes, proteins, gff) : Tuple<Map, Set<Path>, Set<Path>, Set<Path>>
+    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path, Path>
     db                            : Path
 
     output:
-    report          = tuple(meta, files("${prefix}.tsv"))
-    mutation_report = tuple(meta, files("${prefix}-mutations.tsv", optional: true))
+    report          = tuple(meta, file("${prefix}.tsv"))
+    mutation_report = tuple(meta, file("${prefix}-mutations.tsv", optional: true))
     logs            = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs         = tuple(meta, files(".command.*"))
     versions        = tuple(meta, files("versions.yml"))
@@ -61,13 +61,13 @@ process AMRFINDERPLUS_RUN {
     meta.process_name = task.ext.process_name
 
     // WF specific parameters
-    def fna_is_compressed = genes.toList()[0].getName().endsWith(".gz") ? true : false
-    def faa_is_compressed = proteins.toList()[0].getName().endsWith(".gz") ? true : false
-    def gff_is_compressed = gff.toList()[0].getName().endsWith(".gz") ? true : false
+    def fna_is_compressed = genes.getName().endsWith(".gz") ? true : false
+    def faa_is_compressed = proteins.getName().endsWith(".gz") ? true : false
+    def gff_is_compressed = gff.getName().endsWith(".gz") ? true : false
     organism_param = meta.containsKey("organism") ? "--organism ${meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
-    fna_name = genes.toList()[0].getName().replace(".gz", "")
-    faa_name = proteins.toList()[0].getName().replace(".gz", "")
-    gff_name = gff.toList()[0].getName().replace(".gz", "")
+    fna_name = genes.getName().replace(".gz", "")
+    faa_name = proteins.getName().replace(".gz", "")
+    gff_name = gff.getName().replace(".gz", "")
     annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """

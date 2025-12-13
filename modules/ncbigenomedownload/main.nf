@@ -73,6 +73,7 @@ process NCBIGENOMEDOWNLOAD {
     meta.process_name = task.ext.process_name
     meta.output_dir = "${meta.process_name}"
     meta.logs_dir = "${meta.process_name}/logs"
+
     def has_accessions = accessions ? true : false
     def opts = "${task.ext.args} --output-folder ./ --flat-output -p ${task.cpus} -r ${task.ext.max_retry}"
     """

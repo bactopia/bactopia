@@ -33,12 +33,12 @@ process ARIBA_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta, reads) : Tuple<Map, Path>
     db             : Path
 
     output:
-    report       = tuple(meta, files("${prefix}-report.tsv"))
-    summary      = tuple(meta, files("${prefix}-summary.csv"))
+    report       = tuple(meta, file("${prefix}-report.tsv"))
+    summary      = tuple(meta, file("${prefix}-summary.csv"))
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
@@ -55,7 +55,8 @@ process ARIBA_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    db_name = db.getName().replace('.tar.gz', '')
+
+    def db_name = db.getName().replace('.tar.gz', '')
     """
     tar -xzvf ${db}
     mv ${db_name} ${db_name}db

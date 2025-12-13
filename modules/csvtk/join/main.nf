@@ -39,13 +39,13 @@ process CSVTK_JOIN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, csv1, csv2) : Tuple<Map, Set<Path>, Set<Path>>
+    (_meta, csv1, csv2) : Tuple<Map, Path, Path>
     in_format           : String
     out_format          : String
     key                 : String
 
     output:
-    csv      = tuple(meta, files("${prefix}.${out_extension}"))
+    csv      = tuple(meta, file("${prefix}.${out_extension}"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -63,6 +63,7 @@ process CSVTK_JOIN {
     meta.output_dir = "merged-results"
     meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
     meta.process_name = task.ext.process_name
+
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     """

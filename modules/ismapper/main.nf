@@ -36,7 +36,7 @@ process ISMAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta, reads) : Tuple<Map, Path>
     reference      : Path
     query          : Path
 
@@ -58,6 +58,7 @@ process ISMAPPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
     def query_compressed = query.getName().endsWith(".gz") ? true : false

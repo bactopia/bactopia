@@ -22,7 +22,7 @@ process BAKTA_DOWNLOAD {
 
     output:
     db         = files("bakta-${task.ext.bakta_db_type}/*", optional: true)
-    db_tarball = files("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true)
+    db_tarball = file("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true)
     logs       = files("logs/*", optional: true)
 
     script:

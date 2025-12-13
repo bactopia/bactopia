@@ -33,13 +33,12 @@ process IQTREE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, alignment) : Tuple<Map, Set<Path>>
+    (_meta, msa) : Tuple<Map, Path>
 
     output:
+    phylogeny    = tuple(meta, file(treefile))
+    aln_tree     = tuple(meta, msa, file(treefile))
     supplemental = tuple(meta, files("${process_name}/*"))
-    phylogeny    = tuple(meta, files(treefile))
-    alignment    = tuple(meta, alignment)
-    aln_tree     = tuple(meta, alignment, files(treefile))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
     versions     = tuple(meta, files("versions.yml"))
@@ -61,7 +60,7 @@ process IQTREE {
     """
     iqtree \\
         ${args} \\
-        -s ${alignment} \\
+        -s ${msa} \\
         -nt ${task.cpus} \\
         -ntmax ${task.cpus} \\
         -pre ${prefix}
@@ -77,7 +76,7 @@ process IQTREE {
 
     if [ "${process_name}" != "iqtree-fast" ]; then
         mv ${process_name}/${prefix}.treefile ./
-        mv ${process_name}/${alignment} ./
+        mv ${process_name}/${msa} ./
     fi
 
     cat <<-END_VERSIONS > versions.yml

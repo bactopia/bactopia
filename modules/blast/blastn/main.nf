@@ -31,11 +31,11 @@ process BLAST_BLASTN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, blastdb) : Tuple<Map, Set<Path>>
+    (_meta, blastdb) : Tuple<Map, Path>
     query            : Path
 
     output:
-    tsv      = tuple(meta, files('*.blastn.tsv'))
+    tsv      = tuple(meta, file("${prefix}.blastn.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -51,6 +51,7 @@ process BLAST_BLASTN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     // genes -> ffn, contigs -> fna
     def db_type = task.ext.use_genes ? "ffn" : "fna"
     def which_cat = query.getName().endsWith(".gz") ? "zcat" : "cat"

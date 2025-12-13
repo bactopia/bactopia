@@ -37,16 +37,16 @@ process CLONALFRAMEML {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa, newick) : Tuple<Map, Set<Path>, Set<Path>>
+    (_meta, msa, newick) : Tuple<Map, Path, Path>
 
     output:
-    emsim      = tuple(meta, files("${task.ext.process_name}/*.emsim.txt", optional: true))
-    em         = tuple(meta, files("${task.ext.process_name}/*.em.txt"))
-    status     = tuple(meta, files("${task.ext.process_name}/*.importation_status.txt"))
-    newick     = tuple(meta, files("${task.ext.process_name}/*.labelled_tree.newick"))
-    fasta      = tuple(meta, files("${task.ext.process_name}/*.ML_sequence.fasta.gz"))
-    pos_ref    = tuple(meta, files("${task.ext.process_name}/*.position_cross_reference.txt.gz"))
-    masked_aln = tuple(meta, files("*.masked.aln.gz"))
+    emsim      = tuple(meta, files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true))
+    em         = tuple(meta, files("${task.ext.process_name}/${prefix}.em.txt"))
+    status     = tuple(meta, files("${task.ext.process_name}/${prefix}.importation_status.txt"))
+    newick     = tuple(meta, files("${task.ext.process_name}/${prefix}.labelled_tree.newick"))
+    fasta      = tuple(meta, files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"))
+    pos_ref    = tuple(meta, files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"))
+    masked_aln = tuple(meta, files("${prefix}.masked.aln.gz"))
     logs       = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs    = tuple(meta, files(".command.*"))
     versions   = tuple(meta, files("versions.yml"))
@@ -62,8 +62,9 @@ process CLONALFRAMEML {
     meta.output_dir = ""
     meta.logs_dir = "${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
-    def is_compressed = msa.toList()[0].getName().endsWith(".gz") ? true : false
-    def msa_name = msa.toList()[0].getName().replace(".gz", "")
+
+    def is_compressed = msa.getName().endsWith(".gz") ? true : false
+    def msa_name = msa.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${msa} > ${msa_name}

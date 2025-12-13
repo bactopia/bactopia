@@ -32,11 +32,11 @@ process SCOARY {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes) : Tuple<Map, Set<Path>>
+    (_meta, genes) : Tuple<Map, Path>
     traits         : Path
 
     output:
-    csv      = tuple(meta, files("*.csv"))
+    results  = tuple(meta, files("*.results.csv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))

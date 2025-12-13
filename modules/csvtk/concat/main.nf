@@ -43,7 +43,7 @@ process CSVTK_CONCAT {
     stageAs 'inputs/*', csv
 
     output:
-    csv      = tuple(meta, files("${prefix}.${out_extension}"))
+    csv      = tuple(meta, file("${prefix}.${out_extension}"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -61,6 +61,7 @@ process CSVTK_CONCAT {
     meta.output_dir = "merged-results"
     meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
     meta.process_name = task.ext.process_name
+
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     extra_args = _meta.args ? "${_meta.args}" : ""

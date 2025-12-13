@@ -61,22 +61,22 @@ process MERLIN_DIST {
 
     output:
     dist               = tuple(meta, files("*.txt"))
-    escherichia        = tuple(meta, query, files("escherichia.genus", optional: true))
-    escherichia_fq     = tuple(meta, reads, files("escherichia.genus", optional: true))
-    escherichia_fna_fq = tuple(meta, query, reads, files("escherichia.genus", optional: true))
-    haemophilus        = tuple(meta, query, files("haemophilus.genus", optional: true))
-    klebsiella         = tuple(meta, query, files("klebsiella.genus", optional: true))
-    legionella         = tuple(meta, query, files("legionella.genus", optional: true))
-    listeria           = tuple(meta, query, files("listeria.genus", optional: true))
-    mycobacterium      = tuple(meta, query, files("mycobacterium.genus", optional: true))
-    mycobacterium_fq   = tuple(meta, reads, files("mycobacterium.genus", optional: true))
-    neisseria          = tuple(meta, query, files("neisseria.genus", optional: true))
-    pseudomonas        = tuple(meta, query, files("pseudomonas.genus", optional: true))
-    salmonella         = tuple(meta, query, files("salmonella.genus", optional: true))
-    salmonella_fq      = tuple(meta, reads, files("salmonella.genus", optional: true))
-    staphylococcus     = tuple(meta, query, files("staphylococcus.genus", optional: true))
-    streptococcus      = tuple(meta, query, files("streptococcus.genus", optional: true))
-    streptococcus_fq   = tuple(meta, reads, files("streptococcus.genus", optional: true))
+    escherichia        = tuple(meta, query, file("escherichia.genus", optional: true))
+    escherichia_fq     = tuple(meta, reads, file("escherichia.genus", optional: true))
+    escherichia_fna_fq = tuple(meta, query, reads, file("escherichia.genus", optional: true))
+    haemophilus        = tuple(meta, query, file("haemophilus.genus", optional: true))
+    klebsiella         = tuple(meta, query, file("klebsiella.genus", optional: true))
+    legionella         = tuple(meta, query, file("legionella.genus", optional: true))
+    listeria           = tuple(meta, query, file("listeria.genus", optional: true))
+    mycobacterium      = tuple(meta, query, file("mycobacterium.genus", optional: true))
+    mycobacterium_fq   = tuple(meta, reads, file("mycobacterium.genus", optional: true))
+    neisseria          = tuple(meta, query, file("neisseria.genus", optional: true))
+    pseudomonas        = tuple(meta, query, file("pseudomonas.genus", optional: true))
+    salmonella         = tuple(meta, query, file("salmonella.genus", optional: true))
+    salmonella_fq      = tuple(meta, reads, file("salmonella.genus", optional: true))
+    staphylococcus     = tuple(meta, query, file("staphylococcus.genus", optional: true))
+    streptococcus      = tuple(meta, query, file("streptococcus.genus", optional: true))
+    streptococcus_fq   = tuple(meta, reads, file("streptococcus.genus", optional: true))
     genus              = tuple(meta, files("*.genus", optional: true))
     logs               = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs            = tuple(meta, files(".command.*"))
@@ -95,6 +95,7 @@ process MERLIN_DIST {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def is_compressed = reference.getName().endsWith(".xz") ? true : false
     def reference_name = reference.getName().replace(".xz", "")
     """

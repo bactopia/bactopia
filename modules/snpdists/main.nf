@@ -28,10 +28,10 @@ process SNPDISTS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, alignment) : Tuple<Map, Set<Path>>
+    (_meta, msa) : Tuple<Map, Path>
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
+    tsv      = tuple(meta, file("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))
@@ -51,7 +51,7 @@ process SNPDISTS {
     """
     snp-dists \\
         ${task.ext.args} \\
-        ${alignment} > ${prefix}.tsv
+        ${msa} > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
