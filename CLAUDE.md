@@ -107,3 +107,4 @@ When working with this codebase:
 - **Don't "fix" Path? workarounds** - They're intentional
 - **Use `file()` for single files, `files()` for multiple**
 - **Follow existing patterns** - Don't reinvent unless necessary
+- **Always use 4 spaces for indentation** in all code blocks and lists, with the exception of YAML files which use 2 spaces

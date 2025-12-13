@@ -4,6 +4,48 @@ description: A full list of Bactopia releases and a description of the changes.
 ---
 # Changelog
 
+## Unreleased Changes
+
+### `Changed`
+
+- **Major Refactoring**: Complete conversion to Nextflow v25 syntax and architecture
+    - Removed legacy `lib/` folder in favor of `nf-bactopia` plugin
+    - Updated all modules, subworkflows and workflows to support strict syntax requirements for Nextflow v25
+    - Consolidated `params.config` and `process.config` into unified `module.config` files
+- Moved empty placeholder files to `data/empty/` directory
+- Updated output structure to use "supplemental" instead of "results" for consistency
+- Increased minimum Nextflow version requirement and updated plugin dependencies
+- Improved parameter naming consistency
+    - common names for similar parameters across modules and workflows
+    - tool name used as a prefix to prevent overlaps in names
+- Replaced `meta.yml` files with standardized GroovyDoc documentation in all .nf files
+- Implemented type annotations in all .nf files
+- Replaced `publishDir` with `output` block publishing
+- removed all `when` conditions in modules
+
+### `Added`
+
+- Comprehensive documentation system (`.claude/docs/`)
+    - Style guide and templates for GroovyDoc documentation
+    - Logic rules and taxonomy for component classification
+    - Technical specifications and implementation details
+    - Project documentation including repository structure and development workflow
+    - Reference materials with examples and troubleshooting
+- Help messages to modules for improved user guidance
+- Converted pytest tests to nf-test framework
+- YAML version of `workflows.config` for alternative configuration format
+
+### `Fixed`
+
+- AbritAMR prefix handling to use sample-specific prefixes with safe renames
+- Missing configuration in Teton subworkflow
+- Config path resolution issues
+- Missing `fastq_only` parameter when using `ask_merlin`
+- Various typos throughout the codebase
+- Debug information removal from production code
+- Container image descriptions and fixes
+- File existence checks when using `file()` function in Nextflow
+
 ## v3.2.0 bactopia/bactopia "Black Bulls" 2025/03/21
 
 _"Black Bulls" is related to the best magic squad in Black Clover my kids currently watching_
