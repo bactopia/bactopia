@@ -42,8 +42,8 @@ workflow KLEBORATE {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = KLEBORATE_MODULE.out.txt
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = KLEBORATE_MODULE.out.txt
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

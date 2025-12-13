@@ -40,9 +40,9 @@ workflow MASHTREE {
 
     emit:
     // Individual outputs
-    matrix: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.matrix
-    sketches: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.sketches
-    tree: Channel<Tuple<Map, Path>> = MASHTREE_MODULE.out.tree
+    matrix: Channel<Tuple<Map, Set<Path>>> = MASHTREE_MODULE.out.matrix
+    sketches: Channel<Tuple<Map, Set<Path>>> = MASHTREE_MODULE.out.sketches
+    tree: Channel<Tuple<Map, Set<Path>>> = MASHTREE_MODULE.out.tree
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

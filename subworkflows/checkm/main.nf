@@ -43,8 +43,8 @@ workflow CHECKM {
 
     emit:
     // Individual outputs
-    report: Channel<Tuple<Map, Path>> = CHECKM_LINEAGEWF.out.tsv
-    merged_reports: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    report: Channel<Tuple<Map, Set<Path>>> = CHECKM_LINEAGEWF.out.tsv
+    merged_reports: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

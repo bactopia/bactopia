@@ -39,8 +39,8 @@ workflow ROARY {
 
     emit:
     // Individual outputs
-    aln: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.aln
-    csv: Channel<Tuple<Map, Path>> = ROARY_MODULE.out.csv
+    aln: Channel<Tuple<Map, Set<Path>>> = ROARY_MODULE.out.aln
+    csv: Channel<Tuple<Map, Set<Path>>> = ROARY_MODULE.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

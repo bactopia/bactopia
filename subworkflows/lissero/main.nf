@@ -42,8 +42,8 @@ workflow LISSERO {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = LISSERO_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = LISSERO_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

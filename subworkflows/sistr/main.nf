@@ -45,11 +45,11 @@ workflow SISTR {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    allele_fasta: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.allele_fasta
-    allele_json: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.allele_json
-    cgmlst_csv: Channel<Tuple<Map, Path>> = SISTR_MODULE.out.cgmlst_csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SISTR_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    allele_fasta: Channel<Tuple<Map, Set<Path>>> = SISTR_MODULE.out.allele_fasta
+    allele_json: Channel<Tuple<Map, Set<Path>>> = SISTR_MODULE.out.allele_json
+    cgmlst_csv: Channel<Tuple<Map, Set<Path>>> = SISTR_MODULE.out.cgmlst_csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

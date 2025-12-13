@@ -53,7 +53,7 @@ workflow QC {
     // Individual outputs
     fastq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = QC_MODULE.out.fastq
     fastq_only: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.fastq_only
-    txt: Channel<Tuple<Map, Path>> = QC_MODULE.out.txt
+    txt: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.txt
     error: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.error
     error_fastq: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.error_fastq
 

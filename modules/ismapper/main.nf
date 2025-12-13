@@ -36,7 +36,7 @@ process ISMAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     reference      : Path
     query          : Path
 
@@ -44,7 +44,7 @@ process ISMAPPER {
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     def query_name = query.getName().replace(".gz", "")

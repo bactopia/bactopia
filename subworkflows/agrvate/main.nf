@@ -41,9 +41,9 @@ workflow AGRVATE {
 
     emit:
     // Individual output
-    tsv: Channel<Tuple<Map, Path>> = AGRVATE_MODULE.out.summary
-    supplemental: Channel<Tuple<Map, Path>> = AGRVATE_MODULE.out.supplemental
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = AGRVATE_MODULE.out.summary
+    supplemental: Channel<Tuple<Map, Set<Path>>> = AGRVATE_MODULE.out.supplemental
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate output
     results: Channel<Tuple<Map, Path>> = flattenPaths([

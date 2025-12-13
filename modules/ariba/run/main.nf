@@ -37,12 +37,12 @@ process ARIBA_RUN {
     db             : Path
 
     output:
-    report       = tuple(meta, file("${prefix}-report.tsv"))
-    summary      = tuple(meta, file("${prefix}-summary.csv"))
+    report       = tuple(meta, files("${prefix}-report.tsv"))
+    summary      = tuple(meta, files("${prefix}-summary.csv"))
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

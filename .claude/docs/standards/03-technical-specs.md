@@ -28,11 +28,12 @@ This document contains the technical specifications, conventions, and "gotchas" 
 
 ### Channel Type Declarations
 Standard pattern for workflow-level channels:
+
 ```nextflow
-ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 ```
 
 ### Standard Module Input Types
@@ -55,8 +56,9 @@ bakta_db : Path? = "${projectDir}/data/empty/EMPTY_DB"
 ```
 
 ### Detection in Scripts
+
 ```groovy
-def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
+def proteins_opt = proteins.toList()[0].getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.toList()[0].getName()}" : ""
 ```
 
 ### Available EMPTY_* Files
@@ -77,15 +79,18 @@ Located in `/data/empty/`:
 ## Channel Output Patterns
 
 ### Module Output Pattern (3 channels)
+
 ```nextflow
 output:
 logs        = tuple(meta, files("*.{log,err}", optional: true))
 nf_logs     = tuple(meta, files(".command.*"))
 versions    = tuple(meta, file("versions.yml"))
 ```
+
 Modules may emit additional output channels as needed.
 
 ### Subworkflow Output Pattern (4 channels)
+
 ```nextflow
 emit:
 results    = flattenPaths([ch_results])
@@ -93,11 +98,13 @@ logs       = flattenPaths([ch_logs])
 nf_logs    = flattenPaths([ch_nf_logs])
 versions   = flattenPaths([ch_versions])
 ```
+
 Subworkflows must always emit these four standard channels.
 
 ## Meta Map Structure
 
 Standard meta fields used across all components:
+
 ```groovy
 meta.id = "${prefix}-${task.process}"
 meta.name = prefix
@@ -108,6 +115,7 @@ meta.process_name = task.ext.process_name
 ```
 
 ### Output Directory Patterns
+
 ```groovy
 // Sample scope
 meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
@@ -132,6 +140,7 @@ meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ex
 
 ### flattenPaths
 Converts `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>` for outputs:
+
 ```nextflow
 include { flattenPaths } from 'plugin/nf-bactopia'
 results = flattenPaths([ch_results])
@@ -139,6 +148,7 @@ results = flattenPaths([ch_results])
 
 ### gather
 Merges multiple channels for aggregate operations:
+
 ```nextflow
 include { gather } from 'plugin/nf-bactopia'
 SUMMARY(gather(INPUT.out.report, 'tool-name'))
@@ -146,6 +156,7 @@ SUMMARY(gather(INPUT.out.report, 'tool-name'))
 
 ## Version Tracking
 Always include a `versions.yml` file with software version information:
+
 ```nextflow
 cat <<-END_VERSIONS > versions.yml
 "${task.process}":
@@ -154,6 +165,7 @@ END_VERSIONS
 ```
 
 Expected format:
+
 ```yaml
 "PROCESS_NAME":
     TOOL_NAME: VERSION_STRING

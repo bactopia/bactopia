@@ -145,10 +145,10 @@ include { STAPHTYPER      } from '../../subworkflows/staphtyper/main'
 workflow {
     main:
     // Initialize output channels
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     BACTOPIA_INIT()

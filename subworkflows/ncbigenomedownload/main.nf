@@ -52,20 +52,20 @@ workflow NCBIGENOMEDOWNLOAD {
 
     emit:
     // Individual outputs
-    bactopia_tools: Channel<Tuple<Map, Path>> = ch_to_bactopia_tools
-    gbk: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
-    fna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.fna
-    rm: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rm
-    features: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.features
-    gff: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gff
-    faa: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.faa
-    gpff: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
-    wgs_gbk: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
-    cds: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.cds
-    rna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna
-    rna_fna: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
-    report: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.report
-    stats: Channel<Tuple<Map, Path>> = NCBIGENOMEDOWNLOAD_MODULE.out.stats
+    bactopia_tools: Channel<Tuple<Map, Set<Path>>> = ch_to_bactopia_tools
+    gbk: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
+    fna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.fna
+    rm: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rm
+    features: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.features
+    gff: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gff
+    faa: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.faa
+    gpff: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
+    wgs_gbk: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
+    cds: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.cds
+    rna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna
+    rna_fna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
+    report: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.report
+    stats: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.stats
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

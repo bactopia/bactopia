@@ -36,10 +36,10 @@ process EMMTYPER {
     blastdb        : Path?
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -86,7 +86,7 @@ process EMMTYPER {
 
 
     # Cleanup
-    rm -rf ${fasta_name}
+    rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

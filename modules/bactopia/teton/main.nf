@@ -31,15 +31,15 @@ process BACTOPIA_SAMPLESHEET {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, classification) : Tuple<Map, Path>
+    (_meta, classification) : Tuple<Map, Set<Path>>
 
     output:
-    bacteria_tsv    = tuple(meta, file("${prefix}.bacteria.tsv"))
-    nonbacteria_tsv = tuple(meta, file("${prefix}.nonbacteria.tsv"))
-    sizemeup        = tuple(meta, file("${prefix}-sizemeup.txt"))
+    bacteria_tsv    = tuple(meta, files("${prefix}.bacteria.tsv"))
+    nonbacteria_tsv = tuple(meta, files("${prefix}.nonbacteria.tsv"))
+    sizemeup        = tuple(meta, files("${prefix}-sizemeup.txt"))
     logs            = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs         = tuple(meta, files(".command.*"))
-    versions        = tuple(meta, file("versions.yml"))
+    versions        = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

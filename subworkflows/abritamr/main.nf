@@ -45,12 +45,12 @@ workflow ABRITAMR {
 
     emit:
     // Individual outputs
-    summary_tsv: Channel<Tuple<Map, Path>> = ABRITAMR_RUN.out.summary
-    merged_summary_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    matches_tsv: Channel<Tuple<Map, Path>> = ABRITAMR_RUN.out.matches
-    partials_tsv: Channel<Tuple<Map, Path>> = ABRITAMR_RUN.out.partials
-    virulence_tsv: Channel<Tuple<Map, Path>> = ABRITAMR_RUN.out.virulence
-    amrfinder_tsv: Channel<Tuple<Map, Path>> = ABRITAMR_RUN.out.amrfinder
+    summary_tsv: Channel<Tuple<Map, Set<Path>>> = ABRITAMR_RUN.out.summary
+    merged_summary_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    matches_tsv: Channel<Tuple<Map, Set<Path>>> = ABRITAMR_RUN.out.matches
+    partials_tsv: Channel<Tuple<Map, Set<Path>>> = ABRITAMR_RUN.out.partials
+    virulence_tsv: Channel<Tuple<Map, Set<Path>>> = ABRITAMR_RUN.out.virulence
+    amrfinder_tsv: Channel<Tuple<Map, Set<Path>>> = ABRITAMR_RUN.out.amrfinder
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

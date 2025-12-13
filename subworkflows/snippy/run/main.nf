@@ -58,27 +58,27 @@ workflow SNIPPY {
     SNIPPY_RUN(reads, reference)
 
     emit:
-    aligned_fa: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.aligned_fa
-    vcf: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.vcf
-    aligned_fa_error: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.aligned_fa_error
-    vcf_error: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.vcf_error
-    error: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.error
-    annotated_vcf: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.annotated_vcf
-    bam: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.bam
-    bai: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.bai
-    bed: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.bed
-    consensus_fa: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.consensus_fa
-    consensus_subs_fa: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.consensus_subs_fa
-    consensus_subs_masked_fa: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.consensus_subs_masked_fa
-    coverage: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.coverage
-    csv: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.csv
-    filt_vcf: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.filt_vcf
-    gff: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.gff
-    html: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.html
-    raw_vcf: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.raw_vcf
-    subs_vcf: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.subs_vcf
-    tab: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.tab
-    txt: Channel<Tuple<Map, Path>> = SNIPPY_RUN.out.txt
+    aligned_fa: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.aligned_fa
+    vcf: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.vcf
+    aligned_fa_error: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.aligned_fa_error
+    vcf_error: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.vcf_error
+    error: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.error
+    annotated_vcf: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.annotated_vcf
+    bam: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.bam
+    bai: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.bai
+    bed: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.bed
+    consensus_fa: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.consensus_fa
+    consensus_subs_fa: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.consensus_subs_fa
+    consensus_subs_masked_fa: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.consensus_subs_masked_fa
+    coverage: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.coverage
+    csv: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.csv
+    filt_vcf: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.filt_vcf
+    gff: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.gff
+    html: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.html
+    raw_vcf: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.raw_vcf
+    subs_vcf: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.subs_vcf
+    tab: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.tab
+    txt: Channel<Tuple<Map, Set<Path>>> = SNIPPY_RUN.out.txt
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

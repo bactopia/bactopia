@@ -38,7 +38,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>, Set<Path>, Path>>
+    reads: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
 
     main:
     GATHER_MODULE(reads)
@@ -48,8 +48,8 @@ workflow GATHER {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = GATHER_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
     fastq_only: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.fastq_only
     raw_fastq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = GATHER_MODULE.out.raw_fastq
     error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error

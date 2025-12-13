@@ -43,10 +43,10 @@ process CSVTK_CONCAT {
     stageAs 'inputs/*', csv
 
     output:
-    csv      = tuple(meta, file("${prefix}.${out_extension}"))
+    csv      = tuple(meta, files("${prefix}.${out_extension}"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'

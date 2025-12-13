@@ -38,10 +38,10 @@ workflow CLONALFRAMEML {
     alignment: Channel<Tuple<Map, Set<Path>>>
 
     main:
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     // Create a quick start tree
@@ -75,7 +75,7 @@ workflow CLONALFRAMEML {
 
     emit:
     // Individual outputs
-    masked_aln: Channel<Tuple<Map, Path>> = CLONALFRAMEML_MODULE.out.masked_aln
+    masked_aln: Channel<Tuple<Map, Set<Path>>> = CLONALFRAMEML_MODULE.out.masked_aln
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([ch_results])

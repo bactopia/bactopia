@@ -89,16 +89,16 @@ workflow BAKTA {
     emit:
     // Individual outputs
     annotations: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = BAKTA_RUN.out.annotations
-    tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.tsv
-    txt: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.txt
-    embl: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.embl
-    faa: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.faa
-    ffn: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.ffn
-    fna: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.fna
-    gbff: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.gbff
-    gff: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.gff
-    hypotheticals_faa: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_faa
-    hypotheticals_tsv: Channel<Tuple<Map, Path>> = BAKTA_RUN.out.hypotheticals_tsv
+    tsv: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.tsv
+    txt: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.txt
+    embl: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.embl
+    faa: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.faa
+    ffn: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.ffn
+    fna: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.fna
+    gbff: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.gbff
+    gff: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.gff
+    hypotheticals_faa: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.hypotheticals_faa
+    hypotheticals_tsv: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.hypotheticals_tsv
     blastdb: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.blastdb
 
     // Generic aggregate outputs

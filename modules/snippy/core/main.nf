@@ -44,25 +44,25 @@ process SNIPPY_CORE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, _vcf, _aligned_fa) : Tuple<Map, Path, Path>
-    (_ref_meta, reference)   : Tuple<Map, Path>
-    mask                     : List<Path>
+    (_meta, _vcf, _aligned_fa) : Tuple<Map, Set<Path>, Set<Path>>
+    (_ref_meta, reference)     : Tuple<Map, Set<Path>>
+    mask                       : Path?
 
     output:
     supplemental   = tuple(meta, files("snippy-core/*"))
-    aln            = tuple(meta, file("snippy-core/${prefix}.aln.gz"))
-    full_aln       = tuple(meta, file("${prefix}.full.aln.gz"))
-    clean_full_aln = tuple(meta, file("${prefix}-clean.full.aln.gz"))
-    tab            = tuple(meta, file("snippy-core/${prefix}.tab.gz"))
-    vcf            = tuple(meta, file("snippy-core/${prefix}.vcf.gz"))
-    txt            = tuple(meta, file("snippy-core/${prefix}.txt"))
-    samples        = tuple(meta, file("${reference_name}.samples.txt"))
+    aln            = tuple(meta, files("snippy-core/${prefix}.aln.gz"))
+    full_aln       = tuple(meta, files("${prefix}.full.aln.gz"))
+    clean_full_aln = tuple(meta, files("${prefix}-clean.full.aln.gz"))
+    tab            = tuple(meta, files("snippy-core/${prefix}.tab.gz"))
+    vcf            = tuple(meta, files("snippy-core/${prefix}.vcf.gz"))
+    txt            = tuple(meta, files("snippy-core/${prefix}.txt"))
+    samples        = tuple(meta, files("${reference_name}.samples.txt"))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, file("versions.yml"))
+    versions       = tuple(meta, files("versions.yml"))
 
     script:
-    reference_name = reference.getSimpleName()
+    reference_name = reference.toList()[0].getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.id}"
 
     // Create a new meta variable
@@ -73,9 +73,9 @@ process SNIPPY_CORE {
     meta.process_name = task.ext.process_name
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs"
-    def mask_opt = mask.size() == 1 ? "--mask ${mask[0].getName()}" : ""
-    def is_compressed = reference.getName().endsWith(".gz") ? true : false
-    def final_reference = reference.getName().replace(".gz", "")
+    def mask_opt = mask.size() == 1 ? "--mask ${mask.getName()}" : ""
+    def is_compressed = reference.toList()[0].getName().endsWith(".gz") ? true : false
+    def final_reference = reference.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${reference} > ${final_reference}

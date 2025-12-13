@@ -47,9 +47,9 @@ workflow MIDAS {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = MIDAS_SPECIES.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    abundances: Channel<Tuple<Map, Path>> = MIDAS_SPECIES.out.abundances
+    tsv: Channel<Tuple<Map, Set<Path>>> = MIDAS_SPECIES.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    abundances: Channel<Tuple<Map, Set<Path>>> = MIDAS_SPECIES.out.abundances
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

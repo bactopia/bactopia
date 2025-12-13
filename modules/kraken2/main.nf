@@ -42,7 +42,7 @@ process KRAKEN2 {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
@@ -51,11 +51,11 @@ process KRAKEN2 {
     scrub_special_report = tuple(special_meta, files('*.scrub.report.tsv', optional: true))
     classified           = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true))
     unclassified         = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true))
-    classified_extra     = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
-    unclassified_extra   = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true), file("EMPTY_EXTRA", optional: true))
+    classified_extra     = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true), files("EMPTY_EXTRA", optional: true))
+    unclassified_extra   = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true), files("EMPTY_EXTRA", optional: true))
     logs                 = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs              = tuple(meta, files(".command.*"))
-    versions             = tuple(meta, file("versions.yml"))
+    versions             = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -76,8 +76,8 @@ process KRAKEN2 {
         meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     }
     meta.process_name = task.ext.process_name
-    meta.single_end = reads[1] == null ? true : false
-    meta.is_paired = reads[1] == null ? false : true
+    meta.single_end = reads.toList()[1] == null ? true : false
+    meta.is_paired = reads.toList()[1] == null ? false : true
     meta.runtype = _meta.runtype
     special_meta = [:]
     special_meta.id = prefix

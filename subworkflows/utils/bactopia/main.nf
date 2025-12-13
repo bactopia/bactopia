@@ -57,9 +57,9 @@ workflow BACTOPIA_INIT {
             sample[2].each { it -> r2 << file(it) }
         } 
 
-        ch_samples << tuple(meta, r1.toSet(), r2.toSet(), extra)
+        ch_samples << tuple(meta, r1.toSet(), r2.toSet(), extra.toSet())
     }.println()
 
     emit:
-    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Path>> = ch_samples
+    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
 }

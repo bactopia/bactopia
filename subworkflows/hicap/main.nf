@@ -51,10 +51,10 @@ workflow HICAP {
 
     emit:
     // Individual outputs
-    gbk: Channel<Tuple<Map, Path>> = HICAP_MODULE.out.gbk
-    svg: Channel<Tuple<Map, Path>> = HICAP_MODULE.out.svg
-    tsv: Channel<Tuple<Map, Path>> = HICAP_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    gbk: Channel<Tuple<Map, Set<Path>>> = HICAP_MODULE.out.gbk
+    svg: Channel<Tuple<Map, Set<Path>>> = HICAP_MODULE.out.svg
+    tsv: Channel<Tuple<Map, Set<Path>>> = HICAP_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

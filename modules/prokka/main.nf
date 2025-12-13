@@ -56,24 +56,24 @@ process PROKKA {
 
     output:
     annotations = tuple(meta, files("${prefix}.{fna,fna.gz}"), files("${prefix}.{faa,faa.gz}"), files("${prefix}.{gff,gff.gz}"))
-    gff         = tuple(meta, file("${prefix}.{gff,gff.gz}"))
-    gbk         = tuple(meta, file("${prefix}.{gbk,gbk.gz}"))
-    fna         = tuple(meta, file("${prefix}.{fna,fna.gz}"))
-    faa         = tuple(meta, file("${prefix}.{faa,faa.gz}"))
-    ffn         = tuple(meta, file("${prefix}.{ffn,ffn.gz}"))
-    sqn         = tuple(meta, file("${prefix}.{sqn,sqn.gz}"))
-    fsa         = tuple(meta, file("${prefix}.{fsa,fsa.gz}"))
-    tbl         = tuple(meta, file("${prefix}.{tbl,tbl.gz}"))
-    txt         = tuple(meta, file("${prefix}.txt"))
-    tsv         = tuple(meta, file("${prefix}.tsv"))
+    gff         = tuple(meta, files("${prefix}.{gff,gff.gz}"))
+    gbk         = tuple(meta, files("${prefix}.{gbk,gbk.gz}"))
+    fna         = tuple(meta, files("${prefix}.{fna,fna.gz}"))
+    faa         = tuple(meta, files("${prefix}.{faa,faa.gz}"))
+    ffn         = tuple(meta, files("${prefix}.{ffn,ffn.gz}"))
+    sqn         = tuple(meta, files("${prefix}.{sqn,sqn.gz}"))
+    fsa         = tuple(meta, files("${prefix}.{fsa,fsa.gz}"))
+    tbl         = tuple(meta, files("${prefix}.{tbl,tbl.gz}"))
+    txt         = tuple(meta, files("${prefix}.txt"))
+    tsv         = tuple(meta, files("${prefix}.tsv"))
     blastdb     = tuple(meta, files("${prefix}-blastdb.tar.gz"))
     logs        = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs     = tuple(meta, files(".command.*"))
-    versions    = tuple(meta, file("versions.yml"))
+    versions    = tuple(meta, files("versions.yml"))
 
     script:
     def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed
-    def prodigal_opt = prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
+    def prodigal_opt = prodigal_tf?.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
     def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
     def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"

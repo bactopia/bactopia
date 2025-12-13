@@ -55,14 +55,14 @@ workflow DEFENSEFINDER {
 
     emit:
     // Individual outputs
-    genes_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.genes_tsv
-    merged_genes_tsv: Channel<Tuple<Map, Path>> = GENES_CONCAT.out.csv
-    hmmer_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.hmmer_tsv
-    merged_hmmer_tsv: Channel<Tuple<Map, Path>> = HMMER_CONCAT.out.csv
-    systems_tsv: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.systems_tsv
-    merged_systems_tsv: Channel<Tuple<Map, Path>> = SYSTEMS_CONCAT.out.csv
-    proteins: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.proteins
-    proteins_index: Channel<Tuple<Map, Path>> = DEFENSEFINDER_RUN.out.proteins_index
+    genes_tsv: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.genes_tsv
+    merged_genes_tsv: Channel<Tuple<Map, Set<Path>>> = GENES_CONCAT.out.csv
+    hmmer_tsv: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.hmmer_tsv
+    merged_hmmer_tsv: Channel<Tuple<Map, Set<Path>>> = HMMER_CONCAT.out.csv
+    systems_tsv: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.systems_tsv
+    merged_systems_tsv: Channel<Tuple<Map, Set<Path>>> = SYSTEMS_CONCAT.out.csv
+    proteins: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.proteins
+    proteins_index: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.proteins_index
     macsydata_raw: Channel<Tuple<Map, Set<Path>>> = DEFENSEFINDER_RUN.out.macsydata_raw
 
     // Generic aggregate outputs

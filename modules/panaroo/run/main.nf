@@ -35,20 +35,20 @@ process PANAROO_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, gff) : Tuple<Map, List<Path>>
+    (_meta, gff) : Tuple<Map, Set<Path>>
 
     stage:
     stageAs 'gff-tmp/*', gff
 
     output:
     supplemental = tuple(meta, files("panaroo/*"))
-    aln          = tuple(meta, file("core-genome.aln.gz", optional: true))
-    filtered_aln = tuple(meta, file("core-genome.filtered.aln.gz", optional: true))
-    csv          = tuple(meta, file("panaroo/gene_presence_absence_roary.csv", optional: true))
-    panaroo_csv  = tuple(meta, file("panaroo/gene_presence_absence.csv", optional: true))
+    aln          = tuple(meta, files("core-genome.aln.gz", optional: true))
+    filtered_aln = tuple(meta, files("core-genome.filtered.aln.gz", optional: true))
+    csv          = tuple(meta, files("panaroo/gene_presence_absence_roary.csv", optional: true))
+    panaroo_csv  = tuple(meta, files("panaroo/gene_presence_absence.csv", optional: true))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

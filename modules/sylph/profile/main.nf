@@ -32,14 +32,14 @@ process SYLPH_PROFILE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -52,7 +52,7 @@ process SYLPH_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def query_reads = meta.single_end ? "${reads[0]}" : "--first-pairs ${reads[0]} --second-pairs ${reads[1]}"
+    def query_reads = meta.single_end ? "${reads.toList()[0]}" : "--first-pairs ${reads.toList()[0]} --second-pairs ${reads.toList()[1]}"
     """
     sylph \\
         profile \\

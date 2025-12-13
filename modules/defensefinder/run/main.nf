@@ -40,7 +40,7 @@ process DEFENSEFINDER_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Path>
+    (_meta, proteins) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
@@ -49,10 +49,10 @@ process DEFENSEFINDER_RUN {
     systems_tsv    = tuple(meta, files("*_defense_finder_systems.tsv"))
     proteins       = tuple(meta, files("*.prt"))
     proteins_index = tuple(meta, files("*.prt.idx"))
-    macsydata_raw  = tuple(meta, file("${prefix}.macsydata.tar.gz", optional: true))
+    macsydata_raw  = tuple(meta, files("${prefix}.macsydata.tar.gz", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, file("versions.yml"))
+    versions       = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

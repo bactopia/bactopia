@@ -43,11 +43,11 @@ workflow MOBSUITE {
     CSVTK_CONCAT(gather(MOBSUITE_RECON.out.txt, 'mobsuite', 'summary'), 'tsv', 'tsv')
 
     emit:
-    txt: Channel<Tuple<Map, Path>> = MOBSUITE_RECON.out.txt
-    merged_reports: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    chromosome: Channel<Tuple<Map, Path>> = MOBSUITE_RECON.out.chromosome
-    contig_report: Channel<Tuple<Map, Path>> = MOBSUITE_RECON.out.contig_report
-    plasmids: Channel<Tuple<Map, Path>> = MOBSUITE_RECON.out.plasmids
+    txt: Channel<Tuple<Map, Set<Path>>> = MOBSUITE_RECON.out.txt
+    merged_reports: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    chromosome: Channel<Tuple<Map, Set<Path>>> = MOBSUITE_RECON.out.chromosome
+    contig_report: Channel<Tuple<Map, Set<Path>>> = MOBSUITE_RECON.out.contig_report
+    plasmids: Channel<Tuple<Map, Set<Path>>> = MOBSUITE_RECON.out.plasmids
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

@@ -20,13 +20,13 @@
  * BUSCO lineage dataset for completeness assessment
  *
  * @section Per-Sample Results
- * @publish run_*/                      BUSCO analysis output directory for each lineage
- * @publish run_*/full_table.tsv        Complete results with scores and lengths of BUSCO matches
- * @publish run_*/missing_busco_list.tsv List of missing BUSCO genes
- * @publish run_*/short_summary.txt     Summary of BUSCO assessment results
- * @publish run_*/short_summary.json    Summary of BUSCO assessment in JSON format
- * @publish */*-summary.txt             Per-sample BUSCO summary file
- * @publish */*-summary.json            Per-sample BUSCO summary in JSON format
+ * @publish run_                      BUSCO analysis output directory for each lineage
+ * @publish run_/full_table.tsv        Complete results with scores and lengths of BUSCO matches
+ * @publish run_/missing_busco_list.tsv List of missing BUSCO genes
+ * @publish run_/short_summary.txt     Summary of BUSCO assessment results
+ * @publish run_/short_summary.json    Summary of BUSCO assessment in JSON format
+ * @publish *-summary.txt             Per-sample BUSCO summary file
+ * @publish *-summary.json            Per-sample BUSCO summary in JSON format
  *
  * @section Merged Results
  * @publish busco.tsv                   Merged TSV file containing BUSCO summaries from all samples
@@ -53,10 +53,10 @@ include { BUSCO             } from '../../../subworkflows/busco/main'
 workflow {
     main:
     // Initialize output channels
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()

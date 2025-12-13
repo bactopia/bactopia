@@ -45,8 +45,8 @@ workflow MASHDIST {
 
     emit:
     // Individual outputs
-    dist: Channel<Tuple<Map, Path>> = MASH_DIST.out.dist
-    merged_dist: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    dist: Channel<Tuple<Map, Set<Path>>> = MASH_DIST.out.dist
+    merged_dist: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

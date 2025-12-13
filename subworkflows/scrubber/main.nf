@@ -45,10 +45,10 @@ workflow SCRUBBER {
     use_srascrubber: Boolean
 
     main:
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     ch_scrub_report = channel.empty()
@@ -82,11 +82,11 @@ workflow SCRUBBER {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = ch_scrub_report
-    special_tsv: Channel<Tuple<Map, Path>> = ch_special_report
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    scrubbed: Channel<Tuple<Map, Path>> = ch_scrubbed
-    scrubbed_extra: Channel<Tuple<Map, Path>> = ch_scrubbed_extra
+    tsv: Channel<Tuple<Map, Set<Path>>> = ch_scrub_report
+    special_tsv: Channel<Tuple<Map, Set<Path>>> = ch_special_report
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    scrubbed: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed
+    scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed_extra
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

@@ -43,12 +43,12 @@ process ASSEMBLER {
     output:
     fna          = tuple(meta, files("${prefix}.{fna,fna.gz}", optional: true))
     fna_fq       = tuple(meta, files("${prefix}.{fna,fna.gz}"), fq)
-    tsv          = tuple(meta, file("${prefix}.tsv", optional: true))
+    tsv          = tuple(meta, files("${prefix}.tsv", optional: true))
     supplemental = tuple(meta, files("supplemental/*"))
-    error        = tuple(meta, file("${prefix}-assembly-error.txt", optional: true))
+    error        = tuple(meta, files("${prefix}-assembly-error.txt", optional: true))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -45,12 +45,12 @@ workflow SCCMEC {
 
     emit:
     // Individual output
-    tsv: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    targets: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.targets
-    target_details: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.target_details
-    regions: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.regions
-    regions_details: Channel<Tuple<Map, Path>> = SCCMEC_MODULE.out.regions_details
+    tsv: Channel<Tuple<Map, Set<Path>>> = SCCMEC_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    targets: Channel<Tuple<Map, Set<Path>>> = SCCMEC_MODULE.out.targets
+    target_details: Channel<Tuple<Map, Set<Path>>> = SCCMEC_MODULE.out.target_details
+    regions: Channel<Tuple<Map, Set<Path>>> = SCCMEC_MODULE.out.regions
+    regions_details: Channel<Tuple<Map, Set<Path>>> = SCCMEC_MODULE.out.regions_details
 
     // Generic aggregate output
     results: Channel<Tuple<Map, Path>> = flattenPaths([

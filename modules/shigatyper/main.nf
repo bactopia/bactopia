@@ -30,14 +30,14 @@ process SHIGATYPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    hits     = tuple(meta, file("${prefix}-hits.tsv", optional: true))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
+    hits     = tuple(meta, files("${prefix}-hits.tsv", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -82,8 +82,8 @@ process SHIGATYPER {
         """
         shigatyper \\
             ${task.ext.args}  \\
-            --R1 ${reads[0]} \\
-            --R2 ${reads[1]} \\
+            --R1 ${reads.toList()[0]} \\
+            --R2 ${reads.toList()[1]} \\
             --name ${prefix}
 
         cat <<-END_VERSIONS > versions.yml

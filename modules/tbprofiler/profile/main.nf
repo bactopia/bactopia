@@ -33,7 +33,7 @@ process TBPROFILER_PROFILE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
 
     output:
     bam      = tuple(meta, files("bam/*.bam"))
@@ -43,7 +43,7 @@ process TBPROFILER_PROFILE {
     vcf      = tuple(meta, files("vcf/*.vcf.gz"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -56,7 +56,7 @@ process TBPROFILER_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def input_reads = meta.single_end ? "--read1 ${reads[0]}" : "--read1 ${reads[0]} --read2 ${reads[1]}"
+    def input_reads = meta.single_end ? "--read1 ${reads.toList()[0]}" : "--read1 ${reads.toList()[0]} --read2 ${reads.toList()[1]}"
     def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
     """
     # Copy database to working directory

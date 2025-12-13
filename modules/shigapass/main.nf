@@ -30,14 +30,14 @@ process SHIGAPASS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    flex_tsv = tuple(meta, file("${prefix}_Flex_summary.tsv", optional: true))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
+    flex_tsv = tuple(meta, files("${prefix}_Flex_summary.tsv", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     def SHIGAPASS_VERSION = "1.5.0"
@@ -51,8 +51,8 @@ process SHIGAPASS {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     # ShigaPass does not accept compressed FASTA files
     if [ "${is_compressed}" == "true" ]; then

@@ -56,27 +56,27 @@ process BAKTA_RUN {
 
     input:
     (_meta, assembly) : Tuple<Map, Set<Path>>
-    db             : Set<Path>?
+    db             : Path?
     proteins       : Path?
     prodigal_tf    : Path?
     replicons      : Path?
 
     output:
     annotations       = tuple(meta, files("bakta/${prefix}.{fna,fna.gz}"), files("bakta/${prefix}.{faa,faa.gz}"), files("bakta/${prefix}.{gff3,gff3.gz}"))
-    embl              = tuple(meta, file("bakta/${prefix}.{embl,embl.gz}"))
-    faa               = tuple(meta, file("bakta/${prefix}.{faa,faa.gz}"))
-    ffn               = tuple(meta, file("bakta/${prefix}.{ffn,ffn.gz}"))
-    fna               = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"))
-    gbff              = tuple(meta, file("bakta/${prefix}.{gbff,gbff.gz}"))
-    gff               = tuple(meta, file("bakta/${prefix}.{gff3,gff3.gz}"))
-    hypotheticals_tsv = tuple(meta, file("bakta/${prefix}.hypotheticals.tsv"))
-    hypotheticals_faa = tuple(meta, file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"))
-    tsv               = tuple(meta, file("bakta/${prefix}.tsv"))
-    txt               = tuple(meta, file("bakta/${prefix}.txt"))
+    embl              = tuple(meta, files("bakta/${prefix}.{embl,embl.gz}"))
+    faa               = tuple(meta, files("bakta/${prefix}.{faa,faa.gz}"))
+    ffn               = tuple(meta, files("bakta/${prefix}.{ffn,ffn.gz}"))
+    fna               = tuple(meta, files("bakta/${prefix}.{fna,fna.gz}"))
+    gbff              = tuple(meta, files("bakta/${prefix}.{gbff,gbff.gz}"))
+    gff               = tuple(meta, files("bakta/${prefix}.{gff3,gff3.gz}"))
+    hypotheticals_tsv = tuple(meta, files("bakta/${prefix}.hypotheticals.tsv"))
+    hypotheticals_faa = tuple(meta, files("bakta/${prefix}.hypotheticals.{faa,faa.gz}"))
+    tsv               = tuple(meta, files("bakta/${prefix}.tsv"))
+    txt               = tuple(meta, files("bakta/${prefix}.txt"))
     blastdb           = tuple(meta, files("bakta/${prefix}-blastdb.tar.gz"))
     logs              = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs           = tuple(meta, files(".command.*"))
-    versions          = tuple(meta, file("versions.yml"))
+    versions          = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -92,7 +92,7 @@ process BAKTA_RUN {
     def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""             // TODO: Remove when Path? is fixed
     def prodigal_opt = prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigal-tf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
     def replicons_opt = replicons.getName() != "EMPTY_REPLICONS" ? "--replicons ${replicons.getName()}" : ""        // TODO: Remove when Path? is fixed
-    def is_tarball = db.toList()[0].getName().endsWith(".tar.gz") ? true : false
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then
         mkdir database

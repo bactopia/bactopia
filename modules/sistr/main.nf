@@ -32,16 +32,16 @@ process SISTR {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
+    tsv          = tuple(meta, files("${prefix}.tsv"))
     allele_fasta = tuple(meta, files("*-allele.fasta.gz"))
     allele_json  = tuple(meta, files("*-allele.json.gz"))
     cgmlst_csv   = tuple(meta, files("*-cgmlst.csv"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -54,8 +54,8 @@ process SISTR {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${assembly_name}

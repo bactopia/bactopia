@@ -53,37 +53,37 @@ process SNIPPY_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads)         : Tuple<Map, List<Path>>
-    (_ref_meta, reference) : Tuple<Map, Path>
+    (_meta, reads)         : Tuple<Map, Set<Path>>
+    (_ref_meta, reference) : Tuple<Map, Set<Path>>
 
     output:
-    aligned_fa               = tuple(meta, file("${prefix}.aligned.fa.gz", optional: true))
-    vcf                      = tuple(meta, file("${prefix}.vcf.gz", optional: true))
-    aligned_fa_error         = tuple(meta, file("${prefix}.error.aligned.fa.gz", optional: true))
-    vcf_error                = tuple(meta, file("${prefix}.error.vcf.gz", optional: true))
-    error                    = tuple(meta, file("${prefix}.error.txt", optional: true))
-    annotated_vcf            = tuple(meta, file("${prefix}.annotated.vcf.gz"))
-    bam                      = tuple(meta, file("${prefix}.bam", optional: true))
-    bai                      = tuple(meta, file("${prefix}.bam.bai", optional: true))
-    bed                      = tuple(meta, file("${prefix}.bed.gz"))
-    consensus_fa             = tuple(meta, file("${prefix}.consensus.fa.gz"))
-    consensus_subs_fa        = tuple(meta, file("${prefix}.consensus.subs.fa.gz"))
-    consensus_subs_masked_fa = tuple(meta, file("${prefix}.consensus.subs.masked.fa.gz"))
-    coverage                 = tuple(meta, file("${prefix}.coverage.txt.gz"))
-    csv                      = tuple(meta, file("${prefix}.csv.gz"))
-    filt_vcf                 = tuple(meta, file("${prefix}.filt.vcf.gz"))
-    gff                      = tuple(meta, file("${prefix}.gff.gz"))
-    html                     = tuple(meta, file("${prefix}.html"))
-    raw_vcf                  = tuple(meta, file("${prefix}.raw.vcf.gz"))
-    subs_vcf                 = tuple(meta, file("${prefix}.subs.vcf.gz"))
-    tab                      = tuple(meta, file("${prefix}.tab"))
-    txt                      = tuple(meta, file("${prefix}.txt"))
+    aligned_fa               = tuple(meta, files("${prefix}.aligned.fa.gz", optional: true))
+    vcf                      = tuple(meta, files("${prefix}.vcf.gz", optional: true))
+    aligned_fa_error         = tuple(meta, files("${prefix}.error.aligned.fa.gz", optional: true))
+    vcf_error                = tuple(meta, files("${prefix}.error.vcf.gz", optional: true))
+    error                    = tuple(meta, files("${prefix}.error.txt", optional: true))
+    annotated_vcf            = tuple(meta, files("${prefix}.annotated.vcf.gz"))
+    bam                      = tuple(meta, files("${prefix}.bam", optional: true))
+    bai                      = tuple(meta, files("${prefix}.bam.bai", optional: true))
+    bed                      = tuple(meta, files("${prefix}.bed.gz"))
+    consensus_fa             = tuple(meta, files("${prefix}.consensus.fa.gz"))
+    consensus_subs_fa        = tuple(meta, files("${prefix}.consensus.subs.fa.gz"))
+    consensus_subs_masked_fa = tuple(meta, files("${prefix}.consensus.subs.masked.fa.gz"))
+    coverage                 = tuple(meta, files("${prefix}.coverage.txt.gz"))
+    csv                      = tuple(meta, files("${prefix}.csv.gz"))
+    filt_vcf                 = tuple(meta, files("${prefix}.filt.vcf.gz"))
+    gff                      = tuple(meta, files("${prefix}.gff.gz"))
+    html                     = tuple(meta, files("${prefix}.html"))
+    raw_vcf                  = tuple(meta, files("${prefix}.raw.vcf.gz"))
+    subs_vcf                 = tuple(meta, files("${prefix}.subs.vcf.gz"))
+    tab                      = tuple(meta, files("${prefix}.tab"))
+    txt                      = tuple(meta, files("${prefix}.txt"))
     logs                     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs                  = tuple(meta, files(".command.*"))
-    versions                 = tuple(meta, file("versions.yml"))
+    versions                 = tuple(meta, files("versions.yml"))
 
     script:
-    reference_name = reference.getSimpleName()
+    reference_name = reference.toList()[0].getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -94,9 +94,9 @@ process SNIPPY_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name
-    def read_inputs = _meta.single_end ? "--se ${reads[0]}" : "--R1 ${reads[0]} --R2 ${reads[1]}"
-    def is_compressed = reference.getName().endsWith(".gz") ? true : false
-    def final_reference = reference.getName().replace(".gz", "")
+    def read_inputs = _meta.single_end ? "--se ${reads.toList()[0]}" : "--R1 ${reads.toList()[0]} --R2 ${reads.toList()[1]}"
+    def is_compressed = reference.toList()[0].getName().endsWith(".gz") ? true : false
+    def final_reference = reference.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${reference} > ${final_reference}

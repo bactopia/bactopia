@@ -48,12 +48,12 @@ workflow K2SCRUBBER {
 
     emit:
     // Individual outputs
-    human: Channel<Tuple<Map, Path>> = KRAKEN2.out.classified
-    kraken2_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.kraken2_report
-    scrub_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.scrub_report
-    scrub_special_report: Channel<Tuple<Map, Path>> = KRAKEN2.out.scrub_special_report
-    scrubbed: Channel<Tuple<Map, Path>> = KRAKEN2.out.unclassified
-    scrubbed_extra: Channel<Tuple<Map, Path>> = KRAKEN2.out.unclassified_extra
+    human: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.classified
+    kraken2_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.kraken2_report
+    scrub_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.scrub_report
+    scrub_special_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.scrub_special_report
+    scrubbed: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.unclassified
+    scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.unclassified_extra
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

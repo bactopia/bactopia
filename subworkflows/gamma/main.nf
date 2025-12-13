@@ -48,11 +48,11 @@ workflow GAMMA {
 
     emit:
     // Individual outputs
-    gamma: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.gamma
-    merged_gamma: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    psl: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.psl
-    fasta: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.fasta
-    gff: Channel<Tuple<Map, Path>> = GAMMA_MODULE.out.gff
+    gamma: Channel<Tuple<Map, Set<Path>>> = GAMMA_MODULE.out.gamma
+    merged_gamma: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    psl: Channel<Tuple<Map, Set<Path>>> = GAMMA_MODULE.out.psl
+    fasta: Channel<Tuple<Map, Set<Path>>> = GAMMA_MODULE.out.fasta
+    gff: Channel<Tuple<Map, Set<Path>>> = GAMMA_MODULE.out.gff
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

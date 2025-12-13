@@ -42,9 +42,9 @@ workflow PASTY {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = PASTY_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    blast: Channel<Tuple<Map, Path>> = PASTY_MODULE.out.blast
+    tsv: Channel<Tuple<Map, Set<Path>>> = PASTY_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    blast: Channel<Tuple<Map, Set<Path>>> = PASTY_MODULE.out.blast
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

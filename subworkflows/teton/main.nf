@@ -57,10 +57,10 @@ workflow TETON {
     use_srascrubber: Boolean
 
     main:
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     // Remove host reads
@@ -110,13 +110,13 @@ workflow TETON {
 
     emit:
     // Individual outputs
-    bacteria_tsv: Channel<Tuple<Map, Path>> = BACTOPIA_SAMPLESHEET.out.bacteria_tsv
-    merged_bacteria_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_BACTERIA.out.csv
-    nonbacteria_tsv: Channel<Tuple<Map, Path>> = BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
-    merged_nonbacteria_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_NONBACTERIA.out.csv
-    sizemeup: Channel<Tuple<Map, Path>> = BACTOPIA_SAMPLESHEET.out.sizemeup
-    merged_sizemeup: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_SIZEMEUP.out.csv
-    report: Channel<Tuple<Map, Path>> = CSVTK_JOIN.out.csv
+    bacteria_tsv: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.bacteria_tsv
+    merged_bacteria_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_BACTERIA.out.csv
+    nonbacteria_tsv: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
+    merged_nonbacteria_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_NONBACTERIA.out.csv
+    sizemeup: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.sizemeup
+    merged_sizemeup: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_SIZEMEUP.out.csv
+    report: Channel<Tuple<Map, Set<Path>>> = CSVTK_JOIN.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

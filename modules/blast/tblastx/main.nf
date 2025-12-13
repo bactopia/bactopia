@@ -33,14 +33,14 @@ process BLAST_TBLASTX {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, blastdb) : Tuple<Map, Path>
+    (_meta, blastdb) : Tuple<Map, Set<Path>>
     query            : Path
 
     output:
     tsv      = tuple(meta, files('*.tblastx.tsv'))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

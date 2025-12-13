@@ -45,12 +45,12 @@ workflow PLASMIDFINDER {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = PLASMIDFINDER_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    json: Channel<Tuple<Map, Path>> = PLASMIDFINDER_MODULE.out.json
-    txt: Channel<Tuple<Map, Path>> = PLASMIDFINDER_MODULE.out.txt
-    genome_seq: Channel<Tuple<Map, Path>> = PLASMIDFINDER_MODULE.out.genome_seq
-    plasmid_seq: Channel<Tuple<Map, Path>> = PLASMIDFINDER_MODULE.out.plasmid_seq
+    tsv: Channel<Tuple<Map, Set<Path>>> = PLASMIDFINDER_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    json: Channel<Tuple<Map, Set<Path>>> = PLASMIDFINDER_MODULE.out.json
+    txt: Channel<Tuple<Map, Set<Path>>> = PLASMIDFINDER_MODULE.out.txt
+    genome_seq: Channel<Tuple<Map, Set<Path>>> = PLASMIDFINDER_MODULE.out.genome_seq
+    plasmid_seq: Channel<Tuple<Map, Set<Path>>> = PLASMIDFINDER_MODULE.out.plasmid_seq
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

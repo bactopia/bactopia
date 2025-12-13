@@ -50,8 +50,9 @@ workflow ASSEMBLER {
     // Individual outputs
     fna: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.fna
     fna_fq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = ASSEMBLER_MODULE.out.fna_fq
-    tsv: Channel<Tuple<Map, Path>> = ASSEMBLER_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    error: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.error
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

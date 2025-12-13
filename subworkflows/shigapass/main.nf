@@ -41,9 +41,9 @@ workflow SHIGAPASS {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = SHIGAPASS_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    flex_tsv: Channel<Tuple<Map, Path>> = SHIGAPASS_MODULE.out.flex_tsv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SHIGAPASS_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    flex_tsv: Channel<Tuple<Map, Set<Path>>> = SHIGAPASS_MODULE.out.flex_tsv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

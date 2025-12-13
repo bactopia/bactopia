@@ -19,26 +19,6 @@
  * @output nf_logs  Nextflow execution scripts and logs for debugging
  * @output versions A YAML formatted file with software versions
  */
-process STECFINDER {
-    tag "${prefix}"
-    label 'process_low'
-    conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
-
-    input:
-    tuple val(meta), path(assembly), path(reads)
-
-    output:
-    tuple val(meta), path("${prefix}.tsv")           , emit: tsv
-    tuple val(meta), path("*.{log,err}")             , emit: logs, optional: true
-    tuple val(meta), path(".command.*")              , emit: nf_logs
-    tuple val(meta), path("versions.yml")            , emit: versions
-
-    script:
-    // Process script contents would go here
-    """
-    """
-}
 nextflow.preview.types = true
 
 process STECFINDER {
@@ -48,13 +28,13 @@ process STECFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly, reads) : Tuple<Map, Path, List<Path>>
+    (_meta, assembly, reads) : Tuple<Map, Set<Path>, Set<Path>>
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -67,8 +47,8 @@ process STECFINDER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = (assembly.getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
-    def seq_name = is_compressed ? assembly.getName().replace(".gz", "") : reads.join(" ")
+    def is_compressed = (assembly.toList()[0].getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
+    def seq_name = is_compressed ? assembly.toList()[0].getName().replace(".gz", "") : reads.join(" ")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${seq_name}

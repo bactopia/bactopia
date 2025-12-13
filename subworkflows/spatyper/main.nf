@@ -49,8 +49,8 @@ workflow SPATYPER {
 
     emit:
     // Individual output
-    tsv: Channel<Tuple<Map, Path>> = SPATYPER_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SPATYPER_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate output
     results: Channel<Tuple<Map, Path>> = flattenPaths([

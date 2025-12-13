@@ -34,17 +34,17 @@ process ABRITAMR_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly): Tuple<Map, Path>
+    (_meta, assembly): Tuple<Map, Set<Path>>
 
     output:
-    summary   = tuple(meta, file("${prefix}.abritamr.tsv", optional: true))
-    matches   = tuple(meta, file("${prefix}.summary_matches.tsv"))
-    partials  = tuple(meta, file("${prefix}.summary_partials.tsv"))
-    virulence = tuple(meta, file("${prefix}.summary_virulence.tsv"))
-    amrfinder = tuple(meta, file("${prefix}.amrfinder.out"))
+    summary   = tuple(meta, files("${prefix}.abritamr.tsv", optional: true))
+    matches   = tuple(meta, files("${prefix}.summary_matches.tsv"))
+    partials  = tuple(meta, files("${prefix}.summary_partials.tsv"))
+    virulence = tuple(meta, files("${prefix}.summary_virulence.tsv"))
+    amrfinder = tuple(meta, files("${prefix}.amrfinder.out"))
     logs      = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs   = tuple(meta, files(".command.*"))
-    versions  = tuple(meta, file("versions.yml"))
+    versions  = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -57,8 +57,8 @@ process ABRITAMR_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${assembly_name}

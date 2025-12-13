@@ -187,13 +187,13 @@ Two main approaches for optional parameters:
 
 #### EMPTY_* File Detection (Preferred)
 ```groovy
-def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ?
-    "--proteins ${proteins.getName()}" : ""
+def proteins_opt = proteins.toList()[0].getName() != "EMPTY_PROTEINS" ?
+    "--proteins ${proteins.toList()[0].getName()}" : ""
 ```
 
 #### Conditional Database Handling
 ```groovy
-def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+def is_tarball = db.toList()[0].getName().endsWith(".tar.gz") ? true : false
 if [ "${is_tarball}" == "true" ]; then
     # Extract tarball
 else

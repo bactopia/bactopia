@@ -39,11 +39,11 @@ process ROARY {
 
     output:
     supplemental = tuple(meta, files("roary/*"))
-    aln          = tuple(meta, file("core-genome.aln.gz", optional: true))
-    csv          = tuple(meta, file("roary/gene_presence_absence.csv", optional: true))
+    aln          = tuple(meta, files("core-genome.aln.gz", optional: true))
+    csv          = tuple(meta, files("roary/gene_presence_absence.csv", optional: true))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

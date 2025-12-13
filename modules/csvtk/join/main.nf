@@ -39,16 +39,16 @@ process CSVTK_JOIN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, csv1, csv2) : Tuple<Map, Path, Path>
+    (_meta, csv1, csv2) : Tuple<Map, Set<Path>, Set<Path>>
     in_format           : String
     out_format          : String
     key                 : String
 
     output:
-    csv      = tuple(meta, file("${prefix}.${out_extension}"))
+    csv      = tuple(meta, files("${prefix}.${out_extension}"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'

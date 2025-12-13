@@ -39,7 +39,7 @@ process GUBBINS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa) : Tuple<Map, Path>
+    (_meta, msa) : Tuple<Map, Set<Path>>
 
     output:
     masked_aln     = tuple(meta, files("*.masked.aln.gz"))
@@ -55,7 +55,7 @@ process GUBBINS {
     bootstrap_tree = tuple(meta, files("gubbins/*.final_bootstrapped_tree.tre", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, file("versions.yml"))
+    versions       = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -68,8 +68,8 @@ process GUBBINS {
     meta.process_name = task.ext.process_name
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs/"
-    def is_compressed = msa.getName().endsWith(".gz") ? true : false
-    def msa_name = msa.getName().replace(".gz", "")
+    def is_compressed = msa.toList()[0].getName().endsWith(".gz") ? true : false
+    def msa_name = msa.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${msa} > ${msa_name}

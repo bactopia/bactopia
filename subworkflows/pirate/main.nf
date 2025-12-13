@@ -39,8 +39,8 @@ workflow PIRATE {
 
     emit:
     // Individual outputs
-    aln: Channel<Tuple<Map, Path>> = PIRATE_MODULE.out.aln
-    csv: Channel<Tuple<Map, Path>> = PIRATE_MODULE.out.csv
+    aln: Channel<Tuple<Map, Set<Path>>> = PIRATE_MODULE.out.aln
+    csv: Channel<Tuple<Map, Set<Path>>> = PIRATE_MODULE.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

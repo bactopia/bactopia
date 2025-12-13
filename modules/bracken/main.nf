@@ -51,20 +51,20 @@ process BRACKEN {
     db             : Path
 
     output:
-    tsv                 = tuple(meta, file("${prefix}.bracken.tsv"))
-    special_tsv         = tuple(special_meta, file("${prefix}.bracken.tsv"))
+    tsv                 = tuple(meta, files("${prefix}.bracken.tsv"))
+    special_tsv         = tuple(special_meta, files("${prefix}.bracken.tsv"))
     classified          = tuple(meta, files('*classified*', optional: true))
     unclassified        = tuple(meta, files('*unclassified*', optional: true))
-    kraken2_report      = tuple(meta, file("${prefix}.kraken2.report.txt"))
-    kraken2_output      = tuple(meta, file("${prefix}.kraken2.output.txt", optional: true))
-    bracken_report      = tuple(meta, file("${prefix}.bracken.report.txt"))
+    kraken2_report      = tuple(meta, files("${prefix}.kraken2.report.txt"))
+    kraken2_output      = tuple(meta, files("${prefix}.kraken2.output.txt", optional: true))
+    bracken_report      = tuple(meta, files("${prefix}.bracken.report.txt"))
     krona               = tuple(meta, files("*.krona.html", optional: true))
-    abundances          = tuple(meta, file("${prefix}.bracken.abundances.txt"))
-    classification      = tuple(meta, file("${prefix}.bracken.classification.txt"))
-    adjusted_abundances = tuple(meta, file("${prefix}.bracken.adjusted.abundances.txt"))
+    abundances          = tuple(meta, files("${prefix}.bracken.abundances.txt"))
+    classification      = tuple(meta, files("${prefix}.bracken.classification.txt"))
+    adjusted_abundances = tuple(meta, files("${prefix}.bracken.adjusted.abundances.txt"))
     logs                = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs             = tuple(meta, files(".command.*"))
-    versions            = tuple(meta, file("versions.yml"))
+    versions            = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -115,7 +115,7 @@ process BRACKEN {
 
     # Get read length
     if [ "${task.ext.bracken_read_length}" == "0" ]; then
-        OBS_READ_LENGTH=\$(zcat ${reads[0]} | fastq-scan -q | jq -r '.qc_stats.read_median')
+        OBS_READ_LENGTH=\$(zcat ${reads.toList()[0]} | fastq-scan -q | jq -r '.qc_stats.read_median')
         echo \$OBS_READ_LENGTH
         # Pre-built Bracken databases come with 50,75,100,150,200,250,300, split the difference
         if [ "\$OBS_READ_LENGTH" -gt 275 ]; then

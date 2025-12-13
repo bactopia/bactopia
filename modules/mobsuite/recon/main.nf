@@ -32,16 +32,16 @@ process MOBSUITE_RECON {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta, fasta) : Tuple<Map, Set<Path>>
 
     output:
-    chromosome    = tuple(meta, file("${prefix}-chromosome.fasta.gz"))
-    contig_report = tuple(meta, file("${prefix}-contig_report.txt"))
+    chromosome    = tuple(meta, files("${prefix}-chromosome.fasta.gz"))
+    contig_report = tuple(meta, files("${prefix}-contig_report.txt"))
     plasmids      = tuple(meta, files("plasmid_*.fasta.gz", optional: true))
-    txt           = tuple(meta, file("${prefix}-mobtyper.txt", optional: true))
+    txt           = tuple(meta, files("${prefix}-mobtyper.txt", optional: true))
     logs          = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs       = tuple(meta, files(".command.*"))
-    versions      = tuple(meta, file("versions.yml"))
+    versions      = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -54,8 +54,8 @@ process MOBSUITE_RECON {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = fasta.toList()[0].getName().endsWith(".gz") ? true : false
+    def fasta_name = fasta.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fasta} > ${fasta_name}

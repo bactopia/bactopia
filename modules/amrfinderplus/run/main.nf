@@ -42,11 +42,11 @@ process AMRFINDERPLUS_RUN {
     db                            : Path
 
     output:
-    report          = tuple(meta, file("${prefix}.tsv"))
-    mutation_report = tuple(meta, file("${prefix}-mutations.tsv", optional: true))
+    report          = tuple(meta, files("${prefix}.tsv"))
+    mutation_report = tuple(meta, files("${prefix}-mutations.tsv", optional: true))
     logs            = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs         = tuple(meta, files(".command.*"))
-    versions        = tuple(meta, file("versions.yml"))
+    versions        = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

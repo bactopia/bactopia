@@ -44,10 +44,10 @@ process HICAP {
     output:
     gbk      = tuple(meta, files("*.gbk", optional: true))
     svg      = tuple(meta, files("*.svg", optional: true))
-    tsv      = tuple(meta, file("${prefix}.tsv"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -40,8 +40,8 @@ workflow ABRICATE {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = ABRICATE_RUN.out.report
-    merged_tsv: Channel<Tuple<Map, Path>> = ABRICATE_SUMMARY.out.report
+    tsv: Channel<Tuple<Map, Set<Path>>> = ABRICATE_RUN.out.report
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = ABRICATE_SUMMARY.out.report
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

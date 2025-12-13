@@ -43,7 +43,7 @@ process EGGNOG_MAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Path>
+    (_meta, proteins) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
@@ -58,7 +58,7 @@ process EGGNOG_MAPPER {
     pfam           = tuple(meta, files("*.emapper.pfam", optional: true))
     logs           = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, file("versions.yml"))
+    versions       = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

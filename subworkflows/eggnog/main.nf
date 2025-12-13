@@ -62,15 +62,15 @@ workflow EGGNOG {
 
     emit:
     // Individual outputs
-    hits: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.hits
-    seed_orthologs: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.seed_orthologs
-    annotations: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.annotations
-    xlsx: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.xlsx
-    orthologs: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.orthologs
-    genepred: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.genepred
-    gff: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.gff
-    no_anno: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.no_anno
-    pfam: Channel<Tuple<Map, Path>> = EGGNOG_MAPPER.out.pfam
+    hits: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.hits
+    seed_orthologs: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.seed_orthologs
+    annotations: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.annotations
+    xlsx: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.xlsx
+    orthologs: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.orthologs
+    genepred: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.genepred
+    gff: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.gff
+    no_anno: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.no_anno
+    pfam: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.pfam
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

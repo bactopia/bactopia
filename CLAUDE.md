@@ -15,58 +15,58 @@ The pipeline uses standardized GroovyDoc documentation and static typing through
 
 ### Standards and Conventions
 - **[Style Guide & Templates](.claude/docs/standards/01-style-guide.md)**
-  - *Read this for*: GroovyDoc templates, header format, and tag ordering
-  - Visual formatting rules for all component types
+    - *Read this for*: GroovyDoc templates, header format, and tag ordering
+    - Visual formatting rules for all component types
 
 - **[Logic & Taxonomy](.claude/docs/standards/02-logic-rules.md)**
-  - *Read this for*: Determining complexity, input/output types
-  - Decision-making logic for component classification
+    - *Read this for*: Determining complexity, input/output types
+    - Decision-making logic for component classification
 
 - **[Technical Specifications](.claude/docs/standards/03-technical-specs.md)**
-  - *Read this for*: Variable naming, type conventions, Path? workarounds
-  - Implementation details and "gotchas"
+    - *Read this for*: Variable naming, type conventions, Path? workarounds
+    - Implementation details and "gotchas"
 
 - **[Subworkflow Documentation](.claude/docs/standards/04-subworkflow-documentation.md)**
-  - *Read this for*: Complete methodology for documenting subworkflows
-  - Step-by-step process with examples and best practices
+    - *Read this for*: Complete methodology for documenting subworkflows
+    - Step-by-step process with examples and best practices
 
 - **[Module Documentation](.claude/docs/standards/05-module-documentation.md)**
-  - *Read this for*: Complete methodology for documenting modules
-  - Detailed patterns and examples for individual tool implementations
+    - *Read this for*: Complete methodology for documenting modules
+    - Detailed patterns and examples for individual tool implementations
 
 - **[Workflow Documentation](.claude/docs/standards/06-workflow-documentation.md)**
-  - *Read this for*: Complete methodology for documenting entry workflows
-  - User-facing documentation patterns with @publish and @section organization
+    - *Read this for*: Complete methodology for documenting entry workflows
+    - User-facing documentation patterns with @publish and @section organization
 
 ### Project Documentation
 - **[Repository Structure](.claude/docs/project/01-repository-structure.md)**
-  - *Read this for*: Directory organization and three-tier architecture
-  - Physical layout of the codebase
+    - *Read this for*: Directory organization and three-tier architecture
+    - Physical layout of the codebase
 
 - **[Development Workflow](.claude/docs/project/02-development-workflow.md)**
-  - *Read this for*: Adding new tools and components
-  - Step-by-step development guide with checklist
+    - *Read this for*: Adding new tools and components
+    - Step-by-step development guide with checklist
 
 - **[Configuration System](.claude/docs/project/03-configuration-system.md)**
-  - *Read this for*: Understanding parameter hierarchy
-  - Configuration inheritance and profile management
+    - *Read this for*: Understanding parameter hierarchy
+    - Configuration inheritance and profile management
 
 - **[Testing Framework](.claude/docs/project/04-testing-framework.md)**
-  - *Read this for*: Writing and running tests
-  - nf-test framework usage and patterns
+    - *Read this for*: Writing and running tests
+    - nf-test framework usage and patterns
 
 ### Reference Materials
 - **[Examples](.claude/docs/reference/01-examples.md)**
-  - *Read this for*: Concrete implementation examples
-  - Annotated examples of modules, subworkflows, and workflows
+    - *Read this for*: Concrete implementation examples
+    - Annotated examples of modules, subworkflows, and workflows
 
 - **[Troubleshooting](.claude/docs/reference/02-troubleshooting.md)**
-  - *Read this for*: Common error solutions
-  - Debugging tips and problem resolution
+    - *Read this for*: Common error solutions
+    - Debugging tips and problem resolution
 
 - **[Glossary](.claude/docs/reference/03-glossary.md)**
-  - *Read this for*: Definitions of Bactopia-specific terms
-  - Quick reference for terminology and concepts
+    - *Read this for*: Definitions of Bactopia-specific terms
+    - Quick reference for terminology and concepts
 
 ## AI Agent Instructions
 

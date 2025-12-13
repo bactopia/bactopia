@@ -39,7 +39,7 @@ workflow SNPDISTS {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = SNPDISTS_MODULE.out.tsv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SNPDISTS_MODULE.out.tsv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([SNPDISTS_MODULE.out.tsv])

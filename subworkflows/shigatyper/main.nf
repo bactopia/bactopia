@@ -41,9 +41,9 @@ workflow SHIGATYPER {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = SHIGATYPER_MODULE.out.tsv
-    hits: Channel<Tuple<Map, Path>> = SHIGATYPER_MODULE.out.hits
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SHIGATYPER_MODULE.out.tsv
+    hits: Channel<Tuple<Map, Set<Path>>> = SHIGATYPER_MODULE.out.hits
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

@@ -35,17 +35,17 @@ process SRAHUMANSCRUBBER_SCRUB {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
     scrubbed             = tuple(meta, files("*.scrubbed.fastq.gz"))
-    scrubbed_extra       = tuple(meta, files("*.scrubbed.fastq.gz"), file("EMPTY_EXTRA"))
+    scrubbed_extra       = tuple(meta, files("*.scrubbed.fastq.gz"), files("EMPTY_EXTRA"))
     scrub_report         = tuple(meta, files('*.scrub.report.tsv', optional: true))
     scrub_special_report = tuple(special_meta, files('*.scrub.report.tsv', optional: true))
     logs                 = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs              = tuple(meta, files(".command.*"))
-    versions             = tuple(meta, file("versions.yml"))
+    versions             = tuple(meta, files("versions.yml"))
 
     script:
     def VERSION = '2.2.1'
@@ -94,10 +94,10 @@ process SRAHUMANSCRUBBER_SCRUB {
     else {
         """
         # Scrub human reads
-        zcat ${reads[0]} | \
+        zcat ${reads.toList()[0]} | \
             scrub.sh -d ${db} -p ${task.cpus} | \
             gzip > ${prefix}_R1.scrubbed.fastq.gz
-        zcat ${reads[1]} | \
+        zcat ${reads.toList()[1]} | \
             scrub.sh -d ${db} -p ${task.cpus} | \
             gzip > ${prefix}_R2.scrubbed.fastq.gz
 

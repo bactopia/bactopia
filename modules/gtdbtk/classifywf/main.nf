@@ -49,7 +49,7 @@ process GTDBTK_CLASSIFYWF {
     tsv          = tuple(meta, files("${prefix}.*.summary.tsv"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

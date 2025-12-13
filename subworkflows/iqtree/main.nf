@@ -42,9 +42,9 @@ workflow IQTREE {
 
     emit:
     // Individual outputs
-    phylogeny: Channel<Tuple<Map, Path>> = IQTREE_MODULE.out.phylogeny
-    alignment: Channel<Tuple<Map, Path>> = IQTREE_MODULE.out.alignment
-    aln_tree: Channel<Tuple<Map, Path, Path>> = IQTREE_MODULE.out.aln_tree
+    phylogeny: Channel<Tuple<Map, Set<Path>>> = IQTREE_MODULE.out.phylogeny
+    alignment: Channel<Tuple<Map, Set<Path>>> = IQTREE_MODULE.out.alignment
+    aln_tree: Channel<Tuple<Map, Set<Path>, Set<Path>>> = IQTREE_MODULE.out.aln_tree
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

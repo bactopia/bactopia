@@ -33,14 +33,14 @@ process PNEUMOCAT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, _reads) : Tuple<Map, Path>
+    (_meta, _reads) : Tuple<Map, Set<Path>>
 
     output:
     xml      = tuple(meta, files("*.xml", optional: true))
     txt      = tuple(meta, files("*.coverage_summary.txt", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     def VERSION = '1.2.1'

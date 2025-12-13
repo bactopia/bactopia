@@ -30,14 +30,14 @@ process CLERMONTYPING {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
+    tsv          = tuple(meta, files("${prefix}.tsv"))
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -50,8 +50,8 @@ process CLERMONTYPING {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ${assembly_name}
@@ -66,8 +66,8 @@ process CLERMONTYPING {
     rm supplemental/${assembly_name} ${assembly_name}
     rm -rf supplemental/db
     rm -rf supplemental/supplemental.R
-    mv supplemental/${fasta_name}.xml supplemental/${prefix}.blast.xml
-    mv supplemental/${fasta_name}_mash_screen.tab supplemental/${prefix}.mash.tsv
+    mv supplemental/${assembly_name}.xml supplemental/${prefix}.blast.xml
+    mv supplemental/${assembly_name}_mash_screen.tab supplemental/${prefix}.mash.tsv
     mv supplemental/supplemental.html supplemental/${prefix}.html
 
     # add column names to phylogroups file

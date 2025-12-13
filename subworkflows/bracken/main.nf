@@ -58,19 +58,19 @@ workflow BRACKEN {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.tsv
-    special_tsv: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.special_tsv
-    classified: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.classified
-    unclassified: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.unclassified
-    kraken2_report: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.kraken2_report
-    kraken2_output: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.kraken2_output
-    bracken_report: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.bracken_report
-    krona: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.krona
-    abundances: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.abundances
-    classification: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.classification
-    adjusted_abundances: Channel<Tuple<Map, Path>> = BRACKEN_MODULE.out.adjusted_abundances
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_TSV.out.csv
-    merged_adjusted_abundances: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_ADJUSTED.out.csv
+    tsv: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.tsv
+    special_tsv: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.special_tsv
+    classified: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.classified
+    unclassified: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.unclassified
+    kraken2_report: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.kraken2_report
+    kraken2_output: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.kraken2_output
+    bracken_report: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.bracken_report
+    krona: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.krona
+    abundances: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.abundances
+    classification: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.classification
+    adjusted_abundances: Channel<Tuple<Map, Set<Path>>> = BRACKEN_MODULE.out.adjusted_abundances
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_TSV.out.csv
+    merged_adjusted_abundances: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_ADJUSTED.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

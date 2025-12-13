@@ -2,6 +2,7 @@
 title: changelog
 description: A full list of Bactopia releases and a description of the changes.
 ---
+<!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
 ## Unreleased Changes
@@ -48,6 +49,7 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ## v3.2.0 bactopia/bactopia "Black Bulls" 2025/03/21
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Black Bulls" is related to the best magic squad in Black Clover my kids currently watching_
 
 ### `Added`
@@ -102,6 +104,7 @@ _"Black Bulls" is related to the best magic squad in Black Clover my kids curren
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Dance Powder" is related to the Alabasta arc in One Piece which my kids currently on_
 
 ### `Added`
@@ -165,7 +168,7 @@ _"Dance Powder" is related to the Alabasta arc in One Piece which my kids curren
 
 ### `Enhancements to OSS`
 
-- pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
+- pin macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
 - add recipe for `camlhmp` [bioconda/bioconda-recipes#47453](https://github.com/bioconda/bioconda-recipes/pull/47453)
 - add recipe for `sccmec` [bioconda/bioconda-recipes#47600](https://github.com/bioconda/bioconda-recipes/pull/47600)
 - update recipe for genotyphi [bioconda/bioconda-recipes#47664](https://github.com/bioconda/bioconda-recipes/pull/47664)
@@ -176,6 +179,7 @@ _"Dance Powder" is related to the Alabasta arc in One Piece which my kids curren
 
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"That's My Girl" is a phrase my youngest says quite often when playing with her friends_
 
 ### `Added`
@@ -229,6 +233,7 @@ _"That's My Girl" is a phrase my youngest says quite often when playing with her
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Brown Dog")_
 
 ### `Added`
@@ -265,7 +270,7 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
     - `bakta`: 1.6.0 -> 1.8.2
     - `blast`: 2.11.0 -> 2.14.1
     - `busco`: 5.4.3 -> 5.5.0
-    - `csktk`: 0.25.0 -> 0.27.2
+    - `csvtk`: 0.25.0 -> 0.27.2
     - `eggnog-mapper`: 2.1.9 -> 2.1.12
     - `genotyphi`: 1.9.1 -> 2.0
     - `gtdbtk`: 2.1.1 -> 2.3.2
@@ -336,7 +341,7 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
     - `shigeifinder` - Serotyping Shigella and EIEC assemblies
 - bump program versions in modules
-    - `bakta` -> 1.5.1 
+    - `bakta` -> 1.5.1
     - `bbmap` -> 39.01
     - `checkm-genome` -> 1.2.2
     - `csvtk` -> 0.25.0
@@ -540,17 +545,18 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
 - `options.suffix` now used as `prefix` in modules
 
 ## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/05
-With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a siginificant contribution!
+
+With Bactopia v2 comes **a lot** of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a significant contribution!
 
 ### `Added`
 - support for Nanopore reads
 - `staphopia` as a named pipeline (alias for `bactopia --wf staphopia`) for _S. aureus_ genomes
 - `bactopia/bactopia-tests` repo with test data
 - walkthrough for testing
-- `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
+- `bactopia-datasets/staphylococcus_aureus` repo with curated _S. aureus_ datasets
 - per-module testing via `pytest` (100+ tests and 7000+ outputs tested)
 - per-module `meta.yml` and `params.json` for auto-building docs site
-- framefork for adding new Bactopia Tools
+- framework for adding new Bactopia Tools
 - 19 total Bactopia Tools (`bactopia --wf <NAME>`)
     - Subworkflows (3)
         - `eggnog`: Functional annotation of proteins using orthologous groups and phylogenies
@@ -594,7 +600,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 ### Process Consolidation
 - `makeblastdb` -> `assemble_genome`
 - `call_variants`, `download_reference` -> `call_variants`
-- `fastq_status`, `estiamte_genome_size` -> `gather_samples`
+- `fastq_status`, `estimate_genome_size` -> `gather_samples`
 - `count_31mers` -> `minmer_sketch`
 
 ### `Removed`
@@ -1056,7 +1062,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 
 ### `Removed`
 - `--max_cpus` ability to limit total cores used, access to config is being deprecated in Nextflow
-- `--max_cpus` since it is redudant to `--cpus` now
+- `--max_cpus` since it is redundant to `--cpus` now
 
 ## v1.2.0 bactopia/bactopia "Beestinger" - 2019/10/16
 

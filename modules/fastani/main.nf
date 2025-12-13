@@ -39,10 +39,10 @@ process FASTANI {
     stageAs 'query-tmp/*', query
 
     output:
-    tsv      = tuple(meta, file("${reference_name}.tsv"))
+    tsv      = tuple(meta, files("${reference_name}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     def is_compressed = reference.getName().endsWith(".gz") ? true : false

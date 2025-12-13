@@ -31,10 +31,10 @@ process ABRICATE_SUMMARY {
     (_meta, reports): Tuple<Map, Set<Path>>
 
     output:
-    report   = tuple(meta, file("${prefix}.tsv"))
+    report   = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"

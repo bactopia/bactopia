@@ -37,15 +37,15 @@ process MIDAS_SPECIES {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
-    tsv        = tuple(meta, file("${prefix}.midas.tsv"))
+    tsv        = tuple(meta, files("${prefix}.midas.tsv"))
     abundances = tuple(meta, files("*.abundances.txt"))
     logs       = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs   = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, file("versions.yml"))
+    versions   = tuple(meta, files("versions.yml"))
 
     script:
     def VERSION = '1.3.2'
@@ -60,7 +60,7 @@ process MIDAS_SPECIES {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def read_opts = meta.single_end ? "-1 ${reads[0]}" : "-1 ${reads[0]} -2 ${reads[1]}"
+    def read_opts = meta.single_end ? "-1 ${reads.toList()[0]}" : "-1 ${reads.toList()[0]} -2 ${reads.toList()[1]}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then

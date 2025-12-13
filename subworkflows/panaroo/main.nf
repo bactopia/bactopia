@@ -41,10 +41,10 @@ workflow PANAROO {
 
     emit:
     // Individual outputs
-    csv: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.csv
-    aln: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.aln
-    filtered_aln: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.filtered_aln
-    panaroo_csv: Channel<Tuple<Map, Path>> = PANAROO_RUN.out.panaroo_csv
+    csv: Channel<Tuple<Map, Set<Path>>> = PANAROO_RUN.out.csv
+    aln: Channel<Tuple<Map, Set<Path>>> = PANAROO_RUN.out.aln
+    filtered_aln: Channel<Tuple<Map, Set<Path>>> = PANAROO_RUN.out.filtered_aln
+    panaroo_csv: Channel<Tuple<Map, Set<Path>>> = PANAROO_RUN.out.panaroo_csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

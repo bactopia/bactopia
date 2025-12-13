@@ -42,9 +42,9 @@ workflow KRAKEN2 {
 
     emit:
     // Individual outputs
-    classified: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.classified
-    kraken2_report: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.kraken2_report
-    unclassified: Channel<Tuple<Map, Path>> = KRAKEN2_MODULE.out.unclassified
+    classified: Channel<Tuple<Map, Set<Path>>> = KRAKEN2_MODULE.out.classified
+    kraken2_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2_MODULE.out.kraken2_report
+    unclassified: Channel<Tuple<Map, Set<Path>>> = KRAKEN2_MODULE.out.unclassified
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

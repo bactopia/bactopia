@@ -33,17 +33,17 @@ process SCCMEC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
 
     output:
-    tsv             = tuple(meta, file("${prefix}.tsv"))
-    targets         = tuple(meta, file("${prefix}.targets.blastn.tsv"))
-    target_details  = tuple(meta, file("${prefix}.targets.details.tsv"))
-    regions         = tuple(meta, file("${prefix}.regions.blastn.tsv"))
-    regions_details = tuple(meta, file("${prefix}.regions.details.tsv"))
+    tsv             = tuple(meta, files("${prefix}.tsv"))
+    targets         = tuple(meta, files("${prefix}.targets.blastn.tsv"))
+    target_details  = tuple(meta, files("${prefix}.targets.details.tsv"))
+    regions         = tuple(meta, files("${prefix}.regions.blastn.tsv"))
+    regions_details = tuple(meta, files("${prefix}.regions.details.tsv"))
     logs            = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs         = tuple(meta, files(".command.*"))
-    versions        = tuple(meta, file("versions.yml"))
+    versions        = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

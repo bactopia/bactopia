@@ -37,15 +37,15 @@ process CHECKM2_PREDICT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta, assembly) : Tuple<Map, Set<Path>>
     db             : Path
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
+    tsv          = tuple(meta, files("${prefix}.tsv"))
     supplemental = tuple(meta, files("supplemental/*"))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -58,8 +58,8 @@ process CHECKM2_PREDICT {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = assembly.toList()[0].getName().endsWith(".gz") ? true : false
+    def assembly_name = assembly.toList()[0].getName().replace(".gz", "")
     """    
     # Decompress fasta file if compressed
     if [ "${is_compressed}" == "true" ]; then
@@ -79,7 +79,7 @@ process CHECKM2_PREDICT {
         --threads ${task.cpus} \\
         --database_path \$CHECKM2_DB \\
         ${task.ext.args} \\
-        --input ${fasta}
+        --input ${assembly_name}
 
     mv supplemental/checkm2.log ./
     mv supplemental/quality_report.tsv ./${prefix}.tsv

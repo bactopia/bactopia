@@ -51,10 +51,10 @@ workflow ARIBA {
 
     emit:
     // Individual outputs
-    report: Channel<Tuple<Map, Path>> = ARIBA_RUN.out.report
-    summary: Channel<Tuple<Map, Path>> = ARIBA_RUN.out.summary
-    merged_report: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_REPORT.out.csv
-    merged_summary: Channel<Tuple<Map, Path>> = CSVTK_CONCAT_SUMMARY.out.csv
+    report: Channel<Tuple<Map, Set<Path>>> = ARIBA_RUN.out.report
+    summary: Channel<Tuple<Map, Set<Path>>> = ARIBA_RUN.out.summary
+    merged_report: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_REPORT.out.csv
+    merged_summary: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_SUMMARY.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

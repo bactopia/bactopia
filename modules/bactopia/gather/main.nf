@@ -45,11 +45,11 @@ process GATHER {
     output:
     raw_fastq  = tuple(meta, files("fastqs/${prefix}*.fastq.gz"), files("extra/*.gz"))
     fastq_only = tuple(meta, files("fastqs/${prefix}*.fastq.gz"))
-    tsv        = tuple(meta, file("${prefix}-meta.tsv"))
+    tsv        = tuple(meta, files("${prefix}-meta.tsv"))
     error      = tuple(meta, files("*-{error,merged}.txt", optional: true))
     logs       = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs    = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, file("versions.yml"))
+    versions   = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

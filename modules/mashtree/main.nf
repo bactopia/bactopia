@@ -35,12 +35,12 @@ process MASHTREE {
     (_meta, seqs) : Tuple<Map, Set<Path>>
 
     output:
-    tree     = tuple(meta, file("${prefix}.dnd"))
-    matrix   = tuple(meta, file("${prefix}.tsv"))
+    tree     = tuple(meta, files("${prefix}.dnd"))
+    matrix   = tuple(meta, files("${prefix}.tsv"))
     sketches = tuple(meta, files("sketches/*", optional: true))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"

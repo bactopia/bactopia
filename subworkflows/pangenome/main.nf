@@ -51,12 +51,12 @@ workflow PANGENOME {
     main:
 
     // Initialize channels
-    ch_aln = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_csv = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_results = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Path>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Path>>
+    ch_aln = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_csv = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
     // Execute subworkflows
     // Choose pangenome tool based on params
@@ -98,8 +98,8 @@ workflow PANGENOME {
 
     emit:
     // Individual outputs
-    aln: Channel<Tuple<Map, Path>> = ch_aln
-    csv: Channel<Tuple<Map, Path>> = ch_csv
+    aln: Channel<Tuple<Map, Set<Path>>> = ch_aln
+    csv: Channel<Tuple<Map, Set<Path>>> = ch_csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([ch_results])

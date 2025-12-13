@@ -49,15 +49,15 @@ workflow TBPROFILER {
 
     emit:
     // Individual outputs
-    csv: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.csv
-    json: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.json
-    txt: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.txt
-    bam: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.bam
-    vcf: Channel<Tuple<Map, Path>> = TBPROFILER_PROFILE.out.vcf
-    merged_csv: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.csv
-    variants_csv: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.variants_csv
-    variants_txt: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.variants_txt
-    itol: Channel<Tuple<Map, Path>> = TBPROFILER_COLLATE.out.itol
+    csv: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_PROFILE.out.csv
+    json: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_PROFILE.out.json
+    txt: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_PROFILE.out.txt
+    bam: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_PROFILE.out.bam
+    vcf: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_PROFILE.out.vcf
+    merged_csv: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_COLLATE.out.csv
+    variants_csv: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_COLLATE.out.variants_csv
+    variants_txt: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_COLLATE.out.variants_txt
+    itol: Channel<Tuple<Map, Set<Path>>> = TBPROFILER_COLLATE.out.itol
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

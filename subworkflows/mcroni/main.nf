@@ -43,9 +43,9 @@ workflow MCRONI {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = MCRONI_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    fa: Channel<Tuple<Map, Path>> = MCRONI_MODULE.out.fa
+    tsv: Channel<Tuple<Map, Set<Path>>> = MCRONI_MODULE.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    fa: Channel<Tuple<Map, Set<Path>>> = MCRONI_MODULE.out.fa
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

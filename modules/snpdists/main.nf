@@ -28,13 +28,13 @@ process SNPDISTS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, alignment) : Tuple<Map, Path>
+    (_meta, alignment) : Tuple<Map, Set<Path>>
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

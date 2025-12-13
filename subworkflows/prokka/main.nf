@@ -61,16 +61,16 @@ workflow PROKKA {
     // Individual outputs
     annotations: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = PROKKA_MODULE.out.annotations
     blastdb: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.blastdb
-    faa: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.faa
-    ffn: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.ffn
-    fna: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.fna
-    fsa: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.fsa
-    gbk: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.gbk
-    gff: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.gff
-    tsv: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.tsv
-    txt: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.txt
-    sqn: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.sqn
-    tbl: Channel<Tuple<Map, Path>> = PROKKA_MODULE.out.tbl
+    faa: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.faa
+    ffn: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.ffn
+    fna: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.fna
+    fsa: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.fsa
+    gbk: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.gbk
+    gff: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.gff
+    tsv: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.tsv
+    txt: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.txt
+    sqn: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.sqn
+    tbl: Channel<Tuple<Map, Set<Path>>> = PROKKA_MODULE.out.tbl
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

@@ -29,14 +29,14 @@ process SEQSERO2 {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, seqs) : Tuple<Map, List<Path>>
+    (_meta, seqs) : Tuple<Map, Set<Path>>
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    txt      = tuple(meta, file("${prefix}.txt"))
+    tsv      = tuple(meta, files("${prefix}.tsv"))
+    txt      = tuple(meta, files("${prefix}.txt"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, file("versions.yml"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -49,11 +49,11 @@ process SEQSERO2 {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed_fna = seqs[0].getName().endsWith("fna.gz") ? true : false
-    def seq_name = is_compressed_fna ? seqs[0].getName().replace(".gz", "") : "${seqs}"
+    def is_compressed_fna = seqs.toList()[0].getName().endsWith("fna.gz") ? true : false
+    def seq_name = is_compressed_fna ? seqs.toList()[0].getName().replace(".gz", "") : "${seqs}"
     """
     if [ "${is_compressed_fna}" == "true" ]; then
-        gzip -c -d ${seqs[0]} > ${seq_name}
+        gzip -c -d ${seqs} > ${seq_name}
     fi
 
     SeqSero2_package.py \\

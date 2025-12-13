@@ -44,7 +44,7 @@ workflow SYLPH {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = SYLPH_PROFILE.out.tsv
+    tsv: Channel<Tuple<Map, Set<Path>>> = SYLPH_PROFILE.out.tsv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([SYLPH_PROFILE.out.tsv])

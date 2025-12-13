@@ -46,9 +46,9 @@ workflow MYKROBE {
 
     emit:
     // Individual outputs
-    csv: Channel<Tuple<Map, Path>> = MYKROBE_PREDICT.out.csv
-    json: Channel<Tuple<Map, Path>> = MYKROBE_PREDICT.out.json
-    merged_csv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    csv: Channel<Tuple<Map, Set<Path>>> = MYKROBE_PREDICT.out.csv
+    json: Channel<Tuple<Map, Set<Path>>> = MYKROBE_PREDICT.out.json
+    merged_csv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

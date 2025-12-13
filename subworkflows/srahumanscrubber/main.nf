@@ -42,10 +42,10 @@ workflow SRAHUMANSCRUBBER {
 
     emit:
     // Individual outputs
-    scrubbed: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
-    scrubbed_extra: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
-    scrub_report: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
-    scrub_special_report: Channel<Tuple<Map, Path>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_special_report
+    scrubbed: Channel<Tuple<Map, Set<Path>>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed
+    scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = SRAHUMANSCRUBBER_SCRUB.out.scrubbed_extra
+    scrub_report: Channel<Tuple<Map, Set<Path>>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_report
+    scrub_special_report: Channel<Tuple<Map, Set<Path>>> = SRAHUMANSCRUBBER_SCRUB.out.scrub_special_report
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

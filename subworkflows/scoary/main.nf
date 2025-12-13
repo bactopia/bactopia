@@ -43,7 +43,7 @@ workflow SCOARY {
 
     emit:
     // Individual outputs
-    csv: Channel<Tuple<Map, Path>> = SCOARY_MODULE.out.csv
+    csv: Channel<Tuple<Map, Set<Path>>> = SCOARY_MODULE.out.csv
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.csv])

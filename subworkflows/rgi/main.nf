@@ -44,10 +44,10 @@ workflow RGI {
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Path>> = RGI_MAIN.out.tsv
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
-    json: Channel<Tuple<Map, Path>> = RGI_MAIN.out.json
-    heatmap: Channel<Tuple<Map, Path>> = RGI_HEATMAP.out.heatmap
+    tsv: Channel<Tuple<Map, Set<Path>>> = RGI_MAIN.out.tsv
+    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    json: Channel<Tuple<Map, Set<Path>>> = RGI_MAIN.out.json
+    heatmap: Channel<Tuple<Map, Set<Path>>> = RGI_HEATMAP.out.heatmap
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

@@ -37,17 +37,17 @@ process PHYLOFLASH {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, List<Path>>
+    (_meta, reads) : Tuple<Map, Set<Path>>
     _silva_db       : Path
     _univec_db      : Path
 
     output:
     supplemental = tuple(meta, files("${prefix}/*"))
-    aln          = file("${prefix}/${prefix}.toalign.fasta", optional: true)
-    summary      = file("${prefix}/${prefix}.phyloFlash.json", optional: true)
+    aln          = files("${prefix}/${prefix}.toalign.fasta", optional: true)
+    summary      = files("${prefix}/${prefix}.phyloFlash.json", optional: true)
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -60,7 +60,7 @@ process PHYLOFLASH {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def read_opts = meta.single_end ? "-read1 ${reads[0]}" : "-read1 ${reads[0]} -read2 ${reads[1]}"
+    def read_opts = meta.single_end ? "-read1 ${reads.toList()[0]}" : "-read1 ${reads.toList()[0]} -read2 ${reads.toList()[1]}"
     """
     mkdir ${prefix}
     phyloFlash.pl \\

@@ -39,8 +39,8 @@ workflow PNEUMOCAT {
 
     emit:
     // Individual outputs
-    xml: Channel<Tuple<Map, Path>> = PNEUMOCAT_MODULE.out.xml
-    txt: Channel<Tuple<Map, Path>> = PNEUMOCAT_MODULE.out.txt
+    xml: Channel<Tuple<Map, Set<Path>>> = PNEUMOCAT_MODULE.out.xml
+    txt: Channel<Tuple<Map, Set<Path>>> = PNEUMOCAT_MODULE.out.txt
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

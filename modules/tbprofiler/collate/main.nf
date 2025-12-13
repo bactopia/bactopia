@@ -37,13 +37,13 @@ process TBPROFILER_COLLATE {
     stageAs 'results-tmp/*', json
 
     output:
-    csv          = tuple(meta, file("tbprofiler.csv"))
-    variants_csv = tuple(meta, file("tbprofiler.variants.csv"))
-    variants_txt = tuple(meta, file("tbprofiler.variants.txt"))
+    csv          = tuple(meta, files("tbprofiler.csv"))
+    variants_csv = tuple(meta, files("tbprofiler.variants.csv"))
+    variants_txt = tuple(meta, files("tbprofiler.variants.txt"))
     itol         = tuple(meta, files("*.itol.*.txt", optional: true))
     logs         = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, file("versions.yml"))
+    versions     = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"
