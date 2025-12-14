@@ -1,13 +1,13 @@
 /**
  * Serotyping and Multi-Antigen Sequence Typing (MAST) of *Neisseria gonorrhoeae*.
  *
- * Uses [NG-MAST](https://github.com/phac-nml/NG-MASTER) to identify the alleles of the
+ * Uses [NG-MASTER](https://github.com/phac-nml/NG-MASTER) to identify the alleles of the
  * *porB* and *tbpB* genes in *N. gonorrhoeae* assemblies, which is the basis for the
  * internationally recognized MAST genotyping scheme.
  *
  * @status stable
  * @keywords bacteria, neisseria gonorrhoeae, serotype, typing, mast, porb, tbpb
- * @tags complexity:simple input-type:single output-type:single
+ * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation ngmaster
  *
  * @input tuple(meta, assembly)

@@ -40,12 +40,12 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SKETCHER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     mash_db: Path
     sourmash_db: Path
 
     main:
-    SKETCHER_MODULE(reads, mash_db, sourmash_db)
+    SKETCHER_MODULE(assembly, mash_db, sourmash_db)
 
     emit:
     // Individual outputs

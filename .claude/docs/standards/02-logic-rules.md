@@ -36,6 +36,12 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 
 ## Input-Type Logic
 
+### None
+- **Definition**: No sample/data channels in the `take` block
+- **Use case**: Utility modules that download resources or perform setup tasks
+- **Note**: May have `Path`, `String`, or `Map` parameters but no `Channel<Tuple<...>>` inputs
+- **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
+
 ### Single Input
 - **Definition**: The `take` block defines exactly **1 Channel**
 - **Note**: Do not count `path` or `string` parameters
@@ -168,9 +174,10 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 
 ### Determining Input-Type
 1. Count channels in `take` block
-2. Ignore `path` and `string` parameters
-3. 1 channel → **Single**
-4. 2+ channels → **Multiple**
+2. Ignore `path`, `string`, and `map` parameters (non-channel types)
+3. 0 channels → **None** (utility/setup modules)
+4. 1 channel → **Single**
+5. 2+ channels → **Multiple**
 
 ### Determining Output-Type
 1. Count distinct output files/channels

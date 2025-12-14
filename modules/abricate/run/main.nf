@@ -7,8 +7,12 @@
  *
  * @status stable
  * @keywords bacteria, assembly, fasta, antimicrobial resistance, virulence, plasmid, mobile genetic elements
- * @tags complexity:simple input-type:single output-type:single
+ * @tags complexity:simple input-type:single output-type:single features:database-dependent
  * @citation abricate
+ *
+ * @note Database Included
+ * Abricate bundles multiple databases including NCBI, CARD, ResFinder, PlasmidFinder,
+ * ARG-ANNOT, and VFDB.
  *
  * @input tuple(meta, assembly)
  * - `meta`: Groovy Map containing sample information

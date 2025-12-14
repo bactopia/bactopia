@@ -1,7 +1,7 @@
 /**
  * Build a pangenome from GFF3 annotations using PIRATE.
  *
- * This subworkflow creates a pangenome from bacterial genome annotations using [PIRATE](http://github.com/SionBayliss/PIRATE).
+ * This subworkflow creates a pangenome from bacterial genome annotations using [PIRATE](https://github.com/SionBayliss/PIRATE).
  * PIRATE is a scalable pangenome toolbox that clusters orthologous genes at multiple identity thresholds.
  * It is particularly useful for highly diverse datasets as it can handle divergent gene families
  * and provides flexible clustering options for different analytical needs.

@@ -83,6 +83,12 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 ### 3.2 Input-Type Classification
 
+#### None
+- **Definition**: No sample/data channels; only parameters
+- **Pattern**: `String`, `Map`, or `Path` parameters without `Tuple<Map, ...>` channels
+- **Use Case**: Utility modules for downloads, database setup, or internal maintenance
+- **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
+
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
 - **Pattern**: `Tuple<Map, Path>` for assemblies
@@ -123,6 +129,32 @@ Bactopia modules are individual process definitions that execute specific bioinf
 #### Processing Features
 - **filtering**: Filters input data based on criteria
 - **custom-outputs**: Non-standard output patterns
+
+### 3.5 Common @note Patterns
+
+The `@note` tag documents special requirements or context. Common patterns include:
+
+#### Database Notes
+- **Database Required**: External database must be provided by user
+- **Database Bundled**: Tool includes its own database
+- **Database Included**: Multiple databases bundled (e.g., abricate)
+
+#### Internet/Resource Notes
+- **Internet Required**: Process requires active internet connection
+
+#### Utility Module Notes
+- **Internal Utility**: Module used for internal pipeline operations
+- **Internal Maintenance**: Module used for dataset building/updating
+
+#### Technical Notes
+- **Uses EMPTY_* placeholder files for optional parameters**: Documents Path? workarounds
+
+**Example usage**:
+```groovy
+* @note Database Bundled
+* Kleborate bundles the required databases for species identification, MLST,
+* and virulence/resistance gene detection.
+```
 
 ## 4. Input Documentation Standards
 
@@ -459,7 +491,9 @@ Before completing module documentation, verify:
 
 - [ ] All required tags are present (@status, @keywords, @tags, @citation)
 - [ ] Input types are correctly documented as tuples with meta
+- [ ] **Parameter names in code match documentation** (e.g., if `take:` has `assembly:`, doc should say `@input tuple(meta, assembly)`)
 - [ ] All outputs are documented with clear descriptions
+- [ ] **All output channels in code have corresponding @output entries**
 - [ ] Standard outputs (logs, nf_logs, versions) are included
 - [ ] Complexity level accurately reflects implementation
 - [ ] Feature tags match actual implementation

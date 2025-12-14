@@ -6,14 +6,18 @@
  *
  * @status stable
  * @keywords download, wget, fetch, utility, internet
- * @tags complexity:simple input-type:single output-type:single features:internet-access,resource-download
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download
  * @citation wget
  *
+ * @note Internal Utility
+ * This is an internal utility module for downloading files. Logs and versions are
+ * bundled in a subdirectory structure.
+ *
  * @input meta
- * Groovy Map containing download information (e.g. output filename)
+ * Groovy Map containing download information (url, save_as, name)
  *
  * @output download The downloaded file
- * @output logs     Optional software execution logs containing warnings/errors
+ * @output logs     Software execution logs and versions (bundled in subdirectory)
  */
 nextflow.preview.types = true
 

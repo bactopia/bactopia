@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords salmonella, serotype, cgmlst, typing, prediction
- * @tags complexity:moderate input-type:single output-type:multiple features:compression
+ * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation sistr
  *
  * @input tuple(meta, assembly)

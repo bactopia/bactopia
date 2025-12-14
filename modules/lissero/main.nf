@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords bacteria, listeria, monocytogenes, serotype, serogroup, typing, pcr
- * @tags complexity:simple input-type:single output-type:single
+ * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation lissero
  *
  * @input tuple(meta, assembly)

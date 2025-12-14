@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, haemophilus parasuis, glaesserella parasuis, serotype, typing, capsule
- * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation hpsuissero
  *
  * @input tuple(meta, assembly)

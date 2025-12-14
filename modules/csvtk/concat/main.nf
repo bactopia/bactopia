@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords utility, table, merge, concat, csv, tsv, csvtk
- * @tags complexity:simple input-type:list output-type:single features:conditional-logic
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation csvtk
  *
  * @input tuple(meta, csv)

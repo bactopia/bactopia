@@ -17,7 +17,7 @@
  * @input traits
  * CSV file containing trait information for the samples
  *
- * @output csv      Scoary results files (*.csv)
+ * @output results  Scoary results files for each trait (*.csv)
  * @output logs     Optional software execution logs containing warnings/errors
  * @output nf_logs  Nextflow execution scripts and logs for debugging
  * @output versions A YAML formatted file with software versions

@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords staphylococcus aureus, spa typing, repeat, mrsa, typing
- * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
+ * @tags complexity:moderate input-type:single output-type:single features:compression,conditional-logic
  * @citation spatyper
  *
  * @input tuple(meta, assembly)

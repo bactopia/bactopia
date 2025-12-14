@@ -6,7 +6,7 @@
  *
  * @status stable
  * @keywords tuberculosis, mycobacterium, drug resistance, collate, summary
- * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent,conditional-logic
  * @citation tbprofiler
  *
  * @input tuple(meta, json)

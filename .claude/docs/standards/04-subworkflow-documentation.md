@@ -43,6 +43,7 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
     - `moderate`: Analysis with Logic or Parameters. Includes conditional execution, multiple command steps within the script, or significant parameter handling. Often generates multiple distinct types of outputs. Wraps a standard bioinformatics tool that typically requires a specific database or reference file.
     - `complex`: Orchestration and Heavy Lifting. Involves calling other subworkflows, complex branching (e.g., switching tools based on flags), or massive parallelization/aggregation patterns. Often involves joining multiple distinct data streams. High resource usage or long runtimes; often acts as a "pipeline-within-a-pipeline".
   - **`input-type`:**
+    - `none`: No sample/data channels; only parameters (utility/setup subworkflows).
     - `single`: The `take` block defines exactly **1 Channel** (plus any number of parameters).
     - `multiple`: The `take` block defines **2 or more Channels**.
   - **`output-type`:** Usually `multiple` for subworkflows.

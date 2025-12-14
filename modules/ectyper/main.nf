@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, escherichia coli, serotype, o-antigen, h-antigen, typing
- * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation ectyper
  *
  * @input tuple(meta, assembly)

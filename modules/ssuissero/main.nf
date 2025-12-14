@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords streptococcus suis, serotype, typing, prediction
- * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation ssuissero
  *
  * @input tuple(meta, assembly)
@@ -38,8 +38,6 @@ process SSUISSERO {
     versions = tuple(meta, files("versions.yml"))
 
     script:
-    def VERSION = '1.0.1'
-    // Version information not provided by tool on CLI
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -71,7 +69,7 @@ process SSUISSERO {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        ssuissero: ${VERSION}
+        ssuissero: ${task.ext.version}
     END_VERSIONS
     """
 }

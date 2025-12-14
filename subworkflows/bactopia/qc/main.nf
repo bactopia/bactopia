@@ -65,7 +65,7 @@ workflow QC {
         QC_MODULE.out.error,
         QC_MODULE.out.error_fastq
     ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.versions])
+    logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.logs])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.logs])
+    versions: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.versions])
 }

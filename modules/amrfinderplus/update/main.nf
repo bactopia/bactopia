@@ -1,5 +1,5 @@
 /**
-* Download and index the latest AMRFinder+ database.
+ * Download and index the latest AMRFinder+ database.
  *
  * Fetches the most recent [AMRFinder+](https://github.com/ncbi/amr) databases from NCBI,
  * indexes them, and packages them into a tarball.

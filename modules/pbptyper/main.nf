@@ -17,6 +17,7 @@
  *
  * @output tsv       A tab-delimited summary file with the predicted PBP type for each gene
  * @output blast     A tab-delimited file of the raw TBLASTN hits used for gene identification
+ * @output details   Detailed PBP typing results for each gene analyzed
  * @output logs      Optional software execution logs containing warnings/errors
  * @output nf_logs   Nextflow execution scripts and logs for debugging
  * @output versions  A YAML formatted file with software versions

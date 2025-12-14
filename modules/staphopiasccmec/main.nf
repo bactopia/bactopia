@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords staphylococcus aureus, sccmec, typing, mrsa, primers
- * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation staphopiasccmec
  *
  * @input tuple(meta, assembly)
