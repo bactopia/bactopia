@@ -28,7 +28,19 @@
 **EMPTY_* Files**
 - Placeholder files used as temporary workaround for Nextflow Path? limitations
 - Stored in `/data/empty/`
-- Examples: `EMPTY_PROTEINS`, `EMPTY_DB`, `EMPTY_ADAPTERS`
+- Available files:
+    - `EMPTY_ADAPTERS` - For adapter files
+    - `EMPTY_DB` - For database files
+    - `EMPTY_EXTRA` - For extra files
+    - `EMPTY_ONT` - For Oxford Nanopore long reads
+    - `EMPTY_PHIX` - For PhiX files
+    - `EMPTY_PRODIGAL_TF` - For Prodigal training files
+    - `EMPTY_PROTEINS` - For protein files
+    - `EMPTY_R1` - For paired-end forward reads
+    - `EMPTY_R2` - For paired-end reverse reads
+    - `EMPTY_REPLICONS` - For replicon files
+    - `EMPTY_SE` - For single-end Illumina reads
+    - `EMPTY_TF` - For training files
 
 ## F
 **file() vs files()**
@@ -117,13 +129,18 @@
 
 ## T
 **Tuple<Map, Path>**
-- Single file output type
-- Used with `file()` output declaration
+- Single file type used for module inputs (assemblies)
+- Also used for single file outputs
+
+**Tuple<Map, Path?, Path?, Path?, Path?>**
+- Explicit positional tuple for multi-read inputs
+- Positions: r1, r2, se, lr (each optional)
+- Used by read-based modules and subworkflows
 
 **Tuple<Map, Set<Path>>**
 - Multiple file output type
 - Used with `files()` output declaration
-- Used for module inputs when multiple files are expected
+- Standard for module outputs (logs, nf_logs, versions)
 
 ## V
 **versions**

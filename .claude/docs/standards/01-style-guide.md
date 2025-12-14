@@ -14,6 +14,13 @@ This guide defines the standardized GroovyDoc templates and formatting conventio
 - **Modules/Subworkflows**: `@tags` for classification
 - **Entry Workflows**: `@section` to group related outputs
 
+### The @note Tag
+Use `@note` for special requirements, caveats, or important information:
+- Database requirements
+- Optional features
+- Conditional behavior
+- Important caveats
+
 ## Formatting Rules
 - **No type annotations** in documentation (visible in code)
 - **Multi-line inputs** for clarity

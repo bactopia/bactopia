@@ -65,17 +65,29 @@ bactopia/
 ### `/conf/`
 - **Purpose**: Configuration files and parameter definitions
 - **Key Files**:
-  - `base.config` - Base configuration settings
-  - `params.config` - Global parameter definitions
-  - `profiles.config` - Execution profile configurations
-  - `workflows.yaml` - Workflow metadata
+    - `base.config` - Base configuration settings
+    - `params.config` - Global parameter definitions
+    - `profiles.config` - Execution profile configurations
+    - `test.config` - Test configuration settings
+- **Subdirectories**:
+    - `params/` - Workflow-specific parameter configurations
+        - `bactopia.config` - Main Bactopia parameters
+        - `bactopia-tools.config` - Shared bactopia-tools parameters
+        - `cleanyerreads.config` - CleanYerReads workflow parameters
+        - `staphopia.config` - Staphopia workflow parameters
+        - `teton.config` - Teton workflow parameters
+    - `schema/` - JSON schemas for parameter validation
+        - `bactopia.json`, `bactopia-tools.json`, `generic.json`, etc.
 
 ### `/data/`
 - **Purpose**: Static data and resources
 - **Contents**:
-  - `empty/` - Placeholder files for Path? workarounds
-  - `conda/` - Development environment specifications
-  - Reference databases and files
+    - `empty/` - Placeholder files for Path? workarounds (EMPTY_*)
+    - `conda/` - Development environment specifications
+    - `citations.yml` - Tool citations and references
+    - `workflows.yml` - Workflow metadata and definitions
+    - `proteins.faa` - Protein reference file
+    - Image assets (logos, banners)
 
 ### `/bin/`
 - **Purpose**: Utility scripts and helper tools
@@ -125,7 +137,10 @@ Results (4 channels: results, logs, nf_logs, versions)
 ### Module Organization
 - Single tool per directory
 - Multiple variants as subdirectories when needed
-  - Example: `blast/blastn/`, `blast/blastp/`, `blast/blastx/`
+    - Example: `blast/blastn/`, `blast/blastp/`, `blast/blastx/`, `blast/tblastn/`, `blast/tblastx/`
+- Some modules use a `/run/` subdirectory for the main process
+    - Example: `abricate/run/`, `bakta/run/`, `prokka/` (direct)
+    - Used when modules have multiple related processes (e.g., download + run)
 
 ### Subworkflow Organization
 - By functionality or tool
@@ -134,8 +149,11 @@ Results (4 channels: results, logs, nf_logs, versions)
 
 ### Workflow Organization
 - Entry points in root directory
-- Bactopia Tools in `workflows/bactopia-tools/`
-- Named workflows as top-level directories
+- Bactopia Tools in `workflows/bactopia-tools/` (68+ workflows)
+- Named workflows as separate directories under `workflows/`:
+    - `workflows/cleanyerreads/` - Read cleaning workflow
+    - `workflows/staphopia/` - Staphylococcus-focused analysis
+    - `workflows/teton/` - Taxonomic classification workflow
 
 ## See Also
 - [Development Workflow](../project/02-development-workflow.md) - For adding new components

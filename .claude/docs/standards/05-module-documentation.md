@@ -85,12 +85,13 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
-- **Pattern**: `Tuple<Map, Set<Path>>` for assemblies, `Tuple<Map, List<Path>>` for reads
+- **Pattern**: `Tuple<Map, Path>` for assemblies
+- **Pattern**: `Tuple<Map, Path?, Path?, Path?, Path?>` for read-based modules (r1, r2, se, lr)
 - **Examples**: Most modules that process a single data type
 
 #### Multiple Inputs
 - **Definition**: Multiple data channels or complex multi-element tuples
-- **Pattern**: `Tuple<Map, Path, Path>` for multiple files
+- **Pattern**: `Tuple<Map, Path, Path>` for multiple required files
 - **Examples**: quast (assembly + meta_file)
 
 ### 3.3 Output-Type Classification
@@ -125,19 +126,28 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 ## 4. Input Documentation Standards
 
-### 4.1 Primary Data Inputs
+### 4.1 Primary Data Inputs (Assembly)
+
 ```groovy
 @input tuple(meta, assembly)
 - `meta`: Groovy Map containing sample information
 - `assembly`: Assembled contigs in FASTA format
 ```
 
-### 4.2 Read Inputs
+### 4.2 Read Inputs (Explicit Positional Slots)
+
+For modules accepting reads, use explicit positional slots:
+
 ```groovy
-@input tuple(meta, reads)
+@input tuple(meta, r1, r2, se, lr)
 - `meta`: Groovy Map containing sample information
-- `reads`: Paired-end or Single-end reads in FASTQ format
+- `r1`: Illumina R1 reads (paired-end forward)
+- `r2`: Illumina R2 reads (paired-end reverse)
+- `se`: Single-end Illumina reads
+- `lr`: Long reads (ONT/PacBio)
 ```
+
+This pattern provides clear documentation of which read types are supported and uses `Path?` types for optional slots.
 
 ### 4.3 Database Parameters
 ```groovy
@@ -188,13 +198,17 @@ Training file to use for gene prediction (Optional)
 ## 6. Implementation Patterns
 
 ### 6.1 Path? Parameter Handling
+
 Two main approaches for optional parameters:
 
 #### EMPTY_* File Detection (Preferred)
+
 ```groovy
-def proteins_opt = proteins.toList()[0].getName() != "EMPTY_PROTEINS" ?
-    "--proteins ${proteins.toList()[0].getName()}" : ""
+def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ?
+    "--proteins ${proteins.getName()}" : ""
 ```
+
+**Note**: Use `.getName()` directly on `Path?` parameters. The older `.toList()[0].getName()` pattern is deprecated.
 
 #### Conditional Database Handling
 ```groovy
@@ -230,6 +244,7 @@ else {
 ```
 
 ### 6.4 Version Information
+
 ```bash
 cat <<-END_VERSIONS > versions.yml
 "${task.process}":
@@ -237,6 +252,53 @@ cat <<-END_VERSIONS > versions.yml
     database_version: $(cat database/VERSION 2>/dev/null || echo "unknown")
 END_VERSIONS
 ```
+
+### 6.5 Hardcoded Version Strings
+
+Some tools do not provide version information via CLI. In these cases, use a hardcoded VERSION variable with a comment explaining why:
+
+```groovy
+def VERSION = '2.1'
+// WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+```
+
+**Modules using this pattern**: gamma, mcroni, plasmidfinder, pneumocat, midas, ssuissero
+
+When updating container versions for these modules, remember to manually update the VERSION string.
+
+### 6.6 Stage Blocks
+
+Some modules use `stage:` blocks to organize input file staging. This is useful when inputs need specific directory structures:
+
+```groovy
+stage:
+stageAs "input/*", assembly
+```
+
+**Multi-file staging example** (stecfinder):
+
+```groovy
+stage:
+stageAs 'fna/*', fna
+stageAs 'reads/r1/*', r1
+stageAs 'reads/r2/*', r2
+stageAs 'reads/se/*', se
+stageAs 'reads/lr/*', lr
+```
+
+**Modules using stage blocks**: prokka, agrvate, fastani, roary, pirate, stecfinder
+
+### 6.7 Runtime Meta Fields
+
+Some modules add runtime-determined fields to the meta map for internal use:
+
+```groovy
+meta.is_paired = has_r1 && has_r2
+meta.single_end = has_se && !has_r1 && !has_r2
+meta.runtype = _meta.runtype
+```
+
+These fields are computed at runtime based on which inputs are provided.
 
 ## 7. Examples by Complexity
 

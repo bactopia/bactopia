@@ -52,20 +52,63 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
   - Use **`@subworkflows`** if `include` points to `../subworkflows/...`.
 
 ### 2.3 Inputs
+
 - **Format:** `@input tuple(meta, variable_name)`
 - **Standard Renaming Rules:**
-  - `fasta` → **`assembly`**: "Assembled contigs in FASTA format"
-  - `fastq`/`reads` → **`reads`**: "FASTQ reads (Illumina or Nanopore)"
-  - `meta` → "Groovy Map containing sample information"
+    - `fasta` → **`assembly`**: "Assembled contigs in FASTA format"
+    - `fastq`/`reads` → **`reads`**: "FASTQ reads (Illumina or Nanopore)"
+    - `meta` → "Groovy Map containing sample information"
+
+#### Explicit Positional Read Slots
+
+For subworkflows accepting reads, use explicit positional slots for clarity:
+
+```groovy
+@input tuple(meta, r1, r2, se, lr)
+- `meta`: Groovy Map containing sample information
+- `r1`: Illumina R1 reads (paired-end forward)
+- `r2`: Illumina R2 reads (paired-end reverse)
+- `se`: Single-end Illumina reads
+- `lr`: Long reads (ONT/PacBio)
+```
+
+This pattern uses `Tuple<Map, Path?, Path?, Path?, Path?>` where each slot is optional, allowing the subworkflow to handle different read configurations.
+
+**Subworkflows using this pattern**: ariba, kraken2, bracken, scrubber, teton
 
 ### 2.4 Outputs
+
 - **Source of Truth:** Document all outputs listed in the subworkflow's `emit` block.
 - **Vertical Alignment:** Pad variable names with spaces so all descriptions start at the same column index.
 - **Mandatory Aggregates:** Always include these four at the end, explicitly stating they aggregate **all** underlying processes:
-  - `results`    (Aggregated results channel containing all output files)
-  - `logs`       (Aggregated logs channel containing all execution logs)
-  - `nf_logs`    (Aggregated Nextflow execution scripts and logs for debugging from all processes)
-  - `versions`   (Aggregated version information from all executed tools)
+    - `results`    (Aggregated results channel containing all output files)
+    - `logs`       (Aggregated logs channel containing all execution logs)
+    - `nf_logs`    (Aggregated Nextflow execution scripts and logs for debugging from all processes)
+    - `versions`   (Aggregated version information from all executed tools)
+
+#### Special Output Channels
+
+Some subworkflows emit additional "special" outputs designed for pass-through to downstream subworkflows:
+
+```groovy
+@output special_tsv    Intermediate output for downstream subworkflow consumption
+```
+
+**Example**: The scrubber subworkflow emits `special_tsv` which is consumed by the teton subworkflow.
+
+### 2.5 The @note Tag
+
+Use `@note` to document special requirements, caveats, or important information:
+
+```groovy
+@note Database can be automatically downloaded or provided as pre-existing tarball
+```
+
+Common uses:
+- Database requirements
+- Optional features
+- Conditional behavior
+- Important caveats
 
 ## 3. Information Sources
 - **Primary:** Subworkflow `main.nf` (for logic/flow) and Module `main.nf` (for file details).

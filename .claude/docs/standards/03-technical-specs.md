@@ -37,10 +37,18 @@ ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 ```
 
 ### Standard Module Input Types
-- **Single assemblies**: `Tuple<Map, Path>`
-- **Read pairs (R1/R2)**: `Tuple<Map, List<Path>>`
-- **File collections**: `Tuple<Map, Set<Path>>`
-- **Standard module input**: `Tuple<Map, Set<Path>>` (not `Tuple<Map, Path>`)
+
+The codebase uses explicit positional types for clarity:
+
+- **Single assemblies**: `Tuple<Map, Path>` - For modules processing a single assembly file
+- **Multi-read inputs**: `Tuple<Map, Path?, Path?, Path?, Path?>` - For modules accepting multiple read types:
+    - Position 1: R1 (Illumina paired-end forward)
+    - Position 2: R2 (Illumina paired-end reverse)
+    - Position 3: SE (Single-end Illumina)
+    - Position 4: LR (Long reads - ONT/PacBio)
+- **Multiple distinct inputs**: `Tuple<Map, Path, Path>` - For modules requiring multiple files (e.g., assembly + metadata)
+
+**Note**: The codebase has transitioned from `Set<Path>` to explicit `Path` types for module inputs to provide clearer type safety and documentation.
 
 ## Path? Optional Parameters (Workarounds)
 
@@ -58,20 +66,24 @@ bakta_db : Path? = "${projectDir}/data/empty/EMPTY_DB"
 ### Detection in Scripts
 
 ```groovy
-def proteins_opt = proteins.toList()[0].getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.toList()[0].getName()}" : ""
+def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
 ```
+
+**Note**: Use `.getName()` directly on `Path?` parameters. The older `.toList()[0].getName()` pattern is deprecated.
 
 ### Available EMPTY_* Files
 Located in `/data/empty/`:
 - `EMPTY_ADAPTERS` - For adapter files
 - `EMPTY_DB` - For database files
 - `EMPTY_EXTRA` - For extra files
+- `EMPTY_ONT` - For Oxford Nanopore long reads
 - `EMPTY_PHIX` - For PhiX files
 - `EMPTY_PRODIGAL_TF` - For Prodigal training files
 - `EMPTY_PROTEINS` - For protein files
-- `EMPTY_R1` - For read 1 files
-- `EMPTY_R2` - For read 2 files
+- `EMPTY_R1` - For read 1 files (paired-end forward)
+- `EMPTY_R2` - For read 2 files (paired-end reverse)
 - `EMPTY_REPLICONS` - For replicon files
+- `EMPTY_SE` - For single-end Illumina reads
 - `EMPTY_TF` - For training files
 
 **Important**: These are TEMPORARY workarounds. Do NOT attempt to "fix" them. They will be removed when Nextflow properly supports Path?.
@@ -84,8 +96,10 @@ Located in `/data/empty/`:
 output:
 logs        = tuple(meta, files("*.{log,err}", optional: true))
 nf_logs     = tuple(meta, files(".command.*"))
-versions    = tuple(meta, file("versions.yml"))
+versions    = tuple(meta, files("versions.yml"))
 ```
+
+**Note**: All standard outputs use `files()` for consistency, even for single files like `versions.yml`.
 
 Modules may emit additional output channels as needed.
 

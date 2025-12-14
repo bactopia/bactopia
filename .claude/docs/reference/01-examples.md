@@ -208,40 +208,49 @@ This section provides detailed examples of different component types in Bactopia
 
 ### Input Patterns for Modules
 
-**Standard Pattern** (recommended for most cases):
+The codebase uses explicit positional types for clarity and type safety:
+
+**Assembly-based modules** (single file input):
 ```groovy
-// Standard module input - uses Set<Path> for flexibility
+// Single assembly file
 input:
-(_meta, assembly): Tuple<Map, Set<Path>>
+(_meta, assembly): Tuple<Map, Path>
 ```
 
-**When to use each type**:
-- **`Tuple<Map, Set<Path>>`** (Standard): Use for most inputs. The `Set<Path>` type handles both single files and multiple files, and works with `files()` output declarations.
-- **`Tuple<Map, Path>`** (Single file only): Use only when you need exactly one file and want strict type enforcement. Works with `file()` output declarations.
+**Read-based modules** (multi-read input with explicit slots):
 
 ```groovy
-// Standard pattern - handles single or multiple files
+// Explicit positional slots for different read types
 input:
-(_meta, assembly): Tuple<Map, Set<Path>>
-
-// Strict single-file pattern - rarely needed
-input:
-(_meta, reference): Tuple<Map, Path>
-
-// Multiple distinct inputs (e.g., reads + extra files)
-input:
-(_meta, reads, extra): Tuple<Map, Set<Path>, Set<Path>>
+(_meta, r1, r2, se, lr): Tuple<Map, Path?, Path?, Path?, Path?>
 ```
 
-**Important**: The standard input type for Bactopia modules is `Tuple<Map, Set<Path>>`, not `Tuple<Map, Path>`. This aligns with the `files()` output pattern used throughout the codebase.
+Where each position represents:
+- `r1`: Illumina R1 reads (paired-end forward)
+- `r2`: Illumina R2 reads (paired-end reverse)
+- `se`: Single-end Illumina reads
+- `lr`: Long reads (ONT/PacBio)
+
+**Multiple distinct inputs** (e.g., assembly + metadata):
+
+```groovy
+// Two required files
+input:
+(_meta, assembly, meta_file): Tuple<Map, Path, Path>
+```
+
+**Important**: The codebase has transitioned to explicit `Path` types for module inputs (not `Set<Path>`). This provides clearer type safety and better documentation of expected inputs.
 
 ### Standard Output Pattern for Modules
+
 ```groovy
 output:
 logs        = tuple(meta, files("*.{log,err}", optional: true))
 nf_logs     = tuple(meta, files(".command.*"))
-versions    = tuple(meta, file("versions.yml"))
+versions    = tuple(meta, files("versions.yml"))
 ```
+
+**Note**: All standard outputs use `files()` for consistency across the codebase.
 
 ### Subworkflow Aggregation Pattern
 ```groovy

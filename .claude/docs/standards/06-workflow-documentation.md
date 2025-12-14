@@ -97,15 +97,26 @@ nextflow.preview.types = true
 ## 4. Parameter Documentation
 
 ### 4.1 Parameter Format
+
 ```groovy
 @input <param_name>
 <Description of the parameter>
 
 @input <optional_param>
-<Description of optional parameter (Optional)
+<Description of optional parameter> (Optional)
 ```
 
-### 4.2 Common Parameter Types
+### 4.2 Generic Bactopia-Tools Parameters
+
+All bactopia-tools workflows inherit common parameters that are typically NOT documented in the individual workflow GroovyDoc (they are inherited from the framework):
+- `bactopia` - Path to Bactopia analysis directory
+- `includes` - Sample inclusion filter
+- `excludes` - Sample exclusion filter
+- `workflow` - Internal workflow identifier
+
+These are handled automatically by the bactopia-tools initialization subworkflow.
+
+### 4.3 Common Parameter Types
 
 #### Required Parameters
 ```groovy
