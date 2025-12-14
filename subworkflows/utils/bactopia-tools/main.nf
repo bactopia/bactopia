@@ -6,17 +6,24 @@
  * channel structures suitable for various tool requirements (primary inputs only, or including
  * secondary/tertiary files).
  *
+ * For FASTQ-consuming tools, provides explicit positional tuple slots:
+ * - reads: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords initialization, validation, input-parsing, parameters, workflow
- * @tags complexity:moderate input-type:parameter output-type:single features:validation,input-parsing
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:validation,input-parsing
  * @citation bactopia
  *
  * @input none
  * This workflow is parameter-driven and does not accept input channels.
  *
- * @output samples    Channel containing primary inputs (meta, inputs)
- * @output samples_2  Channel containing primary and secondary inputs (meta, inputs, extra)
- * @output samples_3  Channel containing all input tiers (meta, inputs, extra, extra2)
+ * @output reads                  FASTQ reads: tuple(meta, r1, r2, se, lr) as Tuple<Map, Path?, Path?, Path?, Path?>
+ * @output assembly               Assembly file: tuple(meta, fna) as Tuple<Map, Path>
+ * @output assembly_reads         Assembly + reads: tuple(meta, fna, r1, r2, se, lr) as Tuple<Map, Path, Path?, Path?, Path?, Path?>
+ * @output assembly_meta          Assembly + meta file: tuple(meta, fna, meta_file) as Tuple<Map, Path, Path>
+ * @output assembly_proteins_gff  Assembly + proteins + GFF: tuple(meta, fna, faa, gff) as Tuple<Map, Path, Path?, Path?>
+ * @output proteins               Protein sequences: tuple(meta, faa) as Tuple<Map, Path>
+ * @output gffs                   Annotation file: tuple(meta, gff) as Tuple<Map, Path>
  */
 nextflow.preview.types = true
 
@@ -37,8 +44,16 @@ workflow BACTOPIATOOL_INIT {
         log.info validation.logs
     }
 
-    // Collect inputs, and create appropriate tuples for 'samples' channel
-    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
+    // Initialize channels for various output types
+    def ch_reads                 = channel.empty() as Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    def ch_assembly              = channel.empty() as Channel<Tuple<Map, Path>>
+    def ch_assembly_reads        = channel.empty() as Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
+    def ch_assembly_meta         = channel.empty() as Channel<Tuple<Map, Path, Path>>
+    def ch_assembly_proteins_gff = channel.empty() as Channel<Tuple<Map, Path, Path?, Path?>>
+    def ch_proteins              = channel.empty() as Channel<Tuple<Map, Path>>
+    def ch_gffs                  = channel.empty() as Channel<Tuple<Map, Path>>
+
+    // Process inputs
     def collectedInputs = bactopiaToolInputs()
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
@@ -48,34 +63,21 @@ workflow BACTOPIATOOL_INIT {
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->
-        def meta  : Map<String, String> = sample[0]
-        def inputs: List<Path> = []
-        def extra : List<Path> = []
-        def extra2: List<Path> = []
-
-        // Convert string inputs to files
-        if (sample[1].size() > 0) {
-            sample[1].each { it -> inputs << file(it) }
-        }
-
-        if (sample[2].size() > 0) {
-            sample[2].each { it -> extra << file(it) }
-        } 
-
-        if (sample[3].size() > 0) {
-            sample[3].each { it -> extra2 << file(it) }
-        } 
-
-        // Always create 4-element tuple with empty sets for missing data
-        ch_samples << tuple(meta, inputs.toSet(), extra.toSet(), extra2.toSet())
+        ch_reads                 << tuple(sample.meta, sample.r1, sample.r2, sample.se, sample.lr)
+        ch_assembly              << tuple(sample.meta, sample.assembly)
+        ch_assembly_reads        << tuple(sample.meta, sample.assembly, sample.r1, sample.r2, sample.se, sample.lr)
+        ch_assembly_meta         << tuple(sample.meta, sample.assembly, sample.meta_file)
+        ch_assembly_proteins_gff << tuple(sample.meta, sample.assembly, sample.proteins, sample.gff)
+        ch_proteins              << tuple(sample.meta, sample.proteins)
+        ch_gffs                  << tuple(sample.meta, sample.gff)
     }
 
     emit:
-    samples: Channel<Tuple<Map, Set<Path>>> = ch_samples.map{ meta, inputs, _extra, _extra2 ->
-        tuple(meta, inputs)
-    }
-    samples_2: Channel<Tuple<Map, Set<Path>, Set<Path>>> = ch_samples.map{ meta, inputs, extra, _extra2 ->
-        tuple(meta, inputs, extra)
-    }
-    samples_3: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>                  = ch_reads
+    assembly: Channel<Tuple<Map, Path>>                                     = ch_assembly
+    assembly_reads: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>   = ch_assembly_reads
+    assembly_meta: Channel<Tuple<Map, Path, Path>>                          = ch_assembly_meta
+    assembly_proteins_gff: Channel<Tuple<Map, Path, Path?, Path?>>          = ch_assembly_proteins_gff
+    proteins: Channel<Tuple<Map, Path>>                                     = ch_proteins
+    gffs: Channel<Tuple<Map, Path>>                                         = ch_gffs
 }

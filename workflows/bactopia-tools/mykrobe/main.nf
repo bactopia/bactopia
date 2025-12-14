@@ -56,7 +56,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     MYKROBE(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.mykrobe_species
     )
 

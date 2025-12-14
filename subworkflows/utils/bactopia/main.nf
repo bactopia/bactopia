@@ -5,6 +5,13 @@
  * validate command-line parameters and organize input data (FASTQs, assemblies) into
  * a standardized channel structure for downstream analysis.
  *
+ * The output uses explicit positional tuple slots with Set<Path> for each read type,
+ * supporting merge operations where multiple files per slot are consolidated by GATHER:
+ * - `r1`: Illumina R1 files (Set<Path>, consolidated to single file by GATHER)
+ * - `r2`: Illumina R2 files (Set<Path>, consolidated to single file by GATHER)
+ * - `se`: Single-end Illumina files (Set<Path>, consolidated to single file by GATHER)
+ * - `lr`: Long read files (ONT/PacBio) or assembly files (Set<Path>)
+ *
  * @status stable
  * @keywords initialization, validation, input-parsing, parameters, workflow
  * @tags complexity:moderate input-type:parameter output-type:single features:validation,input-parsing
@@ -13,7 +20,7 @@
  * @input none
  * This workflow is parameter-driven and does not accept input channels.
  *
- * @output samples        Channel containing standardized sample inputs (meta, r1, r2, extra)
+ * @output samples  Pre-merge 5-slot structure: tuple(meta, r1, r2, se, lr) as Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>
  */
 nextflow.preview.types = true
 
@@ -32,8 +39,8 @@ workflow BACTOPIA_INIT {
         log.info validation.logs
     }
 
-    // Collect inputs, and create appropriate tuples for 'samples' channel
-    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Path>>
+    // Initialize samples channel
+    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>>
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
@@ -43,23 +50,16 @@ workflow BACTOPIA_INIT {
     }
 
     collectedInputs.samples.each { sample ->
-        def meta = sample[0]
-        def r1 = []
-        def r2 = []
-        def extra = file(sample[3])
-
-        // Convert string inputs to files
-        if (sample[1].size() > 0) {
-            sample[1].each { it -> r1 << file(it) }
-        }
-
-        if (sample[2].size() > 0) {
-            sample[2].each { it -> r2 << file(it) }
-        } 
-
-        ch_samples << tuple(meta, r1.toSet(), r2.toSet(), extra.toSet())
-    }.println()
+        ch_samples << tuple(
+            sample.meta,
+            sample.r1.toSet(),
+            sample.r2.toSet(),
+            sample.se.toSet(),
+            sample.lr.toSet()
+        )
+    }
 
     emit:
-    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
+    // Full 5-slot structure for GATHER (pre-merge with Set<Path> for multiple files)
+    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
 }

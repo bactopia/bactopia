@@ -33,7 +33,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SEQSERO2 {
     take:
-    seqs: Channel<Tuple<Map, Set<Path>>>
+    seqs: Channel<Tuple<Map, Path>>
 
     main:
     SEQSERO2_MODULE(seqs)

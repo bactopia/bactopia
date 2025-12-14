@@ -49,7 +49,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    ECTYPER(BACTOPIATOOL_INIT.out.samples)
+    ECTYPER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(ECTYPER.out.results)

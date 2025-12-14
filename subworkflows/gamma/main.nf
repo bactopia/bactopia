@@ -39,7 +39,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     db: Path
 
     main:

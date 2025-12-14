@@ -50,7 +50,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PROKKA {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     proteins: Path
     prodigal_tf: Path?
 

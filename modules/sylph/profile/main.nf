@@ -5,14 +5,20 @@
  * abundance and containment ANI against a provided database. It is designed to be extremely fast
  * and memory-efficient.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, profiling, taxonomy, abundance, ani, sylph
  * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation sylph
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ reads (single or paired-end)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) - not typically used
  *
  * @input db
  * Path to the Sylph database file (*.syldb)
@@ -32,8 +38,8 @@ process SYLPH_PROFILE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     tsv      = tuple(meta, files("${prefix}.tsv"))
@@ -52,7 +58,15 @@ process SYLPH_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def query_reads = meta.single_end ? "${reads.toList()[0]}" : "--first-pairs ${reads.toList()[0]} --second-pairs ${reads.toList()[1]}"
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Build read inputs for sylph
+    def query_reads = meta.single_end ? "${se}" : "--first-pairs ${r1} --second-pairs ${r2}"
     """
     sylph \\
         profile \\

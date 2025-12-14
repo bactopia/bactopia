@@ -7,6 +7,9 @@
  * process both short and long reads, offering taxonomic profiling from species to strain level
  * with confidence estimates for each identification.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenome, profiling, composition, abundance, kmer, taxonomic
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
@@ -14,9 +17,12 @@
  *
  * @modules sylph_profile
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Sequencing reads to profile. Each tuple contains a set of paired-end or single-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input database
  * Path to Sylph reference database directory containing pre-computed
@@ -36,7 +42,7 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow SYLPH {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     database: Path
 
     main:

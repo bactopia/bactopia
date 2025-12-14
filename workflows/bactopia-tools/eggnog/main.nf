@@ -71,7 +71,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     EGGNOG(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.proteins,
         params.eggnog_db,
         params.download_eggnog
     )

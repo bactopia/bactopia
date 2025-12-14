@@ -6,14 +6,20 @@
  * to a library of IS queries and a reference genome to determine where the IS elements are located
  * relative to the reference coordinates.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords bacteria, mobile elements, insertion sequences, mapping, structural variation, ismapper
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation ismapper
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by ISMapper)
+ * - `lr`: Long reads (not supported by ISMapper)
  *
  * @input reference
  * Reference genome in GenBank format (*.gbk) to map insertion sites against
@@ -36,9 +42,9 @@ process ISMAPPER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
-    reference      : Path
-    query          : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    reference               : Path
+    query                   : Path
 
     output:
     supplemental = tuple(meta, files("supplemental/*"))
@@ -59,6 +65,10 @@ process ISMAPPER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
+    // Determine read type from explicit slots (ISMapper requires paired-end reads)
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")
     def query_compressed = query.getName().endsWith(".gz") ? true : false
@@ -69,7 +79,7 @@ process ISMAPPER {
     if [ "${query_compressed}" == "true" ]; then
         gzip -c -d ${query} > ${query_name}
     fi
-    
+
     ismap \\
         ${task.ext.args} \\
         --t ${task.cpus} \\
@@ -77,7 +87,7 @@ process ISMAPPER {
         --queries ${query_name} \\
         --log ${prefix} \\
         --reference ${reference_name} \\
-        --reads ${reads}
+        --reads ${r1} ${r2}
 
     # Reorganize output files
     mkdir supplemental

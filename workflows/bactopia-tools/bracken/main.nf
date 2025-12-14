@@ -58,7 +58,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     BRACKEN(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.kraken2_db
     )
 

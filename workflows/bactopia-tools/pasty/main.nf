@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    PASTY(BACTOPIATOOL_INIT.out.samples)
+    PASTY(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(PASTY.out.results)

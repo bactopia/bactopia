@@ -6,6 +6,9 @@
  * Lowest Common Ancestor (LCA) algorithm to provide high-precision classification, making it
  * ideal for metagenomics or removing host contamination (scrubbing).
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, contamination, scrubbing, k-mer, lca
  * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
@@ -14,9 +17,12 @@
  * @note Database Required
  * Requires a standard Kraken2 database (directory or tarball). Memory usage depends on database size (Standard ~50GB).
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end or Single-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) - not typically used by Kraken2
  *
  * @input db
  * Kraken2 database (Directory or compressed tarball)
@@ -42,8 +48,8 @@ process KRAKEN2 {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     kraken2_report       = tuple(meta, files('*.kraken2.report.txt'))
@@ -76,9 +82,18 @@ process KRAKEN2 {
         meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     }
     meta.process_name = task.ext.process_name
-    meta.single_end = reads.toList()[1] == null ? true : false
-    meta.is_paired = reads.toList()[1] == null ? false : true
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+    meta.is_paired = has_r1 && has_r2
     meta.runtype = _meta.runtype
+
+    // Build read inputs for kraken2
+    read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
+
     special_meta = [:]
     special_meta.id = prefix
     def paired = meta.single_end ? "" : "--paired"
@@ -105,7 +120,7 @@ process KRAKEN2 {
         --gzip-compressed \\
         ${paired} \\
         ${task.ext.args} \\
-        ${reads} > /dev/null
+        ${read_inputs} > /dev/null
 
     # If scrubbing, rename and summarize
     if [ "${unclassified_naming}" == "scrubbed" ]; then
@@ -116,7 +131,7 @@ process KRAKEN2 {
         fi
 
         # Quick stats on reads
-        zcat ${reads} | fastq-scan > original.json
+        zcat ${read_inputs} | fastq-scan > original.json
         cat *.scrubbed.fastq | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 

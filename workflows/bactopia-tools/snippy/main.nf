@@ -107,7 +107,7 @@ workflow {
 
     // Run Snippy per-sample
     SNIPPY(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         ch_reference
     )
     ch_results = ch_results.mix(SNIPPY.out.results)

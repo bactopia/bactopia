@@ -53,7 +53,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    TBPROFILER(BACTOPIATOOL_INIT.out.samples)
+    TBPROFILER(BACTOPIATOOL_INIT.out.reads)
 
     // Collect outputs
     ch_results = ch_results.mix(TBPROFILER.out.results)

@@ -14,10 +14,10 @@
  *
  * @modules csvtk_concat, quast
  *
- * @input tuple(meta, assembly)
+ * @input tuple(meta, assembly, meta_file)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Genome assemblies to evaluate. Each tuple contains metadata about the sample
- *   and sets of assembled contigs in FASTA format (primary and optional secondary assemblies).
+ * - `assembly`: Assembled contigs in FASTA format (Path)
+ * - `meta_file`: Meta file containing reference size information (Path)
  *
  * @output tsv        Per-sample QUAST quality assessment results in TSV format
  * @output merged_tsv Combined QUAST results summary across all samples
@@ -35,7 +35,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow QUAST {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>, Set<Path>>>
+    fasta: Channel<Tuple<Map, Path, Path>>
 
     main:
     QUAST_MODULE(fasta)

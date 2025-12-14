@@ -52,7 +52,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    MOBSUITE(BACTOPIATOOL_INIT.out.samples)
+    MOBSUITE(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(MOBSUITE.out.results)

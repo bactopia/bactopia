@@ -5,6 +5,9 @@
  * resistance directly from sequencing reads. It provides rapid genotype-based resistance predictions
  * for specific bacterial species.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, genotype prediction
  * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent, aggregation
@@ -12,9 +15,12 @@
  *
  * @modules mykrobe_predict, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Sequencing reads for resistance prediction. Each tuple contains a set of read files (R1/R2) to be analyzed for resistance-conferring mutations
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input mykrobe_species
  * Target bacterial species for resistance prediction (e.g., "staphylococcus_aureus",
@@ -37,7 +43,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow MYKROBE {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     mykrobe_species: String
 
     main:

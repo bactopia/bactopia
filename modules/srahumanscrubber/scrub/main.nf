@@ -5,14 +5,20 @@
  * human reads from sequencing data. It relies on a specific k-mer database to mask or remove
  * sequences that align to human references.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords human, contamination, scrubber, decontamination, ncbi, sra
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation srahumanscrubber
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ reads to be scrubbed
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) - not typically used
  *
  * @input db
  * SRA Human Scrubber database directory
@@ -35,8 +41,8 @@ process SRAHUMANSCRUBBER_SCRUB {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     scrubbed             = tuple(meta, files("*.scrubbed.fastq.gz"))
@@ -61,20 +67,29 @@ process SRAHUMANSCRUBBER_SCRUB {
     meta.output_dir = "${prefix}/tools/${output_folder}"
     meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    meta.single_end = reads.size() == 1 ? true : false
-    meta.is_paired = reads.size() == 2 ? true : false
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+    meta.is_paired = has_r1 && has_r2
     meta.runtype = _meta.runtype
+
+    // Build read inputs
+    read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
+
     special_meta = [:]
     special_meta.id = prefix
     if (meta.single_end) {
         """
         # Scrub human reads
-        zcat ${reads} | \
+        zcat ${se} | \
             scrub.sh -d ${db} -p ${task.cpus} | \
             gzip > ${prefix}.scrubbed.fastq.gz
 
         # Quick stats on reads
-        zcat ${reads} | fastq-scan > original.json
+        zcat ${se} | fastq-scan > original.json
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
@@ -94,15 +109,15 @@ process SRAHUMANSCRUBBER_SCRUB {
     else {
         """
         # Scrub human reads
-        zcat ${reads.toList()[0]} | \
+        zcat ${r1} | \
             scrub.sh -d ${db} -p ${task.cpus} | \
             gzip > ${prefix}_R1.scrubbed.fastq.gz
-        zcat ${reads.toList()[1]} | \
+        zcat ${r2} | \
             scrub.sh -d ${db} -p ${task.cpus} | \
             gzip > ${prefix}_R2.scrubbed.fastq.gz
 
         # Quick stats on reads
-        zcat ${reads} | fastq-scan > original.json
+        zcat ${r1} ${r2} | fastq-scan > original.json
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 

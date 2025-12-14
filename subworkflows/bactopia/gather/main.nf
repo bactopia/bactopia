@@ -6,6 +6,10 @@
  * NCBI assembly accessions, and assemblies. The workflow can merge multiple sequencing runs,
  * download remote data, and simulate reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art).
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1_files, r2_files, se_files, lr_files) with Set<Path> slots (pre-merge)
+ * - Output: tuple(meta, r1, r2, se, lr) with Path? slots (post-merge, consolidated)
+ *
  * @status stable
  * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation, resource-download, conditional-logic
@@ -13,16 +17,16 @@
  *
  * @modules gather, csvtk_concat
  *
- * @input tuple(meta, r1, r2, extra)
+ * @input tuple(meta, r1_files, r2_files, se_files, lr_files)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: First set of reads or accession information
- * - `r2`: Second set of reads (for paired-end data)
- * - `extra`: Extra files such as assemblies or long reads (Optional)
+ * - `r1_files`: Illumina R1 read files (Set, for merging multiple runs)
+ * - `r2_files`: Illumina R2 read files (Set, for merging multiple runs)
+ * - `se_files`: Single-end read files (Set, for merging multiple runs)
+ * - `lr_files`: Long read files (ONT/PacBio) or assembly for simulation
  *
  * @output tsv         Per-sample metadata files in TSV format
  * @output merged_tsv  Consolidated metadata file containing information from all samples
- * @output fastq_only  Tuple containing standardized FASTQ files
- * @output raw_fastq   Tuple containing standardized FASTQ files and extra files
+ * @output reads       Tuple with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
  * @output error       Error messages from validation or download failures
  * @output results     Aggregated results channel containing all output files
  * @output logs        Aggregated logs channel containing all execution logs
@@ -38,10 +42,10 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
+    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>>
 
     main:
-    GATHER_MODULE(reads)
+    GATHER_MODULE(samples)
 
     // Merge meta values for each sample
     CSVTK_CONCAT(gather(GATHER_MODULE.out.tsv, 'meta'), 'tsv', 'tsv')
@@ -50,8 +54,7 @@ workflow GATHER {
     // Individual outputs
     tsv: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-    fastq_only: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.fastq_only
-    raw_fastq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = GATHER_MODULE.out.raw_fastq
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>> = GATHER_MODULE.out.reads
     error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error
 
     // Generic aggregate outputs

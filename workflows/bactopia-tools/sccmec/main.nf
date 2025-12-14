@@ -55,7 +55,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SCCMEC(BACTOPIATOOL_INIT.out.samples)
+    SCCMEC(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SCCMEC.out.results)

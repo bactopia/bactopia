@@ -49,7 +49,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    MCRONI(BACTOPIATOOL_INIT.out.samples)
+    MCRONI(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(MCRONI.out.results)

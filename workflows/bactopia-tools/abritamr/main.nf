@@ -54,7 +54,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    ABRITAMR(BACTOPIATOOL_INIT.out.samples)
+    ABRITAMR(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(ABRITAMR.out.results)

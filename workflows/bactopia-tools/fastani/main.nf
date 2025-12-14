@@ -89,7 +89,7 @@ workflow {
     }
 
     // Add query if pairwise
-    ch_query = BACTOPIATOOL_INIT.out.samples
+    ch_query = BACTOPIATOOL_INIT.out.assembly
     if (params.fastani_pairwise) {
         ch_reference = ch_reference.mix(ch_query)
         ch_query = ch_reference

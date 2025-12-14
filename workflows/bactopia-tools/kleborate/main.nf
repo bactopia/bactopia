@@ -51,7 +51,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    KLEBORATE(BACTOPIATOOL_INIT.out.samples)
+    KLEBORATE(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(KLEBORATE.out.results)

@@ -7,24 +7,28 @@
  * - **Downloading:** Fetches reads (SRA/ENA) or assemblies (NCBI) from accessions.
  * - **Simulation:** Generates synthetic reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art) to enable read-based analysis.
  *
+ * Uses explicit positional tuple slots for input and output reads:
+ * - Input accepts Set<Path> for each slot (pre-merge, supports multiple files)
+ * - Output emits Path? for each slot (post-merge, single consolidated file or null)
+ *
  * @status stable
  * @keywords fastq, validation, sra, ena, download, merging, simulation, art, ncbi
  * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @input tuple(meta, r1, r2, extra)
+ * @input tuple(meta, r1_files, r2_files, se_files, lr_files)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: First pair of reads
- * - `r2`: Second pair of reads
- * - `extra`: Extra files such as an assembly or long reads
+ * - `r1_files`: Illumina R1 read files (Set, for merging multiple runs)
+ * - `r2_files`: Illumina R2 read files (Set, for merging multiple runs)
+ * - `se_files`: Single-end read files (Set, for merging multiple runs)
+ * - `lr_files`: Long read files (ONT/PacBio) or assembly for simulation
  *
- * @output raw_fastq    A tuple containing the metadata, standardized FASTQs, and any extra files
- * @output fastq_only   A tuple containing only the metadata and standardized FASTQs
- * @output tsv          A tab-delimited metadata file describing the valid samples
- * @output error        Captured error messages for validation or download failures
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output reads       A tuple with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
+ * @output tsv         A tab-delimited metadata file describing the valid samples
+ * @output error       Captured error messages for validation or download failures
+ * @output logs        Optional software execution logs containing warnings/errors
+ * @output nf_logs     Nextflow execution scripts and logs for debugging
+ * @output versions    A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -36,20 +40,21 @@ process GATHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, extra) : Tuple<Map, Set<Path>, Set<Path>, Path>
+    (_meta, r1_files, r2_files, se_files, lr_files) : Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>
 
     stage:
-    stageAs '*???-r1', r1
-    stageAs '*???-r2', r2
+    stageAs '*???-r1', r1_files
+    stageAs '*???-r2', r2_files
+    stageAs '*???-se', se_files
+    stageAs '*???-lr', lr_files
 
     output:
-    raw_fastq  = tuple(meta, files("fastqs/${prefix}*.fastq.gz"), files("extra/*.gz"))
-    fastq_only = tuple(meta, files("fastqs/${prefix}*.fastq.gz"))
-    tsv        = tuple(meta, files("${prefix}-meta.tsv"))
-    error      = tuple(meta, files("*-{error,merged}.txt", optional: true))
-    logs       = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs    = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, files("versions.yml"))
+    reads    = tuple(meta, file("fastqs/${prefix}_R1.fastq.gz", optional: true), file("fastqs/${prefix}_R2.fastq.gz", optional: true), file("fastqs/${prefix}.fastq.gz", optional: true), file("extra/${prefix}.fastq.gz", optional: true))
+    tsv      = tuple(meta, files("${prefix}-meta.tsv"))
+    error    = tuple(meta, files("*-{error,merged}.txt", optional: true))
+    logs     = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs  = tuple(meta, files(".command.*"))
+    versions = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -75,11 +80,17 @@ process GATHER {
     // WF specific parameters
     runtype = meta.original_runtype
     is_assembly = runtype.startsWith('assembly') ? true : false
-    is_compressed = extra ? (extra.getName().endsWith('gz') ? true : false) : false
+
+    // Get first file from lr_files for assembly/hybrid cases
+    def lr_file = lr_files.size() > 0 ? lr_files.toList()[0] : null
+    is_compressed = lr_file ? (lr_file.getName().endsWith('gz') ? true : false) : false
+
     no_cache = task.ext.no_cache ? '-N' : ''
     archive = task.ext.use_ena ? (task.attempt >= 4 ? "SRA" : "ENA") : "SRA"
     section = runtype == 'assembly_accession' ? (prefix.startsWith('GCF') ? 'refseq' : 'genbank') : null
     fcov = task.ext.coverage.toInteger() == 0 ? 150 : Math.round(task.ext.coverage.toInteger() * 1.5)
+
+    // Normalize runtype for downstream
     if (runtype == 'hybrid-merge-pe') {
         meta.runtype = 'hybrid'
     }
@@ -99,6 +110,19 @@ process GATHER {
         meta.runtype = runtype
     }
     meta.is_compressed = task.ext.skip_compression ? false : true
+
+    // Determine what reads we have based on the explicit slots
+    has_r1 = r1_files.size() > 0
+    has_r2 = r2_files.size() > 0
+    has_se = se_files.size() > 0
+    has_lr = lr_files.size() > 0
+
+    // For paired-end, get the first file from each set (single file case) or handle merge
+    r1_first = has_r1 ? r1_files.toList()[0] : null
+    r2_first = has_r2 ? r2_files.toList()[0] : null
+    se_first = has_se ? se_files.toList()[0] : null
+    lr_first = has_lr ? lr_files.toList()[0] : null
+
     qin = is_assembly ? 'qin=33' : 'qin=auto'
     """
     MERGED="multiple-read-sets-merged.txt"
@@ -107,56 +131,49 @@ process GATHER {
 
     if [ "${runtype}" == "paired-end" ]; then
         # Paired-End Reads
-        cp -L ${r1.toList()[0]} fastqs/${prefix}_R1.fastq.gz
-        cp -L ${r2.toList()[0]} fastqs/${prefix}_R2.fastq.gz
-        touch extra/empty.fna.gz
+        cp -L ${r1_first} fastqs/${prefix}_R1.fastq.gz
+        cp -L ${r2_first} fastqs/${prefix}_R2.fastq.gz
     elif [ "${runtype}" == "single-end" ]; then
         # Single-End Reads
-        cp -L ${r1.toList()[0]} fastqs/${prefix}.fastq.gz
-        touch extra/empty.fna.gz
-    elif [ "${runtype}" == "ont" ]; then
-        # Nanopore reads
-        cp -L ${r1.toList()[0]} fastqs/${prefix}.fastq.gz
-        touch extra/empty.fna.gz
-    elif  [ "${runtype}" == "hybrid" ] || [ "${runtype}" == "short_polish" ]; then 
-        # Paired-End Reads
-        cp -L ${r1.toList()[0]} fastqs/${prefix}_R1.fastq.gz
-        cp -L ${r2.toList()[0]} fastqs/${prefix}_R2.fastq.gz
-        cp -L ${extra} extra/${prefix}.fastq.gz
-    elif [ "${runtype}" == "merge-pe" ] || [ "${runtype}" == "hybrid-merge-pe" ] || [ "${runtype}" == "short_polish-merge-pe" ]; then 
+        cp -L ${se_first} fastqs/${prefix}.fastq.gz
+    elif [ "${runtype}" == "ont" ] || [ "${runtype}" == "pacbio" ]; then
+        # Long reads (Nanopore or PacBio)
+        cp -L ${lr_first} extra/${prefix}.fastq.gz
+    elif  [ "${runtype}" == "hybrid" ] || [ "${runtype}" == "short_polish" ]; then
+        # Paired-End Reads + Long Reads
+        cp -L ${r1_first} fastqs/${prefix}_R1.fastq.gz
+        cp -L ${r2_first} fastqs/${prefix}_R2.fastq.gz
+        cp -L ${lr_first} extra/${prefix}.fastq.gz
+    elif [ "${runtype}" == "merge-pe" ] || [ "${runtype}" == "hybrid-merge-pe" ] || [ "${runtype}" == "short_polish-merge-pe" ]; then
         # Merge Paired-End Reads
         echo "This sample had reads merged." > \${MERGED}
         echo "R1:" >> \${MERGED}
-        find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
-        find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}_R1.fastq.gz
+        find -name "*-r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
+        find -name "*-r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}_R1.fastq.gz
         echo "Merged R1:" >> \${MERGED}
         ls -l fastqs/${prefix}_R1.fastq.gz | awk '{print \$5"\t"\$9}' >> \${MERGED}
 
         echo "R2:" >> \${MERGED}
-        find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
-        find -name "*r2" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}_R2.fastq.gz
+        find -name "*-r2" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
+        find -name "*-r2" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}_R2.fastq.gz
         echo "Merged R2:" >> \${MERGED}
         ls -l fastqs/${prefix}_R2.fastq.gz | awk '{print \$5"\t"\$9}' >> \${MERGED}
 
-        if [ "${runtype}" == "hybrid-merge-pe" ]; then
-            cp -L ${extra} extra/${prefix}.fastq.gz
-        else
-            touch extra/empty.fna.gz
+        if [ "${runtype}" == "hybrid-merge-pe" ] || [ "${runtype}" == "short_polish-merge-pe" ]; then
+            cp -L ${lr_first} extra/${prefix}.fastq.gz
         fi
-    elif [ "${runtype}" == "merge-se" ]; then 
+    elif [ "${runtype}" == "merge-se" ]; then
         # Merge Single-End Reads
         echo "This sample had reads merged." > \${MERGED}
         echo "SE:" >> \${MERGED}
-        find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
-        find -name "*r1" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}.fastq.gz
+        find -name "*-se" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
+        find -name "*-se" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > fastqs/${prefix}.fastq.gz
         echo "Merged SE:" >> \${MERGED}
         ls -l fastqs/${prefix}.fastq.gz | awk '{print \$5"\t"\$9}' >> \${MERGED}
-
-        touch extra/empty.fna.gz
     elif [ "${runtype}" == "sra_accession" ] || [ "${runtype}" == "sra_accession_ont" ]; then
         if [ "${task.attempt}" == "${task.ext.max_retry}" ]; then
-            echo "Unable to download ${prefix} from both SRA and ENA ${task.ext.max_retry} times. This may or may 
-                not be a temporary connection issue. Rather than stop the whole Bactopia run, 
+            echo "Unable to download ${prefix} from both SRA and ENA ${task.ext.max_retry} times. This may or may
+                not be a temporary connection issue. Rather than stop the whole Bactopia run,
                 further analysis of ${prefix} will be discontinued." | \\
             sed 's/^\\s*//' > ${prefix}-fastq-download-error.txt
             exit
@@ -169,14 +186,19 @@ process GATHER {
                 --outdir fastqs/ \\
                 --prefix ${prefix} \\
                 --group-by-experiment
-            touch extra/empty.fna.gz
-        fi 
+
+            # Move ONT reads to the extra folder (lr slot)
+            if [ "${runtype}" == "sra_accession_ont" ]; then
+                if [ -f "fastqs/${prefix}.fastq.gz" ]; then
+                    mv fastqs/${prefix}.fastq.gz extra/${prefix}.fastq.gz
+                fi
+            fi
+        fi
     elif [ "${is_assembly}" == "true" ]; then
         if [ "${runtype}" == "assembly_accession" ]; then
             if [ "${task.attempt}" == "${task.ext.max_retry}" ]; then
-                touch extra/empty.fna.gz
                 echo "Unable to download ${prefix} from NCBI Assembly ${task.ext.max_retry} times. This may or may
-                    not be a temporary connection issue. Rather than stop the whole Bactopia run, 
+                    not be a temporary connection issue. Rather than stop the whole Bactopia run,
                     further analysis of ${prefix} will be discontinued." | \\
                 sed 's/^\\s*//' > ${prefix}-assembly-download-error.txt
                 exit
@@ -201,21 +223,24 @@ process GATHER {
             fi
         elif [ "${runtype}" == "assembly" ]; then
             if [ "${is_compressed}" == "true" ]; then
-                gzip -cd ${extra} > ${prefix}-art.fna
-            else 
-                cat ${extra} > ${prefix}-art.fna
+                gzip -cd ${lr_first} > ${prefix}-art.fna
+            else
+                cat ${lr_first} > ${prefix}-art.fna
             fi
         fi
 
         # Simulate reads from assembly, reads are 250bp without errors
-        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${task.ext.sampleseed}\
+        art_illumina -p -ss MSv3 -l 250 -m 400 -s 30 --fcov ${fcov} -ir 0 -ir2 0 -dr 0 -dr2 0 -rs ${task.ext.sampleseed}\\
                      -na -qL 33 -qU 40 -o ${prefix}_R --id ${prefix} -i ${prefix}-art.fna
 
         mv ${prefix}_R1.fq fastqs/${prefix}_R1.fastq
         mv ${prefix}_R2.fq fastqs/${prefix}_R2.fastq
         pigz -p ${task.cpus} --fast fastqs/*.fastq
+        # Keep the original assembly in extra/lr slot
         cp ${prefix}-art.fna extra/${prefix}.fna
         pigz -p ${task.cpus} --best extra/${prefix}.fna
+        # Move to lr slot format
+        mv extra/${prefix}.fna.gz extra/${prefix}.fastq.gz || true
     fi
 
     # Validate input FASTQs

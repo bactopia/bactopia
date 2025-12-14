@@ -37,7 +37,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow SISTR {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     SISTR_MODULE(assembly)

@@ -65,7 +65,7 @@ workflow {
 
     // Set up query file
     TBLASTX(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.tblastx_query
     )
 

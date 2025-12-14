@@ -6,6 +6,9 @@
  * sequencing data. It provides comprehensive serotype determination including coverage
  * statistics and confidence scores for each sample.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords streptococcus pneumoniae, serotype, capsular typing, typing
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
@@ -13,9 +16,12 @@
  *
  * @modules pneumocat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
+ * - `lr`: Long reads (not supported by PneumoCaT)
  *
  * @output xml          Per-sample PneumoCaT detailed results in XML format with coverage information
  * @output txt          Per-sample summary reports with serotype calls and statistics
@@ -32,7 +38,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     PNEUMOCAT_MODULE(reads)

@@ -55,7 +55,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     BLASTX(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.blastx_query
     )
 

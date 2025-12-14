@@ -51,7 +51,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    GENOTYPHI(BACTOPIATOOL_INIT.out.samples)
+    GENOTYPHI(BACTOPIATOOL_INIT.out.reads)
 
     // Collect outputs
     ch_results = ch_results.mix(GENOTYPHI.out.results)

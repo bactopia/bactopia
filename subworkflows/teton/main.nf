@@ -7,6 +7,9 @@
  * It first removes host reads using the scrubber subworkflow, then classifies reads,
  * and finally creates sample sheets with genome size estimates for downstream Bactopia analysis.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent, conditional-logic
@@ -15,9 +18,12 @@
  * @subworkflows scrubber, bracken
  * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ reads (Illumina or Nanopore)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input db
  * Optional Kraken2 database path for taxonomic classification
@@ -52,7 +58,7 @@ include { gather                                   } from 'plugin/nf-bactopia'
 
 workflow TETON {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     db: Path?
     use_srascrubber: Boolean
 

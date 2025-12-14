@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    LEGSTA(BACTOPIATOOL_INIT.out.samples)
+    LEGSTA(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(LEGSTA.out.results)

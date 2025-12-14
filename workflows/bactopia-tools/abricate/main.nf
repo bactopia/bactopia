@@ -50,7 +50,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    ABRICATE(BACTOPIATOOL_INIT.out.samples)
+    ABRICATE(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(ABRICATE.out.results)

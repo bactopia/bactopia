@@ -5,6 +5,9 @@
  * and [Bracken](https://github.com/jenniferlu717/Bracken). It processes metagenomic reads, classifies them against a reference database,
  * and generates abundance estimates at different taxonomic levels with optional abundance correction.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, taxonomic classification, abundance estimation, kraken2, bracken
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, conditional-logic, aggregation
@@ -12,9 +15,12 @@
  *
  * @modules bracken, csvtk_concat as csvtk_concat_tsv, csvtk_concat as csvtk_concat_adjusted
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Metagenomic reads for taxonomic classification
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input database
  * Path to the Kraken2 database for taxonomic classification.
@@ -44,7 +50,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow BRACKEN {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     database: Path
 
     main:

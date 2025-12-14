@@ -60,7 +60,7 @@ workflow {
 
     // Set up query file
     BLASTN(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.blastn_query
     )
 

@@ -56,7 +56,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    DEFENSEFINDER(BACTOPIATOOL_INIT.out.samples)
+    DEFENSEFINDER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(DEFENSEFINDER.out.results)

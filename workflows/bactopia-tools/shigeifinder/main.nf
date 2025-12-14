@@ -49,7 +49,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SHIGEIFINDER(BACTOPIATOOL_INIT.out.samples)
+    SHIGEIFINDER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SHIGEIFINDER.out.results)

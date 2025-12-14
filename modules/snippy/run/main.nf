@@ -5,14 +5,20 @@
  * reference genome and your Next-Generation Sequencing (NGS) sequence reads. It maps reads to
  * the reference, calls variants, and generates a consensus sequence.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords snippy, variant calling, snp, indel, alignment, bacteria
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation snippy
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ reads (single-end or paired-end)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) - not typically used by Snippy
  *
  * @input tuple(meta, reference)
  * - `meta`: Groovy Map containing reference information
@@ -53,8 +59,8 @@ process SNIPPY_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads)         : Tuple<Map, Set<Path>>
-    (_ref_meta, reference) : Tuple<Map, Set<Path>>
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_ref_meta, reference)  : Tuple<Map, Set<Path>>
 
     output:
     aligned_fa               = tuple(meta, files("${prefix}.aligned.fa.gz", optional: true))
@@ -94,7 +100,15 @@ process SNIPPY_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
     meta.process_name = task.ext.process_name
-    def read_inputs = _meta.single_end ? "--se ${reads.toList()[0]}" : "--R1 ${reads.toList()[0]} --R2 ${reads.toList()[1]}"
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Build read inputs for snippy
+    def read_inputs = meta.single_end ? "--se ${se}" : "--R1 ${r1} --R2 ${r2}"
     def is_compressed = reference.toList()[0].getName().endsWith(".gz") ? true : false
     def final_reference = reference.toList()[0].getName().replace(".gz", "")
     """

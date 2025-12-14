@@ -65,7 +65,7 @@ workflow {
     
     // Reference and insertion sequences should be provided via params 
     ISMAPPER(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.reference,
         params.insertions,
     )

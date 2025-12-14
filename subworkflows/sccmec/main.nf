@@ -37,7 +37,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     SCCMEC_MODULE(assembly)

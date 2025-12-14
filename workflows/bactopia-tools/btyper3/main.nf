@@ -48,7 +48,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    BTYPER3(BACTOPIATOOL_INIT.out.samples)
+    BTYPER3(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(BTYPER3.out.results)

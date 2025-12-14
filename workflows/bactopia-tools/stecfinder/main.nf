@@ -48,7 +48,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    STECFINDER(BACTOPIATOOL_INIT.out.samples_2)
+    STECFINDER(BACTOPIATOOL_INIT.out.assembly_reads)
 
     // Collect outputs
     ch_results = ch_results.mix(STECFINDER.out.results)

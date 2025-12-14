@@ -44,7 +44,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     database: Path
     download_gtdb: Boolean
     save_as_tarball: Boolean

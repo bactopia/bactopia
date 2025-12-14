@@ -16,8 +16,8 @@
  * @input tuple(meta, genes, proteins, gff)
  * - `meta`: Groovy Map containing sample information
  * - `genes`: Nucleotide sequences of genes in FASTA format
- * - `proteins`: Amino acid sequences of proteins in FASTA format
- * - `gff`: Genome annotation in GFF3 format
+ * - `proteins`: Optional amino acid sequences of proteins in FASTA format
+ * - `gff`: Optional genome annotation in GFF3 format
  *
  * @input db
  * A compressed tarball of the AMRFinderPlus database to query
@@ -38,7 +38,7 @@ process AMRFINDERPLUS_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path, Path>
+    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path?, Path?>
     db                            : Path
 
     output:
@@ -60,26 +60,34 @@ process AMRFINDERPLUS_RUN {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
+    // Check for optional inputs
+    def has_proteins = proteins != null
+    def has_gff = gff != null
+
     // WF specific parameters
     def fna_is_compressed = genes.getName().endsWith(".gz") ? true : false
-    def faa_is_compressed = proteins.getName().endsWith(".gz") ? true : false
-    def gff_is_compressed = gff.getName().endsWith(".gz") ? true : false
-    organism_param = meta.containsKey("organism") ? "--organism ${meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
+    def faa_is_compressed = has_proteins ? proteins.getName().endsWith(".gz") : false
+    def gff_is_compressed = has_gff ? gff.getName().endsWith(".gz") : false
+    organism_param = _meta.containsKey("organism") ? "--organism ${_meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
     fna_name = genes.getName().replace(".gz", "")
-    faa_name = proteins.getName().replace(".gz", "")
-    gff_name = gff.getName().replace(".gz", "")
-    annotation_format = gff_name.endsWith(".gff") ? "prokka" : "bakta"
+    faa_name = has_proteins ? proteins.getName().replace(".gz", "") : ""
+    gff_name = has_gff ? gff.getName().replace(".gz", "") : ""
+    annotation_format = has_gff && gff_name.endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+
+    // Build optional parameters
+    def protein_param = has_proteins ? "--protein ${faa_name}" : ""
+    def gff_param = has_proteins && has_gff ? "--gff ${gff_name} --annotation_format ${annotation_format}" : ""
     """
     if [ "${fna_is_compressed}" == "true" ]; then
         gzip -c -d ${genes} > ${fna_name}
     fi
 
-    if [ "${faa_is_compressed}" == "true" ]; then
+    if [ "${has_proteins}" == "true" ] && [ "${faa_is_compressed}" == "true" ]; then
         gzip -c -d ${proteins} > ${faa_name}
     fi
 
-    if [ "${gff_is_compressed}" == "true" ]; then
+    if [ "${has_gff}" == "true" ] && [ "${gff_is_compressed}" == "true" ]; then
         gzip -c -d ${gff} > ${gff_name}
     fi
 
@@ -92,12 +100,11 @@ process AMRFINDERPLUS_RUN {
         AMRFINDER_DB=\$(find ${db}/ -name "AMR.LIB" | sed 's=AMR.LIB==')
     fi
 
-    # Full AMRFinderPlus search combining results
+    # AMRFinderPlus search (with optional protein/gff inputs)
     amrfinder \\
         --nucleotide ${fna_name} \\
-        --protein ${faa_name} \\
-        --gff ${gff_name} \\
-        --annotation_format ${annotation_format} \\
+        ${protein_param} \\
+        ${gff_param} \\
         ${organism_param} \\
         ${task.ext.args} \\
         --database \$AMRFINDER_DB \\

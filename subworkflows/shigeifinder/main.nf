@@ -33,7 +33,7 @@ include { gather                              } from 'plugin/nf-bactopia'
 
 workflow SHIGEIFINDER {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     SHIGEIFINDER_MODULE(assembly)

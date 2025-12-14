@@ -55,7 +55,7 @@ workflow {
     
     // MLST database can be optionally provided via params
     MLST(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.mlst_db
     )
 

@@ -42,7 +42,7 @@ include { gather                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     DEFENSEFINDER_UPDATE()

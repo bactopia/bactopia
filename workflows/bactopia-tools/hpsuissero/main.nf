@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    HPSUISSERO(BACTOPIATOOL_INIT.out.samples)
+    HPSUISSERO(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(HPSUISSERO.out.results)

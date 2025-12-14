@@ -82,7 +82,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     BAKTA(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.bakta_db,
         params.download_bakta,
         params.bakta_save_as_tarball,

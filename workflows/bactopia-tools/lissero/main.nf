@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    LISSERO(BACTOPIATOOL_INIT.out.samples)
+    LISSERO(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(LISSERO.out.results)

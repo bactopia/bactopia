@@ -7,6 +7,9 @@
  * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper)
  * - **Hybrid Assembly:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye with short-read polishing
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * The workflow performs individual assemblies per sample and aggregates assembly statistics
  * across all samples using [assembly-scan](https://github.com/rpetit3/assembly-scan) for comprehensive quality assessment.
  *
@@ -17,13 +20,15 @@
  *
  * @modules bactopia_assembler, csvtk_concat
  *
- * @input tuple(meta, fq, extra)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `fq`: Primary reads (Illumina paired-end or Nanopore)
- * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
  * @output fna        Assembled contigs in FASTA format
- * @output fna_fq     Tuple containing assembly and primary reads for downstream analysis
+ * @output fna_reads  Tuple containing assembly and read slots for downstream analysis
  * @output tsv        Per-sample tab-delimited assembly statistics (N50, length, coverage)
  * @output merged_tsv Consolidated assembly statistics report across all samples
  * @output results    Aggregated results channel containing all output files
@@ -40,16 +45,16 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow ASSEMBLER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>, Set<Path>>>
+    samples: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
-    ASSEMBLER_MODULE(reads)
+    ASSEMBLER_MODULE(samples)
     CSVTK_CONCAT(gather(ASSEMBLER_MODULE.out.tsv, 'assembly-scan'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
     fna: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.fna
-    fna_fq: Channel<Tuple<Map, Set<Path>, Set<Path>>> = ASSEMBLER_MODULE.out.fna_fq
+    fna_reads: Channel<Tuple<Map, Set<Path>, Path?, Path?, Path?, Path?>> = ASSEMBLER_MODULE.out.fna_reads
     tsv: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
     error: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.error

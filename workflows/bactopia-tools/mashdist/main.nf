@@ -60,7 +60,7 @@ workflow {
     
     // Reference sketch should be provided via params
     MASHDIST(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.mash_sketch
     )
 

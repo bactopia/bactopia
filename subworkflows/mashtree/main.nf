@@ -33,7 +33,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     MASHTREE_MODULE(gather(assembly, 'mashtree', 'fna'))

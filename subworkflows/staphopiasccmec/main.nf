@@ -34,7 +34,7 @@ include { gather                                    } from 'plugin/nf-bactopia'
 
 workflow STAPHOPIASCCMEC {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     STAPHOPIASCCMEC_MODULE(assembly)

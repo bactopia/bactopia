@@ -52,7 +52,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    CLERMONTYPING(BACTOPIATOOL_INIT.out.samples)
+    CLERMONTYPING(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(CLERMONTYPING.out.results)

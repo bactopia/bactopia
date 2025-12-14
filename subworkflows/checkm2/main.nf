@@ -44,7 +44,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     database: Path
     download_checkm2: Boolean
 

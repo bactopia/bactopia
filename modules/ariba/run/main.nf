@@ -1,17 +1,23 @@
 /**
  * Identify genes by local assembly of reads.
  *
- * Uses [ARIBA](https://github.com/sanger-pathogens/ariba) (Antimicrobial Resistance Identification 
+ * Uses [ARIBA](https://github.com/sanger-pathogens/ariba) (Antimicrobial Resistance Identification
  * By Assembly) to detect AMR and virulence genes by creating local assemblies from paired-end reads.
+ *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords fastq, local assembly, antimicrobial resistance, virulence, ariba
  * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output,compression
  * @citation ariba
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by ARIBA)
+ * - `lr`: Long reads (not supported by ARIBA)
  *
  * @input db
  * An [ARIBA](https://github.com/sanger-pathogens/ariba) prepared database
@@ -33,8 +39,8 @@ process ARIBA_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Path>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     report       = tuple(meta, file("${prefix}-report.tsv"))
@@ -56,6 +62,10 @@ process ARIBA_RUN {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
+    // Determine read type from explicit slots (ARIBA requires paired-end reads)
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+
     def db_name = db.getName().replace('.tar.gz', '')
     """
     tar -xzvf ${db}
@@ -63,7 +73,7 @@ process ARIBA_RUN {
     ariba \\
         run \\
         ${db_name}db/ \\
-        ${reads} \\
+        ${r1} ${r2} \\
         ${db_name} \\
         ${task.ext.args} \\
         --threads ${task.cpus}

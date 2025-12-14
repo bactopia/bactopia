@@ -35,7 +35,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     CHECKM_LINEAGEWF(assembly)

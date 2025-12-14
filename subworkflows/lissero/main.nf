@@ -34,7 +34,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow LISSERO {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     LISSERO_MODULE(assembly)

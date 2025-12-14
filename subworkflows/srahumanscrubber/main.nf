@@ -5,6 +5,9 @@
  * and remove human reads from sequencing data. It first initializes a human reference database
  * and then scrubs the input reads to ensure they meet SRA submission requirements.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords contamination, human, scrub, sra, sequencing, fastq
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
@@ -12,9 +15,12 @@
  *
  * @modules srahumanscrubber_initdb, srahumanscrubber_scrub
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end sequencing reads from clinical samples that may contain human contamination
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output scrubbed             FASTQ files with human reads removed (cleaned reads ready for SRA submission)
  * @output scrubbed_extra       Additional FASTQ files containing reads removed during scrubbing
@@ -34,7 +40,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SRAHUMANSCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     SRAHUMANSCRUBBER_INITDB()

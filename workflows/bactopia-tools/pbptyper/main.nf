@@ -48,7 +48,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    PBPTYPER(BACTOPIATOOL_INIT.out.samples)
+    PBPTYPER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(PBPTYPER.out.results)

@@ -63,7 +63,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     HICAP(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.hicap_database_dir,
         params.hicap_model_fp
     ) 

@@ -61,14 +61,14 @@ workflow {
     if (params.amrfinder_db) {
         // User specified database
         AMRFINDERPLUS(
-            BACTOPIATOOL_INIT.out.samples_3,
+            BACTOPIATOOL_INIT.out.assembly_proteins_gff,
             params.amrfinder_db
         )
     } else {
         // Use default database
         DATASETS()
         AMRFINDERPLUS(
-            BACTOPIATOOL_INIT.out.samples_3,
+            BACTOPIATOOL_INIT.out.assembly_proteins_gff,
             DATASETS.out.amrfinderplus_db
         )
     }

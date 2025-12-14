@@ -50,7 +50,7 @@ workflow {
     // Execute subworkflows
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    AGRVATE(BACTOPIATOOL_INIT.out.samples)
+    AGRVATE(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(AGRVATE.out.results)

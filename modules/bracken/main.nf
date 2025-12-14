@@ -7,6 +7,9 @@
  * a specific taxonomic level. It also generates an interactive [Krona](https://github.com/marbl/Krona/wiki)
  * plot for visualization.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, classification, taxonomy, abundance, kraken2, bracken, krona
  * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
@@ -15,9 +18,12 @@
  * @note Database Required
  * Requires a compatible Kraken2/Bracken database (tarball).
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end or Single-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) - not typically used
  *
  * @input db
  * A compressed tarball containing the Kraken2/Bracken database
@@ -47,8 +53,8 @@ process BRACKEN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     tsv                 = tuple(meta, files("${prefix}.bracken.tsv"))
@@ -84,6 +90,17 @@ process BRACKEN {
         meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     }
     meta.process_name = task.ext.process_name
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Build read inputs for kraken2
+    read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
+    first_read = meta.single_end ? se : r1
+
     special_meta = [:]
     special_meta.id = prefix
 
@@ -93,7 +110,7 @@ process BRACKEN {
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def BRACKEN_VERSION = "2.7"
     def KRAKENTOOLS_VERSION = "1.2"
-    meta.teton_reads = reads.toList().join(",")
+    meta.teton_reads = meta.single_end ? "${se}" : "${r1},${r2}"
     """
     if [ "${is_tarball}" == "true" ]; then
         mkdir database
@@ -112,11 +129,11 @@ process BRACKEN {
         --gzip-compressed \\
         ${paired} \\
         ${task.ext.args} \\
-        ${reads} > ${prefix}.kraken2.output.txt
+        ${read_inputs} > ${prefix}.kraken2.output.txt
 
     # Get read length
     if [ "${task.ext.bracken_read_length}" == "0" ]; then
-        OBS_READ_LENGTH=\$(zcat ${reads.toList()[0]} | fastq-scan -q | jq -r '.qc_stats.read_median')
+        OBS_READ_LENGTH=\$(zcat ${first_read} | fastq-scan -q | jq -r '.qc_stats.read_median')
         echo \$OBS_READ_LENGTH
         # Pre-built Bracken databases come with 50,75,100,150,200,250,300, split the difference
         if [ "\$OBS_READ_LENGTH" -gt 275 ]; then

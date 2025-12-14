@@ -53,7 +53,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SHIGATYPER(BACTOPIATOOL_INIT.out.samples)
+    SHIGATYPER(BACTOPIATOOL_INIT.out.reads)
 
     // Collect outputs
     ch_results = ch_results.mix(SHIGATYPER.out.results)

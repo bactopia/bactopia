@@ -71,7 +71,7 @@ workflow {
     BACTOPIATOOL_INIT()
     DATASETS()
     MERLIN(
-        BACTOPIATOOL_INIT.out.samples_2,
+        BACTOPIATOOL_INIT.out.assembly_reads,
         DATASETS.out.mash_db,
         // emmtyper
         params.emmtyper_blastdb,

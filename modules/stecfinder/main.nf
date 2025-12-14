@@ -9,10 +9,13 @@
  * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation stecfinder
  *
- * @input tuple(meta, assembly, reads)
+ * @input tuple(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
- * - `reads`: FASTQ reads (Illumina or Nanopore)
+ * - `fna`: Assembled contigs in FASTA format
+ * - `r1`: Illumina R1 reads (paired-end) or null
+ * - `r2`: Illumina R2 reads (paired-end) or null
+ * - `se`: Single-end Illumina reads or null
+ * - `lr`: Long reads (ONT/PacBio) or null
  *
  * @output tsv      TSV file with STEC gene markers results
  * @output logs     Optional software execution logs containing warnings/errors
@@ -28,7 +31,14 @@ process STECFINDER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly, reads) : Tuple<Map, Set<Path>, Set<Path>>
+    (_meta, fna, r1, r2, se, lr) : Tuple<Map, Path, Path?, Path?, Path?, Path?>
+
+    stage:
+    stageAs 'fna/*', fna
+    stageAs 'reads/r1/*', r1
+    stageAs 'reads/r2/*', r2
+    stageAs 'reads/se/*', se
+    stageAs 'reads/lr/*', lr
 
     output:
     tsv      = tuple(meta, files("${prefix}.tsv"))
@@ -47,11 +57,15 @@ process STECFINDER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def is_compressed = (assembly.toList()[0].getName().endsWith(".gz") ? true : false) && !task.ext.stecfinder_use_reads ? true : false
-    def seq_name = is_compressed ? assembly.toList()[0].getName().replace(".gz", "") : reads.join(" ")
+
+    // Determine input type and construct sequence input
+    def reads = [r1, r2, se, lr].findAll{it != null}
+    def use_assembly = !task.ext.stecfinder_use_reads
+    def is_compressed = use_assembly && fna.getName().endsWith(".gz")
+    def seq_name = is_compressed ? fna.getName().replace(".gz", "") : reads.join(" ")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${seq_name}
+        gzip -c -d ${fna} > ${seq_name}
     fi
 
     stecfinder \\

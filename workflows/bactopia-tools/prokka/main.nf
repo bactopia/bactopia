@@ -67,7 +67,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     PROKKA(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.prokka_proteins,
         params.prokka_prodigal_tf
     )

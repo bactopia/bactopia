@@ -53,7 +53,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SEROBA(BACTOPIATOOL_INIT.out.samples)
+    SEROBA(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SEROBA.out.results)

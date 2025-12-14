@@ -7,6 +7,9 @@
  * output formats including VCF, aligned FASTA, and annotated variants for downstream
  * phylogenetic analysis with snippy-core.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords variant calling, snp, reference mapping, phylogenetics, outbreak
  * @tags complexity:moderate input-type:single output-type:multiple
@@ -14,9 +17,12 @@
  *
  * @modules snippy_run
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Sequencing reads (paired-end or single-end FASTQ) for variant calling
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input reference
  * Reference genome in GenBank format (preferred, for annotation) or FASTA format
@@ -55,7 +61,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow SNIPPY {
     take:
-    reads : Channel<Tuple<Map, Set<Path>>>
+    reads : Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     reference : Path
 
     main:

@@ -56,7 +56,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     SYLPH(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.sylph_db
     )
 

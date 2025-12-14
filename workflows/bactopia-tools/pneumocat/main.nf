@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    PNEUMOCAT(BACTOPIATOOL_INIT.out.samples)
+    PNEUMOCAT(BACTOPIATOOL_INIT.out.reads)
 
     // Collect outputs
     ch_results = ch_results.mix(PNEUMOCAT.out.results)

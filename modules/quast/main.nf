@@ -11,8 +11,8 @@
  *
  * @input tuple(meta, assembly, meta_file)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
- * - `meta_file`: Meta file containing reference size information
+ * - `assembly`: Assembled contigs in FASTA format (Path)
+ * - `meta_file`: Meta file containing reference size information (Path)
  *
  * @output tsv          Transposed report in TSV format
  * @output supplemental Supplemental files including plots and HTML reports

@@ -62,7 +62,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     TBLASTN(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.tblastn_query
     )
 

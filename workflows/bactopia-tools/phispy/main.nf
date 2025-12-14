@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    PHISPY(BACTOPIATOOL_INIT.out.samples)
+    PHISPY(BACTOPIATOOL_INIT.out.gffs)
 
     // Collect outputs
     ch_results = ch_results.mix(PHISPY.out.results)

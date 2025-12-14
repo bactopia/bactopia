@@ -6,21 +6,26 @@
  * - **Short Single-End Reads:** Uses [Shovill](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper).
  * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper).
  * - **Hybrid:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye (with polishing).
- * 
+ *
  * Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
+ *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,alternative-execution
  * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
  *
- * @input tuple(meta, fq, extra)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `fq`: Primary reads (Illumina paired-end or Nanopore)
- * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
  * @output fna          Assembled contigs in FASTA format
- * @output fna_fq       A tuple containing the assembly and primary reads (for downstream analysis)
+ * @output fna_reads    A tuple containing the assembly and read slots (for downstream analysis)
  * @output tsv          A tab-delimited report of assembly statistics (N50, length, coverage)
  * @output supplemental Supplemental files including assembly graphs (*.gfa) and tool-specific logs
  * @output error        Captured error messages if assembly fails
@@ -38,11 +43,11 @@ process ASSEMBLER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fq, extra) : Tuple<Map, Set<Path>, Set<Path>>
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
 
     output:
     fna          = tuple(meta, files("${prefix}.{fna,fna.gz}", optional: true))
-    fna_fq       = tuple(meta, files("${prefix}.{fna,fna.gz}"), fq)
+    fna_reads    = tuple(meta, files("${prefix}.{fna,fna.gz}"), r1, r2, se, lr)
     tsv          = tuple(meta, files("${prefix}.tsv", optional: true))
     supplemental = tuple(meta, files("supplemental/*"))
     error        = tuple(meta, files("${prefix}-assembly-error.txt", optional: true))
@@ -64,35 +69,32 @@ process ASSEMBLER {
     meta.runtype = _meta.runtype
     meta.genome_size = _meta.genome_size
     meta.species = _meta.species
-    meta.single_end = _meta.single_end
 
-    // Determine input reads
-    r1 = null
-    r2 = null
-    se = null
-    fq.toList().each { file ->
-        def fileName = file.getName()
-        if (fileName.contains('_R1.fastq.gz') && r1 == null) {
-            r1 = file
-        } else if (fileName.contains('_R2.fastq.gz') && r2 == null) {
-            r2 = file
-        } else if (!(fileName =~ /.*_R[12]\.fastq\.gz/) && se == null) {
-            se = file
-        }
-    }
+    // Determine single_end based on explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    has_lr = lr != null
+    meta.single_end = has_se && !has_r1 && !has_r2
 
-    // Unicycler
-    is_hybrid = meta.runtype == "hybrid" ? "-l ${se}" : ""
+    // For hybrid: lr slot has long reads
+    // For short_polish: r1/r2 are short reads, lr is long reads
 
-    // Shovill
+    // Unicycler (hybrid: PE + long reads)
+    is_hybrid = meta.runtype == "hybrid" ? "-l ${lr}" : ""
+
+    // Shovill (short reads)
     contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
     shovill_ram = task.memory.toGiga() - 1
     shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
-    // Dragonflye
-    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${se} --R1 ${r1} --R2 ${r2}" : "--reads ${se}"
+    // Dragonflye (long reads, with optional short read polishing)
+    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${lr} --R1 ${r1} --R2 ${r2}" : "--reads ${lr}"
 
-    // Assembly inputs
+    // For ONT-only: use lr slot
+    ont_reads = lr
+
+    // Assembly inputs (for assembly runtype, the original assembly is in lr slot)
     use_original_assembly = null
     if (meta.runtype.startsWith('assembly')) {
         use_original_assembly = task.ext.reassemble ? false : true
@@ -101,10 +103,12 @@ process ASSEMBLER {
     echo "R1 ${r1}"
     echo "R2 ${r2}"
     echo "SE ${se}"
+    echo "LR ${lr}"
 
     if [ "${use_original_assembly}" == "true" ]; then
         mkdir supplemental
-        gzip -cd ${extra} > supplemental/${prefix}.fna
+        # Original assembly is in lr slot for assembly runtypes
+        gzip -cd ${lr} > supplemental/${prefix}.fna
     elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
         # Unicycler
         unicycler \\

@@ -44,7 +44,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    PLASMIDFINDER(BACTOPIATOOL_INIT.out.samples)
+    PLASMIDFINDER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(PLASMIDFINDER.out.results)

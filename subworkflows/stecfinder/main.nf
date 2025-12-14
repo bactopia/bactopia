@@ -13,9 +13,13 @@
  *
  * @modules stecfinder, csvtk_concat
  *
- * @input tuple(meta, assembly)
+ * @input tuple(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
+ * - `r1`: Illumina R1 reads (paired-end) or null
+ * - `r2`: Illumina R2 reads (paired-end) or null
+ * - `se`: Single-end Illumina reads or null
+ * - `lr`: Long reads (ONT/PacBio) or null
  *
  * @output tsv         Per-sample TSV files containing STEC identification and serotyping results
  * @output merged_tsv  Consolidated TSV file containing STEC results from all samples
@@ -33,7 +37,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow STECFINDER {
     take:
-    seqs: Channel<Tuple<Map, Set<Path>, Set<Path>>>
+    seqs: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
 
     main:
     STECFINDER_MODULE(seqs)

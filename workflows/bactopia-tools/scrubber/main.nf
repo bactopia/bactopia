@@ -63,7 +63,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     SCRUBBER(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.use_srascrubber
     )
 

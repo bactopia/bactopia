@@ -7,6 +7,9 @@
  * and provides detailed variant calling results. It combines individual sample
  * results with population-level analysis for surveillance and epidemiological studies.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords Mycobacterium, tuberculosis, drug resistance, lineage, variants
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
@@ -14,9 +17,12 @@
  *
  * @modules tbprofiler_profile, tbprofiler_collate
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Sequencing reads for M. tuberculosis resistance profiling and strain typing
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output csv          TBProfiler resistance and lineage results in CSV format
  * @output json         Detailed analysis results with variant information in JSON format
@@ -41,7 +47,7 @@ include { gather             } from 'plugin/nf-bactopia'
 
 workflow TBPROFILER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     TBPROFILER_PROFILE(reads)

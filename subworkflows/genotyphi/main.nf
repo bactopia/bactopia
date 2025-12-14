@@ -7,6 +7,9 @@
  * processes the results with GenoTyphi to assign specific genotypes based on
  * the presence of known genetic markers.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords Salmonella, Typhi, genotype, antimicrobial resistance
  * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation
@@ -14,9 +17,12 @@
  *
  * @modules mykrobe_predict, genotyphi_parse, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end sequencing reads for Salmonella Typhi genotype assignment
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output tsv         GenoTyphi genotype assignment results in TSV format
  * @output csv         Mykrobe antimicrobial resistance prediction results in CSV format
@@ -37,7 +43,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow GENOTYPHI {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     MYKROBE_PREDICT(reads, "typhi")

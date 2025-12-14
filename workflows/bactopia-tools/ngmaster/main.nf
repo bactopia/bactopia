@@ -47,7 +47,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    NGMASTER(BACTOPIATOOL_INIT.out.samples)
+    NGMASTER(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(NGMASTER.out.results)

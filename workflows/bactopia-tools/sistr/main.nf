@@ -48,7 +48,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SISTR(BACTOPIATOOL_INIT.out.samples)
+    SISTR(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SISTR.out.results)

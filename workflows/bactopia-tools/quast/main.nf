@@ -57,7 +57,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    QUAST(BACTOPIATOOL_INIT.out.samples_2)
+    QUAST(BACTOPIATOOL_INIT.out.assembly_meta)
 
     // Collect outputs
     ch_results = ch_results.mix(QUAST.out.results)

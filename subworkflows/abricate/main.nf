@@ -32,7 +32,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     ABRICATE_RUN(assembly)

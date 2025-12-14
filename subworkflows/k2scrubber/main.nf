@@ -5,6 +5,9 @@
  * with a specialized human genome database. It downloads the k2_HPRC human reference database,
  * classifies reads, and separates human (contaminant) sequences from microbial reads for downstream analysis.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, human decontamination, read filtering, kraken2
  * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, resource-download
@@ -12,9 +15,12 @@
  *
  * @modules wget, kraken2
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Metagenomic reads potentially contaminated with human sequences
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output human                Reads classified as human (contaminant sequences)
  * @output kraken2_report       Kraken2 classification report showing human vs. non-human read counts
@@ -36,7 +42,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow K2SCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     WGET([

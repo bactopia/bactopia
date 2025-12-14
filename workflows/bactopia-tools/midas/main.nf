@@ -57,7 +57,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     MIDAS(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.midas_db
     )
 

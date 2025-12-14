@@ -5,6 +5,9 @@
  * serotypes of *Shigella* strains from either Illumina/Nanopore reads or assembled genomes.
  * It analyzes antigen-encoding genes to determine the serotype classification of each isolate.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords shigella, serotype, typing, prediction, antigen genes
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
@@ -12,9 +15,12 @@
  *
  * @modules shigatyper, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Sequencing reads in FASTQ format or assembled contigs in FASTA format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output tsv         Per-sample TSV files containing Shigella serotype predictions
  * @output hits        Per-sample TSV files containing detailed gene hit information
@@ -33,7 +39,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow SHIGATYPER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
 
     main:
     SHIGATYPER_MODULE(reads)

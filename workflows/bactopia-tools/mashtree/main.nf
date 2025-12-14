@@ -60,7 +60,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    ch_samples = BACTOPIATOOL_INIT.out.samples
+    ch_samples = BACTOPIATOOL_INIT.out.assembly
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {

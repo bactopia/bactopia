@@ -61,7 +61,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     BUSCO(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.busco_lineage
     )
 

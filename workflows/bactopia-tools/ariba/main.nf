@@ -63,7 +63,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     ARIBA(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.reads,
         params.ariba_db
     )
 

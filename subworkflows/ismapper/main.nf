@@ -6,6 +6,9 @@
  * transposase insertion sites from short read sequence data by mapping reads
  * to reference sequences and detecting insertion sites with high precision.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords insertion, sequence, transposase, mobile genetic elements
  * @tags complexity:simple input-type:multiple output-type:single
@@ -13,9 +16,12 @@
  *
  * @modules ismapper
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end sequencing reads for IS element mapping
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by ISMapper)
+ * - `lr`: Long reads (not supported by ISMapper)
  *
  * @input reference
  * Reference genome in FASTA format for mapping
@@ -36,7 +42,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     reference: Path
     insertions: Path
 

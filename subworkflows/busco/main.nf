@@ -38,7 +38,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     busco_lineage: String
 
     main:

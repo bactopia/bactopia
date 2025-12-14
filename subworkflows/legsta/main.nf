@@ -34,7 +34,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow LEGSTA {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     LEGSTA_MODULE(assembly)

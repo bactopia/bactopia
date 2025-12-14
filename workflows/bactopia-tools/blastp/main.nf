@@ -58,7 +58,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     BLASTP(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.proteins,
         params.blastp_query
     )
 

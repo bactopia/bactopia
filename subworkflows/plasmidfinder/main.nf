@@ -37,7 +37,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow PLASMIDFINDER {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     PLASMIDFINDER_MODULE(assembly)

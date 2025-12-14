@@ -61,7 +61,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     CHECKM2(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.checkm2_db,
         params.download_checkm2
     )

@@ -68,7 +68,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     GTDB(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.gtdb,
         params.download_gtdb,
         params.gtdb_save_as_tarball

@@ -5,6 +5,9 @@
  * to assign capsular types to *Streptococcus pneumoniae* using a two-step approach: first matching
  * reads to a global database, then using a mapped-based approach for specific serogroup differentiation.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords pneumocat, streptococcus pneumoniae, capsular typing, serotyping
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
@@ -13,9 +16,12 @@
  * @note
  * Negative results will cause non-0 exit codes from PneumoCaT
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ sequence reads
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
+ * - `lr`: Long reads (not supported by PneumoCaT)
  *
  * @output xml      The PneumoCaT result files in XML format
  * @output txt      A file containing the coverage information across the genes
@@ -33,7 +39,7 @@ process PNEUMOCAT {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, _reads) : Tuple<Map, Set<Path>>
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
 
     output:
     xml      = tuple(meta, files("*.xml", optional: true))
@@ -55,6 +61,10 @@ process PNEUMOCAT {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
+    // Determine read type from explicit slots (PneumoCaT requires paired-end reads)
+    has_r1 = r1 != null
+    has_r2 = r2 != null
     """
     PneumoCaT.py \\
         --input_directory ./ \\

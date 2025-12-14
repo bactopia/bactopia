@@ -33,7 +33,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow SSUISSERO {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     SSUISSERO_MODULE(assembly)

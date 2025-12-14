@@ -52,7 +52,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SHIGAPASS(BACTOPIATOOL_INIT.out.samples)
+    SHIGAPASS(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SHIGAPASS.out.results)

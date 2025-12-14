@@ -47,7 +47,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow EGGNOG {
     take:
-    proteins: Channel<Tuple<Map, Set<Path>>>
+    proteins: Channel<Tuple<Map, Path>>
     database: Path
     download_eggnog: Boolean
 

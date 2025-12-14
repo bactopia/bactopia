@@ -41,7 +41,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow HICAP {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
     database_dir: Path?
     model_fp: Path?
 

@@ -58,7 +58,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     SPATYPER(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.spatyper_repeats,
         params.spatyper_repeat_order
     )

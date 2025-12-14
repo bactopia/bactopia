@@ -33,7 +33,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     BTYPER3_MODULE(assembly)

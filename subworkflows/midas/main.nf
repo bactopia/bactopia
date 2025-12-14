@@ -7,6 +7,9 @@
  * It uses a comprehensive reference database for accurate species identification
  * and quantification in complex microbial communities.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, species, profiling, abundance, strain
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
@@ -14,9 +17,12 @@
  *
  * @modules csvtk_concat, midas_species
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Metagenomic sequencing reads for species-level profiling
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (not supported by MIDAS)
  *
  * @input database
  * MIDAS reference database for species identification and quantification
@@ -38,7 +44,7 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow MIDAS {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     database: Path
 
     main:

@@ -16,10 +16,13 @@
  *              legsta, lissero, meningotype, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
- * @input tuple(meta, assembly, reads)
+ * @input tuple(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembly files for species identification and typing
- * - `reads`: Read data for species identification and typing
+ * - `fna`: Assembly file for species identification and typing
+ * - `r1`: Illumina R1 reads (paired-end) or null
+ * - `r2`: Illumina R2 reads (paired-end) or null
+ * - `se`: Single-end Illumina reads or null
+ * - `lr`: Long reads (ONT/PacBio) or null
  *
  * @input mash_db
  * Mash sketch database for rapid species identification
@@ -75,7 +78,7 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow MERLIN {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
     mash_db: Path
     emmtyper_blastdb: Path?
     hicap_database_dir: Path?
@@ -88,9 +91,17 @@ workflow MERLIN {
     MERLINDIST(assembly, mash_db)
 
     // Escherichia/Shigella
-    ch_escherichia = MERLINDIST.out.escherichia.map{meta, fasta, _found -> [meta, fasta]}
-    ch_escherichia_fq = MERLINDIST.out.escherichia_fq.map{meta, reads, _found -> [meta, reads]}
-    ch_escherichia_fna_fq = MERLINDIST.out.escherichia_fna_fq.map{meta, fasta, reads, _found -> [meta, fasta, reads]}
+    // Assembly-only: wrap fna in list for Set<Path> compatibility
+    ch_escherichia = MERLINDIST.out.escherichia.map{meta, fna, _found -> [meta, [fna]]}
+    // Reads-only: collect non-null reads into list for Set<Path> compatibility
+    ch_escherichia_fq = MERLINDIST.out.escherichia_fq.map{meta, r1, r2, se, lr, _found ->
+        def reads = [r1, r2, se, lr].findAll{it != null}
+        [meta, reads]
+    }
+    // Assembly + reads: pass as 6-slot tuple for STECFINDER
+    ch_escherichia_fna_fq = MERLINDIST.out.escherichia_fna_fq.map{meta, fna, r1, r2, se, lr, _found ->
+        [meta, fna, r1, r2, se, lr]
+    }
     CLERMONTYPING(ch_escherichia)
     ECTYPER(ch_escherichia)
     SHIGAPASS(ch_escherichia)
@@ -99,49 +110,58 @@ workflow MERLIN {
     STECFINDER(ch_escherichia_fna_fq)
 
     // Haemophilus
-    ch_haemophilus = MERLINDIST.out.haemophilus.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_haemophilus = MERLINDIST.out.haemophilus.map{meta, fna, _found -> [meta, [fna]]}
     HICAP(ch_haemophilus, hicap_database_dir, hicap_model_fp)
     HPSUISSERO(ch_haemophilus)
 
     // Klebsiella
-    ch_klebsiella = MERLINDIST.out.klebsiella.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_klebsiella = MERLINDIST.out.klebsiella.map{meta, fna, _found -> [meta, [fna]]}
     KLEBORATE(ch_klebsiella)
 
     // Legionella
-    ch_legionella = MERLINDIST.out.legionella.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_legionella = MERLINDIST.out.legionella.map{meta, fna, _found -> [meta, [fna]]}
     LEGSTA(ch_legionella)
 
     // Listeria
-    ch_listeria = MERLINDIST.out.listeria.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_listeria = MERLINDIST.out.listeria.map{meta, fna, _found -> [meta, [fna]]}
     LISSERO(ch_listeria)
 
     // Mycobacterium
-    ch_mycobacterium_fq = MERLINDIST.out.mycobacterium_fq.map{_meta, _reads, _found -> [_meta, _reads]}
+    ch_mycobacterium_fq = MERLINDIST.out.mycobacterium_fq.map{meta, r1, r2, se, lr, _found ->
+        def reads = [r1, r2, se, lr].findAll{it != null}
+        [meta, reads]
+    }
     TBPROFILER(ch_mycobacterium_fq)
 
     // Neisseria
-    ch_neisseria = MERLINDIST.out.neisseria.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_neisseria = MERLINDIST.out.neisseria.map{meta, fna, _found -> [meta, [fna]]}
     MENINGOTYPE(ch_neisseria)
     NGMASTER(ch_neisseria)
 
     // Pseudomonas
-    ch_pseudomonas = MERLINDIST.out.pseudomonas.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_pseudomonas = MERLINDIST.out.pseudomonas.map{meta, fna, _found -> [meta, [fna]]}
     PASTY(ch_pseudomonas)
 
     // Salmonella
-    ch_salmonella = MERLINDIST.out.salmonella.map{_meta, _assembly, _found -> [_meta, _assembly]}
-    ch_salmonella_fq = MERLINDIST.out.salmonella_fq.map{_meta, _reads, _found -> [_meta, _reads]}
+    ch_salmonella = MERLINDIST.out.salmonella.map{meta, fna, _found -> [meta, [fna]]}
+    ch_salmonella_fq = MERLINDIST.out.salmonella_fq.map{meta, r1, r2, se, lr, _found ->
+        def reads = [r1, r2, se, lr].findAll{it != null}
+        [meta, reads]
+    }
     GENOTYPHI(ch_salmonella_fq)
     SEQSERO2(ch_salmonella)
     SISTR(ch_salmonella)
 
     // Staphylococcus
-    ch_staphylococcus = MERLINDIST.out.staphylococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}
+    ch_staphylococcus = MERLINDIST.out.staphylococcus.map{meta, fna, _found -> [meta, [fna]]}
     STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
-    ch_streptococcus = MERLINDIST.out.streptococcus.map{_meta, _assembly, _found -> [_meta, _assembly]}
-    ch_streptococcus_fq = MERLINDIST.out.streptococcus_fq.map{_meta, _reads, _found -> [_meta, _reads]}
+    ch_streptococcus = MERLINDIST.out.streptococcus.map{meta, fna, _found -> [meta, [fna]]}
+    ch_streptococcus_fq = MERLINDIST.out.streptococcus_fq.map{meta, r1, r2, se, lr, _found ->
+        def reads = [r1, r2, se, lr].findAll{it != null}
+        [meta, reads]
+    }
     EMMTYPER(ch_streptococcus, emmtyper_blastdb)
     PBPTYPER(ch_streptococcus)
     SEROBA(ch_streptococcus_fq)

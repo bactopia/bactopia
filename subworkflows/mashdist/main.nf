@@ -36,7 +36,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
     take:
-    seqs: Channel<Tuple<Map, Set<Path>>>
+    seqs: Channel<Tuple<Map, Path>>
     reference: Path
 
     main:

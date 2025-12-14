@@ -34,7 +34,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:
-    assembly: Channel<Tuple<Map, Set<Path>>>
+    assembly: Channel<Tuple<Map, Path>>
 
     main:
     PASTY_MODULE(assembly)

@@ -6,6 +6,9 @@
  * of universal single-copy marker genes (15 genes) to provide accurate coverage and relative
  * abundance estimates.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, abundance, species, midas, marker genes, diversity
  * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent,conditional-logic
@@ -14,9 +17,12 @@
  * @note Database Required
  * Requires a compatible MIDAS database (containing marker gene sequences and taxonomy).
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end or Single-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (not supported by MIDAS)
  *
  * @input db
  * Directory containing the MIDAS database
@@ -37,8 +43,8 @@ process MIDAS_SPECIES {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
-    db             : Path
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    db                      : Path
 
     output:
     tsv        = tuple(meta, files("${prefix}.midas.tsv"))
@@ -60,7 +66,14 @@ process MIDAS_SPECIES {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def read_opts = meta.single_end ? "-1 ${reads.toList()[0]}" : "-1 ${reads.toList()[0]} -2 ${reads.toList()[1]}"
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+
+    def read_opts = meta.single_end ? "-1 ${se}" : "-1 ${r1} -2 ${r2}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then

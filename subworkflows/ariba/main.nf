@@ -6,6 +6,9 @@
  * in a database by creating local assemblies. It first downloads and prepares an ARIBA database,
  * then analyzes paired-end reads to identify genes, and finally aggregates results across all samples.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, virulence, local assembly
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent, resource-download
@@ -13,9 +16,12 @@
  *
  * @modules ariba_getref, ariba_run, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end reads in FASTQ format
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads (not supported by ARIBA)
+ * - `lr`: Long reads (not supported by ARIBA)
  *
  * @input db
  * Database name for ARIBA analysis (e.g., ncbi, card, vfdb, resfinder, argannot)
@@ -40,7 +46,7 @@ include { gather                               } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     db: String
 
     main:

@@ -6,6 +6,9 @@
  * with the HPRC human database. It provides flexible contamination removal with detailed reporting
  * and aggregates results across multiple samples.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, decontamination, human removal, read filtering
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, aggregation
@@ -14,9 +17,12 @@
  * @subworkflows srahumanscrubber, k2scrubber
  * @modules csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Metagenomic reads potentially contaminated with human sequences
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input use_srascrubber
  * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination.
@@ -41,7 +47,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Set<Path>>>
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
     use_srascrubber: Boolean
 
     main:

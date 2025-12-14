@@ -54,7 +54,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    RGI(BACTOPIATOOL_INIT.out.samples)
+    RGI(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(RGI.out.results)

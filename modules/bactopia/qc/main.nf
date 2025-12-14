@@ -8,6 +8,9 @@
  *
  * Generates detailed quality reports using FastQC and NanoPlot.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input/Output: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords fastq, qc, adapter removal, error correction, subsampling, bbduk, lighter, porechop, nanoq, fastqc
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,compression,path-workarounds
@@ -15,10 +18,12 @@
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *
- * @input tuple(meta, fq, extra)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `fq`: Primary reads (Illumina paired-end or Nanopore)
- * - `extra`: Secondary reads (Nanopore for hybrid) or original Assembly (if simulated)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio) or original assembly (if simulated)
  *
  * @input adapters
  * Optional filepath for custom adapter sequences (FASTA).
@@ -26,8 +31,7 @@
  * @input phix
  * Optional filepath for custom PhiX sequences (FASTA).
  *
- * @output fastq        A tuple containing the metadata, clean FASTQs, and any extra files
- * @output fastq_only   A tuple containing only the metadata and clean FASTQs
+ * @output reads        A tuple with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
  * @output error_fastq  Reads preserved from samples that failed QC (e.g. low coverage) for debugging
  * @output supplemental QC reports (FastQC/NanoPlot), JSON metrics, and original/final FASTQs for comparison
  * @output error        Captured error messages if QC failed (e.g. reads empty after trimming)
@@ -45,17 +49,12 @@ process QC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fq, extra) : Tuple<Map, Set<Path>, Set<Path>>
-    adapters           : Path?
-    phix               : Path?
-
-    stage:
-    stageAs 'inputs/*', fq
-    stageAs 'extras/*', extra
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    adapters                : Path?
+    phix                    : Path?
 
     output:
-    fastq        = tuple(meta, files("${prefix}*.fastq.gz", optional: true), files("extra/*", optional: true))
-    fastq_only   = tuple(meta, files("${prefix}*.fastq.gz", optional: true))
+    reads        = tuple(meta, file("${prefix}_R1.fastq.gz", optional: true), file("${prefix}_R2.fastq.gz", optional: true), file("${prefix}.fastq.gz", optional: true), file("extra/${prefix}.fastq.gz", optional: true))
     error_fastq  = tuple(meta, files("${prefix}*-fastq.gz", optional: true))
     supplemental = tuple(meta, files("supplemental/*", optional: true))
     error        = tuple(meta, files("*-error.txt", optional: true))
@@ -74,15 +73,30 @@ process QC {
     meta.output_dir = "${prefix}/main/${task.ext.process_name}/"
     meta.logs_dir = "${prefix}/main/${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
-    meta.single_end = "${fq.toList()[0]}" == "${prefix}.fastq.gz" ? true : false
     meta.genome_size = _meta.genome_size ?: 0
     meta.species = _meta.species ?: null
     meta.runtype = _meta.runtype
 
+    // Determine read type from explicit slots
+    // r1/r2 = paired-end, se = single-end, lr = long reads (ONT/PacBio)
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    has_lr = lr != null
+
+    // Determine if single-end based on which slots are populated
+    meta.single_end = has_se && !has_r1 && !has_r2
+
     // WF specific parameters
     is_assembly = meta.runtype.startsWith('assembly') ? true : false
-    fq1 = fq.toList()[0]
-    fq2 = meta.single_end ? null : fq.toList()[1]
+
+    // Map explicit slots to legacy variable names for minimal shell script changes
+    // For PE: use r1 and r2
+    // For SE: use se (which goes to the SE slot in output)
+    // For ONT: use lr
+    fq1 = has_r1 ? r1 : (has_se ? se : lr)
+    fq2 = has_r2 ? r2 : null
+
     qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters.getName()
     phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix.getName()
@@ -91,7 +105,11 @@ process QC {
     lighter_opts = meta.single_end ? "" : "-r phix-r2.fq"
     reformat_opts = meta.single_end ? "" : "in2=filt-r2.fq out2=subsample-r2.fq"
     fastp_fqs = meta.single_end ? "" : "--in2 ${fq2} --out2 filt-r2.fq --detect_adapter_for_pe"
-    ont_fq = meta.runtype == 'ont' ? fq1 : extra.toList()[0]
+
+    // For ONT: use lr slot; for hybrid: also use lr slot
+    ont_fq = lr
+
+    // Short polish should be treated as single-end for certain operations
     meta.single_end = meta.runtype == 'short_polish' ? true : meta.single_end
 
     // set Xmx to 95% of what was allocated, to avoid going over
@@ -117,8 +135,8 @@ process QC {
 
     mkdir extra/
     if [[ "${is_assembly}" == "true" ]]; then
-        # Copy the assembly over to extra
-        cp ${extra} extra/
+        # Copy the assembly over to extra (stored in lr slot)
+        cp ${lr} extra/
     else
         touch extra/EMPTY_EXTRA
     fi
@@ -129,14 +147,14 @@ process QC {
             # Illumina Paired-End Reads and Nanopore Reads
             cp ${fq1} ${prefix}_R1.fastq.gz
             cp ${fq2} ${prefix}_R2.fastq.gz
-            cp ${extra} ${prefix}.fastq.gz
+            cp ${lr} extra/${prefix}.fastq.gz
         elif [ "${meta.single_end}" == "false" ]; then
             # Paired-End Reads
             cp ${fq1} ${prefix}_R1.fastq.gz
             cp ${fq2} ${prefix}_R2.fastq.gz
         else
             # Single-End Reads
-            cp ${fq} ${prefix}.fastq.gz
+            cp ${fq1} ${prefix}.fastq.gz
         fi
     else
         if [ "\${ENABLE_ONT}" -eq "1" ]; then
@@ -306,10 +324,11 @@ process QC {
                 # Illumina Paired-End Reads and Nanopore Reads
                 pigz -p ${task.cpus} -c -n subsample-r1.fq > ${prefix}_R1.fastq.gz
                 pigz -p ${task.cpus} -c -n subsample-r2.fq > ${prefix}_R2.fastq.gz
-                pigz -p ${task.cpus} -c -n subsample-ont.fq > ${prefix}.fastq.gz
+                # Long reads go to extra/ folder (lr slot)
+                pigz -p ${task.cpus} -c -n subsample-ont.fq > extra/${prefix}.fastq.gz
             elif [ "\${ENABLE_ONT}" -eq "1" ]; then
-                # Nanopore Reads
-                pigz -p ${task.cpus} -c -n subsample-ont.fq > ${prefix}.fastq.gz
+                # Nanopore Reads go to extra/ folder (lr slot)
+                pigz -p ${task.cpus} -c -n subsample-ont.fq > extra/${prefix}.fastq.gz
             else
                 # Illumina Reads
                 if [ "${meta.single_end}" == "false" ]; then
@@ -338,9 +357,9 @@ process QC {
             gzip -cd ${prefix}_R1.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-final.json
             gzip -cd ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R2-final.json
 
-            # Nanopore Reads
-            gzip -cd ${extra} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-original.json
-            gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-final.json
+            # Nanopore Reads (lr slot)
+            gzip -cd ${lr} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-original.json
+            gzip -cd extra/${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}-final.json
         elif [[ "${meta.single_end}" == "false" ]]; then
             # Paired-End Reads
             gzip -cd ${fq1} | fastq-scan -g ${meta.genome_size} > supplemental/${prefix}_R1-original.json
@@ -368,7 +387,7 @@ process QC {
 
                 NanoPlot ${task.ext.nanoplot_opts} \
                     --threads ${task.cpus} \
-                    --fastq ${prefix}.fastq.gz \
+                    --fastq extra/${prefix}.fastq.gz \
                     --outdir supplemental/${prefix}-final/ \
                     --prefix ${prefix}-final_
                 cp supplemental/${prefix}-final/${prefix}-final_NanoPlot-report.html supplemental/${prefix}-final_NanoPlot-report.html
@@ -412,12 +431,12 @@ process QC {
     if [ "${task.ext.skip_fastq_check}" == "false" ]; then
         # Only check for errors if we haven't already found them
         if [ "\${ERROR}" -eq "0" ]; then
-            if [ "${meta.run_type}" == "hybrid" ]; then
+            if [ "${meta.runtype}" == "hybrid" ]; then
                 # Hybrid assembly, base checks on Illumina Reads
                 gzip -cd ${prefix}_R1.fastq.gz ${prefix}_R2.fastq.gz | fastq-scan -g ${meta.genome_size} > temp.json
-            elif [ "${meta.run_type}" == "short_polish" ]; then
+            elif [ "${meta.runtype}" == "short_polish" ]; then
                 # Short read polishing, base checks on Nanopore Reads
-                gzip -cd ${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > temp.json
+                gzip -cd extra/${prefix}.fastq.gz | fastq-scan -g ${meta.genome_size} > temp.json
             else
                 # base checks on which ever reads are available
                 gzip -cd *.fastq.gz | fastq-scan -g ${meta.genome_size} > temp.json
@@ -428,8 +447,8 @@ process QC {
             if [ \${FINAL_BP} -lt \${MIN_COVERAGE} ]; then
                 ERROR=1
                 echo "After QC, ${prefix} FASTQ(s) contain \${FINAL_BP} total basepairs. This does
-                        not exceed the required minimum \${MIN_COVERAGE} bp [${task.ext.min_coverage}x coverage]. Further analysis 
-                        is discontinued." | \
+                        not exceed the required minimum \${MIN_COVERAGE} bp [${task.ext.min_coverage}x coverage]. Further analysis
+                        is discontinued." | \\
                 sed 's/^\\s*//' > ${prefix}-low-sequence-coverage-error.txt
                 ERROR=2
             fi
@@ -440,17 +459,17 @@ process QC {
                 # Illumina Paired-End Reads and Nanopore Reads for hybrid assembly
                 gzip -cd ${prefix}_R1.fastq.gz | fastq-scan > r1.json
                 gzip -cd ${prefix}_R2.fastq.gz | fastq-scan > r2.json
-                gzip -cd ${prefix}.fastq.gz | fastq-scan > ont.json
+                gzip -cd extra/${prefix}.fastq.gz | fastq-scan > ont.json
                 if ! reformat.sh in1=${prefix}_R1.fastq.gz in2=${prefix}_R2.fastq.gz ${qin} out=/dev/null 2> ${prefix}-paired-end-error.txt; then
                     ERROR=2
                     echo "${prefix} FASTQs contains an error. Please check the input FASTQs.
-                        Further analysis is discontinued." | \
+                        Further analysis is discontinued." | \\
                     sed 's/^\\s*//' >> ${prefix}-paired-end-error.txt
                 else
                     rm -f ${prefix}-paired-end-error.txt
                 fi
 
-                if [ "${meta.run_type}" == "hybrid" ]; then
+                if [ "${meta.runtype}" == "hybrid" ]; then
                     # Base check on Illumina Reads
                     if ! check-fastqs.py --fq1 r1.json --fq2 r2.json \${OPTS}; then
                         ERROR=2
@@ -470,7 +489,7 @@ process QC {
                 if ! reformat.sh in1=${prefix}_R1.fastq.gz in2=${prefix}_R2.fastq.gz ${qin} out=/dev/null 2> ${prefix}-paired-end-error.txt; then
                     ERROR=2
                     echo "${prefix} FASTQs contains an error. Please check the input FASTQs.
-                        Further analysis is discontinued." | \
+                        Further analysis is discontinued." | \\
                     sed 's/^\\s*//' >> ${prefix}-paired-end-error.txt
                 else
                     rm -f ${prefix}-paired-end-error.txt
@@ -498,7 +517,7 @@ process QC {
         if [ "\${IS_HYBRID}" -eq "1" ]; then
             cp ${fq1} supplemental/${prefix}_R1.error-fastq.gz
             cp ${fq2} supplemental/${prefix}_R2.error-fastq.gz
-            cp ${extra} supplemental/${prefix}.error-fastq.gz
+            cp ${lr} supplemental/${prefix}.error-fastq.gz
             if [ ! -s repair-singles.fq ]; then
                 pigz -p ${task.cpus} -c -n repair-singles.fq > supplemental/${prefix}.error-fastq.gz
             fi
@@ -523,6 +542,10 @@ process QC {
 
         if [ -f ${prefix}.fastq.gz ]; then
             mv ${prefix}.fastq.gz ${prefix}.error-fastq.gz
+        fi
+
+        if [ -f extra/${prefix}.fastq.gz ]; then
+            mv extra/${prefix}.fastq.gz extra/${prefix}.error-fastq.gz
         fi
     fi
 

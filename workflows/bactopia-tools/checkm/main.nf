@@ -52,7 +52,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    CHECKM(BACTOPIATOOL_INIT.out.samples)
+    CHECKM(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(CHECKM.out.results)

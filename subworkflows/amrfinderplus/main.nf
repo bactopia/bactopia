@@ -14,8 +14,8 @@
  * @input tuple(meta, nucleotide, protein, gff)
  * - `meta`: Groovy Map containing sample information
  * - `nucleotide`: Assembled contigs in FASTA format for AMR gene detection
- * - `protein`: Optional protein sequences in FASTA format
- * - `gff`: Optional GFF3 annotation file
+ * - `protein`: Optional protein sequences in FASTA format (Path?)
+ * - `gff`: Optional GFF3 annotation file (Path?)
  *
  * @input db
  * Path to the AMRFinderPlus database directory containing reference data for AMR gene detection.
@@ -37,7 +37,7 @@ include { gather            } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:
-    fasta: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
+    fasta: Channel<Tuple<Map, Path, Path?, Path?>>
     db: Path
 
     main:

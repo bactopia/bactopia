@@ -54,7 +54,7 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
     GAMMA(
-        BACTOPIATOOL_INIT.out.samples,
+        BACTOPIATOOL_INIT.out.assembly,
         params.gamma_db
     )
 

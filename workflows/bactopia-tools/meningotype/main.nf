@@ -51,7 +51,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    MENINGOTYPE(BACTOPIATOOL_INIT.out.samples)
+    MENINGOTYPE(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(MENINGOTYPE.out.results)

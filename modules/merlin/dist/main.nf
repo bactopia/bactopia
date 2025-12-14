@@ -11,10 +11,13 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic
  * @citation mash
  *
- * @input tuple(meta, query, reads)
+ * @input tuple(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `query`: Assembled contigs in FASTA format
- * - `reads`: Paired-end reads in FASTQ format
+ * - `fna`: Assembled contigs in FASTA format
+ * - `r1`: Illumina R1 reads (paired-end) or null
+ * - `r2`: Illumina R2 reads (paired-end) or null
+ * - `se`: Single-end Illumina reads or null
+ * - `lr`: Long reads (ONT/PacBio) or null
  *
  * @input reference
  * The reference Mash database to screen against
@@ -52,31 +55,34 @@ process MERLIN_DIST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, query, reads) : Tuple<Map, Set<Path>, Set<Path>>
-    reference             : Path
+    (_meta, fna, r1, r2, se, lr) : Tuple<Map, Path, Path?, Path?, Path?, Path?>
+    reference                    : Path
 
     stage:
-    stageAs 'inputs/*', query
-    stageAs 'inputs/*', reads
+    stageAs 'fna/*', fna
+    stageAs 'reads/r1/*', r1
+    stageAs 'reads/r2/*', r2
+    stageAs 'reads/se/*', se
+    stageAs 'reads/lr/*', lr
 
     output:
     dist               = tuple(meta, files("*.txt"))
-    escherichia        = tuple(meta, query, file("escherichia.genus", optional: true))
-    escherichia_fq     = tuple(meta, reads, file("escherichia.genus", optional: true))
-    escherichia_fna_fq = tuple(meta, query, reads, file("escherichia.genus", optional: true))
-    haemophilus        = tuple(meta, query, file("haemophilus.genus", optional: true))
-    klebsiella         = tuple(meta, query, file("klebsiella.genus", optional: true))
-    legionella         = tuple(meta, query, file("legionella.genus", optional: true))
-    listeria           = tuple(meta, query, file("listeria.genus", optional: true))
-    mycobacterium      = tuple(meta, query, file("mycobacterium.genus", optional: true))
-    mycobacterium_fq   = tuple(meta, reads, file("mycobacterium.genus", optional: true))
-    neisseria          = tuple(meta, query, file("neisseria.genus", optional: true))
-    pseudomonas        = tuple(meta, query, file("pseudomonas.genus", optional: true))
-    salmonella         = tuple(meta, query, file("salmonella.genus", optional: true))
-    salmonella_fq      = tuple(meta, reads, file("salmonella.genus", optional: true))
-    staphylococcus     = tuple(meta, query, file("staphylococcus.genus", optional: true))
-    streptococcus      = tuple(meta, query, file("streptococcus.genus", optional: true))
-    streptococcus_fq   = tuple(meta, reads, file("streptococcus.genus", optional: true))
+    escherichia        = tuple(meta, fna, file("escherichia.genus", optional: true))
+    escherichia_fq     = tuple(meta, r1, r2, se, lr, file("escherichia.genus", optional: true))
+    escherichia_fna_fq = tuple(meta, fna, r1, r2, se, lr, file("escherichia.genus", optional: true))
+    haemophilus        = tuple(meta, fna, file("haemophilus.genus", optional: true))
+    klebsiella         = tuple(meta, fna, file("klebsiella.genus", optional: true))
+    legionella         = tuple(meta, fna, file("legionella.genus", optional: true))
+    listeria           = tuple(meta, fna, file("listeria.genus", optional: true))
+    mycobacterium      = tuple(meta, fna, file("mycobacterium.genus", optional: true))
+    mycobacterium_fq   = tuple(meta, r1, r2, se, lr, file("mycobacterium.genus", optional: true))
+    neisseria          = tuple(meta, fna, file("neisseria.genus", optional: true))
+    pseudomonas        = tuple(meta, fna, file("pseudomonas.genus", optional: true))
+    salmonella         = tuple(meta, fna, file("salmonella.genus", optional: true))
+    salmonella_fq      = tuple(meta, r1, r2, se, lr, file("salmonella.genus", optional: true))
+    staphylococcus     = tuple(meta, fna, file("staphylococcus.genus", optional: true))
+    streptococcus      = tuple(meta, fna, file("streptococcus.genus", optional: true))
+    streptococcus_fq   = tuple(meta, r1, r2, se, lr, file("streptococcus.genus", optional: true))
     genus              = tuple(meta, files("*.genus", optional: true))
     logs               = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs            = tuple(meta, files(".command.*"))
@@ -110,7 +116,7 @@ process MERLIN_DIST {
         -p ${task.cpus} \\
         ${task.ext.args} \\
         ${reference_name} \\
-        ${query} | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
+        ${fna} | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
     # Extract genus with hits
     declare -a GENUS=(

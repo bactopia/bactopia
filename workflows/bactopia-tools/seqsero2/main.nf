@@ -53,7 +53,7 @@ workflow {
 
     // Execute subworkflows
     BACTOPIATOOL_INIT()
-    SEQSERO2(BACTOPIATOOL_INIT.out.samples)
+    SEQSERO2(BACTOPIATOOL_INIT.out.assembly)
 
     // Collect outputs
     ch_results = ch_results.mix(SEQSERO2.out.results)

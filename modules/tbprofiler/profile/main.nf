@@ -5,14 +5,20 @@
  * data for drug resistance and lineage information by aligning reads to a reference genome and identifying
  * specific variants.
  *
+ * Uses explicit positional tuple slots for reads:
+ * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords tuberculosis, mycobacterium, drug resistance, amr, typing, variant calling
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation tbprofiler
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: FASTQ reads (single or paired-end)
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output bam      Aligned BAM file
  * @output csv      Results in CSV format
@@ -33,7 +39,7 @@ process TBPROFILER_PROFILE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
 
     output:
     bam      = tuple(meta, files("bam/*.bam"))
@@ -56,8 +62,17 @@ process TBPROFILER_PROFILE {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-    def input_reads = meta.single_end ? "--read1 ${reads.toList()[0]}" : "--read1 ${reads.toList()[0]} --read2 ${reads.toList()[1]}"
-    def platform = meta.runtype == "ont" ? "--platform nanopore" : "--platform illumina"
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    has_lr = lr != null
+    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Build read inputs and platform for tb-profiler
+    def input_reads = has_lr ? "--read1 ${lr}" : (meta.single_end ? "--read1 ${se}" : "--read1 ${r1} --read2 ${r2}")
+    def platform = has_lr ? "--platform nanopore" : "--platform illumina"
     """
     # Copy database to working directory
     mkdir -p database
