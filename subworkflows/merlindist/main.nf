@@ -1,27 +1,48 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Identify species from assembly and read data using Mash distances.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow performs rapid species identification using [Mash](https://github.com/marbl/Mash)
+ * distance calculations against a reference database. It is a core component of the MERLIN
+ * (MinER assisted species-specific bactopia tool seLectIoN) pipeline, responsible for determining
+ * which species-specific typing tools should be run based on the detected organism. The workflow
+ * outputs channels filtered by detected genera for downstream species-specific analysis.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords species, identification, mash, distance, classification, taxonomy
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
+ * @citation mash
  *
- * @modules csvtk_concat, merlin_dist, mash_dist
+ * @modules merlin_dist
  *
- * @input seqs
- * Channel containing seqs data
+ * @input tuple(meta, assembly, reads)
+ * - `meta`: Groovy Map containing sample information
+ * - `assembly`: Assembled contigs in FASTA format for species identification
+ * - `reads`: Sequencing reads for species-specific analysis tools
  *
- * @input reference
- * Channel containing reference data
+ * @input mash_db
+ * Mash sketch database for rapid species identification
  *
- * @output dist        Dist
- * @output merged_dist Merged Dist
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output dist                Mash distance results showing top species matches
+ * @output escherichia         Samples identified as Escherichia/Shigella with assembly data
+ * @output escherichia_fq      Samples identified as Escherichia/Shigella with read data
+ * @output escherichia_fna_fq  Samples identified as Escherichia/Shigella with both assembly and read data
+ * @output haemophilus         Samples identified as Haemophilus with assembly data
+ * @output klebsiella          Samples identified as Klebsiella with assembly data
+ * @output legionella          Samples identified as Legionella with assembly data
+ * @output listeria            Samples identified as Listeria with assembly data
+ * @output mycobacterium       Samples identified as Mycobacterium with assembly data
+ * @output mycobacterium_fq    Samples identified as Mycobacterium with read data
+ * @output neisseria           Samples identified as Neisseria with assembly data
+ * @output pseudomonas         Samples identified as Pseudomonas with assembly data
+ * @output salmonella          Samples identified as Salmonella with assembly data
+ * @output salmonella_fq       Samples identified as Salmonella with read data
+ * @output staphylococcus      Samples identified as Staphylococcus with assembly data
+ * @output streptococcus       Samples identified as Streptococcus with assembly data
+ * @output streptococcus_fq    Samples identified as Streptococcus with read data
+ * @output results             Aggregated results channel containing all output files
+ * @output logs                Aggregated logs channel containing all execution logs
+ * @output nf_logs             Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions            Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

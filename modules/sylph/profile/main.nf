@@ -8,7 +8,7 @@
  * @status stable
  * @keywords metagenomics, profiling, taxonomy, abundance, ani, sylph
  * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
- * @citation sylph_profile
+ * @citation sylph
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information

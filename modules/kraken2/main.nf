@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, contamination, scrubbing, k-mer, lca
- * @tags complexity:high input-type:multiple output-type:multiple features:database-dependent,conditional-logic
+ * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
  * @citation kraken2
  *
  * @note Database Required

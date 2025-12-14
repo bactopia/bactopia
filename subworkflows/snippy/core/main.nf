@@ -1,24 +1,41 @@
 /**
- * Mass screening of contigs for antimicrobial and virulence genes.
+ * Generate core-genome SNP alignment from per-sample Snippy outputs.
  *
- * This subworkflow orchestrates the execution of abricate components.
+ * This subworkflow aggregates individual Snippy variant calls to produce a core-genome
+ * alignment using [snippy-core](https://github.com/tseemann/snippy). It identifies core
+ * SNPs present across all samples, generates a clean alignment suitable for phylogenetic
+ * analysis, and calculates pairwise SNP distances using snp-dists. The output can be
+ * used directly with tree-building tools like IQ-TREE, RAxML, or Gubbins.
  *
  * @status stable
- * @keywords bacteria, fasta, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
- * @citation abricate
+ * @keywords variant calling, core genome, snp, alignment, phylogenetics
+ * @tags complexity:moderate input-type:multiple output-type:multiple
+ * @citation snippy, snpdists
  *
  * @subworkflows snpdists
- * @modules snippy_core as snippy_core_module
+ * @modules snippy_core
  *
  * @input alignments
- * Channel containing alignments data
+ * Channel containing per-sample aligned FASTA files and VCFs from Snippy runs
  *
  * @input reference
- * Channel containing reference data
+ * Reference genome in GenBank or FASTA format used for variant calling
  *
  * @input mask
- * Channel containing mask data
+ * Optional BED file of regions to mask from the core alignment (e.g., recombinant regions, repeat regions)
+ *
+ * @output aln              Core SNP alignment in FASTA format (polymorphic sites only)
+ * @output full_aln         Full core alignment including monomorphic sites
+ * @output clean_full_aln   Cleaned full alignment with constant sites for phylogenetic inference
+ * @output tab              Core SNPs in TAB format
+ * @output vcf              Core SNPs in VCF format
+ * @output txt              Core summary statistics (number of SNPs, core genome size)
+ * @output samples          List of samples included in the core alignment
+ * @output tsv              Pairwise SNP distance matrix from snp-dists
+ * @output results          Aggregated results channel containing all output files
+ * @output logs             Aggregated logs channel containing all execution logs
+ * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions         Aggregated version information from all executed tools
  */
 nextflow.preview.types = true
 

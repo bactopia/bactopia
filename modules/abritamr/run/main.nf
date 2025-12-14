@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords bacteria, assembly, fasta, antimicrobial resistance, nata, amrfinderplus
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic
+ * @tags complexity:moderate input-type:single output-type:multiple features:archive-output,compression,conditional-logic
  * @citation abritamr
  *
  * @input tuple(meta, assembly)

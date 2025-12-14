@@ -99,7 +99,7 @@ When working with this codebase:
 
 ### Key Patterns
 
-**Module inputs**: Always `Tuple<Map, Set<Path>>`
+**Module inputs**: Typically `Tuple<Map, Path>` or `Tuple<Map, Set<Path>>` depending on input requirements
 **Subworkflow outputs**: Always emit 4 channels (results, logs, nf_logs, versions)
 **Optional parameters**: Use EMPTY_* files (temporary workaround)
 

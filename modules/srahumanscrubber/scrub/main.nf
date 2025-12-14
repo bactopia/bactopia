@@ -8,7 +8,7 @@
  * @status stable
  * @keywords human, contamination, scrubber, decontamination, ncbi, sra
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
- * @citation srahumanscrubber_scrub
+ * @citation srahumanscrubber
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information

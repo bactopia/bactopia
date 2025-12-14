@@ -1,14 +1,22 @@
 /**
- * Annotation of bacterial genomes (isolates, MAGs) and plasmids.
+ * Download the Bakta annotation database.
  *
- * This process executes bakta_download to perform analysis
+ * Fetches the pre-compiled database required by [Bakta](https://github.com/oschwengers/bakta)
+ * for genome annotation. The database contains UniProt clusters, AMR genes, and other
+ * reference data needed for comprehensive bacterial genome annotation.
  *
  * @status stable
- * @keywords annotation, fasta, bacteria
- * @tags complexity:moderate input-type:single output-type:multiple features:archive-output, compression, conditional-logic, resource-download
- * @citation bakta_download
- * @output db         A database for Bakta
- * @output db_tarball Db Tarball
+ * @keywords bacteria, database, download, annotation, bakta, setup
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,archive-output,compression,resource-download
+ * @citation bakta
+ *
+ * @note Internet & Storage Required
+ * This process requires an active internet connection and significant disk space
+ * to store the database files. The 'light' database is ~1.5GB, while the 'full'
+ * database is ~30GB uncompressed.
+ *
+ * @output db         The Bakta database directory containing annotation reference data
+ * @output db_tarball A compressed tarball of the database (if requested via parameters)
  * @output logs       Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true

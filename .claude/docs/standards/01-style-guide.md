@@ -58,7 +58,7 @@ For individual processes/modules that execute tools:
 - **complexity**: `simple`, `moderate`, or `complex`
 - **input-type**: `single` or `multiple`
 - **output-type**: `single` or `multiple`
-- **features**: Comma-separated list of applicable features:
+- **features**: Comma-separated list (NO SPACES after commas) of applicable features:
   - `database-dependent`: Requires external database
   - `path-workarounds`: Uses EMPTY_* files for optional parameters
   - `conditional-input`: Accepts optional inputs
@@ -66,9 +66,13 @@ For individual processes/modules that execute tools:
   - `compression`: Handles file compression/decompression
   - `archive-output`: Creates compressed archives
   - `resource-download`: Downloads external resources
+  - `internet-access`: Requires internet connection for downloads
+  - `alternative-execution`: Multiple tool options (e.g., assembler can use shovill, dragonflye, unicycler)
   - `filtering`: Filters input data
   - `custom-outputs`: Non-standard output patterns
   - `aggregation`: Combines multiple results
+
+**Example**: `features:database-dependent,conditional-logic,compression` (NOT `features:database-dependent, conditional-logic, compression`)
 
 ## Subworkflow Template
 

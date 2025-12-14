@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords genomics, virus, phage, prophage, bacteriophage, identification, annotation
- * @tags complexity:complex input-type:single output-type:multiple
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation phispy
  *
  * @input tuple(meta, gbk)

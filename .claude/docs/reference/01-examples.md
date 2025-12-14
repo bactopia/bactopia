@@ -112,7 +112,7 @@ This section provides detailed examples of different component types in Bactopia
  * Perform pangenome analysis with optional core-genome phylogeny.
  *
  * This subworkflow creates a pangenome from GFF3 annotation files using one of three
- * tools: PIRATE (default), Roary, or Panaroo. It generates core-genome alignments
+ * tools: [Panaroo](https://github.com/gtonkinhill/panaroo) (default), PIRATE, or Roary. It generates core-genome alignments
  * and gene presence/absence matrices, followed by SNP distance calculations using
  * snp-dists. The workflow conditionally executes the selected pangenome tool based
  * on Boolean parameters.
@@ -131,7 +131,7 @@ This section provides detailed examples of different component types in Bactopia
  * about the sample and a set of GFF3 files representing the annotation.
  *
  * @input use_pirate
- * Use PIRATE for pangenome analysis (default). When true, executes PIRATE
+ * Use PIRATE for pangenome analysis instead of Panaroo. When true, executes PIRATE
  * which is suitable for highly diverse datasets.
  *
  * @input use_roary
@@ -206,11 +206,34 @@ This section provides detailed examples of different component types in Bactopia
 
 ## Common Patterns
 
-### Input Pattern for Modules
+### Input Patterns for Modules
+
+**Standard Pattern** (recommended for most cases):
 ```groovy
+// Standard module input - uses Set<Path> for flexibility
 input:
 (_meta, assembly): Tuple<Map, Set<Path>>
 ```
+
+**When to use each type**:
+- **`Tuple<Map, Set<Path>>`** (Standard): Use for most inputs. The `Set<Path>` type handles both single files and multiple files, and works with `files()` output declarations.
+- **`Tuple<Map, Path>`** (Single file only): Use only when you need exactly one file and want strict type enforcement. Works with `file()` output declarations.
+
+```groovy
+// Standard pattern - handles single or multiple files
+input:
+(_meta, assembly): Tuple<Map, Set<Path>>
+
+// Strict single-file pattern - rarely needed
+input:
+(_meta, reference): Tuple<Map, Path>
+
+// Multiple distinct inputs (e.g., reads + extra files)
+input:
+(_meta, reads, extra): Tuple<Map, Set<Path>, Set<Path>>
+```
+
+**Important**: The standard input type for Bactopia modules is `Tuple<Map, Set<Path>>`, not `Tuple<Map, Path>`. This aligns with the `files()` output pattern used throughout the codebase.
 
 ### Standard Output Pattern for Modules
 ```groovy

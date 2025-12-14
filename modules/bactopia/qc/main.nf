@@ -11,7 +11,7 @@
  * @status stable
  * @keywords fastq, qc, adapter removal, error correction, subsampling, bbduk, lighter, porechop, nanoq, fastqc
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,compression,path-workarounds
- * @citation bbmap, fastp, fastqc, fastq-scan, lighter, nanoplot, nanoq, porechop, rasusa
+ * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *

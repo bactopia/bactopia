@@ -8,7 +8,7 @@
  * @status stable
  * @keywords ncbi, download, genome, assembly, fasta, genbank, utility
  * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download,conditional-logic
- * @citation ncbi_genome_download
+ * @citation ncbigenomedownload
  *
  * @input accessions
  * A path to a text file containing a list of NCBI Assembly accession numbers (one per line)

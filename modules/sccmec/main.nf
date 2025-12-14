@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords sccmec, staphylococcus aureus, mrsa, antimicrobial resistance, typing
- * @tags complexity:moderate input-type:single output-type:multiple
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation sccmec
  *
  * @input tuple(meta, assembly)

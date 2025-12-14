@@ -9,8 +9,8 @@
  *
  * @status stable
  * @keywords fastq, validation, sra, ena, download, merging, simulation, art, ncbi
- * @tags complexity:high input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
- * @citation bactopia, art, fastq-dl, fastq-scan, ncbi-genome-download, pigz
+ * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
+ * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
  * @input tuple(meta, r1, r2, extra)
  * - `meta`: Groovy Map containing sample information

@@ -22,7 +22,7 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
 ### 1.2 Analyze `main.nf` (Included Modules)
 - Read the module code to understand the content of the files listed in the subworkflow's `emit` block.
 
-### 1.3 Consult `citations.yml`
+### 1.3 Consult `data/citations.yml`
 - Retrieve the official Tool Name, Citation Key (`@citation`), and Source Code Repository URL.
 
 ## 2. Style & Formatting Standards
@@ -69,7 +69,7 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
 
 ## 3. Information Sources
 - **Primary:** Subworkflow `main.nf` (for logic/flow) and Module `main.nf` (for file details).
-- **Secondary:** `citations.yml` (for official repository links).
+- **Secondary:** `data/citations.yml` (for official repository links).
 - **Reference:** Bactopia documentation (internal) and Tool Repositories (external).
 
 ## 4. Examples of Successfully Updated Subworkflows
@@ -276,53 +276,125 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
 - Shows comprehensive documentation of all outputs
 - Vertical alignment in output descriptions for readability
 
-### 4.6 Assembler (Complex with Tool Selection)
+### 4.6 Assembler (Complex with Automatic Tool Selection)
 ```groovy
 /**
- * Assemble bacterial genomes from trimmed reads.
+ * Assemble bacterial genomes using automated assembler selection.
  *
- * This subworkflow assembles bacterial genomes using one of three assemblers:
- * [Shovill](https://github.com/tseemann/shovill) (default),
- * [SPAdes](https://github.com/ablab/spades), or
- * [SKESA](https://github.com/ncbi/SKESA). It performs comprehensive assembly
- * including error correction, assembly, and assembly polishing/assessment.
+ * This subworkflow automatically selects the optimal assembly strategy based on input read types:
+ * - **Short Paired-End Reads:** Uses [Shovill](https://github.com/tseemann/shovill) (SKESA/SPAdes wrapper)
+ * - **Short Single-End Reads:** Uses [Shovill](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
+ * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper)
+ * - **Hybrid Assembly:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye with short-read polishing
+ *
+ * The workflow performs individual assemblies per sample and aggregates assembly statistics
+ * across all samples using [assembly-scan](https://github.com/rpetit3/assembly-scan) for comprehensive quality assessment.
  *
  * @status stable
- * @keywords assembly, bacterial, genome, reads, spades, shovill, skesa
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic
- * @citation shovill, spades, skesa, quast
+ * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, alternative-execution
+ * @citation any2fasta, assembly-scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill-se, skesa, spades, unicycler, velvet
  *
- * @modules shovill, spades, skesa, quast
+ * @modules bactopia_assembler, csvtk_concat
  *
- * @input tuple(meta, reads)
+ * @input tuple(meta, fq, extra)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end reads in FASTQ format
+ * - `fq`: Primary reads (Illumina paired-end or Nanopore)
+ * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
  *
- * @input use_spades
- * Boolean flag to use SPAdes for assembly
- *
- * @input use_skesa
- * Boolean flag to use SKESA for assembly
- *
- * @output assembly      Assembled contigs in FASTA format
- * @output assembly_gz   Compressed assembled contigs in FASTA format
- * @output stats         Assembly statistics in TSV format
- * @output results       Aggregated results channel containing all output files
- * @output logs          Aggregated logs channel containing all execution logs
- * @output nf_logs       Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions      Aggregated version information from all executed tools
+ * @output fna        Assembled contigs in FASTA format
+ * @output fna_fq     Tuple containing assembly and primary reads for downstream analysis
+ * @output tsv        Per-sample tab-delimited assembly statistics (N50, length, coverage)
+ * @output merged_tsv Consolidated assembly statistics report across all samples
+ * @output results    Aggregated results channel containing all output files
+ * @output logs       Aggregated logs channel containing all execution logs
+ * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
+ * @output versions   Aggregated version information from all executed tools
  */
 ```
 **Key Features:**
-- Three assembler options with Shovill as default
-- Multiple Boolean parameters for tool selection
-- Shows conditional logic pattern for tool choice
+- Automatic assembler selection based on input read type (not Boolean flags)
+- Supports short reads (Shovill), long reads (Dragonflye), and hybrid assembly (Unicycler)
+- Uses `alternative-execution` feature tag for multiple tool options
+- Three-element input tuple with optional extra reads for hybrid assembly
 
 ## 5. What to Avoid
 - **Do not** reference `module.config` or `schema.json`.
 - **Do not** include parameter defaults or version numbers in the text.
 - **Do not** count non-Channel parameters (Strings, Booleans, Paths) toward the `input-type` count.
 - **Do not** use `http` links; ensure SSL/TLS is used (`https`).
+
+## 6. Common Documentation Errors to Avoid
+
+### 6.1 Copy-Paste Errors
+When creating documentation for new subworkflows, ensure you update ALL fields. Common mistakes include:
+- **Wrong short description**: Leaving the original tool's description (e.g., "Mass screening of contigs for antimicrobial resistance" when documenting a variant caller)
+- **Wrong long description**: Referencing the wrong tool or its functionality
+- **Wrong citation**: Using the template's citation key instead of the correct one from `data/citations.yml`
+- **Generic output descriptions**: Single-word descriptions like "Vcf" or "Bam" instead of meaningful descriptions
+
+**Bad Example** (copy-paste error):
+```groovy
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ * ...
+ * @citation abricate
+ * ...
+ * @output vcf  Vcf
+ */
+```
+
+**Correct Example** (properly documented snippy):
+
+```groovy
+/**
+ * Call variants against a reference genome using Snippy.
+ *
+ * This subworkflow performs rapid haploid variant calling from bacterial sequence reads
+ * using [Snippy](https://github.com/tseemann/snippy). It maps reads to a reference genome,
+ * identifies SNPs and indels, and generates consensus sequences.
+ * ...
+ * @citation snippy
+ * ...
+ * @output vcf  Filtered variant calls in VCF format
+ */
+```
+
+### 6.2 Legacy Comments
+Remove any old-style comment headers before the GroovyDoc block:
+
+```groovy
+// BAD: Legacy comment that should be removed
+//
+// busco - Assembly completeness based on evolutionarily informed expectations
+//
+
+/**
+ * Assess genome assembly completeness using BUSCO.
+ ...
+```
+
+Should be:
+
+```groovy
+/**
+ * Assess genome assembly completeness using BUSCO.
+ ...
+```
+
+### 6.3 Citation Verification
+**Always verify citations against `data/citations.yml`** before finalizing documentation:
+1. Open `data/citations.yml`
+2. Search for the tool name under the `tools:` section
+3. Use the exact key as your `@citation` value
+4. For multiple tools, use comma-separated format: `@citation tool1, tool2`
+
+### 6.4 Formatting Issues
+- **No extra blank lines** between the closing `*/` and `nextflow.preview.types = true`
+- **Consistent indentation** (4 spaces) within the GroovyDoc block
+- **Vertical alignment** of output descriptions at the same column
 
 ## See Also
 - [Style Guide](01-style-guide.md) - For general GroovyDoc templates and formatting

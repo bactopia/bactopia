@@ -8,7 +8,10 @@
  * @status stable
  * @keywords human, database, scrubber, ncbi, download
  * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download
- * @citation srahumanscrubber_initdb
+ * @citation srahumanscrubber
+ *
+ * @note Internet Required
+ * This process requires an active internet connection to fetch the database from NCBI FTP.
  *
  * @output db   The initialized SRA Human Scrubber database files
  * @output logs Optional software execution logs containing warnings/errors

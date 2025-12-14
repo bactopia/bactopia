@@ -16,7 +16,7 @@
  * - `seqs`: Assembled contigs in FASTA format
  *
  * @output tree      The final phylogenetic tree in Newick format (*.dnd)
- * @output matrix    The pairwise distance matrix used to build the tree (*.tsv)
+ * @output tsv       The pairwise distance matrix used to build the tree (*.tsv)
  * @output sketches  Directory containing the individual Mash sketches (optional)
  * @output logs      Optional software execution logs containing warnings/errors
  * @output nf_logs   Nextflow execution scripts and logs for debugging

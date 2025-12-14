@@ -6,7 +6,7 @@
  *
  * @status stable
  * @keywords bacteria, database, antimicrobial resistance, update, download, ncbi
- * @tags complexity:simple input-type:none output-type:single features:internet-access, archive-output, compression, database-dependent
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,archive-output,compression,database-dependent
  * @citation amrfinderplus
  *
  * @note Internal Maintenance

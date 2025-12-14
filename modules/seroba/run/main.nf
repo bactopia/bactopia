@@ -6,15 +6,18 @@
  *
  * @status stable
  * @keywords streptococcus pneumoniae, serotype, k-mer, prediction, seroba
- * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
- * @citation seroba_run
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
+ * @citation seroba
+ *
+ * @note Database Required
+ * Requires the SeroBA database to be set up using `seroba createDBs` before running.
  *
  * @input tuple(meta, reads)
  * - `meta`: Groovy Map containing sample information
  * - `reads`: Paired-end FASTQ files
  *
- * @output tsv      SeroBA prediction results
- * @output txt      Detailed serogroup information
+ * @output tsv      Serotype prediction results with predicted serotype and confidence in TSV format
+ * @output txt      Detailed information about the predicted serogroup and allele matches
  * @output logs     Optional software execution logs containing warnings/errors
  * @output nf_logs  Nextflow execution scripts and logs for debugging
  * @output versions A YAML formatted file with software versions

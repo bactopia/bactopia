@@ -62,7 +62,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
   - Single tool execution
   - Straightforward input → output mapping
   - Minimal parameter handling
-- **Examples**: mlst, clermontyping, emmtyper
+- **Examples**: mlst, clermontyping, sistr
 
 #### Moderate
 - **Definition**: Multiple steps, basic conditional logic, or database dependency
@@ -70,7 +70,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
   - Database download/extraction
   - File format detection and handling
   - Multiple output formats
-- **Examples**: quast, kraken2, fastani
+- **Examples**: quast, fastani, emmtyper
 
 #### Complex
 - **Definition**: Multiple optional inputs, complex conditional logic, archive creation
@@ -107,12 +107,17 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 ### 3.4 Feature Tags
 
+**Important**: Feature values must be comma-separated WITHOUT spaces (e.g., `features:database-dependent,conditional-logic`, NOT `features:database-dependent, conditional-logic`)
+
 #### Technical Features
 - **database-dependent**: Requires external database
 - **conditional-logic**: Contains if/else statements or complex conditional processing
 - **archive-output**: Creates compressed archives (tar/zip)
 - **compression**: Handles file compression/decompression
 - **path-workarounds**: Uses EMPTY_* files for optional parameters
+- **internet-access**: Requires internet connection for downloads
+- **alternative-execution**: Multiple tool options (e.g., assembler can use shovill, dragonflye, unicycler)
+- **resource-download**: Downloads external databases, datasets, or files
 
 #### Processing Features
 - **filtering**: Filters input data based on criteria
@@ -356,6 +361,35 @@ if (task.ext.wf == "scrubber" || task.ext.wf == "teton") {
 Some tools are split across multiple modules (e.g., bakta/download, bakta/run):
 - Each module should be fully documented
 - Cross-reference related modules in @note if helpful
+
+### 8.4 Utility/Setup Modules
+Some modules are used for setup, downloading, or internal maintenance tasks rather than sample processing. These modules may have non-standard output structures:
+
+**Examples**: `wget`, `ariba/getref`, `amrfinderplus/update`, `bakta/download`, `bactopia/datasets`
+
+**Characteristics**:
+- May not include `nf_logs` and `versions` as separate outputs (logs may be bundled in a subdirectory)
+- Often have `input-type:none` or `input-type:single` (for parameter-only inputs)
+- Typically include `features:resource-download,internet-access`
+- Output structure focuses on the downloaded/created resource rather than sample results
+
+**Example**:
+```groovy
+/**
+ * Download and index the latest AMRFinder+ database.
+ *
+ * @status stable
+ * @keywords bacteria, database, antimicrobial resistance, update, download, ncbi
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,archive-output,compression,database-dependent
+ * @citation amrfinderplus
+ *
+ * @note Internal Maintenance
+ * This process is primarily used internally by Bactopia to build and update the built-in datasets.
+ *
+ * @output db       A compressed tarball of the latest AMRFinder+ database
+ * @output logs     Optional software execution logs containing warnings/errors
+ */
+```
 
 ## 9. Quality Checklist
 

@@ -21,7 +21,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
   - Requires external database
   - Basic result aggregation
   - Multiple processing steps but linear flow
-- **Examples**: kraken2, quast, mlst
+- **Examples**: quast, mlst, emmtyper
 
 ### Complex
 - **Definition**: Orchestration of subworkflows, massive databases, or multiple distinct aggregation steps
@@ -29,9 +29,10 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
   - Coordinates multiple subworkflows/modules
   - Complex conditional logic
   - Multiple aggregation steps
-  - Large database requirements (e.g., Bakta)
+  - Large database requirements (e.g., Bakta, GTDB-Tk)
   - Intricate output management
-- **Examples**: prokka, pangenome, bactopia (main workflow)
+  - Multiple execution paths or alternative tools
+- **Examples**: prokka, pangenome, bactopia (main workflow), kraken2, assembler, gtdbtk
 
 ## Input-Type Logic
 
@@ -113,6 +114,16 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 #### resource-download
 - Downloads external databases, datasets, or files
 - **Key indicators**: Download steps, external resource fetching
+
+#### internet-access
+- Requires active internet connection during execution
+- **Key indicators**: External URLs, download commands (wget, curl)
+- Examples: gather (SRA download), amrfinderplus/update
+
+#### alternative-execution
+- Multiple tool options for the same task
+- **Key indicators**: Tool selection logic, alternative implementations
+- Examples: assembler (shovill/dragonflye/unicycler)
 
 #### filtering
 - Filters input data based on criteria

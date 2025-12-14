@@ -28,8 +28,6 @@
  * @output nf_logs     Nextflow execution scripts and logs for debugging
  * @output versions    Software version information
  */
-
-
 nextflow.preview.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'

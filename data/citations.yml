@@ -992,6 +992,13 @@ tools:
     cite: |
       Yoshida CE, Kruczkiewicz P, Laing CR, Lingohr EJ, Gannon VPJ, Nash JHE, Taboada EN [The Salmonella In Silico Typing Resource (SISTR): An Open Web-Accessible Tool for Rapidly Typing and Subtyping Draft Salmonella Genome Assemblies.](https://doi.org/10.1371/journal.pone.0147101) _PloS One_, 11(1), e0147101. (2016)
 
+  sizemeup:
+    name: sizemeup
+    link: https://github.com/rpetit3/sizemeup
+    description: A simple tool to retrieve the genome size for a given species name or tax ID
+    cite: |
+      Petit III RA [sizemeup: A simple tool to retrieve the genome size for a given species name or tax ID](https://github.com/rpetit3/sizemeup) (GitHub)
+
   skesa:
     name: SKESA
     link: https://github.com/ncbi/SKESA
@@ -1082,6 +1089,13 @@ tools:
     description: Clustering and Serotyping of Shigatoxin producing _E. coli_ (STEC) using genomic cluster specific markers
     cite: |
       Zhang X, Payne M, Kaur S, and Lan R [Improved Genomic Identification, Clustering, and Serotyping of Shiga Toxin-Producing Escherichia coli Using Cluster/Serotype-Specific Gene Markers.](https://doi.org/10.3389/fcimb.2021.772574) _Frontiers in Cellular and Infection Microbiology_, 11, 772574. (2021)
+
+  sylph:
+    name: Sylph
+    link: https://github.com/bluenote-1/sylph
+    description: Ultrafast taxonomic profiling and containment estimation for metagenomic data
+    cite: |
+      Shaw J, and Yu YW [Rapid species-level metagenome profiling and containment estimation with sylph.](https://doi.org/10.1038/s41587-024-02412-y) _Nature Biotechnology_ (2024)
 
   tbprofiler:
     name: TBProfiler

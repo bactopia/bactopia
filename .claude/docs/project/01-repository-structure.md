@@ -7,7 +7,7 @@ The Bactopia repository follows a well-organized three-tier architecture that se
 
 ```
 bactopia/
-├── .ai-context/               # AI context documentation (modular)
+├── .claude/                   # AI context documentation (modular)
 ├── .github/                   # Github Actions workflows and issue templates
 ├── .vscode/                   # Visual Studio Code settings and configurations
 ├── bin/                       # Helper scripts and utilities
@@ -35,22 +35,19 @@ bactopia/
 - **Purpose**: Individual process implementations that execute specific tools
 - **Structure**: Each tool has its own subdirectory
 - **Contents**:
-  - `main.nf` - Process definition
-  - `meta.yaml` - Module metadata
-  - `params.config` - Module-specific parameters
-  - `process.config` - Process resource configurations
+  - `main.nf` - Process definition with GroovyDoc documentation
+  - `module.config` - Module parameters and process configuration
   - `schema.json` - Parameter schema for validation
 - **Examples**: `abricate/`, `prokka/`, `kraken2/`
 
 ### `/subworkflows/` (Tier 2)
 - **Purpose**: Reusable workflow components that combine modules
 - **Categories**:
-  - `bactopia/` - Core pipeline functionality
-  - `utils/` - Helper workflows (BACTOPIA_INIT, BACTOPIATOOL_INIT)
+  - `bactopia/` - Core pipeline functionality (contains nested subworkflows)
+  - `utils/` - Helper workflows (contains nested subworkflows)
   - `{tool}/` - Tool-specific processing logic
 - **Contents**:
-  - `main.nf` - Subworkflow definition
-  - `meta.yaml` - Subworkflow metadata
+  - `main.nf` - Subworkflow definition with GroovyDoc documentation
 - **Key Requirement**: Must always emit 4 channels (results, logs, nf_logs, versions)
 
 ### `/workflows/` (Tier 1)
@@ -115,11 +112,13 @@ Results (4 channels: results, logs, nf_logs, versions)
 - Config: `nextflow.config`
 - Schema: `nextflow_schema.json`
 
-### Modules & Subworkflows
-- Primary file: `main.nf`
-- Metadata: `meta.yaml`
-- Configuration: `params.config`, `process.config`
-- Schema: `schema.json` (modules only)
+### Modules
+- Primary file: `main.nf` (includes GroovyDoc documentation)
+- Configuration: `module.config`
+- Schema: `schema.json`
+
+### Subworkflows
+- Primary file: `main.nf` (includes GroovyDoc documentation)
 
 ## Organization Patterns
 

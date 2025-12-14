@@ -1,19 +1,22 @@
 /**
- * Download and prepare database for Ariba analysis.
+ * Download and prepare reference databases for ARIBA analysis.
  *
- * This process executes ariba_getref to perform analysis
+ * Uses [ARIBA](https://github.com/sanger-pathogens/ariba) to fetch curated reference databases
+ * (e.g., CARD, ResFinder, VFDB, PlasmidFinder) and prepare them for local assembly-based
+ * gene detection. The database is indexed and packaged into a tarball for use with `ariba run`.
  *
  * @status stable
- * @keywords fastq, assembly, resistance, virulence
- * @tags complexity:moderate input-type:single output-type:single features:archive-output, compression, database-dependent, resource-download
- * @citation ariba_getref
+ * @keywords bacteria, database, download, antimicrobial resistance, virulence, ariba, setup
+ * @tags complexity:moderate input-type:single output-type:single features:internet-access,archive-output,compression,resource-download
+ * @citation ariba
  *
- * @note Requires external database to be available
+ * @note Internet Required
+ * This process requires an active internet connection to fetch the specified database.
  *
  * @input db_name
- * A database to setup up for Ariba
+ * Name of the database to download (e.g., 'card', 'resfinder', 'vfdb_core', 'plasmidfinder')
  *
- * @output db   An Ariba prepared database
+ * @output db   A compressed tarball containing the prepared ARIBA database
  * @output logs Optional software execution logs containing warnings/errors
  */
 nextflow.preview.types = true

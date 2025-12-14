@@ -8,7 +8,7 @@
  * @status stable
  * @keywords resistance, antimicrobial resistance, card, rgi, heatmap, visualization
  * @tags complexity:simple input-type:multiple output-type:multiple features:conditional-logic
- * @citation rgi_heatmap
+ * @citation rgi
  *
  * @input tuple(meta, json)
  * - `meta`: Groovy Map containing sample information

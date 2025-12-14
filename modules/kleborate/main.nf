@@ -14,7 +14,7 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output txt       A tab-delimited summary of the Kleborate results (genotype, resistance, virulence)
+ * @output tsv       A tab-delimited summary of the Kleborate results (genotype, resistance, virulence)
  * @output logs      Optional software execution logs containing warnings/errors
  * @output nf_logs   Nextflow execution scripts and logs for debugging
  * @output versions  A YAML formatted file with software versions

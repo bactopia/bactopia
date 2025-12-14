@@ -7,7 +7,7 @@
  * @status stable
  * @keywords tuberculosis, mycobacterium, drug resistance, collate, summary
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
- * @citation tbprofiler_collate
+ * @citation tbprofiler
  *
  * @input tuple(meta, json)
  * - `meta`: Groovy Map containing sample information

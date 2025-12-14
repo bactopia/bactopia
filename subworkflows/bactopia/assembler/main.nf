@@ -3,7 +3,7 @@
  *
  * This subworkflow automatically selects the optimal assembly strategy based on input read types:
  * - **Short Paired-End Reads:** Uses [Shovill](https://github.com/tseemann/shovill) (SKESA/SPAdes wrapper)
- * - **Short Single-End Reads:** Uses [Shovill](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
+ * - **Short Single-End Reads:** Uses [Shovill-SE](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
  * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper)
  * - **Hybrid Assembly:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye with short-read polishing
  *
@@ -12,7 +12,7 @@
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
- * @tags complexity:high input-type:single output-type:multiple features:aggregation, conditional-logic, alternative-execution
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, alternative-execution
  * @citation any2fasta, assembly-scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill-se, skesa, spades, unicycler, velvet
  *
  * @modules bactopia_assembler, csvtk_concat

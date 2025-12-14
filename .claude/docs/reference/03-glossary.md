@@ -51,6 +51,11 @@
 - Standardized templates for modules, subworkflows, and workflows
 
 ## M
+**module.config**
+- Combined configuration file for modules
+- Contains both parameter defaults and process settings
+- Replaces the previous separate `params.config` and `process.config` files
+
 **Meta Map**
 - Standardized metadata structure attached to all outputs
 - Required fields: `id`, `name`, `scope`, `output_dir`, `logs_dir`, `process_name`
@@ -118,7 +123,7 @@
 **Tuple<Map, Set<Path>>**
 - Multiple file output type
 - Used with `files()` output declaration
-- Standard input type for modules
+- Used for module inputs when multiple files are expected
 
 ## V
 **versions**

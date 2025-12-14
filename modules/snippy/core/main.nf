@@ -8,7 +8,7 @@
  * @status stable
  * @keywords snippy, core genome, alignment, phylogeny, snp, bacteria
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
- * @citation snippy_core
+ * @citation snippy
  *
  * @input tuple(meta, vcf, aligned_fa)
  * - `meta`: Groovy Map containing sample information

@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords pan-genome, orthologs, core genome, gene presence-absence, epidemiology, annotation
- * @tags complexity:high input-type:multiple output-type:multiple features:compression
+ * @tags complexity:complex input-type:multiple output-type:multiple features:compression
  * @citation pirate
  *
  * @input tuple(meta, gff)

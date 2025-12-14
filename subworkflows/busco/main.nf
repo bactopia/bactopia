@@ -1,7 +1,3 @@
-//
-// busco - Assembly completeness based on evolutionarily informed expectations
-// 
-
 /**
  * Assess genome assembly completeness using BUSCO.
  *

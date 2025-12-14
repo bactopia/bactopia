@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords phylogeny, tree, maximum likelihood, bootstrap, model selection, iqtree
- * @tags complexity:high input-type:single output-type:multiple features:model-selection,bootstrap
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation iqtree
  *
  * @input tuple(meta, alignment)

@@ -11,8 +11,8 @@
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
- * @tags complexity:high input-type:multiple output-type:multiple features:conditional-logic,alternative-execution
- * @citation any2fasta, assembly-scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill-se, skesa, spades, unicycler, velvet
+ * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,alternative-execution
+ * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
  *
  * @input tuple(meta, fq, extra)
  * - `meta`: Groovy Map containing sample information

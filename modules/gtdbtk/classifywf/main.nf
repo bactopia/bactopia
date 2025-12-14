@@ -7,8 +7,8 @@
  *
  * @status stable
  * @keywords taxonomy, classification, phylogeny, gtdb, bacteria, archaea, marker genes
- * @tags complexity:high input-type:multiple output-type:multiple features:database-dependent,conditional-logic
- * @citation gtdbtk
+ * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
+ * @citation gtdb_tk
  *
  * @note Database Required
  * Requires the massive GTDB-Tk database (~60GB+) to be available.
@@ -20,7 +20,8 @@
  * @input db
  * Path (or Set of paths) to the GTDB-Tk reference database
  *
- * @output tsv           The main classification summary file containing the taxonomic assignment
+ * @output bac_tsv       The bacterial classification summary file containing the taxonomic assignment
+ * @output ar_tsv        The archaeal classification summary file containing the taxonomic assignment
  * @output supplemental  Directory containing the reference tree, alignments, and detailed logs
  * @output logs          Optional software execution logs containing warnings/errors
  * @output nf_logs       Nextflow execution scripts and logs for debugging

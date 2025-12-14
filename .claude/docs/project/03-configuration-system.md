@@ -8,7 +8,7 @@ The Bactopia pipeline uses a hierarchical configuration system that allows setti
 Configuration values are inherited in the following order (highest to lowest priority):
 1. **Command line arguments** - Direct overrides at runtime
 2. **Workflow-specific config** - `{workflow}/nextflow.config`
-3. **Tool-specific params** - `{tool}/params.config`
+3. **Module config** - `{tool}/module.config`
 4. **Global params** - `conf/params.config`
 5. **Default values** - Hardcoded defaults (lowest)
 
@@ -46,7 +46,7 @@ Configuration values are inherited in the following order (highest to lowest pri
 ### Parameter Sources
 Parameters flow through multiple locations:
 1. **Global defaults** - `conf/params.config`
-2. **Tool defaults** - `{tool}/params.config`
+2. **Module defaults** - `{tool}/module.config`
 3. **Workflow validation** - `{workflow}/nextflow_schema.json`
 4. **Runtime overrides** - Command line arguments
 
@@ -69,9 +69,23 @@ Common parameter types used across the pipeline:
 
 Each module includes configuration files:
 
-### `process.config`
-Defines process-specific settings:
+### `module.config`
+Combined configuration file containing both parameters and process settings:
 ```groovy
+/*
+Bactopia Module Configuration
+
+Defines parameter defaults, container images, resource labels, and other settings
+for the process defined in this directory.
+*/
+
+params {
+    // Module parameters with descriptions
+    tool_option = "default_value"
+    tool_threshold = 80
+    tool_database = "default_db"
+}
+
 process {
     withName: 'MODULE_NAME' {
         // Arguments and options
@@ -81,24 +95,15 @@ process {
         ext.toolName = "bioconda::tool-name=1.0.0"
         ext.docker = "biocontainers/tool-name:1.0.0"
         ext.image = "https://depot.galaxyproject.org/singularity/tool-name:1.0.0"
+        ext.condaDir = "${params.condadir}"
 
         // Metadata
-        ext.wf = "workflow-name"
+        ext.wf = params.wf
         ext.scope = "sample" // or "run"
-        ext.subdir = "subdirectory"
+        ext.subdir = ""
+        ext.logs_subdir = ""
         ext.process_name = "tool-name"
     }
-}
-```
-
-### `params.config`
-Module-specific parameter defaults:
-```groovy
-params {
-    // Module parameters with descriptions
-    tool_option = "default_value"
-    tool_threshold = 80
-    tool_database = "default_db"
 }
 ```
 
@@ -148,8 +153,7 @@ includeConfig 'conf/profiles.config'
 includeConfig 'conf/params/bactopia-tools.config'
 
 // Include module configs
-includeConfig '../modules/{tool}/process.config'
-includeConfig '../modules/{tool}/params.config'
+includeConfig '../modules/{tool}/module.config'
 ```
 
 ## Configuration Best Practices

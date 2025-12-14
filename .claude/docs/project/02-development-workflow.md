@@ -15,15 +15,13 @@ The module is the basic building block that executes a specific tool.
    ```
 
 2. **Create required files**:
-   - `main.nf` - Process definition with tool execution logic
-   - `meta.yaml` - Module metadata (name, description, inputs/outputs)
-   - `params.config` - Tool-specific parameters with defaults
-   - `process.config` - Process configuration (resources, containers)
+   - `main.nf` - Process definition with GroovyDoc documentation
+   - `module.config` - Module parameters and process configuration
    - `schema.json` - Parameter validation schema
 
 3. **Key requirements**:
    - Include `nextflow.preview.types = true` at the top
-   - Define inputs as `Tuple<Map, Set<Path>>`
+   - Define inputs appropriately (`Tuple<Map, Path>` for single files, `Tuple<Map, Set<Path>>` for multiple)
    - Emit `logs`, `nf_logs`, and `versions` channels
    - Include version tracking in `versions.yml`
 
@@ -37,8 +35,7 @@ The subworkflow orchestrates one or more modules to provide higher-level functio
    ```
 
 2. **Create required files**:
-   - `main.nf` - Subworkflow definition
-   - `meta.yaml` - Subworkflow metadata
+   - `main.nf` - Subworkflow definition with GroovyDoc documentation
 
 3. **Key requirements**:
    - Include necessary modules/subworkflows
@@ -168,7 +165,7 @@ Before submitting a new tool:
 
 1. **Hard-coding paths** - Use relative paths and meta.output_dir
 2. **Skipping version tracking** - Always include versions.yml
-3. **Inconsistent typing** - Maintain Tuple<Map, Set<Path>> for inputs
+3. **Inconsistent typing** - Use consistent types across connected components
 4. **Missing standard channels** - Subworkflows must emit 4 channels
 5. **Breaking the 3-tier architecture** - Don't include modules directly in workflows
 
