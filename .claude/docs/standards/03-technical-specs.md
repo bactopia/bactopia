@@ -117,15 +117,65 @@ Subworkflows must always emit these four standard channels.
 
 ## Meta Map Structure
 
-Standard meta fields used across all components:
+The meta map is a Map object that carries sample metadata through the pipeline. It is passed as the first element of input/output tuples and contains both input-derived and runtime-constructed properties.
+
+### Complete Schema
+
+#### Input-Derived Properties
+
+These properties come from sample sheets or input initialization:
+
+| Property | Type | Description | Example |
+|----------|------|-------------|---------|
+| `id` | String | Unique sample identifier | `"sample001"` |
+| `name` | String | Sample name (often same as id) | `"sample001"` |
+| `runtype` | String | Read type classification | `"paired-end"`, `"single-end"`, `"ont"`, `"hybrid"` |
+| `single_end` | Boolean | True if single-end reads | `true`, `false` |
+| `genome_size` | Integer | Estimated genome size in bp | `5000000` |
+| `species` | String | Species name for analysis | `"Staphylococcus aureus"` |
+
+#### Runtime-Constructed Properties
+
+These properties are set within module scripts based on `task.ext` configuration:
+
+| Property | Type | Description | Set From |
+|----------|------|-------------|----------|
+| `id` | String | Process-specific identifier | `"${prefix}-${task.process}"` |
+| `name` | String | Sample name prefix | `task.ext.prefix ?: _meta.name` |
+| `scope` | String | Output scope | `task.ext.scope` |
+| `output_dir` | String | Output directory path | Constructed from task.ext |
+| `logs_dir` | String | Logs directory path | Constructed from task.ext |
+| `process_name` | String | Current process name | `task.ext.process_name` |
+
+#### Module-Specific Properties
+
+Some modules add additional properties:
+
+| Property | Type | Modules | Description |
+|----------|------|---------|-------------|
+| `is_compressed` | Boolean | qc, gather | Input files are gzipped |
+| `original_runtype` | String | qc, gather | Runtype before normalization |
+| `teton_reads` | Boolean | teton workflow | Using Teton read processing |
+
+### Standard Meta Construction Pattern
 
 ```groovy
+script:
+def prefix = task.ext.prefix ?: "${_meta.name}"
+def meta = [:]
 meta.id = "${prefix}-${task.process}"
 meta.name = prefix
-meta.scope = task.ext.scope          // 'sample' or 'run'
-meta.output_dir = "..."               // Used in output blocks
-meta.logs_dir = "..."                 // Used in output blocks
+meta.scope = task.ext.scope
 meta.process_name = task.ext.process_name
+
+// Workflow-specific output paths
+if (task.ext.wf == "teton") {
+    meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+} else {
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+}
 ```
 
 ### Output Directory Patterns
@@ -140,6 +190,24 @@ meta.output_dir = "${task.ext.process_name}"
 meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
 ```
 
+### Scope Values
+
+| Scope | Description | Output Pattern |
+|-------|-------------|----------------|
+| `sample` | Per-sample outputs | `{sample}/tools/{process}/{subdir}/` |
+| `run` | Aggregated outputs | `{process}/` |
+
+### Runtype Values
+
+| Runtype | Description |
+|---------|-------------|
+| `paired-end` | Illumina paired-end reads (R1 + R2) |
+| `single-end` | Illumina single-end reads |
+| `ont` | Oxford Nanopore long reads |
+| `hybrid` | Illumina + long reads combined |
+| `merge-pe` | Merged paired-end reads |
+| `merge-se` | Merged single-end reads |
+
 ## Variable Naming Conventions
 
 ### Standard Renames
@@ -149,6 +217,185 @@ meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ex
 ### Channel Naming
 - Use descriptive names: `ch_results`, `ch_logs`, `ch_nf_logs`, `ch_versions`
 - For component-specific outputs: use the output type (e.g., `aln`, `csv`, `report`)
+
+## Explicit Positional Read Tuple Pattern
+
+Modules that process sequencing reads use a 5-slot positional tuple pattern to handle different read types explicitly.
+
+### The Pattern
+
+```groovy
+// Input signature
+input:
+(_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+```
+
+| Slot | Variable | Description |
+|------|----------|-------------|
+| 1 | `meta` | Sample metadata map |
+| 2 | `r1` | Illumina R1 (paired-end forward) |
+| 3 | `r2` | Illumina R2 (paired-end reverse) |
+| 4 | `se` | Single-end Illumina reads |
+| 5 | `lr` | Long reads (ONT/PacBio) |
+
+### Pre-GATHER vs Post-GATHER
+
+The GATHER module transforms read channels:
+
+| Stage | Type | Purpose |
+|-------|------|---------|
+| Pre-GATHER | `Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>` | Multiple files per slot (multi-lane/run) |
+| Post-GATHER | `Tuple<Map, Path?, Path?, Path?, Path?>` | Single consolidated file per slot |
+
+### Detecting Read Type in Scripts
+
+```groovy
+script:
+// Check which slots are populated
+has_r1 = r1 != null
+has_r2 = r2 != null
+has_se = se != null
+has_lr = lr != null
+
+// Determine read type
+meta.single_end = has_se && !has_r1 && !has_r2
+meta.is_paired = has_r1 && has_r2
+
+// Build tool-specific read arguments
+def read_inputs = has_lr ? "${lr}" : (meta.single_end ? "${se}" : "${r1} ${r2}")
+```
+
+### Modules Using This Pattern
+
+- `bracken`, `kraken2` - Taxonomic classification
+- `snippy/run` - Variant calling
+- `tbprofiler/profile` - TB profiling
+- `mykrobe/predict` - AMR prediction
+- `ariba/run` - ARIBA analysis (paired-end only)
+- `bactopia/qc` - Quality control
+- `bactopia/gather` - Read consolidation
+
+## stageAs Directive
+
+The `stageAs` directive organizes input files into specific directory structures within a process's working directory.
+
+### Purpose
+
+When inputs are `Set<Path>` collections or need organized staging, `stageAs` creates predictable directory structures that scripts can reference reliably.
+
+### Basic Pattern
+
+```groovy
+stage:
+    stageAs '<directory_pattern>', <variable_name>
+```
+
+### Common Use Cases
+
+#### Organizing Reads by Type
+
+```groovy
+// In modules/bactopia/gather/main.nf
+stage:
+    stageAs '*???-r1', r1_files
+    stageAs '*???-r2', r2_files
+    stageAs '*???-se', se_files
+    stageAs '*???-lr', lr_files
+```
+
+The `*???-r1` pattern creates unique names that `find -name "*-r1"` can locate.
+
+#### Staging File Collections
+
+```groovy
+// In modules/roary/main.nf - for pangenome GFF files
+stage:
+    stageAs 'gff-tmp/*', gff
+
+// In script:
+mkdir gff
+cp -L gff-tmp/* gff/
+```
+
+#### Organizing Multiple Input Types
+
+```groovy
+// In modules/stecfinder/main.nf
+stage:
+    stageAs 'fna/*', fna
+    stageAs 'reads/r1/*', r1
+    stageAs 'reads/r2/*', r2
+    stageAs 'reads/se/*', se
+    stageAs 'reads/lr/*', lr
+```
+
+### Modules Using stageAs
+
+| Module | Pattern | Purpose |
+|--------|---------|---------|
+| `bactopia/gather` | `*???-r1`, etc. | Multi-lane read organization |
+| `roary`, `pirate`, `panaroo/run` | `gff-tmp/*` | GFF collection staging |
+| `csvtk/concat` | `inputs/*` | CSV file collection |
+| `gtdbtk/classifywf` | `fna-tmp/*`, `gtdb/*` | Assembly + database staging |
+| `tbprofiler/collate` | `results-tmp/*` | JSON result collection |
+| `prokka`, `agrvate` | `input/*` | Single assembly staging |
+
+## Database Handling Patterns
+
+Many modules accept external databases. The codebase supports two formats:
+- **Directory**: For local/HPC systems (faster access)
+- **Tarball (.tar.gz)**: For cloud systems (easier transport)
+
+### Tarball Detection Pattern
+
+```groovy
+script:
+def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+
+// In shell:
+if [ "${is_tarball}" == "true" ]; then
+    mkdir database
+    tar -xzf ${db} -C database
+    DB_PATH=$(find database/ -name "hash.k2d" | sed 's=hash.k2d==')
+else
+    DB_PATH="${db}"
+fi
+```
+
+### Database Path Discovery
+
+Different databases have different marker files:
+
+| Database | Marker File | Discovery Command |
+|----------|-------------|-------------------|
+| Kraken2/Bracken | `hash.k2d` | `find database/ -name "hash.k2d"` |
+| MLST | `mlst.db` | `find database/ -name "mlst.db"` |
+| GTDB-Tk | `metadata.txt` | `find database/ -name "metadata.txt"` |
+| Bakta | `bakta.db` | `find database/ -name "bakta.db"` |
+
+### Modules with Database Support
+
+| Module | Database Type | Notes |
+|--------|---------------|-------|
+| `bracken`, `kraken2` | Kraken2 DB | Tarball or directory |
+| `mlst` | PubMLST | Tarball or directory |
+| `gtdbtk/classifywf` | GTDB | Large database, tarball recommended for cloud |
+| `bakta/run` | Bakta DB | Supports light/full versions |
+| `checkm2/predict` | CheckM2 | Diamond database |
+| `midas/species` | MIDAS | Species database |
+| `blast/*` | BLAST DB | Always tarball extraction |
+
+### Best Practice
+
+```groovy
+// Module config - allow both formats
+params {
+    tool_db = null  // User provides path to directory or .tar.gz
+}
+
+// In module script - handle both
+def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+```
 
 ## Utility Functions
 
@@ -199,6 +446,9 @@ Expected format:
 - Remember: `Tuple<Map, Set<Path>>` vs `Tuple<Map, Path>` is based on `files()` vs `file()`
 
 ## See Also
+
 - [Style Guide](../standards/01-style-guide.md) - For template formats
 - [Logic Rules](../standards/02-logic-rules.md) - For classification logic
+- [Plugin Functions](../reference/04-plugin-functions.md) - For gather() and flattenPaths() usage
+- [task.ext Properties](../reference/05-task-ext-properties.md) - For module configuration
 - [Troubleshooting](../reference/02-troubleshooting.md) - For common error solutions

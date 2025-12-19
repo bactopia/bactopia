@@ -73,11 +73,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     has_r2 = r2 != null
     has_se = se != null
     meta.single_end = has_se && !has_r1 && !has_r2
-    meta.is_paired = has_r1 && has_r2
     meta.runtype = _meta.runtype
-
-    // Build read inputs
-    read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
 
     special_meta = [:]
     special_meta.id = prefix

@@ -95,7 +95,6 @@ include { PANGENOME          } from '../../../subworkflows/pangenome/main'
 include { CLONALFRAMEML      } from '../../../subworkflows/clonalframeml/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
 include { SCOARY             } from '../../../subworkflows/scoary/main'
-include { formatSamples      } from 'plugin/nf-bactopia'
 
 workflow {
     main:

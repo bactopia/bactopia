@@ -69,12 +69,14 @@ This guide provides solutions to common issues, error messages, and debugging ti
 
 ### 2. Look for TODO Comments
 TODO comments in the code indicate known limitations or temporary workarounds
+
 ```groovy
 // TODO: Remove when Path? is fixed
 ```
 
 ### 3. Verify Meta Map Fields
 Ensure meta map contains required fields:
+
 ```groovy
 meta.id
 meta.name
@@ -153,6 +155,86 @@ Ensure proper channel patterns:
 - Check parameter inheritance chain
 - Verify configuration includes
 - Use `--` prefix for command line
+
+## Container Entrypoint Workarounds
+
+Some bioinformatics containers have custom entrypoints that initialize environments or set variables. Nextflow overrides container entrypoints with `/bin/bash`, which can break tools that depend on this initialization.
+
+### The Problem
+
+When Nextflow runs a container, it sets `--entrypoint /bin/bash` (Docker) or similar for Singularity/Apptainer. Containers that rely on custom entrypoints (e.g., `/usr/local/env-execute`) to:
+
+- Activate conda environments
+- Set environment variables
+- Configure tool paths
+
+...will fail because their initialization scripts never run.
+
+### The Solution: Manual Activation
+
+Check for and source the container's activation script at the start of your script block:
+
+```bash
+# Nextflow changes the container --entrypoint to /bin/bash
+# (container default entrypoint: /usr/local/env-execute)
+# Check for container variable initialisation script and source it.
+if [ -f "/usr/local/env-activate.sh" ]; then
+    set +u  # Otherwise, errors out because of various unbound variables
+    . "/usr/local/env-activate.sh"
+    set -u
+fi
+```
+
+### Why `set +u` and `set -u`?
+
+- Nextflow scripts run with `set -eu` by default (exit on error, error on unbound variables)
+- Container activation scripts often reference unbound variables during initialization
+- `set +u` temporarily disables the unbound variable check
+- `set -u` re-enables it after sourcing completes
+
+### Modules Using This Pattern
+
+| Module | Container Issue |
+|--------|-----------------|
+| `busco` | BUSCO container requires environment activation for Augustus config |
+
+### When to Use This Pattern
+
+Use this workaround when:
+
+1. **Tool fails with environment errors**: Missing variables or paths
+2. **Container works outside Nextflow**: Same container works with `docker run` but fails in pipeline
+3. **Container has custom entrypoint**: Check Dockerfile for non-standard `ENTRYPOINT`
+
+### Debugging Container Issues
+
+To check if a container has a custom entrypoint:
+
+```bash
+# Docker
+docker inspect <image> | grep -A5 "Entrypoint"
+
+# Singularity - check runscript
+singularity inspect --runscript <image.sif>
+```
+
+If the entrypoint is not `/bin/bash` or `/bin/sh`, the container may need the activation workaround.
+
+### Additional Container Workarounds
+
+#### Augustus Config Directory (BUSCO-specific)
+
+BUSCO requires a writable Augustus config directory. When running in containers, this directory may be read-only:
+
+```bash
+# If the augustus config directory is not writable, copy to writeable area
+if [ ! -w "${AUGUSTUS_CONFIG_PATH}" ]; then
+    AUG_CONF_DIR=$( mktemp -d -p $PWD )
+    cp -r $AUGUSTUS_CONFIG_PATH/* $AUG_CONF_DIR
+    export AUGUSTUS_CONFIG_PATH=$AUG_CONF_DIR
+    echo "New AUGUSTUS_CONFIG_PATH=${AUGUSTUS_CONFIG_PATH}"
+fi
+```
 
 ## Performance Issues
 

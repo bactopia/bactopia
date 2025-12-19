@@ -46,6 +46,8 @@ workflow BACTOPIATOOL_INIT {
 
     // Initialize channels for various output types
     def ch_reads                 = channel.empty() as Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    def ch_illumina_reads        = channel.empty() as Channel<Tuple<Map, Path?, Path?, Path?>>
+    def ch_illumina_pe_reads     = channel.empty() as Channel<Tuple<Map, Path?, Path?>>
     def ch_assembly              = channel.empty() as Channel<Tuple<Map, Path>>
     def ch_assembly_reads        = channel.empty() as Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
     def ch_assembly_meta         = channel.empty() as Channel<Tuple<Map, Path, Path>>
@@ -64,6 +66,8 @@ workflow BACTOPIATOOL_INIT {
     }
     collectedInputs.samples.each { sample ->
         ch_reads                 << tuple(sample.meta, sample.r1, sample.r2, sample.se, sample.lr)
+        ch_illumina_reads        << tuple(sample.meta, sample.r1, sample.r2, sample.se)
+        ch_illumina_pe_reads     << tuple(sample.meta, sample.r1, sample.r2)
         ch_assembly              << tuple(sample.meta, sample.assembly)
         ch_assembly_reads        << tuple(sample.meta, sample.assembly, sample.r1, sample.r2, sample.se, sample.lr)
         ch_assembly_meta         << tuple(sample.meta, sample.assembly, sample.meta_file)

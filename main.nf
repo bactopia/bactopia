@@ -140,8 +140,8 @@ params {
 
     // Tool-specific parameters
     // QC
-    adapters              : Path?
-    phix                  : Path?
+    adapters              : Path? = "${projectDir}/data/empty/EMPTY_ADAPTERS"    // TODO: Remove when Path? is fixed
+    phix                  : Path? = "${projectDir}/data/empty/EMPTY_PHIX"        // TODO: Remove when Path? is fixed
 
     // Annotation
     use_bakta             : Boolean
@@ -203,7 +203,7 @@ workflow {
 
     // QC samples
     QC(
-        GATHER.out.raw_fastq,
+        GATHER.out.reads,
         params.adapters,
         params.phix
     )
@@ -213,14 +213,14 @@ workflow {
     ch_versions = ch_versions.mix(QC.out.versions)
 
     // Assemble genomes
-    ASSEMBLER(QC.out.fastq)
+    ASSEMBLER(QC.out.reads)
     ch_results = ch_results.mix(ASSEMBLER.out.results)
     ch_logs = ch_logs.mix(ASSEMBLER.out.logs)
     ch_nf_logs = ch_nf_logs.mix(ASSEMBLER.out.nf_logs)
     ch_versions = ch_versions.mix(ASSEMBLER.out.versions)
 
     // Sketch and query
-    SKETCHER(ASSEMBLER.out.fna, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
+    SKETCHER(ASSEMBLER.out.assembly, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
     ch_results = ch_results.mix(SKETCHER.out.results)
     ch_logs = ch_logs.mix(SKETCHER.out.logs)
     ch_nf_logs = ch_nf_logs.mix(SKETCHER.out.nf_logs)
@@ -230,7 +230,7 @@ workflow {
     ch_annotations = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>>
     if (params.use_bakta) {
         BAKTA(
-            ASSEMBLER.out.fna,
+            ASSEMBLER.out.assembly,
             params.bakta_db,
             params.download_bakta,
             params.bakta_save_as_tarball,
@@ -245,7 +245,7 @@ workflow {
         ch_annotations = ch_annotations.mix(BAKTA.out.annotations)
     } else {
         PROKKA(
-            ASSEMBLER.out.fna,
+            ASSEMBLER.out.assembly,
             params.prokka_proteins,
             params.prokka_prodigal_tf
         )
@@ -264,7 +264,7 @@ workflow {
     ch_versions = ch_versions.mix(AMRFINDERPLUS.out.versions)
 
     // MLST
-    MLST(ASSEMBLER.out.fna, DATASETS.out.mlst_db)
+    MLST(ASSEMBLER.out.assembly, DATASETS.out.mlst_db)
     ch_results = ch_results.mix(MLST.out.results)
     ch_logs = ch_logs.mix(MLST.out.logs)
     ch_nf_logs = ch_nf_logs.mix(MLST.out.nf_logs)
@@ -273,7 +273,7 @@ workflow {
     // Merlin
     if (params.ask_merlin) {
         MERLIN(
-            ASSEMBLER.out.fna_fq,
+            ASSEMBLER.out.assembly_reads,
             DATASETS.out.mash_db,
             // emmtyper
             params.emmtyper_blastdb,

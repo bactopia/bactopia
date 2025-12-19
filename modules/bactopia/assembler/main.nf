@@ -10,28 +10,32 @@
  * Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
  *
  * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: tuple(meta, r1, r2, se, lr, assembly) where each slot is Path?
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,alternative-execution
  * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
  *
- * @input tuple(meta, r1, r2, se, lr)
- * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) for long-read or hybrid assembly
+ * @note When runtype is 'assembly' or 'assembly_accession' and --reassemble is not set,
+ * the original assembly is used without re-assembly.
  *
- * @output fna          Assembled contigs in FASTA format
- * @output fna_reads    A tuple containing the assembly and read slots (for downstream analysis)
- * @output tsv          A tab-delimited report of assembly statistics (N50, length, coverage)
- * @output supplemental Supplemental files including assembly graphs (*.gfa) and tool-specific logs
- * @output error        Captured error messages if assembly fails
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @input tuple(meta, r1, r2, se, lr, assembly)
+ * - `meta`    : Groovy Map containing sample information
+ * - `r1`      : Illumina R1 reads (paired-end)
+ * - `r2`      : Illumina R2 reads (paired-end)
+ * - `se`      : Single-end Illumina reads
+ * - `lr`      : Long reads (ONT/PacBio) for long-read or hybrid assembly
+ * - `assembly`: Assembly file (FASTA) for assembly-based runtypes
+ *
+ * @output assembly       Assembled contigs in FASTA format
+ * @output assembly_reads A tuple containing the assembly and read slots (for downstream analysis)
+ * @output tsv            A tab-delimited report of assembly statistics (N50, length, coverage)
+ * @output supplemental   Supplemental files including assembly graphs (*.gfa) and tool-specific logs
+ * @output error          Captured error messages if assembly fails
+ * @output logs           Optional software execution logs containing warnings/errors
+ * @output nf_logs        Nextflow execution scripts and logs for debugging
+ * @output versions       A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -43,17 +47,20 @@ process ASSEMBLER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta, r1, r2, se, lr, assembly) : Tuple<Map, Path?, Path?, Path?, Path?, Path?>
+
+    stage:
+    stageAs 'input-assembly/*', assembly
 
     output:
-    fna          = tuple(meta, files("${prefix}.{fna,fna.gz}", optional: true))
-    fna_reads    = tuple(meta, files("${prefix}.{fna,fna.gz}"), r1, r2, se, lr)
-    tsv          = tuple(meta, files("${prefix}.tsv", optional: true))
-    supplemental = tuple(meta, files("supplemental/*"))
-    error        = tuple(meta, files("${prefix}-assembly-error.txt", optional: true))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    assembly       = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true))
+    assembly_reads = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true), r1, r2, se, lr)
+    tsv            = tuple(meta, file("${prefix}.tsv", optional: true))
+    supplemental   = tuple(meta, files("supplemental/*"))
+    error          = tuple(meta, files("${prefix}-*-error.*", optional: true))
+    logs           = tuple(meta, files("*.{log,err}", optional: true))
+    nf_logs        = tuple(meta, files(".command.*"))
+    versions       = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -69,59 +76,52 @@ process ASSEMBLER {
     meta.runtype = _meta.runtype
     meta.genome_size = _meta.genome_size
     meta.species = _meta.species
-
-    // Determine single_end based on explicit slots
-    has_r1 = r1 != null
-    has_r2 = r2 != null
-    has_se = se != null
-    has_lr = lr != null
-    meta.single_end = has_se && !has_r1 && !has_r2
-
-    // For hybrid: lr slot has long reads
-    // For short_polish: r1/r2 are short reads, lr is long reads
+    meta.single_end = _meta.single_end
 
     // Unicycler (hybrid: PE + long reads)
-    is_hybrid = meta.runtype == "hybrid" ? "-l ${lr}" : ""
+    def String is_hybrid = meta.runtype == "hybrid" ? "-l ${lr}" : ""
 
     // Shovill (short reads)
-    contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
-    shovill_ram = task.memory.toGiga() - 1
-    shovill_mode = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
+    def String contig_namefmt = task.ext.contig_namefmt ? task.ext.contig_namefmt : "${prefix}_%05d"
+    def Integer shovill_ram   = task.memory.toGiga() - 1
+    def String shovill_mode   = meta.single_end == false ? "shovill --R1 ${r1} --R2 ${r2}" : "shovill-se --SE ${se}"
 
     // Dragonflye (long reads, with optional short read polishing)
-    dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${lr} --R1 ${r1} --R2 ${r2}" : "--reads ${lr}"
-
-    // For ONT-only: use lr slot
-    ont_reads = lr
+    def String dragonflye_fastq = meta.runtype == "short_polish" ? "--reads ${lr} --R1 ${r1} --R2 ${r2}" : "--reads ${lr}"
 
     // Assembly inputs (for assembly runtype, the original assembly is in lr slot)
-    use_original_assembly = null
-    if (meta.runtype.startsWith('assembly')) {
-        use_original_assembly = task.ext.reassemble ? false : true
-    }
+    def Boolean use_original_assembly = (meta.runtype.startsWith('assembly') && !task.ext.reassemble) ? true : false
     """
-    echo "R1 ${r1}"
-    echo "R2 ${r2}"
-    echo "SE ${se}"
-    echo "LR ${lr}"
-
+    #==========================================================================================
+    # Assemble based on runtype
+    #==========================================================================================
+    mkdir supplemental
     if [ "${use_original_assembly}" == "true" ]; then
-        mkdir supplemental
-        # Original assembly is in lr slot for assembly runtypes
-        gzip -cd ${lr} > supplemental/${prefix}.fna
+        # Skip assembly and use provided assembly
+        echo "Using provided assembly for ${prefix} without re-assembly." > supplemental/assembly-info.txt
+        gzip -cd ${assembly} > ${prefix}.fna
     elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
-        # Unicycler
+        #======================================================================================
+        # Unicycler Assembler
+        #
+        # Unicycler is used for hybrid assemblies (short + long reads) or when explicitly
+        # requested via the --use_unicycler parameter.
+        #======================================================================================
         unicycler \\
             -1 ${r1} -2 ${r2} \\
             ${task.ext.args3} \\
             ${is_hybrid} \\
             -o supplemental/ \\
             --threads ${task.cpus}
-        sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' supplemental/assembly.fasta > supplemental/${prefix}.fna
+        sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' supplemental/assembly.fasta > ${prefix}.fna
         mv supplemental/assembly.fasta supplemental/unicycler-unpolished.fasta
         mv supplemental/assembly.gfa supplemental/unicycler-unpolished.gfa
     elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" ]]; then
-        # Dragonflye
+        #======================================================================================
+        # Dragonflye Assembler
+        #
+        # Dragonflye is used for long read assemblies (ONT) with optional short read polishing.
+        #======================================================================================
         if ! dragonflye \\
             ${dragonflye_fastq} \\
             --gsize ${meta.genome_size} \\
@@ -139,9 +139,13 @@ process ASSEMBLER {
                 exit 1
             fi
         fi
-        mv supplemental/contigs.fa supplemental/${prefix}.fna
+        mv supplemental/contigs.fa ${prefix}.fna
     else
-        # Shovill
+        #======================================================================================
+        # Shovill Assembler
+        #
+        # Shovill is used for short read assemblies (Illumina PE or SE).
+        #======================================================================================
         if ! ${shovill_mode} \\
             --gsize ${meta.genome_size} \\
             --outdir supplemental \\
@@ -157,7 +161,7 @@ process ASSEMBLER {
                 exit 1
             fi
         fi
-        mv supplemental/contigs.fa supplemental/${prefix}.fna
+        mv supplemental/contigs.fa ${prefix}.fna
 
         # Rename Graphs
         if [ -f "supplemental/contigs.gfa" ]; then
@@ -173,14 +177,16 @@ process ASSEMBLER {
         fi
     fi
 
-    # Check quality of assembly
-    TOTAL_CONTIGS=`grep -c "^>" supplemental/${prefix}.fna || true`
+    #==========================================================================================
+    # Assembly Quality Check
+    #==========================================================================================
+    TOTAL_CONTIGS=`grep -c "^>" ${prefix}.fna || true`
     if [ "\${TOTAL_CONTIGS}" -gt 0 ]; then
-        assembly-scan supplemental/${prefix}.fna --prefix ${prefix} > supplemental/${prefix}.tsv
-        TOTAL_CONTIG_SIZE=\$(cut -f 3 supplemental/${prefix}.tsv | tail -n 1)
+        assembly-scan ${prefix}.fna --prefix ${prefix} > ${prefix}.tsv
+        TOTAL_CONTIG_SIZE=\$(cut -f 3 ${prefix}.tsv | tail -n 1)
         if [ "\${TOTAL_CONTIG_SIZE}" -lt ${task.ext.min_genome_size} ]; then
-            mv supplemental/${prefix}.fna supplemental/${prefix}-error.fna
-            mv supplemental/${prefix}.tsv supplemental/${prefix}-error.tsv
+            mv ${prefix}.fna ${prefix}-error.fna
+            mv ${prefix}.tsv ${prefix}-error.tsv
             echo "${prefix} assembled size [\${TOTAL_CONTIG_SIZE} bp] is less than the minimum allowed genome
                     size [${task.ext.min_genome_size} bp]. If this is unexpected, please investigate ${prefix} to
                     determine a cause [e.g. metagenomic, contaminants, etc...] for the poor assembly.
@@ -189,14 +195,16 @@ process ASSEMBLER {
             sed 's/^\\s*//' > ${prefix}-assembly-error.txt
         fi
     else
-        mv supplemental/${prefix}.fna supplemental/${prefix}-error.fna
+        mv ${prefix}.fna ${prefix}-error.fna
         echo "${prefix} assembled successfully, but 0 contigs were formed. Please investigate
                 ${prefix} to determine a cause [e.g. metagenomic, contaminants, etc...] for this
                 outcome. Further assembly-based analysis of ${prefix} will be discontinued." | \
         sed 's/^\\s*//' > ${prefix}-assembly-error.txt
     fi
 
-    # Cleanup and compress
+    #==========================================================================================
+    # Cleanup intermediate files
+    #==========================================================================================
     if [ "${task.ext.keep_all_files}" == "false" ]; then
         # Remove intermediate files
         rm -rfv supplemental/shovill.bam* \\
@@ -219,32 +227,23 @@ process ASSEMBLER {
                 supplemental/megahit/ \\
                 supplemental/megahit.fasta* \\
                 supplemental/velvet.fasta* \\
-                supplemental/velvet/
+                supplemental/velvet/ \\
+                supplemental/assembly.fasta
     fi
 
+    #==========================================================================================
+    # Compress and move final outputs
+    #==========================================================================================
     if [[ "${task.ext.skip_compression}" == "false" ]]; then
         # Compress based on matched extensions
+        pigz -n --best -p ${task.cpus} ${prefix}*.fna
         find supplemental/ -type f | \
             grep -E "\\.fna\$|\\.fasta\$|\\.fa\$|\\.gfa\$" | \
             xargs -I {} pigz -n --best -p ${task.cpus} {}
     fi
     find supplemental/ -maxdepth 1 -name "*.log" | xargs -I {} mv {} ./
 
-    if [ -f "supplemental/${prefix}.tsv" ]; then
-        mv supplemental/${prefix}.tsv ./
-    fi
-
-    if [ -f "supplemental/${prefix}.fna" ]; then
-        mv supplemental/${prefix}.fna ./
-    fi
-
-    if [ -f "supplemental/${prefix}.fna.gz" ]; then
-        mv supplemental/${prefix}.fna.gz ./
-    fi
-
-    # Capture versions
-    if [[ "\$OSTYPE" == "darwin"* ]]; then
-    
+    # Capture versions (common tools available on all platforms)
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         assembly-scan: \$(echo \$(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
@@ -265,38 +264,19 @@ process ASSEMBLER {
         velveth: \$(echo \$(velveth 2>&1) | sed 's/^.*Version //;s/ .*\$//')
         unicycler: \$(echo \$(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*\$//')
     END_VERSIONS
-    
-    else
-    
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
+
+    # Linux-only tools (long-read assemblers not available on macOS)
+    if [[ "\$OSTYPE" != "darwin"* ]]; then
+    cat <<-END_LINUX >> versions.yml
         any2fasta: \$(echo \$(any2fasta -v 2>&1) | sed 's/^.*any2fasta //')
-        assembly-scan: \$(echo \$(assembly-scan --version 2>&1) | sed 's/assembly-scan //')
-        bwa: \$(echo \$(bwa 2>&1) | sed 's/^.*Version: //;s/ .*\$//')
         dragonflye: \$(echo \$(dragonflye --version 2>&1) | sed 's/^.*dragonflye //' )
-        flash: \$(echo \$(flash --version 2>&1) | sed 's/^.*FLASH v//;s/ .*\$//')
         flye: \$(echo \$(flye --version))
         medaka: \$(echo \$(medaka --version 2>&1) | sed 's/medaka //')
-        megahit: \$(echo \$(megahit --version 2>&1) | sed 's/MEGAHIT v//')
-        miniasm: \$(echo \$(miniasm -V))
         minimap2: \$(echo \$(minimap2 --version))
         nanoq: \$(echo \$(nanoq --version 2>&1) | sed 's/nanoq //')
-        pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-        pilon: \$(echo \$(pilon --version 2>&1) | sed 's/^.*Pilon version //;s/ .*\$//')
-        racon: \$(echo \$(racon --version 2>&1) | sed 's/v//')
         rasusa: \$(echo \$(rasusa --version 2>&1) | sed 's/rasusa //')
         raven: \$(echo \$(raven --version))
-        samclip: \$(echo \$(samclip --version 2>&1) | sed 's/^.*samclip //')
-        samtools: \$(echo \$(samtools --version 2>&1) |sed 's/^.*samtools //;s/ .*\$//')
-        shovill: \$(echo \$(shovill --version 2>&1) | sed 's/^.*shovill //')
-        shovill-se: \$(echo \$(shovill-se --version 2>&1) | sed 's/^.*shovill-se //')
-        skesa: \$(echo \$(skesa --version 2>&1) | sed 's/^.*SKESA //;s/ .*\$//')
-        spades.py: \$(echo \$(spades.py --version 2>&1) | sed 's/SPAdes genome assembler v//')
-        velvetg: \$(echo \$(velvetg 2>&1) | sed 's/^.*Version //;s/ .*\$//')
-        velveth: \$(echo \$(velveth 2>&1) | sed 's/^.*Version //;s/ .*\$//')
-        unicycler: \$(echo \$(unicycler --version 2>&1) | sed 's/^.*Unicycler v//;s/ .*\$//')
-    END_VERSIONS
-    
+    END_LINUX
     fi
     """
 }

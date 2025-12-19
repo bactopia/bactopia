@@ -37,7 +37,7 @@ include { gather            } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:
-    fasta: Channel<Tuple<Map, Path, Path?, Path?>>
+    fasta: Channel<Tuple<Map, Path, Path, Path>>
     db: Path
 
     main:
@@ -46,9 +46,9 @@ workflow AMRFINDERPLUS {
 
     emit:
     // Individual outputs
-    report: Channel<Tuple<Map, Set<Path>>> = AMRFINDERPLUS_RUN.out.report
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-    mutation_report: Channel<Tuple<Map, Set<Path>>> = AMRFINDERPLUS_RUN.out.mutation_report
+    report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.report
+    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    mutation_report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.mutation_report
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

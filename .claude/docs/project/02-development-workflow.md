@@ -136,6 +136,164 @@ The entry workflow is what users interact with directly.
    - Include all required fields (@status, @keywords, @citation)
    - Add appropriate tags for classification
 
+### Resource Labels
+
+Modules must declare resource requirements using labels defined in `conf/base.config`. Labels scale with retry attempts.
+
+#### Primary Labels
+
+Choose ONE primary label based on typical resource needs:
+
+| Label | CPUs | Memory | Time | Use For |
+|-------|------|--------|------|---------|
+| `process_single` | 1 | 4GB | 2h | Single-threaded tools that cannot parallelize |
+| `process_low` | 4 | 8GB | 4h | Lightweight tools, quick operations |
+| `process_medium` | 8 | 32GB | 12h | Moderate workloads, BLAST-based tools |
+| `process_high` | 12 | 64GB | 24h | Memory-intensive, complex analyses |
+
+#### Modifier Labels
+
+Add these IN ADDITION to a primary label when needed:
+
+| Label | Effect | Use For |
+|-------|--------|---------|
+| `process_long` | Time → 96h | Long-running jobs (pangenome, phylogeny) |
+| `process_high_memory` | Memory → 128GB | Extreme memory needs (GTDB-Tk) |
+
+#### Example Usage
+
+```groovy
+// In main.nf
+process TOOL_NAME {
+    label 'process_low'           // Primary label
+
+    // ... rest of process
+}
+
+// For long-running + high memory (e.g., gtdbtk/classifywf)
+process GTDBTK_CLASSIFYWF {
+    label 'process_high'
+    label 'process_high_memory'   // Adds to process_high
+
+    // ... rest of process
+}
+
+// For pangenome analysis
+process PANAROO_RUN {
+    label 'process_high'
+    label 'process_long'          // Extends time limit
+
+    // ... rest of process
+}
+```
+
+#### Modules by Label
+
+**process_single** (single-threaded):
+- `abricate/run`, `rgi/heatmap`
+
+**process_low** (lightweight):
+- `mlst`, `prokka`, `snippy/run`, `csvtk/concat`
+- `mykrobe/predict`, `shigatyper`, `seroba/run`
+- Most typing tools (pasty, spatyper, lissero, etc.)
+
+**process_medium** (moderate):
+- `bracken`, `blast/*`, `sistr`, `gubbins`
+- `ismapper`, `checkm2/predict`, `snippy/core`
+- `phispy`, `mobsuite/recon`
+
+**process_high** (resource-intensive):
+- `gtdbtk/classifywf`, `panaroo/run`
+
+**process_long** (extended time):
+- `panaroo/run`, `checkm2/download`, `gtdbtk/download`
+
+#### Choosing the Right Label
+
+1. **Start with `process_low`** for most tools
+2. **Upgrade to `process_medium`** for BLAST-based, database searches, or multi-step tools
+3. **Use `process_high`** only for known memory-intensive tools
+4. **Add `process_long`** if jobs regularly exceed 12 hours
+5. **Add `process_high_memory`** only if 64GB is insufficient
+
+### Multi-Process Module Structure
+
+When a tool requires multiple distinct operations, split it into subdirectories within the module folder. This maintains modularity and allows each process to have its own configuration.
+
+#### When to Split
+
+Split a module into subdirectories when:
+
+1. **Separate execution stages**: Download database vs. run analysis
+2. **Different scopes**: Per-sample processing vs. run-level aggregation
+3. **Different resource requirements**: Lightweight summary vs. intensive computation
+4. **Reusable components**: Processes that can be called independently
+
+#### Directory Structure
+
+```bash
+modules/{tool_name}/
+├── run/                    # Primary analysis process
+│   ├── main.nf
+│   ├── module.config
+│   └── schema.json
+└── summary/                # Aggregation process (if needed)
+    ├── main.nf
+    ├── module.config
+    └── schema.json
+```
+
+#### Common Patterns
+
+| Tool | Subdirectories | Purpose |
+|------|----------------|---------|
+| `abricate/` | `run/`, `summary/` | Per-sample screening → Run-level aggregation |
+| `bakta/` | `download/`, `run/` | Database download → Annotation |
+| `tbprofiler/` | `profile/`, `collate/` | Per-sample profiling → Run-level collation |
+| `gtdbtk/` | `download/`, `classifywf/` | Database download → Classification |
+| `checkm2/` | `download/`, `predict/` | Database download → Quality assessment |
+| `snippy/` | `run/`, `core/` | Per-sample mapping → Core genome extraction |
+| `rgi/` | `main/`, `heatmap/` | AMR detection → Visualization |
+
+#### Configuration for Multi-Process Modules
+
+Use shared and process-specific configuration blocks in `module.config`:
+
+```groovy
+process {
+    // Shared configuration for all processes
+    withName: 'TOOL_RUN|TOOL_SUMMARY' {
+        ext.toolName = "bioconda-tool-1.0.0"
+        ext.docker = "biocontainers/tool:1.0.0"
+        ext.image = "https://depot.galaxyproject.org/singularity/tool:1.0.0"
+        ext.condaDir = "${params.condadir}"
+        ext.wf = params.wf
+    }
+
+    // Process-specific: per-sample
+    withName: 'TOOL_RUN' {
+        ext.scope = "sample"
+        ext.process_name = "tool"
+        ext.subdir = ""
+    }
+
+    // Process-specific: run-level
+    withName: 'TOOL_SUMMARY' {
+        ext.scope = "run"
+        ext.process_name = params.merge_folder
+        ext.prefix = "tool-summary"
+    }
+}
+```
+
+#### Naming Conventions
+
+- **`run/`**: Primary per-sample analysis
+- **`summary/` or `collate/`**: Run-level aggregation
+- **`download/`**: Database or resource downloads
+- **`main/`**: Primary process when other names don't fit
+- Use lowercase, descriptive names that match the tool's terminology
+
 ### Best Practices
 
 1. **Follow existing patterns** - Don't reinvent unless necessary

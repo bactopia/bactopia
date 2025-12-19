@@ -485,7 +485,139 @@ Some modules are used for setup, downloading, or internal maintenance tasks rath
  */
 ```
 
-## 9. Quality Checklist
+## 9. Schema.json Structure
+
+Each module includes a `schema.json` file that defines parameter validation for the tool. This schema is used by Nextflow's schema validation system.
+
+### 9.1 Template Structure
+
+```json
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/{tool_name}/schema.json",
+    "title": "{Tool Name} Module",
+    "description": "A module for {brief description of functionality}",
+    "type": "object",
+    "$defs": {
+        "{tool}_parameters": {
+            "title": "{Tool Name} Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "{tool}_{param_name}": {
+                    "type": "string|integer|boolean|number",
+                    "default": "",
+                    "description": "Description of the parameter",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/{tool}_parameters"
+        }
+    ]
+}
+```
+
+### 9.2 Parameter Types
+
+| JSON Type | Use For | Example |
+|-----------|---------|---------|
+| `"string"` | Text values, file paths | `"default": ""` or `"default": "ncbi"` |
+| `"integer"` | Whole numbers | `"default": 80` |
+| `"number"` | Decimal numbers | `"default": 0.95` |
+| `"boolean"` | True/false flags | `"default": false` |
+
+### 9.3 Naming Conventions
+
+- **Parameter names**: Prefix with tool name (e.g., `mlst_minid`, `abricate_db`)
+- **$defs key**: Use `{tool}_parameters` format
+- **$id URL**: Point to raw GitHub path for the module's schema
+
+### 9.4 Complete Example (mlst)
+
+```json
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mlst/schema.json",
+    "title": "MLST Module",
+    "description": "A module for automatic MLST calling from assembled contigs",
+    "type": "object",
+    "$defs": {
+        "mlst_parameters": {
+            "title": "MLST Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "mlst_scheme": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Don't autodetect, force this scheme on all inputs",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mlst_minid": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum DNA percent identity of full allele to consider 'similar'",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mlst_mincov": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Minimum DNA percent coverage to report partial allele at all",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mlst_minscore": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum score out of 100 to match a scheme",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mlst_nopath": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Strip filename paths from FILE column",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "mlst_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A custom MLST database to use, either a tarball or a directory",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mlst_parameters"
+        }
+    ]
+}
+```
+
+### 9.5 Multi-Process Module Schemas
+
+For modules with subdirectories (e.g., `abricate/run/`, `abricate/summary/`):
+
+- Each subdirectory has its own `schema.json`
+- Parameter names remain consistent with the tool prefix
+- Shared parameters can be duplicated or split logically
+
+### 9.6 Schema Location
+
+```bash
+modules/{tool_name}/schema.json           # Simple modules
+modules/{tool_name}/{process}/schema.json # Multi-process modules
+```
+
+## 10. Quality Checklist
 
 Before completing module documentation, verify:
 
@@ -502,7 +634,7 @@ Before completing module documentation, verify:
 - [ ] Database requirements are clearly stated
 - [ ] Any Path? workarounds are noted in @note
 
-## 10. What to Avoid
+## 11. What to Avoid
 
 - **Do not** include parameter defaults or version numbers in the description
 - **Do not** reference `module.config` or `schema.json` in documentation

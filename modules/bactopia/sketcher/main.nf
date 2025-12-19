@@ -43,15 +43,15 @@ process SKETCHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Set<Path>>
+    (_meta, assembly) : Tuple<Map, Path>
     mash_db        : Path
     sourmash_db    : Path
 
     output:
-    sig      = tuple(meta, files("${prefix}.sig"))
+    sig      = tuple(meta, file("${prefix}.sig"))
     msh      = tuple(meta, files("${prefix}-k*.msh"))
-    mash     = tuple(meta, files("${prefix}-mash-refseq88-k21.txt"))
-    sourmash = tuple(meta, files("${prefix}-sourmash-gtdb-rs207-k31.txt"))
+    mash     = tuple(meta, file("${prefix}-mash-refseq88-k21.txt"))
+    sourmash = tuple(meta, file("${prefix}-sourmash-gtdb-rs207-k31.txt"))
     logs     = tuple(meta, files("*.{log,err}", optional: true))
     nf_logs  = tuple(meta, files(".command.*"))
     versions = tuple(meta, files("versions.yml"))

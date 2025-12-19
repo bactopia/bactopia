@@ -49,10 +49,10 @@ workflow SKETCHER {
 
     emit:
     // Individual outputs
-    sig: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.sig
+    sig: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sig
     msh: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.msh
-    mash: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.mash
-    sourmash: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.sourmash
+    mash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.mash
+    sourmash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sourmash
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([

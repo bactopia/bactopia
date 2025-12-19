@@ -38,7 +38,7 @@ process AMRFINDERPLUS_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path?, Path?>
+    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path, Path>
     db                            : Path
 
     output:

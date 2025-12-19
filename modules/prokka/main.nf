@@ -55,7 +55,7 @@ process PROKKA {
     stageAs "input/*", assembly
 
     output:
-    annotations = tuple(meta, file("${prefix}.{fna,fna.gz}"), files("${prefix}.{faa,faa.gz}"), files("${prefix}.{gff,gff.gz}"))
+    annotations = tuple(meta, file("${prefix}.{fna,fna.gz}"), file("${prefix}.{faa,faa.gz}"), file("${prefix}.{gff,gff.gz}"))
     gff         = tuple(meta, file("${prefix}.{gff,gff.gz}"))
     gbk         = tuple(meta, file("${prefix}.{gbk,gbk.gz}"))
     fna         = tuple(meta, file("${prefix}.{fna,fna.gz}"))

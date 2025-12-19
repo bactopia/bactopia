@@ -37,24 +37,23 @@ nextflow.preview.types = true
 
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT            } from '../../../modules/csvtk/concat/main'
+include { filterWithData          } from 'plugin/nf-bactopia'
 include { flattenPaths            } from 'plugin/nf-bactopia'
 include { gather                  } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:
-    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>>
+    samples: Channel<Tuple<Map, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>>>
 
     main:
     GATHER_MODULE(samples)
-
-    // Merge meta values for each sample
     CSVTK_CONCAT(gather(GATHER_MODULE.out.tsv, 'meta'), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
     tsv: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.tsv
     merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>> = GATHER_MODULE.out.reads
+    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterWithData(GATHER_MODULE.out.reads)
     error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error
 
     // Generic aggregate outputs

@@ -48,7 +48,6 @@ params {
 include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
 include { MASHTREE           } from '../../../subworkflows/mashtree/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-include { formatSamples      } from 'plugin/nf-bactopia'
 
 workflow {
     main:

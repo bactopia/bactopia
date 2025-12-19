@@ -68,6 +68,14 @@ The pipeline uses standardized GroovyDoc documentation and static typing through
     - *Read this for*: Definitions of Bactopia-specific terms
     - Quick reference for terminology and concepts
 
+- **[Plugin Functions](.claude/docs/reference/04-plugin-functions.md)**
+    - *Read this for*: Understanding `gather()` and `flattenPaths()` functions
+    - Channel manipulation utilities from nf-bactopia plugin
+
+- **[task.ext Properties](.claude/docs/reference/05-task-ext-properties.md)**
+    - *Read this for*: Configuring module behavior via task.ext
+    - Complete reference for all task.ext properties used in module.config files
+
 ## AI Agent Instructions
 
 When working with this codebase:

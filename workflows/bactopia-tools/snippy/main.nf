@@ -83,7 +83,6 @@ include { SNIPPY             } from '../../../subworkflows/snippy/run/main'
 include { SNIPPY_CORE        } from '../../../subworkflows/snippy/core/main'
 include { GUBBINS            } from '../../../subworkflows/gubbins/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
-include { formatSamples      } from 'plugin/nf-bactopia'
 
 workflow {
     main:

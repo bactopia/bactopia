@@ -52,14 +52,15 @@ workflow BACTOPIA_INIT {
     collectedInputs.samples.each { sample ->
         ch_samples << tuple(
             sample.meta,
-            sample.r1.toSet(),
-            sample.r2.toSet(),
-            sample.se.toSet(),
-            sample.lr.toSet()
+            (sample.r1 ?: []).collect { fastq -> file(fastq) }.toSet(),
+            (sample.r2 ?: []).collect { fastq -> file(fastq) }.toSet(),
+            (sample.se ?: []).collect { fastq -> file(fastq) }.toSet(),
+            (sample.lr ?: []).collect { fastq -> file(fastq) }.toSet(),
+            (sample.assembly ?: []).collect { fastq -> file(fastq) }.toSet()
         )
     }
 
     emit:
-    // Full 5-slot structure for GATHER (pre-merge with Set<Path> for multiple files)
-    samples: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>> = ch_samples
+    // Full 6-slot structure for GATHER (pre-merge with Set<Path> for multiple files)
+    samples: Channel<Tuple<Map, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>>> = ch_samples
 }
