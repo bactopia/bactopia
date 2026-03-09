@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(split:*)",
+      "Read(//tmp/**)"
+    ]
+  }
+}
