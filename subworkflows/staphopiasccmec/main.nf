@@ -18,18 +18,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv         Per-sample TSV files containing SCCmec typing results
- * @output merged_tsv  Consolidated TSV file containing SCCmec typing results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs   Per-sample records with SCCmec typing results
+ * @output run_outputs    Merged record containing consolidated SCCmec typing from all samples
  */
 nextflow.preview.types = true
 
 include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE } from '../../modules/staphopiasccmec/main'
 include { CSVTK_CONCAT                              } from '../../modules/csvtk/concat/main'
-include { flattenPaths                              } from 'plugin/nf-bactopia'
 include { gather                                    } from 'plugin/nf-bactopia'
 
 workflow STAPHOPIASCCMEC {
@@ -38,28 +33,9 @@ workflow STAPHOPIASCCMEC {
 
     main:
     STAPHOPIASCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gather(STAPHOPIASCCMEC_MODULE.out.tsv, 'staphopiasccmec'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(STAPHOPIASCCMEC_MODULE.out, 'staphopiasccmec', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = STAPHOPIASCCMEC_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        STAPHOPIASCCMEC_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        STAPHOPIASCCMEC_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        STAPHOPIASCCMEC_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        STAPHOPIASCCMEC_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = STAPHOPIASCCMEC_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

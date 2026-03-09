@@ -22,18 +22,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `reference`: Reference genomes in FASTA format for ANI calculation
  *
- * @output tsv             Per-sample TSV files containing ANI values against reference genomes
- * @output merged_tsv      Consolidated TSV file containing ANI values from all comparisons
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output sample_outputs       Per-sample record outputs from FASTANI_MODULE
+ * @output run_outputs        Combined ANI results across all comparisons as a record
  */
 nextflow.preview.types = true
 
 include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { flattenPaths              } from 'plugin/nf-bactopia'
 include { gather                    } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
@@ -43,28 +38,9 @@ workflow FASTANI {
 
     main:
     FASTANI_MODULE(gather(query, 'query', 'fasta'), gather(reference, 'reference', 'fasta'))
-    CSVTK_CONCAT(gather(FASTANI_MODULE.out.tsv, 'fastani'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(FASTANI_MODULE.out, 'fastani', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = FASTANI_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        FASTANI_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        FASTANI_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        FASTANI_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        FASTANI_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = FASTANI_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

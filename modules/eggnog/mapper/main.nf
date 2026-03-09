@@ -20,18 +20,21 @@
  * @input db
  * Directory or compressed tarball containing the eggNOG database
  *
- * @output hits            Raw search hits (Diamond/MMseqs2) against the eggNOG database
- * @output seed_orthologs  List of identified seed orthologs used for annotation transfer
- * @output annotations     Main tab-delimited annotation file (COGs, KEGG, GO, etc.)
- * @output xlsx            Excel format of the annotations file
- * @output orthologs       List of fine-grained orthologs (optional)
- * @output genepred        Predicted gene sequences (optional)
- * @output gff             Annotations in GFF format (optional)
- * @output no_anno         FASTA file of sequences that failed to be annotated (optional)
- * @output pfam            Raw PFAM domain hits (optional)
- * @output logs            Optional software execution logs containing warnings/errors
- * @output nf_logs         Nextflow execution scripts and logs for debugging
- * @output versions        A YAML formatted file with software versions
+ * @output record(meta, hits, seed_orthologs, annotations, xlsx, orthologs, genepred, gff, no_anno, pfam, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `hits`: Raw search hits (Diamond/MMseqs2) against the eggNOG database
+ * - `seed_orthologs`: List of identified seed orthologs used for annotation transfer
+ * - `annotations`: Main tab-delimited annotation file (COGs, KEGG, GO, etc.)
+ * - `xlsx`: Excel format of the annotations file
+ * - `orthologs`: List of fine-grained orthologs (optional)
+ * - `genepred`: Predicted gene sequences (optional)
+ * - `gff`: Annotations in GFF format (optional)
+ * - `no_anno`: FASTA file of sequences that failed to be annotated (optional)
+ * - `pfam`: Raw PFAM domain hits (optional)
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -40,25 +43,39 @@ process EGGNOG_MAPPER {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Path>
+    (_meta: Map, proteins: Path): Record
     db                : Path
 
     output:
-    hits           = tuple(meta, file("${prefix}.emapper.hits"))
-    seed_orthologs = tuple(meta, file("${prefix}.emapper.seed_orthologs"))
-    annotations    = tuple(meta, file("${prefix}.emapper.annotations"))
-    xlsx           = tuple(meta, file("${prefix}.emapper.annotations.xlsx", optional: true))
-    orthologs      = tuple(meta, file("${prefix}.emapper.orthologs", optional: true))
-    genepred       = tuple(meta, file("${prefix}.emapper.genepred.fasta", optional: true))
-    gff            = tuple(meta, file("${prefix}.emapper.gff", optional: true))
-    no_anno        = tuple(meta, file("${prefix}.emapper.no_annotations.fasta", optional: true))
-    pfam           = tuple(meta, file("${prefix}.emapper.pfam", optional: true))
-    logs           = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        hits: file("${prefix}.emapper.hits"),
+        seed_orthologs: file("${prefix}.emapper.seed_orthologs"),
+        annotations: file("${prefix}.emapper.annotations"),
+        xlsx: file("${prefix}.emapper.annotations.xlsx", optional: true),
+        orthologs: file("${prefix}.emapper.orthologs", optional: true),
+        genepred: file("${prefix}.emapper.genepred.fasta", optional: true),
+        gff: file("${prefix}.emapper.gff", optional: true),
+        no_anno: file("${prefix}.emapper.no_annotations.fasta", optional: true),
+        pfam: file("${prefix}.emapper.pfam", optional: true),
+        results: [
+            file("${prefix}.emapper.hits"),
+            file("${prefix}.emapper.seed_orthologs"),
+            file("${prefix}.emapper.annotations"),
+            file("${prefix}.emapper.annotations.xlsx", optional: true),
+            file("${prefix}.emapper.orthologs", optional: true),
+            file("${prefix}.emapper.genepred.fasta", optional: true),
+            file("${prefix}.emapper.gff", optional: true),
+            file("${prefix}.emapper.no_annotations.fasta", optional: true),
+            file("${prefix}.emapper.pfam", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

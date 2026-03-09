@@ -20,15 +20,18 @@
  * @input db
  * Directory containing the DefenseFinder models database
  *
- * @output genes_tsv     Tab-delimited list of detected defense genes
- * @output hmmer_tsv     Tab-delimited list of HMMER hits used for detection
- * @output systems_tsv   Tab-delimited summary of detected defense systems
- * @output proteins      Protein sequences of the detected defense genes (*.prt)
- * @output proteins_index Index file for the protein sequences (*.prt.idx)
- * @output macsydata_raw compressed tarball of raw MacSyFinder data (optional)
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, genes_tsv, hmmer_tsv, systems_tsv, proteins, proteins_index, macsydata_raw, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `genes_tsv`: Tab-delimited list of detected defense genes
+ * - `hmmer_tsv`: Tab-delimited list of HMMER hits used for detection
+ * - `systems_tsv`: Tab-delimited summary of detected defense systems
+ * - `proteins`: Protein sequences of the detected defense genes (*.prt)
+ * - `proteins_index`: Index file for the protein sequences (*.prt.idx)
+ * - `macsydata_raw`: Compressed tarball of raw MacSyFinder data (optional)
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -37,22 +40,33 @@ process DEFENSEFINDER_RUN {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, proteins) : Tuple<Map, Path>
+    (_meta: Map, proteins: Path): Record
     db                : Path
 
     output:
-    genes_tsv      = tuple(meta, file("${prefix}_defense_finder_genes.tsv"))
-    hmmer_tsv      = tuple(meta, file("${prefix}_defense_finder_hmmer.tsv"))
-    systems_tsv    = tuple(meta, file("${prefix}_defense_finder_systems.tsv"))
-    proteins       = tuple(meta, file("${prefix}.prt"))
-    proteins_index = tuple(meta, file("${prefix}.prt.idx"))
-    macsydata_raw  = tuple(meta, file("${prefix}.macsydata.tar.gz", optional: true))
-    logs           = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        genes_tsv: file("${prefix}_defense_finder_genes.tsv"),
+        hmmer_tsv: file("${prefix}_defense_finder_hmmer.tsv"),
+        systems_tsv: file("${prefix}_defense_finder_systems.tsv"),
+        proteins: file("${prefix}.prt"),
+        proteins_index: file("${prefix}.prt.idx"),
+        macsydata_raw: file("${prefix}.macsydata.tar.gz", optional: true),
+        results: [
+            file("${prefix}_defense_finder_genes.tsv"),
+            file("${prefix}_defense_finder_hmmer.tsv"),
+            file("${prefix}_defense_finder_systems.tsv"),
+            file("${prefix}.prt"),
+            file("${prefix}.prt.idx"),
+            file("${prefix}.macsydata.tar.gz", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -90,7 +104,7 @@ process DEFENSEFINDER_RUN {
 
     if [ "${task.ext.df_preserveraw}" == "true" ]; then
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/
-        rm -rf defense-finder-tmp/ 
+        rm -rf defense-finder-tmp/
     fi
 
     # Cleanup intermediate files and unused outputs

@@ -27,11 +27,14 @@
  * @input db
  * Directory containing the MIDAS database
  *
- * @output tsv         A tab-delimited summary of species abundance and coverage
- * @output abundances  Detailed species abundance profile (*.abundances.txt)
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(meta, tsv, abundances, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `tsv`: A tab-delimited summary of species abundance and coverage
+ * - `abundances`: Detailed species abundance profile (*.abundances.txt)
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -40,18 +43,22 @@ process MIDAS_SPECIES {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     db                      : Path
 
     output:
-    tsv        = tuple(meta, files("${prefix}.midas.tsv"))
-    abundances = tuple(meta, files("*.abundances.txt"))
-    logs       = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs   = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.midas.tsv"),
+        abundances: file("${prefix}.midas.abundances.txt"),
+        results: [file("${prefix}.midas.tsv"), file("${prefix}.midas.abundances.txt")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def VERSION = '1.3.2'

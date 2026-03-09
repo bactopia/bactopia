@@ -28,20 +28,23 @@
  * @input db
  * A compressed tarball containing the Kraken2/Bracken database
  *
- * @output tsv                 Tab-delimited summary of Bracken primary and secondary species abundances
- * @output special_tsv         A duplicate of the Bracken TSV with modified metadata (Internal use)
- * @output classified          Reads classified to belong to any of the taxa on the Kraken2 database
- * @output unclassified        Reads not classified to belong to any of the taxa on the Kraken2 database
- * @output kraken2_report      Kraken2 report containing stats about classified and not classified reads See [Kraken2 - Output Formats](https://github.com/DerrickWood/kraken2/wiki/Manual#output-formats) for more details
- * @output kraken2_output      Kraken2 output file containing the taxonomic classification of each read
- * @output bracken_report      Bracken report containing stats about classified and not classified reads See [Bracken - Output Formats](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more details
- * @output krona               Interactive Krona HTML visualization
- * @output abundances          Bracken abundance estimates for each taxon
- * @output classification      Bracken per-read classification details
- * @output adjusted_abundances Bracken abundance estimates for each taxon adjusted for inclusion of unclassified reads
- * @output logs                Optional software execution logs containing warnings/errors
- * @output nf_logs             Nextflow execution scripts and logs for debugging
- * @output versions            A YAML formatted file with software versions
+ * @output record(meta, tsv, special_meta, classified, unclassified, kraken2_report, kraken2_output, bracken_report, krona, abundances, classification, adjusted_abundances, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `tsv`: Tab-delimited summary of Bracken primary and secondary species abundances
+ * - `special_meta`: A simplified metadata map for internal use
+ * - `classified`: Reads classified to belong to any of the taxa on the Kraken2 database
+ * - `unclassified`: Reads not classified to belong to any of the taxa on the Kraken2 database
+ * - `kraken2_report`: Kraken2 report containing stats about classified and not classified reads
+ * - `kraken2_output`: Kraken2 output file containing the taxonomic classification of each read
+ * - `bracken_report`: Bracken report containing stats about classified and not classified reads
+ * - `krona`: Interactive Krona HTML visualization
+ * - `abundances`: Bracken abundance estimates for each taxon
+ * - `classification`: Bracken per-read classification details
+ * - `adjusted_abundances`: Bracken abundance estimates adjusted for unclassified reads
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -50,27 +53,39 @@ process BRACKEN {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     db                      : Path
 
     output:
-    tsv                 = tuple(meta, files("${prefix}.bracken.tsv"))
-    special_tsv         = tuple(special_meta, files("${prefix}.bracken.tsv"))
-    classified          = tuple(meta, files('*classified*', optional: true))
-    unclassified        = tuple(meta, files('*unclassified*', optional: true))
-    kraken2_report      = tuple(meta, files("${prefix}.kraken2.report.txt"))
-    kraken2_output      = tuple(meta, files("${prefix}.kraken2.output.txt", optional: true))
-    bracken_report      = tuple(meta, files("${prefix}.bracken.report.txt"))
-    krona               = tuple(meta, files("*.krona.html", optional: true))
-    abundances          = tuple(meta, files("${prefix}.bracken.abundances.txt"))
-    classification      = tuple(meta, files("${prefix}.bracken.classification.txt"))
-    adjusted_abundances = tuple(meta, files("${prefix}.bracken.adjusted.abundances.txt"))
-    logs                = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs             = tuple(meta, files(".command.*"))
-    versions            = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.bracken.tsv"),
+        special_meta: special_meta,
+        classified: files('*classified*', optional: true),
+        unclassified: files('*unclassified*', optional: true),
+        kraken2_report: file("${prefix}.kraken2.report.txt"),
+        kraken2_output: file("${prefix}.kraken2.output.txt", optional: true),
+        bracken_report: file("${prefix}.bracken.report.txt"),
+        krona: files("*.krona.html", optional: true),
+        abundances: file("${prefix}.bracken.abundances.txt"),
+        classification: file("${prefix}.bracken.classification.txt"),
+        adjusted_abundances: file("${prefix}.bracken.adjusted.abundances.txt"),
+        results: [
+            file("${prefix}.bracken.tsv"),
+            file("${prefix}.kraken2.report.txt"),
+            file("${prefix}.kraken2.output.txt", optional: true),
+            file("${prefix}.bracken.report.txt"),
+            file("${prefix}.bracken.abundances.txt"),
+            file("${prefix}.bracken.classification.txt"),
+            file("${prefix}.bracken.adjusted.abundances.txt")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -80,7 +95,6 @@ process BRACKEN {
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
     meta.scope = task.ext.scope
-    meta.runtype = _meta.runtype
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"

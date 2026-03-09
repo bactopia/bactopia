@@ -16,19 +16,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format for agr locus detection
  *
- * @output tsv          Agr locus typing results in TSV format for each sample
- * @output supplemental Additional detailed results including variant analysis
- * @output merged_tsv   Combined agr typing results from all samples in a single TSV file
- * @output results      Aggregated results channel containing all output files
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, summary, results, logs, nf_logs, versions
+ * @output run_outputs   Cross-sample aggregation record
  */
 nextflow.preview.types = true
 
 include { AGRVATE as AGRVATE_MODULE } from '../../modules/agrvate/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { flattenPaths              } from 'plugin/nf-bactopia'
 include { gather                    } from 'plugin/nf-bactopia'
 
 workflow AGRVATE {
@@ -37,30 +31,11 @@ workflow AGRVATE {
 
     main:
     AGRVATE_MODULE(assembly)
-    CSVTK_CONCAT(gather(AGRVATE_MODULE.out.summary, 'agrvate'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(AGRVATE_MODULE.out, 'agrvate', field: 'summary'), 'tsv', 'tsv')
 
     emit:
-    // Individual output
-    tsv: Channel<Tuple<Map, Set<Path>>> = AGRVATE_MODULE.out.summary
-    supplemental: Channel<Tuple<Map, Set<Path>>> = AGRVATE_MODULE.out.supplemental
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate output
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE_MODULE.out.summary,
-        AGRVATE_MODULE.out.supplemental,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    // Per-sample records (contains meta, summary, results, logs, nf_logs, versions)
+    sample_outputs = AGRVATE_MODULE.out
+    // Cross-sample aggregation record
+    run_outputs = CSVTK_CONCAT.out
 }

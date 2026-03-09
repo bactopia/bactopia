@@ -12,7 +12,7 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output,compression
  * @citation ariba
  *
- * @input tuple(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
@@ -22,33 +22,33 @@
  * @input db
  * An [ARIBA](https://github.com/sanger-pathogens/ariba) prepared database
  *
- * @output report       A tab-delimited report of the [ARIBA](https://github.com/sanger-pathogens/ariba) analysis
- * @output summary      A comma-delimited summary of the report created using `ariba summary`
- * @output supplemental Supplemental output files from [ARIBA](https://github.com/sanger-pathogens/ariba)
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, report, summary, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
 process ARIBA_RUN {
-    tag "${prefix} - ${db_name}"
+    tag "${_meta.name} - ${db.name}"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
-    db                      : Path
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    db: Path
 
     output:
-    report       = tuple(meta, file("${prefix}-report.tsv"))
-    summary      = tuple(meta, file("${prefix}-summary.csv"))
-    supplemental = tuple(meta, files("supplemental/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        // Named fields (upstream consumers access these)
+        report: file("${prefix}-report.tsv"),
+        summary: file("${prefix}-summary.csv"),
+        // Generic fields (same convention across every module)
+        results: files("${prefix}-report.tsv") + files("${prefix}-summary.csv") + files("supplemental/*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -61,10 +61,6 @@ process ARIBA_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-
-    // Determine read type from explicit slots (ARIBA requires paired-end reads)
-    has_r1 = r1 != null
-    has_r2 = r2 != null
 
     def db_name = db.getName().replace('.tar.gz', '')
     """

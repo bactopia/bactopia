@@ -11,18 +11,11 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:archive-output,compression,conditional-logic
  * @citation abritamr
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output summary   A tab-delimited summary of detected resistance genes
- * @output matches   A tab-delimited file of sequences vs functional drug classes
- * @output partials  A tab-delimited file of partial hits to functional drug classes
- * @output virulence A tab-delimited file of AMRFinderPlus virulence gene classifications
- * @output amrfinder Raw output from AMRFinderPlus (per sequence)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, summary, matches, partials, virulence, amrfinder, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -31,20 +24,32 @@ process ABRITAMR_RUN {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly): Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    summary   = tuple(meta, file("${prefix}.abritamr.tsv", optional: true))
-    matches   = tuple(meta, file("${prefix}.summary_matches.tsv"))
-    partials  = tuple(meta, file("${prefix}.summary_partials.tsv"))
-    virulence = tuple(meta, file("${prefix}.summary_virulence.tsv"))
-    amrfinder = tuple(meta, file("${prefix}.amrfinder.out"))
-    logs      = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs   = tuple(meta, files(".command.*"))
-    versions  = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        // Named fields (upstream consumers like MERLIN access these)
+        summary: file("${prefix}.abritamr.tsv", optional: true),
+        matches: file("${prefix}.summary_matches.tsv"),
+        partials: file("${prefix}.summary_partials.tsv"),
+        virulence: file("${prefix}.summary_virulence.tsv"),
+        amrfinder: file("${prefix}.amrfinder.out"),
+        // Generic fields (same convention across every module)
+        results: [
+            file("${prefix}.abritamr.tsv", optional: true),
+            file("${prefix}.summary_matches.tsv"),
+            file("${prefix}.summary_partials.tsv"),
+            file("${prefix}.summary_virulence.tsv"),
+            file("${prefix}.amrfinder.out")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

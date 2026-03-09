@@ -10,15 +10,11 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation btyper3
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv           A tab-delimited final summary report of the typing results
- * @output supplemental  Directory containing detailed per-gene reports and raw BLAST outputs
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -27,17 +23,20 @@ process BTYPER3 {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
-    supplemental = tuple(meta, files("supplemental/*", optional: true))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        results: files("${prefix}.tsv") + files("supplemental/*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

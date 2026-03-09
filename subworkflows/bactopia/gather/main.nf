@@ -49,10 +49,16 @@ workflow GATHER {
     GATHER_MODULE(samples)
     CSVTK_CONCAT(gather(GATHER_MODULE.out.tsv, 'meta'), 'tsv', 'tsv')
 
+    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
+    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
+    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
+    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+
     emit:
     // Individual outputs
     tsv: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    merged_tsv = ch_concat_csv
     reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterWithData(GATHER_MODULE.out.reads)
     error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error
 
@@ -60,18 +66,18 @@ workflow GATHER {
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         GATHER_MODULE.out.tsv,
         GATHER_MODULE.out.error,
-        CSVTK_CONCAT.out.csv
+        ch_concat_csv
     ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([
         GATHER_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
+        ch_concat_logs
     ])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CSVTK_CONCAT.out.nf_logs,
+        ch_concat_nf_logs,
         GATHER_MODULE.out.nf_logs
     ])
     versions: Channel<Tuple<Map, Path>> = flattenPaths([
         GATHER_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
+        ch_concat_versions
     ])
 }

@@ -19,18 +19,13 @@
  * - `assembly`: Assembled contigs in FASTA format (Path)
  * - `meta_file`: Meta file containing reference size information (Path)
  *
- * @output tsv        Per-sample QUAST quality assessment results in TSV format
- * @output merged_tsv Combined QUAST results summary across all samples
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from QUAST_MODULE
+ * @output run_outputs   Combined QUAST results across all samples as a record
  */
 nextflow.preview.types = true
 
 include { QUAST as QUAST_MODULE } from '../../modules/quast/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { flattenPaths          } from 'plugin/nf-bactopia'
 include { gather                } from 'plugin/nf-bactopia'
 
 workflow QUAST {
@@ -39,29 +34,9 @@ workflow QUAST {
 
     main:
     QUAST_MODULE(fasta)
-    CSVTK_CONCAT(gather(QUAST_MODULE.out.tsv, 'quast'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(QUAST_MODULE.out, 'quast', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = QUAST_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        QUAST_MODULE.out.supplemental,
-        QUAST_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        QUAST_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        QUAST_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        QUAST_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = QUAST_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

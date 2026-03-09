@@ -17,10 +17,13 @@
  * @input reference
  * The reference file (FASTA, FASTQ, or Mash sketch) to compare against
  *
- * @output dist      A tab-delimited summary of the Mash distances and p-values
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, dist, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `dist`: A tab-delimited summary of the Mash distances and p-values
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,17 +32,21 @@ process MASH_DIST {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, query) : Tuple<Map, Set<Path>>
+    (_meta: Map, query: Set<Path>): Record
     reference      : Path
 
     output:
-    dist     = tuple(meta, file("${prefix}-dist.txt"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        dist: file("${prefix}-dist.txt"),
+        results: [file("${prefix}-dist.txt")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

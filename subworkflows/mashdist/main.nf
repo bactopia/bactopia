@@ -31,7 +31,6 @@ nextflow.preview.types = true
 
 include { MASH_DIST    } from '../../modules/mash/dist/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { flattenPaths } from 'plugin/nf-bactopia'
 include { gather       } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
@@ -41,28 +40,8 @@ workflow MASHDIST {
 
     main:
     MASH_DIST(seqs, reference)
-    CSVTK_CONCAT(gather(MASH_DIST.out.dist, 'mashdist', 'dist'), 'tsv', 'tsv')
-
+    CSVTK_CONCAT(gather(MASH_DIST.out, 'mashdist', field: 'dist'), 'tsv', 'tsv')
     emit:
-    // Individual outputs
-    dist: Channel<Tuple<Map, Set<Path>>> = MASH_DIST.out.dist
-    merged_dist: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        MASH_DIST.out.dist,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MASH_DIST.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MASH_DIST.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        MASH_DIST.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = MASH_DIST.out
+    run_outputs = CSVTK_CONCAT.out
 }

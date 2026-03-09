@@ -14,14 +14,11 @@
  * Abricate bundles multiple databases including NCBI, CARD, ResFinder, PlasmidFinder,
  * ARG-ANNOT, and VFDB.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output report   A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, report, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -30,16 +27,20 @@ process ABRICATE_RUN {
     label 'process_single'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker }"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly): Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    report   = tuple(meta, file("${prefix}.tsv"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        report: file("${prefix}.tsv"),
+        results: [file("${prefix}.tsv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -54,7 +55,7 @@ process ABRICATE_RUN {
     meta.process_name = task.ext.process_name
     """
     abricate \\
-        $assembly \\
+        ${assembly} \\
         $task.ext.args \\
         --threads $task.cpus > ${prefix}.tsv
 

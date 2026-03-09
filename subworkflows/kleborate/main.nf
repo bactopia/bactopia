@@ -18,18 +18,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for Klebsiella genotyping
  *
- * @output tsv         Kleborate genotyping results with K and L loci, virulence, and resistance genes
- * @output merged_tsv  Combined TSV file containing genotyping results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, and versions
+ * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
  */
 nextflow.preview.types = true
 
 include { KLEBORATE as KLEBORATE_MODULE } from '../../modules/kleborate/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow KLEBORATE {
@@ -38,28 +33,9 @@ workflow KLEBORATE {
 
     main:
     KLEBORATE_MODULE(assembly)
-    CSVTK_CONCAT(gather(KLEBORATE_MODULE.out.txt, 'kleborate', 'txt'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(KLEBORATE_MODULE.out, 'kleborate', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = KLEBORATE_MODULE.out.txt
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        KLEBORATE_MODULE.out.txt,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        KLEBORATE_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CSVTK_CONCAT.out.nf_logs,
-        KLEBORATE_MODULE.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        KLEBORATE_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = KLEBORATE_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation csvtk
  *
- * @input tuple(meta, csv)
+ * @input record(meta, csv)
  * - `meta`: Groovy Map containing sample information
  * - `csv`: A list of CSV/TSV files to be concatenated
  *
@@ -20,10 +20,7 @@
  * @input out_format
  * Output format string ('csv', 'tsv', or a specific delimiter character)
  *
- * @output csv       The concatenated tabular file (*.csv or *.tsv)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, csv, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -32,26 +29,31 @@ process CSVTK_CONCAT {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, csv) : Tuple<Map, Set<Path>>
-    in_format    : String
-    out_format   : String
+    (_meta: Map, csv: Set<Path>): Record
+    in_format:  String
+    out_format: String
 
     stage:
     stageAs 'inputs/*', csv
 
     output:
-    csv      = tuple(meta, file("${prefix}.${out_extension}"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        csv: file("${prefix}.${out_extension}"),
+        results: [file("${prefix}.${out_extension}")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     subdir = _meta.subdir ? "${_meta.subdir}/" : ''
     prefix = _meta.id
+    extra_args = _meta.args ? "${_meta.args}" : ""
 
     // Create a new meta variable
     meta = [:]
@@ -64,7 +66,6 @@ process CSVTK_CONCAT {
 
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
-    extra_args = _meta.args ? "${_meta.args}" : ""
     """
     # Create a file of files for csvtk
     ls inputs/ | awk '{ print "inputs/"\$1 }' > fofn.txt

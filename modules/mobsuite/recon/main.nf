@@ -10,17 +10,11 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation mobsuite
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output chromosome    FASTA file containing all contigs assigned to the chromosome
- * @output contig_report Assignment of each input contig to the chromosome or a specific plasmid group
- * @output plasmids      Individual FASTA files for each reconstructed plasmid group
- * @output txt           The final Mob-typer classification report (replicon, Inc type, mobility)
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, chromosome, contig_report, txt, plasmids, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -29,19 +23,23 @@ process MOBSUITE_RECON {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, fasta) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    chromosome    = tuple(meta, file("${prefix}-chromosome.fasta.gz"))
-    contig_report = tuple(meta, file("${prefix}-contig_report.txt"))
-    txt           = tuple(meta, file("${prefix}-mobtyper.txt", optional: true))
-    plasmids      = tuple(meta, files("plasmid_*.fasta.gz", optional: true))
-    logs          = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs       = tuple(meta, files(".command.*"))
-    versions      = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        chromosome: file("${prefix}-chromosome.fasta.gz"),
+        contig_report: file("${prefix}-contig_report.txt"),
+        txt: file("${prefix}-mobtyper.txt", optional: true),
+        plasmids: files("plasmid_*.fasta.gz", optional: true),
+        results: files("${prefix}-chromosome.fasta.gz") + files("${prefix}-contig_report.txt") + files("${prefix}-mobtyper.txt", optional: true) + files("plasmid_*.fasta.gz", optional: true),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -55,11 +53,11 @@ process MOBSUITE_RECON {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    def fasta_name = fasta.getName().replace(".gz", "")
+    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def fasta_name = assembly.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fasta} > ${fasta_name}
+        gzip -c -d ${assembly} > ${fasta_name}
     fi
 
     mob_recon \\

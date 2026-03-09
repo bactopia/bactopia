@@ -23,18 +23,11 @@
  * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
  * - `lr`: Long reads (not supported by PneumoCaT)
  *
- * @output xml          Per-sample PneumoCaT detailed results in XML format with coverage information
- * @output txt          Per-sample summary reports with serotype calls and statistics
- * @output results      Aggregated results channel containing all output files
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from PNEUMOCAT_MODULE
  */
 nextflow.preview.types = true
 
 include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
-include { gather                        } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:
@@ -44,16 +37,5 @@ workflow PNEUMOCAT {
     PNEUMOCAT_MODULE(reads)
 
     emit:
-    // Individual outputs
-    xml: Channel<Tuple<Map, Set<Path>>> = PNEUMOCAT_MODULE.out.xml
-    txt: Channel<Tuple<Map, Set<Path>>> = PNEUMOCAT_MODULE.out.txt
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        PNEUMOCAT_MODULE.out.xml,
-        PNEUMOCAT_MODULE.out.txt
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([PNEUMOCAT_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([PNEUMOCAT_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([PNEUMOCAT_MODULE.out.versions])
+    sample_outputs = PNEUMOCAT_MODULE.out
 }

@@ -86,11 +86,17 @@ workflow SCRUBBER {
 
     CSVTK_CONCAT(gather(ch_scrub_report, 'scrubber'), 'tsv', 'tsv')
 
+    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
+    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
+    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
+    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+
     emit:
     // Individual outputs
     tsv: Channel<Tuple<Map, Set<Path>>> = ch_scrub_report
     special_tsv: Channel<Tuple<Map, Set<Path>>> = ch_special_report
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
+    merged_tsv = ch_concat_csv
     scrubbed: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed
     scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed_extra
 
@@ -98,18 +104,18 @@ workflow SCRUBBER {
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         ch_scrub_report,
         ch_scrubbed,
-        CSVTK_CONCAT.out.csv
+        ch_concat_csv
     ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([
         ch_logs,
-        CSVTK_CONCAT.out.logs
+        ch_concat_logs
     ])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
         ch_nf_logs,
-        CSVTK_CONCAT.out.nf_logs
+        ch_concat_nf_logs
     ])
     versions: Channel<Tuple<Map, Path>> = flattenPaths([
         ch_versions,
-        CSVTK_CONCAT.out.versions
+        ch_concat_versions
     ])
 }

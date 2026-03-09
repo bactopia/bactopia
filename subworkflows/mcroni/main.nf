@@ -18,19 +18,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for mcr-1 promoter analysis
  *
- * @output tsv         mcroni analysis results with identified promoter variants
- * @output merged_tsv  Combined TSV file containing promoter variant results from all samples
- * @output fa          Extracted promoter sequences in FASTA format
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, tsv, fa, results, logs, nf_logs, and versions
+ * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
  */
 nextflow.preview.types = true
 
 include { MCRONI as MCRONI_MODULE } from '../../modules/mcroni/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { flattenPaths            } from 'plugin/nf-bactopia'
 include { gather                  } from 'plugin/nf-bactopia'
 
 workflow MCRONI {
@@ -39,30 +33,9 @@ workflow MCRONI {
 
     main:
     MCRONI_MODULE(assembly)
-    CSVTK_CONCAT(gather(MCRONI_MODULE.out.tsv, 'mcroni'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MCRONI_MODULE.out, 'mcroni', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = MCRONI_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-    fa: Channel<Tuple<Map, Set<Path>>> = MCRONI_MODULE.out.fa
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        MCRONI_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv,
-        MCRONI_MODULE.out.fa
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MCRONI_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MCRONI_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        MCRONI_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = MCRONI_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

@@ -24,26 +24,12 @@
  * @input download_eggnog
  * Boolean flag to trigger database download if not provided
  *
- * @output hits            Best hits from sequence similarity searches
- * @output seed_orthologs  Seed ortholog assignments for each query
- * @output annotations     Detailed functional annotations with GO terms, pathways, and COG categories
- * @output xlsx            Complete annotation results in Excel format
- * @output orthologs       Ortholog assignments in TSV format
- * @output genepred        Gene prediction output file
- * @output gff             Annotation file in GFF3 format
- * @output no_anno         Sequences with no significant annotation
- * @output pfam            PFAM domain annotations
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from EGGNOG_MAPPER
  */
 nextflow.preview.types = true
 
 include { EGGNOG_DOWNLOAD } from '../../modules/eggnog/download/main'
 include { EGGNOG_MAPPER   } from '../../modules/eggnog/mapper/main'
-include { flattenPaths    } from 'plugin/nf-bactopia'
-include { gather          } from 'plugin/nf-bactopia'
 
 workflow EGGNOG {
     take:
@@ -61,30 +47,5 @@ workflow EGGNOG {
     }
 
     emit:
-    // Individual outputs
-    hits: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.hits
-    seed_orthologs: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.seed_orthologs
-    annotations: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.annotations
-    xlsx: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.xlsx
-    orthologs: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.orthologs
-    genepred: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.genepred
-    gff: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.gff
-    no_anno: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.no_anno
-    pfam: Channel<Tuple<Map, Set<Path>>> = EGGNOG_MAPPER.out.pfam
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        EGGNOG_MAPPER.out.hits,
-        EGGNOG_MAPPER.out.seed_orthologs,
-        EGGNOG_MAPPER.out.annotations,
-        EGGNOG_MAPPER.out.xlsx,
-        EGGNOG_MAPPER.out.orthologs,
-        EGGNOG_MAPPER.out.genepred,
-        EGGNOG_MAPPER.out.gff,
-        EGGNOG_MAPPER.out.no_anno,
-        EGGNOG_MAPPER.out.pfam
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([EGGNOG_MAPPER.out.versions])
+    sample_outputs = EGGNOG_MAPPER.out
 }

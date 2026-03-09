@@ -96,32 +96,49 @@ workflow TETON {
 
     // Merge reports
     CSVTK_CONCAT(gather(CSVTK_JOIN.out.csv, 'teton'), 'tsv', 'tsv')
-    ch_logs = ch_logs.mix(CSVTK_CONCAT.out.logs)
+    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
+    ch_logs = ch_logs.mix(ch_concat_logs)
     ch_versions = ch_versions.mix(CSVTK_JOIN.out.versions)
 
     // Merge Teton prepare (bacteria)
     CSVTK_CONCAT_BACTERIA(gather(BACTOPIA_SAMPLESHEET.out.bacteria_tsv, 'teton-prepare'), 'tsv', 'tsv')
-    ch_logs = ch_logs.mix(CSVTK_CONCAT_BACTERIA.out.logs)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT_BACTERIA.out.versions)
+    ch_bacteria_logs = CSVTK_CONCAT_BACTERIA.out.map { r -> tuple(r.meta, r.logs) }
+    ch_bacteria_versions = CSVTK_CONCAT_BACTERIA.out.map { r -> tuple(r.meta, r.versions) }
+    ch_logs = ch_logs.mix(ch_bacteria_logs)
+    ch_versions = ch_versions.mix(ch_bacteria_versions)
 
     // Merge Teton prepare (non-bacteria)
     CSVTK_CONCAT_NONBACTERIA(gather(BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv, 'teton-prepare-nonbacteria'), 'tsv', 'tsv')
-    ch_logs = ch_logs.mix(CSVTK_CONCAT_NONBACTERIA.out.logs)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT_NONBACTERIA.out.versions)
+    ch_nonbacteria_logs = CSVTK_CONCAT_NONBACTERIA.out.map { r -> tuple(r.meta, r.logs) }
+    ch_nonbacteria_versions = CSVTK_CONCAT_NONBACTERIA.out.map { r -> tuple(r.meta, r.versions) }
+    ch_logs = ch_logs.mix(ch_nonbacteria_logs)
+    ch_versions = ch_versions.mix(ch_nonbacteria_versions)
 
     // Merge sizemeup results
     CSVTK_CONCAT_SIZEMEUP(gather(BACTOPIA_SAMPLESHEET.out.sizemeup, 'sizemeup'), 'tsv', 'tsv')
-    ch_logs = ch_logs.mix(CSVTK_CONCAT_SIZEMEUP.out.logs)
-    ch_versions = ch_versions.mix(CSVTK_CONCAT_SIZEMEUP.out.versions)
+    ch_sizemeup_logs = CSVTK_CONCAT_SIZEMEUP.out.map { r -> tuple(r.meta, r.logs) }
+    ch_sizemeup_versions = CSVTK_CONCAT_SIZEMEUP.out.map { r -> tuple(r.meta, r.versions) }
+    ch_logs = ch_logs.mix(ch_sizemeup_logs)
+    ch_versions = ch_versions.mix(ch_sizemeup_versions)
+
+    // Extract tuple channels from CSVTK_CONCAT record outputs for flattenPaths/emit compatibility
+    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
+    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_bacteria_csv = CSVTK_CONCAT_BACTERIA.out.map { r -> tuple(r.meta, r.csv) }
+    ch_bacteria_nf_logs = CSVTK_CONCAT_BACTERIA.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_nonbacteria_csv = CSVTK_CONCAT_NONBACTERIA.out.map { r -> tuple(r.meta, r.csv) }
+    ch_nonbacteria_nf_logs = CSVTK_CONCAT_NONBACTERIA.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_sizemeup_csv = CSVTK_CONCAT_SIZEMEUP.out.map { r -> tuple(r.meta, r.csv) }
+    ch_sizemeup_nf_logs = CSVTK_CONCAT_SIZEMEUP.out.map { r -> tuple(r.meta, r.nf_logs) }
 
     emit:
     // Individual outputs
     bacteria_tsv: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.bacteria_tsv
-    merged_bacteria_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_BACTERIA.out.csv
+    merged_bacteria_tsv = ch_bacteria_csv
     nonbacteria_tsv: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv
-    merged_nonbacteria_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_NONBACTERIA.out.csv
+    merged_nonbacteria_tsv = ch_nonbacteria_csv
     sizemeup: Channel<Tuple<Map, Set<Path>>> = BACTOPIA_SAMPLESHEET.out.sizemeup
-    merged_sizemeup: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT_SIZEMEUP.out.csv
+    merged_sizemeup = ch_sizemeup_csv
     report: Channel<Tuple<Map, Set<Path>>> = CSVTK_JOIN.out.csv
 
     // Generic aggregate outputs
@@ -130,21 +147,21 @@ workflow TETON {
         BACTOPIA_SAMPLESHEET.out.bacteria_tsv,
         BACTOPIA_SAMPLESHEET.out.nonbacteria_tsv,
         BACTOPIA_SAMPLESHEET.out.sizemeup,
-        CSVTK_CONCAT.out.csv,
+        ch_concat_csv,
         CSVTK_JOIN.out.csv,
-        CSVTK_CONCAT_BACTERIA.out.csv,
-        CSVTK_CONCAT_NONBACTERIA.out.csv,
-        CSVTK_CONCAT_SIZEMEUP.out.csv
+        ch_bacteria_csv,
+        ch_nonbacteria_csv,
+        ch_sizemeup_csv
     ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_logs])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
         ch_nf_logs,
         BACTOPIA_SAMPLESHEET.out.nf_logs,
         CSVTK_JOIN.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs,
-        CSVTK_CONCAT_BACTERIA.out.nf_logs,
-        CSVTK_CONCAT_NONBACTERIA.out.nf_logs,
-        CSVTK_CONCAT_SIZEMEUP.out.nf_logs
+        ch_concat_nf_logs,
+        ch_bacteria_nf_logs,
+        ch_nonbacteria_nf_logs,
+        ch_sizemeup_nf_logs
     ])
     versions: Channel<Tuple<Map, Path>> = flattenPaths([ch_versions])
 }

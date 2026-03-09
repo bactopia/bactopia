@@ -27,16 +27,19 @@
  * @input db
  * Kraken2 database (Directory or compressed tarball)
  *
- * @output kraken2_report    Standard Kraken2 report containing taxonomic abundance counts
- * @output scrub_report      Summary report of reads removed during host scrubbing (optional)
- * @output scrub_special_report Duplicate scrub report with modified metadata (Internal use)
- * @output classified        Reads assigned to a taxon in the database (FASTQ)
- * @output unclassified      Reads NOT assigned to any taxon (FASTQ)
- * @output classified_extra  Duplicate classified channel with placeholder for pipeline routing
- * @output unclassified_extra Duplicate unclassified channel with placeholder for pipeline routing
- * @output logs              Optional software execution logs containing warnings/errors
- * @output nf_logs           Nextflow execution scripts and logs for debugging
- * @output versions          A YAML formatted file with software versions
+ * @output record(meta, kraken2_report, scrub_report, special_meta, classified, unclassified, classified_extra, unclassified_extra, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
+ * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
+ * - `special_meta`: A simplified metadata map for internal use
+ * - `classified`: Reads assigned to a taxon in the database (FASTQ)
+ * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
+ * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
+ * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -45,23 +48,30 @@ process KRAKEN2 {
     label 'process_high'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     db                      : Path
 
     output:
-    kraken2_report       = tuple(meta, files('*.kraken2.report.txt'))
-    scrub_report         = tuple(meta, files('*.scrub.report.tsv', optional: true))
-    scrub_special_report = tuple(special_meta, files('*.scrub.report.tsv', optional: true))
-    classified           = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true))
-    unclassified         = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true))
-    classified_extra     = tuple(meta, files("*.${classified_naming}*.fastq.gz", optional: true), files("EMPTY_EXTRA", optional: true))
-    unclassified_extra   = tuple(meta, files("*.${unclassified_naming}*.fastq.gz", optional: true), files("EMPTY_EXTRA", optional: true))
-    logs                 = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs              = tuple(meta, files(".command.*"))
-    versions             = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        kraken2_report: files('*.kraken2.report.txt'),
+        scrub_report: files('*.scrub.report.tsv', optional: true),
+        special_meta: special_meta,
+        classified: files("*.${classified_naming}*.fastq.gz", optional: true),
+        unclassified: files("*.${unclassified_naming}*.fastq.gz", optional: true),
+        classified_extra: files("*.${classified_naming}*.fastq.gz", optional: true),
+        unclassified_extra: files("*.${unclassified_naming}*.fastq.gz", optional: true),
+        results: [
+            file("${prefix}.kraken2.report.txt"),
+            file("${prefix}.scrub.report.tsv", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -88,7 +98,6 @@ process KRAKEN2 {
     has_r2 = r2 != null
     has_se = se != null
     meta.single_end = has_se && !has_r1 && !has_r2
-    meta.runtype = _meta.runtype
 
     // Build read inputs for kraken2
     read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"

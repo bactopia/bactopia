@@ -10,17 +10,20 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation sistr
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv          SISTR prediction results in TSV format
- * @output allele_fasta Novel alleles in FASTA format
- * @output allele_json  Alleles in JSON format
- * @output cgmlst_csv   cgMLST profile in CSV format
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, tsv, allele_fasta, allele_json, cgmlst_csv, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information
+ * - `tsv`: SISTR prediction results in TSV format
+ * - `allele_fasta`: Novel alleles in FASTA format
+ * - `allele_json`: Alleles in JSON format
+ * - `cgmlst_csv`: cgMLST profile in CSV format
+ * - `results`: List of all output files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,19 +32,23 @@ process SISTR {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
-    allele_fasta = tuple(meta, file("${prefix}-allele.fasta.gz"))
-    allele_json  = tuple(meta, file("${prefix}-allele.json.gz"))
-    cgmlst_csv   = tuple(meta, file("${prefix}-cgmlst.csv"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        allele_fasta: file("${prefix}-allele.fasta.gz"),
+        allele_json: file("${prefix}-allele.json.gz"),
+        cgmlst_csv: file("${prefix}-cgmlst.csv"),
+        results: [file("${prefix}.tsv"), file("${prefix}-allele.fasta.gz"), file("${prefix}-allele.json.gz"), file("${prefix}-cgmlst.csv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -18,13 +18,16 @@
  * @input db
  * The reference gene database in FASTA format
  *
- * @output gamma     The main GAMMA output file containing annotated gene matches
- * @output psl       The raw alignment details in PSL format
- * @output gff       Gene matches in GFF3 format
- * @output fasta     Extracted nucleotide sequences of the matched genes
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, gamma, psl, gff, fasta, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `gamma`: The main GAMMA output file containing annotated gene matches
+ * - `psl`: The raw alignment details in PSL format
+ * - `gff`: Gene matches in GFF3 format
+ * - `fasta`: Extracted nucleotide sequences of the matched genes
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -33,20 +36,24 @@ process GAMMA {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
     db                : Path
 
     output:
-    gamma    = tuple(meta, file("${prefix}.gamma"))
-    psl      = tuple(meta, file("${prefix}.psl"))
-    gff      = tuple(meta, file("${prefix}.gff", optional: true))
-    fasta    = tuple(meta, file("${prefix}.fasta", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        gamma: file("${prefix}.gamma"),
+        psl: file("${prefix}.psl"),
+        gff: file("${prefix}.gff", optional: true),
+        fasta: file("${prefix}.fasta", optional: true),
+        results: [file("${prefix}.gamma"), file("${prefix}.psl"), file("${prefix}.gff", optional: true), file("${prefix}.fasta", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

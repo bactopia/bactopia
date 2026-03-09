@@ -11,16 +11,19 @@
  * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation pbptyper
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv       A tab-delimited summary file with the predicted PBP type for each gene
- * @output blast     A tab-delimited file of the raw TBLASTN hits used for gene identification
- * @output details   Detailed PBP typing results for each gene analyzed
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, tsv, blast, details, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information
+ * - `tsv`: A tab-delimited summary file with the predicted PBP type for each gene
+ * - `blast`: A tab-delimited file of the raw TBLASTN hits used for gene identification
+ * - `details`: Detailed PBP typing results for each gene analyzed
+ * - `results`: List of all result files
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,18 +32,22 @@ process PBPTYPER {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    blast    = tuple(meta, file("${prefix}.tblastn.tsv"))
-    details  = tuple(meta, file("${prefix}.details.tsv"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        blast: file("${prefix}.tblastn.tsv"),
+        details: file("${prefix}.details.tsv"),
+        results: files("${prefix}.tsv") + files("${prefix}.tblastn.tsv") + files("${prefix}.details.tsv"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

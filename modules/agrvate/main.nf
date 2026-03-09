@@ -9,15 +9,11 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation agrvate
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled Staphylococcus aureus contigs in FASTA format
  *
- * @output summary      A tab-delimited report containing the assigned agr type and additional details
- * @output supplemental Supplemental output files from [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE)
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, summary, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -26,20 +22,22 @@ process AGRVATE {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
-
-    stage:
-    stageAs 'input/*', assembly
+    (_meta: Map, assembly: Path): Record
 
     output:
-    summary      = tuple(meta, file("${prefix}.tsv"))
-    supplemental = tuple(meta, files("supplemental/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        // Named fields (upstream consumers access these)
+        summary: file("${prefix}.tsv"),
+        // Generic fields (same convention across every module)
+        results: files("${prefix}.tsv") + files("supplemental/*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

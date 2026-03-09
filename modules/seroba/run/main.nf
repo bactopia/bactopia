@@ -12,15 +12,18 @@
  * @note Database Required
  * Requires the SeroBA database to be set up using `seroba createDBs` before running.
  *
- * @input tuple(meta, reads)
+ * @input record(meta, reads)
  * - `meta`: Groovy Map containing sample information
  * - `reads`: Paired-end FASTQ files
  *
- * @output tsv      Serotype prediction results with predicted serotype and confidence in TSV format
- * @output txt      Detailed information about the predicted serogroup and allele matches
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, tsv, txt, results, logs, nf_logs, versions)
+ * - `meta`:     Groovy Map containing sample information
+ * - `tsv`:      Serotype prediction results with predicted serotype and confidence in TSV format
+ * - `txt`:      Detailed information about the predicted serogroup and allele matches
+ * - `results`:  Set of all output files for publishing
+ * - `logs`:     Optional software execution logs containing warnings/errors
+ * - `nf_logs`:  Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,17 +32,21 @@ process SEROBA_RUN {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta: Map, reads: Set<Path>): Record
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
-    txt      = tuple(meta, files("supplemental/detailed_serogroup_info.txt", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta:     meta,
+        tsv:      file("${prefix}.tsv"),
+        txt:      file("supplemental/detailed_serogroup_info.txt", optional: true),
+        results:  files("${prefix}.tsv") + files("supplemental/detailed_serogroup_info.txt", optional: true),
+        logs:     files("*.{log,err}", optional: true),
+        nf_logs:  files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

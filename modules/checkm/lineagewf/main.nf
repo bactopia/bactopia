@@ -15,15 +15,11 @@
  * Requires the CheckM reference database (~275GB uncompressed) to be configured via the
  * `CHECKM_DATA_PATH` environment variable or pre-installed in the container.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv           A tab-delimited report of quality metrics (Completeness, Contamination, Heterogeneity). See [CheckM's lineage_wf documentation](https://github.com/Ecogenomics/CheckM/wiki/Workflows#lineage-specific-workflow) for details.
- * @output supplemental  Directory containing lineage files, marker gene stats, and storage logs
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -32,17 +28,20 @@ process CHECKM_LINEAGEWF {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv          = tuple(meta, file("${prefix}.tsv"))
-    supplemental = tuple(meta, files("supplemental/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        results: files("${prefix}.tsv") + files("supplemental/*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -11,15 +11,11 @@
  * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation mcroni
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv       A tab-delimited summary of the *mcr-1* detection and variation
- * @output fa        The extracted *mcr-1* nucleotide sequences (if found)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, tsv, fa, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -28,17 +24,21 @@ process MCRONI {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    fa       = tuple(meta, file("${prefix}.fasta", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        fa: file("${prefix}.fasta", optional: true),
+        results: files("${prefix}.tsv") + files("${prefix}.fasta", optional: true),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def VERSION = '1.0.4'

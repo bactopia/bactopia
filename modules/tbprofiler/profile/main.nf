@@ -36,20 +36,24 @@ process TBPROFILER_PROFILE {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 
     output:
-    bam      = tuple(meta, files("bam/*.bam"))
-    csv      = tuple(meta, files("supplemental/*.csv", optional: true))
-    json     = tuple(meta, files("supplemental/*.json.gz"))
-    txt      = tuple(meta, files("supplemental/*.txt", optional: true))
-    vcf      = tuple(meta, files("vcf/*.vcf.gz"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        bam: files("bam/*.bam"),
+        csv: files("supplemental/*.csv", optional: true),
+        json: files("supplemental/*.json.gz"),
+        txt: files("supplemental/*.txt", optional: true),
+        vcf: files("vcf/*.vcf.gz"),
+        results: [],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

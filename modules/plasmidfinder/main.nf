@@ -10,18 +10,16 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation plasmidfinder
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output json        The complete analysis results in JSON format
- * @output txt         The human-readable summary of plasmid findings
- * @output tsv         The results from analysis in TSV format
- * @output genome_seq  FASTA of the contig regions in the input assembly that showed a hit
- * @output plasmid_seq FASTA of the plasmid sequences from the database that had a hit
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(meta, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information
+ * - `results`: List of result files (JSON, TXT, TSV, genome sequences, plasmid sequences)
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -30,20 +28,26 @@ process PLASMIDFINDER {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    json        = tuple(meta, file("${prefix}.json"))
-    txt         = tuple(meta, file("${prefix}.txt"))
-    tsv         = tuple(meta, file("${prefix}.tsv"))
-    genome_seq  = tuple(meta, file("${prefix}-hit_in_genome_seq.fsa.gz"))
-    plasmid_seq = tuple(meta, file("${prefix}-plasmid_seqs.fsa.gz"))
-    logs        = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs     = tuple(meta, files(".command.*"))
-    versions    = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        // Named fields (upstream consumers access these)
+        json: file("${prefix}.json"),
+        txt: file("${prefix}.txt"),
+        tsv: file("${prefix}.tsv"),
+        genome_seq: file("${prefix}-hit_in_genome_seq.fsa.gz"),
+        plasmid_seq: file("${prefix}-plasmid_seqs.fsa.gz"),
+        // Generic fields (same convention across every module)
+        results: [file("${prefix}.json"), file("${prefix}.txt"), file("${prefix}.tsv"), file("${prefix}-hit_in_genome_seq.fsa.gz"), file("${prefix}-plasmid_seqs.fsa.gz")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def VERSION = '2.1.6'

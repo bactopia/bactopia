@@ -9,15 +9,18 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation seqsero2
  *
- * @input tuple(meta, seqs)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: FASTQ reads or Assembled contigs
+ * - `assembly`: FASTQ reads or Assembled contigs
  *
- * @output tsv      SeqSero2 results in TSV format
- * @output txt      SeqSero2 results in text format
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, tsv, txt, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information
+ * - `tsv`: SeqSero2 results in TSV format
+ * - `txt`: SeqSero2 results in text format
+ * - `results`: List of all output files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -26,17 +29,21 @@ process SEQSERO2 {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, seqs) : Tuple<Map, Set<Path>>
+    (_meta: Map, assembly: Path): Record
 
     output:
-    tsv      = tuple(meta, files("${prefix}.tsv"))
-    txt      = tuple(meta, files("${prefix}.txt"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta:     meta,
+        tsv:      file("${prefix}.tsv"),
+        txt:      file("${prefix}.txt"),
+        results:  [file("${prefix}.tsv"), file("${prefix}.txt")],
+        logs:     files("*.{log,err}", optional: true),
+        nf_logs:  files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"
@@ -50,11 +57,11 @@ process SEQSERO2 {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed_fna = seqs.getName().endsWith("fna.gz") ? true : false
-    def seq_name = is_compressed_fna ? seqs.getName().replace(".gz", "") : "${seqs}"
+    def is_compressed_fna = assembly.getName().endsWith("fna.gz") ? true : false
+    def seq_name = is_compressed_fna ? assembly.getName().replace(".gz", "") : "${assembly}"
     """
     if [ "${is_compressed_fna}" == "true" ]; then
-        gzip -c -d ${seqs} > ${seq_name}
+        gzip -c -d ${assembly} > ${seq_name}
     fi
 
     SeqSero2_package.py \\
@@ -70,7 +77,7 @@ process SEQSERO2 {
     mv supplemental/SeqSero_result.txt ./${prefix}.txt
 
     # Cleanup
-    rm -rf supplemental/ ${seq_name} 
+    rm -rf supplemental/ ${seq_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

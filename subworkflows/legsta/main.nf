@@ -18,18 +18,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for L. pneumophila sequence typing
  *
- * @output tsv         legsta sequence typing results with ST assignments
- * @output merged_tsv  Combined TSV file containing typing results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, versions
+ * @output run_outputs   Cross-sample aggregation record
  */
 nextflow.preview.types = true
 
 include { LEGSTA as LEGSTA_MODULE } from '../../modules/legsta/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { flattenPaths            } from 'plugin/nf-bactopia'
 include { gather                  } from 'plugin/nf-bactopia'
 
 workflow LEGSTA {
@@ -38,28 +33,11 @@ workflow LEGSTA {
 
     main:
     LEGSTA_MODULE(assembly)
-    CSVTK_CONCAT(gather(LEGSTA_MODULE.out.tsv, 'legsta'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(LEGSTA_MODULE.out, 'legsta', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = LEGSTA_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        LEGSTA_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        LEGSTA_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CSVTK_CONCAT.out.nf_logs,
-        LEGSTA_MODULE.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        LEGSTA_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)
+    sample_outputs = LEGSTA_MODULE.out
+    // Cross-sample aggregation record
+    run_outputs = CSVTK_CONCAT.out
 }

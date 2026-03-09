@@ -37,8 +37,6 @@
 nextflow.preview.types = true
 
 include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
-include { flattenPaths  } from 'plugin/nf-bactopia'
-include { gather        } from 'plugin/nf-bactopia'
 
 workflow SYLPH {
     take:
@@ -49,12 +47,5 @@ workflow SYLPH {
     SYLPH_PROFILE(reads, database)
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = SYLPH_PROFILE.out.tsv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([SYLPH_PROFILE.out.tsv])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([SYLPH_PROFILE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([SYLPH_PROFILE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([SYLPH_PROFILE.out.versions])
+    sample_outputs = SYLPH_PROFILE.out
 }

@@ -37,8 +37,6 @@
 nextflow.preview.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
-include { flattenPaths                } from 'plugin/nf-bactopia'
-include { gather                      } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:
@@ -50,8 +48,5 @@ workflow ISMAPPER {
     ISMAPPER_MODULE(reads, reference, insertions)
 
     emit:
-    results: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.supplemental])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([ISMAPPER_MODULE.out.versions])
+    sample_outputs = ISMAPPER_MODULE.out
 }

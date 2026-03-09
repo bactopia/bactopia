@@ -20,18 +20,13 @@
  * @input query
  * Path to BLAST protein database for searching translated sequences
  *
- * @output tsv         Per-sample TSV files containing BLASTX alignment results
- * @output merged_tsv  Consolidated TSV file containing BLASTX results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Record outputs from BLASTX module per sample
+ * @output run_outputs   Record with merged CSV and associated logs/versions
  */
 nextflow.preview.types = true
 
 include { BLAST_BLASTX as BLASTX_MODULE } from '../../modules/blast/blastx/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTX {
@@ -41,28 +36,9 @@ workflow BLASTX {
 
     main:
     BLASTX_MODULE(assembly, query)
-    CSVTK_CONCAT(gather(BLASTX_MODULE.out.tsv, 'blastx'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BLASTX_MODULE.out, 'blastx', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = BLASTX_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTX_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTX_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTX_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTX_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = BLASTX_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

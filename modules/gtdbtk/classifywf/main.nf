@@ -20,12 +20,15 @@
  * @input db
  * Path (or Set of paths) to the GTDB-Tk reference database
  *
- * @output bac_tsv       The bacterial classification summary file containing the taxonomic assignment
- * @output ar_tsv        The archaeal classification summary file containing the taxonomic assignment
- * @output supplemental  Directory containing the reference tree, alignments, and detailed logs
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, bac_tsv, ar_tsv, supplemental, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `bac_tsv`: The bacterial classification summary file containing the taxonomic assignment
+ * - `ar_tsv`: The archaeal classification summary file containing the taxonomic assignment
+ * - `supplemental`: Directory containing the reference tree, alignments, and detailed logs
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -35,10 +38,10 @@ process GTDBTK_CLASSIFYWF {
     label 'process_high_memory'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, fna) : Tuple<Map, Set<Path>>
+    (_meta: Map, fna: Set<Path>): Record
     db           : Path
 
     stage:
@@ -46,12 +49,16 @@ process GTDBTK_CLASSIFYWF {
     stageAs 'gtdb/*', db
 
     output:
-    bac_tsv      = tuple(meta, file("${prefix}.bac120.summary.tsv"))
-    ar_tsv       = tuple(meta, file("${prefix}.ar53.summary.tsv"))
-    supplemental = tuple(meta, files("supplemental/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        bac_tsv: file("${prefix}.bac120.summary.tsv"),
+        ar_tsv: file("${prefix}.ar53.summary.tsv"),
+        supplemental: files("supplemental/*"),
+        results: [file("${prefix}.bac120.summary.tsv"), file("${prefix}.ar53.summary.tsv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

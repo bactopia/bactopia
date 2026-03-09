@@ -19,18 +19,13 @@
  * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
  *   about the sample and a set of genome bins in FASTA format.
  *
- * @output report        Per-bin CheckM quality assessment results in TSV format
- * @output merged_reports Combined CheckM results summary across all bins
- * @output results       Aggregated results channel containing all output files
- * @output logs          Aggregated logs channel containing all execution logs
- * @output nf_logs       Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions      Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample CheckM records containing quality assessment results
+ * @output run_outputs   Cross-sample aggregation record with combined CheckM results
  */
 nextflow.preview.types = true
 
 include { CHECKM_LINEAGEWF } from '../../modules/checkm/lineagewf/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { flattenPaths     } from 'plugin/nf-bactopia'
 include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
@@ -39,29 +34,11 @@ workflow CHECKM {
 
     main:
     CHECKM_LINEAGEWF(assembly)
-    CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out.tsv, 'checkm'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out, 'checkm', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    report: Channel<Tuple<Map, Set<Path>>> = CHECKM_LINEAGEWF.out.tsv
-    merged_reports: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM_LINEAGEWF.out.tsv,
-        CHECKM_LINEAGEWF.out.supplemental,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM_LINEAGEWF.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM_LINEAGEWF.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM_LINEAGEWF.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    // Per-sample records
+    sample_outputs = CHECKM_LINEAGEWF.out
+    // Cross-sample aggregation record
+    run_outputs = CSVTK_CONCAT.out
 }

@@ -18,18 +18,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for L. monocytogenes serotype prediction
  *
- * @output tsv         LisSero serotype prediction results in TSV format
- * @output merged_tsv  Combined TSV file containing serotype results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, versions
+ * @output run_outputs   Cross-sample aggregation record
  */
 nextflow.preview.types = true
 
 include { LISSERO as LISSERO_MODULE } from '../../modules/lissero/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { flattenPaths              } from 'plugin/nf-bactopia'
 include { gather                    } from 'plugin/nf-bactopia'
 
 workflow LISSERO {
@@ -38,28 +33,11 @@ workflow LISSERO {
 
     main:
     LISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(LISSERO_MODULE.out.tsv, 'lissero'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(LISSERO_MODULE.out, 'lissero', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = LISSERO_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        LISSERO_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        LISSERO_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CSVTK_CONCAT.out.nf_logs,
-        LISSERO_MODULE.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        LISSERO_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)
+    sample_outputs = LISSERO_MODULE.out
+    // Cross-sample aggregation record
+    run_outputs = CSVTK_CONCAT.out
 }

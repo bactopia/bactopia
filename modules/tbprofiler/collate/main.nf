@@ -28,22 +28,30 @@ process TBPROFILER_COLLATE {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, json) : Tuple<Map, Set<Path>>
+    (_meta: Map, json: Set<Path>): Record
 
     stage:
     stageAs 'results-tmp/*', json
 
     output:
-    csv          = tuple(meta, file("tbprofiler.csv"))
-    variants_csv = tuple(meta, file("tbprofiler.variants.csv"))
-    variants_txt = tuple(meta, file("tbprofiler.variants.txt"))
-    itol         = tuple(meta, files("*.itol.*.txt", optional: true))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        csv: file("tbprofiler.csv"),
+        variants_csv: file("tbprofiler.variants.csv"),
+        variants_txt: file("tbprofiler.variants.txt"),
+        itol: files("*.itol.*.txt", optional: true),
+        results: [
+            file("tbprofiler.csv"),
+            file("tbprofiler.variants.csv"),
+            file("tbprofiler.variants.txt")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"

@@ -23,31 +23,38 @@
  * @input species
  * The target species for which to make the AMR prediction (e.g., "tb" or "staph")
  *
- * @output csv       AMR predictions in machine-readable CSV format
- * @output json      Detailed AMR prediction results in JSON format
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, csv, json, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `csv`: AMR predictions in machine-readable CSV format
+ * - `json`: Detailed AMR prediction results in JSON format
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
 process MYKROBE_PREDICT {
-    tag "${meta.name}"
+    tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     species                 : String
 
     output:
-    csv      = tuple(meta, file("${prefix}.csv"))
-    json     = tuple(meta, file("${prefix}.json"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        csv: file("${prefix}.csv"),
+        json: file("${prefix}.json"),
+        results: [file("${prefix}.csv"), file("${prefix}.json")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -44,28 +44,34 @@ workflow AMRFINDERPLUS {
     AMRFINDERPLUS_RUN(fasta, db)
     CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out.report, 'amrfinderplus'), 'tsv', 'tsv')
 
+    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
+    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
+    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
+    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
+    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+
     emit:
     // Individual outputs
     report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.report
-    merged_tsv: Channel<Tuple<Map, Path>> = CSVTK_CONCAT.out.csv
+    merged_tsv = ch_concat_csv
     mutation_report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.mutation_report
 
     // Generic aggregate outputs
     results: Channel<Tuple<Map, Path>> = flattenPaths([
         AMRFINDERPLUS_RUN.out.report,
         AMRFINDERPLUS_RUN.out.mutation_report,
-        CSVTK_CONCAT.out.csv
+        ch_concat_csv
     ])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([
         AMRFINDERPLUS_RUN.out.logs,
-        CSVTK_CONCAT.out.logs
+        ch_concat_logs
     ])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
         AMRFINDERPLUS_RUN.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
+        ch_concat_nf_logs
     ])
     versions: Channel<Tuple<Map, Path>> = flattenPaths([
         AMRFINDERPLUS_RUN.out.versions,
-        CSVTK_CONCAT.out.versions
+        ch_concat_versions
     ])
 }

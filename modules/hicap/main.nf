@@ -20,12 +20,15 @@
  * @input model_fp
  * Optional path to a custom Prodigal training model file
  *
- * @output gbk       GenBank file containing the annotated capsule locus region (optional)
- * @output svg       SVG visualization of the capsule locus gene arrangement (optional)
- * @output tsv       A tab-delimited summary of the predicted serotype and locus coverage
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, gbk, svg, tsv, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `gbk`: GenBank file containing the annotated capsule locus region (optional)
+ * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
+ * - `tsv`: A tab-delimited summary of the predicted serotype and locus coverage
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -34,20 +37,24 @@ process HICAP {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
     database_dir   : Path?
     model_fp       : Path?
 
     output:
-    gbk      = tuple(meta, file("${prefix}.gbk", optional: true))
-    svg      = tuple(meta, file("${prefix}.svg", optional: true))
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        gbk: file("${prefix}.gbk", optional: true),
+        svg: file("${prefix}.svg", optional: true),
+        tsv: file("${prefix}.tsv"),
+        results: [file("${prefix}.tsv"), file("${prefix}.gbk", optional: true), file("${prefix}.svg", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

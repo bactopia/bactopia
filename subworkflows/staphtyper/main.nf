@@ -24,18 +24,14 @@
  * @input repeat_order
  * Optional spa repeat order file for improved spa typing
  *
- * @output results      Aggregated results channel containing all typing results from agr, spa, and SCCmec analysis
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output sample_outputs   Per-sample records from all typing tools (agr, spa, SCCmec)
+ * @output run_outputs    Merged records from all typing tools
  */
 nextflow.preview.types = true
 
-include { AGRVATE      } from '../agrvate/main'
-include { SPATYPER     } from '../spatyper/main'
-include { SCCMEC       } from '../sccmec/main'
-include { flattenPaths } from 'plugin/nf-bactopia'
-include { gather       } from 'plugin/nf-bactopia'
+include { AGRVATE  } from '../agrvate/main'
+include { SPATYPER } from '../spatyper/main'
+include { SCCMEC   } from '../sccmec/main'
 
 workflow STAPHTYPER {
     take:
@@ -54,24 +50,6 @@ workflow STAPHTYPER {
     SCCMEC(assembly)
 
     emit:
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE.out.results,
-        SPATYPER.out.results,
-        SCCMEC.out.results
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE.out.logs,
-        SPATYPER.out.logs,
-        SCCMEC.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE.out.nf_logs,
-        SPATYPER.out.nf_logs,
-        SCCMEC.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        AGRVATE.out.versions,
-        SPATYPER.out.versions,
-        SCCMEC.out.versions
-    ])
+    sample_outputs = AGRVATE.out.sample_outputs.mix(SPATYPER.out.sample_outputs, SCCMEC.out.sample_outputs)
+    run_outputs = AGRVATE.out.run_outputs.mix(SPATYPER.out.run_outputs, SCCMEC.out.run_outputs)
 }

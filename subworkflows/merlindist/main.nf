@@ -50,7 +50,7 @@
 nextflow.preview.types = true
 
 include { MERLIN_DIST  } from '../../modules/merlin/dist/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { filterMerlin } from 'plugin/nf-bactopia'
 include { flattenPaths } from 'plugin/nf-bactopia'
 include { gather       } from 'plugin/nf-bactopia'
 
@@ -63,44 +63,26 @@ workflow MERLINDIST {
     MERLIN_DIST(ch_seqs, ch_mash_db)
 
     emit:
-    dist: Channel<Tuple<Map, Set<Path>>> = MERLIN_DIST.out.dist
-    escherichia: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.escherichia
-    escherichia_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = MERLIN_DIST.out.escherichia_fq
-    escherichia_fna_fq: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?, Path?>> = MERLIN_DIST.out.escherichia_fna_fq
-    haemophilus: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.haemophilus
-    klebsiella: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.klebsiella
-    legionella: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.legionella
-    listeria: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.listeria
-    mycobacterium: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.mycobacterium
-    mycobacterium_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = MERLIN_DIST.out.mycobacterium_fq
-    neisseria: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.neisseria
-    pseudomonas: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.pseudomonas
-    salmonella: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.salmonella
-    salmonella_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = MERLIN_DIST.out.salmonella_fq
-    staphylococcus: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.staphylococcus
-    streptococcus: Channel<Tuple<Map, Path, Path?>> = MERLIN_DIST.out.streptococcus
-    streptococcus_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = MERLIN_DIST.out.streptococcus_fq
+    dist: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.dist
+    escherichia: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia)
+    escherichia_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia_fq)
+    escherichia_fna_fq: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia_fna_fq)
+    haemophilus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.haemophilus)
+    klebsiella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.klebsiella)
+    legionella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.legionella)
+    listeria: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.listeria)
+    mycobacterium: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.mycobacterium)
+    mycobacterium_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.mycobacterium_fq)
+    neisseria: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.neisseria)
+    pseudomonas: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.pseudomonas)
+    salmonella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.salmonella)
+    salmonella_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.salmonella_fq)
+    staphylococcus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.staphylococcus)
+    streptococcus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.streptococcus)
+    streptococcus_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.streptococcus_fq)
 
     // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        MERLIN_DIST.out.dist,
-        MERLIN_DIST.out.escherichia,
-        MERLIN_DIST.out.escherichia_fq,
-        MERLIN_DIST.out.escherichia_fna_fq,
-        MERLIN_DIST.out.haemophilus,
-        MERLIN_DIST.out.klebsiella,
-        MERLIN_DIST.out.legionella,
-        MERLIN_DIST.out.listeria,
-        MERLIN_DIST.out.mycobacterium,
-        MERLIN_DIST.out.mycobacterium_fq,
-        MERLIN_DIST.out.neisseria,
-        MERLIN_DIST.out.pseudomonas,
-        MERLIN_DIST.out.salmonella,
-        MERLIN_DIST.out.salmonella_fq,
-        MERLIN_DIST.out.staphylococcus,
-        MERLIN_DIST.out.streptococcus,
-        MERLIN_DIST.out.streptococcus_fq
-    ])
+    results: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.dist])
     logs: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.logs])
     nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.nf_logs])
     versions: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.versions])

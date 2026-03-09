@@ -19,18 +19,13 @@
  * @input query
  * Path to protein database for searching against translated sequences
  *
- * @output tsv         Per-sample TSV files containing BLASTP alignment results
- * @output merged_tsv  Consolidated TSV file containing BLASTP results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Record outputs from BLASTP module per sample
+ * @output run_outputs   Record with merged CSV and associated logs/versions
  */
 nextflow.preview.types = true
 
 include { BLAST_BLASTP as BLASTP_MODULE } from '../../modules/blast/blastp/main'
-include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
+include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTP {
@@ -40,28 +35,9 @@ workflow BLASTP {
 
     main:
     BLASTP_MODULE(assembly, query)
-    CSVTK_CONCAT(gather(BLASTP_MODULE.out.tsv, 'blastp'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BLASTP_MODULE.out, 'blastp', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = BLASTP_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTP_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTP_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTP_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        BLASTP_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = BLASTP_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

@@ -17,19 +17,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for S. pneumoniae serotype prediction
  *
- * @output tsv         Seroba serotype prediction results in TSV format
- * @output txt         Detailed serotype assignment report
- * @output merged_tsv  Combined TSV file containing serotype results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from SEROBA_RUN
+ * @output run_outputs   Merged record output from CSVTK_CONCAT with combined results
  */
 nextflow.preview.types = true
 
 include { SEROBA_RUN   } from '../../modules/seroba/run/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { flattenPaths } from 'plugin/nf-bactopia'
 include { gather       } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
@@ -38,30 +32,9 @@ workflow SEROBA {
 
     main:
     SEROBA_RUN(assembly)
-    CSVTK_CONCAT(gather(SEROBA_RUN.out.tsv, 'seroba'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SEROBA_RUN.out, 'seroba', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = SEROBA_RUN.out.tsv
-    txt: Channel<Tuple<Map, Set<Path>>> = SEROBA_RUN.out.txt
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        SEROBA_RUN.out.tsv,
-        SEROBA_RUN.out.txt,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        SEROBA_RUN.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        SEROBA_RUN.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        SEROBA_RUN.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = SEROBA_RUN.out
+    run_outputs = CSVTK_CONCAT.out
 }

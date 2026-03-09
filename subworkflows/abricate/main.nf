@@ -16,18 +16,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv         Tab-delimited report of hits per sample
- * @output merged_tsv  Merged report containing hits from all samples
- * @output results     Aggregated channel containing all result files
- * @output logs        Aggregated channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample records containing meta, report, logs, nf_logs, versions
+ * @output run_outputs   Cross-sample aggregation record
  */
 nextflow.preview.types = true
 
 include { ABRICATE_RUN     } from '../../modules/abricate/run/main'
 include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'
-include { flattenPaths     } from 'plugin/nf-bactopia'
 include { gather           } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
@@ -36,28 +31,11 @@ workflow ABRICATE {
 
     main:
     ABRICATE_RUN(assembly)
-    ABRICATE_SUMMARY(gather(ABRICATE_RUN.out.report, 'abricate'))
+    ABRICATE_SUMMARY(gather(ABRICATE_RUN.out, 'abricate', field: 'report'))
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = ABRICATE_RUN.out.report
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = ABRICATE_SUMMARY.out.report
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        ABRICATE_RUN.out.report,
-        ABRICATE_SUMMARY.out.report
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ABRICATE_RUN.out.logs,
-        ABRICATE_SUMMARY.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ABRICATE_RUN.out.nf_logs,
-        ABRICATE_SUMMARY.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        ABRICATE_RUN.out.versions,
-        ABRICATE_SUMMARY.out.versions
-    ])
+    // Per-sample records (contains meta, report, logs, nf_logs, versions)
+    sample_outputs = ABRICATE_RUN.out
+    // Cross-sample aggregation record
+    run_outputs = ABRICATE_SUMMARY.out
 }

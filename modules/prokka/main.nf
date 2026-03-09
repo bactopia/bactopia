@@ -44,32 +44,47 @@ process PROKKA {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
-    proteins       : Path?
-    prodigal_tf    : Path?
+    (_meta: Map, assembly: Path): Record
+    proteins    : Path?
+    prodigal_tf : Path?
 
     stage:
     stageAs "input/*", assembly
 
     output:
-    annotations = tuple(meta, file("${prefix}.{fna,fna.gz}"), file("${prefix}.{faa,faa.gz}"), file("${prefix}.{gff,gff.gz}"))
-    gff         = tuple(meta, file("${prefix}.{gff,gff.gz}"))
-    gbk         = tuple(meta, file("${prefix}.{gbk,gbk.gz}"))
-    fna         = tuple(meta, file("${prefix}.{fna,fna.gz}"))
-    faa         = tuple(meta, file("${prefix}.{faa,faa.gz}"))
-    ffn         = tuple(meta, file("${prefix}.{ffn,ffn.gz}"))
-    sqn         = tuple(meta, file("${prefix}.{sqn,sqn.gz}"))
-    fsa         = tuple(meta, file("${prefix}.{fsa,fsa.gz}"))
-    tbl         = tuple(meta, file("${prefix}.{tbl,tbl.gz}"))
-    txt         = tuple(meta, file("${prefix}.txt"))
-    tsv         = tuple(meta, file("${prefix}.tsv"))
-    blastdb     = tuple(meta, file("${prefix}-blastdb.tar.gz"))
-    logs        = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs     = tuple(meta, files(".command.*"))
-    versions    = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        gff: file("${prefix}.{gff,gff.gz}"),
+        gbk: file("${prefix}.{gbk,gbk.gz}"),
+        fna: file("${prefix}.{fna,fna.gz}"),
+        faa: file("${prefix}.{faa,faa.gz}"),
+        ffn: file("${prefix}.{ffn,ffn.gz}"),
+        sqn: file("${prefix}.{sqn,sqn.gz}"),
+        fsa: file("${prefix}.{fsa,fsa.gz}"),
+        tbl: file("${prefix}.{tbl,tbl.gz}"),
+        txt: file("${prefix}.txt"),
+        tsv: file("${prefix}.tsv"),
+        blastdb: file("${prefix}-blastdb.tar.gz"),
+        results: [
+            file("${prefix}.{gff,gff.gz}"),
+            file("${prefix}.{gbk,gbk.gz}"),
+            file("${prefix}.{fna,fna.gz}"),
+            file("${prefix}.{faa,faa.gz}"),
+            file("${prefix}.{ffn,ffn.gz}"),
+            file("${prefix}.{sqn,sqn.gz}"),
+            file("${prefix}.{fsa,fsa.gz}"),
+            file("${prefix}.{tbl,tbl.gz}"),
+            file("${prefix}.txt"),
+            file("${prefix}.tsv"),
+            file("${prefix}-blastdb.tar.gz")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed

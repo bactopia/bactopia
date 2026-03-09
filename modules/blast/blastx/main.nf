@@ -10,17 +10,20 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:compression
  * @citation blast
  *
- * @input tuple(meta, blastdb)
+ * @input record(meta, blastdb)
  * - `meta`: Groovy Map containing sample information
  * - `blastdb`: A compressed tarball containing the protein BLAST database
  *
  * @input query
  * FASTA file containing nucleotide query sequences
  *
- * @output tsv       A tab-delimited summary of alignments (standard BLAST outfmt 6)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information
+ * - `tsv`: A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ * - `results`: List of all output files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -29,17 +32,21 @@ process BLAST_BLASTX {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, blastdb) : Tuple<Map, Path>
-    query            : Path
+    (_meta: Map, blastdb: Path): Record
+    query: Path
 
     output:
-    tsv      = tuple(meta, file("${prefix}.blastx.tsv"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tsv: file("${prefix}.blastx.tsv"),
+        results: [file("${prefix}.blastx.tsv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -23,11 +23,14 @@
  * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
  * - `lr`: Long reads (not supported by PneumoCaT)
  *
- * @output xml      The PneumoCaT result files in XML format
- * @output txt      A file containing the coverage information across the genes
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, xml, txt, results, logs, nf_logs, versions)
+ * - `meta`: Groovy Map containing sample information and output paths
+ * - `xml`: The PneumoCaT result files in XML format
+ * - `txt`: A file containing the coverage information across the genes
+ * - `results`: List of result files for publishing
+ * - `logs`: Optional software execution logs containing warnings/errors
+ * - `nf_logs`: Nextflow execution scripts and logs for debugging
+ * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 
@@ -36,17 +39,21 @@ process PNEUMOCAT {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 
     output:
-    xml      = tuple(meta, files("*.xml", optional: true))
-    txt      = tuple(meta, files("*.coverage_summary.txt", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        xml: file("${prefix}.results.xml", optional: true),
+        txt: file("${prefix}.coverage_summary.txt", optional: true),
+        results: [file("${prefix}.results.xml", optional: true), file("${prefix}.coverage_summary.txt", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def VERSION = '1.2.1'

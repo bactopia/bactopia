@@ -20,18 +20,13 @@
  * @input query
  * Path to nucleotide query sequences that will be translated and searched against translated database
  *
- * @output tsv         Per-sample TSV files containing TBLASTX alignment results
- * @output merged_tsv  Consolidated TSV file containing TBLASTX results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Record outputs from TBLASTX module per sample
+ * @output run_outputs   Record with merged CSV and associated logs/versions
  */
 nextflow.preview.types = true
 
 include { BLAST_TBLASTX as TBLASTX_MODULE } from '../../modules/blast/tblastx/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
-include { flattenPaths                    } from 'plugin/nf-bactopia'
 include { gather                          } from 'plugin/nf-bactopia'
 
 workflow TBLASTX {
@@ -41,28 +36,9 @@ workflow TBLASTX {
 
     main:
     TBLASTX_MODULE(assembly, query)
-    CSVTK_CONCAT(gather(TBLASTX_MODULE.out.tsv, 'tblastx'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(TBLASTX_MODULE.out, 'tblastx', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = TBLASTX_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        TBLASTX_MODULE.out.tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        TBLASTX_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        TBLASTX_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        TBLASTX_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = TBLASTX_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

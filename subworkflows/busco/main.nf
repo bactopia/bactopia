@@ -22,18 +22,13 @@
  * @input busco_lineage
  * BUSCO lineage dataset to use for assessment (e.g., bacteria_odb10).
  *
- * @output tsv          Per-sample BUSCO completeness assessment results in TSV format
- * @output merged_tsv   Combined BUSCO results summary across all samples
- * @output results      Aggregated results channel containing all output files
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output sample_outputs    Per-sample record outputs from BUSCO_MODULE
+ * @output run_outputs     Combined BUSCO results across all samples as a record
  */
 nextflow.preview.types = true
 
 include { BUSCO as BUSCO_MODULE } from '../../modules/busco/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { flattenPaths          } from 'plugin/nf-bactopia'
 include { gather                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
@@ -43,29 +38,9 @@ workflow BUSCO {
 
     main:
     BUSCO_MODULE(assembly)
-    CSVTK_CONCAT(gather(BUSCO_MODULE.out.tsv, "busco-${busco_lineage}"), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BUSCO_MODULE.out, "busco-${busco_lineage}", field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = BUSCO_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        BUSCO_MODULE.out.tsv,
-        BUSCO_MODULE.out.supplemental,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BUSCO_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        BUSCO_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        BUSCO_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = BUSCO_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

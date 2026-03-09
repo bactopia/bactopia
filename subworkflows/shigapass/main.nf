@@ -16,19 +16,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv         Per-sample TSV files containing Shigella serotype predictions
- * @output merged_tsv  Consolidated TSV file containing serotype predictions from all samples
- * @output flex_tsv    Per-sample TSV files containing flexible serotype predictions
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from SHIGAPASS_MODULE
+ * @output run_outputs   Merged record output from CSVTK_CONCAT with consolidated results
  */
 nextflow.preview.types = true
 
 include { SHIGAPASS as SHIGAPASS_MODULE } from '../../modules/shigapass/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow SHIGAPASS {
@@ -37,30 +31,9 @@ workflow SHIGAPASS {
 
     main:
     SHIGAPASS_MODULE(assembly)
-    CSVTK_CONCAT(gather(SHIGAPASS_MODULE.out.tsv, 'shigapass'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SHIGAPASS_MODULE.out, 'shigapass', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = SHIGAPASS_MODULE.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-    flex_tsv: Channel<Tuple<Map, Set<Path>>> = SHIGAPASS_MODULE.out.flex_tsv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        SHIGAPASS_MODULE.out.tsv,
-        SHIGAPASS_MODULE.out.flex_tsv,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        SHIGAPASS_MODULE.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        SHIGAPASS_MODULE.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        SHIGAPASS_MODULE.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = SHIGAPASS_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

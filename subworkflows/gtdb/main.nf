@@ -27,19 +27,14 @@
  * @input save_as_tarball
  * Boolean flag to use tarball format database when downloading
  *
- * @output tsv         GTDB-Tk classification results with taxonomic assignments
- * @output merged_tsv  Combined TSV file containing classification results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs    Per-sample record outputs from CLASSIFY
+ * @output run_outputs     Combined GTDB-Tk results across all samples as a record
  */
 nextflow.preview.types = true
 
 include { GTDBTK_DOWNLOAD as DOWNLOAD   } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../modules/gtdbtk/classifywf/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
@@ -62,29 +57,9 @@ workflow GTDB {
     } else {
         CLASSIFY(assembly, database)
     }
-    CSVTK_CONCAT(gather(CLASSIFY.out.tsv, 'gtdb'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CLASSIFY.out, 'gtdb', field: 'bac_tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = CLASSIFY.out.tsv
-    merged_tsv: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        CLASSIFY.out.tsv,
-        CLASSIFY.out.supplemental,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CLASSIFY.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CLASSIFY.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        CLASSIFY.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = CLASSIFY.out
+    run_outputs = CSVTK_CONCAT.out
 }

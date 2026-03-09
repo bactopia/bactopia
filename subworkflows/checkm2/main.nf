@@ -27,19 +27,14 @@
  * Boolean flag to automatically download the CheckM2 database if not available.
  * When true, downloads the required reference database before prediction.
  *
- * @output report        Per-bin CheckM2 quality assessment results in TSV format
- * @output merged_reports Combined CheckM2 results summary across all bins
- * @output results       Aggregated results channel containing all output files
- * @output logs          Aggregated logs channel containing all execution logs
- * @output nf_logs       Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions      Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample record outputs from CHECKM2_PREDICT
+ * @output run_outputs   Combined CheckM2 results across all samples as a record
  */
 nextflow.preview.types = true
 
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'
 include { CHECKM2_PREDICT  } from '../../modules/checkm2/predict/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { flattenPaths     } from 'plugin/nf-bactopia'
 include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
@@ -57,29 +52,9 @@ workflow CHECKM2 {
     }
 
     // Merge results
-    CSVTK_CONCAT(gather(CHECKM2_PREDICT.out.tsv, 'checkm2'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CHECKM2_PREDICT.out, 'checkm2', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    report: Channel<Tuple<Map, Set<Path>>> = CHECKM2_PREDICT.out.tsv
-    merged_reports: Channel<Tuple<Map, Set<Path>>> = CSVTK_CONCAT.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM2_PREDICT.out.tsv,
-        CHECKM2_PREDICT.out.supplemental,
-        CSVTK_CONCAT.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM2_PREDICT.out.logs,
-        CSVTK_CONCAT.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM2_PREDICT.out.nf_logs,
-        CSVTK_CONCAT.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        CHECKM2_PREDICT.out.versions,
-        CSVTK_CONCAT.out.versions
-    ])
+    sample_outputs = CHECKM2_PREDICT.out
+    run_outputs = CSVTK_CONCAT.out
 }
