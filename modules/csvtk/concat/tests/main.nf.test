@@ -2,9 +2,11 @@ nextflow_process {
     name "Test CSVTK_CONCAT"
     script "../main.nf"
     process "CSVTK_CONCAT"
+    tag "modules"
+    tag "csvtk"
+    tag "csvtk_concat"
 
     test("csvtk concat - module - TSV files") {
-        tag "csvtk_concat"
 
         when {
             process {
@@ -50,7 +52,6 @@ nextflow_process {
     }
 
     test("csvtk concat - module - CSV to TSV conversion") {
-        tag "csvtk_concat"
 
         when {
             process {

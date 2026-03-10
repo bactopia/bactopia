@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test pasty Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "pasty"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "pasty"
 
     test("pasty - GCF_000006765|pseudomonas_aeruginosa|compressed_fasta") {
         when {

@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test blastp Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "blastp"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "blastp"
 
     test("blastp (single-protein.faa.gz) - SRR2838702|portiera|blastdb") {
         when {

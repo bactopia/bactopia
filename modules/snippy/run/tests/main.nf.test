@@ -2,6 +2,9 @@ nextflow_process {
     name "Test SNIPPY_RUN"
     script "../main.nf"
     process "SNIPPY_RUN"
+    tag "modules"
+    tag "snippy"
+    tag "snippy_run"
 
     test("snippy_run - module - paired-end") {
         when {

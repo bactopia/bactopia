@@ -2,11 +2,13 @@ nextflow_process {
     name "Test SRAHUMANSCRUBBER_INITDB"
     script "../main.nf"
     process "SRAHUMANSCRUBBER_INITDB"
+    tag "modules"
+    tag "srahumanscrubber"
+    tag "srahumanscrubber_initdb"
 
     // NOTE: This module requires internet access to download databases.
     // Tests are stubs - run manually with: nf-test test tests/main.nf.test
     test("srahumanscrubber/initdb - module - download") {
-        tag "internet"
 
         when {
             params {

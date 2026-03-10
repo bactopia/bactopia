@@ -2,6 +2,9 @@ nextflow_process {
     name "Test DEFENSEFINDER_RUN"
     script "../main.nf"
     process "DEFENSEFINDER_RUN"
+    tag "modules"
+    tag "defensefinder"
+    tag "defensefinder_run"
 
     test("defensefinder - module - GCF_000292685") {
         when {

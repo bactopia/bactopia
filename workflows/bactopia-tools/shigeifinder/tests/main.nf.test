@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test ShigEiFinder Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "shigeifinder"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "shigeifinder"
 
     test("ShigEiFinder - GCF_016726285|shigella_boydii|compressed_fasta") {
         when {

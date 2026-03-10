@@ -2,6 +2,9 @@ nextflow_process {
     name "Test MIDAS_SPECIES"
     script "../main.nf"
     process "MIDAS_SPECIES"
+    tag "modules"
+    tag "midas"
+    tag "midas_species"
 
     test("midas - module - SRR2838702") {
         when {

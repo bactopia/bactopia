@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Genotyphi Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "genotyphi"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "genotyphi"
 
     test("Genotyphi - SRR2838702|portiera|compressed_fastq") {
         when {

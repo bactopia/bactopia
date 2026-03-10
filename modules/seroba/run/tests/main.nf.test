@@ -2,6 +2,9 @@ nextflow_process {
     name "Test SEROBA_RUN"
     script "../main.nf"
     process "SEROBA_RUN"
+    tag "modules"
+    tag "seroba"
+    tag "seroba_run"
 
     test("seroba - module - SRR2838702") {
         when {

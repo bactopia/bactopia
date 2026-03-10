@@ -2,6 +2,8 @@ nextflow_process {
     name "Test FASTANI"
     script "../main.nf"
     process "FASTANI"
+    tag "modules"
+    tag "fastani"
 
     test("fastani - module - haemophilus query vs reference") {
         when {

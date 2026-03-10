@@ -1,0 +1,51 @@
+nextflow_workflow {
+    name "Test FASTANI Subworkflow"
+    script "../main.nf"
+    workflow "FASTANI"
+    tag "subworkflows"
+    tag "fastani"
+
+    test("fastani - subworkflow - haemophilus") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "fastani-test"],
+                        query: [
+                            file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/GCF_900478275.fna.gz")
+                        ]
+                    )
+                )
+                input[1] = Channel.of(
+                    record(
+                        _meta: [name: "fastani-ref"],
+                        query: [
+                            file("${params.test_data_dir}/data/species/haemophilus_influenzae/nthi/GCA_000027305.fna.gz")
+                        ]
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

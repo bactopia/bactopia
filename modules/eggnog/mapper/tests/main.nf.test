@@ -2,6 +2,9 @@ nextflow_process {
     name "Test EGGNOG_MAPPER"
     script "../main.nf"
     process "EGGNOG_MAPPER"
+    tag "modules"
+    tag "eggnog"
+    tag "eggnog_mapper"
 
     test("eggnog - module - GCF_000292685") {
         when {

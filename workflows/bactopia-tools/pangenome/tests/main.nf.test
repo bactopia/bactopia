@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test pangenome Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "pangenome"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "pangenome"
 
     test("pangenome (panaroo) - multiple|portiera|compressed_gff") {
         when {

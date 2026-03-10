@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Sylph Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "sylph"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "sylph"
 
     test("Sylph - SRR2838702|portiera|compressed_fastq") {
         when {

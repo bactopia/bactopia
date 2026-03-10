@@ -1,0 +1,44 @@
+nextflow_workflow {
+    name "Test AMRFINDERPLUS Subworkflow"
+    script "../main.nf"
+    workflow "AMRFINDERPLUS"
+    tag "subworkflows"
+    tag "amrfinderplus"
+
+    test("amrfinderplus - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        genes: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.fna.gz"),
+                        proteins: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.faa.gz"),
+                        gff: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.gff.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/amrdb/amrfinderdb.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

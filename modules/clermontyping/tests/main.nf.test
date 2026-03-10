@@ -2,6 +2,8 @@ nextflow_process {
     name "Test CLERMONTYPING"
     script "../main.nf"
     process "CLERMONTYPING"
+    tag "modules"
+    tag "clermontyping"
 
     test("clermontyping - module - GCF_001695515") {
         when {

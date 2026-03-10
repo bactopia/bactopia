@@ -2,6 +2,9 @@ nextflow_process {
     name "Test TBPROFILER_COLLATE"
     script "../main.nf"
     process "TBPROFILER_COLLATE"
+    tag "modules"
+    tag "tbprofiler"
+    tag "tbprofiler_collate"
 
     // STUB: This test requires TB-Profiler JSON output files as input fixtures.
     // TB-Profiler JSON outputs are produced by the tbprofiler/profile module and
@@ -10,8 +13,6 @@ nextflow_process {
     // be fully implemented.
 
     test("tbprofiler collate - module - stub") {
-        tag "tbprofiler_collate"
-        tag "stub"
 
         when {
             params {

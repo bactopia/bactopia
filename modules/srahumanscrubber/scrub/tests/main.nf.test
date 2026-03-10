@@ -2,6 +2,9 @@ nextflow_process {
     name "Test SRAHUMANSCRUBBER_SCRUB"
     script "../main.nf"
     process "SRAHUMANSCRUBBER_SCRUB"
+    tag "modules"
+    tag "srahumanscrubber"
+    tag "srahumanscrubber_scrub"
 
     test("srahumanscrubber - module - SRR2838702 - PE") {
         when {

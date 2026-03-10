@@ -2,6 +2,8 @@ nextflow_process {
     name "Test IQTREE"
     script "../main.nf"
     process "IQTREE"
+    tag "modules"
+    tag "iqtree"
 
     test("iqtree - module - test") {
         when {

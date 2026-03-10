@@ -2,6 +2,8 @@ nextflow_process {
     name "Test KLEBORATE"
     script "../main.nf"
     process "KLEBORATE"
+    tag "modules"
+    tag "kleborate"
 
     test("kleborate - module - GCF_000009885") {
         when {

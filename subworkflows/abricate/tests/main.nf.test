@@ -2,6 +2,8 @@ nextflow_workflow {
     name "Test ABRICATE Subworkflow"
     script "../main.nf"
     workflow "ABRICATE"
+    tag "subworkflows"
+    tag "abricate"
 
     test("abricate - subworkflow - GCF_000292685") {
         when {

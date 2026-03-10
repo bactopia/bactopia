@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PASTY"
     script "../main.nf"
     process "PASTY"
+    tag "modules"
+    tag "pasty"
 
     test("pasty - module - GCF_000006765") {
         when {

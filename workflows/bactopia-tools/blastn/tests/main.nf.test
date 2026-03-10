@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test blastn Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "blastn"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "blastn"
 
     test("blastn (single-gene.ffn.gz) - SRR2838702|portiera|blastdb") {
         when {

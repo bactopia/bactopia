@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Bakta Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "bakta"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "bakta"
 
     test("Bakta - SRR2838702|portiera|compressed_fasta") {
         when {

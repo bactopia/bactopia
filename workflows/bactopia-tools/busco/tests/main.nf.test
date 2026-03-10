@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Busco Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "busco"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "busco"
 
     test("Busco - SRR2838702|portiera|compressed_fasta") {
         when {

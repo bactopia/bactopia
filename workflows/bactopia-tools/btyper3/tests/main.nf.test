@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test BTyper3 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "btyper3"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "btyper3"
 
     test("BTyper3 - GCF_000008445|bacillus_anthracis|compressed_fasta") {
         when {

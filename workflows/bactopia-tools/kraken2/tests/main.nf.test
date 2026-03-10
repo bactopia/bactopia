@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Kraken2 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "kraken2"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "kraken2"
 
     test("Kraken2 - SRR2838702|portiera|compressed_fastq") {
         when {

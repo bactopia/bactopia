@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test SeqSero2 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "seqsero2"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "seqsero2"
 
     test("SeqSero2 - GCF_016028495|salmonella_enterica|compressed_fasta") {
         when {

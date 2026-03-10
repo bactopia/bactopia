@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PBPTYPER"
     script "../main.nf"
     process "PBPTYPER"
+    tag "modules"
+    tag "pbptyper"
 
     test("pbptyper - module - GCF_001457635") {
         when {

@@ -2,6 +2,9 @@ nextflow_process {
     name "Test TBPROFILER_PROFILE"
     script "../main.nf"
     process "TBPROFILER_PROFILE"
+    tag "modules"
+    tag "tbprofiler"
+    tag "tbprofiler_profile"
 
     test("tbprofiler - module - SRR2838702") {
         when {

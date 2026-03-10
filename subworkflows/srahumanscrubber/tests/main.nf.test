@@ -1,0 +1,40 @@
+nextflow_workflow {
+    name "Test SRAHUMANSCRUBBER Subworkflow"
+    script "../main.nf"
+    workflow "SRAHUMANSCRUBBER"
+    tag "subworkflows"
+    tag "srahumanscrubber"
+
+    test("srahumanscrubber - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

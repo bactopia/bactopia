@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SHIGEIFINDER"
     script "../main.nf"
     process "SHIGEIFINDER"
+    tag "modules"
+    tag "shigeifinder"
 
     test("shigeifinder - module - GCF_016726285") {
         when {

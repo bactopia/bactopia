@@ -2,6 +2,8 @@ nextflow_process {
     name "Test HICAP"
     script "../main.nf"
     process "HICAP"
+    tag "modules"
+    tag "hicap"
 
     test("hicap - module - GCF_900478275") {
         when {

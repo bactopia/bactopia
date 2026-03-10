@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SCOARY"
     script "../main.nf"
     process "SCOARY"
+    tag "modules"
+    tag "scoary"
 
     test("scoary - module - portiera") {
         when {

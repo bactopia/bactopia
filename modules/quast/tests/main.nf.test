@@ -2,6 +2,8 @@ nextflow_process {
     name "Test QUAST"
     script "../main.nf"
     process "QUAST"
+    tag "modules"
+    tag "quast"
 
     test("quast - module - GCF_000292685") {
         when {

@@ -2,6 +2,8 @@ nextflow_process {
     name "Test ROARY"
     script "../main.nf"
     process "ROARY"
+    tag "modules"
+    tag "roary"
 
     test("roary - module - portiera pangenome") {
         when {

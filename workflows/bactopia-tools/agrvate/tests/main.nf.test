@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test agrvate Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "agrvate"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "agrvate"
 
     test("agrvate - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

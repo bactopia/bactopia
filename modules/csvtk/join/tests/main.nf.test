@@ -2,9 +2,11 @@ nextflow_process {
     name "Test CSVTK_JOIN"
     script "../main.nf"
     process "CSVTK_JOIN"
+    tag "modules"
+    tag "csvtk"
+    tag "csvtk_join"
 
     test("csvtk join - module - TSV files by sample column") {
-        tag "csvtk_join"
 
         when {
             process {
@@ -52,7 +54,6 @@ nextflow_process {
     }
 
     test("csvtk join - module - CSV files by numeric index") {
-        tag "csvtk_join"
 
         when {
             process {

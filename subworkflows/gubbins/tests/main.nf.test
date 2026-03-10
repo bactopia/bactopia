@@ -1,0 +1,41 @@
+nextflow_workflow {
+    name "Test GUBBINS Subworkflow"
+    script "../main.nf"
+    workflow "GUBBINS"
+    tag "subworkflows"
+    tag "gubbins"
+
+    test("gubbins - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "portiera"],
+                        msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def snpdists_outputs = workflow.out.snpdists_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    snpdists_outputs.meta,
+                    snpdists_outputs.results,
+                    snpdists_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

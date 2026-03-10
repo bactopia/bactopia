@@ -1,0 +1,43 @@
+nextflow_workflow {
+    name "Test CHECKM2 Subworkflow"
+    script "../main.nf"
+    workflow "CHECKM2"
+    tag "subworkflows"
+    tag "checkm2"
+
+    test("checkm2 - subworkflow - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/checkm2/checkm2.dmnd")
+                input[2] = false
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -2,6 +2,8 @@ nextflow_process {
     name "Test STAPHOPIASCCMEC"
     script "../main.nf"
     process "STAPHOPIASCCMEC"
+    tag "modules"
+    tag "staphopiasccmec"
 
     test("staphopiasccmec - module - GCF_000017085 - uncompressed") {
         when {

@@ -2,13 +2,13 @@ nextflow_process {
     name "Test WGET"
     script "../main.nf"
     process "WGET"
+    tag "modules"
+    tag "wget"
 
     // This test requires internet access to download files.
     // It should only be run in environments with network connectivity.
 
     test("wget - module - download small file") {
-        tag "wget"
-        tag "internet"
 
         when {
             params {

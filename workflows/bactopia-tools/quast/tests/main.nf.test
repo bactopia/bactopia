@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test QUAST Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "quast"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "quast"
 
     test("QUAST - SRR2838702|portiera|compressed_fasta") {
         when {

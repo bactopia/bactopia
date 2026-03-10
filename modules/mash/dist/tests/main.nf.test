@@ -2,6 +2,9 @@ nextflow_process {
     name "Test MASH_DIST"
     script "../main.nf"
     process "MASH_DIST"
+    tag "modules"
+    tag "mash"
+    tag "mash_dist"
 
     test("mash dist - module - portiera vs refseq sketch") {
         when {

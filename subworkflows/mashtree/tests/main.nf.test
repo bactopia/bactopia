@@ -1,0 +1,41 @@
+nextflow_workflow {
+    name "Test MASHTREE Subworkflow"
+    script "../main.nf"
+    workflow "MASHTREE"
+    tag "subworkflows"
+    tag "mashtree"
+
+    test("mashtree - subworkflow - multi-species") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [id: "mashtree-test", name: "mashtree-test"],
+                        seqs: [
+                            file("${params.test_data_dir}/data/species/klebsiella_pneumoniae/genome/GCF_000009885.fna.gz"),
+                            file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                        ]
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

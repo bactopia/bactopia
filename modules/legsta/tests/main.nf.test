@@ -2,6 +2,8 @@ nextflow_process {
     name "Test LEGSTA"
     script "../main.nf"
     process "LEGSTA"
+    tag "modules"
+    tag "legsta"
 
     test("legsta - module - GCF_000048645") {
         when {

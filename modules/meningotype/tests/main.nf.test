@@ -2,6 +2,8 @@ nextflow_process {
     name "Test MENINGOTYPE"
     script "../main.nf"
     process "MENINGOTYPE"
+    tag "modules"
+    tag "meningotype"
 
     test("meningotype - module - GCF_003355215") {
         when {

@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test mykrobe Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "mykrobe"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "mykrobe"
 
     test("Mykrobe - SRR2838702|portiera|compressed_fasta") {
         when {

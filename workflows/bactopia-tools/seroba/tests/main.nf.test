@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Seroba Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "seroba"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "seroba"
 
     test("Seroba - SRR2838702|portiera|compressed_fastq") {
         when {

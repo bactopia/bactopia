@@ -2,11 +2,13 @@ nextflow_process {
     name "Test GTDBTK_DOWNLOAD"
     script "../main.nf"
     process "GTDBTK_DOWNLOAD"
+    tag "modules"
+    tag "gtdbtk"
+    tag "gtdbtk_download"
 
     // NOTE: This module requires internet access to download databases.
     // Tests are stubs - run manually with: nf-test test tests/main.nf.test
     test("gtdbtk/download - module - download") {
-        tag "internet"
 
         when {
             params {

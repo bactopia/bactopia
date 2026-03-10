@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PROKKA"
     script "../main.nf"
     process "PROKKA"
+    tag "modules"
+    tag "prokka"
 
     test("prokka - module - GCF_000292685") {
         when {

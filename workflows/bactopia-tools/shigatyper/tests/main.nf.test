@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test ShigaTyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "shigatyper"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "shigatyper"
 
     test("ShigaTyper - Multiple|shigella_dysenteriae|compressed_fastq") {
         when {

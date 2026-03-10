@@ -2,6 +2,9 @@ nextflow_process {
     name "Test MOBSUITE_RECON"
     script "../main.nf"
     process "MOBSUITE_RECON"
+    tag "modules"
+    tag "mobsuite"
+    tag "mobsuite_recon"
 
     test("mobsuite_recon - module - GCF_000017085 - uncompressed") {
         when {

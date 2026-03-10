@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SCCMEC"
     script "../main.nf"
     process "SCCMEC"
+    tag "modules"
+    tag "sccmec"
 
     test("sccmec - module - GCF_000017085 - uncompressed") {
         when {

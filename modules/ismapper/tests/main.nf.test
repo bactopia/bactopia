@@ -2,6 +2,8 @@ nextflow_process {
     name "Test ISMAPPER"
     script "../main.nf"
     process "ISMAPPER"
+    tag "modules"
+    tag "ismapper"
 
     test("ismapper - module - SRR2838702") {
         when {

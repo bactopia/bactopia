@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test MobSuite Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "mobsuite"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "mobsuite"
 
     test("MobSuite - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

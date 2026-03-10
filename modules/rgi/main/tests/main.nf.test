@@ -2,6 +2,9 @@ nextflow_process {
     name "Test RGI_MAIN"
     script "../main.nf"
     process "RGI_MAIN"
+    tag "modules"
+    tag "rgi"
+    tag "rgi_main"
 
     test("rgi - module - GCF_900478275") {
         when {

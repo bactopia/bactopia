@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test ShigaPass Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "shigapass"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "shigapass"
 
     test("ShigaPass - GCF_016726285|shigella_boydii|compressed_fasta") {
         when {

@@ -2,6 +2,7 @@ nextflow_pipeline {
     name "Test teton Workflow"
     script "../main.nf"
     config "../../../conf/test.config"
+    tag "workflows"
     tag "teton"
 
     test("teton (pe) - SRR2838702|portiera|compressed_fastq") {

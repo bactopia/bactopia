@@ -2,6 +2,8 @@ nextflow_process {
     name "Test CLONALFRAMEML"
     script "../main.nf"
     process "CLONALFRAMEML"
+    tag "modules"
+    tag "clonalframeml"
 
     test("clonalframeml - module - portiera") {
         when {

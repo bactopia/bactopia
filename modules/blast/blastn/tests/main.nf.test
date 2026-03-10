@@ -4,7 +4,7 @@ nextflow_process {
     process "BLAST_BLASTN"
     tag "modules"
     tag "blast"
-    tag "blastn"
+    tag "blast_blastn"
 
     test("blastn - module - SRX1390622") {
         when {

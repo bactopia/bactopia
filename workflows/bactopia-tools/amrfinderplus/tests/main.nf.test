@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test AMRFinder+ Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "amrfinder"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "amrfinderplus"
 
     test("AMRFinder+ - SRR2838702|portiera|compressed_fasta") {
         when {

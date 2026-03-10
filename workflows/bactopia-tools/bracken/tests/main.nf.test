@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Bracken Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "bracken"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "bracken"
 
     test("Bracken - SRR2838702|portiera|compressed_fastq") {
         when {

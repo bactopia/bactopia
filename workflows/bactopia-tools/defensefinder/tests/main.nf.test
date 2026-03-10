@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test DefenseFinder Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "defensefinder"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "defensefinder"
 
     test("DefenseFinder - SRR2838702|portiera|compressed_fasta") {
         when {

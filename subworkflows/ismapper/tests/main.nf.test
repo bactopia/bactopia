@@ -1,0 +1,42 @@
+nextflow_workflow {
+    name "Test ISMAPPER Subworkflow"
+    script "../main.nf"
+    workflow "ISMAPPER"
+    tag "subworkflows"
+    tag "ismapper"
+
+    test("ismapper - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")
+                input[2] = file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/is1016.fasta")
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

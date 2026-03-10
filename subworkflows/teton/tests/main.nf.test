@@ -1,0 +1,46 @@
+nextflow_workflow {
+    name "Test TETON Subworkflow"
+    script "../main.nf"
+    workflow "TETON"
+    tag "subworkflows"
+    tag "teton"
+
+    test("teton - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    tuple(
+                        [id: "SRR2838702", single_end: false],
+                        file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        null,
+                        null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/kraken2")
+                input[2] = false
+                """
+            }
+        }
+
+        then {
+            def scrubber_outputs = workflow.out.scrubber_outputs[0]
+            def bracken_outputs = workflow.out.bracken_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    scrubber_outputs.meta,
+                    scrubber_outputs.results,
+                    scrubber_outputs.versions,
+                    bracken_outputs.meta,
+                    bracken_outputs.results,
+                    bracken_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

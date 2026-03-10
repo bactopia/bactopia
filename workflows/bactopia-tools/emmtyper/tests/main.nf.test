@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test emmtyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "emmtyper"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "emmtyper"
 
     test("emmtyper - GCF_006364235|streptococcus_pyogenes|compressed_fasta") {
         when {

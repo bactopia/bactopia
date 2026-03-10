@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test spatyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "spatyper"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "spatyper"
 
     test("spatyper - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

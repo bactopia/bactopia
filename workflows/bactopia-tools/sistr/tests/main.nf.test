@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test SISTR Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "sistr"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "sistr"
 
     test("SISTR - GCF_016028495|salmonella_enterica|compressed_fasta") {
         when {

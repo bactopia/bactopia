@@ -2,6 +2,9 @@ nextflow_process {
     name "Test SYLPH_PROFILE"
     script "../main.nf"
     process "SYLPH_PROFILE"
+    tag "modules"
+    tag "sylph"
+    tag "sylph_profile"
 
     test("sylph - module - SRR2838702") {
         when {

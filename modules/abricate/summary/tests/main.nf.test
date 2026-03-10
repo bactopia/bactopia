@@ -7,7 +7,6 @@ nextflow_process {
     tag "abricate_summary"
 
     test("abricate summary - module - multiple reports") {
-        tag "abricate_summary"
 
         when {
             params {

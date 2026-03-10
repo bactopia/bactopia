@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test ECTyper Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "ectyper"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "ectyper"
 
     test("ECTyper - GCF_001695515|escherichia_coli|compressed_fasta") {
         when {

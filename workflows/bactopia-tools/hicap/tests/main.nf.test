@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test hicap Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "hicap"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "hicap"
 
     test("hicap - haemophilus_influenzae|compressed_fasta") {
         when {

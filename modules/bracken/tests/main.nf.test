@@ -2,6 +2,8 @@ nextflow_process {
     name "Test BRACKEN"
     script "../main.nf"
     process "BRACKEN"
+    tag "modules"
+    tag "bracken"
 
     test("bracken - module - SRR2838702") {
         when {

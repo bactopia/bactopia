@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test ngmaster Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "ngmaster"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "ngmaster"
 
     test("ngmaster - GCF_001047255|neisseria_gonorrhoeae|compressed_fasta") {
         when {

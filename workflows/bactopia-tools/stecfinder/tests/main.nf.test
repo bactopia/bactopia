@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test STECFinder Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "stecfinder"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "stecfinder"
 
     test("STECFinder - shigella_dysenteriae|compressed_fasta_and_fastq") {
         when {

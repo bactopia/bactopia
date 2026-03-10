@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test mlst Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "mlst"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "mlst"
 
     test("mlst - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

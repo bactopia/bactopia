@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SEQSERO2"
     script "../main.nf"
     process "SEQSERO2"
+    tag "modules"
+    tag "seqsero2"
 
     test("seqsero2 - module - GCF_016028495") {
         when {

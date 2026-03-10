@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test LisSero Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "lissero"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "lissero"
 
     test("LisSero - GCF_002285835|listeria_monocytogenes|compressed_fasta") {
         when {

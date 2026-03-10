@@ -2,6 +2,9 @@ nextflow_process {
     name "Test MERLIN_DIST"
     script "../main.nf"
     process "MERLIN_DIST"
+    tag "modules"
+    tag "merlin"
+    tag "merlin_dist"
 
     test("merlin_dist - module - GCF_000017085") {
         when {

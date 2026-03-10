@@ -2,6 +2,8 @@ nextflow_process {
     name "Test BTYPER3"
     script "../main.nf"
     process "BTYPER3"
+    tag "modules"
+    tag "btyper3"
 
     test("btyper3 - module - GCF_000008445") {
         when {

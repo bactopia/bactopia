@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test GTDB Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "gtdb"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "gtdb"
 
     test("GTDB - SRR2838702|portiera|compressed_fasta") {
         when {

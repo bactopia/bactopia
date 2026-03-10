@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Pneumocat Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "pneumocat"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "pneumocat"
 
     test("Pneumocat - ERR1438863|streptococcus_pneumoniae|compressed_fasta") {
         when {

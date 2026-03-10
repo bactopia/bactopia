@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test MIDAS Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "midas"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "midas"
 
     test("MIDAS - SRR2838702|portiera|compressed_fastq") {
         when {

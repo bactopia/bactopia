@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test RGI Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "rgi"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "rgi"
 
     test("rgi - haemophilus_influenzae|compressed_fasta") {
         when {

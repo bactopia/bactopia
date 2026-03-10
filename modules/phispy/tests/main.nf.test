@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PHISPY"
     script "../main.nf"
     process "PHISPY"
+    tag "modules"
+    tag "phispy"
 
     test("phispy - module - GCF_900478275") {
         when {

@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Scrubber Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "scrubber"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "scrubber"
 
     test("Scrubber (kraken) - SRR2838702|portiera|compressed_fastq") {
         when {

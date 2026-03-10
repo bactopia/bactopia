@@ -2,6 +2,9 @@ nextflow_process {
     name "Test GTDBTK_CLASSIFYWF"
     script "../main.nf"
     process "GTDBTK_CLASSIFYWF"
+    tag "modules"
+    tag "gtdbtk"
+    tag "gtdbtk_classifywf"
 
     test("gtdbtk - module - classify genomes") {
         when {

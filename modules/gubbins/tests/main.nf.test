@@ -2,6 +2,8 @@ nextflow_process {
     name "Test GUBBINS"
     script "../main.nf"
     process "GUBBINS"
+    tag "modules"
+    tag "gubbins"
 
     test("gubbins - module - test") {
         when {

@@ -1,0 +1,41 @@
+nextflow_workflow {
+    name "Test AGRVATE Subworkflow"
+    script "../main.nf"
+    workflow "AGRVATE"
+    tag "subworkflows"
+    tag "agrvate"
+
+    test("agrvate - subworkflow - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

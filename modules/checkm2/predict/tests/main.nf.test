@@ -2,6 +2,9 @@ nextflow_process {
     name "Test CHECKM2_PREDICT"
     script "../main.nf"
     process "CHECKM2_PREDICT"
+    tag "modules"
+    tag "checkm2"
+    tag "checkm2_predict"
 
     test("checkm2_predict - module - GCF_000292685") {
         when {

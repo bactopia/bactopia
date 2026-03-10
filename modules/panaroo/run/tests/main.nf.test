@@ -2,6 +2,9 @@ nextflow_process {
     name "Test PANAROO_RUN"
     script "../main.nf"
     process "PANAROO_RUN"
+    tag "modules"
+    tag "panaroo"
+    tag "panaroo_run"
 
     test("panaroo - module - portiera pangenome") {
         when {

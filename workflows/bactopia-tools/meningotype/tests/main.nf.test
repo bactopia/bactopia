@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test meningotype Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "meningotype"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "meningotype"
 
     test("meningotype - GCF_003355215|neisseria_meningitidis|compressed_fasta") {
         when {

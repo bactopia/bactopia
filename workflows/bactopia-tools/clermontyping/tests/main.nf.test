@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test clermontyping Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "clermontyping"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "clermontyping"
 
     test("clermontyping - GCF_001695515|escherichia_coli|compressed_fasta") {
         when {

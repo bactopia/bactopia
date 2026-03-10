@@ -1,0 +1,38 @@
+nextflow_workflow {
+    name "Test SCOARY Subworkflow"
+    script "../main.nf"
+    workflow "SCOARY"
+    tag "subworkflows"
+    tag "scoary"
+
+    test("scoary - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "scoary"],
+                        genes: file("${params.test_data_dir}/data/species/portiera/genome/gene_presence_absence.csv")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/gene_traits.csv")
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

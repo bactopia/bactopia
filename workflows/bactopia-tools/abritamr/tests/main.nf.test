@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test abriTAMR Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abritamr"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "abritamr"
 
     test("abriTAMR - GCF_001682305|escherichia_coli_mcr1|compressed_fasta") {
         when {

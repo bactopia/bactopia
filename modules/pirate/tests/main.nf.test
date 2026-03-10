@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PIRATE"
     script "../main.nf"
     process "PIRATE"
+    tag "modules"
+    tag "pirate"
 
     test("pirate - module - portiera pangenome") {
         when {

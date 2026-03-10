@@ -2,6 +2,8 @@ nextflow_process {
     name "Test EMMTYPER"
     script "../main.nf"
     process "EMMTYPER"
+    tag "modules"
+    tag "emmtyper"
 
     test("emmtyper - module - GCF_006364235") {
         when {

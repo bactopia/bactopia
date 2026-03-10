@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SISTR"
     script "../main.nf"
     process "SISTR"
+    tag "modules"
+    tag "sistr"
 
     test("sistr - module - GCF_016028495") {
         when {

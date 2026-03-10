@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Legsta Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "legsta"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "legsta"
 
     test("Legsta - GCF_000048645|legionella_pneumophila|compressed_fasta") {
         when {

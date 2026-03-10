@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Merlin Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "merlin"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "merlin"
 
     test("Merlin - shigella_dysenteriae|compressed_fasta_and_fastq") {
         when {

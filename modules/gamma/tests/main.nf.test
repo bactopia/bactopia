@@ -2,6 +2,8 @@ nextflow_process {
     name "Test GAMMA"
     script "../main.nf"
     process "GAMMA"
+    tag "modules"
+    tag "gamma"
 
     test("gamma - module - GCF_000292685") {
         when {

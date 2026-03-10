@@ -2,13 +2,13 @@ nextflow_process {
     name "Test NCBIGENOMEDOWNLOAD"
     script "../main.nf"
     process "NCBIGENOMEDOWNLOAD"
+    tag "modules"
+    tag "ncbigenomedownload"
 
     // This test requires internet access to download from NCBI FTP servers.
     // It should only be run in environments with network connectivity.
 
     test("ncbigenomedownload - module - single accession") {
-        tag "ncbigenomedownload"
-        tag "internet"
 
         when {
             params {

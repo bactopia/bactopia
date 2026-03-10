@@ -1,0 +1,51 @@
+nextflow_workflow {
+    name "Test MERLIN Subworkflow"
+    script "../main.nf"
+    workflow "MERLIN"
+    tag "subworkflows"
+    tag "merlin"
+
+    test("merlin - subworkflow - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/sketcher/mash-refseq88.k21.msh")
+                input[2] = null
+                input[3] = null
+                input[4] = null
+                input[5] = null
+                input[6] = null
+                """
+            }
+        }
+
+        then {
+            def dist_outputs = workflow.out.dist_outputs[0]
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    dist_outputs.meta,
+                    dist_outputs.results,
+                    dist_outputs.versions,
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

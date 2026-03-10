@@ -1,0 +1,42 @@
+nextflow_workflow {
+    name "Test BLASTP Subworkflow"
+    script "../main.nf"
+    workflow "BLASTP"
+    tag "subworkflows"
+    tag "blastp"
+
+    test("blastp - subworkflow - SRX1390622") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRX1390622"],
+                        blastdb: file("${params.test_data_dir}/data/species/portiera/genome/SRX1390622-blastdb.tar.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/single-protein.faa")
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def run_outputs = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    run_outputs.meta,
+                    run_outputs.results,
+                    run_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

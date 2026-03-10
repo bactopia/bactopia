@@ -2,6 +2,8 @@ nextflow_process {
     name "Test MASHTREE"
     script "../main.nf"
     process "MASHTREE"
+    tag "modules"
+    tag "mashtree"
 
     test("mashtree - module - multiple genomes") {
         when {

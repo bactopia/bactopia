@@ -2,6 +2,9 @@ nextflow_process {
     name "Test CHECKM_LINEAGEWF"
     script "../main.nf"
     process "CHECKM_LINEAGEWF"
+    tag "modules"
+    tag "checkm"
+    tag "checkm_lineagewf"
 
     test("checkm_lineagewf - module - GCF_000292685") {
         when {

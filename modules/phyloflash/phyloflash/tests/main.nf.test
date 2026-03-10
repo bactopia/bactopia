@@ -2,6 +2,9 @@ nextflow_process {
     name "Test PHYLOFLASH"
     script "../main.nf"
     process "PHYLOFLASH"
+    tag "modules"
+    tag "phyloflash"
+    tag "phyloflash_phyloflash"
 
     // TODO: This test requires the SILVA SSU rRNA database and UniVec database.
     // These are large databases that must be downloaded separately.
@@ -9,8 +12,6 @@ nextflow_process {
     // For now, this is a stub test skeleton.
 
     test("phyloflash - module - stub") {
-        tag "stub"
-        tag "database"
 
         when {
             params {

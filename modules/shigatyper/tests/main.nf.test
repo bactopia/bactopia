@@ -2,6 +2,8 @@ nextflow_process {
     name "Test SHIGATYPER"
     script "../main.nf"
     process "SHIGATYPER"
+    tag "modules"
+    tag "shigatyper"
 
     test("shigatyper - module - ERR6005894 - PE") {
         when {

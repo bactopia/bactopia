@@ -2,6 +2,9 @@ nextflow_process {
     name "Test BLAST_BLASTX"
     script "../main.nf"
     process "BLAST_BLASTX"
+    tag "modules"
+    tag "blast"
+    tag "blast_blastx"
 
     test("blastx - module - SRX1390622") {
         when {

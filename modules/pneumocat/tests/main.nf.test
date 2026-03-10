@@ -2,6 +2,8 @@ nextflow_process {
     name "Test PNEUMOCAT"
     script "../main.nf"
     process "PNEUMOCAT"
+    tag "modules"
+    tag "pneumocat"
 
     test("pneumocat - module - ERR1438863") {
         when {

@@ -2,6 +2,9 @@ nextflow_process {
     name "Test RGI_HEATMAP"
     script "../main.nf"
     process "RGI_HEATMAP"
+    tag "modules"
+    tag "rgi"
+    tag "rgi_heatmap"
 
     // STUB: This test requires RGI JSON output files as input fixtures.
     // RGI JSON outputs are produced by the rgi/run module and have a specific
@@ -9,8 +12,6 @@ nextflow_process {
     // module outputs are needed before this test can be fully implemented.
 
     test("rgi heatmap - module - stub") {
-        tag "rgi_heatmap"
-        tag "stub"
 
         when {
             params {

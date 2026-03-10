@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test SSiusSero Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "ssuissero"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "ssuissero"
 
     test("SSiusSero - GCF_002285535|portstreptococcus_suisiera|compressed_fasta") {
         when {

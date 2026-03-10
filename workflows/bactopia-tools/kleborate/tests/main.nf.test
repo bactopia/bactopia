@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Kleborate Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "kleborate"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "kleborate"
 
     test("Kleborate - GCF_000009885|klebsiella_pneumoniae|compressed_fasta") {
         when {

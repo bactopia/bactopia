@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test PhySpy Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "phispy"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "phispy"
 
     test("PhiSpy - haemophilus_influenzae|compressed_genbank") {
         when {

@@ -2,6 +2,8 @@ nextflow_process {
     name "Test MCRONI"
     script "../main.nf"
     process "MCRONI"
+    tag "modules"
+    tag "mcroni"
 
     test("mcroni - module - GCF_001682305") {
         when {

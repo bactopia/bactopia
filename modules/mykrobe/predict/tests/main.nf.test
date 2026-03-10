@@ -2,6 +2,9 @@ nextflow_process {
     name "Test MYKROBE_PREDICT"
     script "../main.nf"
     process "MYKROBE_PREDICT"
+    tag "modules"
+    tag "mykrobe"
+    tag "mykrobe_predict"
 
     test("mykrobe - module - SRR2838702") {
         when {

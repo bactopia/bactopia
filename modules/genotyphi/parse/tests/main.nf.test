@@ -6,9 +6,11 @@ nextflow_process {
     name "Test GENOTYPHI_PARSE"
     script "../main.nf"
     process "GENOTYPHI_PARSE"
+    tag "modules"
+    tag "genotyphi"
+    tag "genotyphi_parse"
 
     test("genotyphi - module - stub") {
-        tag "stub"
 
         when {
             params {

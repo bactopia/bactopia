@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test mcroni Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "mcroni"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "mcroni"
 
     test("mcroni - GCF_001682305|escherichia_coli_mcr1|compressed_fasta") {
         when {

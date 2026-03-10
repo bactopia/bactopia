@@ -1,0 +1,48 @@
+nextflow_workflow {
+    name "Test PANGENOME Subworkflow"
+    script "../main.nf"
+    workflow "PANGENOME"
+    tag "subworkflows"
+    tag "pangenome"
+
+    test("pangenome - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "portiera-test"],
+                        gff: [
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000292685.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000298385.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_002849995.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000300075.gff.gz")
+                        ]
+                    )
+                )
+                input[1] = false
+                input[2] = false
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def snpdists_outputs = workflow.out.snpdists_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    snpdists_outputs.meta,
+                    snpdists_outputs.results,
+                    snpdists_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

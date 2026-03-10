@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test CheckM2 Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "checkm2"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "checkm2"
 
     test("CheckM2 - SRR2838702|portiera|compressed_fasta") {
         when {

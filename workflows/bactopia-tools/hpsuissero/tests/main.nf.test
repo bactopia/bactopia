@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test HpsuisSero Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "hpsuissero"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "hpsuissero"
 
     test("HpsuisSero - GCF_002777395|glaesserella_parasuis|compressed_fasta") {
         when {

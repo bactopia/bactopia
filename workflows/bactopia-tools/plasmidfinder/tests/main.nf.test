@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test PlasmidFinder Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "plasmidfinder"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "plasmidfinder"
 
     test("PlasmidFinder - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

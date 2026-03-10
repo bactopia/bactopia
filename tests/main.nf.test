@@ -2,6 +2,7 @@ nextflow_pipeline {
     name "Test Bactopia Workflow"
     script "../main.nf"
     config "../conf/test.config"
+    tag "workflows"
     tag "bactopia"
 
     test("Bactopia (pe) - SRR2838702|portiera|compressed_fastq") {

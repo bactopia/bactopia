@@ -2,6 +2,9 @@ nextflow_process {
     name "Test BAKTA_RUN"
     script "../main.nf"
     process "BAKTA_RUN"
+    tag "modules"
+    tag "bakta"
+    tag "bakta_run"
 
     test("bakta - module - GCF_000292685") {
         when {

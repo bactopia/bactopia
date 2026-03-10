@@ -2,6 +2,7 @@ nextflow_pipeline {
     name "Test clean-yer-reads Workflow"
     script "../main.nf"
     config "../../../conf/test.config"
+    tag "workflows"
     tag "cleanyerreads"
 
     test("clean-yer-reads (pe) - SRR2838702|portiera|compressed_fastq") {

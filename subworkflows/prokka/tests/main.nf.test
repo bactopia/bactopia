@@ -1,0 +1,39 @@
+nextflow_workflow {
+    name "Test PROKKA Subworkflow"
+    script "../main.nf"
+    workflow "PROKKA"
+    tag "subworkflows"
+    tag "prokka"
+
+    test("prokka - subworkflow - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

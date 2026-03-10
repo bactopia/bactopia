@@ -2,6 +2,8 @@ nextflow_process {
     name "Test ECTYPER"
     script "../main.nf"
     process "ECTYPER"
+    tag "modules"
+    tag "ectyper"
 
     test("ectyper - module - GCF_001695515") {
         when {

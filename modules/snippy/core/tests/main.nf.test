@@ -2,6 +2,9 @@ nextflow_process {
     name "Test SNIPPY_CORE"
     script "../main.nf"
     process "SNIPPY_CORE"
+    tag "modules"
+    tag "snippy"
+    tag "snippy_core"
 
     // TODO: This test requires upstream SNIPPY_RUN output (VCF + aligned FASTA files).
     // A proper test would need to either:
@@ -10,7 +13,6 @@ nextflow_process {
     // For now, this is a stub test skeleton.
 
     test("snippy_core - module - stub") {
-        tag "stub"
 
         when {
             params {

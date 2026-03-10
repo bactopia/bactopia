@@ -1,0 +1,39 @@
+nextflow_workflow {
+    name "Test EGGNOG Subworkflow"
+    script "../main.nf"
+    workflow "EGGNOG"
+    tag "subworkflows"
+    tag "eggnog"
+
+    test("eggnog - subworkflow - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/eggnog")
+                input[2] = false
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Abricate Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "abricate"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "abricate"
 
     test("Abricate - SRR2838702|portiera|compressed_fasta") {
         when {

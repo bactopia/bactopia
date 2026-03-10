@@ -1,0 +1,46 @@
+nextflow_workflow {
+    name "Test SNIPPY_CORE Subworkflow"
+    script "../main.nf"
+    workflow "SNIPPY_CORE"
+    tag "subworkflows"
+    tag "snippy"
+    tag "snippy_core"
+
+    test("snippy-core - subworkflow - stub") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                // TODO: needs snippy/run output VCF + aligned_fa as input fixtures
+                input[0] = Channel.of(
+                    record(
+                        _meta: [id: "snippy-core-test", name: "snippy-core-test"],
+                        _vcf: [],
+                        _aligned_fa: []
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def snpdists_outputs = workflow.out.snpdists_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    snpdists_outputs.meta,
+                    snpdists_outputs.results,
+                    snpdists_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

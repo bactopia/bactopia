@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test sccmec Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "sccmec"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "sccmec"
 
     test("sccmec - GCF_000017085|staphylococcus_aureus|compressed_fasta") {
         when {

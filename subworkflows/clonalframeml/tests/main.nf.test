@@ -1,0 +1,46 @@
+nextflow_workflow {
+    name "Test CLONALFRAMEML Subworkflow"
+    script "../main.nf"
+    workflow "CLONALFRAMEML"
+    tag "subworkflows"
+    tag "clonalframeml"
+
+    test("clonalframeml - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "portiera"],
+                        msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz"),
+                        newick: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/genome_msa.nwk")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            def iqtree_outputs = workflow.out.iqtree_outputs[0]
+            def snpdists_outputs = workflow.out.snpdists_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.results,
+                    sample_outputs.versions,
+                    iqtree_outputs.meta,
+                    iqtree_outputs.results,
+                    iqtree_outputs.versions,
+                    snpdists_outputs.meta,
+                    snpdists_outputs.results,
+                    snpdists_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

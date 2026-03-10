@@ -2,8 +2,9 @@ nextflow_pipeline {
     name "Test Prokka Workflow"
     script "../main.nf"
     config "../../../../conf/test.config"
-    tag "prokka"
+    tag "workflows"
     tag "bactopia-tools"
+    tag "prokka"
 
     test("Prokka - SRR2838702|portiera|compressed_fasta") {
         when {
