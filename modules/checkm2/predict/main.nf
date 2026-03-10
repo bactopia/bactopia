@@ -40,10 +40,14 @@ process CHECKM2_PREDICT {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
-        supplemental: files("supplemental/*"),
-        results: [file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

@@ -1,0 +1,43 @@
+nextflow_process {
+    name "Test ARIBA_RUN"
+    script "../main.nf"
+    process "ARIBA_RUN"
+    tag "modules"
+    tag "ariba"
+    tag "ariba_run"
+
+    test("ariba - module - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/ariba/card.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.report,
+                    record.summary,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

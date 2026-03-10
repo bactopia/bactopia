@@ -1,0 +1,75 @@
+nextflow_process {
+    name "Test SRAHUMANSCRUBBER_SCRUB"
+    script "../main.nf"
+    process "SRAHUMANSCRUBBER_SCRUB"
+
+    test("srahumanscrubber - module - SRR2838702 - PE") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702", runtype: "paired-end"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/sra-human-scrubber/human_filter.db")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.scrubbed,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("srahumanscrubber - module - SRR2838702 - SE") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702", runtype: "single-end"],
+                        r1: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702SE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/sra-human-scrubber/human_filter.db")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.scrubbed,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

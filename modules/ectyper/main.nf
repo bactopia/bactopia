@@ -32,12 +32,15 @@ process ECTYPER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named fields (upstream consumers access these)
         tsv: file("${prefix}.tsv"),
         txt: file("${prefix}.blast_alleles.txt"),
-        // Generic fields (same convention across every module)
-        results: [file("${prefix}.tsv"), file("${prefix}.blast_alleles.txt")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}.blast_alleles.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

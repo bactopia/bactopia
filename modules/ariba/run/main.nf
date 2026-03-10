@@ -41,12 +41,16 @@ process ARIBA_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named fields (upstream consumers access these)
         report: file("${prefix}-report.tsv"),
         summary: file("${prefix}-summary.csv"),
-        // Generic fields (same convention across every module)
-        results: files("${prefix}-report.tsv") + files("${prefix}-summary.csv") + files("supplemental/*"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}-report.tsv"),
+            files("${prefix}-summary.csv"),
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

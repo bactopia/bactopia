@@ -34,9 +34,13 @@ process RGI_HEATMAP {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         heatmap: files("*.{csv,eps,png}", optional: true),
-        results: [files("*.{csv,eps,png}", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("*.{csv,eps,png}", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

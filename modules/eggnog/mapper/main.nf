@@ -46,6 +46,7 @@ process EGGNOG_MAPPER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         hits: file("${prefix}.emapper.hits"),
         seed_orthologs: file("${prefix}.emapper.seed_orthologs"),
@@ -56,16 +57,17 @@ process EGGNOG_MAPPER {
         gff: file("${prefix}.emapper.gff", optional: true),
         no_anno: file("${prefix}.emapper.no_annotations.fasta", optional: true),
         pfam: file("${prefix}.emapper.pfam", optional: true),
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}.emapper.hits"),
-            file("${prefix}.emapper.seed_orthologs"),
-            file("${prefix}.emapper.annotations"),
-            file("${prefix}.emapper.annotations.xlsx", optional: true),
-            file("${prefix}.emapper.orthologs", optional: true),
-            file("${prefix}.emapper.genepred.fasta", optional: true),
-            file("${prefix}.emapper.gff", optional: true),
-            file("${prefix}.emapper.no_annotations.fasta", optional: true),
-            file("${prefix}.emapper.pfam", optional: true)
+            files("${prefix}.emapper.hits"),
+            files("${prefix}.emapper.seed_orthologs"),
+            files("${prefix}.emapper.annotations"),
+            files("${prefix}.emapper.annotations.xlsx", optional: true),
+            files("${prefix}.emapper.orthologs", optional: true),
+            files("${prefix}.emapper.genepred.fasta", optional: true),
+            files("${prefix}.emapper.gff", optional: true),
+            files("${prefix}.emapper.no_annotations.fasta", optional: true),
+            files("${prefix}.emapper.pfam", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

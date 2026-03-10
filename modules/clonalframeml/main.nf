@@ -39,6 +39,7 @@ process CLONALFRAMEML {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         emsim: files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
         em: files("${task.ext.process_name}/${prefix}.em.txt"),
@@ -47,6 +48,7 @@ process CLONALFRAMEML {
         fasta: files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
         pos_ref: files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
         masked_aln: files("${prefix}.masked.aln.gz"),
+        // Generic fields (used for publishing)
         results: [
             files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
             files("${task.ext.process_name}/${prefix}.em.txt"),

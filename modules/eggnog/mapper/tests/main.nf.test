@@ -1,0 +1,38 @@
+nextflow_process {
+    name "Test EGGNOG_MAPPER"
+    script "../main.nf"
+    process "EGGNOG_MAPPER"
+
+    test("eggnog - module - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/eggnog")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.hits,
+                    record.seed_orthologs,
+                    record.annotations,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,45 @@
+nextflow_process {
+    name "Test SNIPPY_RUN"
+    script "../main.nf"
+    process "SNIPPY_RUN"
+
+    test("snippy_run - module - paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // First record input: sample reads
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                // Second record input: reference genome (GenBank format required)
+                input[1] = record(
+                    _ref_meta: [name: "snippy-ref"],
+                    reference: [file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")]
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.tab != null },
+                { assert record.txt != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

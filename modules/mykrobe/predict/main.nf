@@ -42,10 +42,15 @@ process MYKROBE_PREDICT {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         csv: file("${prefix}.csv"),
         json: file("${prefix}.json"),
-        results: [file("${prefix}.csv"), file("${prefix}.json")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.csv"),
+            files("${prefix}.json")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

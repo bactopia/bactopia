@@ -1,0 +1,36 @@
+nextflow_process {
+    name "Test SEQSERO2"
+    script "../main.nf"
+    process "SEQSERO2"
+
+    test("seqsero2 - module - GCF_016028495") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_016028495"],
+                        assembly: file("${params.test_data_dir}/data/species/salmonella_enterica/genome/GCF_016028495.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.txt,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

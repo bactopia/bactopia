@@ -65,9 +65,8 @@ process MERLIN_DIST {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        dist: file("${prefix}-dist.txt"),
-        results: [file("${prefix}-dist.txt")],
         fna: fna,
         r1: r1,
         r2: r2,
@@ -85,6 +84,11 @@ process MERLIN_DIST {
         staphylococcus: file("staphylococcus.genus", optional: true),
         streptococcus: file("streptococcus.genus", optional: true),
         genus: files("*.genus", optional: true),
+        dist: file("${prefix}-dist.txt"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}-dist.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

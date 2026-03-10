@@ -1,0 +1,38 @@
+nextflow_process {
+    name "Test SISTR"
+    script "../main.nf"
+    process "SISTR"
+
+    test("sistr - module - GCF_016028495") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_016028495"],
+                        assembly: file("${params.test_data_dir}/data/species/salmonella_enterica/genome/GCF_016028495.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.allele_fasta,
+                    record.allele_json,
+                    record.cgmlst_csv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

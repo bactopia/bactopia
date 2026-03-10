@@ -1,0 +1,28 @@
+nextflow_process {
+    name "Test DEFENSEFINDER_UPDATE"
+    script "../main.nf"
+    process "DEFENSEFINDER_UPDATE"
+
+    // NOTE: This module requires internet access to download databases.
+    // Tests are stubs - run manually with: nf-test test tests/main.nf.test
+    test("defensefinder/update - module - download") {
+        tag "internet"
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // No inputs required - download module
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success }
+            )
+        }
+    }
+}

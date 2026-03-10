@@ -42,7 +42,9 @@ process NCBIGENOMEDOWNLOAD {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
+        // Generic fields (used for publishing)
         results: files("*.gz"),
         gbk: files("*_genomic.gbff.gz", optional: true),
         fna: files("*_genomic.fna.gz", optional: true),

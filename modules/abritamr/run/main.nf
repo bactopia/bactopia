@@ -36,20 +36,20 @@ process ABRITAMR_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named fields (upstream consumers like MERLIN access these)
         summary: file("${prefix}.abritamr.tsv", optional: true),
         matches: file("${prefix}.summary_matches.tsv"),
         partials: file("${prefix}.summary_partials.tsv"),
         virulence: file("${prefix}.summary_virulence.tsv"),
         amrfinder: file("${prefix}.amrfinder.out"),
-        // Generic fields (same convention across every module)
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}.abritamr.tsv", optional: true),
-            file("${prefix}.summary_matches.tsv"),
-            file("${prefix}.summary_partials.tsv"),
-            file("${prefix}.summary_virulence.tsv"),
-            file("${prefix}.amrfinder.out")
+            files("${prefix}.abritamr.tsv", optional: true),
+            files("${prefix}.summary_matches.tsv"),
+            files("${prefix}.summary_partials.tsv"),
+            files("${prefix}.summary_virulence.tsv"),
+            files("${prefix}.amrfinder.out")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

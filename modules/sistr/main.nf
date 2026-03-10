@@ -34,12 +34,19 @@ process SISTR {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
         allele_fasta: file("${prefix}-allele.fasta.gz"),
         allele_json: file("${prefix}-allele.json.gz"),
         cgmlst_csv: file("${prefix}-cgmlst.csv"),
-        results: [file("${prefix}.tsv"), file("${prefix}-allele.fasta.gz"), file("${prefix}-allele.json.gz"), file("${prefix}-cgmlst.csv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}-allele.fasta.gz"),
+            files("${prefix}-allele.json.gz"),
+            files("${prefix}-cgmlst.csv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

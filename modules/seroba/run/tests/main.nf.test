@@ -1,0 +1,38 @@
+nextflow_process {
+    name "Test SEROBA_RUN"
+    script "../main.nf"
+    process "SEROBA_RUN"
+
+    test("seroba - module - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        reads: [
+                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz")
+                        ] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

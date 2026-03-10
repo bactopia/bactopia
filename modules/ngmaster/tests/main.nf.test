@@ -1,0 +1,35 @@
+nextflow_process {
+    name "Test NGMASTER"
+    script "../main.nf"
+    process "NGMASTER"
+
+    test("ngmaster - module - GCF_001047255") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_001047255"],
+                        assembly: file("${params.test_data_dir}/data/species/neisseria_gonorrhoeae/genome/GCF_001047255.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

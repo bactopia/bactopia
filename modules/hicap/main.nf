@@ -41,11 +41,17 @@ process HICAP {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         gbk: file("${prefix}.gbk", optional: true),
         svg: file("${prefix}.svg", optional: true),
         tsv: file("${prefix}.tsv"),
-        results: [file("${prefix}.tsv"), file("${prefix}.gbk", optional: true), file("${prefix}.svg", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}.gbk", optional: true),
+            files("${prefix}.svg", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

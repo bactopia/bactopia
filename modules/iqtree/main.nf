@@ -34,11 +34,15 @@ process IQTREE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         msa: msa,
         phylogeny: file(treefile),
-        supplemental: files("${process_name}/*"),
-        results: [file(treefile)],
+        // Generic fields (used for publishing)
+        results: [
+            files(treefile),
+            files("${process_name}/*"),
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

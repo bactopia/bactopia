@@ -38,9 +38,13 @@ process FASTANI {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${reference_name}.tsv"),
-        results: [file("${reference_name}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${reference_name}.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

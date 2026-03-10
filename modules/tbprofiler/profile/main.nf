@@ -41,12 +41,14 @@ process TBPROFILER_PROFILE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         bam: files("bam/*.bam"),
         csv: files("supplemental/*.csv", optional: true),
         json: files("supplemental/*.json.gz"),
         txt: files("supplemental/*.txt", optional: true),
         vcf: files("vcf/*.vcf.gz"),
+        // Generic fields (used for publishing)
         results: [],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

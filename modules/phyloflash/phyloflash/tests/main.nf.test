@@ -1,0 +1,47 @@
+nextflow_process {
+    name "Test PHYLOFLASH"
+    script "../main.nf"
+    process "PHYLOFLASH"
+
+    // TODO: This test requires the SILVA SSU rRNA database and UniVec database.
+    // These are large databases that must be downloaded separately.
+    // Without the databases, phyloFlash cannot run.
+    // For now, this is a stub test skeleton.
+
+    test("phyloflash - module - stub") {
+        tag "stub"
+        tag "database"
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // Record input: sample reads
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702", single_end: false],
+                        reads: [
+                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz")
+                        ]
+                    )
+                )
+                // TODO: Replace with path to SILVA database directory
+                // input[1] = file("/path/to/silva/db/")
+                input[1] = file("${params.test_data_dir}/data/empty/EMPTY_ADAPTERS")
+                // TODO: Replace with path to UniVec database
+                // input[2] = file("/path/to/univec/db/")
+                input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success }
+            )
+        }
+    }
+}

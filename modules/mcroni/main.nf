@@ -33,9 +33,11 @@ process MCRONI {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
         fa: file("${prefix}.fasta", optional: true),
+        // Generic fields (used for publishing)
         results: files("${prefix}.tsv") + files("${prefix}.fasta", optional: true),
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

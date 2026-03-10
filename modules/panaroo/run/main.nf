@@ -40,13 +40,18 @@ process PANAROO_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         aln: file("${prefix}.aln.gz", optional: true),
         filtered_aln: file("${prefix}.filtered.aln.gz", optional: true),
         csv: file("panaroo/gene_presence_absence_roary.csv", optional: true),
         panaroo_csv: file("panaroo/gene_presence_absence.csv", optional: true),
-        supplemental: file("panaroo/*"),
-        results: [file("${prefix}.aln.gz", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.aln.gz", optional: true),
+            files("${prefix}.filtered.aln.gz", optional: true),
+            files("panaroo/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

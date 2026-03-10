@@ -1,0 +1,35 @@
+nextflow_process {
+    name "Test SCOARY"
+    script "../main.nf"
+    process "SCOARY"
+
+    test("scoary - module - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "scoary"],
+                        genes: file("${params.test_data_dir}/data/species/portiera/genome/gene_presence_absence.csv")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/gene_traits.csv")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

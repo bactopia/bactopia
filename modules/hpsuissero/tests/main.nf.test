@@ -1,0 +1,35 @@
+nextflow_process {
+    name "Test HPSUISSERO"
+    script "../main.nf"
+    process "HPSUISSERO"
+
+    test("hpsuissero - module - GCF_002777395") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_002777395"],
+                        assembly: file("${params.test_data_dir}/data/species/glaesserella_parasuis/genome/GCF_002777395.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

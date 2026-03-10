@@ -28,13 +28,19 @@ process AGRVATE {
     input:
     (_meta: Map, assembly: Path): Record
 
+    stage:
+    stageAs 'input/*', assembly
+
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named fields (upstream consumers access these)
         summary: file("${prefix}.tsv"),
-        // Generic fields (same convention across every module)
-        results: files("${prefix}.tsv") + files("supplemental/*"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -58,7 +64,7 @@ process AGRVATE {
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${assembly} > ./${assembly_name}
     else
-        cat ${assembly} > ./${assembly_name}
+        cp ${assembly} ./${assembly_name}
     fi
 
     agrvate \\

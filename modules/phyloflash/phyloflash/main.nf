@@ -41,10 +41,12 @@ process PHYLOFLASH {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         supplemental: files("${prefix}/*"),
         aln: files("${prefix}/${prefix}.toalign.fasta", optional: true),
         summary: files("${prefix}/${prefix}.phyloFlash.json", optional: true),
+        // Generic fields (used for publishing)
         results: [
             files("${prefix}/${prefix}.toalign.fasta", optional: true),
             files("${prefix}/${prefix}.phyloFlash.json", optional: true)

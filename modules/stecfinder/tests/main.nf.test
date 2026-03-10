@@ -1,0 +1,39 @@
+nextflow_process {
+    name "Test STECFINDER"
+    script "../main.nf"
+    process "STECFINDER"
+
+    test("stecfinder - module - GCF_002949675") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_002949675"],
+                        fna: file("${params.test_data_dir}/data/species/shigella_dysenteriae/genome/GCF_002949675.fna.gz"),
+                        r1: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -35,13 +35,21 @@ process SCCMEC {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
         targets: file("${prefix}.targets.blastn.tsv"),
         target_details: file("${prefix}.targets.details.tsv"),
         regions: file("${prefix}.regions.blastn.tsv"),
         regions_details: file("${prefix}.regions.details.tsv"),
-        results: [file("${prefix}.tsv"), file("${prefix}.targets.blastn.tsv"), file("${prefix}.targets.details.tsv"), file("${prefix}.regions.blastn.tsv"), file("${prefix}.regions.details.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}.targets.blastn.tsv"),
+            files("${prefix}.targets.details.tsv"),
+            files("${prefix}.regions.blastn.tsv"),
+            files("${prefix}.regions.details.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

@@ -1,0 +1,40 @@
+nextflow_process {
+    name "Test ROARY"
+    script "../main.nf"
+    process "ROARY"
+
+    test("roary - module - portiera pangenome") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "portiera-roary"],
+                        gff: [
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000292685.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000298385.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_002849995.gff.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000300075.gff.gz")
+                        ]
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.aln,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

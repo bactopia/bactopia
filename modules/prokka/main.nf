@@ -53,6 +53,7 @@ process PROKKA {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         gff: file("${prefix}.{gff,gff.gz}"),
         gbk: file("${prefix}.{gbk,gbk.gz}"),
@@ -65,18 +66,19 @@ process PROKKA {
         txt: file("${prefix}.txt"),
         tsv: file("${prefix}.tsv"),
         blastdb: file("${prefix}-blastdb.tar.gz"),
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}.{gff,gff.gz}"),
-            file("${prefix}.{gbk,gbk.gz}"),
-            file("${prefix}.{fna,fna.gz}"),
-            file("${prefix}.{faa,faa.gz}"),
-            file("${prefix}.{ffn,ffn.gz}"),
-            file("${prefix}.{sqn,sqn.gz}"),
-            file("${prefix}.{fsa,fsa.gz}"),
-            file("${prefix}.{tbl,tbl.gz}"),
-            file("${prefix}.txt"),
-            file("${prefix}.tsv"),
-            file("${prefix}-blastdb.tar.gz")
+            files("${prefix}.{gff,gff.gz}"),
+            files("${prefix}.{gbk,gbk.gz}"),
+            files("${prefix}.{fna,fna.gz}"),
+            files("${prefix}.{faa,faa.gz}"),
+            files("${prefix}.{ffn,ffn.gz}"),
+            files("${prefix}.{sqn,sqn.gz}"),
+            files("${prefix}.{fsa,fsa.gz}"),
+            files("${prefix}.{tbl,tbl.gz}"),
+            files("${prefix}.txt"),
+            files("${prefix}.tsv"),
+            files("${prefix}-blastdb.tar.gz")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

@@ -34,11 +34,17 @@ process MASHTREE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tree: file("${prefix}.dnd"),
         tsv: file("${prefix}.tsv"),
         sketches: files("sketches/*", optional: true),
-        results: [file("${prefix}.dnd"), file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.dnd"),
+            files("${prefix}.tsv"),
+            files("sketches/*", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

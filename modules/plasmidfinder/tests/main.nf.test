@@ -1,0 +1,39 @@
+nextflow_process {
+    name "Test PLASMIDFINDER"
+    script "../main.nf"
+    process "PLASMIDFINDER"
+
+    test("plasmidfinder - module - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.json,
+                    record.txt,
+                    record.tsv,
+                    record.genome_seq,
+                    record.plasmid_seq,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

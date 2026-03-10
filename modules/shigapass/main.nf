@@ -32,9 +32,11 @@ process SHIGAPASS {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
         flex_tsv: file("${prefix}_Flex_summary.tsv", optional: true),
+        // Generic fields (used for publishing)
         results: files("${prefix}.tsv") + files("${prefix}_Flex_summary.tsv", optional: true),
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

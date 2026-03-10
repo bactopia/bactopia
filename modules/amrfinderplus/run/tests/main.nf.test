@@ -1,0 +1,41 @@
+nextflow_process {
+    name "Test AMRFINDERPLUS_RUN"
+    script "../main.nf"
+    process "AMRFINDERPLUS_RUN"
+    tag "modules"
+    tag "amrfinderplus"
+    tag "amrfinderplus_run"
+
+    test("amrfinderplus_run - module - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        genes: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.fna.gz"),
+                        proteins: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.faa.gz"),
+                        gff: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.gff.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/amrdb/amrfinderdb.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

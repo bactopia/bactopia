@@ -44,9 +44,13 @@ process CSVTK_JOIN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         csv: file("${prefix}.${out_extension}"),
-        results: [file("${prefix}.${out_extension}")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.${out_extension}")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

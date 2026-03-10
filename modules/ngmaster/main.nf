@@ -32,9 +32,8 @@ process NGMASTER {
     output:
     record(
         meta:     meta,
-        // Named field (upstream consumers access this)
         tsv:      file("${prefix}.tsv"),
-        // Generic fields (same convention across every module)
+        // Generic fields (used for publishing)
         results:  [file("${prefix}.tsv")],
         logs:     files("*.{log,err}", optional: true),
         nf_logs:  files(".command.*"),

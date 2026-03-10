@@ -35,9 +35,13 @@ process BLAST_TBLASTN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tblastn.tsv"),
-        results: [file("${prefix}.tblastn.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tblastn.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

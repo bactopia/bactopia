@@ -1,0 +1,47 @@
+nextflow_process {
+    name "Test PROKKA"
+    script "../main.nf"
+    process "PROKKA"
+
+    test("prokka - module - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                    )
+                )
+                input[1] = file("${baseDir}/../../../data/empty/EMPTY_PROTEINS")
+                input[2] = file("${baseDir}/../../../data/empty/EMPTY_PRODIGAL_TF")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.gff,
+                    record.gbk,
+                    record.fna,
+                    record.faa,
+                    record.ffn,
+                    record.sqn,
+                    record.fsa,
+                    record.tbl,
+                    record.txt,
+                    record.tsv,
+                    record.blastdb,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

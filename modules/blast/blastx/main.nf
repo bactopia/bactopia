@@ -35,9 +35,13 @@ process BLAST_BLASTX {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.blastx.tsv"),
-        results: [file("${prefix}.blastx.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.blastx.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

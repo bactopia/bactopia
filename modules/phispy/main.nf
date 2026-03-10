@@ -32,10 +32,14 @@ process PHISPY {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
-        supplemental: files("supplemental/*", optional: true),
-        results: [file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("supplemental/*", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

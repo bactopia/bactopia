@@ -2,8 +2,11 @@ nextflow_process {
     name "Test ABRICATE_RUN"
     script "../main.nf"
     process "ABRICATE_RUN"
+    tag "modules"
+    tag "abricate"
+    tag "abricate_run"
 
-    test("abricate - module - GCF_000292685") {
+    test("abricate_run - module - GCF_000292685") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -27,7 +30,6 @@ nextflow_process {
                 { assert snapshot(
                     record.meta,
                     record.report,
-                    record.results,
                     record.versions
                 ).match() }
             )

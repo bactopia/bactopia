@@ -43,6 +43,7 @@ process DEFENSEFINDER_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         genes_tsv: file("${prefix}_defense_finder_genes.tsv"),
         hmmer_tsv: file("${prefix}_defense_finder_hmmer.tsv"),
@@ -50,13 +51,14 @@ process DEFENSEFINDER_RUN {
         proteins: file("${prefix}.prt"),
         proteins_index: file("${prefix}.prt.idx"),
         macsydata_raw: file("${prefix}.macsydata.tar.gz", optional: true),
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}_defense_finder_genes.tsv"),
-            file("${prefix}_defense_finder_hmmer.tsv"),
-            file("${prefix}_defense_finder_systems.tsv"),
-            file("${prefix}.prt"),
-            file("${prefix}.prt.idx"),
-            file("${prefix}.macsydata.tar.gz", optional: true)
+            files("${prefix}_defense_finder_genes.tsv"),
+            files("${prefix}_defense_finder_hmmer.tsv"),
+            files("${prefix}_defense_finder_systems.tsv"),
+            files("${prefix}.prt"),
+            files("${prefix}.prt.idx"),
+            files("${prefix}.macsydata.tar.gz", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

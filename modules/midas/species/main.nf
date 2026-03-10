@@ -46,10 +46,15 @@ process MIDAS_SPECIES {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.midas.tsv"),
         abundances: file("${prefix}.midas.abundances.txt"),
-        results: [file("${prefix}.midas.tsv"), file("${prefix}.midas.abundances.txt")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.midas.tsv"),
+            files("${prefix}.midas.abundances.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

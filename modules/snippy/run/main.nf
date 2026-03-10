@@ -62,6 +62,7 @@ process SNIPPY_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         aligned_fa: files("${prefix}.aligned.fa.gz", optional: true),
         vcf: files("${prefix}.vcf.gz", optional: true),
@@ -84,6 +85,7 @@ process SNIPPY_RUN {
         subs_vcf: files("${prefix}.subs.vcf.gz"),
         tab: files("${prefix}.tab"),
         txt: files("${prefix}.txt"),
+        // Generic fields (used for publishing)
         results: [
             files("${prefix}.aligned.fa.gz", optional: true),
             files("${prefix}.vcf.gz", optional: true),

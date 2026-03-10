@@ -34,6 +34,7 @@ process SEQSERO2 {
         meta:     meta,
         tsv:      file("${prefix}.tsv"),
         txt:      file("${prefix}.txt"),
+        // Generic fields (used for publishing)
         results:  [file("${prefix}.tsv"), file("${prefix}.txt")],
         logs:     files("*.{log,err}", optional: true),
         nf_logs:  files(".command.*"),

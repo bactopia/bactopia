@@ -35,16 +35,23 @@ process GAMMA {
 
     input:
     (_meta: Map, assembly: Path): Record
-    db                : Path
+    db                   : Path
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         gamma: file("${prefix}.gamma"),
         psl: file("${prefix}.psl"),
         gff: file("${prefix}.gff", optional: true),
         fasta: file("${prefix}.fasta", optional: true),
-        results: [file("${prefix}.gamma"), file("${prefix}.psl"), file("${prefix}.gff", optional: true), file("${prefix}.fasta", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.gamma"),
+            files("${prefix}.psl"),
+            files("${prefix}.gff", optional: true),
+            files("${prefix}.fasta", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

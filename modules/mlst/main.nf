@@ -38,9 +38,13 @@ process MLST {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
-        results: [file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

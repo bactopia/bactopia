@@ -1,0 +1,37 @@
+nextflow_process {
+    name "Test PNEUMOCAT"
+    script "../main.nf"
+    process "PNEUMOCAT"
+
+    test("pneumocat - module - ERR1438863") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "ERR1438863"],
+                        r1: file("${params.test_data_dir}/data/species/streptococcus_pneumoniae/illumina/ERR1438863_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/streptococcus_pneumoniae/illumina/ERR1438863_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

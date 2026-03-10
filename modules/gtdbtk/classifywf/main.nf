@@ -45,11 +45,16 @@ process GTDBTK_CLASSIFYWF {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         bac_tsv: file("${prefix}.bac120.summary.tsv"),
         ar_tsv: file("${prefix}.ar53.summary.tsv"),
-        supplemental: files("supplemental/*"),
-        results: [file("${prefix}.bac120.summary.tsv"), file("${prefix}.ar53.summary.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.bac120.summary.tsv"),
+            files("${prefix}.ar53.summary.tsv"),
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

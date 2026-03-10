@@ -36,15 +36,17 @@ process TBPROFILER_COLLATE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         csv: file("tbprofiler.csv"),
         variants_csv: file("tbprofiler.variants.csv"),
         variants_txt: file("tbprofiler.variants.txt"),
         itol: files("*.itol.*.txt", optional: true),
+        // Generic fields (used for publishing)
         results: [
-            file("tbprofiler.csv"),
-            file("tbprofiler.variants.csv"),
-            file("tbprofiler.variants.txt")
+            files("tbprofiler.csv"),
+            files("tbprofiler.variants.csv"),
+            files("tbprofiler.variants.txt")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

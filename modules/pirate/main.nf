@@ -38,11 +38,15 @@ process PIRATE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         aln: file("${prefix}.aln.gz", optional: true),
         csv: files("pirate/gene_presence_absence.csv", optional: true),
-        supplemental: files("pirate/*"),
-        results: [file("${prefix}.aln.gz", optional: true)] + files("pirate/gene_presence_absence.csv", optional: true) + files("pirate/*"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.aln.gz", optional: true),
+            files("pirate/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

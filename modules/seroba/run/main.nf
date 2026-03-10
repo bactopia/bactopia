@@ -37,6 +37,7 @@ process SEROBA_RUN {
         meta:     meta,
         tsv:      file("${prefix}.tsv"),
         txt:      file("supplemental/detailed_serogroup_info.txt", optional: true),
+        // Generic fields (used for publishing)
         results:  files("${prefix}.tsv") + files("supplemental/detailed_serogroup_info.txt", optional: true),
         logs:     files("*.{log,err}", optional: true),
         nf_logs:  files(".command.*"),

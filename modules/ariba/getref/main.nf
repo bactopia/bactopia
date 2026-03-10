@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, database, download, antimicrobial resistance, virulence, ariba, setup
- * @tags complexity:moderate input-type:none output-type:single features:internet-access,archive-output,compression,resource-download
+ * @tags complexity:moderate input-type:none output-type:single features:internet-access,archive-output,compression,resource-download,no-test
  * @citation ariba
  *
  * @note Internet Required

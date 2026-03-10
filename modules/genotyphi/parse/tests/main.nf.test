@@ -1,0 +1,37 @@
+// NOTE: This test requires a Mykrobe JSON output file as input.
+// A fixture file (e.g., data/species/salmonella_typhi/mykrobe/test_mykrobe.json) needs to
+// be created before this test can run. The JSON must match the format produced by
+// `mykrobe predict` with the `--species typhi` option.
+nextflow_process {
+    name "Test GENOTYPHI_PARSE"
+    script "../main.nf"
+    process "GENOTYPHI_PARSE"
+
+    test("genotyphi - module - stub") {
+        tag "stub"
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // TODO: Replace with actual Mykrobe JSON fixture file path
+                // input[0] = Channel.of(
+                //     record(
+                //         _meta: [name: "test_typhi"],
+                //         json: file("${params.test_data_dir}/data/species/salmonella_typhi/mykrobe/test_mykrobe.json")
+                //     )
+                // )
+                input[0] = Channel.empty()
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success }
+            )
+        }
+    }
+}

@@ -1,0 +1,95 @@
+nextflow_process {
+    name "Test CSVTK_CONCAT"
+    script "../main.nf"
+    process "CSVTK_CONCAT"
+
+    test("csvtk concat - module - TSV files") {
+        tag "csvtk_concat"
+
+        when {
+            process {
+                """
+                // Create inline TSV files for concatenation
+                def tsv1 = file("\${workDir}/sample1.tsv")
+                tsv1.text = [
+                    "sample\tgene\tcoverage",
+                    "sample1\tblaTEM-1\t100.00",
+                    "sample1\tmecA\t99.50"
+                ].join("\\n") + "\\n"
+
+                def tsv2 = file("\${workDir}/sample2.tsv")
+                tsv2.text = [
+                    "sample\tgene\tcoverage",
+                    "sample2\tvanA\t98.75",
+                    "sample2\ttetM\t97.00"
+                ].join("\\n") + "\\n"
+
+                input[0] = Channel.of(
+                    record(
+                        _meta: [id: "concat-test", subdir: null, args: null],
+                        csv: [tsv1, tsv2]
+                    )
+                )
+                input[1] = Channel.of("tsv")
+                input[2] = Channel.of("tsv")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.csv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("csvtk concat - module - CSV to TSV conversion") {
+        tag "csvtk_concat"
+
+        when {
+            process {
+                """
+                // Create inline CSV files and output as TSV
+                def csv1 = file("\${workDir}/sample1.csv")
+                csv1.text = [
+                    "sample,gene,coverage",
+                    "sample1,blaTEM-1,100.00"
+                ].join("\\n") + "\\n"
+
+                def csv2 = file("\${workDir}/sample2.csv")
+                csv2.text = [
+                    "sample,gene,coverage",
+                    "sample2,vanA,98.75"
+                ].join("\\n") + "\\n"
+
+                input[0] = Channel.of(
+                    record(
+                        _meta: [id: "csv-to-tsv-test", subdir: null, args: null],
+                        csv: [csv1, csv2]
+                    )
+                )
+                input[1] = Channel.of("csv")
+                input[2] = Channel.of("tsv")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.csv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

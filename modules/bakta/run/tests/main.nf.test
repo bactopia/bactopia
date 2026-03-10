@@ -1,0 +1,40 @@
+nextflow_process {
+    name "Test BAKTA_RUN"
+    script "../main.nf"
+    process "BAKTA_RUN"
+
+    test("bakta - module - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/bakta/bakta")
+                input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
+                input[3] = file("${params.test_data_dir}/data/empty/EMPTY_PRODIGAL_TF")
+                input[4] = file("${params.test_data_dir}/data/empty/EMPTY_REPLICONS")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.txt,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

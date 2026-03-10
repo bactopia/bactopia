@@ -56,6 +56,7 @@ process BRACKEN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.bracken.tsv"),
         special_meta: special_meta,
@@ -68,14 +69,15 @@ process BRACKEN {
         abundances: file("${prefix}.bracken.abundances.txt"),
         classification: file("${prefix}.bracken.classification.txt"),
         adjusted_abundances: file("${prefix}.bracken.adjusted.abundances.txt"),
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}.bracken.tsv"),
-            file("${prefix}.kraken2.report.txt"),
-            file("${prefix}.kraken2.output.txt", optional: true),
-            file("${prefix}.bracken.report.txt"),
-            file("${prefix}.bracken.abundances.txt"),
-            file("${prefix}.bracken.classification.txt"),
-            file("${prefix}.bracken.adjusted.abundances.txt")
+            files("${prefix}.bracken.tsv"),
+            files("${prefix}.kraken2.report.txt"),
+            files("${prefix}.kraken2.output.txt", optional: true),
+            files("${prefix}.bracken.report.txt"),
+            files("${prefix}.bracken.abundances.txt"),
+            files("${prefix}.bracken.classification.txt"),
+            files("${prefix}.bracken.adjusted.abundances.txt")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

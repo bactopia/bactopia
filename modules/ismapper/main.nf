@@ -46,8 +46,10 @@ process ISMAPPER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         supplemental: files("supplemental/*"),
+        // Generic fields (used for publishing)
         results: [],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

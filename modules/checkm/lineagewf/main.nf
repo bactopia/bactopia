@@ -36,8 +36,10 @@ process CHECKM_LINEAGEWF {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
+        // Generic fields (used for publishing)
         results: files("${prefix}.tsv") + files("supplemental/*"),
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

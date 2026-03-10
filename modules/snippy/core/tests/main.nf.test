@@ -1,0 +1,48 @@
+nextflow_process {
+    name "Test SNIPPY_CORE"
+    script "../main.nf"
+    process "SNIPPY_CORE"
+
+    // TODO: This test requires upstream SNIPPY_RUN output (VCF + aligned FASTA files).
+    // A proper test would need to either:
+    // 1. Run SNIPPY_RUN first and chain outputs, or
+    // 2. Use pre-generated fixture files from a previous SNIPPY_RUN execution.
+    // For now, this is a stub test skeleton.
+
+    test("snippy_core - module - stub") {
+        tag "stub"
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // TODO: Replace with actual snippy-run output files
+                // _vcf: Set of VCF files from multiple SNIPPY_RUN executions
+                // _aligned_fa: Set of aligned FASTA files from multiple SNIPPY_RUN executions
+                input[0] = Channel.of(
+                    record(
+                        _meta: [id: "snippy-core-test", name: "snippy-core-test"],
+                        _vcf: [],
+                        _aligned_fa: []
+                    )
+                )
+                // Reference genome record
+                input[1] = record(
+                    _ref_meta: [name: "snippy-ref"],
+                    reference: [file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")]
+                )
+                // Optional mask file (null = no masking)
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success }
+            )
+        }
+    }
+}

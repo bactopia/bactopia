@@ -1,0 +1,38 @@
+nextflow_process {
+    name "Test DEFENSEFINDER_RUN"
+    script "../main.nf"
+    process "DEFENSEFINDER_RUN"
+
+    test("defensefinder - module - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/defensefinder/defensefinder.tar")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.genes_tsv,
+                    record.hmmer_tsv,
+                    record.systems_tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

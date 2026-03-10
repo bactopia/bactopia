@@ -41,6 +41,7 @@ process GUBBINS {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         masked_aln: file("${prefix}.masked.aln.gz"),
         fasta: file("gubbins/${prefix}.filtered_polymorphic_sites.fasta.gz"),
@@ -53,7 +54,20 @@ process GUBBINS {
         tree: file("gubbins/${prefix}.final_tree.tre"),
         tree_labelled: file("gubbins/${prefix}.node_labelled.final_tree.tre"),
         bootstrap_tree: file("gubbins/${prefix}.final_bootstrapped_tree.tre", optional: true),
-        results: [file("${prefix}.masked.aln.gz")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.masked.aln.gz"),
+            files("gubbins/${prefix}.filtered_polymorphic_sites.fasta.gz"),
+            files("gubbins/${prefix}.recombination_predictions.gff.gz"),
+            files("gubbins/${prefix}.summary_of_snp_distribution.vcf.gz"),
+            files("gubbins/${prefix}.per_branch_statistics.csv"),
+            files("gubbins/${prefix}.filtered_polymorphic_sites.phylip"),
+            files("gubbins/${prefix}.recombination_predictions.embl.gz"),
+            files("gubbins/${prefix}.branch_base_reconstruction.embl.gz"),
+            files("gubbins/${prefix}.final_tree.tre"),
+            files("gubbins/${prefix}.node_labelled.final_tree.tre"),
+            files("gubbins/${prefix}.final_bootstrapped_tree.tre", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

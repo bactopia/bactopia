@@ -48,6 +48,7 @@ process SNIPPY_CORE {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         supplemental: files("snippy-core/*"),
         aln: files("snippy-core/${prefix}.aln.gz"),
@@ -57,6 +58,7 @@ process SNIPPY_CORE {
         vcf: files("snippy-core/${prefix}.vcf.gz"),
         txt: files("snippy-core/${prefix}.txt"),
         samples: files("${reference_name}.samples.txt"),
+        // Generic fields (used for publishing)
         results: [
             files("snippy-core/*"),
             files("${prefix}.full.aln.gz"),

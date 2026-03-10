@@ -51,6 +51,7 @@ process KRAKEN2 {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         kraken2_report: files('*.kraken2.report.txt'),
         scrub_report: files('*.scrub.report.tsv', optional: true),
@@ -59,9 +60,10 @@ process KRAKEN2 {
         unclassified: files("*.${unclassified_naming}*.fastq.gz", optional: true),
         classified_extra: files("*.${classified_naming}*.fastq.gz", optional: true),
         unclassified_extra: files("*.${unclassified_naming}*.fastq.gz", optional: true),
+        // Generic fields (used for publishing)
         results: [
-            file("${prefix}.kraken2.report.txt"),
-            file("${prefix}.scrub.report.tsv", optional: true)
+            files("${prefix}.kraken2.report.txt"),
+            files("${prefix}.scrub.report.tsv", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

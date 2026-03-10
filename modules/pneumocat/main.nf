@@ -41,10 +41,15 @@ process PNEUMOCAT {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         xml: file("${prefix}.results.xml", optional: true),
         txt: file("${prefix}.coverage_summary.txt", optional: true),
-        results: [file("${prefix}.results.xml", optional: true), file("${prefix}.coverage_summary.txt", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.results.xml", optional: true),
+            files("${prefix}.coverage_summary.txt", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

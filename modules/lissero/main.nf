@@ -32,11 +32,13 @@ process LISSERO {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named field (upstream consumers access this)
         tsv: file("${prefix}.tsv"),
-        // Generic fields (same convention across every module)
-        results: [file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

@@ -1,0 +1,35 @@
+nextflow_process {
+    name "Test PHISPY"
+    script "../main.nf"
+    process "PHISPY"
+
+    test("phispy - module - GCF_900478275") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_900478275"],
+                        gbk: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/GCF_900478275.gbk.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

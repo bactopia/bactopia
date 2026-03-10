@@ -30,9 +30,13 @@ process ABRICATE_SUMMARY {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         report: file("${prefix}.tsv"),
-        results: [file("${prefix}.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -40,6 +44,7 @@ process ABRICATE_SUMMARY {
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"
+
     // Create a new meta variable
     meta = [:]
     meta.id = "${prefix}-${task.process}"

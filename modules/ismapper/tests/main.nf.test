@@ -1,0 +1,39 @@
+nextflow_process {
+    name "Test ISMAPPER"
+    script "../main.nf"
+    process "ISMAPPER"
+
+    test("ismapper - module - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")
+                input[2] = file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/is1016.fasta")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

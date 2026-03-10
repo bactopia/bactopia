@@ -44,12 +44,17 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         special_meta: special_meta,
         scrubbed: files("*.scrubbed.fastq.gz"),
         scrubbed_extra: files("EMPTY_EXTRA"),
         scrub_report: files('*.scrub.report.tsv', optional: true),
-        results: [files("*.scrubbed.fastq.gz"), files('*.scrub.report.tsv', optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("*.scrubbed.fastq.gz"),
+            files('*.scrub.report.tsv', optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

@@ -24,6 +24,7 @@ data/conda/noarch/
 
 # Claude
 .claude/plans/
+.claude/handoffs/
 
 # temp v4 folders
 old-bactopia/

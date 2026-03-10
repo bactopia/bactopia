@@ -60,6 +60,7 @@ process BAKTA_RUN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         annotations: [file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}")],
         embl: file("bakta/${prefix}.{embl,embl.gz}"),
@@ -73,7 +74,20 @@ process BAKTA_RUN {
         tsv: file("bakta/${prefix}.tsv"),
         txt: file("bakta/${prefix}.txt"),
         blastdb: file("bakta/${prefix}-blastdb.tar.gz"),
-        results: [file("bakta/${prefix}.tsv"), file("bakta/${prefix}.txt"), file("bakta/${prefix}.{embl,embl.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{ffn,ffn.gz}"), file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{gbff,gbff.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}"), file("bakta/${prefix}.hypotheticals.tsv"), file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"), file("bakta/${prefix}-blastdb.tar.gz")],
+        // Generic fields (used for publishing)
+        results: [
+            files("bakta/${prefix}.tsv"),
+            files("bakta/${prefix}.txt"),
+            files("bakta/${prefix}.{embl,embl.gz}"),
+            files("bakta/${prefix}.{faa,faa.gz}"),
+            files("bakta/${prefix}.{ffn,ffn.gz}"),
+            files("bakta/${prefix}.{fna,fna.gz}"),
+            files("bakta/${prefix}.{gbff,gbff.gz}"),
+            files("bakta/${prefix}.{gff3,gff3.gz}"),
+            files("bakta/${prefix}.hypotheticals.tsv"),
+            files("bakta/${prefix}.hypotheticals.{faa,faa.gz}"),
+            files("bakta/${prefix}-blastdb.tar.gz")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

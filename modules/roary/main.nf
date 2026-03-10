@@ -37,11 +37,15 @@ process ROARY {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         aln: file("${prefix}.aln.gz", optional: true),
         csv: files("roary/gene_presence_absence.csv", optional: true),
-        supplemental: files("roary/*"),
-        results: [file("${prefix}.aln.gz", optional: true)] + files("roary/gene_presence_absence.csv", optional: true) + files("roary/*"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.aln.gz", optional: true),
+            files("roary/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

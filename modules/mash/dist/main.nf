@@ -35,9 +35,13 @@ process MASH_DIST {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         dist: file("${prefix}-dist.txt"),
-        results: [file("${prefix}-dist.txt")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}-dist.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

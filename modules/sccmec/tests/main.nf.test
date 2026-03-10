@@ -1,0 +1,73 @@
+nextflow_process {
+    name "Test SCCMEC"
+    script "../main.nf"
+    process "SCCMEC"
+
+    test("sccmec - module - GCF_000017085 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.targets,
+                    record.target_details,
+                    record.regions,
+                    record.regions_details,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("sccmec - module - GCF_000017085 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.targets,
+                    record.target_details,
+                    record.regions,
+                    record.regions_details,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

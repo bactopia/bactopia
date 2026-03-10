@@ -35,15 +35,21 @@ process PLASMIDFINDER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        // Named fields (upstream consumers access these)
         json: file("${prefix}.json"),
         txt: file("${prefix}.txt"),
         tsv: file("${prefix}.tsv"),
         genome_seq: file("${prefix}-hit_in_genome_seq.fsa.gz"),
         plasmid_seq: file("${prefix}-plasmid_seqs.fsa.gz"),
-        // Generic fields (same convention across every module)
-        results: [file("${prefix}.json"), file("${prefix}.txt"), file("${prefix}.tsv"), file("${prefix}-hit_in_genome_seq.fsa.gz"), file("${prefix}-plasmid_seqs.fsa.gz")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.json"),
+            files("${prefix}.txt"),
+            files("${prefix}.tsv"),
+            files("${prefix}-hit_in_genome_seq.fsa.gz"),
+            files("${prefix}-plasmid_seqs.fsa.gz")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

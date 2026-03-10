@@ -27,7 +27,7 @@ process CHECKM2_DOWNLOAD {
 
     output:
     db   = file("checkm2_db_v${db_version}.dmnd")
-    json = file("contents.json")
+    json = file("checkm2_db_v${db_version}.json")
     logs = files("logs/*", optional: true)
 
     script:
@@ -40,16 +40,17 @@ process CHECKM2_DOWNLOAD {
     # So it's necessary to download the database manually
     aria2c \\
         ${task.ext.args} \\
-        --checksum ${checksum} \\
+        --checksum=md5=${checksum} \\
         https://zenodo.org/records/${zenodo_id}/files/checkm2_database.tar.gz
 
     echo ${db_version}
     tar -xzf checkm2_database.tar.gz
     db_path=\$(find -name *.dmnd)
     mv \$db_path checkm2_db_v${db_version}.dmnd
-    rmdir CheckM2_database
 
-    mv CONTENTS.json contents.json
+    # Cleanup
+    rm -rf CheckM2_database/ checkm2_database.tar.gz
+    mv CONTENTS.json checkm2_db_v${db_version}.json
 
     # Move outputs to tool specific folder
     mkdir -p logs

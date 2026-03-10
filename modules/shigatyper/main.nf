@@ -38,10 +38,15 @@ process SHIGATYPER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         tsv: file("${prefix}.tsv"),
         hits: files("${prefix}-hits.tsv", optional: true),
-        results: [file("${prefix}.tsv"), file("${prefix}-hits.tsv", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}-hits.tsv", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

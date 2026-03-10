@@ -1,0 +1,43 @@
+nextflow_process {
+    name "Test MERLIN_DIST"
+    script "../main.nf"
+    process "MERLIN_DIST"
+
+    test("merlin_dist - module - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // Record input: assembly + reads (tuple-style with named fields)
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085", runtype: "paired-end", single_end: false],
+                        fna: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                // Reference Mash database
+                input[1] = file("${params.test_data_dir}/data/datasets/sketcher/mash-refseq88.k21.msh")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.dist != null },
+                { assert snapshot(
+                    record.meta,
+                    record.dist,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}
