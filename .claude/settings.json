@@ -46,7 +46,10 @@
       "Read(//home/rpetit3/repos/bactopia/bactopia/**)",
       "WebFetch(domain:www.nf-test.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Read(//home/rpetit3/**)"
+      "Read(//home/rpetit3/**)",
+      "Read(//home/rpetit3/repos/bactopia/bactopia/$BACTOPIA_TESTS/species/portiera/**)",
+      "Bash(nf-test --version)",
+      "WebFetch(domain:github.com)"
     ],
     "additionalDirectories": [
       "/home/rpetit3/.claude/skills/skill-creator",
@@ -59,7 +62,8 @@
       "/home/rpetit3/repos/bactopia/bactopia.github.io",
       "/tmp",
       "/home/rpetit3/repos/bactopia/bactopia/.claude",
-      "/home/rpetit3/repos/bactopia/bactopia/.claude/plans"
+      "/home/rpetit3/repos/bactopia/bactopia/.claude/plans",
+      "/home/rpetit3/repos/bactopia/bactopia/modules/abricate/run"
     ]
   }
 }

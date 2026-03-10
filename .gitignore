@@ -22,7 +22,11 @@ data/conda/index.html
 data/conda/linux-64/
 data/conda/noarch/
 
+# Claude
+.claude/plans/
+
 # temp v4 folders
+old-bactopia/
 modules-old/
 subworkflows-old/
 .v4/

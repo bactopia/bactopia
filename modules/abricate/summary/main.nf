@@ -51,7 +51,7 @@ process ABRICATE_SUMMARY {
     """
     abricate \\
         --summary \\
-        ${reports} > ${prefix}.tsv
+        ${reports.join(' ')} > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
