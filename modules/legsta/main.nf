@@ -15,6 +15,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited Legionella pneumophila SBT results with allele numbers and sequence type
  */
 nextflow.preview.types = true
 

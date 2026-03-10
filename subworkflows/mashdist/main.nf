@@ -20,12 +20,11 @@
  * @input reference
  * Reference sequence in FASTA format for distance calculations
  *
- * @output dist            Per-sample TSV files containing Mash distance calculations
- * @output merged_dist     Consolidated TSV file containing Mash distances from all samples
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `dist`: A tab-delimited summary of the Mash distances and p-values
+ *
+ * @output run_outputs
+ * - `csv`: Merged Mash distance results from all samples
  */
 nextflow.preview.types = true
 
@@ -35,7 +34,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
     take:
-    seqs: Channel<Tuple<Map, Path>>
+    seqs: Channel<Record>
     reference: Path
 
     main:

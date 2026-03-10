@@ -30,8 +30,12 @@
 - Stored in `/data/empty/`
 - Available files:
     - `EMPTY_ADAPTERS` - For adapter files
+    - `EMPTY_ASSEMBLY` - For assembly files
+    - `EMPTY_BLASTDB` - For BLAST database files
     - `EMPTY_DB` - For database files
     - `EMPTY_EXTRA` - For extra files
+    - `EMPTY_GBK` - For GenBank files
+    - `EMPTY_META` - For metadata files
     - `EMPTY_ONT` - For Oxford Nanopore long reads
     - `EMPTY_PHIX` - For PhiX files
     - `EMPTY_PRODIGAL_TF` - For Prodigal training files

@@ -18,7 +18,8 @@
  * - `meta`: Groovy Map containing sample information
  * - `alignment`: Multiple sequence alignment in FASTA format
  *
- * @output sample_outputs   Per-sample records with SNP distance matrix results
+ * @output sample_outputs
+ * - `tsv`: Pairwise SNP distance matrix in TSV format
  */
 nextflow.preview.types = true
 
@@ -26,7 +27,7 @@ include { SNPDISTS as SNPDISTS_MODULE } from '../../modules/snpdists/main'
 
 workflow SNPDISTS {
     take:
-    alignment: Channel<Tuple<Map, Set<Path>>>
+    alignment: Channel<Record>
 
     main:
     SNPDISTS_MODULE(alignment)

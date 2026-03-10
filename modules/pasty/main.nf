@@ -15,14 +15,9 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, blast, details, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: A tab-delimited summary file with the predicted O-antigen serogroup
  * - `blast`: A tab-delimited file of all raw BLAST hits used for the prediction
  * - `details`: A tab-delimited file with detailed gene hits for each serogroup tested
- * - `results`: List of all result files
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

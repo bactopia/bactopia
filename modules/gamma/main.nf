@@ -19,15 +19,10 @@
  * The reference gene database in FASTA format
  *
  * @output record(meta, gamma, psl, gff, fasta, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
- * - `gamma`: The main GAMMA output file containing annotated gene matches
- * - `psl`: The raw alignment details in PSL format
+ * - `gamma`: Main GAMMA output file containing annotated gene matches
+ * - `psl`: Raw alignment details in PSL format
  * - `gff`: Gene matches in GFF3 format
  * - `fasta`: Extracted nucleotide sequences of the matched genes
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

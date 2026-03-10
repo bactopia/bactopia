@@ -18,8 +18,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs   Per-sample records with SCCmec typing results
- * @output run_outputs    Merged record containing consolidated SCCmec typing from all samples
+ * @output sample_outputs
+ * - `tsv`: TSV file with SCCmec typing results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -29,7 +32,7 @@ include { gather                                    } from 'plugin/nf-bactopia'
 
 workflow STAPHOPIASCCMEC {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     STAPHOPIASCCMEC_MODULE(assembly)

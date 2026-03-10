@@ -24,13 +24,8 @@
  * The target species for which to make the AMR prediction (e.g., "tb" or "staph")
  *
  * @output record(meta, csv, json, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `csv`: AMR predictions in machine-readable CSV format
  * - `json`: Detailed AMR prediction results in JSON format
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

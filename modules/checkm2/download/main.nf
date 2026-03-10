@@ -12,9 +12,9 @@
  * @note Internet Required
  * This process requires an active internet connection to fetch the database.
  *
- * @output db        The CheckM2 Diamond database file (*.dmnd)
- * @output json      Metadata file describing the database contents
- * @output logs      Optional software execution logs containing warnings/errors
+ * @output record(db, json, logs)
+ * - `db`: The CheckM2 Diamond database file (*.dmnd)
+ * - `json`: Metadata file describing the database contents
  */
 nextflow.preview.types = true
 

@@ -18,8 +18,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for Klebsiella genotyping
  *
- * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, and versions
- * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited Kleborate results with species, MLST, virulence, and resistance predictions
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -29,7 +32,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow KLEBORATE {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     KLEBORATE_MODULE(assembly)

@@ -20,58 +20,29 @@
  * @input db
  * Path to the AMRFinderPlus database directory containing reference data for AMR gene detection.
  *
- * @output report          AMR gene detection results for each sample in TSV format
- * @output merged_tsv      Combined AMR detection results from all samples in a single TSV file
- * @output mutation_report Point mutations associated with antimicrobial resistance
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `report`: A tab-delimited report of identified AMR genes and virulence factors
+ * - `mutation_report`: Organism-specific point mutations associated with antimicrobial resistance
+ *
+ * @output run_outputs
+ * - `csv`: A merged TSV file with AMRFinder+ results from all samples
  */
 nextflow.preview.types = true
 
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
-include { flattenPaths      } from 'plugin/nf-bactopia'
 include { gather            } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:
-    fasta: Channel<Tuple<Map, Path, Path, Path>>
+    fasta: Channel<Record>
     db: Path
 
     main:
     AMRFINDERPLUS_RUN(fasta, db)
-    CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out.report, 'amrfinderplus'), 'tsv', 'tsv')
-
-    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
-    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
-    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
-    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
-    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+    CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out, 'amrfinderplus', field: 'report'), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.report
-    merged_tsv = ch_concat_csv
-    mutation_report: Channel<Tuple<Map, Path>> = AMRFINDERPLUS_RUN.out.mutation_report
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        AMRFINDERPLUS_RUN.out.report,
-        AMRFINDERPLUS_RUN.out.mutation_report,
-        ch_concat_csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AMRFINDERPLUS_RUN.out.logs,
-        ch_concat_logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        AMRFINDERPLUS_RUN.out.nf_logs,
-        ch_concat_nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        AMRFINDERPLUS_RUN.out.versions,
-        ch_concat_versions
-    ])
+    sample_outputs = AMRFINDERPLUS_RUN.out
+    run_outputs = CSVTK_CONCAT.out
 }

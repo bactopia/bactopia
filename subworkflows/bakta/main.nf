@@ -38,33 +38,28 @@
  * @input replicons
  * Optional replicon sequences for plasmid identification
  *
- * @output annotations       Complete annotation package containing GFF3, GBK, FAA, FFN, FNA, and other formats
- * @output tsv               Tab-delimited summary of annotation results
- * @output txt               Text summary of annotation results
- * @output embl              EMBL format annotation file
- * @output faa               Amino acid sequences of predicted proteins
- * @output ffn               Nucleotide sequences of predicted features
- * @output fna               Nucleotide sequences of contigs
- * @output gbff              GenBank format annotation file
- * @output gff               Genome annotation in GFF3 format
- * @output hypotheticals_faa Amino acid sequences of hypothetical proteins
- * @output hypotheticals_tsv Tab-delimited summary of hypothetical proteins
- * @output blastdb           BLAST database created from annotation results
- * @output results           Aggregated results channel containing all output files
- * @output logs              Aggregated logs channel containing all execution logs
- * @output nf_logs           Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions          Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `embl`: Annotations and sequences in EMBL format
+ * - `faa`: CDS/sORF amino acid sequences as FASTA
+ * - `ffn`: Feature nucleotide sequences as FASTA
+ * - `fna`: Replicon/contig DNA sequences as FASTA
+ * - `gbff`: Annotations and sequences in GenBank format
+ * - `gff`: Annotations and sequences in GFF3 format
+ * - `hypotheticals_tsv`: Further information on hypothetical protein CDS as tab-separated values
+ * - `hypotheticals_faa`: Hypothetical protein CDS amino acid sequences as FASTA
+ * - `tsv`: Annotations as simple human readable tab-separated values
+ * - `txt`: Broad summary of Bakta annotations
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
 nextflow.preview.types = true
 
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
 include { BAKTA_RUN      } from '../../modules/bakta/run/main'
-include { flattenPaths   } from 'plugin/nf-bactopia'
 include { gather         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     database: Path?
     download_bakta: Boolean
     save_as_tarball: Boolean
@@ -87,35 +82,5 @@ workflow BAKTA {
     }
 
     emit:
-    // Individual outputs
-    annotations: Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>>> = BAKTA_RUN.out.annotations
-    tsv: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.tsv
-    txt: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.txt
-    embl: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.embl
-    faa: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.faa
-    ffn: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.ffn
-    fna: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.fna
-    gbff: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.gbff
-    gff: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.gff
-    hypotheticals_faa: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.hypotheticals_faa
-    hypotheticals_tsv: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.hypotheticals_tsv
-    blastdb: Channel<Tuple<Map, Set<Path>>> = BAKTA_RUN.out.blastdb
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        BAKTA_RUN.out.tsv,
-        BAKTA_RUN.out.txt,
-        BAKTA_RUN.out.embl,
-        BAKTA_RUN.out.faa,
-        BAKTA_RUN.out.ffn,
-        BAKTA_RUN.out.fna,
-        BAKTA_RUN.out.gbff,
-        BAKTA_RUN.out.gff,
-        BAKTA_RUN.out.hypotheticals_faa,
-        BAKTA_RUN.out.hypotheticals_tsv,
-        BAKTA_RUN.out.blastdb
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([BAKTA_RUN.out.versions])
+    sample_outputs = BAKTA_RUN.out
 }

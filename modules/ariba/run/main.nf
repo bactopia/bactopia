@@ -23,6 +23,8 @@
  * An [ARIBA](https://github.com/sanger-pathogens/ariba) prepared database
  *
  * @output record(meta, report, summary, results, logs, nf_logs, versions)
+ * - `report`: Tab-delimited detailed report of gene detection results
+ * - `summary`: Comma-separated condensed summary of detected genes
  */
 nextflow.preview.types = true
 

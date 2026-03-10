@@ -19,8 +19,11 @@
  * @input query
  * Path to protein database for searching against translated sequences
  *
- * @output sample_outputs  Record outputs from BLASTP module per sample
- * @output run_outputs   Record with merged CSV and associated logs/versions
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -30,7 +33,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTP {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     query: Path
 
     main:

@@ -17,38 +17,22 @@
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
- * @output aln      Core-genome alignment file containing genes present across all input genomes
- * @output csv      Gene presence/absence matrix in CSV format showing which genes are present in each genome
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output sample_outputs
+ *   - `aln`: Core genome alignment in FASTA format (optional)
+ *   - `csv`: Gene presence/absence table
+ *   - `supplemental`: Supplemental files including accessory binary genes and graphs
  */
 nextflow.preview.types = true
 
 include { ROARY as ROARY_MODULE } from '../../modules/roary/main'
-include { flattenPaths          } from 'plugin/nf-bactopia'
-include { gather                } from 'plugin/nf-bactopia'
 
 workflow ROARY {
     take:
-    gff : Channel<Tuple<Map, Set<Path>>>
+    gff: Channel<Record>
 
     main:
     ROARY_MODULE(gff)
 
     emit:
-    // Individual outputs
-    aln: Channel<Tuple<Map, Set<Path>>> = ROARY_MODULE.out.aln
-    csv: Channel<Tuple<Map, Set<Path>>> = ROARY_MODULE.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        ROARY_MODULE.out.supplemental,
-        ROARY_MODULE.out.aln,
-        ROARY_MODULE.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([ROARY_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([ROARY_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([ROARY_MODULE.out.versions])
+    sample_outputs = ROARY_MODULE.out
 }

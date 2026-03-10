@@ -45,10 +45,9 @@ Bactopia modules are individual process definitions that execute specific bioinf
  * - `meta`: Groovy Map containing sample information
  * - `<input_name>`: <Description of the input files>
  *
- * @output <output_name>    <Description of the output>
- * @output logs             Optional software execution logs containing warnings/errors
- * @output nf_logs          Nextflow execution scripts and logs for debugging
- * @output versions         A YAML formatted file with software versions
+ * @output record(meta, <field1>, <field2>, results, logs, nf_logs, versions)
+ * - `<field1>`: Description of tool-specific output field
+ * - `<field2>`: Description of tool-specific output field
  */
 ```
 
@@ -198,33 +197,67 @@ Training file to use for gene prediction (Optional)
 
 ## 5. Output Documentation Standards
 
-### 5.1 Tool-Specific Outputs
-- **Name**: Clear, descriptive channel name
-- **Description**: Concise explanation of what the output contains
-- **Format**: Mention file format if not obvious from name
+### 5.1 Record Output Format
 
-### 5.2 Standard Outputs (All Modules)
+Modules use `@output record(...)` to document their outputs. The record line lists ALL fields from the actual `record()` output block, followed by description lines for tool-specific fields only.
+
 ```groovy
-@output logs         Optional software execution logs containing warnings/errors
-@output nf_logs      Nextflow execution scripts and logs for debugging
-@output versions     A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
 ```
 
-### 5.3 Output Patterns
+### 5.2 Formatting Rules
 
-#### Single File Outputs
+1. **Single `@output record(...)` line** listing all fields from the process `record()` output block
+2. **Tool-specific fields only** get ` * - ` description lines
+3. **Skip standard fields** -- do NOT describe: `meta`, `results`, `logs`, `nf_logs`, `versions`
+4. **Skip convenience bundles** -- e.g., `annotations` (fna+faa+gff bundle) is listed in the record but not described since individual fields already cover it
+5. **Single line per field** -- each description must fit on one line, no wrapping
+6. **Field names must match** the actual `record()` output block exactly
+
+### 5.3 Standard Fields (Never Described)
+
+These fields appear in most `record()` outputs but are not documented with description lines:
+
+- `meta` -- Groovy Map containing sample information and output paths
+- `results` -- List of result files for publishing
+- `logs` -- Optional software execution logs
+- `nf_logs` -- Nextflow execution scripts and logs
+- `versions` -- YAML file with software versions
+
+### 5.4 Output Patterns
+
+#### Single Tool-Specific Output
 ```groovy
-@output tsv      A tab-delimited summary containing the results
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: A tab-delimited summary containing the results
 ```
 
-#### Multiple File Collections
+#### Multiple Tool-Specific Outputs
 ```groovy
-@output supplemental  Supplemental files including plots and HTML reports
+ * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, annotations, results, logs, nf_logs, versions)
+ * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
+ * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `fna`: Nucleotide FASTA file of the input contig sequences
+ * - `faa`: Protein FASTA file of the translated CDS sequences
+ * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+ * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences (with adjusted headers)
+ * - `tbl`: Feature table file for GenBank submission
+ * - `txt`: Summary statistics of the annotation
+ * - `tsv`: Tab-separated file of all annotated features
+ * - `blastdb`: A compressed tar.gz archive of BLAST databases created from the input
 ```
 
-#### Archives
+#### No Tool-Specific Outputs
 ```groovy
-@output blastdb    A compressed tar.gz archive of BLAST databases
+ * @output record(meta, results, logs, nf_logs, versions)
+```
+
+#### Download/Utility Modules
+```groovy
+ * @output record(db, logs)
+ * - `db`: A compressed tarball of the latest AMRFinder+ database
 ```
 
 ## 6. Implementation Patterns
@@ -358,10 +391,8 @@ These fields are computed at runtime based on which inputs are provided.
  * @input db
  * Directory or compressed tarball containing the MLST database schemes
  *
- * @output tsv       A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
  */
 ```
 
@@ -383,11 +414,9 @@ These fields are computed at runtime based on which inputs are provided.
  * - `assembly`: Assembled contigs in FASTA format
  * - `meta_file`: Meta file containing reference size information
  *
- * @output tsv          Transposed report in TSV format
- * @output supplemental Supplemental files including plots and HTML reports
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * - `tsv`: Transposed report in TSV format
+ * - `supplemental`: Supplemental files including plots and HTML reports
  */
 ```
 
@@ -416,21 +445,18 @@ These fields are computed at runtime based on which inputs are provided.
  * @input prodigal_tf
  * Training file to use for gene prediction (Optional)
  *
- * @output annotations  A tuple containing the FASTA, protein FASTA, and GFF3 files
- * @output gff          Annotation in GFF3 format, containing both sequences and annotations
- * @output gbk          Annotation in GenBank format, containing both sequences and annotations
- * @output fna          Nucleotide FASTA file of the input contig sequences
- * @output faa          Protein FASTA file of the annotated genes
- * @output ffn          Nucleotide FASTA file of the annotated genes
- * @output sqn          An ASN1 format "Sequin" file for submission to GenBank
- * @output fsa          Nucleotide FASTA file of the input contig sequences (with adjusted headers)
- * @output tbl          Feature table file
- * @output txt          Summary statistics about the annotation
- * @output tsv          Tab-separated file of all features
- * @output blastdb      A compressed tar.gz archive of BLAST databases created from the input
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, annotations, results, logs, nf_logs, versions)
+ * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
+ * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `fna`: Nucleotide FASTA file of the input contig sequences
+ * - `faa`: Protein FASTA file of the translated CDS sequences
+ * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+ * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences (with adjusted headers)
+ * - `tbl`: Feature table file for GenBank submission
+ * - `txt`: Summary statistics of the annotation
+ * - `tsv`: Tab-separated file of all annotated features
+ * - `blastdb`: A compressed tar.gz archive of BLAST databases created from the input
  */
 ```
 
@@ -480,8 +506,8 @@ Some modules are used for setup, downloading, or internal maintenance tasks rath
  * @note Internal Maintenance
  * This process is primarily used internally by Bactopia to build and update the built-in datasets.
  *
- * @output db       A compressed tarball of the latest AMRFinder+ database
- * @output logs     Optional software execution logs containing warnings/errors
+ * @output record(db, logs)
+ * - `db`: A compressed tarball of the latest AMRFinder+ database
  */
 ```
 
@@ -624,9 +650,9 @@ Before completing module documentation, verify:
 - [ ] All required tags are present (@status, @keywords, @tags, @citation)
 - [ ] Input types are correctly documented as tuples with meta
 - [ ] **Parameter names in code match documentation** (e.g., if `take:` has `assembly:`, doc should say `@input tuple(meta, assembly)`)
-- [ ] All outputs are documented with clear descriptions
-- [ ] **All output channels in code have corresponding @output entries**
-- [ ] Standard outputs (logs, nf_logs, versions) are included
+- [ ] `@output record(...)` lists all fields from the actual `record()` output block
+- [ ] Tool-specific fields have ` * - ` description lines
+- [ ] Standard fields (meta, results, logs, nf_logs, versions) are NOT described
 - [ ] Complexity level accurately reflects implementation
 - [ ] Feature tags match actual implementation
 - [ ] Tool name includes link to source repository

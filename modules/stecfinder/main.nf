@@ -17,10 +17,8 @@
  * - `se`: Single-end Illumina reads or null
  * - `lr`: Long reads (ONT/PacBio) or null
  *
- * @output tsv      TSV file with STEC gene markers results
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: TSV file with STEC gene markers results
  */
 nextflow.preview.types = true
 

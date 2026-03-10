@@ -19,8 +19,11 @@
  * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
  *   about the sample and a set of genome bins in FASTA format.
  *
- * @output sample_outputs  Per-sample CheckM records containing quality assessment results
- * @output run_outputs   Cross-sample aggregation record with combined CheckM results
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited CheckM quality assessment results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -30,7 +33,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     CHECKM_LINEAGEWF(assembly)

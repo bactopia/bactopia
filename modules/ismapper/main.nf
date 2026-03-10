@@ -28,12 +28,7 @@
  * FASTA file containing the insertion sequences to search for
  *
  * @output record(meta, supplemental, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `supplemental`: Directory containing the final tables of insertion sites and visual summaries
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

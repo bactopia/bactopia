@@ -15,12 +15,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: ShigEiFinder results in TSV format
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

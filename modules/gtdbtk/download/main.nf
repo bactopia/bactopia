@@ -14,11 +14,9 @@
  * This process requires an active internet connection and significant disk space (~60GB+ uncompressed)
  * to store the database files.
  *
- * @output db          The directory containing the uncompressed GTDB-Tk database files
- * @output db_tarball  A compressed tarball of the database (if requested via parameters)
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(db, db_tarball, logs)
+ * - `db`: The directory containing the uncompressed GTDB-Tk database files
+ * - `db_tarball`: A compressed tarball of the database (if requested via parameters)
  */
 nextflow.preview.types = true
 

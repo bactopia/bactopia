@@ -16,14 +16,9 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, blast, details, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: A tab-delimited summary file with the predicted PBP type for each gene
  * - `blast`: A tab-delimited file of the raw TBLASTN hits used for gene identification
  * - `details`: Detailed PBP typing results for each gene analyzed
- * - `results`: List of all result files
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

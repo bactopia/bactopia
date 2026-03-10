@@ -15,6 +15,10 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, chromosome, contig_report, txt, plasmids, results, logs, nf_logs, versions)
+ * - `chromosome`: Chromosomal sequences separated from plasmid contigs (gzipped FASTA)
+ * - `contig_report`: Tab-delimited report assigning each contig to chromosome or plasmid
+ * - `txt`: MOB-typer results with replicon type, mobility, and incompatibility group (optional)
+ * - `plasmids`: Reconstructed plasmid sequences in gzipped FASTA format (optional)
  */
 nextflow.preview.types = true
 

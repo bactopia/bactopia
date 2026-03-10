@@ -15,13 +15,8 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, json, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: RGI results in tab-separated format
  * - `json`: RGI results in JSON format (optional)
- * - `results`: List of all result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

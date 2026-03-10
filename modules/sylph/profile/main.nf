@@ -23,10 +23,8 @@
  * @input db
  * Path to the Sylph database file (*.syldb)
  *
- * @output tsv      TSV file with profiling results
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: TSV file with profiling results
  */
 nextflow.preview.types = true
 

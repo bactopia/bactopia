@@ -17,8 +17,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs   Per-sample record outputs from PBPTYPER_MODULE
- * @output run_outputs    Merged record with consolidated TSV from all samples
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary file with the predicted PBP type for each gene
+ * - `blast`: A tab-delimited file of the raw TBLASTN hits used for gene identification
+ * - `details`: Detailed PBP typing results for each gene analyzed
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +33,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow PBPTYPER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     PBPTYPER_MODULE(assembly)

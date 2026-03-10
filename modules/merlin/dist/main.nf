@@ -22,27 +22,25 @@
  * @input reference
  * The reference Mash database to screen against
  *
- * @output dist                The raw Mash distance results
- * @output escherichia         Conditional channel triggering *Escherichia* analysis tools
- * @output escherichia_fq      Conditional channel triggering FASTQ-based *Escherichia* tools
- * @output escherichia_fna_fq  Conditional channel triggering tools requiring both FASTA and FASTQ
- * @output haemophilus         Conditional channel triggering *Haemophilus* analysis tools
- * @output klebsiella          Conditional channel triggering *Klebsiella* analysis tools
- * @output legionella          Conditional channel triggering *Legionella* analysis tools
- * @output listeria            Conditional channel triggering *Listeria* analysis tools
- * @output mycobacterium       Conditional channel triggering *Mycobacterium* analysis tools (Assembly)
- * @output mycobacterium_fq    Conditional channel triggering *Mycobacterium* analysis tools (FASTQ)
- * @output neisseria           Conditional channel triggering *Neisseria* analysis tools
- * @output pseudomonas         Conditional channel triggering *Pseudomonas* analysis tools
- * @output salmonella          Conditional channel triggering *Salmonella* analysis tools (Assembly)
- * @output salmonella_fq       Conditional channel triggering *Salmonella* analysis tools (FASTQ)
- * @output staphylococcus      Conditional channel triggering *Staphylococcus* analysis tools
- * @output streptococcus       Conditional channel triggering *Streptococcus* analysis tools (Assembly)
- * @output streptococcus_fq    Conditional channel triggering *Streptococcus* analysis tools (FASTQ)
- * @output genus               A marker file indicating the detected genus (for debugging)
- * @output logs                Optional software execution logs containing warnings/errors
- * @output nf_logs             Nextflow execution scripts and logs for debugging
- * @output versions            A YAML formatted file with software versions
+ * @output record(meta, dist, results, fna, r1, r2, se, lr, escherichia, haemophilus, klebsiella, legionella, listeria, mycobacterium, neisseria, pseudomonas, salmonella, staphylococcus, streptococcus, genus, logs, nf_logs, versions)
+ * - `dist`: Raw Mash distance results
+ * - `fna`: Passthrough of assembled contigs
+ * - `r1`: Passthrough of Illumina R1 reads
+ * - `r2`: Passthrough of Illumina R2 reads
+ * - `se`: Passthrough of single-end reads
+ * - `lr`: Passthrough of long reads
+ * - `escherichia`: Conditional marker file triggering Escherichia analysis tools
+ * - `haemophilus`: Conditional marker file triggering Haemophilus analysis tools
+ * - `klebsiella`: Conditional marker file triggering Klebsiella analysis tools
+ * - `legionella`: Conditional marker file triggering Legionella analysis tools
+ * - `listeria`: Conditional marker file triggering Listeria analysis tools
+ * - `mycobacterium`: Conditional marker file triggering Mycobacterium analysis tools
+ * - `neisseria`: Conditional marker file triggering Neisseria analysis tools
+ * - `pseudomonas`: Conditional marker file triggering Pseudomonas analysis tools
+ * - `salmonella`: Conditional marker file triggering Salmonella analysis tools
+ * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
+ * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
+ * - `genus`: Marker file indicating the detected genus
  */
 nextflow.preview.types = true
 
@@ -55,8 +53,8 @@ process MERLIN_DIST {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, fna, r1, r2, se, lr) : Tuple<Map, Path, Path?, Path?, Path?, Path?>
-    reference                    : Path
+    (_meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    reference                                                           : Path
 
     stage:
     stageAs 'fna/*', fna
@@ -66,27 +64,31 @@ process MERLIN_DIST {
     stageAs 'reads/lr/*', lr
 
     output:
-    dist               = tuple(meta, file("${prefix}-dist.txt"))
-    escherichia        = tuple(meta, file("escherichia.genus", optional: true), fna)
-    escherichia_fq     = tuple(meta, file("escherichia.genus", optional: true), r1, r2, se, lr)
-    escherichia_fna_fq = tuple(meta, file("escherichia.genus", optional: true), fna, r1, r2, se, lr)
-    haemophilus        = tuple(meta, file("haemophilus.genus", optional: true), fna)
-    klebsiella         = tuple(meta, file("klebsiella.genus", optional: true), fna)
-    legionella         = tuple(meta, file("legionella.genus", optional: true), fna)
-    listeria           = tuple(meta, file("listeria.genus", optional: true), fna)
-    mycobacterium      = tuple(meta, file("mycobacterium.genus", optional: true), fna)
-    mycobacterium_fq   = tuple(meta, file("mycobacterium.genus", optional: true), r1, r2, se, lr)
-    neisseria          = tuple(meta, file("neisseria.genus", optional: true), fna)
-    pseudomonas        = tuple(meta, file("pseudomonas.genus", optional: true), fna)
-    salmonella         = tuple(meta, file("salmonella.genus", optional: true), fna)
-    salmonella_fq      = tuple(meta, file("salmonella.genus", optional: true), r1, r2, se, lr)
-    staphylococcus     = tuple(meta, file("staphylococcus.genus", optional: true), fna)
-    streptococcus      = tuple(meta, file("streptococcus.genus", optional: true), fna)
-    streptococcus_fq   = tuple(meta, file("streptococcus.genus", optional: true), r1, r2, se, lr)
-    genus              = tuple(meta, files("*.genus", optional: true))
-    logs               = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs            = tuple(meta, files(".command.*"))
-    versions           = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        dist: file("${prefix}-dist.txt"),
+        results: [file("${prefix}-dist.txt")],
+        fna: fna,
+        r1: r1,
+        r2: r2,
+        se: se,
+        lr: lr,
+        escherichia: file("escherichia.genus", optional: true),
+        haemophilus: file("haemophilus.genus", optional: true),
+        klebsiella: file("klebsiella.genus", optional: true),
+        legionella: file("legionella.genus", optional: true),
+        listeria: file("listeria.genus", optional: true),
+        mycobacterium: file("mycobacterium.genus", optional: true),
+        neisseria: file("neisseria.genus", optional: true),
+        pseudomonas: file("pseudomonas.genus", optional: true),
+        salmonella: file("salmonella.genus", optional: true),
+        staphylococcus: file("staphylococcus.genus", optional: true),
+        streptococcus: file("streptococcus.genus", optional: true),
+        genus: files("*.genus", optional: true),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

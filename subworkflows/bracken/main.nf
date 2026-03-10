@@ -25,8 +25,21 @@
  * @input database
  * Path to the Kraken2 database for taxonomic classification.
  *
- * @output sample_outputs  Per-sample record outputs from BRACKEN_MODULE
- * @output run_outputs   Combined abundance results across all samples as records
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited summary of Bracken primary and secondary species abundances
+ * - `special_meta`: A simplified metadata map for internal use
+ * - `classified`: Reads classified to belong to any of the taxa on the Kraken2 database
+ * - `unclassified`: Reads not classified to belong to any of the taxa on the Kraken2 database
+ * - `kraken2_report`: Kraken2 report containing stats about classified and not classified reads
+ * - `kraken2_output`: Kraken2 output file containing the taxonomic classification of each read
+ * - `bracken_report`: Bracken report containing stats about classified and not classified reads
+ * - `krona`: Interactive Krona HTML visualization
+ * - `abundances`: Bracken abundance estimates for each taxon
+ * - `classification`: Bracken per-read classification details
+ * - `adjusted_abundances`: Bracken abundance estimates adjusted for unclassified reads
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -37,7 +50,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow BRACKEN {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     database: Path
 
     main:

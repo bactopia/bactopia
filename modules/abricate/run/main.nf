@@ -19,6 +19,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, report, results, logs, nf_logs, versions)
+ * - `report`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
  */
 nextflow.preview.types = true
 

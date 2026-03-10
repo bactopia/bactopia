@@ -21,33 +21,20 @@
  * @input traits
  * Trait file containing binary phenotypic characteristics for each isolate (optional)
  *
- * @output csv         Scoary GWAS results with statistical associations between genes and traits
- * @output results     Aggregated results channel containing all output files
- * @output logs        Execution logs from the Scoary analysis
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    Software version information
+ * @output sample_outputs
  */
 nextflow.preview.types = true
 
 include { SCOARY as SCOARY_MODULE } from '../../modules/scoary/main'
-include { flattenPaths            } from 'plugin/nf-bactopia'
-include { gather                  } from 'plugin/nf-bactopia'
 
 workflow SCOARY {
     take:
-    csv: Channel<Tuple<Map, Set<Path>>>
+    csv: Channel<Record>
     traits: Path?
 
-    main:    
+    main:
     SCOARY_MODULE(csv, traits)
 
     emit:
-    // Individual outputs
-    csv: Channel<Tuple<Map, Set<Path>>> = SCOARY_MODULE.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.csv])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([SCOARY_MODULE.out.versions])
+    sample_outputs = SCOARY_MODULE.out
 }

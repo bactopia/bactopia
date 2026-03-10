@@ -17,12 +17,7 @@
  * FASTA file containing nucleotide query sequences
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
- * - `tsv`: A tab-delimited summary of alignments (standard BLAST outfmt 6)
- * - `results`: List of all output files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * - `tsv`: Tab-delimited nucleotide alignment results (BLAST outfmt 6)
  */
 nextflow.preview.types = true
 

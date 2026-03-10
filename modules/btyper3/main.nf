@@ -15,6 +15,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited Bacillus cereus group typing results including PanC clade and virulence factors
  */
 nextflow.preview.types = true
 

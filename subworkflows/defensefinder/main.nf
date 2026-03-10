@@ -16,8 +16,16 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format for defense system detection
  *
- * @output sample_outputs  Per-sample record outputs from DEFENSEFINDER_RUN
- * @output run_outputs   Combined defense system results across all samples as records
+ * @output sample_outputs
+ * - `genes_tsv`: Tab-delimited list of detected defense genes
+ * - `hmmer_tsv`: Tab-delimited list of HMMER hits used for detection
+ * - `systems_tsv`: Tab-delimited summary of detected defense systems
+ * - `proteins`: Protein sequences of the detected defense genes
+ * - `proteins_index`: Index file for the protein sequences
+ * - `macsydata_raw`: Compressed tarball of raw MacSyFinder data (optional)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -30,7 +38,7 @@ include { gather                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     DEFENSEFINDER_UPDATE()

@@ -26,8 +26,12 @@
  * @input db
  * Database name for ARIBA analysis (e.g., ncbi, card, vfdb, resfinder, argannot)
  *
- * @output sample_outputs  Per-sample records containing meta, named fields, results, logs, nf_logs, versions
- * @output run_outputs   Cross-sample aggregation records (report + summary)
+ * @output sample_outputs
+ * - `report`: Tab-delimited detailed report of gene detection results
+ * - `summary`: Comma-separated condensed summary of detected genes
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -39,7 +43,7 @@ include { gather                               } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     db: String
 
     main:

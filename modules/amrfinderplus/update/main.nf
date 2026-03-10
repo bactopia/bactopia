@@ -13,10 +13,8 @@
  * This process is primarily used internally by Bactopia to build and update the
  * built-in datasets.
  *
- * @output db       A compressed tarball of the latest [AMRFinder+](https://github.com/ncbi/amr) database
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(db, logs)
+ * - `db`: A compressed tarball of the latest AMRFinder+ database
  */
 nextflow.preview.types = true
 

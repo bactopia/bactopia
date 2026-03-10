@@ -14,6 +14,7 @@
  * - `assembly`: Assembled Staphylococcus aureus contigs in FASTA format
  *
  * @output record(meta, summary, results, logs, nf_logs, versions)
+ * - `summary`: Tab-delimited summary of agr locus type and operon variants
  */
 nextflow.preview.types = true
 

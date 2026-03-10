@@ -21,7 +21,7 @@
  *
  * @note Uses EMPTY_* placeholder files for optional parameters (adapters, phix)
  *
- * @input tuple(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1, r2, se, lr, assembly)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1`: Illumina R1 reads (paired-end forward)
  * - `r2`: Illumina R2 reads (paired-end reverse)
@@ -35,14 +35,15 @@
  * @input phix
  * Optional filepath for custom PhiX sequences (FASTA)
  *
- * @output reads         Tuple with all read slots and assembly: (meta, r1, r2, se, lr, assembly)
- * @output reads_only    Tuple with read slots only: (meta, r1, r2, se, lr)
- * @output reads_grouped Tuple with all output FASTQs meant for adding to 'results' emission
- * @output supplemental  QC reports (FastQC/NanoPlot), JSON metrics, and error FASTQs if QC failed
- * @output error         Captured error messages if QC failed (e.g., reads empty after trimming)
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, r1, r2, se, lr, assembly, reads_grouped, supplemental, error, results, logs, nf_logs, versions)
+ * - `r1`: QC'd Illumina R1 reads (paired-end forward)
+ * - `r2`: QC'd Illumina R2 reads (paired-end reverse)
+ * - `se`: QC'd single-end Illumina reads
+ * - `lr`: QC'd long reads (ONT)
+ * - `assembly`: Assembly file (FASTA)
+ * - `reads_grouped`: All output FASTQs for publishing
+ * - `supplemental`: QC reports (FastQC/NanoPlot), JSON metrics, and error FASTQs if QC failed
+ * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
  */
 nextflow.preview.types = true
 
@@ -54,9 +55,9 @@ process QC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, se, lr, assembly) : Tuple<Map, Path?, Path?, Path?, Path?, Path?>
-    adapters                          : Path?
-    phix                              : Path?
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, assembly: Path?): Record
+    adapters                                                                 : Path?
+    phix                                                                     : Path?
 
     stage:
     stageAs 'input-r1/*', r1
@@ -66,27 +67,21 @@ process QC {
     stageAs 'input-assembly/*', assembly
 
     output:
-    reads = tuple(
-        meta,
-        file("${prefix}_R1.fastq.gz", optional: true),
-        file("${prefix}_R2.fastq.gz", optional: true),
-        file("${prefix}_SE.fastq.gz", optional: true),
-        file("${prefix}_ONT.fastq.gz", optional: true),
-        file("assembly/${prefix}.fna.gz", optional: true)
+    record(
+        meta: meta,
+        r1: file("${prefix}_R1.fastq.gz", optional: true),
+        r2: file("${prefix}_R2.fastq.gz", optional: true),
+        se: file("${prefix}_SE.fastq.gz", optional: true),
+        lr: file("${prefix}_ONT.fastq.gz", optional: true),
+        assembly: file("assembly/${prefix}.fna.gz", optional: true),
+        reads_grouped: files("${prefix}*.fastq.gz", optional: true),
+        supplemental: files("supplemental/*", optional: true),
+        error: files("*-error.txt", optional: true),
+        results: [files("${prefix}*.fastq.gz", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
     )
-    reads_only = tuple(
-        meta,
-        file("${prefix}_R1.fastq.gz", optional: true),
-        file("${prefix}_R2.fastq.gz", optional: true),
-        file("${prefix}_SE.fastq.gz", optional: true),
-        file("${prefix}_ONT.fastq.gz", optional: true)
-    )
-    reads_grouped = tuple(meta, files("${prefix}*.fastq.gz", optional: true))
-    supplemental  = tuple(meta, files("supplemental/*", optional: true))
-    error         = tuple(meta, files("*-error.txt", optional: true))
-    logs          = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs       = tuple(meta, files(".command.*"))
-    versions      = tuple(meta, files("versions.yml"))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

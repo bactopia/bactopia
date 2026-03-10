@@ -16,6 +16,8 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, fa, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited mcr-1 gene variation results
+ * - `fa`: Extracted mcr-1 gene sequence in FASTA format (optional)
  */
 nextflow.preview.types = true
 

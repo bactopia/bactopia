@@ -26,13 +26,12 @@
  * Target bacterial species for resistance prediction (e.g., "staphylococcus_aureus",
  * "mycobacterium_tuberculosis", or "enterococcus_faecium").
  *
- * @output csv        Detailed resistance predictions in CSV format for each sample
- * @output json       Machine-readable resistance predictions in JSON format for each sample
- * @output merged_csv Combined resistance predictions from all samples in a single CSV file
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `csv`: AMR predictions in machine-readable CSV format
+ * - `json`: Detailed AMR prediction results in JSON format
+ *
+ * @output run_outputs
+ * - `csv`: Merged AMR predictions from all samples
  */
 nextflow.preview.types = true
 
@@ -42,7 +41,7 @@ include { gather         } from 'plugin/nf-bactopia'
 
 workflow MYKROBE {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     mykrobe_species: String
 
     main:

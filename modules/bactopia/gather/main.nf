@@ -7,7 +7,7 @@
  * - **Downloading:** Fetches reads (SRA/ENA) or assemblies (NCBI) from accessions.
  * - **Simulation:** Generates synthetic reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art) to enable read-based analysis.
  *
- * Uses explicit positional tuple slots for input and output reads:
+ * Uses explicit named slots for input and output reads:
  * - Input accepts Set<Path> for each slot (pre-merge, supports multiple files)
  * - Output emits Path? for each slot (post-merge, single consolidated file or null)
  *
@@ -16,7 +16,7 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @input tuple(meta, r1_files, r2_files, se_files, lr_files)
+ * @input record(meta, r1_files, r2_files, se_files, lr_files, assembly_files)
  * - `meta`: Groovy Map containing sample information
  * - `r1_files`: Illumina R1 read files (Set, for merging multiple runs)
  * - `r2_files`: Illumina R2 read files (Set, for merging multiple runs)
@@ -24,12 +24,14 @@
  * - `lr_files`: Long read files (ONT) or assembly for simulation
  * - `assembly_files`: Input or downloaded assembly file
  *
- * @output reads       A tuple with explicit read slots: (meta, r1, r2, se, lr, assembly) where each is Path?
- * @output tsv         A tab-delimited metadata file describing the valid samples
- * @output error       Captured error messages for validation or download failures
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(meta, r1, r2, se, lr, assembly, tsv, error, results, logs, nf_logs, versions)
+ * - `r1`: Merged Illumina R1 read file (Path?, optional)
+ * - `r2`: Merged Illumina R2 read file (Path?, optional)
+ * - `se`: Merged single-end read file (Path?, optional)
+ * - `lr`: Merged long read file (ONT) (Path?, optional)
+ * - `assembly`: Assembly file (Path?, optional)
+ * - `tsv`: A tab-delimited metadata file describing the valid samples
+ * - `error`: Captured error messages for validation or download failures
  */
 nextflow.preview.types = true
 
@@ -41,7 +43,7 @@ process GATHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1_files, r2_files, se_files, lr_files, assembly_files) : Tuple<Map, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>>
+    (_meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, assembly_files: Set<Path?>): Record
 
     stage:
     stageAs '*???-r1', r1_files
@@ -51,19 +53,20 @@ process GATHER {
     stageAs '*???-assembly', assembly_files
 
     output:
-    reads    = tuple(
-        meta,
-        file("fastqs/${prefix}_R1.fastq.gz", optional: true),
-        file("fastqs/${prefix}_R2.fastq.gz", optional: true),
-        file("fastqs/${prefix}_SE.fastq.gz", optional: true),
-        file("fastqs/${prefix}_ONT.fastq.gz", optional: true),
-        file("assembly/${prefix}.fna.gz", optional: true)
+    record(
+        meta: meta,
+        r1: file("fastqs/${prefix}_R1.fastq.gz", optional: true),
+        r2: file("fastqs/${prefix}_R2.fastq.gz", optional: true),
+        se: file("fastqs/${prefix}_SE.fastq.gz", optional: true),
+        lr: file("fastqs/${prefix}_ONT.fastq.gz", optional: true),
+        assembly: file("assembly/${prefix}.fna.gz", optional: true),
+        tsv: file("${prefix}-meta.tsv"),
+        error: files("*-{error,merged}.txt", optional: true),
+        results: [file("${prefix}-meta.tsv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml", optional: true)
     )
-    tsv      = tuple(meta, file("${prefix}-meta.tsv"))
-    error    = tuple(meta, files("*-{error,merged}.txt", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml", optional: true))
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

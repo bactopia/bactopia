@@ -19,8 +19,12 @@
  * - `assembly`: Assembled contigs in FASTA format (Path)
  * - `meta_file`: Meta file containing reference size information (Path)
  *
- * @output sample_outputs  Per-sample record outputs from QUAST_MODULE
- * @output run_outputs   Combined QUAST results across all samples as a record
+ * @output sample_outputs
+ * - `tsv`: Transposed report in TSV format
+ * - `supplemental`: Supplemental files including plots and HTML reports
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -30,7 +34,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow QUAST {
     take:
-    fasta: Channel<Tuple<Map, Path, Path>>
+    fasta: Channel<Record>
 
     main:
     QUAST_MODULE(fasta)

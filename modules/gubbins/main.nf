@@ -14,20 +14,18 @@
  * - `meta`: Groovy Map containing sample information
  * - `msa`: Multiple sequence alignment in FASTA format
  *
- * @output masked_aln      The input alignment with recombinant regions masked (*.masked.aln.gz)
- * @output fasta           Gubbins internal FASTA alignment
- * @output gff             Predictions of recombination events in GFF format
- * @output vcf             SNP calls in VCF format
- * @output stats           Per-branch statistics on recombination events
- * @output phylip          Alignment in PHYLIP format
- * @output embl_predicted  Recombination predictions in EMBL format
- * @output embl_branch     Branch base reconstruction in EMBL format
- * @output tree            The final phylogenetic tree constructed from point mutations (*.final_tree.tre)
- * @output tree_labelled   The final tree with internal node labels
- * @output bootstrap_tree  The final tree with bootstrap support values (optional)
- * @output logs            Optional software execution logs containing warnings/errors
- * @output nf_logs         Nextflow execution scripts and logs for debugging
- * @output versions        A YAML formatted file with software versions
+ * @output record(meta, masked_aln, fasta, gff, vcf, stats, phylip, embl_predicted, embl_branch, tree, tree_labelled, bootstrap_tree, results, logs, nf_logs, versions)
+ * - `masked_aln`: The input alignment with recombinant regions masked (*.masked.aln.gz)
+ * - `fasta`: Gubbins internal FASTA alignment
+ * - `gff`: Predictions of recombination events in GFF format
+ * - `vcf`: SNP calls in VCF format
+ * - `stats`: Per-branch statistics on recombination events
+ * - `phylip`: Alignment in PHYLIP format
+ * - `embl_predicted`: Recombination predictions in EMBL format
+ * - `embl_branch`: Branch base reconstruction in EMBL format
+ * - `tree`: The final phylogenetic tree constructed from point mutations (*.final_tree.tre)
+ * - `tree_labelled`: The final tree with internal node labels
+ * - `bootstrap_tree`: The final tree with bootstrap support values (optional)
  */
 nextflow.preview.types = true
 
@@ -39,23 +37,27 @@ process GUBBINS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa) : Tuple<Map, Path>
+    (_meta: Map, msa: Path): Record
 
     output:
-    masked_aln     = tuple(meta, file("${prefix}.masked.aln.gz"))
-    fasta          = tuple(meta, file("gubbins/${prefix}.filtered_polymorphic_sites.fasta.gz"))
-    gff            = tuple(meta, file("gubbins/${prefix}.recombination_predictions.gff.gz"))
-    vcf            = tuple(meta, file("gubbins/${prefix}.summary_of_snp_distribution.vcf.gz"))
-    stats          = tuple(meta, file("gubbins/${prefix}.per_branch_statistics.csv"))
-    phylip         = tuple(meta, file("gubbins/${prefix}.filtered_polymorphic_sites.phylip"))
-    embl_predicted = tuple(meta, file("gubbins/${prefix}.recombination_predictions.embl.gz"))
-    embl_branch    = tuple(meta, file("gubbins/${prefix}.branch_base_reconstruction.embl.gz"))
-    tree           = tuple(meta, file("gubbins/${prefix}.final_tree.tre"))
-    tree_labelled  = tuple(meta, file("gubbins/${prefix}.node_labelled.final_tree.tre"))
-    bootstrap_tree = tuple(meta, file("gubbins/${prefix}.final_bootstrapped_tree.tre", optional: true))
-    logs           = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        masked_aln: file("${prefix}.masked.aln.gz"),
+        fasta: file("gubbins/${prefix}.filtered_polymorphic_sites.fasta.gz"),
+        gff: file("gubbins/${prefix}.recombination_predictions.gff.gz"),
+        vcf: file("gubbins/${prefix}.summary_of_snp_distribution.vcf.gz"),
+        stats: file("gubbins/${prefix}.per_branch_statistics.csv"),
+        phylip: file("gubbins/${prefix}.filtered_polymorphic_sites.phylip"),
+        embl_predicted: file("gubbins/${prefix}.recombination_predictions.embl.gz"),
+        embl_branch: file("gubbins/${prefix}.branch_base_reconstruction.embl.gz"),
+        tree: file("gubbins/${prefix}.final_tree.tre"),
+        tree_labelled: file("gubbins/${prefix}.node_labelled.final_tree.tre"),
+        bootstrap_tree: file("gubbins/${prefix}.final_bootstrapped_tree.tre", optional: true),
+        results: [file("${prefix}.masked.aln.gz")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

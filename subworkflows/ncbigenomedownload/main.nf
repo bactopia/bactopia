@@ -16,30 +16,26 @@
  * @input accessions
  * A file containing NCBI accession numbers, one per line. If empty, will download all genomes matching the specified criteria.
  *
- * @output bactopia_tools A channel of downloaded files formatted for Bactopia Tools workflows
- * @output gbk              GenBank format files containing complete genome annotations
- * @output fna              FASTA format files containing genomic sequences
- * @output rm               README.md files with metadata about downloaded genomes
- * @output features         Feature table files in text format
- * @output gff              GFF3 format files with genome feature annotations
- * @output faa              Protein FASTA files of translated CDS sequences
- * @output gpff             Genomic protein FASTA files
- * @output wgs_gbk          Whole Genome Shotgun (WGS) project GenBank files
- * @output cds              Nucleotide FASTA files of CDS sequences
- * @output rna              RNA FASTA files (rRNA, tRNA, other RNA)
- * @output rna_fna          RNA sequences in FASTA format
- * @output report           Summary report of downloaded genomes
- * @output stats            Statistics files with assembly metrics
- * @output results          Aggregated results channel containing all output files
- * @output logs             Aggregated logs channel containing all execution logs
- * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions         Aggregated version information from all executed tools
+ * @output sample_outputs
+ *   - `gbk`: GenBank format genome sequences
+ *   - `fna`: Genomic nucleotide sequences in FASTA format
+ *   - `gff`: Genome annotations in GFF3 format
+ *   - `faa`: Protein sequences in FASTA format
+ *   - `gpff`: Protein sequences in GenPept format
+ *   - `wgs_gbk`: WGS master records in GenBank format
+ *   - `cds`: CDS nucleotide sequences in FASTA format
+ *   - `rna`: RNA product sequences in FASTA format
+ *   - `rna_fna`: RNA feature nucleotide sequences in FASTA format
+ *   - `features`: Feature table with locations and attributes
+ *   - `rm`: RepeatMasker output (optional)
+ *   - `report`: Assembly report with unit and sequence relationships
+ *   - `stats`: Assembly statistics
+ *   - `accessions`: Generated accession list files
+ * @output bactopia_tools  Downloaded files formatted for Bactopia Tools workflows
  */
 nextflow.preview.types = true
 
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'
-include { flattenPaths                                    } from 'plugin/nf-bactopia'
-include { gather                                          } from 'plugin/nf-bactopia'
 
 workflow NCBIGENOMEDOWNLOAD {
 
@@ -48,42 +44,9 @@ workflow NCBIGENOMEDOWNLOAD {
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
-    ch_to_bactopia_tools = NCBIGENOMEDOWNLOAD_MODULE.out.all.map { path -> [[id: file(path).getSimpleName()], file(path)] }
+    ch_to_bactopia_tools = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path -> [[id: file(path).getSimpleName()], file(path)] }
 
     emit:
-    // Individual outputs
-    bactopia_tools: Channel<Tuple<Map, Set<Path>>> = ch_to_bactopia_tools
-    gbk: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gbk
-    fna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.fna
-    rm: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rm
-    features: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.features
-    gff: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gff
-    faa: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.faa
-    gpff: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.gpff
-    wgs_gbk: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk
-    cds: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.cds
-    rna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna
-    rna_fna: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna
-    report: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.report
-    stats: Channel<Tuple<Map, Set<Path>>> = NCBIGENOMEDOWNLOAD_MODULE.out.stats
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        NCBIGENOMEDOWNLOAD_MODULE.out.gbk,
-        NCBIGENOMEDOWNLOAD_MODULE.out.fna,
-        NCBIGENOMEDOWNLOAD_MODULE.out.rm,
-        NCBIGENOMEDOWNLOAD_MODULE.out.features,
-        NCBIGENOMEDOWNLOAD_MODULE.out.gff,
-        NCBIGENOMEDOWNLOAD_MODULE.out.faa,
-        NCBIGENOMEDOWNLOAD_MODULE.out.gpff,
-        NCBIGENOMEDOWNLOAD_MODULE.out.wgs_gbk,
-        NCBIGENOMEDOWNLOAD_MODULE.out.cds,
-        NCBIGENOMEDOWNLOAD_MODULE.out.rna,
-        NCBIGENOMEDOWNLOAD_MODULE.out.rna_fna,
-        NCBIGENOMEDOWNLOAD_MODULE.out.report,
-        NCBIGENOMEDOWNLOAD_MODULE.out.stats
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([NCBIGENOMEDOWNLOAD_MODULE.out.versions])
+    sample_outputs = NCBIGENOMEDOWNLOAD_MODULE.out
+    bactopia_tools = ch_to_bactopia_tools
 }

@@ -79,23 +79,54 @@ This pattern uses `Tuple<Map, Path?, Path?, Path?, Path?>` where each slot is op
 
 ### 2.4 Outputs
 
-- **Source of Truth:** Document all outputs listed in the subworkflow's `emit` block.
-- **Vertical Alignment:** Pad variable names with spaces so all descriptions start at the same column index.
-- **Mandatory Aggregates:** Always include these four at the end, explicitly stating they aggregate **all** underlying processes:
-    - `results`    (Aggregated results channel containing all output files)
-    - `logs`       (Aggregated logs channel containing all execution logs)
-    - `nf_logs`    (Aggregated Nextflow execution scripts and logs for debugging from all processes)
-    - `versions`   (Aggregated version information from all executed tools)
+Subworkflows use `@output sample_outputs` and optionally `@output run_outputs` to document their emit channels. Only tool-specific fields are described.
 
-#### Special Output Channels
+#### Standard Tool Subworkflows
 
-Some subworkflows emit additional "special" outputs designed for pass-through to downstream subworkflows:
+Most subworkflows emit `sample_outputs` (per-sample records from the main module) and optionally `run_outputs` (cross-sample aggregation from CSVTK_CONCAT):
 
 ```groovy
-@output special_tsv    Intermediate output for downstream subworkflow consumption
+ * @output sample_outputs
+ * - `report`: A tab-delimited report of hits
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
 ```
 
-**Example**: The scrubber subworkflow emits `special_tsv` which is consumed by the teton subworkflow.
+#### Formatting Rules
+
+1. **Tool-specific fields only** -- do NOT describe `meta`, `results`, `logs`, `nf_logs`, `versions`
+2. **Single line per field** -- each ` * - ` description must fit on one line
+3. **Blank line between @output blocks** -- separate `sample_outputs` from `run_outputs` with ` *`
+4. **No inline descriptions** on the `@output` line itself
+5. **Field descriptions should match** the corresponding module's `@output record(...)` descriptions
+
+#### Passthrough Subworkflows
+
+Subworkflows that only pass through module records without tool-specific fields:
+
+```groovy
+ * @output sample_outputs
+```
+
+#### Composite Subworkflows
+
+Some composite subworkflows (e.g., clonalframeml, gubbins, pangenome, snippy/core) emit multiple named channels beyond the standard `sample_outputs`/`run_outputs`:
+
+```groovy
+ * @output sample_outputs
+ * - `masked_aln`: Recombination-masked alignment in FASTA format
+ *
+ * @output iqtree_outputs
+ * - `phylogeny`: Quick-start maximum-likelihood phylogenetic tree
+ *
+ * @output snpdists_outputs
+ * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
+```
+
+#### Core/Infrastructure Subworkflows
+
+Core subworkflows (bactopia/assembler, bactopia/gather, bactopia/qc) and utility subworkflows (utils/bactopia, utils/bactopia-tools) use individual channel names rather than `sample_outputs`/`run_outputs`. These follow their own conventions.
 
 ### 2.5 The @note Tag
 
@@ -148,12 +179,13 @@ Common uses:
  * @input use_roary
  * Boolean flag to use Roary for pangenome analysis
  *
- * @output aln          Core-genome alignment file containing genes present across all input genomes
- * @output csv          Gene presence/absence matrix showing which genes are present in each genome
- * @output results      Aggregate of all result files from pangenome analysis and SNP distances
- * @output logs         Aggregate of all log files from executed tools
- * @output nf_logs      Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Software version information from all executed tools
+ * @output sample_outputs
+ * - `aln`: Core-genome alignment in FASTA format
+ * - `csv`: Gene presence/absence matrix
+ * - `supplemental`: Intermediate files and detailed outputs
+ *
+ * @output snpdists_outputs
+ * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
  */
 ```
 **Key Features:**
@@ -185,14 +217,12 @@ Common uses:
  * @input db
  * Database name for ARIBA analysis (e.g., ncbi, card, vfdb, resfinder, argannot)
  *
- * @output report         Per-sample tab-delimited reports of gene findings
- * @output summary        Per-sample CSV summaries of gene detection results
- * @output merged_report  Consolidated report containing gene findings from all samples
- * @output merged_summary Consolidated summary containing detection results from all samples
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `report`: Per-sample tab-delimited reports of gene findings
+ * - `summary`: Per-sample CSV summaries of gene detection results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 ```
 **Key Features:**
@@ -229,17 +259,25 @@ Common uses:
  * @input use_srascrubber
  * Boolean flag to use SRA scrubber for host read removal
  *
- * @output bacteria_tsv           Per-sample TSV files containing bacterial organisms and their properties
- * @output merged_bacteria_tsv    Consolidated TSV file of all bacterial organisms across samples
- * @output nonbacteria_tsv        Per-sample TSV files containing non-bacterial organisms
- * @output merged_nonbacteria_tsv Consolidated TSV file of all non-bacterial organisms across samples
- * @output sizemeup               Per-sample TSV files with genome size estimates
- * @output merged_sizemeup        Consolidated TSV file of genome size estimates across samples
- * @output report                 Joined TSV file combining scrubber and classification results
- * @output results                Aggregated results channel containing all output files
- * @output logs                   Aggregated logs channel containing all execution logs
- * @output nf_logs                Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions               Aggregated version information from all executed tools
+ * @output scrubber_outputs
+ * - `scrubbed`: Host-scrubbed reads
+ *
+ * @output bracken_outputs
+ * - `bacteria_tsv`: Per-sample bacterial organism classifications
+ * - `nonbacteria_tsv`: Per-sample non-bacterial organism classifications
+ * - `sizemeup`: Per-sample genome size estimates
+ *
+ * @output report_outputs
+ * - `tsv`: Joined TSV file combining scrubber and classification results
+ *
+ * @output merged_bacteria
+ * - `csv`: Consolidated bacterial organisms across samples
+ *
+ * @output merged_nonbacteria
+ * - `csv`: Consolidated non-bacterial organisms across samples
+ *
+ * @output merged_sizemeup
+ * - `csv`: Consolidated genome size estimates across samples
  */
 ```
 **Key Features:**
@@ -269,12 +307,11 @@ Common uses:
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv         Per-sample TSV files containing serotype predictions
- * @output merged_tsv  Consolidated TSV file containing serotype predictions from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: Per-sample TSV files containing serotype predictions
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated serotype predictions in CSV format
  */
 ```
 **Key Features:**
@@ -303,16 +340,15 @@ Common uses:
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output tsv              Per-sample TSV files with SCCmec typing results
- * @output merged_tsv       Consolidated TSV file containing SCCmec typing from all samples
- * @output targets          Per-sample BLAST results for target sequences
- * @output target_details   Per-sample detailed results for target matches
- * @output regions          Per-sample BLAST results for SCCmec regions
- * @output regions_details  Per-sample detailed results for SCCmec region matches
- * @output results          Aggregated results channel containing all output files
- * @output logs             Aggregated logs channel containing all execution logs
- * @output nf_logs          Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions         Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: Per-sample TSV files with SCCmec typing results
+ * - `targets`: Per-sample BLAST results for target sequences
+ * - `target_details`: Per-sample detailed results for target matches
+ * - `regions`: Per-sample BLAST results for SCCmec regions
+ * - `regions_details`: Per-sample detailed results for SCCmec region matches
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated SCCmec typing results in CSV format
  */
 ```
 **Key Features:**
@@ -346,14 +382,21 @@ Common uses:
  * - `fq`: Primary reads (Illumina paired-end or Nanopore)
  * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
  *
- * @output fna        Assembled contigs in FASTA format
- * @output fna_fq     Tuple containing assembly and primary reads for downstream analysis
- * @output tsv        Per-sample tab-delimited assembly statistics (N50, length, coverage)
- * @output merged_tsv Consolidated assembly statistics report across all samples
- * @output results    Aggregated results channel containing all output files
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions   Aggregated version information from all executed tools
+ * @output assembly
+ * - `assembly`: Assembled contigs in FASTA format
+ *
+ * @output assembly_reads
+ * - `assembly`: Assembled contigs in FASTA format
+ * - `r1`: Illumina R1 reads
+ * - `r2`: Illumina R2 reads
+ * - `se`: Single-end reads
+ * - `lr`: Long reads
+ *
+ * @output tsv
+ * - `tsv`: Per-sample tab-delimited assembly statistics (N50, length, coverage)
+ *
+ * @output merged_tsv
+ * - `csv`: Consolidated assembly statistics report across all samples
  */
 ```
 **Key Features:**
@@ -386,7 +429,7 @@ When creating documentation for new subworkflows, ensure you update ALL fields. 
  * ...
  * @citation abricate
  * ...
- * @output vcf  Vcf
+ * @output sample_outputs  Vcf
  */
 ```
 
@@ -402,7 +445,8 @@ When creating documentation for new subworkflows, ensure you update ALL fields. 
  * ...
  * @citation snippy
  * ...
- * @output vcf  Filtered variant calls in VCF format
+ * @output sample_outputs
+ * - `vcf`: Filtered variant calls in VCF format
  */
 ```
 
@@ -438,7 +482,9 @@ Should be:
 ### 6.4 Formatting Issues
 - **No extra blank lines** between the closing `*/` and `nextflow.preview.types = true`
 - **Consistent indentation** (4 spaces) within the GroovyDoc block
-- **Vertical alignment** of output descriptions at the same column
+- **Blank line** (` *`) between separate `@output` blocks
+- **No inline descriptions** on `@output` lines -- descriptions go on ` * - ` field lines
+- **Single space indent** for field descriptions: ` * - ` (not ` *   - `)
 
 ## See Also
 - [Style Guide](01-style-guide.md) - For general GroovyDoc templates and formatting

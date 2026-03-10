@@ -14,12 +14,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output record(meta, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
- * - `results`: List of result files (JSON, TXT, TSV, genome sequences, plasmid sequences)
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * @output record(meta, json, txt, tsv, genome_seq, plasmid_seq, results, logs, nf_logs, versions)
+ * - `json`: PlasmidFinder results in JSON format
+ * - `txt`: PlasmidFinder results in text format
+ * - `tsv`: Tab-delimited PlasmidFinder results with replicon typing information
+ * - `genome_seq`: FASTA sequences of plasmid hits found in the genome (gzipped)
+ * - `plasmid_seq`: Reference plasmid sequences matched (gzipped)
  */
 nextflow.preview.types = true
 

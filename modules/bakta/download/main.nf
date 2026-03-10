@@ -15,9 +15,9 @@
  * to store the database files. The 'light' database is ~1.5GB, while the 'full'
  * database is ~30GB uncompressed.
  *
- * @output db         The Bakta database directory containing annotation reference data
- * @output db_tarball A compressed tarball of the database (if requested via parameters)
- * @output logs       Optional software execution logs containing warnings/errors
+ * @output record(db, db_tarball, logs)
+ * - `db`: The Bakta database directory containing annotation reference data
+ * - `db_tarball`: A compressed tarball of the database (if requested via parameters)
  */
 nextflow.preview.types = true
 

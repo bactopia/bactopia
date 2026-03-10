@@ -15,13 +15,8 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, flex_tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: ShigaPass summary results in TSV format
  * - `flex_tsv`: ShigaPass Flex summary results in TSV format
- * - `results`: List of all result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

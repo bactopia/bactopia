@@ -10,14 +10,12 @@
  * @tags complexity:simple input-type:multiple output-type:multiple features:conditional-logic
  * @citation rgi
  *
- * @input tuple(meta, json)
+ * @input record(meta, json)
  * - `meta`: Groovy Map containing sample information
  * - `json`: List of RGI results in JSON format
  *
- * @output heatmap  Heatmap files in various formats (CSV, EPS, PNG)
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, heatmap, results, logs, nf_logs, versions)
+ * - `heatmap`: Heatmap files in various formats (CSV, EPS, PNG)
  */
 nextflow.preview.types = true
 
@@ -29,16 +27,20 @@ process RGI_HEATMAP {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, json) : Tuple<Map, Set<Path>>
+    (_meta: Map, json: Set<Path>): Record
 
     stage:
     stageAs 'json/*', json
 
     output:
-    heatmap  = tuple(meta, files("*.{csv,eps,png}", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        heatmap: files("*.{csv,eps,png}", optional: true),
+        results: [files("*.{csv,eps,png}", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"

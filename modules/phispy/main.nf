@@ -15,13 +15,8 @@
  * - `gbk`: Annotated genome file in GenBank (*.gbk or *.gbff) format
  *
  * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `tsv`: Coordinates (start/end) of each predicted prophage region in the genome
  * - `supplemental`: Directory containing detailed prophage information, sequences, and annotations
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

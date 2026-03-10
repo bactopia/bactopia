@@ -24,8 +24,10 @@
  * @input repeat_order
  * Optional spa repeat order file for improved spa typing
  *
- * @output sample_outputs   Per-sample records from all typing tools (agr, spa, SCCmec)
- * @output run_outputs    Merged records from all typing tools
+ * @output sample_outputs
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -35,7 +37,7 @@ include { SCCMEC   } from '../sccmec/main'
 
 workflow STAPHTYPER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     repeats: Path?
     repeat_order: Path?
 

@@ -23,7 +23,9 @@
  * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
  * - `lr`: Long reads (not supported by PneumoCaT)
  *
- * @output sample_outputs  Per-sample record outputs from PNEUMOCAT_MODULE
+ * @output sample_outputs
+ * - `xml`: The PneumoCaT result files in XML format
+ * - `txt`: A file containing the coverage information across the genes
  */
 nextflow.preview.types = true
 
@@ -31,7 +33,7 @@ include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
 
 workflow PNEUMOCAT {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
 
     main:
     PNEUMOCAT_MODULE(reads)

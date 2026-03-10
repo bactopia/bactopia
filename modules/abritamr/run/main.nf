@@ -16,6 +16,11 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, summary, matches, partials, virulence, amrfinder, results, logs, nf_logs, versions)
+ * - `summary`: Tab-delimited NATA-accredited AMR report summary
+ * - `matches`: Tab-delimited list of matched AMR genes
+ * - `partials`: Tab-delimited list of partially matched AMR genes
+ * - `virulence`: Tab-delimited list of detected virulence genes
+ * - `amrfinder`: Raw AMRFinderPlus output
  */
 nextflow.preview.types = true
 

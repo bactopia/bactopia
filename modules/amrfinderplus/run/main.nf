@@ -22,11 +22,9 @@
  * @input db
  * A compressed tarball of the AMRFinderPlus database to query
  *
- * @output report          Tab-delimited report of identified AMR genes and virulence factors
- * @output mutation_report Tab-delimited report of identified point mutations (if applicable)
- * @output logs            Optional software execution logs containing warnings/errors
- * @output nf_logs         Nextflow execution scripts and logs for debugging
- * @output versions        A YAML formatted file with software versions
+ * @output record(meta, report, mutation_report, results, logs, nf_logs, versions)
+ * - `report`: A tab-delimited report of identified AMR genes and virulence factors
+ * - `mutation_report`: Organism-specific point mutations associated with antimicrobial resistance
  */
 nextflow.preview.types = true
 
@@ -38,15 +36,19 @@ process AMRFINDERPLUS_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes, proteins, gff) : Tuple<Map, Path, Path, Path>
-    db                            : Path
+    (_meta: Map, genes: Path, proteins: Path, gff: Path): Record
+    db: Path
 
     output:
-    report          = tuple(meta, file("${prefix}.tsv"))
-    mutation_report = tuple(meta, file("${prefix}-mutations.tsv", optional: true))
-    logs            = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs         = tuple(meta, files(".command.*"))
-    versions        = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        report: file("${prefix}.tsv"),
+        mutation_report: file("${prefix}-mutations.tsv", optional: true),
+        results: [file("${prefix}.tsv"), file("${prefix}-mutations.tsv", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

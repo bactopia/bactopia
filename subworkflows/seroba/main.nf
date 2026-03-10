@@ -17,8 +17,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for S. pneumoniae serotype prediction
  *
- * @output sample_outputs  Per-sample record outputs from SEROBA_RUN
- * @output run_outputs   Merged record output from CSVTK_CONCAT with combined results
+ * @output sample_outputs
+ * - `tsv`: Serotype prediction results with predicted serotype and confidence in TSV format
+ * - `txt`: Detailed information about the predicted serogroup and allele matches
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +32,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     SEROBA_RUN(assembly)

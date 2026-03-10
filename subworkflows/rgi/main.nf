@@ -16,8 +16,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format for resistome prediction
  *
- * @output sample_outputs   Per-sample RGI prediction records
- * @output run_outputs    Merged RGI results record across all samples
+ * @output sample_outputs
+ * - `tsv`: RGI results in tab-separated format
+ * - `json`: RGI results in JSON format (optional)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +32,7 @@ include { gather       } from 'plugin/nf-bactopia'
 
 workflow RGI {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     RGI_MAIN(assembly)

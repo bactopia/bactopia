@@ -16,8 +16,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs         Per-sample records from CLERMONTYPING_MODULE
- * @output run_outputs          Cross-sample aggregation record from CSVTK_CONCAT
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited ClermonTyping phylogroup assignment results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -27,7 +30,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow CLERMONTYPING {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     CLERMONTYPING_MODULE(assembly)

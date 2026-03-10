@@ -18,12 +18,7 @@
  * Optional path to a custom *emm* cluster BLAST database
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
- * - `tsv`: A tab-delimited summary of the assigned *emm* type and cluster
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * - `tsv`: Tab-delimited summary of the assigned emm type and cluster
  */
 nextflow.preview.types = true
 

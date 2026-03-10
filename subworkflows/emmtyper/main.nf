@@ -19,8 +19,11 @@
  * @input blastdb
  * Optional BLAST database containing emm gene reference sequences for improved typing accuracy
  *
- * @output sample_outputs   Per-sample records with emm typing results
- * @output run_outputs    Merged record containing consolidated emm typing from all samples
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary of the assigned emm type and cluster
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -30,7 +33,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow EMMTYPER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     blastdb: Path?
 
     main:

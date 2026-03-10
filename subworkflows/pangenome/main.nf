@@ -26,84 +26,53 @@
  * @input use_roary
  * Boolean flag to use Roary for pangenome analysis
  *
- * @output aln          Core-genome alignment file containing genes present across all input genomes
- * @output csv          Gene presence/absence matrix showing which genes are present in each genome
- * @output results      Aggregate of all result files from pangenome analysis and SNP distances
- * @output logs         Aggregate of all log files from executed tools
- * @output nf_logs      Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Software version information from all executed tools
+ * @output sample_outputs
+ * - `aln`: Core-genome alignment in FASTA format
+ * - `csv`: Gene presence/absence matrix
+ * - `supplemental`: Intermediate files and detailed outputs
+ *
+ * @output snpdists_outputs
+ * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
  */
 nextflow.preview.types = true
 
-include { PIRATE       } from '../pirate/main'
-include { ROARY        } from '../roary/main'
-include { PANAROO      } from '../panaroo/main'
-include { SNPDISTS     } from '../snpdists/main'
-include { flattenPaths } from 'plugin/nf-bactopia'
-include { gather       } from 'plugin/nf-bactopia'
+include { PIRATE   } from '../pirate/main'
+include { ROARY    } from '../roary/main'
+include { PANAROO  } from '../panaroo/main'
+include { SNPDISTS } from '../snpdists/main'
 
 workflow PANGENOME {
     take:
-    gff        : Channel<Tuple<Map, Set<Path>>>
+    gff        : Channel<Record>
     use_pirate : Boolean
     use_roary  : Boolean
 
     main:
+    ch_sample_outputs = channel.empty()
+    ch_aln = channel.empty()
 
-    // Initialize channels
-    ch_aln = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_csv = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-
-    // Execute subworkflows
     // Choose pangenome tool based on params
     if (use_pirate) {
         PIRATE(gff)
-        ch_aln = PIRATE.out.aln
-        ch_csv = PIRATE.out.csv
-        ch_results = PIRATE.out.results
-        ch_logs = PIRATE.out.logs
-        ch_nf_logs = PIRATE.out.nf_logs
-        ch_versions = PIRATE.out.versions
+        ch_sample_outputs = PIRATE.out.sample_outputs
+        ch_aln = PIRATE.out.sample_outputs.map { r -> tuple(r.meta, r.aln) }
     } else if (use_roary) {
         ROARY(gff)
-        ch_aln = ROARY.out.aln
-        ch_csv = ROARY.out.csv
-        ch_results = ROARY.out.results
-        ch_logs = ROARY.out.logs
-        ch_nf_logs = ROARY.out.nf_logs
-        ch_versions = ROARY.out.versions
+        ch_sample_outputs = ROARY.out.sample_outputs
+        ch_aln = ROARY.out.sample_outputs.map { r -> tuple(r.meta, r.aln) }
     } else {
         PANAROO(gff)
-        ch_aln = PANAROO.out.filtered_aln
-        ch_csv = PANAROO.out.csv
-        ch_results = PANAROO.out.results
-        ch_logs = PANAROO.out.logs
-        ch_nf_logs = PANAROO.out.nf_logs
-        ch_versions = PANAROO.out.versions
+        ch_sample_outputs = PANAROO.out.sample_outputs
+        ch_aln = PANAROO.out.sample_outputs.map { r -> tuple(r.meta, r.filtered_aln) }
     }
 
     // Per-sample SNP distances
-    ch_unmasked_aln = ch_aln.map({ _meta, aln -> 
+    ch_unmasked_aln = ch_aln.map({ _meta, aln ->
         tuple([name: "core-genome.distance", process_name: "snpdists"], aln)
     })
     SNPDISTS(ch_unmasked_aln)
-    ch_results = ch_results.mix(SNPDISTS.out.results)
-    ch_logs = ch_logs.mix(SNPDISTS.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(SNPDISTS.out.nf_logs)
-    ch_versions = ch_versions.mix(SNPDISTS.out.versions)
 
     emit:
-    // Individual outputs
-    aln: Channel<Tuple<Map, Set<Path>>> = ch_aln
-    csv: Channel<Tuple<Map, Set<Path>>> = ch_csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([ch_results])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([ch_nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([ch_versions])
+    sample_outputs = ch_sample_outputs
+    snpdists_outputs = SNPDISTS.out.sample_outputs
 }

@@ -22,8 +22,12 @@
  * @input busco_lineage
  * BUSCO lineage dataset to use for assessment (e.g., bacteria_odb10).
  *
- * @output sample_outputs    Per-sample record outputs from BUSCO_MODULE
- * @output run_outputs     Combined BUSCO results across all samples as a record
+ * @output sample_outputs
+ * - `tsv`: A text summary report of the completeness score (C/S/D/F/M%)
+ * - `supplemental`: Directory containing full tables, missing gene lists, and lineage data
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -33,7 +37,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     busco_lineage: String
 
     main:

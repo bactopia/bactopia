@@ -20,8 +20,14 @@
  * @input db
  * Protein database file for sequence comparison (required)
  *
- * @output sample_outputs       Per-sample record outputs from GAMMA_MODULE
- * @output run_outputs        Combined GAMMA results across all samples as a record
+ * @output sample_outputs
+ * - `gamma`: Main GAMMA output file containing annotated gene matches
+ * - `psl`: Raw alignment details in PSL format
+ * - `gff`: Gene matches in GFF3 format
+ * - `fasta`: Extracted nucleotide sequences of the matched genes
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -31,7 +37,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     db: Path
 
     main:

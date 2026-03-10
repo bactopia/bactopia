@@ -18,29 +18,23 @@
  * - `assembly`: Bacterial assembly files in FASTA format to be annotated
  *
  * @input proteins
- * Optional protein sequences for homology search. When provided, these trusted protein sequences
- * are used to improve annotation accuracy through homology
+ * Optional protein sequences for homology search to improve annotation accuracy
  *
  * @input prodigal_tf
- * Optional Prodigal training file. Species-specific training data that improves gene prediction
- * accuracy
+ * Optional Prodigal training file for improved gene prediction accuracy
  *
- * @output annotations Complete annotation package containing GFF, GBK, FASTA, and other formats
- * @output blastdb        BLAST database created from protein sequences for rapid searching
- * @output faa            Amino acid sequences of predicted proteins in FASTA format
- * @output ffn            Nucleotide sequences of all predicted features (genes, rRNA, tRNA, etc.)
- * @output fna            Input nucleotide assembly (replicated for convenience)
- * @output fsa            Nucleotide sequences of predicted features with pseudogenes
- * @output gbk            GenBank format file suitable for submission to NCBI
- * @output gff            GFF3 format annotation file for use with genome browsers
- * @output tsv            Tab-separated file listing all predicted proteins
- * @output txt            Summary statistics of the annotation results
- * @output sqn            Sequin file for NCBI submission preparation
- * @output tbl            Feature table file for NCBI submission
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
+ * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `fna`: Nucleotide FASTA file of the input contig sequences
+ * - `faa`: Protein FASTA file of the translated CDS sequences
+ * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+ * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences, used by tbl2asn
+ * - `tbl`: Feature Table file for NCBI submission
+ * - `txt`: Summary statistics relating to the annotated features found
+ * - `tsv`: Tab-separated file of all features
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases
  */
 nextflow.preview.types = true
 
@@ -48,7 +42,7 @@ include { PROKKA as PROKKA_MODULE } from '../../modules/prokka/main'
 
 workflow PROKKA {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     proteins: Path
     prodigal_tf: Path?
 

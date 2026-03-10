@@ -22,17 +22,15 @@
  * @input mask
  * Optional BED file of regions to mask in the alignment
  *
- * @output supplemental   Supplemental files including individual sample alignments
- * @output aln            A core SNP alignment in FASTA format
- * @output full_aln       A whole genome SNP alignment (includes invariant sites)
- * @output clean_full_aln A whole genome SNP alignment (includes invariant sites) with Ns
- * @output tab            Tab-separated list of core SNP sites with alleles (no annotations)
- * @output vcf            Multi-sample VCF file with genotype GT tags for all discovered alleles
- * @output txt            Tab-separated list of alignment and core-size statistics
- * @output samples        List of samples included in the core alignment
- * @output logs           Optional software execution logs containing warnings/errors
- * @output nf_logs        Nextflow execution scripts and logs for debugging
- * @output versions       A YAML formatted file with software versions
+ * @output record(meta, supplemental, aln, full_aln, clean_full_aln, tab, vcf, txt, samples, results, logs, nf_logs, versions)
+ * - `supplemental`: Supplemental files including individual sample alignments
+ * - `aln`: A core SNP alignment in FASTA format
+ * - `full_aln`: A whole genome SNP alignment (includes invariant sites)
+ * - `clean_full_aln`: A whole genome SNP alignment (includes invariant sites) with Ns
+ * - `tab`: Tab-separated list of core SNP sites with alleles (no annotations)
+ * - `vcf`: Multi-sample VCF file with genotype GT tags for all discovered alleles
+ * - `txt`: Tab-separated list of alignment and core-size statistics
+ * - `samples`: List of samples included in the core alignment
  */
 nextflow.preview.types = true
 
@@ -44,22 +42,31 @@ process SNIPPY_CORE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, _vcf, _aligned_fa) : Tuple<Map, Set<Path>, Set<Path>>
-    (_ref_meta, reference)     : Tuple<Map, Set<Path>>
-    mask                       : Path?
+    (_meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
+    (_ref_meta: Map, reference: Set<Path>): Record
+    mask: Path?
 
     output:
-    supplemental   = tuple(meta, files("snippy-core/*"))
-    aln            = tuple(meta, files("snippy-core/${prefix}.aln.gz"))
-    full_aln       = tuple(meta, files("${prefix}.full.aln.gz"))
-    clean_full_aln = tuple(meta, files("${prefix}-clean.full.aln.gz"))
-    tab            = tuple(meta, files("snippy-core/${prefix}.tab.gz"))
-    vcf            = tuple(meta, files("snippy-core/${prefix}.vcf.gz"))
-    txt            = tuple(meta, files("snippy-core/${prefix}.txt"))
-    samples        = tuple(meta, files("${reference_name}.samples.txt"))
-    logs           = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        supplemental: files("snippy-core/*"),
+        aln: files("snippy-core/${prefix}.aln.gz"),
+        full_aln: files("${prefix}.full.aln.gz"),
+        clean_full_aln: files("${prefix}-clean.full.aln.gz"),
+        tab: files("snippy-core/${prefix}.tab.gz"),
+        vcf: files("snippy-core/${prefix}.vcf.gz"),
+        txt: files("snippy-core/${prefix}.txt"),
+        samples: files("${reference_name}.samples.txt"),
+        results: [
+            files("snippy-core/*"),
+            files("${prefix}.full.aln.gz"),
+            files("${prefix}-clean.full.aln.gz"),
+            files("${reference_name}.samples.txt")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     reference_name = reference.toList()[0].getSimpleName()

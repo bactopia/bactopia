@@ -16,20 +16,12 @@
  * @input gbk
  * Annotated bacterial genomes in GenBank format for prophage prediction
  *
- * @output tsv             PhiSpy prophage prediction results in TSV format
- * @output merged_tsv      Combined TSV file containing prophage results from all samples
- * @output information     Detailed information about identified prophages
- * @output bacteria_fasta  Extracted bacterial genomic sequences in FASTA format
- * @output bacteria_gbk    Extracted bacterial genomic sequences in GenBank format
- * @output phage_fasta     Extracted prophage sequences in FASTA format
- * @output phage_gbk       Extracted prophage sequences in GenBank format
- * @output prophage_gff    Prophage annotations in GFF3 format
- * @output prophage_tbl    Prophage protein table file
- * @output prophage_tsv    Prophage detailed annotations in TSV format
- * @output results         Aggregated results channel containing all output files
- * @output logs            Aggregated logs channel containing all execution logs
- * @output nf_logs         Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions        Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: Coordinates (start/end) of each predicted prophage region in the genome
+ * - `supplemental`: Directory containing detailed prophage information, sequences, and annotations
+ *
+ * @output run_outputs
+ * - `csv`: Merged prophage prediction results from all samples
  */
 nextflow.preview.types = true
 
@@ -39,7 +31,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PHISPY {
     take:
-    gbk: Channel<Tuple<Map, Path>>
+    gbk: Channel<Record>
 
     main:
     PHISPY_MODULE(gbk)

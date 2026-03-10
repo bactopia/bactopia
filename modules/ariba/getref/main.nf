@@ -16,8 +16,8 @@
  * @input db_name
  * Name of the database to download (e.g., 'card', 'resfinder', 'vfdb_core', 'plasmidfinder')
  *
- * @output db   A compressed tarball containing the prepared ARIBA database
- * @output logs Optional software execution logs containing warnings/errors
+ * @output record(db, logs)
+ * - `db`: A compressed tarball containing the prepared ARIBA database
  */
 nextflow.preview.types = true
 

@@ -42,10 +42,27 @@
  * @input staphtyper_repeat_order
  * Staphylococcus aureus repeat order file for spa typing (optional)
  *
- * @output results     Aggregated species-specific typing and characterization results
- * @output logs        Aggregated logs from all executed subworkflows
- * @output nf_logs     Aggregated Nextflow execution scripts and logs from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output dist_outputs
+ * - `dist`: The raw Mash distance results
+ * - `fna`: Passthrough of assembled contigs
+ * - `r1`: Passthrough of Illumina R1 reads
+ * - `r2`: Passthrough of Illumina R2 reads
+ * - `se`: Passthrough of single-end reads
+ * - `lr`: Passthrough of long reads
+ * - `escherichia`: Conditional marker file triggering Escherichia analysis tools
+ * - `haemophilus`: Conditional marker file triggering Haemophilus analysis tools
+ * - `klebsiella`: Conditional marker file triggering Klebsiella analysis tools
+ * - `legionella`: Conditional marker file triggering Legionella analysis tools
+ * - `listeria`: Conditional marker file triggering Listeria analysis tools
+ * - `mycobacterium`: Conditional marker file triggering Mycobacterium analysis tools
+ * - `neisseria`: Conditional marker file triggering Neisseria analysis tools
+ * - `pseudomonas`: Conditional marker file triggering Pseudomonas analysis tools
+ * - `salmonella`: Conditional marker file triggering Salmonella analysis tools
+ * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
+ * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
+ * - `genus`: A marker file indicating the detected genus (for debugging)
+ *
+ * @output sample_outputs
  */
 nextflow.preview.types = true
 
@@ -73,12 +90,10 @@ include { SSUISSERO     } from '../ssuissero/main';
 include { STAPHTYPER    } from '../staphtyper/main';
 include { STECFINDER    } from '../stecfinder/main';
 include { TBPROFILER    } from '../tbprofiler/main';
-include { flattenPaths  } from 'plugin/nf-bactopia'
-include { gather        } from 'plugin/nf-bactopia'
 
 workflow MERLIN {
     take:
-    assembly: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
+    assembly: Channel<Record>
     mash_db: Path
     emmtyper_blastdb: Path?
     hicap_database_dir: Path?
@@ -91,17 +106,21 @@ workflow MERLIN {
     MERLINDIST(assembly, mash_db)
 
     // Escherichia/Shigella
-    // Assembly-only: wrap fna in list for Set<Path> compatibility
-    ch_escherichia = MERLINDIST.out.escherichia.map{meta, fna, _found -> [meta, [fna]]}
+    // Assembly-only: filter by genus marker, wrap fna in list for Set<Path> compatibility
+    ch_escherichia = MERLINDIST.out.sample_outputs
+        .filter { r -> r.escherichia != null }
+        .map { r -> [r.meta, [r.fna]] }
     // Reads-only: collect non-null reads into list for Set<Path> compatibility
-    ch_escherichia_fq = MERLINDIST.out.escherichia_fq.map{meta, r1, r2, se, lr, _found ->
-        def reads = [r1, r2, se, lr].findAll{it != null}
-        [meta, reads]
-    }
+    ch_escherichia_fq = MERLINDIST.out.sample_outputs
+        .filter { r -> r.escherichia != null }
+        .map { r ->
+            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
+            [r.meta, reads]
+        }
     // Assembly + reads: pass as 6-slot tuple for STECFINDER
-    ch_escherichia_fna_fq = MERLINDIST.out.escherichia_fna_fq.map{meta, fna, r1, r2, se, lr, _found ->
-        [meta, fna, r1, r2, se, lr]
-    }
+    ch_escherichia_fna_fq = MERLINDIST.out.sample_outputs
+        .filter { r -> r.escherichia != null }
+        .map { r -> [r.meta, r.fna, r.r1, r.r2, r.se, r.lr] }
     CLERMONTYPING(ch_escherichia)
     ECTYPER(ch_escherichia)
     SHIGAPASS(ch_escherichia)
@@ -110,166 +129,111 @@ workflow MERLIN {
     STECFINDER(ch_escherichia_fna_fq)
 
     // Haemophilus
-    ch_haemophilus = MERLINDIST.out.haemophilus.map{meta, fna, _found -> [meta, [fna]]}
+    ch_haemophilus = MERLINDIST.out.sample_outputs
+        .filter { r -> r.haemophilus != null }
+        .map { r -> [r.meta, [r.fna]] }
     HICAP(ch_haemophilus, hicap_database_dir, hicap_model_fp)
     HPSUISSERO(ch_haemophilus)
 
     // Klebsiella
-    ch_klebsiella = MERLINDIST.out.klebsiella.map{meta, fna, _found -> [meta, [fna]]}
+    ch_klebsiella = MERLINDIST.out.sample_outputs
+        .filter { r -> r.klebsiella != null }
+        .map { r -> [r.meta, [r.fna]] }
     KLEBORATE(ch_klebsiella)
 
     // Legionella
-    ch_legionella = MERLINDIST.out.legionella.map{meta, fna, _found -> [meta, [fna]]}
+    ch_legionella = MERLINDIST.out.sample_outputs
+        .filter { r -> r.legionella != null }
+        .map { r -> [r.meta, [r.fna]] }
     LEGSTA(ch_legionella)
 
     // Listeria
-    ch_listeria = MERLINDIST.out.listeria.map{meta, fna, _found -> [meta, [fna]]}
+    ch_listeria = MERLINDIST.out.sample_outputs
+        .filter { r -> r.listeria != null }
+        .map { r -> [r.meta, [r.fna]] }
     LISSERO(ch_listeria)
 
     // Mycobacterium
-    ch_mycobacterium_fq = MERLINDIST.out.mycobacterium_fq.map{meta, r1, r2, se, lr, _found ->
-        def reads = [r1, r2, se, lr].findAll{it != null}
-        [meta, reads]
-    }
+    ch_mycobacterium_fq = MERLINDIST.out.sample_outputs
+        .filter { r -> r.mycobacterium != null }
+        .map { r ->
+            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
+            [r.meta, reads]
+        }
     TBPROFILER(ch_mycobacterium_fq)
 
     // Neisseria
-    ch_neisseria = MERLINDIST.out.neisseria.map{meta, fna, _found -> [meta, [fna]]}
+    ch_neisseria = MERLINDIST.out.sample_outputs
+        .filter { r -> r.neisseria != null }
+        .map { r -> [r.meta, [r.fna]] }
     MENINGOTYPE(ch_neisseria)
     NGMASTER(ch_neisseria)
 
     // Pseudomonas
-    ch_pseudomonas = MERLINDIST.out.pseudomonas.map{meta, fna, _found -> [meta, [fna]]}
+    ch_pseudomonas = MERLINDIST.out.sample_outputs
+        .filter { r -> r.pseudomonas != null }
+        .map { r -> [r.meta, [r.fna]] }
     PASTY(ch_pseudomonas)
 
     // Salmonella
-    ch_salmonella = MERLINDIST.out.salmonella.map{meta, fna, _found -> [meta, [fna]]}
-    ch_salmonella_fq = MERLINDIST.out.salmonella_fq.map{meta, r1, r2, se, lr, _found ->
-        def reads = [r1, r2, se, lr].findAll{it != null}
-        [meta, reads]
-    }
+    ch_salmonella = MERLINDIST.out.sample_outputs
+        .filter { r -> r.salmonella != null }
+        .map { r -> [r.meta, [r.fna]] }
+    ch_salmonella_fq = MERLINDIST.out.sample_outputs
+        .filter { r -> r.salmonella != null }
+        .map { r ->
+            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
+            [r.meta, reads]
+        }
     GENOTYPHI(ch_salmonella_fq)
     SEQSERO2(ch_salmonella)
     SISTR(ch_salmonella)
 
     // Staphylococcus
-    ch_staphylococcus = MERLINDIST.out.staphylococcus.map{meta, fna, _found -> [meta, [fna]]}
+    ch_staphylococcus = MERLINDIST.out.sample_outputs
+        .filter { r -> r.staphylococcus != null }
+        .map { r -> [r.meta, [r.fna]] }
     STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
-    ch_streptococcus = MERLINDIST.out.streptococcus.map{meta, fna, _found -> [meta, [fna]]}
-    ch_streptococcus_fq = MERLINDIST.out.streptococcus_fq.map{meta, r1, r2, se, lr, _found ->
-        def reads = [r1, r2, se, lr].findAll{it != null}
-        [meta, reads]
-    }
+    ch_streptococcus = MERLINDIST.out.sample_outputs
+        .filter { r -> r.streptococcus != null }
+        .map { r -> [r.meta, [r.fna]] }
+    ch_streptococcus_fq = MERLINDIST.out.sample_outputs
+        .filter { r -> r.streptococcus != null }
+        .map { r ->
+            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
+            [r.meta, reads]
+        }
     EMMTYPER(ch_streptococcus, emmtyper_blastdb)
     PBPTYPER(ch_streptococcus)
     SEROBA(ch_streptococcus_fq)
     SSUISSERO(ch_streptococcus)
 
     emit:
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        MERLINDIST.out.results,
-        CLERMONTYPING.out.results,
-        ECTYPER.out.results,
-        EMMTYPER.out.results,
-        GENOTYPHI.out.results,
-        HICAP.out.results,
-        HPSUISSERO.out.results,
-        KLEBORATE.out.results,
-        LEGSTA.out.results,
-        LISSERO.out.results,
-        MENINGOTYPE.out.results,
-        NGMASTER.out.results,
-        PASTY.out.results,
-        PBPTYPER.out.results,
-        SEQSERO2.out.results,
-        SEROBA.out.results,
-        SHIGAPASS.out.results,
-        SHIGATYPER.out.results,
-        SHIGEIFINDER.out.results,
-        STECFINDER.out.results,
-        SISTR.out.results,
-        SSUISSERO.out.results,
-        STAPHTYPER.out.results,
-        TBPROFILER.out.results
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MERLINDIST.out.logs,
-        CLERMONTYPING.out.logs,
-        ECTYPER.out.logs,
-        EMMTYPER.out.logs,
-        GENOTYPHI.out.logs,
-        HICAP.out.logs,
-        HPSUISSERO.out.logs,
-        KLEBORATE.out.logs,
-        LEGSTA.out.logs,
-        LISSERO.out.logs,
-        MENINGOTYPE.out.logs,
-        NGMASTER.out.logs,
-        PASTY.out.logs,
-        PBPTYPER.out.logs,
-        SEQSERO2.out.logs,
-        SEROBA.out.logs,
-        SHIGAPASS.out.logs,
-        SHIGATYPER.out.logs,
-        SHIGEIFINDER.out.logs,
-        STECFINDER.out.logs,
-        SISTR.out.logs,
-        SSUISSERO.out.logs,
-        STAPHTYPER.out.logs,
-        TBPROFILER.out.logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        MERLINDIST.out.nf_logs,
-        CLERMONTYPING.out.nf_logs,
-        ECTYPER.out.nf_logs,
-        EMMTYPER.out.nf_logs,
-        GENOTYPHI.out.nf_logs,
-        HICAP.out.nf_logs,
-        HPSUISSERO.out.nf_logs,
-        KLEBORATE.out.nf_logs,
-        LEGSTA.out.nf_logs,
-        LISSERO.out.nf_logs,
-        MENINGOTYPE.out.nf_logs,
-        NGMASTER.out.nf_logs,
-        PASTY.out.nf_logs,
-        PBPTYPER.out.nf_logs,
-        SEQSERO2.out.nf_logs,
-        SEROBA.out.nf_logs,
-        SHIGAPASS.out.nf_logs,
-        SHIGATYPER.out.nf_logs,
-        SHIGEIFINDER.out.nf_logs,
-        STECFINDER.out.nf_logs,
-        SISTR.out.nf_logs,
-        SSUISSERO.out.nf_logs,
-        STAPHTYPER.out.nf_logs,
-        TBPROFILER.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        MERLINDIST.out.versions,
-        CLERMONTYPING.out.versions,
-        ECTYPER.out.versions,
-        EMMTYPER.out.versions,
-        GENOTYPHI.out.versions,
-        HICAP.out.versions,
-        HPSUISSERO.out.versions,
-        KLEBORATE.out.versions,
-        LEGSTA.out.versions,
-        LISSERO.out.versions,
-        MENINGOTYPE.out.versions,
-        NGMASTER.out.versions,
-        PASTY.out.versions,
-        PBPTYPER.out.versions,
-        SEQSERO2.out.versions,
-        SEROBA.out.versions,
-        SHIGAPASS.out.versions,
-        SHIGATYPER.out.versions,
-        SHIGEIFINDER.out.versions,
-        STECFINDER.out.versions,
-        SISTR.out.versions,
-        SSUISSERO.out.versions,
-        STAPHTYPER.out.versions,
-        TBPROFILER.out.versions
-    ])
+    dist_outputs = MERLINDIST.out.sample_outputs
+    sample_outputs = CLERMONTYPING.out.sample_outputs.mix(
+        ECTYPER.out.sample_outputs,
+        EMMTYPER.out.sample_outputs,
+        GENOTYPHI.out.sample_outputs,
+        HICAP.out.sample_outputs,
+        HPSUISSERO.out.sample_outputs,
+        KLEBORATE.out.sample_outputs,
+        LEGSTA.out.sample_outputs,
+        LISSERO.out.sample_outputs,
+        MENINGOTYPE.out.sample_outputs,
+        NGMASTER.out.sample_outputs,
+        PASTY.out.sample_outputs,
+        PBPTYPER.out.sample_outputs,
+        SEQSERO2.out.sample_outputs,
+        SEROBA.out.sample_outputs,
+        SHIGAPASS.out.sample_outputs,
+        SHIGATYPER.out.sample_outputs,
+        SHIGEIFINDER.out.sample_outputs,
+        STECFINDER.out.sample_outputs,
+        SISTR.out.sample_outputs,
+        SSUISSERO.out.sample_outputs,
+        STAPHTYPER.out.sample_outputs,
+        TBPROFILER.out.sample_outputs
+    )
 }

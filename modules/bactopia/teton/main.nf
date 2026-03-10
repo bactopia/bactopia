@@ -14,12 +14,10 @@
  * - `meta`: Groovy Map containing sample information
  * - `classification`: Bracken species abundance report
  *
- * @output bacteria_tsv     A tab-delimited samplesheet compatible with Bactopia (--samples) for samples identified as Bacteria
- * @output nonbacteria_tsv  A tab-delimited samplesheet for samples NOT identified as Bacteria
- * @output sizemeup         A text file containing the predicted species and genome size
- * @output logs             Optional software execution logs containing warnings/errors
- * @output nf_logs          Nextflow execution scripts and logs for debugging
- * @output versions         A YAML formatted file with software versions
+ * @output record(meta, bacteria_tsv, nonbacteria_tsv, sizemeup, results, logs, nf_logs, versions)
+ * - `bacteria_tsv`: A tab-delimited samplesheet compatible with Bactopia (--samples) for samples identified as Bacteria
+ * - `nonbacteria_tsv`: A tab-delimited samplesheet for samples NOT identified as Bacteria
+ * - `sizemeup`: A text file containing the predicted species and genome size
  */
 nextflow.preview.types = true
 
@@ -31,15 +29,19 @@ process BACTOPIA_SAMPLESHEET {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, classification) : Tuple<Map, Set<Path>>
+    (_meta: Map, classification: Set<Path>): Record
 
     output:
-    bacteria_tsv    = tuple(meta, files("${prefix}.bacteria.tsv"))
-    nonbacteria_tsv = tuple(meta, files("${prefix}.nonbacteria.tsv"))
-    sizemeup        = tuple(meta, files("${prefix}-sizemeup.txt"))
-    logs            = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs         = tuple(meta, files(".command.*"))
-    versions        = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        bacteria_tsv: files("${prefix}.bacteria.tsv"),
+        nonbacteria_tsv: files("${prefix}.nonbacteria.tsv"),
+        sizemeup: files("${prefix}-sizemeup.txt"),
+        results: [files("${prefix}.bacteria.tsv"), files("${prefix}.nonbacteria.tsv"), files("${prefix}-sizemeup.txt")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

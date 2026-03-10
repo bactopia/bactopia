@@ -29,10 +29,8 @@
  * @input insertions
  * Insertion sequence reference file containing IS elements to map
  *
- * @output results     ISMapper results including insertion site coordinates and supporting read information
- * @output logs        Execution logs from the ISMapper analysis
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    Software version information
+ * @output sample_outputs
+ * - `supplemental`: Directory containing the final tables of insertion sites and visual summaries
  */
 nextflow.preview.types = true
 
@@ -40,7 +38,7 @@ include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
 
 workflow ISMAPPER {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     reference: Path
     insertions: Path
 

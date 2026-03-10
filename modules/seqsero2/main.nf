@@ -14,13 +14,8 @@
  * - `assembly`: FASTQ reads or Assembled contigs
  *
  * @output record(meta, tsv, txt, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
- * - `tsv`: SeqSero2 results in TSV format
- * - `txt`: SeqSero2 results in text format
- * - `results`: List of all output files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * - `tsv`: SeqSero2 serotype prediction results in TSV format
+ * - `txt`: SeqSero2 serotype prediction results in text format
  */
 nextflow.preview.types = true
 

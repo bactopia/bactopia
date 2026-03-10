@@ -16,8 +16,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs  Per-sample records containing meta, report, logs, nf_logs, versions
- * @output run_outputs   Cross-sample aggregation record
+ * @output sample_outputs
+ * - `report`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
+ *
+ * @output run_outputs
+ * - `report`: Aggregated tab-delimited summary of Abricate results from all samples
  */
 nextflow.preview.types = true
 
@@ -27,7 +30,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     ABRICATE_RUN(assembly)

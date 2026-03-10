@@ -17,8 +17,14 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs  Per-sample records containing meta, chromosome, contig_report, txt, plasmids, results, logs, nf_logs, and versions
- * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
+ * @output sample_outputs
+ * - `chromosome`: Chromosomal sequences separated from plasmid contigs (gzipped FASTA)
+ * - `contig_report`: Tab-delimited report assigning each contig to chromosome or plasmid
+ * - `txt`: MOB-typer results with replicon type, mobility, and incompatibility group (optional)
+ * - `plasmids`: Reconstructed plasmid sequences in gzipped FASTA format (optional)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +34,7 @@ include { gather         } from 'plugin/nf-bactopia'
 
 workflow MOBSUITE {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     MOBSUITE_RECON(assembly)

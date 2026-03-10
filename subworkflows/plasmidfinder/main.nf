@@ -17,8 +17,15 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs   Per-sample record outputs from PlasmidFinder
- * @output run_outputs    Merged record with consolidated TSV from all samples
+ * @output sample_outputs
+ * - `json`: PlasmidFinder results in JSON format
+ * - `txt`: PlasmidFinder results in text format
+ * - `tsv`: Tab-delimited PlasmidFinder results with replicon typing information
+ * - `genome_seq`: FASTA sequences of plasmid hits found in the genome (gzipped)
+ * - `plasmid_seq`: Reference plasmid sequences matched (gzipped)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +35,7 @@ include { gather                                } from 'plugin/nf-bactopia'
 
 workflow PLASMIDFINDER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     PLASMIDFINDER_MODULE(assembly)

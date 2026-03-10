@@ -16,6 +16,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited LisSero results with predicted serogroup and marker gene detection
  */
 nextflow.preview.types = true
 

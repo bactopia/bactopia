@@ -25,13 +25,11 @@
  * @input sourmash_db
  * Path to the Sourmash GTDB LCA database
  *
- * @output sig       The Sourmash signature file (*.sig)
- * @output msh       The Mash sketch files for k=21 and k=31 (*.msh)
- * @output mash      A classification report of Mash Screen results against RefSeq database
- * @output sourmash  A classification report from Sourmash LCA against GTDB database
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, sig, msh, mash, sourmash, results, logs, nf_logs, versions)
+ * - `sig`: The Sourmash signature file (*.sig)
+ * - `msh`: The Mash sketch files for k=21 and k=31 (*.msh)
+ * - `mash`: A classification report of Mash Screen results against RefSeq database
+ * - `sourmash`: A classification report from Sourmash LCA against GTDB database
  */
 nextflow.preview.types = true
 
@@ -43,18 +41,22 @@ process SKETCHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
     mash_db        : Path
     sourmash_db    : Path
 
     output:
-    sig      = tuple(meta, file("${prefix}.sig"))
-    msh      = tuple(meta, files("${prefix}-k*.msh"))
-    mash     = tuple(meta, file("${prefix}-mash-refseq88-k21.txt"))
-    sourmash = tuple(meta, file("${prefix}-sourmash-gtdb-rs207-k31.txt"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        sig: file("${prefix}.sig"),
+        msh: files("${prefix}-k*.msh"),
+        mash: file("${prefix}-mash-refseq88-k21.txt"),
+        sourmash: file("${prefix}-sourmash-gtdb-rs207-k31.txt"),
+        results: [file("${prefix}.sig"), files("${prefix}-k*.msh"), file("${prefix}-mash-refseq88-k21.txt"), file("${prefix}-sourmash-gtdb-rs207-k31.txt")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -17,8 +17,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for Bacillus cereus group classification
  *
- * @output sample_outputs  Per-sample records from BTYPER3_MODULE
- * @output run_outputs   Cross-sample aggregation record from CSVTK_CONCAT
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited BTyper3 typing and classification results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +31,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     BTYPER3_MODULE(assembly)

@@ -23,24 +23,19 @@
  * @input sourmash_db
  * Path to the Sourmash GTDB LCA database for taxonomic classification
  *
- * @output sig       Sourmash signature files for downstream comparative analyses
- * @output msh       Mash sketch files created at k=21 and k=31
- * @output mash      Classification report from Mash Screen against RefSeq database
- * @output sourmash  Classification report from Sourmash LCA against GTDB database
- * @output results   Aggregated results channel containing all output files
- * @output logs      Aggregated logs channel containing all execution logs
- * @output nf_logs   Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions  Aggregated version information from all executed tools
+ * @output sample_outputs
+ *   - `sig`: Sourmash signature file
+ *   - `msh`: Mash sketch files for k=21 and k=31
+ *   - `mash`: Mash Screen classification report against RefSeq
+ *   - `sourmash`: Sourmash LCA classification report against GTDB
  */
 nextflow.preview.types = true
 
 include { SKETCHER as SKETCHER_MODULE } from '../../../modules/bactopia/sketcher/main'
-include { flattenPaths                } from 'plugin/nf-bactopia'
-include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SKETCHER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     mash_db: Path
     sourmash_db: Path
 
@@ -48,20 +43,5 @@ workflow SKETCHER {
     SKETCHER_MODULE(assembly, mash_db, sourmash_db)
 
     emit:
-    // Individual outputs
-    sig: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sig
-    msh: Channel<Tuple<Map, Set<Path>>> = SKETCHER_MODULE.out.msh
-    mash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.mash
-    sourmash: Channel<Tuple<Map, Path>> = SKETCHER_MODULE.out.sourmash
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        SKETCHER_MODULE.out.sig,
-        SKETCHER_MODULE.out.msh,
-        SKETCHER_MODULE.out.mash,
-        SKETCHER_MODULE.out.sourmash
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([SKETCHER_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([SKETCHER_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([SKETCHER_MODULE.out.versions])
+    sample_outputs = SKETCHER_MODULE.out
 }

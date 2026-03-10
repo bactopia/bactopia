@@ -27,13 +27,12 @@
  * @input database
  * MIDAS reference database for species identification and quantification
  *
- * @output tsv         Species identification and abundance results in TSV format
- * @output merged_tsv  Combined TSV file containing species results from all samples
- * @output abundances  Detailed abundance profiles for detected species
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary of species abundance and coverage
+ * - `abundances`: Detailed species abundance profile
+ *
+ * @output run_outputs
+ * - `csv`: Merged species abundance results from all samples
  */
 nextflow.preview.types = true
 
@@ -43,7 +42,7 @@ include { gather        } from 'plugin/nf-bactopia'
 
 workflow MIDAS {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     database: Path
 
     main:

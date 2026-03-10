@@ -19,8 +19,11 @@
  * @input db
  * PubMLST database to use for MLST typing
  *
- * @output sample_outputs   Per-sample records with MLST typing results
- * @output run_outputs    Merged record containing consolidated MLST typing from all samples
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
+ *
+ * @output run_outputs
+ * - `csv`: A merged TSV file with mlst results from all samples
  */
 nextflow.preview.types = true
 
@@ -30,7 +33,7 @@ include { gather              } from 'plugin/nf-bactopia'
 
 workflow MLST {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     db: Path
 
     main:

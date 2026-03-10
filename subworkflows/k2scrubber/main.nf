@@ -22,27 +22,24 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output human                Reads classified as human (contaminant sequences)
- * @output kraken2_report       Kraken2 classification report showing human vs. non-human read counts
- * @output scrub_report         Human contamination screening report with detailed statistics
- * @output scrub_special_report Extended human screening report with additional metrics
- * @output scrubbed             Clean metagenomic reads after human sequence removal
- * @output scrubbed_extra       Additional cleaned reads from extended filtering
- * @output results              Aggregated results channel containing all output files
- * @output logs                 Aggregated logs channel containing all execution logs
- * @output nf_logs              Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions             Aggregated version information from all executed tools
+ * @output sample_outputs
+ *   - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
+ *   - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
+ *   - `special_meta`: A simplified metadata map for internal use
+ *   - `classified`: Reads assigned to a taxon in the database (FASTQ)
+ *   - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
+ *   - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
+ *   - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
  */
 nextflow.preview.types = true
 
-include { WGET         } from '../../modules/wget/main'
-include { KRAKEN2      } from '../../modules/kraken2/main'
-include { flattenPaths } from 'plugin/nf-bactopia'
-include { gather       } from 'plugin/nf-bactopia'
+include { WGET    } from '../../modules/wget/main'
+include { KRAKEN2 } from '../../modules/kraken2/main'
+include { gather  } from 'plugin/nf-bactopia'
 
 workflow K2SCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
 
     main:
     WGET([
@@ -53,22 +50,5 @@ workflow K2SCRUBBER {
     KRAKEN2(reads, WGET.out.download)
 
     emit:
-    // Individual outputs
-    human: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.classified
-    kraken2_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.kraken2_report
-    scrub_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.scrub_report
-    scrub_special_report: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.scrub_special_report
-    scrubbed: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.unclassified
-    scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = KRAKEN2.out.unclassified_extra
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        KRAKEN2.out.classified,
-        KRAKEN2.out.kraken2_report,
-        KRAKEN2.out.scrub_report,
-        KRAKEN2.out.unclassified
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([KRAKEN2.out.versions])
+    sample_outputs = KRAKEN2.out
 }

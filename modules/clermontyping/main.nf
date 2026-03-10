@@ -15,6 +15,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited E. coli phylogroup assignment with detected marker genes
  */
 nextflow.preview.types = true
 

@@ -24,8 +24,11 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output sample_outputs   Per-sample records from GenoTyphi and Mykrobe analysis
- * @output run_outputs    Merged record containing consolidated genotype results from all samples
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited report containing the assigned GenoTyphi genotype
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -36,7 +39,7 @@ include { gather          } from 'plugin/nf-bactopia'
 
 workflow GENOTYPHI {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
 
     main:
     MYKROBE_PREDICT(reads, "typhi")

@@ -23,8 +23,13 @@
  * @input model_fp
  * Path to HMM model file for improved detection (optional)
  *
- * @output sample_outputs    Per-sample record outputs from HICAP_MODULE
- * @output run_outputs     Combined hicap results across all samples as a record
+ * @output sample_outputs
+ * - `gbk`: GenBank file containing the annotated capsule locus region (optional)
+ * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
+ * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -34,7 +39,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow HICAP {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     database_dir: Path?
     model_fp: Path?
 

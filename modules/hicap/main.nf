@@ -21,14 +21,9 @@
  * Optional path to a custom Prodigal training model file
  *
  * @output record(meta, gbk, svg, tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `gbk`: GenBank file containing the annotated capsule locus region (optional)
  * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
- * - `tsv`: A tab-delimited summary of the predicted serotype and locus coverage
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
  */
 nextflow.preview.types = true
 

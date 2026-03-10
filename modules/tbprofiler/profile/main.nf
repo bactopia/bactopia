@@ -20,14 +20,12 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output bam      Aligned BAM file
- * @output csv      Results in CSV format
- * @output json     Compressed JSON results file
- * @output txt      Results in text format
- * @output vcf      Compressed VCF file with variants
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, bam, csv, json, txt, vcf, results, logs, nf_logs, versions)
+ * - `bam`: Aligned BAM file
+ * - `csv`: Results in CSV format
+ * - `json`: Compressed JSON results file
+ * - `txt`: Results in text format
+ * - `vcf`: Compressed VCF file with variants
  */
 nextflow.preview.types = true
 

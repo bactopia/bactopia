@@ -15,15 +15,10 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, allele_fasta, allele_json, cgmlst_csv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: SISTR prediction results in TSV format
  * - `allele_fasta`: Novel alleles in FASTA format
  * - `allele_json`: Alleles in JSON format
  * - `cgmlst_csv`: cgMLST profile in CSV format
- * - `results`: List of all output files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

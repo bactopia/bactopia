@@ -14,12 +14,8 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output record(meta, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
- * - `results`: List of result files including the TSV summary
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited NG-MASTER results with porB and tbpB alleles and sequence type
  */
 nextflow.preview.types = true
 

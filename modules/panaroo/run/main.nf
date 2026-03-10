@@ -15,14 +15,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `gff`: A list of annotated genome files in GFF3 format (required input)
  *
- * @output supplemental  Directory containing the full set of Panaroo intermediate files and data structures
- * @output aln           The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
- * @output filtered_aln  The core-genome alignment with highly recombinant regions filtered out (optional)
- * @output csv           Gene presence/absence matrix in Roary-compatible CSV format (optional)
- * @output panaroo_csv   Gene presence/absence matrix in Panaroo's native CSV format (optional)
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, aln, filtered_aln, csv, panaroo_csv, supplemental, results, logs, nf_logs, versions)
+ * - `aln`: The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
+ * - `filtered_aln`: The core-genome alignment with highly recombinant regions filtered out (optional)
+ * - `csv`: Gene presence/absence matrix in Roary-compatible CSV format (optional)
+ * - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
+ * - `supplemental`: Directory containing the full set of Panaroo intermediate files and data structures
  */
 nextflow.preview.types = true
 
@@ -35,20 +33,24 @@ process PANAROO_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, gff) : Tuple<Map, Set<Path>>
+    (_meta: Map, gff: Set<Path>): Record
 
     stage:
     stageAs 'gff-tmp/*', gff
 
     output:
-    aln          = tuple(meta, file("${prefix}.aln.gz", optional: true))
-    filtered_aln = tuple(meta, file("${prefix}.filtered.aln.gz", optional: true))
-    csv          = tuple(meta, file("panaroo/gene_presence_absence_roary.csv", optional: true))
-    panaroo_csv  = tuple(meta, file("panaroo/gene_presence_absence.csv", optional: true))
-    supplemental = tuple(meta, file("panaroo/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        aln: file("${prefix}.aln.gz", optional: true),
+        filtered_aln: file("${prefix}.filtered.aln.gz", optional: true),
+        csv: file("panaroo/gene_presence_absence_roary.csv", optional: true),
+        panaroo_csv: file("panaroo/gene_presence_absence.csv", optional: true),
+        supplemental: file("panaroo/*"),
+        results: [file("${prefix}.aln.gz", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -22,13 +22,12 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output tsv         Per-sample TSV files containing Shigella serotype predictions
- * @output hits        Per-sample TSV files containing detailed gene hit information
- * @output merged_tsv  Consolidated TSV file containing serotype predictions from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: ShigaTyper results in TSV format
+ * - `hits`: Detailed hits from ShigaTyper
+ *
+ * @output run_outputs
+ * - `csv`: Merged serotype predictions from all samples
  */
 nextflow.preview.types = true
 
@@ -38,7 +37,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow SHIGATYPER {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
 
     main:
     SHIGATYPER_MODULE(reads)

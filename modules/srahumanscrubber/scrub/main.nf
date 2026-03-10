@@ -5,16 +5,16 @@
  * human reads from sequencing data. It relies on a specific k-mer database to mask or remove
  * sequences that align to human references.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional named parameters for reads:
+ * - Input: (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?) as Record
  *
  * @status stable
  * @keywords human, contamination, scrubber, decontamination, ncbi, sra
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation srahumanscrubber
  *
- * @input tuple(meta, r1, r2, se, lr)
- * - `meta`: Groovy Map containing sample information
+ * @input (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?)
+ * - `_meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
@@ -23,13 +23,11 @@
  * @input db
  * SRA Human Scrubber database directory
  *
- * @output scrubbed             Scrubbed FASTQ files with human reads removed
- * @output scrubbed_extra       Scrubbed FASTQ files with placeholder for pipeline compatibility
- * @output scrub_report         Report of scrubbing statistics
- * @output scrub_special_report Special report output for downstream aggregation
- * @output logs                 Optional software execution logs containing warnings/errors
- * @output nf_logs              Nextflow execution scripts and logs for debugging
- * @output versions             A YAML formatted file with software versions
+ * @output record(meta, special_meta, scrubbed, scrubbed_extra, scrub_report, results, logs, nf_logs, versions)
+ * - `special_meta`: Groovy Map with ID for downstream aggregation
+ * - `scrubbed`: Scrubbed FASTQ files with human reads removed
+ * - `scrubbed_extra`: Placeholder files for pipeline compatibility
+ * - `scrub_report`: Report of scrubbing statistics
  */
 nextflow.preview.types = true
 
@@ -41,17 +39,21 @@ process SRAHUMANSCRUBBER_SCRUB {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
-    db                      : Path
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    db: Path
 
     output:
-    scrubbed             = tuple(meta, files("*.scrubbed.fastq.gz"))
-    scrubbed_extra       = tuple(meta, files("*.scrubbed.fastq.gz"), files("EMPTY_EXTRA"))
-    scrub_report         = tuple(meta, files('*.scrub.report.tsv', optional: true))
-    scrub_special_report = tuple(special_meta, files('*.scrub.report.tsv', optional: true))
-    logs                 = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs              = tuple(meta, files(".command.*"))
-    versions             = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        special_meta: special_meta,
+        scrubbed: files("*.scrubbed.fastq.gz"),
+        scrubbed_extra: files("EMPTY_EXTRA"),
+        scrub_report: files('*.scrub.report.tsv', optional: true),
+        results: [files("*.scrubbed.fastq.gz"), files('*.scrub.report.tsv', optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     def VERSION = '2.2.1'

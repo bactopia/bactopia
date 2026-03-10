@@ -17,8 +17,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs   Per-sample records with serotype prediction results
- * @output run_outputs    Merged record containing consolidated serotype predictions from all samples
+ * @output sample_outputs
+ * - `tsv`: SsuisSero results in TSV format
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +31,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow SSUISSERO {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     SSUISSERO_MODULE(assembly)

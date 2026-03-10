@@ -16,16 +16,14 @@
  * - `msa`: Multiple sequence alignment in FASTA format
  * - `newick`: Initial phylogenetic tree in Newick format
  *
- * @output emsim       Uncertainty estimation results (if requested)
- * @output em          Final parameter estimates from the EM algorithm
- * @output status      Tab-delimited list of predicted recombination events (importations)
- * @output newick      The input tree with internal nodes labelled
- * @output fasta       Reconstructed ancestral sequences (*.fasta.gz)
- * @output pos_ref     Position cross-reference table (*.txt.gz)
- * @output masked_aln  The input alignment with recombinant regions masked (*.aln.gz)
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(meta, emsim, em, status, newick, fasta, pos_ref, masked_aln, results, logs, nf_logs, versions)
+ * - `emsim`: Uncertainty estimation results (if requested)
+ * - `em`: Final parameter estimates from the EM algorithm
+ * - `status`: Tab-delimited list of predicted recombination events (importations)
+ * - `newick`: The input tree with internal nodes labelled
+ * - `fasta`: Reconstructed ancestral sequences (*.fasta.gz)
+ * - `pos_ref`: Position cross-reference table (*.txt.gz)
+ * - `masked_aln`: The input alignment with recombinant regions masked (*.aln.gz)
  */
 nextflow.preview.types = true
 
@@ -37,19 +35,31 @@ process CLONALFRAMEML {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa, newick) : Tuple<Map, Path, Path>
+    (_meta: Map, msa: Path, newick: Path): Record
 
     output:
-    emsim      = tuple(meta, files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true))
-    em         = tuple(meta, files("${task.ext.process_name}/${prefix}.em.txt"))
-    status     = tuple(meta, files("${task.ext.process_name}/${prefix}.importation_status.txt"))
-    newick     = tuple(meta, files("${task.ext.process_name}/${prefix}.labelled_tree.newick"))
-    fasta      = tuple(meta, files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"))
-    pos_ref    = tuple(meta, files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"))
-    masked_aln = tuple(meta, files("${prefix}.masked.aln.gz"))
-    logs       = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs    = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        emsim: files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
+        em: files("${task.ext.process_name}/${prefix}.em.txt"),
+        status: files("${task.ext.process_name}/${prefix}.importation_status.txt"),
+        newick: files("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
+        fasta: files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
+        pos_ref: files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
+        masked_aln: files("${prefix}.masked.aln.gz"),
+        results: [
+            files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
+            files("${task.ext.process_name}/${prefix}.em.txt"),
+            files("${task.ext.process_name}/${prefix}.importation_status.txt"),
+            files("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
+            files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
+            files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
+            files("${prefix}.masked.aln.gz")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

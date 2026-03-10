@@ -20,6 +20,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited genome quality report with completeness and contamination estimates
  */
 nextflow.preview.types = true
 

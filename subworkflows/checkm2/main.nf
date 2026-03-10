@@ -27,8 +27,12 @@
  * Boolean flag to automatically download the CheckM2 database if not available.
  * When true, downloads the required reference database before prediction.
  *
- * @output sample_outputs  Per-sample record outputs from CHECKM2_PREDICT
- * @output run_outputs   Combined CheckM2 results across all samples as a record
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited report of quality metrics (Completeness, Contamination)
+ * - `supplemental`: Directory containing intermediate protein files and Diamond alignments
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -39,7 +43,7 @@ include { gather           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     database: Path
     download_checkm2: Boolean
 

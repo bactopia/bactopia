@@ -9,8 +9,7 @@
  *
  * Summary statistics for each assembly are generated using [assembly-scan](https://github.com/rpetit3/assembly-scan).
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr, assembly) where each slot is Path?
+ * Uses named record input with explicit read slots (r1, r2, se, lr, assembly) as Path?.
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
@@ -20,7 +19,7 @@
  * @note When runtype is 'assembly' or 'assembly_accession' and --reassemble is not set,
  * the original assembly is used without re-assembly.
  *
- * @input tuple(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1, r2, se, lr, assembly)
  * - `meta`    : Groovy Map containing sample information
  * - `r1`      : Illumina R1 reads (paired-end)
  * - `r2`      : Illumina R2 reads (paired-end)
@@ -28,14 +27,15 @@
  * - `lr`      : Long reads (ONT/PacBio) for long-read or hybrid assembly
  * - `assembly`: Assembly file (FASTA) for assembly-based runtypes
  *
- * @output assembly       Assembled contigs in FASTA format
- * @output assembly_reads A tuple containing the assembly and read slots (for downstream analysis)
- * @output tsv            A tab-delimited report of assembly statistics (N50, length, coverage)
- * @output supplemental   Supplemental files including assembly graphs (*.gfa) and tool-specific logs
- * @output error          Captured error messages if assembly fails
- * @output logs           Optional software execution logs containing warnings/errors
- * @output nf_logs        Nextflow execution scripts and logs for debugging
- * @output versions       A YAML formatted file with software versions
+ * @output record(meta, assembly, r1, r2, se, lr, tsv, supplemental, error, results, logs, nf_logs, versions)
+ * - `assembly`: Assembled contigs in FASTA format
+ * - `r1`: Passthrough Illumina R1 reads
+ * - `r2`: Passthrough Illumina R2 reads
+ * - `se`: Passthrough single-end reads
+ * - `lr`: Passthrough long reads
+ * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
+ * - `supplemental`: Supplemental files including assembly graphs (*.gfa) and tool-specific logs
+ * - `error`: Captured error messages if assembly fails
  */
 nextflow.preview.types = true
 
@@ -47,20 +47,27 @@ process ASSEMBLER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, se, lr, assembly) : Tuple<Map, Path?, Path?, Path?, Path?, Path?>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, assembly: Path?): Record
 
     stage:
     stageAs 'input-assembly/*', assembly
 
     output:
-    assembly       = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true))
-    assembly_reads = tuple(meta, file("${prefix}.{fna,fna.gz}", optional: true), r1, r2, se, lr)
-    tsv            = tuple(meta, file("${prefix}.tsv", optional: true))
-    supplemental   = tuple(meta, files("supplemental/*"))
-    error          = tuple(meta, files("${prefix}-*-error.*", optional: true))
-    logs           = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs        = tuple(meta, files(".command.*"))
-    versions       = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        assembly: file("${prefix}.{fna,fna.gz}", optional: true),
+        r1: r1,
+        r2: r2,
+        se: se,
+        lr: lr,
+        tsv: file("${prefix}.tsv", optional: true),
+        supplemental: files("supplemental/*"),
+        error: files("${prefix}-*-error.*", optional: true),
+        results: [file("${prefix}.{fna,fna.gz}", optional: true), file("${prefix}.tsv", optional: true)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

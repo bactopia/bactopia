@@ -21,17 +21,12 @@
  * Directory containing the DefenseFinder models database
  *
  * @output record(meta, genes_tsv, hmmer_tsv, systems_tsv, proteins, proteins_index, macsydata_raw, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `genes_tsv`: Tab-delimited list of detected defense genes
  * - `hmmer_tsv`: Tab-delimited list of HMMER hits used for detection
  * - `systems_tsv`: Tab-delimited summary of detected defense systems
- * - `proteins`: Protein sequences of the detected defense genes (*.prt)
- * - `proteins_index`: Index file for the protein sequences (*.prt.idx)
+ * - `proteins`: Protein sequences of the detected defense genes
+ * - `proteins_index`: Index file for the protein sequences
  * - `macsydata_raw`: Compressed tarball of raw MacSyFinder data (optional)
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

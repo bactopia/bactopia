@@ -16,8 +16,8 @@
  * @input meta
  * Groovy Map containing download information (url, save_as, name)
  *
- * @output download The downloaded file
- * @output logs     Software execution logs and versions (bundled in subdirectory)
+ * @output record(download, logs)
+ * - `download`: The downloaded file
  */
 nextflow.preview.types = true
 

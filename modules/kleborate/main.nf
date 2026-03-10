@@ -19,6 +19,7 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited Kleborate results with species, MLST, virulence, and resistance predictions
  */
 nextflow.preview.types = true
 

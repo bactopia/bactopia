@@ -20,12 +20,10 @@
  * @input _univec_db
  * Path to the UniVec database for screening contaminants (typically optional)
  *
- * @output supplemental Directory containing various intermediate files and detailed outputs
- * @output aln         Reconstructed SSU rRNA sequences, aligned in FASTA format
- * @output summary     JSON summary file containing taxonomic hits and abundance statistics
- * @output logs        Optional software execution logs containing warnings/errors
- * @output nf_logs     Nextflow execution scripts and logs for debugging
- * @output versions    A YAML formatted file with software versions
+ * @output record(meta, supplemental, aln, summary, results, logs, nf_logs, versions)
+ * - `supplemental`: Directory containing various intermediate files and detailed outputs
+ * - `aln`: Reconstructed SSU rRNA sequences, aligned in FASTA format
+ * - `summary`: JSON summary file containing taxonomic hits and abundance statistics
  */
 nextflow.preview.types = true
 
@@ -37,17 +35,24 @@ process PHYLOFLASH {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, reads) : Tuple<Map, Set<Path>>
+    (_meta: Map, reads: Set<Path>): Record
     _silva_db       : Path
     _univec_db      : Path
 
     output:
-    supplemental = tuple(meta, files("${prefix}/*"))
-    aln          = files("${prefix}/${prefix}.toalign.fasta", optional: true)
-    summary      = files("${prefix}/${prefix}.phyloFlash.json", optional: true)
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        supplemental: files("${prefix}/*"),
+        aln: files("${prefix}/${prefix}.toalign.fasta", optional: true),
+        summary: files("${prefix}/${prefix}.phyloFlash.json", optional: true),
+        results: [
+            files("${prefix}/${prefix}.toalign.fasta", optional: true),
+            files("${prefix}/${prefix}.phyloFlash.json", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

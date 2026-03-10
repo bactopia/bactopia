@@ -20,11 +20,9 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output tsv      ShigaTyper results in TSV format
- * @output hits     Detailed hits from ShigaTyper
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, tsv, hits, results, logs, nf_logs, versions)
+ * - `tsv`: ShigaTyper serotype prediction results in TSV format
+ * - `hits`: Detailed gene hits from ShigaTyper analysis
  */
 nextflow.preview.types = true
 

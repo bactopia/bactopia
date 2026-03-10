@@ -14,6 +14,7 @@
  * - `reports`: A collection of Abricate report files from multiple samples
  *
  * @output record(meta, report, results, logs, nf_logs, versions)
+ * - `report`: Aggregated tab-delimited summary of Abricate results from all samples
  */
 nextflow.preview.types = true
 

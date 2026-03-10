@@ -27,8 +27,13 @@
  * @input save_as_tarball
  * Boolean flag to use tarball format database when downloading
  *
- * @output sample_outputs    Per-sample record outputs from CLASSIFY
- * @output run_outputs     Combined GTDB-Tk results across all samples as a record
+ * @output sample_outputs
+ * - `bac_tsv`: The bacterial classification summary file containing the taxonomic assignment
+ * - `ar_tsv`: The archaeal classification summary file containing the taxonomic assignment
+ * - `supplemental`: Directory containing the reference tree, alignments, and detailed logs
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -39,7 +44,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     database: Path
     download_gtdb: Boolean
     save_as_tarball: Boolean

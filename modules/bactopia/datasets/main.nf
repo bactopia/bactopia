@@ -12,10 +12,11 @@
  * @note Internet Required
  * This process requires an active internet connection to fetch files from `datasets.bactopia.com`.
  *
- * @output amrfinderplus_db A compressed tarball of the [AMRFinderPlus](https://github.com/ncbi/amr) database
- * @output mlst_db          A compressed tarball of the [PubMLST](https://pubmlst.org/) schemes
- * @output mash_db          Pre-computed [Mash](https://github.com/marbl/Mash) sketches (RefSeq)
- * @output sourmash_db      Pre-computed [Sourmash](https://github.com/sourmash-bio/sourmash) signatures (GTDB)
+ * @output record(amrfinderplus_db, mlst_db, mash_db, sourmash_db)
+ * - `amrfinderplus_db`: A compressed tarball of the [AMRFinderPlus](https://github.com/ncbi/amr) database
+ * - `mlst_db`: A compressed tarball of the [PubMLST](https://pubmlst.org/) schemes
+ * - `mash_db`: Pre-computed [Mash](https://github.com/marbl/Mash) sketches (RefSeq)
+ * - `sourmash_db`: Pre-computed [Sourmash](https://github.com/sourmash-bio/sourmash) signatures (GTDB)
  */
 nextflow.preview.types = true
 

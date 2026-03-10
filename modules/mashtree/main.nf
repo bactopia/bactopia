@@ -11,16 +11,14 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation mashtree
  *
- * @input tuple(meta, seqs)
+ * @input record(meta, seqs)
  * - `meta`: Groovy Map containing sample information
  * - `seqs`: Assembled contigs in FASTA format
  *
- * @output tree      The final phylogenetic tree in Newick format (*.dnd)
- * @output tsv       The pairwise distance matrix used to build the tree (*.tsv)
- * @output sketches  Directory containing the individual Mash sketches (optional)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, tree, tsv, sketches, results, logs, nf_logs, versions)
+ * - `tree`: The final phylogenetic tree in Newick format (*.dnd)
+ * - `tsv`: The pairwise distance matrix used to build the tree (*.tsv)
+ * - `sketches`: Directory containing the individual Mash sketches (optional)
  */
 nextflow.preview.types = true
 
@@ -32,15 +30,19 @@ process MASHTREE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, seqs) : Tuple<Map, Set<Path>>
+    (_meta: Map, seqs: Set<Path>): Record
 
     output:
-    tree     = tuple(meta, file("${prefix}.dnd"))
-    tsv      = tuple(meta, file("${prefix}.tsv"))
-    sketches = tuple(meta, files("sketches/*", optional: true))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        tree: file("${prefix}.dnd"),
+        tsv: file("${prefix}.tsv"),
+        sketches: files("sketches/*", optional: true),
+        results: [file("${prefix}.dnd"), file("${prefix}.tsv")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.id}"

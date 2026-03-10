@@ -15,13 +15,8 @@
  * - `meta_file`: Meta file containing reference size information (Path)
  *
  * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `tsv`: Transposed report in TSV format
  * - `supplemental`: Supplemental files including plots and HTML reports
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

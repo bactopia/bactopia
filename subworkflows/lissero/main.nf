@@ -18,8 +18,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for L. monocytogenes serotype prediction
  *
- * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, versions
- * @output run_outputs   Cross-sample aggregation record
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited LisSero results with predicted serogroup and marker gene detection
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -29,7 +32,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow LISSERO {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     LISSERO_MODULE(assembly)

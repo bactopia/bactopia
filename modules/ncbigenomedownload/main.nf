@@ -13,24 +13,21 @@
  * @input accessions
  * A path to a text file containing a list of NCBI Assembly accession numbers (one per line)
  *
- * @output all        All downloaded files, including sequence, annotation, and reports
- * @output fna        FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
- * @output faa        FASTA format of the accessioned protein products (*_protein.faa.gz)
- * @output cds        FASTA format of the nucleotide sequences corresponding to all CDS features
- * @output rna        FASTA format of accessioned RNA products
- * @output rna_fna    FASTA format of the nucleotide sequences corresponding to all RNA features
- * @output gbk        GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
- * @output gff        Annotation of the genomic sequence(s) in GFF3 format (*_genomic.gff.gz)
- * @output gpff       GenPept format of the accessioned protein products
- * @output wgs_gbk    GenBank flat file format of the WGS master
- * @output features   Tab-delimited text file reporting locations and attributes for a subset of features
- * @output rm         RepeatMasker output for eukaryotes (optional)
- * @output report     Tab-delimited text file reporting the name, role, and relationships of assembly units and sequences
- * @output stats      Tab-delimited text file reporting assembly statistics
- * @output accessions The generated accession list files
- * @output logs       Optional software execution logs containing warnings/errors
- * @output nf_logs    Nextflow execution scripts and logs for debugging
- * @output versions   A YAML formatted file with software versions
+ * @output record(meta, results, gbk, fna, rm, features, gff, faa, gpff, wgs_gbk, cds, rna, rna_fna, report, stats, accessions, logs, nf_logs, versions)
+ * - `gbk`: GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
+ * - `fna`: FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
+ * - `rm`: RepeatMasker output for eukaryotes (optional)
+ * - `features`: Tab-delimited text file reporting locations and attributes for a subset of features
+ * - `gff`: Annotation of the genomic sequence(s) in GFF3 format (*_genomic.gff.gz)
+ * - `faa`: FASTA format of the accessioned protein products (*_protein.faa.gz)
+ * - `gpff`: GenPept format of the accessioned protein products
+ * - `wgs_gbk`: GenBank flat file format of the WGS master
+ * - `cds`: FASTA format of the nucleotide sequences corresponding to all CDS features
+ * - `rna`: FASTA format of accessioned RNA products
+ * - `rna_fna`: FASTA format of the nucleotide sequences corresponding to all RNA features
+ * - `report`: Tab-delimited text file reporting assembly unit names, roles, and relationships
+ * - `stats`: Tab-delimited text file reporting assembly statistics
+ * - `accessions`: The generated accession list files
  */
 nextflow.preview.types = true
 
@@ -44,24 +41,27 @@ process NCBIGENOMEDOWNLOAD {
     accessions : Path
 
     output:
-    all        = files("*.gz")
-    gbk        = tuple(meta, files("*_genomic.gbff.gz", optional: true))
-    fna        = tuple(meta, files("*_genomic.fna.gz", optional: true))
-    rm         = tuple(meta, files("*_rm.out.gz", optional: true))
-    features   = tuple(meta, files("*_feature_table.txt.gz", optional: true))
-    gff        = tuple(meta, files("*_genomic.gff.gz", optional: true))
-    faa        = tuple(meta, files("*_protein.faa.gz", optional: true))
-    gpff       = tuple(meta, files("*_protein.gpff.gz", optional: true))
-    wgs_gbk    = tuple(meta, files("*_wgsmaster.gbff.gz", optional: true))
-    cds        = tuple(meta, files("*_cds_from_genomic.fna.gz", optional: true))
-    rna        = tuple(meta, files("*_rna.fna.gz", optional: true))
-    rna_fna    = tuple(meta, files("*_rna_from_genomic.fna.gz", optional: true))
-    report     = tuple(meta, files("*_assembly_report.txt", optional: true))
-    stats      = tuple(meta, files("*_assembly_stats.txt", optional: true))
-    accessions = tuple(meta, files("accession-*.txt", optional: true))
-    logs       = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs   = tuple(meta, files(".command.*"))
-    versions   = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        results: files("*.gz"),
+        gbk: files("*_genomic.gbff.gz", optional: true),
+        fna: files("*_genomic.fna.gz", optional: true),
+        rm: files("*_rm.out.gz", optional: true),
+        features: files("*_feature_table.txt.gz", optional: true),
+        gff: files("*_genomic.gff.gz", optional: true),
+        faa: files("*_protein.faa.gz", optional: true),
+        gpff: files("*_protein.gpff.gz", optional: true),
+        wgs_gbk: files("*_wgsmaster.gbff.gz", optional: true),
+        cds: files("*_cds_from_genomic.fna.gz", optional: true),
+        rna: files("*_rna.fna.gz", optional: true),
+        rna_fna: files("*_rna_from_genomic.fna.gz", optional: true),
+        report: files("*_assembly_report.txt", optional: true),
+        stats: files("*_assembly_stats.txt", optional: true),
+        accessions: files("accession-*.txt", optional: true),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     meta = [:]

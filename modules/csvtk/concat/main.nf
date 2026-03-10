@@ -21,6 +21,7 @@
  * Output format string ('csv', 'tsv', or a specific delimiter character)
  *
  * @output record(meta, csv, results, logs, nf_logs, versions)
+ * - `csv`: Concatenated results from all samples in the specified output format
  */
 nextflow.preview.types = true
 

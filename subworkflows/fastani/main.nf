@@ -22,8 +22,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `reference`: Reference genomes in FASTA format for ANI calculation
  *
- * @output sample_outputs       Per-sample record outputs from FASTANI_MODULE
- * @output run_outputs        Combined ANI results across all comparisons as a record
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary of the ANI scores, matched fragments, and total fragments
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -33,8 +36,8 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
     take:
-    query: Channel<Tuple<Map, Path>>
-    reference: Channel<Tuple<Map, Path>>
+    query: Channel<Record>
+    reference: Channel<Record>
 
     main:
     FASTANI_MODULE(gather(query, 'query', 'fasta'), gather(reference, 'reference', 'fasta'))

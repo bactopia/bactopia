@@ -15,16 +15,11 @@
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, targets, target_details, regions, regions_details, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information
  * - `tsv`: Main results file with SCCmec typing
  * - `targets`: BLAST results for target sequences
  * - `target_details`: Detailed results for target matches
  * - `regions`: BLAST results for SCCmec regions
  * - `regions_details`: Detailed results for SCCmec region matches
- * - `results`: List of all result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

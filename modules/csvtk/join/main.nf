@@ -10,8 +10,8 @@
  * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
  * @citation csvtk
  *
- * @input tuple(meta, csv1, csv2)
- * - `meta`: Groovy Map containing sample information
+ * @input record(_meta, csv1, csv2)
+ * - `_meta`: Groovy Map containing sample information
  * - `csv1`: The first CSV/TSV file (Left table)
  * - `csv2`: The second CSV/TSV file (Right table)
  *
@@ -24,10 +24,8 @@
  * @input key
  * The column name(s) or index(es) to use as the join key (e.g., "sample_id" or "1")
  *
- * @output csv       The joined tabular file (*.csv or *.tsv)
- * @output logs      Optional software execution logs containing warnings/errors
- * @output nf_logs   Nextflow execution scripts and logs for debugging
- * @output versions  A YAML formatted file with software versions
+ * @output record(meta, csv, results, logs, nf_logs, versions)
+ * - `csv`: The joined tabular file (*.csv or *.tsv)
  */
 nextflow.preview.types = true
 
@@ -39,16 +37,20 @@ process CSVTK_JOIN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, csv1, csv2) : Tuple<Map, Path, Path>
-    in_format           : String
-    out_format          : String
-    key                 : String
+    (_meta: Map, csv1: Path, csv2: Path): Record
+    in_format : String
+    out_format: String
+    key       : String
 
     output:
-    csv      = tuple(meta, file("${prefix}.${out_extension}"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        csv: file("${prefix}.${out_extension}"),
+        results: [file("${prefix}.${out_extension}")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'

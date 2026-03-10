@@ -29,21 +29,18 @@
  * @input replicons
  * Optional table (TSV/CSV) of replicon information for origin detection
  *
- * @output annotations       A tuple containing the main files (fna, faa, gff3) for downstream pipelines
- * @output embl              Annotations in EMBL format (*.embl.gz)
- * @output faa               Predicted CDS/sORF amino acid sequences (*.faa.gz)
- * @output ffn               Predicted feature nucleotide sequences (*.ffn.gz)
- * @output fna               Nucleotide sequences of the contigs/replicons (*.fna.gz)
- * @output gbff              Annotations in GenBank format (*.gbff.gz)
- * @output gff               Annotations in GFF3 format (*.gff3.gz)
- * @output hypotheticals_tsv Tab-delimited summary of hypothetical proteins
- * @output hypotheticals_faa FASTA amino-acid sequences of hypothetical proteins
- * @output tsv               Tab-delimited summary of all annotated features
- * @output txt               Text file containing a broad summary of annotations
- * @output blastdb           A compressed BLAST+ database of the contigs, genes, and proteins
- * @output logs              Optional software execution logs containing warnings/errors
- * @output nf_logs           Nextflow execution scripts and logs for debugging
- * @output versions          A YAML formatted file with software versions
+ * @output record(meta, annotations, embl, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, tsv, txt, blastdb, results, logs, nf_logs, versions)
+ * - `embl`: Annotations and sequences in EMBL format
+ * - `faa`: CDS/sORF amino acid sequences as FASTA
+ * - `ffn`: Feature nucleotide sequences as FASTA
+ * - `fna`: Replicon/contig DNA sequences as FASTA
+ * - `gbff`: Annotations and sequences in GenBank format
+ * - `gff`: Annotations and sequences in GFF3 format
+ * - `hypotheticals_tsv`: Further information on hypothetical protein CDS as tab-separated values
+ * - `hypotheticals_faa`: Hypothetical protein CDS amino acid sequences as FASTA
+ * - `tsv`: Annotations as simple human readable tab-separated values
+ * - `txt`: Broad summary of Bakta annotations
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
 nextflow.preview.types = true
 
@@ -55,28 +52,32 @@ process BAKTA_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, assembly) : Tuple<Map, Path>
+    (_meta: Map, assembly: Path): Record
     db             : Path
     proteins       : Path?
     prodigal_tf    : Path?
     replicons      : Path?
 
     output:
-    annotations       = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}"))
-    embl              = tuple(meta, file("bakta/${prefix}.{embl,embl.gz}"))
-    faa               = tuple(meta, file("bakta/${prefix}.{faa,faa.gz}"))
-    ffn               = tuple(meta, file("bakta/${prefix}.{ffn,ffn.gz}"))
-    fna               = tuple(meta, file("bakta/${prefix}.{fna,fna.gz}"))
-    gbff              = tuple(meta, file("bakta/${prefix}.{gbff,gbff.gz}"))
-    gff               = tuple(meta, file("bakta/${prefix}.{gff3,gff3.gz}"))
-    hypotheticals_tsv = tuple(meta, file("bakta/${prefix}.hypotheticals.tsv"))
-    hypotheticals_faa = tuple(meta, file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"))
-    tsv               = tuple(meta, file("bakta/${prefix}.tsv"))
-    txt               = tuple(meta, file("bakta/${prefix}.txt"))
-    blastdb           = tuple(meta, file("bakta/${prefix}-blastdb.tar.gz"))
-    logs              = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs           = tuple(meta, files(".command.*"))
-    versions          = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        annotations: [file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}")],
+        embl: file("bakta/${prefix}.{embl,embl.gz}"),
+        faa: file("bakta/${prefix}.{faa,faa.gz}"),
+        ffn: file("bakta/${prefix}.{ffn,ffn.gz}"),
+        fna: file("bakta/${prefix}.{fna,fna.gz}"),
+        gbff: file("bakta/${prefix}.{gbff,gbff.gz}"),
+        gff: file("bakta/${prefix}.{gff3,gff3.gz}"),
+        hypotheticals_tsv: file("bakta/${prefix}.hypotheticals.tsv"),
+        hypotheticals_faa: file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"),
+        tsv: file("bakta/${prefix}.tsv"),
+        txt: file("bakta/${prefix}.txt"),
+        blastdb: file("bakta/${prefix}-blastdb.tar.gz"),
+        results: [file("bakta/${prefix}.tsv"), file("bakta/${prefix}.txt"), file("bakta/${prefix}.{embl,embl.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{ffn,ffn.gz}"), file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{gbff,gbff.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}"), file("bakta/${prefix}.hypotheticals.tsv"), file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"), file("bakta/${prefix}-blastdb.tar.gz")],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

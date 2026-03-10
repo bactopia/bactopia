@@ -28,11 +28,8 @@
  * Path to Sylph reference database directory containing pre-computed
  * k-mer signatures of reference genomes for taxonomic classification.
  *
- * @output tsv      Per-sample microbial composition profile with relative abundances
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: TSV file with profiling results
  */
 nextflow.preview.types = true
 
@@ -40,7 +37,7 @@ include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
 
 workflow SYLPH {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     database: Path
 
     main:

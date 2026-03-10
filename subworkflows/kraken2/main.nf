@@ -24,13 +24,14 @@
  * @input database
  * Path to the Kraken2 database for taxonomic classification.
  *
- * @output classified     Taxonomically classified reads in FASTA format
- * @output kraken2_report Kraken2 classification report with read counts per taxon
- * @output unclassified   Unclassified reads not assigned to any taxa
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
+ * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
+ * - `special_meta`: A simplified metadata map for internal use
+ * - `classified`: Reads assigned to a taxon in the database (FASTQ)
+ * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
+ * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
+ * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
  */
 nextflow.preview.types = true
 
@@ -38,7 +39,7 @@ include { KRAKEN2 as KRAKEN2_MODULE } from '../../modules/kraken2/main'
 
 workflow KRAKEN2 {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     database: Path
 
     main:

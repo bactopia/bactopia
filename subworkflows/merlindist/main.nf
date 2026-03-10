@@ -25,65 +25,39 @@
  * @input mash_db
  * Mash sketch database for rapid species identification
  *
- * @output dist                Mash distance results showing top species matches
- * @output escherichia         Samples identified as Escherichia/Shigella with assembly data
- * @output escherichia_fq      Samples identified as Escherichia/Shigella with read data (5-slot)
- * @output escherichia_fna_fq  Samples identified as Escherichia/Shigella with both assembly and read data (6-slot)
- * @output haemophilus         Samples identified as Haemophilus with assembly data
- * @output klebsiella          Samples identified as Klebsiella with assembly data
- * @output legionella          Samples identified as Legionella with assembly data
- * @output listeria            Samples identified as Listeria with assembly data
- * @output mycobacterium       Samples identified as Mycobacterium with assembly data
- * @output mycobacterium_fq    Samples identified as Mycobacterium with read data (5-slot)
- * @output neisseria           Samples identified as Neisseria with assembly data
- * @output pseudomonas         Samples identified as Pseudomonas with assembly data
- * @output salmonella          Samples identified as Salmonella with assembly data
- * @output salmonella_fq       Samples identified as Salmonella with read data (5-slot)
- * @output staphylococcus      Samples identified as Staphylococcus with assembly data
- * @output streptococcus       Samples identified as Streptococcus with assembly data
- * @output streptococcus_fq    Samples identified as Streptococcus with read data (5-slot)
- * @output results             Aggregated results channel containing all output files
- * @output logs                Aggregated logs channel containing all execution logs
- * @output nf_logs             Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions            Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `dist`: The raw Mash distance results
+ * - `fna`: Passthrough of assembled contigs
+ * - `r1`: Passthrough of Illumina R1 reads
+ * - `r2`: Passthrough of Illumina R2 reads
+ * - `se`: Passthrough of single-end reads
+ * - `lr`: Passthrough of long reads
+ * - `escherichia`: Conditional marker file triggering Escherichia analysis tools
+ * - `haemophilus`: Conditional marker file triggering Haemophilus analysis tools
+ * - `klebsiella`: Conditional marker file triggering Klebsiella analysis tools
+ * - `legionella`: Conditional marker file triggering Legionella analysis tools
+ * - `listeria`: Conditional marker file triggering Listeria analysis tools
+ * - `mycobacterium`: Conditional marker file triggering Mycobacterium analysis tools
+ * - `neisseria`: Conditional marker file triggering Neisseria analysis tools
+ * - `pseudomonas`: Conditional marker file triggering Pseudomonas analysis tools
+ * - `salmonella`: Conditional marker file triggering Salmonella analysis tools
+ * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
+ * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
+ * - `genus`: A marker file indicating the detected genus (for debugging)
  */
 nextflow.preview.types = true
 
-include { MERLIN_DIST  } from '../../modules/merlin/dist/main'
-include { filterMerlin } from 'plugin/nf-bactopia'
-include { flattenPaths } from 'plugin/nf-bactopia'
-include { gather       } from 'plugin/nf-bactopia'
+include { MERLIN_DIST } from '../../modules/merlin/dist/main'
+include { gather      } from 'plugin/nf-bactopia'
 
 workflow MERLINDIST {
     take:
-    ch_seqs: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
+    ch_seqs: Channel<Record>
     ch_mash_db: Path
 
     main:
     MERLIN_DIST(ch_seqs, ch_mash_db)
 
     emit:
-    dist: Channel<Tuple<Map, Path>> = MERLIN_DIST.out.dist
-    escherichia: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia)
-    escherichia_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia_fq)
-    escherichia_fna_fq: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.escherichia_fna_fq)
-    haemophilus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.haemophilus)
-    klebsiella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.klebsiella)
-    legionella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.legionella)
-    listeria: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.listeria)
-    mycobacterium: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.mycobacterium)
-    mycobacterium_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.mycobacterium_fq)
-    neisseria: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.neisseria)
-    pseudomonas: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.pseudomonas)
-    salmonella: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.salmonella)
-    salmonella_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.salmonella_fq)
-    staphylococcus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.staphylococcus)
-    streptococcus: Channel<Tuple<Map, Path, Path?>> = filterMerlin(MERLIN_DIST.out.streptococcus)
-    streptococcus_fq: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterMerlin(MERLIN_DIST.out.streptococcus_fq)
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.dist])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([MERLIN_DIST.out.versions])
+    sample_outputs = MERLIN_DIST.out
 }

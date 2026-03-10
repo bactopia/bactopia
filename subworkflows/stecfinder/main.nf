@@ -21,12 +21,11 @@
  * - `se`: Single-end Illumina reads or null
  * - `lr`: Long reads (ONT/PacBio) or null
  *
- * @output tsv         Per-sample TSV files containing STEC identification and serotyping results
- * @output merged_tsv  Consolidated TSV file containing STEC results from all samples
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: TSV file with STEC gene markers results
+ *
+ * @output run_outputs
+ * - `csv`: Merged STEC results from all samples
  */
 nextflow.preview.types = true
 
@@ -36,7 +35,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow STECFINDER {
     take:
-    seqs: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
+    seqs: Channel<Record>
 
     main:
     STECFINDER_MODULE(seqs)

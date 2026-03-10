@@ -21,21 +21,18 @@
  * @input prodigal_tf
  * Training file to use for gene prediction (Optional)
  *
- * @output annotations  A tuple containing the FASTA, protein FASTA, and GFF3 files
- * @output gff          Annotation in GFF3 format, containing both sequences and annotations
- * @output gbk          Annotation in GenBank format, containing both sequences and annotations
- * @output fna          Nucleotide FASTA file of the input contig sequences
- * @output faa          Protein FASTA file of the annotated genes
- * @output ffn          Nucleotide FASTA file of the annotated genes
- * @output sqn          An ASN1 format "Sequin" file for submission to GenBank
- * @output fsa          Nucleotide FASTA file of the input contig sequences (with adjusted headers)
- * @output tbl          Feature table file
- * @output txt          Summary statistics about the annotation
- * @output tsv          Tab-separated file of all features
- * @output blastdb      A compressed tar.gz archive of BLAST databases created from the input
- * @output logs         Optional software execution logs containing warnings/errors
- * @output nf_logs      Nextflow execution scripts and logs for debugging
- * @output versions     A YAML formatted file with software versions
+ * @output record(meta, annotations, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
+ * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
+ * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `fna`: Nucleotide FASTA file of the input contig sequences
+ * - `faa`: Protein FASTA file of the translated CDS sequences
+ * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+ * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences, used by tbl2asn
+ * - `tbl`: Feature Table file for NCBI submission
+ * - `txt`: Summary statistics relating to the annotated features found
+ * - `tsv`: Tab-separated file of all features (locus_tag, ftype, len_bp, gene, EC_number, COG, product)
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
 nextflow.preview.types = true
 

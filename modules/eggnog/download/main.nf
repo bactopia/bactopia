@@ -14,8 +14,8 @@
  * This process requires an active internet connection and significant disk space (often >50GB)
  * to store the uncompressed database files.
  *
- * @output db        The eggNOG database files (Diamond database and taxonomy info)
- * @output logs      Optional software execution logs containing warnings/errors
+ * @output record(db, logs)
+ * - `db`: The eggNOG database files (Diamond database and taxonomy info)
  */
 nextflow.preview.types = true
 

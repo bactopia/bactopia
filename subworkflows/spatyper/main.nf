@@ -23,8 +23,11 @@
  * @input repeat_order
  * Optional custom repeat order file for spa typing
  *
- * @output sample_outputs   Per-sample records with spa typing results
- * @output run_outputs    Merged record containing consolidated spa typing from all samples
+ * @output sample_outputs
+ * - `tsv`: spa typing results in TSV format
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -34,7 +37,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SPATYPER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     repeats: Path?
     repeat_order: Path?
 

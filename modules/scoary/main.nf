@@ -17,10 +17,7 @@
  * @input traits
  * CSV file containing trait information for the samples
  *
- * @output results  Scoary results files for each trait (*.csv)
- * @output logs     Optional software execution logs containing warnings/errors
- * @output nf_logs  Nextflow execution scripts and logs for debugging
- * @output versions A YAML formatted file with software versions
+ * @output record(meta, results, logs, nf_logs, versions)
  */
 nextflow.preview.types = true
 
@@ -32,14 +29,17 @@ process SCOARY {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, genes) : Tuple<Map, Path>
-    traits         : Path
+    (_meta: Map, genes: Path): Record
+    traits: Path
 
     output:
-    results  = tuple(meta, files("*.results.csv"))
-    logs     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs  = tuple(meta, files(".command.*"))
-    versions = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        results: files("*.results.csv"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

@@ -16,8 +16,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs  Per-sample record outputs from SHIGAPASS_MODULE
- * @output run_outputs   Merged record output from CSVTK_CONCAT with consolidated results
+ * @output sample_outputs
+ * - `tsv`: ShigaPass summary results in TSV format
+ * - `flex_tsv`: ShigaPass Flex summary results in TSV format
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -27,7 +31,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow SHIGAPASS {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     SHIGAPASS_MODULE(assembly)

@@ -20,8 +20,11 @@
  * @input query
  * Path to nucleotide query sequences that will be translated and searched against translated database
  *
- * @output sample_outputs  Record outputs from TBLASTX module per sample
- * @output run_outputs   Record with merged CSV and associated logs/versions
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited translated nucleotide-to-translated nucleotide alignment results (BLAST outfmt 6)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -31,7 +34,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow TBLASTX {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     query: Path
 
     main:

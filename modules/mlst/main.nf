@@ -21,12 +21,7 @@
  * Directory or compressed tarball containing the MLST database schemes
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

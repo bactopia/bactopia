@@ -18,8 +18,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for mcr-1 promoter analysis
  *
- * @output sample_outputs  Per-sample records containing meta, tsv, fa, results, logs, nf_logs, and versions
- * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited mcr-1 gene variation results
+ * - `fa`: Extracted mcr-1 gene sequence in FASTA format (optional)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -29,7 +33,7 @@ include { gather                  } from 'plugin/nf-bactopia'
 
 workflow MCRONI {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     MCRONI_MODULE(assembly)

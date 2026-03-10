@@ -16,8 +16,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format for agr locus detection
  *
- * @output sample_outputs  Per-sample records containing meta, summary, results, logs, nf_logs, versions
- * @output run_outputs   Cross-sample aggregation record
+ * @output sample_outputs
+ * - `summary`: Tab-delimited summary of agr locus type and operon variants
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -27,7 +30,7 @@ include { gather                    } from 'plugin/nf-bactopia'
 
 workflow AGRVATE {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     AGRVATE_MODULE(assembly)

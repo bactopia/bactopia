@@ -20,8 +20,11 @@
  * @input query
  * FASTA file containing nucleotide query sequences to search for in the assemblies
  *
- * @output sample_outputs  Record outputs from BLASTN module per sample
- * @output run_outputs   Record with merged CSV and associated logs/versions
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary of alignments (standard BLAST outfmt 6)
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -31,7 +34,7 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTN {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
     query: Path
 
     main:

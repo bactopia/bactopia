@@ -18,8 +18,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for H. parasuis serotype prediction
  *
- * @output sample_outputs  Per-sample records from HPSUISSERO_MODULE
- * @output run_outputs   Cross-sample aggregation record from CSVTK_CONCAT
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited HpsuisSero serotype prediction results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -29,7 +32,7 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow HPSUISSERO {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     HPSUISSERO_MODULE(assembly)

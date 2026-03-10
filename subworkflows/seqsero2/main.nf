@@ -16,8 +16,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs     Per-sample record outputs from SeqSero2
- * @output run_outputs      Merged record containing consolidated results from all samples
+ * @output sample_outputs
+ * - `tsv`: SeqSero2 serotype prediction results in TSV format
+ * - `txt`: SeqSero2 serotype prediction results in text format
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -27,7 +31,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow SEQSERO2 {
     take:
-    seqs: Channel<Tuple<Map, Path>>
+    seqs: Channel<Record>
 
     main:
     SEQSERO2_MODULE(seqs)

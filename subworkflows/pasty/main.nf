@@ -17,8 +17,13 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs   Per-sample record outputs from PASTY_MODULE
- * @output run_outputs    Merged record containing consolidated serogroup predictions from all samples
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited summary file with the predicted O-antigen serogroup
+ * - `blast`: A tab-delimited file of all raw BLAST hits used for the prediction
+ * - `details`: A tab-delimited file with detailed gene hits for each serogroup tested
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +33,7 @@ include { gather                } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     PASTY_MODULE(assembly)

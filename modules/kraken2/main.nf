@@ -28,7 +28,6 @@
  * Kraken2 database (Directory or compressed tarball)
  *
  * @output record(meta, kraken2_report, scrub_report, special_meta, classified, unclassified, classified_extra, unclassified_extra, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
  * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
  * - `special_meta`: A simplified metadata map for internal use
@@ -36,10 +35,6 @@
  * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
  * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
  * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

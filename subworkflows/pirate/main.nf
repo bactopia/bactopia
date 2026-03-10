@@ -17,38 +17,22 @@
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
- * @output aln      Core-genome alignment file containing genes present across all input genomes
- * @output csv      Gene presence/absence matrix in CSV format showing which genes are present in each genome
- * @output results  Aggregated results channel containing all output files
- * @output logs     Aggregated logs channel containing all execution logs
- * @output nf_logs  Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions Aggregated version information from all executed tools
+ * @output sample_outputs
+ *   - `aln`: Core genome alignment in FASTA format (optional)
+ *   - `csv`: Gene presence/absence matrix in CSV format
+ *   - `supplemental`: Directory containing PIRATE intermediate files and detailed outputs
  */
 nextflow.preview.types = true
 
 include { PIRATE as PIRATE_MODULE } from '../../modules/pirate/main'
-include { flattenPaths            } from 'plugin/nf-bactopia'
-include { gather                  } from 'plugin/nf-bactopia'
 
 workflow PIRATE {
     take:
-    gff: Channel<Tuple<Map, Set<Path>>>
+    gff: Channel<Record>
 
     main:
     PIRATE_MODULE(gff)
 
     emit:
-    // Individual outputs
-    aln: Channel<Tuple<Map, Set<Path>>> = PIRATE_MODULE.out.aln
-    csv: Channel<Tuple<Map, Set<Path>>> = PIRATE_MODULE.out.csv
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        PIRATE_MODULE.out.supplemental,
-        PIRATE_MODULE.out.aln,
-        PIRATE_MODULE.out.csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([PIRATE_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([PIRATE_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([PIRATE_MODULE.out.versions])
+    sample_outputs = PIRATE_MODULE.out
 }

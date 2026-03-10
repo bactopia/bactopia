@@ -24,19 +24,18 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output csv          TBProfiler resistance and lineage results in CSV format
- * @output json         Detailed analysis results with variant information in JSON format
- * @output txt          Summary report of resistance mutations and lineage
- * @output bam          Aligned reads in BAM format for visualization
- * @output vcf          Variant calls in VCF format
- * @output merged_csv   Combined resistance and lineage results from all samples
- * @output variants_csv Collated variant information across all samples
- * @output variants_txt Summary of detected resistance mutations
- * @output itol         iTOL input file for phylogenetic tree annotation
- * @output results      Aggregated results channel containing all output files
- * @output logs         Aggregated logs channel containing all execution logs
- * @output nf_logs      Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions     Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `bam`: Aligned BAM file
+ * - `csv`: Results in CSV format
+ * - `json`: Compressed JSON results file
+ * - `txt`: Results in text format
+ * - `vcf`: Compressed VCF file with variants
+ *
+ * @output run_outputs
+ * - `csv`: Main collated results in CSV format
+ * - `variants_csv`: Collated variants in CSV format
+ * - `variants_txt`: Collated variants in text format
+ * - `itol`: iTOL formatted files for visualization
  */
 nextflow.preview.types = true
 
@@ -46,7 +45,7 @@ include { gather             } from 'plugin/nf-bactopia'
 
 workflow TBPROFILER {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
 
     main:
     TBPROFILER_PROFILE(reads)

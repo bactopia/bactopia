@@ -10,17 +10,14 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation iqtree
  *
- * @input tuple(meta, alignment)
+ * @input record(meta, msa)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
+ * - `msa`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
  *
- * @output supplemental  Directory containing the detailed report (*.iqtree), distance matrix, and model parameters
- * @output phylogeny     The final maximum-likelihood phylogenetic tree (Newick format)
- * @output alignment     The input alignment (passed through)
- * @output aln_tree      A convenience tuple containing both the alignment and the tree
- * @output logs          Optional software execution logs containing warnings/errors
- * @output nf_logs       Nextflow execution scripts and logs for debugging
- * @output versions      A YAML formatted file with software versions
+ * @output record(meta, msa, phylogeny, supplemental, results, logs, nf_logs, versions)
+ * - `msa`: The input alignment (passed through)
+ * - `phylogeny`: The final maximum-likelihood phylogenetic tree (Newick format)
+ * - `supplemental`: Directory containing the detailed report (*.iqtree), distance matrix, and model parameters
  */
 nextflow.preview.types = true
 
@@ -33,15 +30,19 @@ process IQTREE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, msa) : Tuple<Map, Path>
+    (_meta: Map, msa: Path): Record
 
     output:
-    phylogeny    = tuple(meta, file(treefile))
-    aln_tree     = tuple(meta, msa, file(treefile))
-    supplemental = tuple(meta, files("${process_name}/*"))
-    logs         = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs      = tuple(meta, files(".command.*"))
-    versions     = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        msa: msa,
+        phylogeny: file(treefile),
+        supplemental: files("${process_name}/*"),
+        results: [file(treefile)],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     prefix = task.ext.prefix ?: "${_meta.name}"

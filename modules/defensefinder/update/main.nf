@@ -13,8 +13,8 @@
  * @note Internet Required
  * This process requires an active internet connection to fetch the models from GitHub.
  *
- * @output db        A compressed tarball containing both DefenseFinder and CasFinder models
- * @output logs      Optional software execution logs containing warnings/errors
+ * @output record(db, logs)
+ * - `db`: A compressed tarball containing both DefenseFinder and CasFinder models
  */
 nextflow.preview.types = true
 

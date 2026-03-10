@@ -21,7 +21,6 @@
  * Directory or compressed tarball containing the eggNOG database
  *
  * @output record(meta, hits, seed_orthologs, annotations, xlsx, orthologs, genepred, gff, no_anno, pfam, results, logs, nf_logs, versions)
- * - `meta`: Groovy Map containing sample information and output paths
  * - `hits`: Raw search hits (Diamond/MMseqs2) against the eggNOG database
  * - `seed_orthologs`: List of identified seed orthologs used for annotation transfer
  * - `annotations`: Main tab-delimited annotation file (COGs, KEGG, GO, etc.)
@@ -31,10 +30,6 @@
  * - `gff`: Annotations in GFF format (optional)
  * - `no_anno`: FASTA file of sequences that failed to be annotated (optional)
  * - `pfam`: Raw PFAM domain hits (optional)
- * - `results`: List of result files for publishing
- * - `logs`: Optional software execution logs containing warnings/errors
- * - `nf_logs`: Nextflow execution scripts and logs for debugging
- * - `versions`: A YAML formatted file with software versions
  */
 nextflow.preview.types = true
 

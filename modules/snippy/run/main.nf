@@ -24,30 +24,28 @@
  * - `meta`: Groovy Map containing reference information
  * - `reference`: Reference genome (FASTA or GenBank format)
  *
- * @output aligned_fa               A version of the reference with - at zero coverage positions
- * @output vcf                      The final annotated variants in VCF format
- * @output aligned_fa_error         Aligned FASTA file generated during error state
- * @output vcf_error                VCF file generated during error state
- * @output error                    Error log text file
- * @output annotated_vcf            Annotated VCF file
- * @output bam                      The alignments in BAM format (includes unmapped/multimapping)
- * @output bai                      Index for the BAM file
- * @output bed                      The variants in BED format
- * @output consensus_fa             Reference genome with all variants instantiated
- * @output consensus_subs_fa        Reference genome with only substitution variants instantiated
- * @output consensus_subs_masked_fa Reference genome with substitutions instantiated and low coverage masked
- * @output coverage                 Per-base coverage depth information
- * @output csv                      A comma-separated summary of variants
- * @output filt_vcf                 The filtered variant calls from Freebayes
- * @output gff                      The variants in GFF3 format
- * @output html                     A HTML summary of the variants
- * @output raw_vcf                  The unfiltered variant calls from Freebayes
- * @output subs_vcf                 VCF containing only substitution variants
- * @output tab                      A simple tab-separated summary of all variants
- * @output txt                      Tab-separated columnar list of alignment statistics
- * @output logs                     Optional software execution logs containing warnings/errors
- * @output nf_logs                  Nextflow execution scripts and logs for debugging
- * @output versions                 A YAML formatted file with software versions
+ * @output record(meta, aligned_fa, vcf, aligned_fa_error, vcf_error, error, annotated_vcf, bam, bai, bed, consensus_fa, consensus_subs_fa, consensus_subs_masked_fa, coverage, csv, filt_vcf, gff, html, raw_vcf, subs_vcf, tab, txt, results, logs, nf_logs, versions)
+ * - `aligned_fa`: A version of the reference with - at zero coverage positions
+ * - `vcf`: The final annotated variants in VCF format
+ * - `aligned_fa_error`: Aligned FASTA file generated during error state
+ * - `vcf_error`: VCF file generated during error state
+ * - `error`: Error log text file
+ * - `annotated_vcf`: Annotated VCF file
+ * - `bam`: The alignments in BAM format (includes unmapped/multimapping)
+ * - `bai`: Index for the BAM file
+ * - `bed`: The variants in BED format
+ * - `consensus_fa`: Reference genome with all variants instantiated
+ * - `consensus_subs_fa`: Reference genome with only substitution variants instantiated
+ * - `consensus_subs_masked_fa`: Reference genome with substitutions instantiated and low coverage masked
+ * - `coverage`: Per-base coverage depth information
+ * - `csv`: A comma-separated summary of variants
+ * - `filt_vcf`: The filtered variant calls from Freebayes
+ * - `gff`: The variants in GFF3 format
+ * - `html`: A HTML summary of the variants
+ * - `raw_vcf`: The unfiltered variant calls from Freebayes
+ * - `subs_vcf`: VCF containing only substitution variants
+ * - `tab`: A simple tab-separated summary of all variants
+ * - `txt`: Tab-separated columnar list of alignment statistics
  */
 nextflow.preview.types = true
 
@@ -59,34 +57,60 @@ process SNIPPY_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
-    (_ref_meta, reference)  : Tuple<Map, Set<Path>>
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (_ref_meta: Map, reference: Set<Path>): Record
 
     output:
-    aligned_fa               = tuple(meta, files("${prefix}.aligned.fa.gz", optional: true))
-    vcf                      = tuple(meta, files("${prefix}.vcf.gz", optional: true))
-    aligned_fa_error         = tuple(meta, files("${prefix}.error.aligned.fa.gz", optional: true))
-    vcf_error                = tuple(meta, files("${prefix}.error.vcf.gz", optional: true))
-    error                    = tuple(meta, files("${prefix}.error.txt", optional: true))
-    annotated_vcf            = tuple(meta, files("${prefix}.annotated.vcf.gz"))
-    bam                      = tuple(meta, files("${prefix}.bam", optional: true))
-    bai                      = tuple(meta, files("${prefix}.bam.bai", optional: true))
-    bed                      = tuple(meta, files("${prefix}.bed.gz"))
-    consensus_fa             = tuple(meta, files("${prefix}.consensus.fa.gz"))
-    consensus_subs_fa        = tuple(meta, files("${prefix}.consensus.subs.fa.gz"))
-    consensus_subs_masked_fa = tuple(meta, files("${prefix}.consensus.subs.masked.fa.gz"))
-    coverage                 = tuple(meta, files("${prefix}.coverage.txt.gz"))
-    csv                      = tuple(meta, files("${prefix}.csv.gz"))
-    filt_vcf                 = tuple(meta, files("${prefix}.filt.vcf.gz"))
-    gff                      = tuple(meta, files("${prefix}.gff.gz"))
-    html                     = tuple(meta, files("${prefix}.html"))
-    raw_vcf                  = tuple(meta, files("${prefix}.raw.vcf.gz"))
-    subs_vcf                 = tuple(meta, files("${prefix}.subs.vcf.gz"))
-    tab                      = tuple(meta, files("${prefix}.tab"))
-    txt                      = tuple(meta, files("${prefix}.txt"))
-    logs                     = tuple(meta, files("*.{log,err}", optional: true))
-    nf_logs                  = tuple(meta, files(".command.*"))
-    versions                 = tuple(meta, files("versions.yml"))
+    record(
+        meta: meta,
+        aligned_fa: files("${prefix}.aligned.fa.gz", optional: true),
+        vcf: files("${prefix}.vcf.gz", optional: true),
+        aligned_fa_error: files("${prefix}.error.aligned.fa.gz", optional: true),
+        vcf_error: files("${prefix}.error.vcf.gz", optional: true),
+        error: files("${prefix}.error.txt", optional: true),
+        annotated_vcf: files("${prefix}.annotated.vcf.gz"),
+        bam: files("${prefix}.bam", optional: true),
+        bai: files("${prefix}.bam.bai", optional: true),
+        bed: files("${prefix}.bed.gz"),
+        consensus_fa: files("${prefix}.consensus.fa.gz"),
+        consensus_subs_fa: files("${prefix}.consensus.subs.fa.gz"),
+        consensus_subs_masked_fa: files("${prefix}.consensus.subs.masked.fa.gz"),
+        coverage: files("${prefix}.coverage.txt.gz"),
+        csv: files("${prefix}.csv.gz"),
+        filt_vcf: files("${prefix}.filt.vcf.gz"),
+        gff: files("${prefix}.gff.gz"),
+        html: files("${prefix}.html"),
+        raw_vcf: files("${prefix}.raw.vcf.gz"),
+        subs_vcf: files("${prefix}.subs.vcf.gz"),
+        tab: files("${prefix}.tab"),
+        txt: files("${prefix}.txt"),
+        results: [
+            files("${prefix}.aligned.fa.gz", optional: true),
+            files("${prefix}.vcf.gz", optional: true),
+            files("${prefix}.error.aligned.fa.gz", optional: true),
+            files("${prefix}.error.vcf.gz", optional: true),
+            files("${prefix}.error.txt", optional: true),
+            files("${prefix}.annotated.vcf.gz"),
+            files("${prefix}.bam", optional: true),
+            files("${prefix}.bam.bai", optional: true),
+            files("${prefix}.bed.gz"),
+            files("${prefix}.consensus.fa.gz"),
+            files("${prefix}.consensus.subs.fa.gz"),
+            files("${prefix}.consensus.subs.masked.fa.gz"),
+            files("${prefix}.coverage.txt.gz"),
+            files("${prefix}.csv.gz"),
+            files("${prefix}.filt.vcf.gz"),
+            files("${prefix}.gff.gz"),
+            files("${prefix}.html"),
+            files("${prefix}.raw.vcf.gz"),
+            files("${prefix}.subs.vcf.gz"),
+            files("${prefix}.tab"),
+            files("${prefix}.txt")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
 
     script:
     reference_name = reference.toList()[0].getSimpleName()

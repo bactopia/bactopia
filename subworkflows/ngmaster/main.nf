@@ -17,8 +17,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs  Per-sample records containing NG-MAST typing results, logs, and versions
- * @output run_outputs   Merged record containing consolidated NG-MAST typing from all samples
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited NG-MASTER results with porB and tbpB alleles and sequence type
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +31,7 @@ include { gather                      } from 'plugin/nf-bactopia'
 
 workflow NGMASTER {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     NGMASTER_MODULE(assembly)

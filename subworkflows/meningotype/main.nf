@@ -17,8 +17,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @output sample_outputs  Per-sample records containing meta, tsv, results, logs, nf_logs, and versions
- * @output run_outputs   Merged record containing meta, csv, results, logs, nf_logs, and versions
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited meningotype results with serogroup, PorA, and FetA predictions
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
  */
 nextflow.preview.types = true
 
@@ -28,7 +31,7 @@ include { gather                            } from 'plugin/nf-bactopia'
 
 workflow MENINGOTYPE {
     take:
-    assembly: Channel<Tuple<Map, Path>>
+    assembly: Channel<Record>
 
     main:
     MENINGOTYPE_MODULE(assembly)

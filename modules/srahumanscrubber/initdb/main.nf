@@ -13,8 +13,8 @@
  * @note Internet Required
  * This process requires an active internet connection to fetch the database from NCBI FTP.
  *
- * @output db   The initialized SRA Human Scrubber database files
- * @output logs Optional software execution logs containing warnings/errors
+ * @output record(db, logs)
+ * - `db`: The initialized SRA Human Scrubber database files
  */
 nextflow.preview.types = true
 

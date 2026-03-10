@@ -27,22 +27,17 @@
  * @input use_srascrubber
  * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination.
  *
- * @output tsv            Individual sample contamination screening reports
- * @output special_tsv    Extended contamination reports with additional metrics
- * @output merged_tsv     Merged contamination reports across all samples
- * @output scrubbed       Clean metagenomic reads after contaminant removal
- * @output scrubbed_extra Additional cleaned reads from extended filtering
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output sample_outputs  Per-sample module record from the selected scrubbing tool
+ * @output scrubbed        Clean metagenomic reads after contaminant removal (unified from SRA/K2)
+ * @output scrubbed_extra  Additional cleaned reads from extended filtering
+ * @output special_tsv     Contamination reports keyed by special_meta for downstream joining
+ * @output run_outputs     Merged contamination reports across all samples from CSVTK_CONCAT
  */
 nextflow.preview.types = true
 
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { K2SCRUBBER       } from '../k2scrubber/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { flattenPaths     } from 'plugin/nf-bactopia'
 include { gather           } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
@@ -51,12 +46,7 @@ workflow SCRUBBER {
     use_srascrubber: Boolean
 
     main:
-    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-
-    // Execute subworkflows
+    ch_sample_outputs = channel.empty()
     ch_scrub_report = channel.empty()
     ch_special_report = channel.empty()
     ch_scrubbed = channel.empty()
@@ -64,58 +54,26 @@ workflow SCRUBBER {
 
     if (use_srascrubber) {
         SRAHUMANSCRUBBER(reads)
-        ch_results = ch_results.mix(SRAHUMANSCRUBBER.out.results)
-        ch_logs = ch_logs.mix(SRAHUMANSCRUBBER.out.logs)
-        ch_nf_logs = ch_nf_logs.mix(SRAHUMANSCRUBBER.out.nf_logs)
-        ch_versions = ch_versions.mix(SRAHUMANSCRUBBER.out.versions)
-        ch_scrub_report = ch_scrub_report.mix(SRAHUMANSCRUBBER.out.scrub_report)
-        ch_special_report = ch_special_report.mix(SRAHUMANSCRUBBER.out.scrub_special_report)
-        ch_scrubbed = ch_scrubbed.mix(SRAHUMANSCRUBBER.out.scrubbed)
-        ch_scrubbed_extra = ch_scrubbed_extra.mix(SRAHUMANSCRUBBER.out.scrubbed_extra)
+        ch_sample_outputs = SRAHUMANSCRUBBER.out.sample_outputs
+        ch_scrub_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrub_report) }
+        ch_special_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.special_meta, r.scrub_report) }
+        ch_scrubbed = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrubbed) }
+        ch_scrubbed_extra = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrubbed_extra) }
     } else {
         K2SCRUBBER(reads)
-        ch_results = ch_results.mix(K2SCRUBBER.out.results)
-        ch_logs = ch_logs.mix(K2SCRUBBER.out.logs)
-        ch_nf_logs = ch_nf_logs.mix(K2SCRUBBER.out.nf_logs)
-        ch_versions = ch_versions.mix(K2SCRUBBER.out.versions)
-        ch_scrub_report = ch_scrub_report.mix(K2SCRUBBER.out.scrub_report)
-        ch_special_report = ch_special_report.mix(K2SCRUBBER.out.scrub_special_report)
-        ch_scrubbed = ch_scrubbed.mix(K2SCRUBBER.out.scrubbed)
-        ch_scrubbed_extra = ch_scrubbed_extra.mix(K2SCRUBBER.out.scrubbed_extra)
+        ch_sample_outputs = K2SCRUBBER.out.sample_outputs
+        ch_scrub_report = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrub_report) }
+        ch_special_report = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.special_meta, r.scrub_report) }
+        ch_scrubbed = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.unclassified) }
+        ch_scrubbed_extra = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.unclassified_extra) }
     }
 
     CSVTK_CONCAT(gather(ch_scrub_report, 'scrubber'), 'tsv', 'tsv')
 
-    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
-    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
-    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
-    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
-    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
-
     emit:
-    // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = ch_scrub_report
-    special_tsv: Channel<Tuple<Map, Set<Path>>> = ch_special_report
-    merged_tsv = ch_concat_csv
-    scrubbed: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed
-    scrubbed_extra: Channel<Tuple<Map, Set<Path>>> = ch_scrubbed_extra
-
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        ch_scrub_report,
-        ch_scrubbed,
-        ch_concat_csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ch_logs,
-        ch_concat_logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ch_nf_logs,
-        ch_concat_nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        ch_versions,
-        ch_concat_versions
-    ])
+    sample_outputs = ch_sample_outputs
+    scrubbed = ch_scrubbed
+    scrubbed_extra = ch_scrubbed_extra
+    special_tsv = ch_special_report
+    run_outputs = CSVTK_CONCAT.out
 }
