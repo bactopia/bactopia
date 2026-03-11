@@ -35,6 +35,34 @@ description: A full list of Bactopia releases and a description of the changes.
 - Help messages to modules for improved user guidance
 - Converted pytest tests to nf-test framework
 - YAML version of `workflows.config` for alternative configuration format
+- bump program versions in modules
+    - `abricate`: 1.0.1 -> 1.2.0
+    - `abritamr`: 1.0.19 -> 1.0.20
+    - `ariba`: 2.14.6 -> 2.14.7
+    - `bakta`: 1.11.4 -> 1.12.0
+    - `blast`: 2.16.0 -> 2.17.0
+    - `checkm-genome`: 1.2.3 -> 1.2.5
+    - `checkm2`: 1.0.2 -> 1.1.0
+    - `clonalframeml`: 1.12 -> 1.13
+    - `defense-finder`: 2.0.0 -> 2.0.1
+    - `ectyper`: 1.0.0 -> 2.0.0
+    - `eggnog-mapper`: 2.1.12 -> 2.1.13
+    - `gtdbtk`: 2.5.2 -> 2.6.1
+    - `gubbins`: 3.4 -> 3.4.3
+    - `iqtree`: 2.4.0 -> 3.0.1
+    - `kleborate`: 3.1.3 -> 3.2.4
+    - `legsta`: 0.5.1 -> 0.5.2
+    - `meningotype`: 0.8.5 -> 0.8.6b
+    - `mlst`: 2.23.0 -> 2.32.2
+    - `ncbi-amrfinderplus`: 4.0.19 -> 4.2.7
+    - `ngmaster`: 0.5.8 -> 1.1.1
+    - `panaroo`: 1.5.1 -> 1.6.0
+    - `prokka`: 1.14.6 -> 1.15.6
+    - `rgi`: 6.0.3 -> 6.0.5
+    - `seqsero2`: 1.3.1 -> 1.3.2
+    - `snp-dists`: 0.8.2 -> 1.2.0
+    - `sylph`: 0.8.1 -> 0.9.0
+    - `tb-profiler`: 6.6.5 -> 6.6.6
 
 ### `Fixed`
 
