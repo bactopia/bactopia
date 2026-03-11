@@ -22,7 +22,7 @@ nextflow_process {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/sylph/sylph.syldb")
+                input[1] = file("${params.test_data_dir}/data/datasets/sylph/gtdb-r226-c200-dbv1.syldb")
                 """
             }
         }

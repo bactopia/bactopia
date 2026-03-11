@@ -5,7 +5,37 @@ nextflow_process {
     tag "modules"
     tag "ssuissero"
 
-    test("ssuissero - module - GCF_002285535") {
+    test("ssuissero - module - GCF_002285535 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_002285535"],
+                        assembly: file("${params.test_data_dir}/data/species/streptococcus_suis/genome/GCF_002285535.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("ssuissero - module - GCF_002285535 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

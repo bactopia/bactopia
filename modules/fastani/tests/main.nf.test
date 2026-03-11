@@ -5,7 +5,40 @@ nextflow_process {
     tag "modules"
     tag "fastani"
 
-    test("fastani - module - haemophilus query vs reference") {
+    test("fastani - module - fastani-test - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "fastani-test"],
+                        query: [
+                            file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/GCF_900478275.fna")
+                        ]
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/haemophilus_influenzae/nthi/GCA_000027305.fna.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("fastani - module - fastani-test - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

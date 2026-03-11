@@ -66,6 +66,7 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Fixed`
 
+- Corrected container build numbers for multiple modules
 - AbritAMR prefix handling to use sample-specific prefixes with safe renames
 - Missing configuration in Teton subworkflow
 - Config path resolution issues

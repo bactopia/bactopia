@@ -6,7 +6,7 @@ nextflow_process {
     tag "eggnog"
     tag "eggnog_mapper"
 
-    test("eggnog - module - GCF_000292685") {
+    test("eggnog - module - GCF_000292685 - tarball") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -19,7 +19,40 @@ nextflow_process {
                         proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/eggnog")
+                input[1] = file("${params.test_data_dir}/data/datasets/eggnog/eggnog.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.hits,
+                    record.seed_orthologs,
+                    record.annotations,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("eggnog - module - GCF_000292685 - path") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/eggnog/db")
                 """
             }
         }

@@ -6,7 +6,7 @@
  *
  * @status stable
  * @keywords checkm2, download, database, diamond, machine learning
- * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,no-test
  * @citation checkm2
  *
  * @note Internet Required
@@ -26,9 +26,11 @@ process CHECKM2_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = file("checkm2_db_v${db_version}.dmnd")
-    json = file("checkm2_db_v${db_version}.json")
-    logs = files("logs/*", optional: true)
+    record(
+        db:   file("checkm2_db_v${db_version}.dmnd"),
+        json: file("checkm2_db_v${db_version}.json"),
+        logs: files("logs/*", optional: true)
+    )
 
     script:
     // Check for latest versions at https://doi.org/10.5281/zenodo.4626518

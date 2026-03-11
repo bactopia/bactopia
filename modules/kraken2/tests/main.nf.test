@@ -5,7 +5,7 @@ nextflow_process {
     tag "modules"
     tag "kraken2"
 
-    test("kraken2 - module - SRR2838702") {
+    test("kraken2 - module - SRR2838702 - tarball") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -21,7 +21,41 @@ nextflow_process {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/kraken2")
+                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_standard_08_GB_20251015.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.kraken2_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("kraken2 - module - SRR2838702 - path") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_standard_08_GB_20251015")
                 """
             }
         }

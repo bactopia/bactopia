@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords human, database, scrubber, ncbi, download
- * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download,no-test
  * @citation srahumanscrubber
  *
  * @note Internet Required

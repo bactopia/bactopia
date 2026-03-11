@@ -5,7 +5,38 @@ nextflow_process {
     tag "modules"
     tag "emmtyper"
 
-    test("emmtyper - module - GCF_006364235") {
+    test("emmtyper - module - GCF_006364235 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_006364235"],
+                        assembly: file("${params.test_data_dir}/data/species/streptococcus_pyogenes/genome/GCF_006364235.fna")
+                    )
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("emmtyper - module - GCF_006364235 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

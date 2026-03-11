@@ -5,7 +5,38 @@ nextflow_process {
     tag "modules"
     tag "mcroni"
 
-    test("mcroni - module - GCF_001682305") {
+    test("mcroni - module - GCF_001682305 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_001682305"],
+                        assembly: file("${params.test_data_dir}/data/species/escherichia_coli/genome/GCF_001682305.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.fa,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("mcroni - module - GCF_001682305 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

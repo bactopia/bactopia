@@ -5,7 +5,7 @@ nextflow_process {
     tag "modules"
     tag "spatyper"
 
-    test("spatyper - module - GCF_000017085") {
+    test("spatyper - module - GCF_000017085 - uncompressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -16,6 +16,38 @@ nextflow_process {
                     record(
                         _meta: [name: "GCF_000017085"],
                         assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                    )
+                )
+                input[1] = null
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("spatyper - module - GCF_000017085 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
                     )
                 )
                 input[1] = null

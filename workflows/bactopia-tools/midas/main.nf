@@ -19,6 +19,9 @@
  * @input midas_db
  * Path to MIDAS database
  *
+ * @input download_midas
+ * Download MIDAS database if not found locally
+ *
  * @section Species Abundance
  * @publish *.tsv              Species abundance profiles
  * @publish *-species.tsv       Species-level abundance
@@ -40,7 +43,8 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    midas_db : Path
+    midas_db       : Path
+    download_midas : Boolean
 }
 
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -51,7 +55,8 @@ workflow {
     BACTOPIATOOL_INIT()
     MIDAS(
         BACTOPIATOOL_INIT.out.reads,
-        params.midas_db
+        params.midas_db,
+        params.download_midas
     )
     ch_sample_nf_logs = MIDAS.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }

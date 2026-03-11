@@ -5,7 +5,37 @@ nextflow_process {
     tag "modules"
     tag "clermontyping"
 
-    test("clermontyping - module - GCF_001695515") {
+    test("clermontyping - module - GCF_001695515 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_001695515"],
+                        assembly: file("${params.test_data_dir}/data/species/escherichia_coli/genome/GCF_001695515.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("clermontyping - module - GCF_001695515 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

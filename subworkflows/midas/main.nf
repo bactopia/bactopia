@@ -15,7 +15,7 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
  * @citation midas
  *
- * @modules csvtk_concat, midas_species
+ * @modules csvtk_concat, midas_species, midas_download
  *
  * @input tuple(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
@@ -27,6 +27,9 @@
  * @input database
  * MIDAS reference database for species identification and quantification
  *
+ * @input download_midas
+ * Boolean flag to automatically download the MIDAS database if not available
+ *
  * @output sample_outputs
  * - `tsv`: A tab-delimited summary of species abundance and coverage
  * - `abundances`: Detailed species abundance profile
@@ -36,17 +39,25 @@
  */
 nextflow.preview.types = true
 
-include { MIDAS_SPECIES } from '../../modules/midas/species/main'
-include { CSVTK_CONCAT  } from '../../modules/csvtk/concat/main'
-include { gather        } from 'plugin/nf-bactopia'
+include { MIDAS_DOWNLOAD } from '../../modules/midas/download/main'
+include { MIDAS_SPECIES  } from '../../modules/midas/species/main'
+include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
+include { gather         } from 'plugin/nf-bactopia'
 
 workflow MIDAS {
     take:
     reads: Channel<Record>
     database: Path
+    download_midas: Boolean
 
     main:
-    MIDAS_SPECIES(reads, database)
+    if (download_midas) {
+        MIDAS_DOWNLOAD()
+        MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.db)
+    } else {
+        MIDAS_SPECIES(reads, database)
+    }
+
     CSVTK_CONCAT(gather(MIDAS_SPECIES.out, 'midas', field: 'tsv'), 'tsv', 'tsv')
     emit:
     sample_outputs = MIDAS_SPECIES.out

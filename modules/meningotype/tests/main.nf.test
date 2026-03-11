@@ -5,7 +5,37 @@ nextflow_process {
     tag "modules"
     tag "meningotype"
 
-    test("meningotype - module - GCF_003355215") {
+    test("meningotype - module - GCF_003355215 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_003355215"],
+                        assembly: file("${params.test_data_dir}/data/species/neisseria_meningitidis/genome/GCF_003355215.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("meningotype - module - GCF_003355215 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

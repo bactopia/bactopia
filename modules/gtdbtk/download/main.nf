@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords gtdb, taxonomy, database, download, setup, bacteria, archaea
- * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,conditional-logic
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,conditional-logic,no-test
  * @citation gtdbtk
  *
  * @note Internet & Storage Required
@@ -28,9 +28,11 @@ process GTDBTK_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db         = files("gtdbtk/", optional: true)
-    db_tarball = file("gtdbtk.tar.gz", optional: true)
-    logs       = files("logs/*", optional: true)
+    record(
+        db:         files("gtdbtk/", optional: true),
+        db_tarball: file("gtdbtk.tar.gz", optional: true),
+        logs:       files("logs/*", optional: true)
+    )
 
     script:
     """

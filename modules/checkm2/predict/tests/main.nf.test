@@ -6,7 +6,38 @@ nextflow_process {
     tag "checkm2"
     tag "checkm2_predict"
 
-    test("checkm2_predict - module - GCF_000292685") {
+    test("checkm2_predict - module - GCF_000292685 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/checkm2/checkm2.dmnd")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("checkm2_predict - module - GCF_000292685 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

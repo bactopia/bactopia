@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords eggnog, database, download, annotation, functional, orthology
- * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,no-test
  * @citation eggnog_mapper
  *
  * @note Internet & Storage Required
@@ -27,8 +27,10 @@ process EGGNOG_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = files("eggnog/eggnog*")
-    logs = files("eggnog/logs/*")
+    record(
+        db:   files("eggnog/eggnog*"),
+        logs: files("eggnog/logs/*")
+    )
 
     script:
     def args = task.ext.args ?: ''

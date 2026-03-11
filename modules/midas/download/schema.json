@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/midas/download/schema.json",
+    "title": "MIDAS Module",
+    "description": "A module for metagenomic species profiling",
+    "type": "object",
+    "$defs": {
+        "midas_download_parameters": {
+            "title": "MIDAS Database Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "midas_db": {
+                    "type": "string",
+                    "description": "A single tarball or path to a MIDAS formatted database",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "is_required": true
+                },
+                "midas_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the MIDAS database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "download_midas": {
+                    "type": "boolean",
+                    "description": "Download the MIDAS database to the path given by --midas_db",
+                    "default": false,
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/midas_download_parameters"
+        }
+    ]
+}

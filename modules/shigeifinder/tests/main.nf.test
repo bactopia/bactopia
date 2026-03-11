@@ -5,7 +5,37 @@ nextflow_process {
     tag "modules"
     tag "shigeifinder"
 
-    test("shigeifinder - module - GCF_016726285") {
+    test("shigeifinder - module - GCF_016726285 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_016726285"],
+                        assembly: file("${params.test_data_dir}/data/species/shigella_boydii/genome/GCF_016726285.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("shigeifinder - module - GCF_016726285 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

@@ -6,7 +6,7 @@ nextflow_process {
     tag "midas"
     tag "midas_species"
 
-    test("midas - module - SRR2838702") {
+    test("midas - module - SRR2838702 - tarball") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -22,7 +22,43 @@ nextflow_process {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas")
+                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas/midas_db_v1.2.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.abundances,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+
+    test("midas - module - SRR2838702 - path") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas/midas_db_v1.2")
                 """
             }
         }

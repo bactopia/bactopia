@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, database, download, annotation, bakta, setup
- * @tags complexity:simple input-type:none output-type:multiple features:internet-access,archive-output,compression,resource-download
+ * @tags complexity:simple input-type:none output-type:multiple features:internet-access,archive-output,compression,resource-download,no-test
  * @citation bakta
  *
  * @note Internet & Storage Required
@@ -29,9 +29,11 @@ process BAKTA_DOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db         = files("bakta-${task.ext.bakta_db_type}/*", optional: true)
-    db_tarball = file("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true)
-    logs       = files("logs/*", optional: true)
+    record(
+        db:         files("bakta-${task.ext.bakta_db_type}/*", optional: true),
+        db_tarball: file("bakta-${task.ext.bakta_db_type}.tar.gz", optional: true),
+        logs:       files("logs/*", optional: true)
+    )
 
     script:
     """

@@ -5,7 +5,39 @@ nextflow_process {
     tag "modules"
     tag "gamma"
 
-    test("gamma - module - GCF_000292685") {
+    test("gamma - module - GCF_000292685 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.ffn")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.gamma,
+                    record.psl,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gamma - module - GCF_000292685 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

@@ -5,7 +5,37 @@ nextflow_process {
     tag "modules"
     tag "lissero"
 
-    test("lissero - module - GCF_002285835") {
+    test("lissero - module - GCF_002285835 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_002285835"],
+                        assembly: file("${params.test_data_dir}/data/species/listeria_monocytogenes/genome/GCF_002285835.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("lissero - module - GCF_002285835 - compressed") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""

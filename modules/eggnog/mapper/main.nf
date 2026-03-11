@@ -42,7 +42,7 @@ process EGGNOG_MAPPER {
 
     input:
     (_meta: Map, proteins: Path): Record
-    db                : Path
+    db                          : Path
 
     output:
     record(
