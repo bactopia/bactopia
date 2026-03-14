@@ -16,7 +16,7 @@ nextflow_process {
                     record(
                         _meta: [name: "portiera"],
                         msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln"),
-                        newick: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/genome_msa.nwk")
+                        newick: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.nwk")
                     )
                 )
                 """
@@ -50,7 +50,7 @@ nextflow_process {
                     record(
                         _meta: [name: "portiera"],
                         msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz"),
-                        newick: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/genome_msa.nwk")
+                        newick: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.nwk")
                     )
                 )
                 """

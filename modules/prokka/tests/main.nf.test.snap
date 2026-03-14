@@ -1,0 +1,46 @@
+{
+    "prokka - module - GCF_000292685 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-PROKKA",
+                "logs_dir": "GCF_000292685/main/annotator/prokka/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/main/annotator/prokka/",
+                "process_name": "prokka",
+                "scope": "sample"
+            },
+            "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0",
+            "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6",
+            [
+                "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
+            ]
+        ],
+        "timestamp": "2026-03-14T00:50:06.273880789",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "prokka - module - GCF_000292685 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-PROKKA",
+                "logs_dir": "GCF_000292685/main/annotator/prokka/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/main/annotator/prokka/",
+                "process_name": "prokka",
+                "scope": "sample"
+            },
+            "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0",
+            "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6",
+            [
+                "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
+            ]
+        ],
+        "timestamp": "2026-03-14T00:50:31.652695738",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

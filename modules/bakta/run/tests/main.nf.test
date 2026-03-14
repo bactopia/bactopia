@@ -6,7 +6,7 @@ nextflow_process {
     tag "bakta"
     tag "bakta_run"
 
-    test("bakta - module - GCF_000292685 - tarball") {
+    test("bakta - module - GCF_000292685 - tarball (light)") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -19,7 +19,7 @@ nextflow_process {
                         assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/bakta/bakta.tar.gz")
+                input[1] = file("${params.test_data_dir}/data/datasets/bakta/light/bakta-light.tar.gz")
                 input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
                 input[3] = file("${params.test_data_dir}/data/empty/EMPTY_PRODIGAL_TF")
                 input[4] = file("${params.test_data_dir}/data/empty/EMPTY_REPLICONS")
@@ -41,7 +41,7 @@ nextflow_process {
         }
     }
 
-    test("bakta - module - GCF_000292685 - path") {
+    test("bakta - module - GCF_000292685 - path (full)") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -54,7 +54,7 @@ nextflow_process {
                         assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/bakta/db")
+                input[1] = file("${params.test_data_dir}/data/datasets/bakta/light/db-light")
                 input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
                 input[3] = file("${params.test_data_dir}/data/empty/EMPTY_PRODIGAL_TF")
                 input[4] = file("${params.test_data_dir}/data/empty/EMPTY_REPLICONS")

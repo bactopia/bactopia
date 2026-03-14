@@ -29,15 +29,21 @@ process BACTOPIA_SAMPLESHEET {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, classification: Set<Path>): Record
+    (_meta: Map, classification: Path): Record
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
-        bacteria_tsv: files("${prefix}.bacteria.tsv"),
-        nonbacteria_tsv: files("${prefix}.nonbacteria.tsv"),
-        sizemeup: files("${prefix}-sizemeup.txt"),
-        results: [files("${prefix}.bacteria.tsv"), files("${prefix}.nonbacteria.tsv"), files("${prefix}-sizemeup.txt")],
+        bacteria_tsv: file("${prefix}.bacteria.tsv"),
+        nonbacteria_tsv: file("${prefix}.nonbacteria.tsv"),
+        sizemeup: file("${prefix}-sizemeup.txt"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.bacteria.tsv"),
+            files("${prefix}.nonbacteria.tsv"),
+            files("${prefix}-sizemeup.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -63,12 +69,18 @@ process BACTOPIA_SAMPLESHEET {
         --prefix ${prefix}
 
     # create sample sheet
-    teton-prepare.py \\
-        ${prefix} \\
-        ${prefix}-sizemeup.txt \\
-        ${meta.runtype} \\
-        ${meta.teton_reads} \\
-        ${task.ext.outdir}
+    if [ ${meta.run_type} != "ci" ]; then
+        teton-prepare.py \\
+            ${prefix} \\
+            ${prefix}-sizemeup.txt \\
+            ${meta.runtype} \\
+            ${meta.teton_reads} \\
+            ${task.ext.outdir}
+    else
+        # This is a CI run, outfir path is not available
+        touch ${prefix}.bacteria.tsv
+        touch ${prefix}.nonbacteria.tsv
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

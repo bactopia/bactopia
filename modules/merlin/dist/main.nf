@@ -54,7 +54,7 @@ process MERLIN_DIST {
 
     input:
     (_meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    reference                                                           : Path
+    reference                                                          : Path
 
     stage:
     stageAs 'fna/*', fna
@@ -67,11 +67,11 @@ process MERLIN_DIST {
     record(
         // Named fields (used downstream)
         meta: meta,
-        fna: fna,
-        r1: r1,
-        r2: r2,
-        se: se,
-        lr: lr,
+        fna: file(fna),
+        r1: file(r1),
+        r2: file(r2),
+        se: file(se),
+        lr: file(lr),
         escherichia: file("escherichia.genus", optional: true),
         haemophilus: file("haemophilus.genus", optional: true),
         klebsiella: file("klebsiella.genus", optional: true),

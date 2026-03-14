@@ -1,106 +1,44 @@
 {
     "Scrubber (kraken) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/scrubber",
-                "SRR2838702/tools/scrubber/kraken2",
-                "SRR2838702/tools/scrubber/kraken2/SRR2838702.scrub.report.tsv",
-                "SRR2838702/tools/scrubber/kraken2/SRR2838702_R1.scrubbed.fastq.gz",
-                "SRR2838702/tools/scrubber/kraken2/SRR2838702_R2.scrubbed.fastq.gz",
-                "SRR2838702/tools/scrubber/kraken2/logs",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.begin",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.err",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.log",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.out",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.run",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.sh",
-                "SRR2838702/tools/scrubber/kraken2/logs/nf.command.trace",
-                "SRR2838702/tools/scrubber/kraken2/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/scrubber",
-                "bactopia-runs/scrubber/merged-results",
-                "bactopia-runs/scrubber/merged-results/logs",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.begin",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.err",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.log",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.out",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.run",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.sh",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.trace",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/versions.yml",
-                "bactopia-runs/scrubber/merged-results/scrubber.tsv",
                 "bactopia-runs/scrubber/nf-reports",
                 "bactopia-runs/scrubber/nf-reports/scrubber-dag.dot",
                 "bactopia-runs/scrubber/nf-reports/scrubber-report.html",
                 "bactopia-runs/scrubber/nf-reports/scrubber-timeline.html"
             ],
             [
-                "SRR2838702.scrub.report.tsv:md5,32de799363572d06a224ad7b7b807275",
-                "versions.yml:md5,d170f47bac372fbfdb6969753b55889b",
-                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5",
-                "scrubber.tsv:md5,32de799363572d06a224ad7b7b807275"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:34.821773262",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-30T14:59:53.095050961"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     },
     "Scrubber (sra-human-scrubber) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/scrubber",
-                "SRR2838702/tools/scrubber/srahumanscrubber",
-                "SRR2838702/tools/scrubber/srahumanscrubber/SRR2838702.scrub.report.tsv",
-                "SRR2838702/tools/scrubber/srahumanscrubber/SRR2838702_R1.scrubbed.fastq.gz",
-                "SRR2838702/tools/scrubber/srahumanscrubber/SRR2838702_R2.scrubbed.fastq.gz",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.begin",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.err",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.log",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.out",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.run",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.sh",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/nf.command.trace",
-                "SRR2838702/tools/scrubber/srahumanscrubber/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/scrubber",
-                "bactopia-runs/scrubber/merged-results",
-                "bactopia-runs/scrubber/merged-results/logs",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.begin",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.err",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.log",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.out",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.run",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.sh",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.trace",
-                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/versions.yml",
-                "bactopia-runs/scrubber/merged-results/scrubber.tsv",
                 "bactopia-runs/scrubber/nf-reports",
                 "bactopia-runs/scrubber/nf-reports/scrubber-dag.dot",
                 "bactopia-runs/scrubber/nf-reports/scrubber-report.html",
                 "bactopia-runs/scrubber/nf-reports/scrubber-timeline.html"
             ],
             [
-                "SRR2838702.scrub.report.tsv:md5,9554a4a6929bbfd485e28acd4a716772",
-                "versions.yml:md5,74fd99ec158fe3e666d2ba871c809827",
-                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5",
-                "scrubber.tsv:md5,9554a4a6929bbfd485e28acd4a716772"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:46.004278509",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-30T15:00:33.694156992"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

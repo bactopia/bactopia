@@ -1,74 +1,23 @@
 {
     "Ariba - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            3,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/ariba",
-                "SRR2838702/tools/ariba/card",
-                "SRR2838702/tools/ariba/card/SRR2838702-report.tsv",
-                "SRR2838702/tools/ariba/card/SRR2838702-summary.csv",
-                "SRR2838702/tools/ariba/card/logs",
-                "SRR2838702/tools/ariba/card/logs/card",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.begin",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.err",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.log",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.out",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.run",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.sh",
-                "SRR2838702/tools/ariba/card/logs/card/nf.command.trace",
-                "SRR2838702/tools/ariba/card/logs/card/versions.yml",
-                "SRR2838702/tools/ariba/card/supplemental",
-                "SRR2838702/tools/ariba/card/supplemental/assembled_genes.fa.gz",
-                "SRR2838702/tools/ariba/card/supplemental/assembled_seqs.fa.gz",
-                "SRR2838702/tools/ariba/card/supplemental/assemblies.fa.gz",
-                "SRR2838702/tools/ariba/card/supplemental/debug.report.tsv",
-                "SRR2838702/tools/ariba/card/supplemental/log.clusters.gz",
-                "SRR2838702/tools/ariba/card/supplemental/version_info.txt",
                 "bactopia-runs",
                 "bactopia-runs/ariba-card",
-                "bactopia-runs/ariba-card/merged-results",
-                "bactopia-runs/ariba-card/merged-results/card-report.tsv",
-                "bactopia-runs/ariba-card/merged-results/card-summary.csv",
-                "bactopia-runs/ariba-card/merged-results/logs",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.begin",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.err",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.log",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.out",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.run",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.sh",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/nf.command.trace",
-                "bactopia-runs/ariba-card/merged-results/logs/card-report-concat/versions.yml",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.begin",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.err",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.log",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.out",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.run",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.sh",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/nf.command.trace",
-                "bactopia-runs/ariba-card/merged-results/logs/card-summary-concat/versions.yml",
                 "bactopia-runs/ariba-card/nf-reports",
                 "bactopia-runs/ariba-card/nf-reports/ariba-dag.dot",
                 "bactopia-runs/ariba-card/nf-reports/ariba-report.html",
                 "bactopia-runs/ariba-card/nf-reports/ariba-timeline.html"
             ],
             [
-                "SRR2838702-report.tsv:md5,77333434bd05e4d8da76d89c5a3c153d",
-                "SRR2838702-summary.csv:md5,f30e8d4bdfecba444e97cafd990f8b4f",
-                "versions.yml:md5,797d4d8c6bda83a226dc9c5f8d71e71e",
-                "card-report.tsv:md5,77333434bd05e4d8da76d89c5a3c153d",
-                "card-summary.csv:md5,f30e8d4bdfecba444e97cafd990f8b4f",
-                "versions.yml:md5,ff3a06461ce07f813e0b9e2739bb05ca",
-                "versions.yml:md5,1a4d97856cb563f9b6c84132cd60d481"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:27.928062229",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-25T14:48:18.498334925"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

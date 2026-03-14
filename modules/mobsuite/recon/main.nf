@@ -41,7 +41,12 @@ process MOBSUITE_RECON {
         txt: file("${prefix}-mobtyper.txt", optional: true),
         plasmids: files("plasmid_*.fasta.gz", optional: true),
         // Generic fields (used for publishing)
-        results: files("${prefix}-chromosome.fasta.gz") + files("${prefix}-contig_report.txt") + files("${prefix}-mobtyper.txt", optional: true) + files("plasmid_*.fasta.gz", optional: true),
+        results: [
+            files("${prefix}-chromosome.fasta.gz"),
+            files("${prefix}-contig_report.txt"),
+            files("${prefix}-mobtyper.txt", optional: true),
+            files("plasmid_*.fasta.gz", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

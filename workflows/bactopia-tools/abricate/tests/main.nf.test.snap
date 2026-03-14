@@ -1,53 +1,23 @@
 {
     "Abricate - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/abricate",
-                "SRR2838702/tools/abricate/ncbi",
-                "SRR2838702/tools/abricate/ncbi/SRR2838702.txt",
-                "SRR2838702/tools/abricate/ncbi/logs",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.begin",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.err",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.log",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.out",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.run",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.sh",
-                "SRR2838702/tools/abricate/ncbi/logs/nf.command.trace",
-                "SRR2838702/tools/abricate/ncbi/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/abricate-ncbi",
-                "bactopia-runs/abricate-ncbi/merged-results",
-                "bactopia-runs/abricate-ncbi/merged-results/abricate-ncbi.tsv",
-                "bactopia-runs/abricate-ncbi/merged-results/logs",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.begin",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.err",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.log",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.out",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.run",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.sh",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/nf.command.trace",
-                "bactopia-runs/abricate-ncbi/merged-results/logs/abricate-concat/ncbi/versions.yml",
                 "bactopia-runs/abricate-ncbi/nf-reports",
                 "bactopia-runs/abricate-ncbi/nf-reports/abricate-dag.dot",
                 "bactopia-runs/abricate-ncbi/nf-reports/abricate-report.html",
                 "bactopia-runs/abricate-ncbi/nf-reports/abricate-timeline.html"
             ],
             [
-                "SRR2838702.txt:md5,69af3321b0bc808b7ef85f102395736f",
-                "versions.yml:md5,3ea80ad2b577e57657a16b1b2d57aa54",
-                "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30",
-                "versions.yml:md5,bf7f81cba42bdb8cecb8cc900669ecf5"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:31.616724364",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-08-25T14:23:33.248693354"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

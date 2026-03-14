@@ -1,0 +1,44 @@
+{
+    "lissero - module - GCF_002285835 - compressed": {
+        "content": [
+            {
+                "id": "GCF_002285835-LISSERO",
+                "logs_dir": "GCF_002285835/tools/lissero//logs/",
+                "name": "GCF_002285835",
+                "output_dir": "GCF_002285835/tools/lissero/",
+                "process_name": "lissero",
+                "scope": "sample"
+            },
+            "GCF_002285835.tsv:md5,f3fedfb8fe6789eaa389129d25c88d5f",
+            [
+                "versions.yml:md5,f091db71715241a5f46beacaf97dc08b"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:59:03.535718819",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "lissero - module - GCF_002285835 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_002285835-LISSERO",
+                "logs_dir": "GCF_002285835/tools/lissero//logs/",
+                "name": "GCF_002285835",
+                "output_dir": "GCF_002285835/tools/lissero/",
+                "process_name": "lissero",
+                "scope": "sample"
+            },
+            "GCF_002285835.tsv:md5,f3fedfb8fe6789eaa389129d25c88d5f",
+            [
+                "versions.yml:md5,f091db71715241a5f46beacaf97dc08b"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:51.14669177",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

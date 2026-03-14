@@ -1,0 +1,65 @@
+{
+    "tbprofiler - module - SRR2838702 (Paired-End)": {
+        "content": [
+            {
+                "id": "SRR2838702-TBPROFILER_PROFILE",
+                "logs_dir": "SRR2838702/tools/tbprofiler//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,a9878d229b1cd0c4e770337709c8d57f"
+            ]
+        ],
+        "timestamp": "2026-03-14T01:34:44.421035363",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "tbprofiler - module - SRR2838702 (Single-End)": {
+        "content": [
+            {
+                "id": "SRR2838702-TBPROFILER_PROFILE",
+                "logs_dir": "SRR2838702/tools/tbprofiler//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,a9878d229b1cd0c4e770337709c8d57f"
+            ]
+        ],
+        "timestamp": "2026-03-14T01:35:17.94494937",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "tbprofiler - module - SRR2838702 (Long Read)": {
+        "content": [
+            {
+                "id": "ERR3772599-TBPROFILER_PROFILE",
+                "logs_dir": "ERR3772599/tools/tbprofiler//logs/",
+                "name": "ERR3772599",
+                "output_dir": "ERR3772599/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,a9878d229b1cd0c4e770337709c8d57f"
+            ]
+        ],
+        "timestamp": "2026-03-14T01:35:53.701365425",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

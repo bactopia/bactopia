@@ -30,7 +30,6 @@ nextflow_process {
                     record.meta,
                     record.tsv,
                     record.blast,
-                    record.details,
                     record.versions
                 ).match() }
             )

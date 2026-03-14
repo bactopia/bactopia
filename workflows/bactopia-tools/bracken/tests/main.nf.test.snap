@@ -1,116 +1,44 @@
 {
     "Bracken (tarball) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            3,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/bracken",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.abundances.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.classification.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.report.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.tsv",
-                "SRR2838702/tools/bracken/SRR2838702.kraken2.report.txt",
-                "SRR2838702/tools/bracken/logs",
-                "SRR2838702/tools/bracken/logs/nf.command.begin",
-                "SRR2838702/tools/bracken/logs/nf.command.err",
-                "SRR2838702/tools/bracken/logs/nf.command.log",
-                "SRR2838702/tools/bracken/logs/nf.command.out",
-                "SRR2838702/tools/bracken/logs/nf.command.run",
-                "SRR2838702/tools/bracken/logs/nf.command.sh",
-                "SRR2838702/tools/bracken/logs/nf.command.trace",
-                "SRR2838702/tools/bracken/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/bracken",
-                "bactopia-runs/bracken/merged-results",
-                "bactopia-runs/bracken/merged-results/bracken-adjusted.tsv",
-                "bactopia-runs/bracken/merged-results/bracken-species-abundance.tsv",
-                "bactopia-runs/bracken/merged-results/logs",
-                "bactopia-runs/bracken/merged-results/logs/bracken-adjusted-concat",
-                "bactopia-runs/bracken/merged-results/logs/bracken-adjusted-concat/versions.yml",
-                "bactopia-runs/bracken/merged-results/logs/bracken-species-abundance-concat",
-                "bactopia-runs/bracken/merged-results/logs/bracken-species-abundance-concat/versions.yml",
                 "bactopia-runs/bracken/nf-reports",
                 "bactopia-runs/bracken/nf-reports/bracken-dag.dot",
                 "bactopia-runs/bracken/nf-reports/bracken-report.html",
                 "bactopia-runs/bracken/nf-reports/bracken-timeline.html"
             ],
             [
-                "SRR2838702.bracken.abundances.txt:md5,8b1c721a76144b87cb498a0b0c39b8af",
-                "SRR2838702.bracken.adjusted.abundances.txt:md5,e5e02154ee289540aa607e31e6ae937e",
-                "SRR2838702.bracken.classification.txt:md5,92291be35925612b304a82ad8e42fcea",
-                "SRR2838702.bracken.report.txt:md5,402d6d217c9ab074c097db2345d5c047",
-                "SRR2838702.bracken.tsv:md5,cbc8830722dbbf9e4d4c63b5bcc6b10e",
-                "SRR2838702.kraken2.report.txt:md5,b7a2f9160105342d584563016739ef92",
-                "versions.yml:md5,7f9d9440eb7ef80444e9c6478bca0f97",
-                "bracken-adjusted.tsv:md5,e5e02154ee289540aa607e31e6ae937e",
-                "bracken-species-abundance.tsv:md5,cbc8830722dbbf9e4d4c63b5bcc6b10e",
-                "versions.yml:md5,95656d5394117a5e9ab88c7503bd2e8f",
-                "versions.yml:md5,eac83c8fd922f581ce913311a557ad9d"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:40.866219423",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-15T13:32:11.823765527"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     },
     "Bracken - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            3,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/bracken",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.abundances.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.adjusted.abundances.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.classification.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.report.txt",
-                "SRR2838702/tools/bracken/SRR2838702.bracken.tsv",
-                "SRR2838702/tools/bracken/SRR2838702.kraken2.report.txt",
-                "SRR2838702/tools/bracken/logs",
-                "SRR2838702/tools/bracken/logs/nf.command.begin",
-                "SRR2838702/tools/bracken/logs/nf.command.err",
-                "SRR2838702/tools/bracken/logs/nf.command.log",
-                "SRR2838702/tools/bracken/logs/nf.command.out",
-                "SRR2838702/tools/bracken/logs/nf.command.run",
-                "SRR2838702/tools/bracken/logs/nf.command.sh",
-                "SRR2838702/tools/bracken/logs/nf.command.trace",
-                "SRR2838702/tools/bracken/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/bracken",
-                "bactopia-runs/bracken/merged-results",
-                "bactopia-runs/bracken/merged-results/bracken-adjusted.tsv",
-                "bactopia-runs/bracken/merged-results/bracken-species-abundance.tsv",
-                "bactopia-runs/bracken/merged-results/logs",
-                "bactopia-runs/bracken/merged-results/logs/bracken-adjusted-concat",
-                "bactopia-runs/bracken/merged-results/logs/bracken-adjusted-concat/versions.yml",
-                "bactopia-runs/bracken/merged-results/logs/bracken-species-abundance-concat",
-                "bactopia-runs/bracken/merged-results/logs/bracken-species-abundance-concat/versions.yml",
                 "bactopia-runs/bracken/nf-reports",
                 "bactopia-runs/bracken/nf-reports/bracken-dag.dot",
                 "bactopia-runs/bracken/nf-reports/bracken-report.html",
                 "bactopia-runs/bracken/nf-reports/bracken-timeline.html"
             ],
             [
-                "SRR2838702.bracken.abundances.txt:md5,8b1c721a76144b87cb498a0b0c39b8af",
-                "SRR2838702.bracken.adjusted.abundances.txt:md5,e5e02154ee289540aa607e31e6ae937e",
-                "SRR2838702.bracken.classification.txt:md5,92291be35925612b304a82ad8e42fcea",
-                "SRR2838702.bracken.report.txt:md5,402d6d217c9ab074c097db2345d5c047",
-                "SRR2838702.bracken.tsv:md5,cbc8830722dbbf9e4d4c63b5bcc6b10e",
-                "SRR2838702.kraken2.report.txt:md5,b7a2f9160105342d584563016739ef92",
-                "versions.yml:md5,7f9d9440eb7ef80444e9c6478bca0f97",
-                "bracken-adjusted.tsv:md5,e5e02154ee289540aa607e31e6ae937e",
-                "bracken-species-abundance.tsv:md5,cbc8830722dbbf9e4d4c63b5bcc6b10e",
-                "versions.yml:md5,95656d5394117a5e9ab88c7503bd2e8f",
-                "versions.yml:md5,eac83c8fd922f581ce913311a557ad9d"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:27.860255244",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-15T13:29:31.89114098"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

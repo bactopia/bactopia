@@ -37,7 +37,9 @@ process SCOARY {
         // Named fields (used downstream)
         meta: meta,
         // Generic fields (used for publishing)
-        results: files("*.results.csv"),
+        results: [
+            files("*.results.csv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

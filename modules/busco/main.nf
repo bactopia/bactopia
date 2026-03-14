@@ -21,7 +21,7 @@
 nextflow.preview.types = true
 
 process BUSCO {
-    tag "${prefix} - ${lineage}"
+    tag "${prefix} - ${task.ext.busco_lineage}"
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
@@ -57,14 +57,12 @@ process BUSCO {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
+    def which_cat = assembly.getName().endsWith(".gz") ? "zcat" : "cat"
     def assembly_name = assembly.getName().replace(".gz", "")
     """
     # Have to put FASTA in a directory to force batch mode in busco
     mkdir tmp-fasta
-    if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > tmp-fasta/${assembly_name}
-    fi
+    ${which_cat} ${assembly} > tmp-fasta/${assembly_name}
 
     # Nextflow changes the container --entrypoint to /bin/bash (container default entrypoint: /usr/local/env-execute)
     # Check for container variable initialisation script and source it.

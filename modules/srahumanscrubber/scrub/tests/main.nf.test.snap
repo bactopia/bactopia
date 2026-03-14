@@ -1,0 +1,48 @@
+{
+    "srahumanscrubber - module - SRR2838702 - SE": {
+        "content": [
+            {
+                "id": "SRR2838702-SRAHUMANSCRUBBER_SCRUB",
+                "logs_dir": "SRR2838702/tools/srahumanscrubber/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/srahumanscrubber",
+                "process_name": "srahumanscrubber",
+                "runtype": "single-end",
+                "scope": "sample",
+                "single_end": true
+            },
+            "SRR2838702.scrub.report.tsv:md5,d4f83f1a05353cfbc9014d614b570fd7",
+            [
+                "versions.yml:md5,78ab09ff9e54f2fbad4aa04b12b33c6d"
+            ]
+        ],
+        "timestamp": "2026-03-14T02:33:50.002428591",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "srahumanscrubber - module - SRR2838702 - PE": {
+        "content": [
+            {
+                "id": "SRR2838702-SRAHUMANSCRUBBER_SCRUB",
+                "logs_dir": "SRR2838702/tools/srahumanscrubber/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/srahumanscrubber",
+                "process_name": "srahumanscrubber",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.scrub.report.tsv:md5,760839e7189241c711c62c9fa3abdf69",
+            [
+                "versions.yml:md5,78ab09ff9e54f2fbad4aa04b12b33c6d"
+            ]
+        ],
+        "timestamp": "2026-03-14T02:33:37.450880353",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

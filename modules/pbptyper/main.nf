@@ -38,9 +38,11 @@ process PBPTYPER {
         meta: meta,
         tsv: file("${prefix}.tsv"),
         blast: file("${prefix}.tblastn.tsv"),
-        details: file("${prefix}.details.tsv"),
         // Generic fields (used for publishing)
-        results: files("${prefix}.tsv") + files("${prefix}.tblastn.tsv") + files("${prefix}.details.tsv"),
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}.tblastn.tsv")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

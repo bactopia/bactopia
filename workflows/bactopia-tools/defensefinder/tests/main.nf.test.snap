@@ -1,80 +1,23 @@
 {
     "DefenseFinder - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            4,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/defensefinder",
-                "SRR2838702/tools/defensefinder/SRR2838702.fna.prt",
-                "SRR2838702/tools/defensefinder/SRR2838702.fna.prt.idx",
-                "SRR2838702/tools/defensefinder/SRR2838702.fna_defense_finder_genes.tsv",
-                "SRR2838702/tools/defensefinder/SRR2838702.fna_defense_finder_systems.tsv",
-                "SRR2838702/tools/defensefinder/logs",
-                "SRR2838702/tools/defensefinder/logs/nf.command.begin",
-                "SRR2838702/tools/defensefinder/logs/nf.command.err",
-                "SRR2838702/tools/defensefinder/logs/nf.command.log",
-                "SRR2838702/tools/defensefinder/logs/nf.command.out",
-                "SRR2838702/tools/defensefinder/logs/nf.command.run",
-                "SRR2838702/tools/defensefinder/logs/nf.command.sh",
-                "SRR2838702/tools/defensefinder/logs/nf.command.trace",
-                "SRR2838702/tools/defensefinder/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/defensefinder",
-                "bactopia-runs/defensefinder/merged-results",
-                "bactopia-runs/defensefinder/merged-results/defensefinder-genes.tsv",
-                "bactopia-runs/defensefinder/merged-results/defensefinder-hmmer.tsv",
-                "bactopia-runs/defensefinder/merged-results/defensefinder-systems.tsv",
-                "bactopia-runs/defensefinder/merged-results/logs",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.begin",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.err",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.log",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.out",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.run",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.sh",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/nf.command.trace",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-genes-concat/versions.yml",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.begin",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.err",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.log",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.out",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.run",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.sh",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/nf.command.trace",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-hmmer-concat/versions.yml",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.begin",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.err",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.log",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.out",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.run",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.sh",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/nf.command.trace",
-                "bactopia-runs/defensefinder/merged-results/logs/defensefinder-systems-concat/versions.yml",
                 "bactopia-runs/defensefinder/nf-reports",
                 "bactopia-runs/defensefinder/nf-reports/defensefinder-dag.dot",
                 "bactopia-runs/defensefinder/nf-reports/defensefinder-report.html",
                 "bactopia-runs/defensefinder/nf-reports/defensefinder-timeline.html"
             ],
             [
-                "SRR2838702.fna.prt:md5,6e947d581f5afcee3d421b41b053f240",
-                "SRR2838702.fna_defense_finder_genes.tsv:md5,8fb79d4fe9b1ae30e2821b4a0b1750a6",
-                "SRR2838702.fna_defense_finder_systems.tsv:md5,e84993a75030e2894183f8d0e3670aef",
-                "versions.yml:md5,cac1e24b64c152890e712ac2077fc111",
-                "defensefinder-genes.tsv:md5,8fb79d4fe9b1ae30e2821b4a0b1750a6",
-                "defensefinder-hmmer.tsv:md5,6a6d86542a0d4978713a6a6cab306cbb",
-                "defensefinder-systems.tsv:md5,e84993a75030e2894183f8d0e3670aef",
-                "versions.yml:md5,ab4d2a29674466c5f88ae8061dd95d45",
-                "versions.yml:md5,6c8176f30b79b16718d528eb04dcea09",
-                "versions.yml:md5,cb06109c537fb7ff30a68b0a1197889d"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:32.374245919",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-04T09:07:35.490633781"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

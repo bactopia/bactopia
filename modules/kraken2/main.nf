@@ -47,15 +47,15 @@ process KRAKEN2 {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    db                      : Path
+    db: Path
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
+        special_meta: special_meta,
         kraken2_report: files('*.kraken2.report.txt'),
         scrub_report: files('*.scrub.report.tsv', optional: true),
-        special_meta: special_meta,
         classified: files("*.${classified_naming}*.fastq.gz", optional: true),
         unclassified: files("*.${unclassified_naming}*.fastq.gz", optional: true),
         classified_extra: files("*.${classified_naming}*.fastq.gz", optional: true),
@@ -156,9 +156,6 @@ process KRAKEN2 {
         # Remove filtered FASTQs
         rm *.fastq
     fi
-
-    # Used for clean-yer-reads
-    touch EMPTY_EXTRA
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

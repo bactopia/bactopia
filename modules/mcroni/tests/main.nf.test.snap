@@ -1,0 +1,46 @@
+{
+    "mcroni - module - GCF_001682305 - compressed": {
+        "content": [
+            {
+                "id": "GCF_001682305-MCRONI",
+                "logs_dir": "GCF_001682305/tools/mcroni//logs/",
+                "name": "GCF_001682305",
+                "output_dir": "GCF_001682305/tools/mcroni/",
+                "process_name": "mcroni",
+                "scope": "sample"
+            },
+            "GCF_001682305.tsv:md5,c5459d2965dfafe22f173023d0c35610",
+            "GCF_001682305.fasta:md5,819b782ce2704d08e9cd4a43370e86c9",
+            [
+                "versions.yml:md5,0db3954c37fd7f15463e1ca4736a5910"
+            ]
+        ],
+        "timestamp": "2026-03-13T20:45:24.347732954",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "mcroni - module - GCF_001682305 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_001682305-MCRONI",
+                "logs_dir": "GCF_001682305/tools/mcroni//logs/",
+                "name": "GCF_001682305",
+                "output_dir": "GCF_001682305/tools/mcroni/",
+                "process_name": "mcroni",
+                "scope": "sample"
+            },
+            "GCF_001682305.tsv:md5,c5459d2965dfafe22f173023d0c35610",
+            "GCF_001682305.fasta:md5,819b782ce2704d08e9cd4a43370e86c9",
+            [
+                "versions.yml:md5,0db3954c37fd7f15463e1ca4736a5910"
+            ]
+        ],
+        "timestamp": "2026-03-13T20:45:17.740145116",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -31,7 +31,7 @@ process EMMTYPER {
 
     input:
     (_meta: Map, assembly: Path): Record
-    blastdb           : Path?
+    blastdb                     : Path?
 
     output:
     record(
@@ -67,7 +67,7 @@ process EMMTYPER {
     fi
 
     # Conditionally add the database if it is provided by user
-    if [ "${blastdb}" == "" ]; then
+    if [ "${blastdb}" == "null" ]; then
         emmtyper \\
             ${task.ext.args} \\
             ${assembly_name} \\
@@ -90,7 +90,6 @@ process EMMTYPER {
     if [ ${assembly_name} != *.tmp* ]; then
         sed -i 's/.tmp\t/\t/g' ${prefix}.tsv
     fi
-
 
     # Cleanup
     rm -rf ${assembly_name}

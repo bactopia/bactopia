@@ -1,0 +1,23 @@
+{
+    "blastx - module - SRX1390622": {
+        "content": [
+            {
+                "id": "SRX1390622-BLAST_BLASTX",
+                "logs_dir": "SRX1390622/tools/blastx//logs/",
+                "name": "SRX1390622",
+                "output_dir": "SRX1390622/tools/blastx/",
+                "process_name": "blastx",
+                "scope": "sample"
+            },
+            "SRX1390622.blastx.tsv:md5,1bdda4a6d2b611c8a529efdd9dcc71b8",
+            [
+                "versions.yml:md5,6a3a4c2a4204ac747af921720f265d86"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:46.102679427",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

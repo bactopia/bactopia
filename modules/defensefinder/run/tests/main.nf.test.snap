@@ -1,0 +1,25 @@
+{
+    "defensefinder - module - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-DEFENSEFINDER_RUN",
+                "logs_dir": "GCF_000292685/tools/defensefinder//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/defensefinder/",
+                "process_name": "defensefinder",
+                "scope": "sample"
+            },
+            "GCF_000292685_defense_finder_genes.tsv:md5,8fb79d4fe9b1ae30e2821b4a0b1750a6",
+            "GCF_000292685_defense_finder_hmmer.tsv:md5,487d32d68b49a5319773e0773292f3f7",
+            "GCF_000292685_defense_finder_systems.tsv:md5,e84993a75030e2894183f8d0e3670aef",
+            [
+                "versions.yml:md5,96378138554cc40b07841aed5efb3e7d"
+            ]
+        ],
+        "timestamp": "2026-03-13T02:49:11.614543561",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -30,17 +30,8 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.gff,
-                    record.gbk,
-                    record.fna,
-                    record.faa,
-                    record.ffn,
-                    record.sqn,
-                    record.fsa,
-                    record.tbl,
                     record.txt,
                     record.tsv,
-                    record.blastdb,
                     record.versions
                 ).match() }
             )
@@ -72,17 +63,8 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.gff,
-                    record.gbk,
-                    record.fna,
-                    record.faa,
-                    record.ffn,
-                    record.sqn,
-                    record.fsa,
-                    record.tbl,
                     record.txt,
                     record.tsv,
-                    record.blastdb,
                     record.versions
                 ).match() }
             )

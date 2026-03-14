@@ -1,0 +1,46 @@
+{
+    "merlin_dist - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MERLIN_DIST",
+                "logs_dir": "GCF_000017085/tools/mashdist/merlin/logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mashdist/merlin",
+                "process_name": "mashdist",
+                "runtype": "paired-end",
+                "single_end": false
+            },
+            "GCF_000017085-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            [
+                "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
+            ]
+        ],
+        "timestamp": "2026-03-14T01:42:46.005932517",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "merlin_dist - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MERLIN_DIST",
+                "logs_dir": "GCF_000017085/tools/mashdist/merlin/logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mashdist/merlin",
+                "process_name": "mashdist",
+                "runtype": "paired-end",
+                "single_end": false
+            },
+            "GCF_000017085-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            [
+                "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
+            ]
+        ],
+        "timestamp": "2026-03-14T01:42:51.520416177",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

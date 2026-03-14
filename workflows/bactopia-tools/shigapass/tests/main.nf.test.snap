@@ -1,51 +1,23 @@
 {
     "ShigaPass - GCF_016726285|shigella_boydii|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "GCF_016726285",
-                "GCF_016726285/tools",
-                "GCF_016726285/tools/shigapass",
-                "GCF_016726285/tools/shigapass/GCF_016726285.tsv",
-                "GCF_016726285/tools/shigapass/logs",
-                "GCF_016726285/tools/shigapass/logs/nf.command.begin",
-                "GCF_016726285/tools/shigapass/logs/nf.command.err",
-                "GCF_016726285/tools/shigapass/logs/nf.command.log",
-                "GCF_016726285/tools/shigapass/logs/nf.command.out",
-                "GCF_016726285/tools/shigapass/logs/nf.command.run",
-                "GCF_016726285/tools/shigapass/logs/nf.command.sh",
-                "GCF_016726285/tools/shigapass/logs/nf.command.trace",
-                "GCF_016726285/tools/shigapass/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/shigapass",
-                "bactopia-runs/shigapass/merged-results",
-                "bactopia-runs/shigapass/merged-results/logs",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.begin",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.err",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.log",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.out",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.run",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.sh",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/nf.command.trace",
-                "bactopia-runs/shigapass/merged-results/logs/shigapass-concat/versions.yml",
-                "bactopia-runs/shigapass/merged-results/shigapass.tsv",
                 "bactopia-runs/shigapass/nf-reports",
                 "bactopia-runs/shigapass/nf-reports/shigapass-dag.dot",
                 "bactopia-runs/shigapass/nf-reports/shigapass-report.html",
                 "bactopia-runs/shigapass/nf-reports/shigapass-timeline.html"
             ],
             [
-                "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
-                "versions.yml:md5,048657b953eef617c2b64ccb02cd1155",
-                "versions.yml:md5,f481607e2b7526fd798b2375bb3cc9c4",
-                "shigapass.tsv:md5,9982dbc252423a0507b7c397f66164f2"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:32.594899362",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-05T11:18:36.333927043"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

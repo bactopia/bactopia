@@ -1,0 +1,44 @@
+{
+    "ssuissero - module - GCF_002285535 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_002285535-SSUISSERO",
+                "logs_dir": "GCF_002285535/tools/ssuissero//logs/",
+                "name": "GCF_002285535",
+                "output_dir": "GCF_002285535/tools/ssuissero/",
+                "process_name": "ssuissero",
+                "scope": "sample"
+            },
+            "GCF_002285535.tsv:md5,b1312d3041a6543154be554d5ec3b0b9",
+            [
+                "versions.yml:md5,1343a6174c619ccf3c2469b19ab0a757"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:47.174038216",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "ssuissero - module - GCF_002285535 - compressed": {
+        "content": [
+            {
+                "id": "GCF_002285535-SSUISSERO",
+                "logs_dir": "GCF_002285535/tools/ssuissero//logs/",
+                "name": "GCF_002285535",
+                "output_dir": "GCF_002285535/tools/ssuissero/",
+                "process_name": "ssuissero",
+                "scope": "sample"
+            },
+            "GCF_002285535.tsv:md5,b1312d3041a6543154be554d5ec3b0b9",
+            [
+                "versions.yml:md5,1343a6174c619ccf3c2469b19ab0a757"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:58:54.181646555",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

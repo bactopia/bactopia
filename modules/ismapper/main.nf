@@ -41,16 +41,17 @@ process ISMAPPER {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    reference               : Path
-    query                   : Path
+    reference: Path
+    query    : Path
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        supplemental: files("supplemental/*"),
         // Generic fields (used for publishing)
-        results: [],
+        results: [
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

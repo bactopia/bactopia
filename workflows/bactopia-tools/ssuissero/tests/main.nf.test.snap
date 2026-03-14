@@ -1,51 +1,23 @@
 {
     "SSiusSero - GCF_002285535|portstreptococcus_suisiera|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "GCF_002285535",
-                "GCF_002285535/tools",
-                "GCF_002285535/tools/ssuissero",
-                "GCF_002285535/tools/ssuissero/GCF_002285535_serotyping_res.tsv",
-                "GCF_002285535/tools/ssuissero/logs",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.begin",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.err",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.log",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.out",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.run",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.sh",
-                "GCF_002285535/tools/ssuissero/logs/nf.command.trace",
-                "GCF_002285535/tools/ssuissero/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/ssuissero",
-                "bactopia-runs/ssuissero/merged-results",
-                "bactopia-runs/ssuissero/merged-results/logs",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.begin",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.err",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.log",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.out",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.run",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.sh",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/nf.command.trace",
-                "bactopia-runs/ssuissero/merged-results/logs/ssuissero-concat/versions.yml",
-                "bactopia-runs/ssuissero/merged-results/ssuissero.tsv",
                 "bactopia-runs/ssuissero/nf-reports",
                 "bactopia-runs/ssuissero/nf-reports/ssuissero-dag.dot",
                 "bactopia-runs/ssuissero/nf-reports/ssuissero-report.html",
                 "bactopia-runs/ssuissero/nf-reports/ssuissero-timeline.html"
             ],
             [
-                "GCF_002285535_serotyping_res.tsv:md5,b1312d3041a6543154be554d5ec3b0b9",
-                "versions.yml:md5,b86030bffe4cd25d5c43f77ca429de8d",
-                "versions.yml:md5,b273046b082dd70970b8f4e189aa5498",
-                "ssuissero.tsv:md5,b1312d3041a6543154be554d5ec3b0b9"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:31.89663334",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-05T12:16:23.259092189"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

@@ -1,53 +1,23 @@
 {
     "pbptyper - GCF_001457635|streptococcus_pneumoniae|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "GCF_001457635",
-                "GCF_001457635/tools",
-                "GCF_001457635/tools/pbptyper",
-                "GCF_001457635/tools/pbptyper/GCF_001457635.tblastn.tsv",
-                "GCF_001457635/tools/pbptyper/GCF_001457635.tsv",
-                "GCF_001457635/tools/pbptyper/logs",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.begin",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.err",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.log",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.out",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.run",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.sh",
-                "GCF_001457635/tools/pbptyper/logs/nf.command.trace",
-                "GCF_001457635/tools/pbptyper/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/pbptyper",
-                "bactopia-runs/pbptyper/merged-results",
-                "bactopia-runs/pbptyper/merged-results/logs",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.begin",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.err",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.log",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.out",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.run",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.sh",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/nf.command.trace",
-                "bactopia-runs/pbptyper/merged-results/logs/pbptyper-concat/versions.yml",
-                "bactopia-runs/pbptyper/merged-results/pbptyper.tsv",
                 "bactopia-runs/pbptyper/nf-reports",
                 "bactopia-runs/pbptyper/nf-reports/pbptyper-dag.dot",
                 "bactopia-runs/pbptyper/nf-reports/pbptyper-report.html",
                 "bactopia-runs/pbptyper/nf-reports/pbptyper-timeline.html"
             ],
             [
-                "GCF_001457635.tblastn.tsv:md5,ce2247715df7d40f2ada2fe27e6c3967",
-                "GCF_001457635.tsv:md5,1a21879bdaf7aac85a1f4e0fb0e59989",
-                "versions.yml:md5,47bb164e7435b20fe6e3e392e1bf06db",
-                "versions.yml:md5,f52169fdc42464f8ece8fcb1e5591a18",
-                "pbptyper.tsv:md5,34edc1f9346b74b74ef4446d270e6d57"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:28.739565792",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-05T10:48:56.316187474"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

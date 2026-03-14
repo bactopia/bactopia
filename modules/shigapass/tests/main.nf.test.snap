@@ -1,0 +1,46 @@
+{
+    "shigapass - module - GCF_016726285 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGAPASS",
+                "logs_dir": "GCF_016726285/tools/shigapass//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigapass/",
+                "process_name": "shigapass",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
+            null,
+            [
+                "versions.yml:md5,dc87229b4755a3bb75942178c557e81f"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:58:00.28100821",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "shigapass - module - GCF_016726285 - compressed": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGAPASS",
+                "logs_dir": "GCF_016726285/tools/shigapass//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigapass/",
+                "process_name": "shigapass",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
+            null,
+            [
+                "versions.yml:md5,dc87229b4755a3bb75942178c557e81f"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:59:29.70575305",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "sylph - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702SE-SYLPH_PROFILE",
+                "logs_dir": "SRR2838702SE/tools/sylph//logs/",
+                "name": "SRR2838702SE",
+                "output_dir": "SRR2838702SE/tools/sylph/",
+                "process_name": "sylph",
+                "scope": "sample",
+                "single_end": true
+            },
+            "SRR2838702SE.tsv:md5,a03d927d487e1354f5c5627c352c1843",
+            [
+                "versions.yml:md5,375b8094ea3bcac7fbc91f023399030c"
+            ]
+        ],
+        "timestamp": "2026-03-14T02:45:37.647834656",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "sylph - module - SRR2838702 (Paired End)": {
+        "content": [
+            {
+                "id": "SRR2838702-SYLPH_PROFILE",
+                "logs_dir": "SRR2838702/tools/sylph//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/sylph/",
+                "process_name": "sylph",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.tsv:md5,c75165de3e75c147eacc50f941e3fb05",
+            [
+                "versions.yml:md5,375b8094ea3bcac7fbc91f023399030c"
+            ]
+        ],
+        "timestamp": "2026-03-14T02:44:59.714476348",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

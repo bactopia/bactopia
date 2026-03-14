@@ -1,51 +1,23 @@
 {
     "BTyper3 - GCF_000008445|bacillus_anthracis|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "GCF_000008445",
-                "GCF_000008445/tools",
-                "GCF_000008445/tools/btyper3",
-                "GCF_000008445/tools/btyper3/GCF_000008445.tsv",
-                "GCF_000008445/tools/btyper3/logs",
-                "GCF_000008445/tools/btyper3/logs/nf.command.begin",
-                "GCF_000008445/tools/btyper3/logs/nf.command.err",
-                "GCF_000008445/tools/btyper3/logs/nf.command.log",
-                "GCF_000008445/tools/btyper3/logs/nf.command.out",
-                "GCF_000008445/tools/btyper3/logs/nf.command.run",
-                "GCF_000008445/tools/btyper3/logs/nf.command.sh",
-                "GCF_000008445/tools/btyper3/logs/nf.command.trace",
-                "GCF_000008445/tools/btyper3/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/btyper3",
-                "bactopia-runs/btyper3/merged-results",
-                "bactopia-runs/btyper3/merged-results/btyper3.tsv",
-                "bactopia-runs/btyper3/merged-results/logs",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.begin",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.err",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.log",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.out",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.run",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.sh",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/nf.command.trace",
-                "bactopia-runs/btyper3/merged-results/logs/btyper3-concat/versions.yml",
                 "bactopia-runs/btyper3/nf-reports",
                 "bactopia-runs/btyper3/nf-reports/btyper3-dag.dot",
                 "bactopia-runs/btyper3/nf-reports/btyper3-report.html",
                 "bactopia-runs/btyper3/nf-reports/btyper3-timeline.html"
             ],
             [
-                "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803",
-                "versions.yml:md5,0556b7dd459aafcfd66bb694721633ba",
-                "btyper3.tsv:md5,23cd9060d11d2ef980b70603c89c5558",
-                "versions.yml:md5,40ee298a3f689113440883cada3337aa"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:28.660262682",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-05T09:15:12.122175596"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

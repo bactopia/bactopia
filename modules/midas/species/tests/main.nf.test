@@ -22,7 +22,7 @@ nextflow_process {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas/midas_db_v1.2.tar.gz")
+                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas_db_v1.2.tar.gz")
                 """
             }
         }
@@ -58,7 +58,7 @@ nextflow_process {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas/midas_db_v1.2")
+                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas_db_v1.2")
                 """
             }
         }

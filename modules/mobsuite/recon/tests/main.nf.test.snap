@@ -1,0 +1,46 @@
+{
+    "mobsuite_recon - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MOBSUITE_RECON",
+                "logs_dir": "GCF_000017085/tools/mobsuite//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mobsuite/",
+                "process_name": "mobsuite",
+                "scope": "sample"
+            },
+            "GCF_000017085-chromosome.fasta.gz:md5,fe6e312b963fa5068c68cc25060ecd32",
+            "GCF_000017085-contig_report.txt:md5,82e2079c35c1f808716f1dfd607ac235",
+            [
+                "versions.yml:md5,ff6f105fca429e7482ac358949a11f93"
+            ]
+        ],
+        "timestamp": "2026-03-11T06:01:37.62511145",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "mobsuite_recon - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MOBSUITE_RECON",
+                "logs_dir": "GCF_000017085/tools/mobsuite//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mobsuite/",
+                "process_name": "mobsuite",
+                "scope": "sample"
+            },
+            "GCF_000017085-chromosome.fasta.gz:md5,fe6e312b963fa5068c68cc25060ecd32",
+            "GCF_000017085-contig_report.txt:md5,82e2079c35c1f808716f1dfd607ac235",
+            [
+                "versions.yml:md5,ff6f105fca429e7482ac358949a11f93"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:59:57.416736543",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

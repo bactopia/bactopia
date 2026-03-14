@@ -1,0 +1,44 @@
+{
+    "busco - module - GCF_000292685 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-BUSCO",
+                "logs_dir": "GCF_000292685/tools/busco/bacteria_odb10/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/busco/bacteria_odb10",
+                "process_name": "busco",
+                "scope": "sample"
+            },
+            "GCF_000292685-summary.txt:md5,6f1755af3cdf443a46475b3cac0e37cf",
+            [
+                "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
+            ]
+        ],
+        "timestamp": "2026-03-13T01:05:46.262481973",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "busco - module - GCF_000292685 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-BUSCO",
+                "logs_dir": "GCF_000292685/tools/busco/bacteria_odb10/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/busco/bacteria_odb10",
+                "process_name": "busco",
+                "scope": "sample"
+            },
+            "GCF_000292685-summary.txt:md5,6f1755af3cdf443a46475b3cac0e37cf",
+            [
+                "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
+            ]
+        ],
+        "timestamp": "2026-03-13T01:05:22.904150347",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

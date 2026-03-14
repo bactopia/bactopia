@@ -1,0 +1,22 @@
+{
+    "ismapper - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-ISMAPPER",
+                "logs_dir": "SRR2838702/tools/ismapper/is1016.fasta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/ismapper/is1016.fasta",
+                "process_name": "ismapper",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,bbe2280116459026bfc2304b2b6c0f5f"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:51.261061828",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

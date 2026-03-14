@@ -1,34 +1,8 @@
 {
     "Bakta (tarball) - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            1,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/main",
-                "SRR2838702/main/annotator",
-                "SRR2838702/main/annotator/bakta",
-                "SRR2838702/main/annotator/bakta/bakta",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702-blastdb.tar.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.embl.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.faa.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.ffn.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.fna.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.gbff.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.gff3.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.hypotheticals.faa.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.hypotheticals.tsv",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.tsv",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.txt",
-                "SRR2838702/main/annotator/bakta/logs",
-                "SRR2838702/main/annotator/bakta/logs/SRR2838702.log",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.begin",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.err",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.log",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.out",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.run",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.sh",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.trace",
-                "SRR2838702/main/annotator/bakta/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/bakta",
                 "bactopia-runs/bakta/nf-reports",
@@ -37,48 +11,19 @@
                 "bactopia-runs/bakta/nf-reports/bakta-timeline.html"
             ],
             [
-                "SRR2838702.hypotheticals.tsv:md5,fb834038bfe512eb3f066ddf318b7d40",
-                "SRR2838702.tsv:md5,fdee892529d810bb353504914cc27244",
-                "SRR2838702.txt:md5,cf05c537917c37898d20e6feba2f3c31",
-                "versions.yml:md5,16fed78de98daddc9cf1093291726b37"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:42.368214453",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-19T13:26:26.988221948"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     },
     "Bakta - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            1,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/main",
-                "SRR2838702/main/annotator",
-                "SRR2838702/main/annotator/bakta",
-                "SRR2838702/main/annotator/bakta/bakta",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702-blastdb.tar.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.embl.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.faa.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.ffn.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.fna.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.gbff.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.gff3.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.hypotheticals.faa.gz",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.hypotheticals.tsv",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.tsv",
-                "SRR2838702/main/annotator/bakta/bakta/SRR2838702.txt",
-                "SRR2838702/main/annotator/bakta/logs",
-                "SRR2838702/main/annotator/bakta/logs/SRR2838702.log",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.begin",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.err",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.log",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.out",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.run",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.sh",
-                "SRR2838702/main/annotator/bakta/logs/nf.command.trace",
-                "SRR2838702/main/annotator/bakta/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/bakta",
                 "bactopia-runs/bakta/nf-reports",
@@ -87,16 +32,13 @@
                 "bactopia-runs/bakta/nf-reports/bakta-timeline.html"
             ],
             [
-                "SRR2838702.hypotheticals.tsv:md5,fb834038bfe512eb3f066ddf318b7d40",
-                "SRR2838702.tsv:md5,fdee892529d810bb353504914cc27244",
-                "SRR2838702.txt:md5,cf05c537917c37898d20e6feba2f3c31",
-                "versions.yml:md5,16fed78de98daddc9cf1093291726b37"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:31.75517213",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-19T13:23:49.817258025"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

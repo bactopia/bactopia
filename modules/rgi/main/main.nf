@@ -32,11 +32,15 @@ process RGI_MAIN {
 
     output:
     record(
+        // Named fields (used downstream)
         meta:     meta,
         tsv:      file("${prefix}.tsv"),
         json:     file("${prefix}.json", optional: true),
         // Generic fields (used for publishing)
-        results:  [file("${prefix}.tsv"), file("${prefix}.json", optional: true)],
+        results:  [
+            files("${prefix}.tsv"),
+            files("${prefix}.json", optional: true)
+        ],
         logs:     files("*.{log,err}", optional: true),
         nf_logs:  files(".command.*"),
         versions: files("versions.yml")

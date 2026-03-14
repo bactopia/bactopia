@@ -11,10 +11,12 @@
             },
             "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f",
             [
-                "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f"
+                [
+                    "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f"
+                ]
             ],
             [
-                "versions.yml:md5,3ea80ad2b577e57657a16b1b2d57aa54"
+                "versions.yml:md5,560833e611613540427bf97dc53d156b"
             ],
             {
                 "id": "abricate-ncbi-ABRICATE:ABRICATE_SUMMARY",
@@ -26,13 +28,15 @@
             },
             "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30",
             [
-                "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30"
+                [
+                    "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30"
+                ]
             ],
             [
-                "versions.yml:md5,bf7f81cba42bdb8cecb8cc900669ecf5"
+                "versions.yml:md5,ff232e321a8b2b91adefba9a7b05d823"
             ]
         ],
-        "timestamp": "2026-03-10T03:06:24.051143624",
+        "timestamp": "2026-03-11T05:59:03.019623343",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

@@ -65,10 +65,10 @@ process STECFINDER {
     meta.process_name = task.ext.process_name
 
     // Determine input type and construct sequence input
-    def reads = [r1, r2, se, lr].findAll{it != null}
+    def reads = [r1, r2, se, lr].findAll{ r -> r != null }
     def use_assembly = !task.ext.stecfinder_use_reads
     def is_compressed = use_assembly && fna.getName().endsWith(".gz")
-    def seq_name = is_compressed ? fna.getName().replace(".gz", "") : reads.join(" ")
+    def seq_name = is_compressed ? fna.getName().replace(".gz", "") : use_assembly ? fna.getName() : reads.join(" ")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ${seq_name}

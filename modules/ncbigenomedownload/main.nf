@@ -38,14 +38,12 @@ process NCBIGENOMEDOWNLOAD {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    accessions : Path
+    accessions : Path?
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        // Generic fields (used for publishing)
-        results: files("*.gz"),
         gbk: files("*_genomic.gbff.gz", optional: true),
         fna: files("*_genomic.fna.gz", optional: true),
         rm: files("*_rm.out.gz", optional: true),
@@ -60,6 +58,11 @@ process NCBIGENOMEDOWNLOAD {
         report: files("*_assembly_report.txt", optional: true),
         stats: files("*_assembly_stats.txt", optional: true),
         accessions: files("accession-*.txt", optional: true),
+        // Generic fields (used for publishing)
+        results: [
+            files("*.gz", optional: true),
+            files("*.txt", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

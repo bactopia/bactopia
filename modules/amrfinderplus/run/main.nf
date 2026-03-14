@@ -39,6 +39,11 @@ process AMRFINDERPLUS_RUN {
     (_meta: Map, genes: Path, proteins: Path, gff: Path): Record
     db: Path
 
+    stage:
+    stageAs 'genes/*', genes
+    stageAs 'proteins/*', proteins
+    stageAs 'gff/*', gff
+
     output:
     record(
         // Named fields (used downstream)
@@ -72,13 +77,13 @@ process AMRFINDERPLUS_RUN {
     def has_gff = gff != null
 
     // WF specific parameters
-    def fna_is_compressed = genes.getName().endsWith(".gz") ? true : false
-    def faa_is_compressed = has_proteins ? proteins.getName().endsWith(".gz") : false
-    def gff_is_compressed = has_gff ? gff.getName().endsWith(".gz") : false
+    def fna_cat = genes.getName().endsWith(".gz") ? "zcat" : "cat"
+    def faa_cat = has_proteins ? proteins.getName().endsWith(".gz") ? "zcat" : "cat" : ""
+    def gff_cat = has_gff ? gff.getName().endsWith(".gz") ? "zcat" : "cat" : ""
     organism_param = _meta.containsKey("organism") ? "--organism ${_meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
-    fna_name = genes.getName().replace(".gz", "")
-    faa_name = has_proteins ? proteins.getName().replace(".gz", "") : ""
-    gff_name = has_gff ? gff.getName().replace(".gz", "") : ""
+    fna_name = "${prefix}.fna"
+    faa_name = has_proteins ? "${prefix}.faa" : ""
+    gff_name = has_gff ? "${prefix}.gff" : ""
     annotation_format = has_gff && gff_name.endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
 
@@ -86,16 +91,15 @@ process AMRFINDERPLUS_RUN {
     def protein_param = has_proteins ? "--protein ${faa_name}" : ""
     def gff_param = has_proteins && has_gff ? "--gff ${gff_name} --annotation_format ${annotation_format}" : ""
     """
-    if [ "${fna_is_compressed}" == "true" ]; then
-        gzip -c -d ${genes} > ${fna_name}
+    # Prepare input files
+    ${fna_cat} ${genes} > ${fna_name}
+
+    if [ "${has_proteins}" == "true" ]; then
+        ${faa_cat} ${proteins} > ${faa_name}
     fi
 
-    if [ "${has_proteins}" == "true" ] && [ "${faa_is_compressed}" == "true" ]; then
-        gzip -c -d ${proteins} > ${faa_name}
-    fi
-
-    if [ "${has_gff}" == "true" ] && [ "${gff_is_compressed}" == "true" ]; then
-        gzip -c -d ${gff} > ${gff_name}
+    if [ "${has_gff}" == "true" ]; then
+        ${gff_cat} ${gff} > ${gff_name}
     fi
 
     # Extract database
@@ -106,6 +110,7 @@ process AMRFINDERPLUS_RUN {
     else
         AMRFINDER_DB=\$(find ${db}/ -name "AMR.LIB" | sed 's=AMR.LIB==')
     fi
+    echo "Using AMRFINDER_DB: \$AMRFINDER_DB"
 
     # AMRFinderPlus search (with optional protein/gff inputs)
     amrfinder \\
@@ -119,8 +124,9 @@ process AMRFINDERPLUS_RUN {
         --name ${prefix} > ${prefix}.tsv
 
     # Clean up
-    DB_VERSION=\$(echo \$(echo \$(amrfinder --database amrfinderplus --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
+    DB_VERSION=\$(echo \$(echo \$(amrfinder --database \$AMRFINDER_DB --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     rm -rf database/
+    rm -rf ${fna_name} ${faa_name} ${gff_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

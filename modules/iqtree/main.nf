@@ -36,12 +36,12 @@ process IQTREE {
     record(
         // Named fields (used downstream)
         meta: meta,
-        msa: msa,
+        msa: file(msa),
         phylogeny: file(treefile),
         // Generic fields (used for publishing)
         results: [
             files(treefile),
-            files("${process_name}/*"),
+            files("${process_name}/*")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -75,18 +75,17 @@ process IQTREE {
         gzip ${prefix}.alninfo
     fi
 
-    mkdir temp
-    mv ${prefix}* temp/
-    mv temp/ ${process_name}/
+    mkdir ${process_name}/
+    mv ${prefix}* ${process_name}/
 
-    if [ "${process_name}" != "iqtree-fast" ]; then
+    if [ "${process_name}" == "iqtree" ]; then
+        # We don't want the fast-tree to be on the same level as the main tree in the outputs
         mv ${process_name}/${prefix}.treefile ./
-        mv ${process_name}/${msa} ./
     fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        iqtree: \$(echo \$(iqtree -version 2>&1) | sed 's/^IQ-TREE multicore version //;s/ .*//')
+        iqtree: \$(echo \$(iqtree -version 2>&1) | sed 's/^IQ-TREE version //;s/ .*//')
     END_VERSIONS
     """
 }

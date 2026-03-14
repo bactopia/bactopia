@@ -1,0 +1,44 @@
+{
+    "checkm_lineagewf - module - GCF_000292685 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-CHECKM_LINEAGEWF",
+                "logs_dir": "GCF_000292685/tools/checkm//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/checkm/",
+                "process_name": "checkm",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            [
+                "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
+            ]
+        ],
+        "timestamp": "2026-03-11T06:06:28.814358755",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "checkm_lineagewf - module - GCF_000292685 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-CHECKM_LINEAGEWF",
+                "logs_dir": "GCF_000292685/tools/checkm//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/checkm/",
+                "process_name": "checkm",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            [
+                "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
+            ]
+        ],
+        "timestamp": "2026-03-11T06:14:40.382714517",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

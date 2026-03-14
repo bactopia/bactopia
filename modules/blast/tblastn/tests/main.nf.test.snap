@@ -1,0 +1,23 @@
+{
+    "tblastn - module - SRX1390622": {
+        "content": [
+            {
+                "id": "SRX1390622-BLAST_TBLASTN",
+                "logs_dir": "SRX1390622/tools/tblastn//logs/",
+                "name": "SRX1390622",
+                "output_dir": "SRX1390622/tools/tblastn/",
+                "process_name": "tblastn",
+                "scope": "sample"
+            },
+            "SRX1390622.tblastn.tsv:md5,14d2943e80954ffba5837fa3dd66332e",
+            [
+                "versions.yml:md5,24c7db9cd7b317dcf8ad2057a04b2860"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:48.701610266",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

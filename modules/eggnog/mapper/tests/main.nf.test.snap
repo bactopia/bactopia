@@ -1,0 +1,42 @@
+{
+    "eggnog - module - GCF_000292685 - path": {
+        "content": [
+            {
+                "id": "GCF_000292685-EGGNOG_MAPPER",
+                "logs_dir": "GCF_000292685/tools/eggnog//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/eggnog/",
+                "process_name": "eggnog",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,2784870d86d92b80930b2cc28c81757d"
+            ]
+        ],
+        "timestamp": "2026-03-13T20:18:53.186791946",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "eggnog - module - GCF_000292685 - tarball": {
+        "content": [
+            {
+                "id": "GCF_000292685-EGGNOG_MAPPER",
+                "logs_dir": "GCF_000292685/tools/eggnog//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/eggnog/",
+                "process_name": "eggnog",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,2784870d86d92b80930b2cc28c81757d"
+            ]
+        ],
+        "timestamp": "2026-03-13T20:15:08.085246034",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -31,11 +31,15 @@ process SEQSERO2 {
 
     output:
     record(
+        // Named fields (used downstream)
         meta:     meta,
         tsv:      file("${prefix}.tsv"),
         txt:      file("${prefix}.txt"),
         // Generic fields (used for publishing)
-        results:  [file("${prefix}.tsv"), file("${prefix}.txt")],
+        results:  [
+            files("${prefix}.tsv"),
+            files("${prefix}.txt")
+        ],
         logs:     files("*.{log,err}", optional: true),
         nf_logs:  files(".command.*"),
         versions: files("versions.yml")

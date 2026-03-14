@@ -5,33 +5,31 @@ nextflow_process {
     tag "modules"
     tag "ncbigenomedownload"
 
-    // This test requires internet access to download from NCBI FTP servers.
-    // It should only be run in environments with network connectivity.
-
     test("ncbigenomedownload - module - single accession") {
 
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
                 // Use a small genome for fast testing
-                accession = "GCF_000006945.2"
+                accession = "GCF_000292685.1"
+                format = "fasta"
+                keep_downloads = true
             }
             process {
                 """
-                // Create an accessions file with a single entry
-                def accessions_file = file("\${workDir}/accessions.txt")
-                accessions_file.text = "GCF_000006945.2\\n"
-
-                input[0] = accessions_file
+                input[0] = null
                 """
             }
         }
 
         then {
-            // TODO: Validate specific output files once test is run with internet
+            def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert process.out[0][0].meta.id == "ncbigenomedownload" }
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
             )
         }
     }

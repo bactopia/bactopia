@@ -1,21 +1,8 @@
 {
     "eggnog - SRR2838702|portiera|single_protein": {
         "content": [
-            1,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/eggnog",
-                "SRR2838702/tools/eggnog/SRR2838702.emapper.hits",
-                "SRR2838702/tools/eggnog/logs",
-                "SRR2838702/tools/eggnog/logs/nf.command.begin",
-                "SRR2838702/tools/eggnog/logs/nf.command.err",
-                "SRR2838702/tools/eggnog/logs/nf.command.log",
-                "SRR2838702/tools/eggnog/logs/nf.command.out",
-                "SRR2838702/tools/eggnog/logs/nf.command.run",
-                "SRR2838702/tools/eggnog/logs/nf.command.sh",
-                "SRR2838702/tools/eggnog/logs/nf.command.trace",
-                "SRR2838702/tools/eggnog/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/eggnog",
                 "bactopia-runs/eggnog/nf-reports",
@@ -24,14 +11,13 @@
                 "bactopia-runs/eggnog/nf-reports/eggnog-timeline.html"
             ],
             [
-                "SRR2838702.emapper.hits:md5,c8784decedf03f11ab56e8eeddc25863",
-                "versions.yml:md5,b296be7e44cb2cf76f0a391e1bf9e5fb"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:32.157747925",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.08.0"
-        },
-        "timestamp": "2025-09-15T12:16:06.089943193"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

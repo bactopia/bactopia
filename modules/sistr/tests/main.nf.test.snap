@@ -1,0 +1,42 @@
+{
+    "sistr - module - GCF_016028495 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_016028495-SISTR",
+                "logs_dir": "GCF_016028495/tools/sistr//logs/",
+                "name": "GCF_016028495",
+                "output_dir": "GCF_016028495/tools/sistr/",
+                "process_name": "sistr",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,9cd2b041e26756435a56098355b5a2ca"
+            ]
+        ],
+        "timestamp": "2026-03-14T00:57:08.23399077",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "sistr - module - GCF_016028495 - compressed": {
+        "content": [
+            {
+                "id": "GCF_016028495-SISTR",
+                "logs_dir": "GCF_016028495/tools/sistr//logs/",
+                "name": "GCF_016028495",
+                "output_dir": "GCF_016028495/tools/sistr/",
+                "process_name": "sistr",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,9cd2b041e26756435a56098355b5a2ca"
+            ]
+        ],
+        "timestamp": "2026-03-14T00:57:25.645722441",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

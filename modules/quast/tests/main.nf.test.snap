@@ -1,0 +1,44 @@
+{
+    "quast - module - GCF_000292685 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-QUAST",
+                "logs_dir": "GCF_000292685/tools/quast//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            [
+                "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:58:09.383697774",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "quast - module - GCF_000292685 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000292685-QUAST",
+                "logs_dir": "GCF_000292685/tools/quast//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            [
+                "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:59:23.88330243",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -32,6 +32,7 @@
  * - `abundances`: Detailed species abundance profile (*.abundances.txt)
  */
 nextflow.preview.types = true
+nextflow.enable.moduleBinaries = true
 
 process MIDAS_SPECIES {
     tag "${prefix}"

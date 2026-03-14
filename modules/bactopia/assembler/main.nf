@@ -54,16 +54,21 @@ process ASSEMBLER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         assembly: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: r1,
-        r2: r2,
-        se: se,
-        lr: lr,
+        r1: file(r1),
+        r2: file(r2),
+        se: file(se),
+        lr: file(lr),
         tsv: file("${prefix}.tsv", optional: true),
-        supplemental: files("supplemental/*"),
-        error: files("${prefix}-*-error.*", optional: true),
-        results: [file("${prefix}.{fna,fna.gz}", optional: true), file("${prefix}.tsv", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.{fna,fna.gz}", optional: true),
+            files("${prefix}.tsv", optional: true),
+            files("supplemental/*"),
+            files("${prefix}-*-error.*", optional: true),
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

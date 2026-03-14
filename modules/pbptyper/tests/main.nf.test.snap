@@ -1,0 +1,24 @@
+{
+    "pbptyper - module - GCF_001457635": {
+        "content": [
+            {
+                "id": "GCF_001457635-PBPTYPER",
+                "logs_dir": "GCF_001457635/tools/pbptyper//logs/",
+                "name": "GCF_001457635",
+                "output_dir": "GCF_001457635/tools/pbptyper/",
+                "process_name": "pbptyper",
+                "scope": "sample"
+            },
+            "GCF_001457635.tsv:md5,1a21879bdaf7aac85a1f4e0fb0e59989",
+            "GCF_001457635.tblastn.tsv:md5,ce2247715df7d40f2ada2fe27e6c3967",
+            [
+                "versions.yml:md5,be74af83bdcf74f71056df98990fdeda"
+            ]
+        ],
+        "timestamp": "2026-03-13T22:04:06.341296389",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

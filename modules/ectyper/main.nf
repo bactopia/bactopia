@@ -73,7 +73,7 @@ process ECTYPER {
 
     # Cleanup
     mv output.tsv ${prefix}.tsv
-    mv blast_output_alleles.txt ${prefix}.blast_alleles.txt
+    mv blastn_output_alleles.txt ${prefix}.blast_alleles.txt
     rm -rf ${assembly_name}
 
     cat <<-END_VERSIONS > versions.yml

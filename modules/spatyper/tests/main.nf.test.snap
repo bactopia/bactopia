@@ -1,0 +1,44 @@
+{
+    "spatyper - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-SPATYPER",
+                "logs_dir": "GCF_000017085/tools/spatyper//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/spatyper/",
+                "process_name": "spatyper",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+            [
+                "versions.yml:md5,07c621229eb9346a10efc0afe9d15e42"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:59:07.739162539",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "spatyper - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-SPATYPER",
+                "logs_dir": "GCF_000017085/tools/spatyper//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/spatyper/",
+                "process_name": "spatyper",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+            [
+                "versions.yml:md5,07c621229eb9346a10efc0afe9d15e42"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:49.615131721",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

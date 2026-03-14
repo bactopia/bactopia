@@ -70,7 +70,7 @@ process MASHTREE {
         --outmatrix ${prefix}.tsv \\
         --outtree ${prefix}.dnd \\
         --tempdir mashtree-tmp/ \\
-        ${seqs}
+        ${seqs.join(' ')}
 
     # Clean up
     rm -rf mashtree-tmp/

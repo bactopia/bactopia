@@ -58,7 +58,7 @@ process SNIPPY_RUN {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    (_ref_meta: Map, reference: Set<Path>): Record
+    reference: Path
 
     output:
     record(
@@ -115,7 +115,7 @@ process SNIPPY_RUN {
     )
 
     script:
-    reference_name = reference.toList()[0].getSimpleName()
+    reference_name = reference.getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -135,8 +135,8 @@ process SNIPPY_RUN {
 
     // Build read inputs for snippy
     def read_inputs = meta.single_end ? "--se ${se}" : "--R1 ${r1} --R2 ${r2}"
-    def is_compressed = reference.toList()[0].getName().endsWith(".gz") ? true : false
-    def final_reference = reference.toList()[0].getName().replace(".gz", "")
+    def is_compressed = reference.getName().endsWith(".gz") ? true : false
+    def final_reference = reference.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${reference} > ${final_reference}

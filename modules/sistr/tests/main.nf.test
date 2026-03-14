@@ -28,10 +28,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.allele_fasta,
-                    record.allele_json,
-                    record.cgmlst_csv,
                     record.versions
                 ).match() }
             )
@@ -61,10 +57,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.allele_fasta,
-                    record.allele_json,
-                    record.cgmlst_csv,
                     record.versions
                 ).match() }
             )

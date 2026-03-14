@@ -38,7 +38,10 @@ process MCRONI {
         tsv: file("${prefix}.tsv"),
         fa: file("${prefix}.fasta", optional: true),
         // Generic fields (used for publishing)
-        results: files("${prefix}.tsv") + files("${prefix}.fasta", optional: true),
+        results: [
+            files("${prefix}.tsv"),
+            files("${prefix}.fasta", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -77,7 +80,7 @@ process MCRONI {
 
     # Cleanup
     mv ${prefix}_table.tsv ${prefix}.tsv
-    mv ${prefix}_sequences.fa ${prefix}.fasta
+    mv ${prefix}_sequence.fa ${prefix}.fasta
     rm -rf ${assembly_name} ${assembly_name}.ndb ${assembly_name}.not ${assembly_name}.ntf ${assembly_name}.nto
 
     cat <<-END_VERSIONS > versions.yml

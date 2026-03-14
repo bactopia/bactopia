@@ -39,7 +39,10 @@ process DEFENSEFINDER_RUN {
 
     input:
     (_meta: Map, proteins: Path): Record
-    db                : Path
+    db                          : Path
+
+    stage:
+    stageAs 'proteins/*', proteins
 
     output:
     record(
@@ -76,6 +79,8 @@ process DEFENSEFINDER_RUN {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
+    def which_cat = proteins.getName().endsWith(".gz") ? "zcat" : "cat"
     """
     # Extract database
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
@@ -92,12 +97,16 @@ process DEFENSEFINDER_RUN {
         --target defense-finder/ \\
         models/CasFinder-${task.ext.casfinder_version}.tar.gz
 
+    # DefenseFinder will attempt to gunzip the original symlink input file, so we need to
+    # create a temporary uncompressed copy if the input is gzipped
+    ${which_cat} ${proteins} > ${prefix}.fna
+
     TMPDIR=df-tmp/ HOME=df-tmp/ defense-finder \\
         run \\
         ${task.ext.args} \\
         --workers ${task.cpus} \\
         --models-dir defense-finder/ \\
-        ${proteins}
+        ${prefix}.fna
 
     if [ "${task.ext.df_preserveraw}" == "true" ]; then
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/
@@ -105,7 +114,7 @@ process DEFENSEFINDER_RUN {
     fi
 
     # Cleanup intermediate files and unused outputs
-    rm -rf models/ defense-finder/ df-tmp/
+    rm -rf models/ defense-finder/ df-tmp/ ${prefix}.fna
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

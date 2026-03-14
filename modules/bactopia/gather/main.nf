@@ -54,6 +54,7 @@ process GATHER {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         r1: file("fastqs/${prefix}_R1.fastq.gz", optional: true),
         r2: file("fastqs/${prefix}_R2.fastq.gz", optional: true),
@@ -61,8 +62,11 @@ process GATHER {
         lr: file("fastqs/${prefix}_ONT.fastq.gz", optional: true),
         assembly: file("assembly/${prefix}.fna.gz", optional: true),
         tsv: file("${prefix}-meta.tsv"),
-        error: files("*-{error,merged}.txt", optional: true),
-        results: [file("${prefix}-meta.tsv")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}-meta.tsv"),
+            files("*-{error,merged}.txt", optional: true)
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml", optional: true)

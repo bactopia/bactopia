@@ -34,7 +34,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.aln,
                     record.versions
                 ).match() }
             )

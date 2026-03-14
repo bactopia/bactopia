@@ -1,82 +1,23 @@
 {
     "rgi - haemophilus_influenzae|compressed_fasta": {
         "content": [
-            4,
+            0,
             [
-                "GCA_000027305",
-                "GCA_000027305/tools",
-                "GCA_000027305/tools/rgi_main",
-                "GCA_000027305/tools/rgi_main/GCA_000027305.json",
-                "GCA_000027305/tools/rgi_main/GCA_000027305.txt",
-                "GCA_000027305/tools/rgi_main/logs",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.begin",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.err",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.log",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.out",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.run",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.sh",
-                "GCA_000027305/tools/rgi_main/logs/nf.command.trace",
-                "GCA_000027305/tools/rgi_main/logs/versions.yml",
-                "GCF_900478275",
-                "GCF_900478275/tools",
-                "GCF_900478275/tools/rgi_main",
-                "GCF_900478275/tools/rgi_main/GCF_900478275.json",
-                "GCF_900478275/tools/rgi_main/GCF_900478275.txt",
-                "GCF_900478275/tools/rgi_main/logs",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.begin",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.err",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.log",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.out",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.run",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.sh",
-                "GCF_900478275/tools/rgi_main/logs/nf.command.trace",
-                "GCF_900478275/tools/rgi_main/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/rgi",
-                "bactopia-runs/rgi/merged-results",
-                "bactopia-runs/rgi/merged-results/logs",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.begin",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.err",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.log",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.out",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.run",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.sh",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.trace",
-                "bactopia-runs/rgi/merged-results/logs/rgi-concat/versions.yml",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.begin",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.err",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.log",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.out",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.run",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.sh",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.trace",
-                "bactopia-runs/rgi/merged-results/rgi-2.csv",
-                "bactopia-runs/rgi/merged-results/rgi-2.eps",
-                "bactopia-runs/rgi/merged-results/rgi-2.png",
-                "bactopia-runs/rgi/merged-results/rgi.tsv",
                 "bactopia-runs/rgi/nf-reports",
                 "bactopia-runs/rgi/nf-reports/rgi-dag.dot",
                 "bactopia-runs/rgi/nf-reports/rgi-report.html",
                 "bactopia-runs/rgi/nf-reports/rgi-timeline.html"
             ],
             [
-                "GCA_000027305.json:md5,c90186448894265aec5008ff2df4c7b2",
-                "GCA_000027305.txt:md5,2e9f09011db3f33e6a7559105c28f4ad",
-                "versions.yml:md5,a944a5496a5447bce1f26c155aea5f19",
-                "GCF_900478275.json:md5,f9ca00ea1ff6e733c7c25bb2dfd65128",
-                "GCF_900478275.txt:md5,5854d6bef754d91da80980e96b6a054b",
-                "versions.yml:md5,a944a5496a5447bce1f26c155aea5f19",
-                "versions.yml:md5,c1294552ba205b057bd368875a4eac93",
-                "rgi-2.csv:md5,4cc7b4d0911baa14e60b52d1ecb8a4f3",
-                "rgi.tsv:md5,da0b51fcfb769d9daeed06fcebff6c6c"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:31.97916562",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-04T14:26:28.863807076"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

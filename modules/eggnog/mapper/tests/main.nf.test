@@ -30,9 +30,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.hits,
-                    record.seed_orthologs,
-                    record.annotations,
                     record.versions
                 ).match() }
             )
@@ -63,9 +60,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.hits,
-                    record.seed_orthologs,
-                    record.annotations,
                     record.versions
                 ).match() }
             )

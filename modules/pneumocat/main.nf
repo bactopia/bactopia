@@ -39,15 +39,19 @@ process PNEUMOCAT {
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 
+    stage:
+    stageAs 'reads/se/*', se
+    stageAs 'reads/lr/*', lr
+
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        xml: file("${prefix}.results.xml", optional: true),
+        xml: file("${prefix}.xml", optional: true),
         txt: file("${prefix}.coverage_summary.txt", optional: true),
         // Generic fields (used for publishing)
         results: [
-            files("${prefix}.results.xml", optional: true),
+            files("${prefix}.xml", optional: true),
             files("${prefix}.coverage_summary.txt", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
@@ -83,9 +87,9 @@ process PNEUMOCAT {
 
     # PneumoCAT uses first match in a glob, so moves between R1 and R2
     if [ -f ${prefix}_R1.results.xml ]; then
-        mv ${prefix}_R1.results.xml ${prefix}.results.xml
+        mv ${prefix}_R1.results.xml ${prefix}.xml
     else
-        mv ${prefix}_R2.results.xml ${prefix}.results.xml
+        mv ${prefix}_R2.results.xml ${prefix}.xml
     fi
     mv logs/* ./
     mv coverage_summary.txt ${prefix}.coverage_summary.txt

@@ -1,51 +1,23 @@
 {
     "Legsta - GCF_000048645|legionella_pneumophila|compressed_fasta": {
         "content": [
-            2,
+            0,
             [
-                "GCF_000048645",
-                "GCF_000048645/tools",
-                "GCF_000048645/tools/legsta",
-                "GCF_000048645/tools/legsta/GCF_000048645.tsv",
-                "GCF_000048645/tools/legsta/logs",
-                "GCF_000048645/tools/legsta/logs/nf.command.begin",
-                "GCF_000048645/tools/legsta/logs/nf.command.err",
-                "GCF_000048645/tools/legsta/logs/nf.command.log",
-                "GCF_000048645/tools/legsta/logs/nf.command.out",
-                "GCF_000048645/tools/legsta/logs/nf.command.run",
-                "GCF_000048645/tools/legsta/logs/nf.command.sh",
-                "GCF_000048645/tools/legsta/logs/nf.command.trace",
-                "GCF_000048645/tools/legsta/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/legsta",
-                "bactopia-runs/legsta/merged-results",
-                "bactopia-runs/legsta/merged-results/legsta.tsv",
-                "bactopia-runs/legsta/merged-results/logs",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.begin",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.err",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.log",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.out",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.run",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.sh",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/nf.command.trace",
-                "bactopia-runs/legsta/merged-results/logs/legsta-concat/versions.yml",
                 "bactopia-runs/legsta/nf-reports",
                 "bactopia-runs/legsta/nf-reports/legsta-dag.dot",
                 "bactopia-runs/legsta/nf-reports/legsta-report.html",
                 "bactopia-runs/legsta/nf-reports/legsta-timeline.html"
             ],
             [
-                "GCF_000048645.tsv:md5,42debc0661bcdc021ea871efcef6fb39",
-                "versions.yml:md5,6b11e1a69f4d20c873b1aadef9533a21",
-                "legsta.tsv:md5,42debc0661bcdc021ea871efcef6fb39",
-                "versions.yml:md5,f5386e7ff032be488d34b8bb980ba73b"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:36.349036838",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-05T10:03:29.26781747"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

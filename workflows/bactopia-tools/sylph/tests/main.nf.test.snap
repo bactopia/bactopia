@@ -1,21 +1,8 @@
 {
     "Sylph - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            1,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/sylph",
-                "SRR2838702/tools/sylph/SRR2838702.tsv",
-                "SRR2838702/tools/sylph/logs",
-                "SRR2838702/tools/sylph/logs/nf.command.begin",
-                "SRR2838702/tools/sylph/logs/nf.command.err",
-                "SRR2838702/tools/sylph/logs/nf.command.log",
-                "SRR2838702/tools/sylph/logs/nf.command.out",
-                "SRR2838702/tools/sylph/logs/nf.command.run",
-                "SRR2838702/tools/sylph/logs/nf.command.sh",
-                "SRR2838702/tools/sylph/logs/nf.command.trace",
-                "SRR2838702/tools/sylph/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/sylph",
                 "bactopia-runs/sylph/nf-reports",
@@ -24,14 +11,13 @@
                 "bactopia-runs/sylph/nf-reports/sylph-timeline.html"
             ],
             [
-                "SRR2838702.tsv:md5,4dd5e4cf070a52662269d4449b232acb",
-                "versions.yml:md5,1f03f48d087717c1a3fbc90821516217"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:31.596940082",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-11T10:00:42.05493692"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

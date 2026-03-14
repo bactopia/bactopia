@@ -37,7 +37,7 @@ process SYLPH_PROFILE {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    db                      : Path
+    db                                                      : Path
 
     output:
     record(

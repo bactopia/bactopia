@@ -16,18 +16,15 @@ nextflow_process {
                 // First record input: sample reads
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: null,
-                        lr: null
+                        _meta: [name: "ERR6005894"],
+                        r1: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
                 // Second record input: reference genome (GenBank format required)
-                input[1] = record(
-                    _ref_meta: [name: "snippy-ref"],
-                    reference: [file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk")]
-                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk")
                 """
             }
         }
@@ -56,18 +53,15 @@ nextflow_process {
                 // First record input: sample reads
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: null,
-                        lr: null
+                        _meta: [name: "SRR2838702SE"],
+                        r1: file("${params.test_data_dir}/data/empty/EMPTY_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/empty/EMPTY_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702SE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
                 // Second record input: reference genome (GenBank format required)
-                input[1] = record(
-                    _ref_meta: [name: "snippy-ref"],
-                    reference: [file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")]
-                )
+                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")
                 """
             }
         }

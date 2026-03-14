@@ -17,7 +17,7 @@ nextflow_process {
                         _meta: [name: "ERR1438863"],
                         r1: file("${params.test_data_dir}/data/species/streptococcus_pneumoniae/illumina/ERR1438863_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/data/species/streptococcus_pneumoniae/illumina/ERR1438863_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )

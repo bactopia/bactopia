@@ -1,0 +1,23 @@
+{
+    "tblastx - module - SRX1390622": {
+        "content": [
+            {
+                "id": "SRX1390622-BLAST_TBLASTX",
+                "logs_dir": "SRX1390622/tools/tblastx//logs/",
+                "name": "SRX1390622",
+                "output_dir": "SRX1390622/tools/tblastx/",
+                "process_name": "tblastx",
+                "scope": "sample"
+            },
+            "SRX1390622.tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6",
+            [
+                "versions.yml:md5,2d402efb20baa10e7b3af88ef3f2312d"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:46.452683856",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

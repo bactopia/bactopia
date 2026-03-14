@@ -20,12 +20,11 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output record(meta, bam, csv, json, txt, vcf, results, logs, nf_logs, versions)
- * - `bam`: Aligned BAM file
+ * @output record(meta, csv, json, txt, supplemental, vcf, results, logs, nf_logs, versions)
  * - `csv`: Results in CSV format
  * - `json`: Compressed JSON results file
  * - `txt`: Results in text format
- * - `vcf`: Compressed VCF file with variants
+ * - `supplemental`: BAM and VCF file outputs
  */
 nextflow.preview.types = true
 
@@ -43,13 +42,16 @@ process TBPROFILER_PROFILE {
     record(
         // Named fields (used downstream)
         meta: meta,
-        bam: files("bam/*.bam"),
-        csv: files("supplemental/*.csv", optional: true),
-        json: files("supplemental/*.json.gz"),
-        txt: files("supplemental/*.txt", optional: true),
-        vcf: files("vcf/*.vcf.gz"),
+        csv: file("${prefix}.csv", optional: true),
+        json: file("${prefix}.results.json.gz"),
+        txt: file("${prefix}.txt", optional: true),
         // Generic fields (used for publishing)
-        results: [],
+        results: [
+            files("${prefix}.csv", optional: true),
+            files("${prefix}.results.json.gz"),
+            files("${prefix}.txt", optional: true),
+            files("supplemental/*")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -94,9 +96,34 @@ process TBPROFILER_PROFILE {
         --db_dir database/ \\
         ${input_reads}
 
+    # Move results
+    if [ -f "results/${prefix}.results.csv" ]; then
+        mv results/${prefix}.results.csv ./${prefix}.csv
+    fi
+
+    # SRR2838702.results.json
+    if [ -f "results/${prefix}.results.json" ]; then
+        # collate hard-matches "*.results.json"
+        gzip -c results/${prefix}.results.json > ${prefix}.results.json.gz
+    fi
+
+    # SRR2838702.results.txt
+    if [ -f "results/${prefix}.results.txt" ]; then
+        mv results/${prefix}.results.txt ./${prefix}.txt
+    fi
+
+    # Move bam and vcf folder if they exist
+    mkdir supplemental
+    if [ -d "bam/" ]; then
+        mv bam/* supplemental/
+    fi
+
+    if [ -d "vcf/" ]; then
+        mv vcf/* supplemental/
+    fi
+
     # Cleanup
-    mv results/ supplemental/
-    gzip supplemental/*.json
+    rm -rf results/ database/ bam/ vcf/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

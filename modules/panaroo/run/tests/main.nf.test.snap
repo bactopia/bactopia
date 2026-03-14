@@ -1,0 +1,22 @@
+{
+    "panaroo - module - portiera pangenome": {
+        "content": [
+            {
+                "id": "portiera-panaroo-PANAROO_RUN",
+                "logs_dir": "panaroo/logs",
+                "name": "portiera-panaroo",
+                "output_dir": "",
+                "process_name": "panaroo_run",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,bc3e44bf3b11c0eddd36a31af1aa71a4"
+            ]
+        ],
+        "timestamp": "2026-03-13T22:15:06.264628875",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

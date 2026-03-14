@@ -1,0 +1,24 @@
+{
+    "shigatyper - module - ERR6005894 - PE": {
+        "content": [
+            {
+                "id": "ERR6005894-SHIGATYPER",
+                "logs_dir": "ERR6005894/tools/shigatyper//logs/",
+                "name": "ERR6005894",
+                "output_dir": "ERR6005894/tools/shigatyper/",
+                "process_name": "shigatyper",
+                "scope": "sample",
+                "single_end": false
+            },
+            "ERR6005894.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2",
+            [
+                "versions.yml:md5,5546505c7719718340a0cd98ece587d8"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:57:47.6978393",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

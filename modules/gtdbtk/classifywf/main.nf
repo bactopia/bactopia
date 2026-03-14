@@ -47,12 +47,12 @@ process GTDBTK_CLASSIFYWF {
     record(
         // Named fields (used downstream)
         meta: meta,
-        bac_tsv: file("${prefix}.bac120.summary.tsv"),
-        ar_tsv: file("${prefix}.ar53.summary.tsv"),
+        bac_tsv: file("${prefix}.bac120.summary.tsv", optional: true),
+        ar_tsv: file("${prefix}.ar53.summary.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [
-            files("${prefix}.bac120.summary.tsv"),
-            files("${prefix}.ar53.summary.tsv"),
+            files("${prefix}.bac120.summary.tsv", optional: true),
+            files("${prefix}.ar53.summary.tsv", optional: true),
             files("supplemental/*")
         ],
         logs: files("*.{log,err}", optional: true),
@@ -94,7 +94,7 @@ process GTDBTK_CLASSIFYWF {
         --skip_ani_screen \\
         --prefix ${prefix}
     mv supplemental/*.log ./
-    mv supplemental/*.summary.tsv ./
+    mv supplemental/classify/*.summary.tsv ./
 
     # Cleanup
     if [ "${is_tarball}" == "true" ]; then

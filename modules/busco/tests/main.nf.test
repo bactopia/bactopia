@@ -29,7 +29,6 @@ nextflow_process {
                 { assert snapshot(
                     record.meta,
                     record.tsv,
-                    record.supplemental,
                     record.versions
                 ).match() }
             )
@@ -60,7 +59,6 @@ nextflow_process {
                 { assert snapshot(
                     record.meta,
                     record.tsv,
-                    record.supplemental,
                     record.versions
                 ).match() }
             )

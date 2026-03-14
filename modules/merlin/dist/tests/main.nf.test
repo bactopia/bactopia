@@ -20,8 +20,8 @@ nextflow_process {
                         fna: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna"),
                         r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: null,
-                        lr: null
+                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
                     )
                 )
                 // Reference Mash database
@@ -58,8 +58,8 @@ nextflow_process {
                         fna: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
                         r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: null,
-                        lr: null
+                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
                     )
                 )
                 // Reference Mash database

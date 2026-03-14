@@ -1,0 +1,23 @@
+{
+    "gtdbtk - module - classify genomes - path (full)": {
+        "content": [
+            {
+                "id": "gtdbtk-test-GTDBTK_CLASSIFYWF",
+                "logs_dir": "gtdbtk-test/tools/gtdb//logs/",
+                "name": "gtdbtk-test",
+                "output_dir": "gtdbtk-test/tools/gtdb/",
+                "process_name": "gtdb",
+                "scope": "sample"
+            },
+            "gtdbtk-test.bac120.summary.tsv:md5,06f01f9c6777f4ce18227b5da1ea5138",
+            [
+                "versions.yml:md5,5089e20ff2dfd72f49ce38267f9ec75a"
+            ]
+        ],
+        "timestamp": "2026-03-13T05:48:00.665715677",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

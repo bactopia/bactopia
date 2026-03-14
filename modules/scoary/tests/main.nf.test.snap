@@ -1,0 +1,22 @@
+{
+    "scoary - module - portiera": {
+        "content": [
+            {
+                "id": "scoary-SCOARY",
+                "logs_dir": "scoary/logs",
+                "name": "scoary",
+                "output_dir": "scoary/",
+                "process_name": "scoary",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,f8f8a2300f84de4e8184c9dd33579ccd"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:58:11.308147127",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

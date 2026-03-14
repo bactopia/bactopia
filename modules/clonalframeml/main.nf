@@ -92,7 +92,9 @@ process CLONALFRAMEML {
     gzip ${prefix}.masked.aln
 
     # Cleanup
-    rm ${msa_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm ${msa_name}
+    fi
     gzip *.ML_sequence.fasta
     gzip *.position_cross_reference.txt
 

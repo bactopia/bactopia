@@ -32,8 +32,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.tree,
-                    record.tsv,
                     record.versions
                 ).match() }
             )

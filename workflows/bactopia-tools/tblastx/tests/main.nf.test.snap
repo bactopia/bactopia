@@ -1,149 +1,65 @@
 {
     "tblastx (single-gene.ffn.gz) - SRR2838702|portiera|blastdb": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/tblastx",
-                "SRR2838702/tools/tblastx/SRR2838702.tblastx.tsv",
-                "SRR2838702/tools/tblastx/logs",
-                "SRR2838702/tools/tblastx/logs/nf.command.begin",
-                "SRR2838702/tools/tblastx/logs/nf.command.err",
-                "SRR2838702/tools/tblastx/logs/nf.command.log",
-                "SRR2838702/tools/tblastx/logs/nf.command.out",
-                "SRR2838702/tools/tblastx/logs/nf.command.run",
-                "SRR2838702/tools/tblastx/logs/nf.command.sh",
-                "SRR2838702/tools/tblastx/logs/nf.command.trace",
-                "SRR2838702/tools/tblastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/tblastx",
-                "bactopia-runs/tblastx/merged-results",
-                "bactopia-runs/tblastx/merged-results/logs",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.begin",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.err",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.log",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.out",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.run",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.sh",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.trace",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/versions.yml",
-                "bactopia-runs/tblastx/merged-results/tblastx.tsv",
                 "bactopia-runs/tblastx/nf-reports",
                 "bactopia-runs/tblastx/nf-reports/tblastx-dag.dot",
                 "bactopia-runs/tblastx/nf-reports/tblastx-report.html",
                 "bactopia-runs/tblastx/nf-reports/tblastx-timeline.html"
             ],
             [
-                "SRR2838702.tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033",
-                "versions.yml:md5,56fed55112ffdfa9029faa4d716aff3d",
-                "versions.yml:md5,8ebdf55bc992d797630ad6f81b6cbe3d",
-                "tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:27.272722808",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T06:49:45.6547752"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     },
     "tblastx (single-gene.ffn) - SRR2838702|portiera|blastdb": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/tblastx",
-                "SRR2838702/tools/tblastx/SRR2838702.tblastx.tsv",
-                "SRR2838702/tools/tblastx/logs",
-                "SRR2838702/tools/tblastx/logs/nf.command.begin",
-                "SRR2838702/tools/tblastx/logs/nf.command.err",
-                "SRR2838702/tools/tblastx/logs/nf.command.log",
-                "SRR2838702/tools/tblastx/logs/nf.command.out",
-                "SRR2838702/tools/tblastx/logs/nf.command.run",
-                "SRR2838702/tools/tblastx/logs/nf.command.sh",
-                "SRR2838702/tools/tblastx/logs/nf.command.trace",
-                "SRR2838702/tools/tblastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/tblastx",
-                "bactopia-runs/tblastx/merged-results",
-                "bactopia-runs/tblastx/merged-results/logs",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.begin",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.err",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.log",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.out",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.run",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.sh",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.trace",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/versions.yml",
-                "bactopia-runs/tblastx/merged-results/tblastx.tsv",
                 "bactopia-runs/tblastx/nf-reports",
                 "bactopia-runs/tblastx/nf-reports/tblastx-dag.dot",
                 "bactopia-runs/tblastx/nf-reports/tblastx-report.html",
                 "bactopia-runs/tblastx/nf-reports/tblastx-timeline.html"
             ],
             [
-                "SRR2838702.tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033",
-                "versions.yml:md5,56fed55112ffdfa9029faa4d716aff3d",
-                "versions.yml:md5,8ebdf55bc992d797630ad6f81b6cbe3d",
-                "tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:49.898699235",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T06:50:25.056051883"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     },
     "tblastx (single-gene.ffn.gz|--tblastx_use_genes) - SRR2838702|portiera|blastdb": {
         "content": [
-            2,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/tblastx",
-                "SRR2838702/tools/tblastx/SRR2838702.tblastx.tsv",
-                "SRR2838702/tools/tblastx/logs",
-                "SRR2838702/tools/tblastx/logs/nf.command.begin",
-                "SRR2838702/tools/tblastx/logs/nf.command.err",
-                "SRR2838702/tools/tblastx/logs/nf.command.log",
-                "SRR2838702/tools/tblastx/logs/nf.command.out",
-                "SRR2838702/tools/tblastx/logs/nf.command.run",
-                "SRR2838702/tools/tblastx/logs/nf.command.sh",
-                "SRR2838702/tools/tblastx/logs/nf.command.trace",
-                "SRR2838702/tools/tblastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/tblastx",
-                "bactopia-runs/tblastx/merged-results",
-                "bactopia-runs/tblastx/merged-results/logs",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.begin",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.err",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.log",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.out",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.run",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.sh",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/nf.command.trace",
-                "bactopia-runs/tblastx/merged-results/logs/tblastx-concat/versions.yml",
-                "bactopia-runs/tblastx/merged-results/tblastx.tsv",
                 "bactopia-runs/tblastx/nf-reports",
                 "bactopia-runs/tblastx/nf-reports/tblastx-dag.dot",
                 "bactopia-runs/tblastx/nf-reports/tblastx-report.html",
                 "bactopia-runs/tblastx/nf-reports/tblastx-timeline.html"
             ],
             [
-                "SRR2838702.tblastx.tsv:md5,4efa1d2d8633246603e06df64e559c4c",
-                "versions.yml:md5,56fed55112ffdfa9029faa4d716aff3d",
-                "versions.yml:md5,8ebdf55bc992d797630ad6f81b6cbe3d",
-                "tblastx.tsv:md5,4efa1d2d8633246603e06df64e559c4c"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:42.947251196",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T06:50:05.20375452"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }

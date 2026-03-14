@@ -6,34 +6,20 @@ nextflow_process {
     tag "tbprofiler"
     tag "tbprofiler_collate"
 
-    // STUB: This test requires TB-Profiler JSON output files as input fixtures.
-    // TB-Profiler JSON outputs are produced by the tbprofiler/profile module and
-    // contain drug resistance predictions, lineage calls, and variant information.
-    // Fixture files from upstream module outputs are needed before this test can
-    // be fully implemented.
-
-    test("tbprofiler collate - module - stub") {
-
+    test("tbprofiler collate - module - test") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
             }
             process {
                 """
-                // TODO: Replace with actual TB-Profiler JSON fixture files
-                // TB-Profiler collate expects JSON files in a specific format
-                // produced by `tb-profiler profile`
-                // Example fixture path: \${params.test_data_dir}/data/tools/tbprofiler/sample1.results.json
-                def json1 = file("\${workDir}/sample1.results.json")
-                json1.text = '{}'
-
-                def json2 = file("\${workDir}/sample2.results.json")
-                json2.text = '{}'
-
                 input[0] = Channel.of(
                     record(
                         _meta: [id: "tbprofiler"],
-                        json: [json1, json2]
+                        json: [
+                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.results.json.gz"),
+                            file("${params.test_data_dir}/data/species/portiera/nanopore/ERR3772599.results.json.gz")
+                        ]
                     )
                 )
                 """
@@ -41,9 +27,13 @@ nextflow_process {
         }
 
         then {
-            // TODO: Update assertions once fixture files are available
+            def record = process.out[0][0]
             assertAll(
-                { assert process.success || true }  // Stub - expected to fail without real fixtures
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
             )
         }
     }

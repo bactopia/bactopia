@@ -1,0 +1,66 @@
+{
+    "clonalframeml - module - portiera - uncompressed": {
+        "content": [
+            {
+                "id": "portiera-clonalframeml",
+                "logs_dir": "clonalframeml/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "clonalframeml",
+                "scope": "run"
+            },
+            [
+                "portiera.em.txt:md5,8a93c4d39c326b3ec0c471f067384498"
+            ],
+            [
+                "portiera.importation_status.txt:md5,cd67d32ee61ed2bb56dc6d8e302b1517"
+            ],
+            [
+                "portiera.labelled_tree.newick:md5,66634ad58496ac73b7752ce0a7c02dad"
+            ],
+            [
+                "portiera.masked.aln.gz:md5,4b5579a69f81f0217a04a73841785ecf"
+            ],
+            [
+                "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
+            ]
+        ],
+        "timestamp": "2026-03-13T02:16:10.769198596",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "clonalframeml - module - portiera - compressed": {
+        "content": [
+            {
+                "id": "portiera-clonalframeml",
+                "logs_dir": "clonalframeml/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "clonalframeml",
+                "scope": "run"
+            },
+            [
+                "portiera.em.txt:md5,8a93c4d39c326b3ec0c471f067384498"
+            ],
+            [
+                "portiera.importation_status.txt:md5,cd67d32ee61ed2bb56dc6d8e302b1517"
+            ],
+            [
+                "portiera.labelled_tree.newick:md5,66634ad58496ac73b7752ce0a7c02dad"
+            ],
+            [
+                "portiera.masked.aln.gz:md5,4b5579a69f81f0217a04a73841785ecf"
+            ],
+            [
+                "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
+            ]
+        ],
+        "timestamp": "2026-03-13T02:16:52.023844888",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -42,17 +42,24 @@ process SKETCHER {
 
     input:
     (_meta: Map, assembly: Path): Record
-    mash_db        : Path
-    sourmash_db    : Path
+    mash_db    : Path
+    sourmash_db: Path
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         sig: file("${prefix}.sig"),
         msh: files("${prefix}-k*.msh"),
         mash: file("${prefix}-mash-refseq88-k21.txt"),
         sourmash: file("${prefix}-sourmash-gtdb-rs207-k31.txt"),
-        results: [file("${prefix}.sig"), files("${prefix}-k*.msh"), file("${prefix}-mash-refseq88-k21.txt"), file("${prefix}-sourmash-gtdb-rs207-k31.txt")],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.sig"),
+            files("${prefix}-k*.msh"),
+            files("${prefix}-mash-refseq88-k21.txt"),
+            files("${prefix}-sourmash-gtdb-rs207-k31.txt")
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")

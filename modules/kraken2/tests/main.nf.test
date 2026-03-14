@@ -17,11 +17,11 @@ nextflow_process {
                         _meta: [name: "SRR2838702"],
                         r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz"),
-                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                        se: null,
+                        lr: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_standard_08_GB_20251015.tar.gz")
+                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_viral_20251015.tar.gz")
                 """
             }
         }

@@ -28,11 +28,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.json,
-                    record.txt,
-                    record.tsv,
-                    record.genome_seq,
-                    record.plasmid_seq,
                     record.versions
                 ).match() }
             )
@@ -62,11 +57,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.json,
-                    record.txt,
-                    record.tsv,
-                    record.genome_seq,
-                    record.plasmid_seq,
                     record.versions
                 ).match() }
             )

@@ -26,7 +26,6 @@
  * @output record(meta, special_meta, scrubbed, scrubbed_extra, scrub_report, results, logs, nf_logs, versions)
  * - `special_meta`: Groovy Map with ID for downstream aggregation
  * - `scrubbed`: Scrubbed FASTQ files with human reads removed
- * - `scrubbed_extra`: Placeholder files for pipeline compatibility
  * - `scrub_report`: Report of scrubbing statistics
  */
 nextflow.preview.types = true
@@ -48,12 +47,11 @@ process SRAHUMANSCRUBBER_SCRUB {
         meta: meta,
         special_meta: special_meta,
         scrubbed: files("*.scrubbed.fastq.gz"),
-        scrubbed_extra: files("EMPTY_EXTRA"),
-        scrub_report: files('*.scrub.report.tsv', optional: true),
+        scrub_report: file("${prefix}.scrub.report.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("*.scrubbed.fastq.gz"),
-            files('*.scrub.report.tsv', optional: true)
+            files("${prefix}.scrub.report.tsv", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -99,9 +97,6 @@ process SRAHUMANSCRUBBER_SCRUB {
         # Remove temp json files
         rm original.json scrubbed.json
 
-        # Used for clean-yer-reads
-        touch EMPTY_EXTRA
-
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
             fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
@@ -126,9 +121,6 @@ process SRAHUMANSCRUBBER_SCRUB {
 
         # Remove temp json files
         rm original.json scrubbed.json
-
-        # Used for clean-yer-reads
-        touch EMPTY_EXTRA
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":

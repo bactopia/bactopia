@@ -1,0 +1,50 @@
+{
+    "kraken2 - module - SRR2838702 - path": {
+        "content": [
+            {
+                "id": "SRR2838702-KRAKEN2",
+                "logs_dir": "SRR2838702/tools/kraken2/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/kraken2",
+                "process_name": "kraken2",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "SRR2838702.kraken2.report.txt:md5,dd5f0f78bac34edc48996d7d113b8283"
+            ],
+            [
+                "versions.yml:md5,de597b0a4a9959f7d22e0d84d321c70e"
+            ]
+        ],
+        "timestamp": "2026-03-14T04:55:50.976953366",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "kraken2 - module - SRR2838702 - tarball": {
+        "content": [
+            {
+                "id": "SRR2838702-KRAKEN2",
+                "logs_dir": "SRR2838702/tools/kraken2/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/kraken2",
+                "process_name": "kraken2",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "SRR2838702.kraken2.report.txt:md5,29a9ad9bb9b9b17a43e969f82c6e3e9f"
+            ],
+            [
+                "versions.yml:md5,de597b0a4a9959f7d22e0d84d321c70e"
+            ]
+        ],
+        "timestamp": "2026-03-14T04:52:48.537261702",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

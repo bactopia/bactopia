@@ -43,7 +43,7 @@ process SNIPPY_CORE {
 
     input:
     (_meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
-    (_ref_meta: Map, reference: Set<Path>): Record
+    reference: Path
     mask: Path?
 
     output:
@@ -71,8 +71,8 @@ process SNIPPY_CORE {
     )
 
     script:
-    reference_name = reference.toList()[0].getSimpleName()
-    prefix = task.ext.prefix ?: "${_meta.id}"
+    reference_name = reference.getSimpleName()
+    prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
     meta = [:]
@@ -82,9 +82,9 @@ process SNIPPY_CORE {
     meta.process_name = task.ext.process_name
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs"
-    def mask_opt = mask.size() == 1 ? "--mask ${mask.getName()}" : ""
-    def is_compressed = reference.toList()[0].getName().endsWith(".gz") ? true : false
-    def final_reference = reference.toList()[0].getName().replace(".gz", "")
+    def mask_opt = mask != null ? "--mask ${mask.getName()}" : ""
+    def is_compressed = reference.getName().endsWith(".gz") ? true : false
+    def final_reference = reference.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${reference} > ${final_reference}

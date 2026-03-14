@@ -1,68 +1,23 @@
 {
     "PhiSpy - haemophilus_influenzae|compressed_genbank": {
         "content": [
-            3,
+            0,
             [
-                "GCA_000027305",
-                "GCA_000027305/tools",
-                "GCA_000027305/tools/phispy",
-                "GCA_000027305/tools/phispy/GCA_000027305.tsv",
-                "GCA_000027305/tools/phispy/logs",
-                "GCA_000027305/tools/phispy/logs/GCA_000027305.log",
-                "GCA_000027305/tools/phispy/logs/nf.command.begin",
-                "GCA_000027305/tools/phispy/logs/nf.command.err",
-                "GCA_000027305/tools/phispy/logs/nf.command.log",
-                "GCA_000027305/tools/phispy/logs/nf.command.out",
-                "GCA_000027305/tools/phispy/logs/nf.command.run",
-                "GCA_000027305/tools/phispy/logs/nf.command.sh",
-                "GCA_000027305/tools/phispy/logs/nf.command.trace",
-                "GCA_000027305/tools/phispy/logs/versions.yml",
-                "GCF_900478275",
-                "GCF_900478275/tools",
-                "GCF_900478275/tools/phispy",
-                "GCF_900478275/tools/phispy/GCF_900478275.tsv",
-                "GCF_900478275/tools/phispy/logs",
-                "GCF_900478275/tools/phispy/logs/GCF_900478275.log",
-                "GCF_900478275/tools/phispy/logs/nf.command.begin",
-                "GCF_900478275/tools/phispy/logs/nf.command.err",
-                "GCF_900478275/tools/phispy/logs/nf.command.log",
-                "GCF_900478275/tools/phispy/logs/nf.command.out",
-                "GCF_900478275/tools/phispy/logs/nf.command.run",
-                "GCF_900478275/tools/phispy/logs/nf.command.sh",
-                "GCF_900478275/tools/phispy/logs/nf.command.trace",
-                "GCF_900478275/tools/phispy/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/phispy",
-                "bactopia-runs/phispy/merged-results",
-                "bactopia-runs/phispy/merged-results/logs",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.begin",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.err",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.log",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.out",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.run",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.sh",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/nf.command.trace",
-                "bactopia-runs/phispy/merged-results/logs/phispy-concat/versions.yml",
-                "bactopia-runs/phispy/merged-results/phispy.tsv",
                 "bactopia-runs/phispy/nf-reports",
                 "bactopia-runs/phispy/nf-reports/phispy-dag.dot",
                 "bactopia-runs/phispy/nf-reports/phispy-report.html",
                 "bactopia-runs/phispy/nf-reports/phispy-timeline.html"
             ],
             [
-                "GCA_000027305.tsv:md5,80dab03860e9a91c53b6c3248b7980fa",
-                "versions.yml:md5,9bbd5c36b1a438762296b34c3712fa31",
-                "GCF_900478275.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960",
-                "versions.yml:md5,9bbd5c36b1a438762296b34c3712fa31",
-                "versions.yml:md5,07d57bb6615d099e188c1aad39da5c83",
-                "phispy.tsv:md5,53a65341b5e9d12c0b3c1f04ace47837"
+                
             ]
         ],
+        "timestamp": "2026-03-11T05:55:28.91543626",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.07.0"
-        },
-        "timestamp": "2025-09-11T10:17:23.153062895"
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
     }
 }
