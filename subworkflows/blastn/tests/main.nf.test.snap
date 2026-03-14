@@ -1,0 +1,45 @@
+{
+    "blastn - subworkflow - SRX1390622": {
+        "content": [
+            {
+                "id": "SRX1390622-BLASTN:BLASTN_MODULE",
+                "logs_dir": "SRX1390622/tools/blastn//logs/",
+                "name": "SRX1390622",
+                "output_dir": "SRX1390622/tools/blastn/",
+                "process_name": "blastn",
+                "scope": "sample"
+            },
+            "SRX1390622.blastn.tsv:md5,3a6bc3a4b38b150e79573aa8838af21d",
+            [
+                [
+                    "SRX1390622.blastn.tsv:md5,3a6bc3a4b38b150e79573aa8838af21d"
+                ]
+            ],
+            [
+                "versions.yml:md5,c69750e6e0487ff9e9f1e40408c48d90"
+            ],
+            {
+                "id": "blastn-BLASTN:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/blastn-concat/",
+                "name": "blastn",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "blastn.tsv:md5,3a6bc3a4b38b150e79573aa8838af21d",
+            [
+                [
+                    "blastn.tsv:md5,3a6bc3a4b38b150e79573aa8838af21d"
+                ]
+            ],
+            [
+                "versions.yml:md5,83da7e0cc2656aa0959a8b41dc452417"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:33.748510575",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

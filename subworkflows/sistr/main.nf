@@ -14,7 +14,7 @@
  *
  * @modules csvtk_concat, sistr
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for Salmonella typing
  *

@@ -1,0 +1,47 @@
+{
+    "staphtyper - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-STAPHTYPER:AGRVATE:AGRVATE_MODULE",
+                "logs_dir": "GCF_000017085/tools/agrvate//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/agrvate/",
+                "process_name": "agrvate",
+                "scope": "sample"
+            },
+            [
+                [
+                    "GCF_000017085.tsv:md5,b483a3d6ca1908ab813427b06751e51a"
+                ],
+                [
+                    "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
+                    "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                "versions.yml:md5,c0b16a8b5ea1a55c72f38545beffb659"
+            ],
+            {
+                "id": "sccmec-STAPHTYPER:SCCMEC:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/sccmec-concat/",
+                "name": "sccmec",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            [
+                [
+                    "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
+                ]
+            ],
+            [
+                "versions.yml:md5,35f4a9f839e9fd13b2afb63fecea88b4"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:50.914722174",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

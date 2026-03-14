@@ -47,17 +47,16 @@ For individual processes/modules that execute tools:
  *
  * @note <Optional: Additional note about behavior/requirements>
  *
- * @input <channel_name>
- * <Description of a simple input>.
+ * @input record(meta, <input_name>)
+ * - `meta`: Groovy Map containing sample information
+ * - `<input_name>`: <Description of the input file>
  *
- * @input tuple(<name1>, <name2>)
- * - `<name1>`: <Description of the first element>
- * - `<name2>`: <Description of the second element>
+ * @input <param_name>
+ * <Description of a simple input parameter>.
  *
- * @output <channel_name>    <Description of the output channel>
- * @output logs              Optional software execution logs containing warnings/errors
- * @output nf_logs           Nextflow execution scripts and logs for debugging
- * @output versions          A YAML formatted file with software versions
+ * @output record(meta, <field1>, <field2>, results, logs, nf_logs, versions)
+ * - `<field1>`: <Description of tool-specific output field>
+ * - `<field2>`: <Description of tool-specific output field>
  */
 ```
 
@@ -105,18 +104,18 @@ For workflow components that orchestrate modules/subworkflows:
  *
  * @note <Optional: Additional notes about workflow behavior>
  *
- * @input <channel_or_param_name>
- * <Description of input>.
+ * @input record(meta, <input_name>)
+ * - `meta`: Groovy Map containing sample information
+ * - `<input_name>`: <Description of the input>
  *
- * @input tuple(<name1>, <name2>)
- * - `<name1>`: <Description>
- * - `<name2>`: <Description>
+ * @input <param_name>
+ * <Description of a simple input parameter>.
  *
- * @output <specific_output> <Description of a specific, useful output channel>
- * @output results           Aggregated results channel containing all output files
- * @output logs              Aggregated logs channel containing all execution logs
- * @output nf_logs           Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions          Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `<field>`: <Description of tool-specific output field from the module record>
+ *
+ * @output run_outputs
+ * - `<field>`: <Description of aggregated output from CSVTK_CONCAT>
  */
 ```
 
@@ -157,15 +156,15 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
 ## Quick Reference
 
 ```groovy
-// Module: Use @output for channels
-@output report     Abricate screening results
-@output logs       Tool execution logs
+// Module: Use @output record(...) listing all fields, describe only tool-specific ones
+@output record(meta, report, results, logs, nf_logs, versions)
+- `report`: Abricate screening results
 
-// Subworkflow: Use @output for channels, include 4 standard channels
-@output results    Aggregate of all result files
-@output logs       Aggregate of all execution logs
-@output nf_logs    Nextflow execution scripts and logs for debugging
-@output versions   Software version information
+// Subworkflow: Emit sample_outputs (module record) and run_outputs (aggregated record)
+@output sample_outputs
+- `report`: Per-sample Abricate screening results
+@output run_outputs
+- `csv`: A merged TSV file with results from all samples
 
 // Entry Workflow: Use @publish for published files
 @section Analysis Results

@@ -1,0 +1,45 @@
+{
+    "mashdist - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "mashdist-test-MASHDIST:MASH_DIST",
+                "logs_dir": "mashdist-test/tools/mashdist/null/logs/",
+                "name": "mashdist-test",
+                "output_dir": "mashdist-test/tools/mashdist/null",
+                "process_name": "mashdist",
+                "scope": "sample"
+            },
+            "mashdist-test-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            [
+                [
+                    "mashdist-test-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a"
+                ]
+            ],
+            [
+                "versions.yml:md5,a5e76b9a562b0b311239e1342781fb42"
+            ],
+            {
+                "id": "mashdist-MASHDIST:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/mashdist-concat/",
+                "name": "mashdist",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "mashdist.tsv:md5,4389211aaebf12c7a477469fd6d0598a",
+            [
+                [
+                    "mashdist.tsv:md5,4389211aaebf12c7a477469fd6d0598a"
+                ]
+            ],
+            [
+                "versions.yml:md5,fa387a5652585c181be4884eb12f37b0"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:36.78613433",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

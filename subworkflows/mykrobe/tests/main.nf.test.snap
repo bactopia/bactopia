@@ -1,0 +1,50 @@
+{
+    "mykrobe - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-MYKROBE:MYKROBE_PREDICT",
+                "logs_dir": "SRR2838702/tools/mykrobe//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/mykrobe/",
+                "process_name": "mykrobe",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.csv:md5,ca92b7f83eb77336c8a326bbea36e276",
+            "SRR2838702.json:md5,ba7e1395e57e29a382425cb42962b5a4",
+            [
+                [
+                    "SRR2838702.csv:md5,ca92b7f83eb77336c8a326bbea36e276"
+                ],
+                [
+                    "SRR2838702.json:md5,ba7e1395e57e29a382425cb42962b5a4"
+                ]
+            ],
+            [
+                "versions.yml:md5,0bb4264d1e075a8c456f1cb32275d24e"
+            ],
+            {
+                "id": "mykrobe-MYKROBE:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/mykrobe-concat/",
+                "name": "mykrobe",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "mykrobe.csv:md5,996d9fc206ef0246c1d24289bd211ad5",
+            [
+                [
+                    "mykrobe.csv:md5,996d9fc206ef0246c1d24289bd211ad5"
+                ]
+            ],
+            [
+                "versions.yml:md5,b61c6df6bd9d4c4092a94b7ebb604057"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:38.499527859",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -13,7 +13,7 @@
  *
  * @modules csvtk_concat, mash_dist
  *
- * @input tuple(meta, seqs)
+ * @input record(meta, seqs)
  * - `meta`: Groovy Map containing sample information
  * - `seqs`: Sequences in FASTA format to compare against reference
  *

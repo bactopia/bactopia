@@ -1,0 +1,45 @@
+{
+    "spatyper - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-SPATYPER:SPATYPER_MODULE",
+                "logs_dir": "GCF_000017085/tools/spatyper//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/spatyper/",
+                "process_name": "spatyper",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+            [
+                [
+                    "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54"
+                ]
+            ],
+            [
+                "versions.yml:md5,141b714186c6a50d0ead0ea074bf78db"
+            ],
+            {
+                "id": "spatyper-SPATYPER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/spatyper-concat/",
+                "name": "spatyper",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+            [
+                [
+                    "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54"
+                ]
+            ],
+            [
+                "versions.yml:md5,2be001b7db8743258dd915dfe57337f4"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:42.245024505",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

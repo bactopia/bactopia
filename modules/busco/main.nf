@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download
  * @citation busco
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *

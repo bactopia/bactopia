@@ -1,0 +1,34 @@
+{
+    "srahumanscrubber - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SRAHUMANSCRUBBER:SRAHUMANSCRUBBER_SCRUB",
+                "logs_dir": "SRR2838702/tools/srahumanscrubber/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/srahumanscrubber",
+                "process_name": "srahumanscrubber",
+                "runtype": null,
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.scrub.report.tsv:md5,760839e7189241c711c62c9fa3abdf69",
+            [
+                [
+                    "SRR2838702_R1.scrubbed.fastq.gz:md5,53e5bca21905c001b46a8277cc4ec271",
+                    "SRR2838702_R2.scrubbed.fastq.gz:md5,0256f5dd3f50b19f7da7d2ab0d5cc313"
+                ],
+                [
+                    "SRR2838702.scrub.report.tsv:md5,760839e7189241c711c62c9fa3abdf69"
+                ]
+            ],
+            [
+                "versions.yml:md5,ca8ec5702526f2d59b7e3c5068c1c400"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:45:22.772092659",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

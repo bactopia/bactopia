@@ -1,275 +1,413 @@
 # Testing Framework
 
 ## Overview
-Bactopia uses the nf-test framework for comprehensive pipeline testing. This ensures reliability and correctness across all components, from individual modules to end-to-end workflows.
+Bactopia uses the [nf-test](https://www.nf-test.com/) framework (v0.9.4) with Nextflow 26.01.0 for comprehensive pipeline testing. Tests cover individual modules, subworkflows, and full pipeline runs using snapshot-based assertions.
 
-## nf-test Framework
+## Test Organization
 
-### Key Components
-- **Test files**: Files ending with `.nftest` or `.test`
-- **Test configuration**: `.nf-test.config`
-- **Test snapshots**: Files ending with `.test.snap`
-- **Test data**: External test data repository
+### Directory Structure
 
-### Test Organization
+Tests live alongside their components:
 
-#### Main Tests
-- **`/tests/main.nf.test`** - Main workflow tests
-- **`/tests/main.nf.test.snap`** - Expected outputs snapshot
+```text
+modules/{tool}/tests/
+    main.nf.test          # Test specification
+    main.nf.test.snap     # Snapshot file (expected outputs)
+    nf-test.config        # nf-test configuration
+    nextflow.config       # Nextflow configuration for test
+    .nftignore            # File patterns to exclude from snapshots
 
-#### Workflow-Specific Tests
-- **`{workflow}/tests/`** - Tests specific to individual workflows
-- **`{workflow}/tests/*.nftest`** - Test files for the workflow
-- **`{workflow}/tests/*.test.snap`** - Workflow-specific snapshots
+subworkflows/{name}/tests/
+    main.nf.test
+    main.nf.test.snap
+    nf-test.config
+    nextflow.config
+    .nftignore
 
-#### Test Configuration
-- **`/tests/nf-test.config`** - Global test configuration
-- **`{workflow}/tests/nf-test.config`** - Workflow-specific test config
+workflows/{name}/tests/
+    main.nf.test
+    main.nf.test.snap
+    nf-test.config
+    .nftignore
 
-## Test Structure
-
-### Basic Test Template
-```groovy
-test("test_name") {
-    when {
-        process {
-            """
-            # Test setup code
-            """
-        }
-    }
-    then {
-        assert workflow.completed
-        assert workflow.success
-        // Additional assertions
-    }
-}
+tests/                    # Top-level pipeline tests
+    main.nf.test
+    main.nf.test.snap
+    nf-test.config
+    .nftignore
 ```
 
-### Test Categories
+### Test Block Types
 
-#### 1. Unit Tests
-- **Purpose**: Test individual modules in isolation
-- **Scope**: Single process execution
-- **Focus**: Input/output validation, parameter handling
-
-#### 2. Integration Tests
-- **Purpose**: Test subworkflow orchestration
-- **Scope**: Multiple connected processes
-- **Focus**: Data flow between components
-
-#### 3. End-to-End Tests
-- **Purpose**: Test complete workflows
-- **Scope**: Full pipeline execution
-- **Focus**: Real-world usage scenarios
-
-#### 4. Regression Tests
-- **Purpose**: Validate output consistency
-- **Scope**: Compare with expected outputs
-- **Focus**: Preventing unintended changes
-
-## Test Data Management
-
-### Test Data Source
-- **Repository**: [bactopia-tests](https://github.com/bactopia/bactopia-tests)
-- **Environment Variable**: `BACTOPIA_TESTS` must point to cloned repository
-- **Structure**: Organized by tool/workflow
-
-### Test Data Types
-- **Input files**: Sample data for testing
-- **Reference files**: Expected outputs
-- **Configuration**: Test-specific configs
-
-### Test Isolation
-- Each test runs in a separate work directory
-- Temporary files managed by nf-test
-- No interference between tests
-
-## Running Tests
-
-### All Tests
-```bash
-nf-test run
-```
-
-### Specific Test
-```bash
-nf-test run tests/main.nf.test
-```
-
-### With Profile
-```bash
-nf-test run -profile conda
-```
-
-### Debug Mode
-```bash
-nf-test run --debug
-```
-
-### Test Report
-```bash
-nf-test run --report tests/report.html
-```
+| Block Type | Scope | Used For |
+|------------|-------|----------|
+| `nextflow_process` | Module | Testing individual processes |
+| `nextflow_workflow` | Subworkflow | Testing workflow orchestration |
+| `nextflow_pipeline` | Pipeline | Testing full end-to-end runs |
 
 ## Test Configuration
 
-### Global Config (`tests/nf-test.config`)
+### nf-test.config (Module level)
+
 ```groovy
-testConfig {
-    nextflow {
-        // Path to Nextflow binary
-        executable = 'nextflow'
+config {
+    testsDir "."
+    workDir System.getenv("NFT_WORKDIR") ?: ".nf-test"
+    configFile "nextflow.config"
+    profile "docker"
+    options "--is_ci --max_memory 8.GB"
 
-        // Base configuration
-        configFile = 'nextflow.config'
-
-        // Profiles to use
-        profiles = ['conda', 'test']
-    }
-
-    // Test environment variables
-    env {
-        BACTOPIA_TESTS = '/path/to/bactopia-tests'
+    plugins {
+        load "nft-utils@0.0.5"
     }
 }
 ```
 
-### Workflow-Specific Config
+### nextflow.config (Module level)
+
 ```groovy
-testConfig {
-    // Override global config for specific workflow
+// Minimal config for module-level testing
+nextflow.preview.types = true
+nextflow.enable.strict = true
+
+params {
     workflow {
-        name = 'my-tool'
-        profiles = ['conda', 'test']
+        name = "tool_name"
+        logo_name = "bactopia-tools"
+        description = "Tool description"
+        ext = "fna"
     }
+
+    bactopia_version = '4.0.0'
+    bactopia_cache = System.getenv("BACTOPIA_CACHEDIR") ?: "${System.getenv('HOME')}/.bactopia"
+    condadir = "${params.bactopia_cache}/conda"
+    wf = params.workflow.name
+    merge_folder = "merged-results"
+    test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+    is_ci = true
+
+    // Max Job Request Parameters
+    max_retry = 1
+    max_time = 2.h
+    max_memory = 8.GB
+    max_cpus = 2
+
+    // Nextflow Profile Parameters
+    registry = "quay.io"
+    singularity_cache = "${params.bactopia_cache}/singularity"
+    singularity_pull_docker_container = false
+    container_opts = ""
 }
+
+includeConfig "../module.config"
+includeConfig "../../../conf/base.config"
+includeConfig "../../../conf/profiles.config"
 ```
 
 ## Writing Tests
 
-### Testing Parameters
+### Module Test (nextflow_process)
+
 ```groovy
-test("parameter_validation") {
-    when {
-        process {
-            """
-            // Test with specific parameters
-            --tool_option value
-            --threshold 90
-            """
+nextflow_process {
+    name "Test MLST"
+    script "../main.nf"
+    process "MLST"
+    tag "modules"
+    tag "mlst"
+
+    test("mlst - module - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/mlst/mlst.tar.gz")
+                """
+            }
         }
-    }
-    then {
-        assert workflow.success
-        // Verify parameter effects
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
     }
 }
 ```
 
-### Testing Outputs
+**Key patterns**:
+- Input uses `record()` syntax matching the module's input declaration
+- `input[0]` for the primary record input, `input[1]` for additional inputs (db, etc.)
+- Output accessed via `process.out[0][0]` to get the first record
+- Record fields accessed via `record.fieldName`
+- Snapshot matching captures meta, tool-specific outputs, and versions
+
+### Subworkflow Test (nextflow_workflow)
+
 ```groovy
-test("output_validation") {
-    when {
-        // Setup code
-    }
-    then {
-        assert workflow.success
-        assert path("${workflow.workDir}/output.txt").exists()
-        // Additional output validations
+nextflow_workflow {
+    name "Test MLST"
+    script "../main.nf"
+    workflow "MLST"
+    tag "subworkflows"
+    tag "mlst"
+
+    test("mlst - subworkflow - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000017085"],
+                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/mlst/mlst.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(...).match() }
+            )
+        }
     }
 }
 ```
 
-### Testing Error Conditions
+### Pipeline Test (nextflow_pipeline)
+
 ```groovy
-test("error_handling") {
-    when {
-        process {
-            """
-            // Provide invalid input
-            --invalid_option
-            """
+nextflow_pipeline {
+    name "Test Pipeline"
+    script "../main.nf"
+    tag "workflows"
+    tag "pipeline_name"
+
+    test("pipeline - description") {
+        when {
+            params {
+                outdir = "$outputDir"
+                // test parameters
+            }
         }
-    }
-    then {
-        assert !workflow.success
-        assert workflow.error != null
+
+        then {
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true)
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.trace.succeeded().size(),
+                    stable_name,
+                    stable_path
+                ).match() }
+            )
+        }
     }
 }
 ```
+
+**Key patterns**:
+- Uses `getAllFilesFromDir` from the `nft-utils` plugin
+- `ignoreFile: '.nftignore'` excludes unstable files from content checks
+- Captures task count, file structure, and file content in snapshot
+
+## Test Data
+
+### Location
+
+Test data is stored externally and referenced via the `BACTOPIA_TESTS` environment variable:
+- **CI/CD path**: `/data/storage/bactopia-ci/bactopia-tests/data`
+- **Repository**: [bactopia/bactopia-tests](https://github.com/bactopia/bactopia-tests)
+
+### Directory Layout
+
+```text
+$BACTOPIA_TESTS/data/
+├── species/
+│   ├── staphylococcus_aureus/
+│   │   └── genome/
+│   │       └── GCF_000017085.fna
+│   ├── neisseria_gonorrhoeae/
+│   │   └── genome/
+│   │       ├── GCF_001047255.fna
+│   │       └── GCF_001047255.fna.gz
+│   ├── haemophilus_influenzae/
+│   │   └── genome/
+│   │       ├── GCF_900478275.fna
+│   │       └── GCF_900478275.fna.gz
+│   └── portiera/
+│       ├── compressed/
+│       │   └── SRR2838702/main/qc/
+│       │       ├── SRR2838702_R1.fastq.gz
+│       │       └── SRR2838702_R2.fastq.gz
+│       ├── genome/
+│       │   └── GCF_000292685.fna.gz
+│       └── illumina/
+│           ├── SRR2838702.fna
+│           ├── SRR2838702.faa
+│           └── SRR2838702.gff
+├── datasets/
+│   ├── mlst/
+│   │   └── mlst.tar.gz
+│   ├── bakta/
+│   │   └── light/
+│   │       └── bakta-light.tar.gz
+│   ├── amrdb/
+│   │   └── amrfinderdb.tar.gz
+│   └── {other tool databases}
+└── empty/
+    ├── EMPTY_ADAPTERS
+    ├── EMPTY_ASSEMBLY
+    ├── EMPTY_BLASTDB
+    ├── EMPTY_DB
+    ├── EMPTY_PROTEINS
+    ├── EMPTY_PRODIGAL_TF
+    ├── EMPTY_R1, EMPTY_R2, EMPTY_SE
+    └── {etc.}
+```
+
+### EMPTY_* Files
+
+Zero-byte placeholder files used when optional inputs aren't needed for a test:
+
+```groovy
+input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
+```
+
+Also available locally in the repo at `data/empty/`.
+
+## Snapshot Files
+
+### Format
+
+Snapshots are JSON files (`.nf.test.snap`) containing expected outputs with MD5 checksums:
+
+```json
+{
+    "mlst - module - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-MLST",
+                "logs_dir": "GCF_000017085/tools/mlst//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mlst/",
+                "process_name": "mlst",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,67e1b29068b46c7ccd845ec36d41da89",
+            [
+                "versions.yml:md5,2d78d6f807230df01693f94e1d484ca5"
+            ]
+        ],
+        "timestamp": "2026-03-11T05:58:00.940736931",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}
+```
+
+**Structure**:
+1. First element: metadata map (meta fields from the record)
+2. Subsequent elements: file checksums (`filename:md5,hash`)
+3. Arrays indicate `Set<Path>` fields (like `versions`)
+4. Metadata section tracks nf-test and Nextflow versions
+
+### Updating Snapshots
+
+```bash
+nf-test run path/to/tests/ --update-snapshot
+```
+
+## .nftignore Files
+
+Exclude unstable or large files from snapshot content comparisons:
+
+```text
+**/*.{err,gz,html,log,pdf,stderr,stdout}
+**/nf.command.*
+bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/*.{corrections,hist,histogram,json,msh,sig,txt,tsv,zip}
+```
+
+Files matching these patterns are excluded from `getAllFilesFromDir` content hashing when using `ignoreFile: '.nftignore'`. File names are still tracked, only content comparison is skipped.
+
+## Running Tests
+
+### Individual Module Test
+
+```bash
+cd modules/mlst/tests
+nf-test run main.nf.test
+```
+
+### With Specific Profile
+
+```bash
+nf-test run main.nf.test --profile docker
+```
+
+### Update Snapshots
+
+```bash
+nf-test run main.nf.test --update-snapshot
+```
+
+### Debug Mode
+
+```bash
+nf-test run main.nf.test --debug
+```
+
+## CI/CD Integration
+
+Tests run via GitHub Actions on a self-hosted runner:
+
+- **Workflow**: `.github/workflows/all-bactopia-tests.yml`
+- **Trigger**: `workflow_dispatch` (manual)
+- **Profiles tested**: Singularity, Docker, Conda
+- **Parallelism**: Up to 20 parallel test groups, each with 5 workers
+
+### Environment Variables
+
+| Variable | Value |
+|----------|-------|
+| `BACTOPIA_TESTS` | `/data/storage/bactopia-ci/bactopia-tests/data` |
+| `BACTOPIA_CONDA` | `/data/storage/bactopia-ci/envs/conda` |
+| `BACTOPIA_SINGULARITY` | `/data/storage/bactopia-ci/envs/singularity` |
 
 ## Best Practices
 
-### Test Design
-1. **Test one thing** - Each test should validate one specific behavior
-2. **Use descriptive names** - Test names should clearly indicate what's being tested
-3. **Include edge cases** - Test boundary conditions and error cases
-4. **Make tests independent** - Tests should not depend on each other
-
-### Test Data
-1. **Use consistent test data** - Same inputs across tests for comparability
-2. **Keep test data small** - Use minimal datasets for faster tests
-3. **Document test data** - Include README with test data descriptions
-
-### Assertions
-1. **Be specific** - Assert exact conditions, not just success
-2. **Include helpful messages** - Explain what failed
-3. **Check outputs** - Verify file existence and content
-
-## Common Test Patterns
-
-### Module Testing
-```groovy
-test("module_basic_functionality") {
-    when {
-        process {
-            """
-            // Provide minimal required input
-            input_file.txt
-            """
-        }
-    }
-    then {
-        assert workflow.success
-        // Check for expected outputs
-    }
-}
-```
-
-### Workflow Testing
-```groovy
-test("workflow_complete") {
-    when {
-        process {
-            """
-            // Run full workflow with sample data
-            --sample_id test_sample
-            input_reads/
-            """
-        }
-    }
-    then {
-        assert workflow.success
-        // Validate workflow outputs
-    }
-}
-```
-
-## Troubleshooting Tests
-
-### Common Issues
-1. **Missing test data** - Ensure BACTOPIA_TESTS is set correctly
-2. **Container issues** - Check container availability
-3. **Permission errors** - Verify file permissions
-4. **Timeout** - Increase test timeout for long-running tests
-
-### Debug Tips
-1. **Use --debug flag** - See detailed execution information
-2. **Check work directory** - Inspect intermediate files
-3. **Run with -profile test** - Use test-specific configuration
-4. **Check snapshots** - Ensure expected outputs are current
+1. **Test both compressed and uncompressed inputs** when a module supports both
+2. **Use EMPTY_* files** for optional inputs that aren't needed in a test case
+3. **Snapshot tool-specific fields** -- always include `record.meta`, tool outputs, and `record.versions`
+4. **Keep test data small** -- use minimal genome assemblies and datasets
+5. **Tag tests** with component type (`modules`, `subworkflows`, `workflows`) and tool name
 
 ## See Also
-- [Development Workflow](../project/02-development-workflow.md) - For creating tests with new tools
-- [Repository Structure](../project/01-repository-structure.md) - For test file locations
+- [Development Workflow](02-development-workflow.md) - For creating tests with new tools
+- [Repository Structure](01-repository-structure.md) - For test file locations

@@ -11,7 +11,7 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic
  * @citation mash
  *
- * @input tuple(meta, fna, r1, r2, se, lr)
+ * @input record(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  * - `r1`: Illumina R1 reads (paired-end) or null

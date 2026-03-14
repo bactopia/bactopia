@@ -13,7 +13,7 @@
  *
  * @modules csvtk_concat, btyper3
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembly files in FASTA format for Bacillus cereus group classification
  *

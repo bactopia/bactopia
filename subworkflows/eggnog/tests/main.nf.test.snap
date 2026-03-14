@@ -1,0 +1,54 @@
+{
+    "eggnog - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-EGGNOG:EGGNOG_MAPPER",
+                "logs_dir": "GCF_000292685/tools/eggnog//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/eggnog/",
+                "process_name": "eggnog",
+                "scope": "sample"
+            },
+            "GCF_000292685.emapper.hits:md5,56f81db327350c77fc8ae8e953ab95d5",
+            "GCF_000292685.emapper.seed_orthologs:md5,af3271eea6d4072de386e1396e8faf76",
+            "GCF_000292685.emapper.annotations:md5,b6715ae3fc723abb190b3f3dc1921199",
+            [
+                [
+                    "GCF_000292685.emapper.hits:md5,56f81db327350c77fc8ae8e953ab95d5"
+                ],
+                [
+                    "GCF_000292685.emapper.seed_orthologs:md5,af3271eea6d4072de386e1396e8faf76"
+                ],
+                [
+                    "GCF_000292685.emapper.annotations:md5,b6715ae3fc723abb190b3f3dc1921199"
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ]
+            ],
+            [
+                "versions.yml:md5,1b179e895ab51b7321ae747976b92b31"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:52:52.327676862",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

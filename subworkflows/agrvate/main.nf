@@ -12,7 +12,7 @@
  *
  * @modules agrvate, csvtk_concat
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format for agr locus detection
  *

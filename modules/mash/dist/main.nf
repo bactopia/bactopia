@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation mash
  *
- * @input tuple(meta, query)
+ * @input record(meta, query)
  * - `meta`: Groovy Map containing sample information
  * - `query`: FASTA, FASTQ, or Mash sketch file to be queried
  *

@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
  * @citation scoary
  *
- * @input tuple(meta, genes)
+ * @input record(meta, genes)
  * - `meta`: Groovy Map containing sample information
  * - `genes`: Gene presence/absence CSV file (typically from Roary)
  *

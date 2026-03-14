@@ -16,7 +16,7 @@
  *              legsta, lissero, meningotype, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
- * @input tuple(meta, fna, r1, r2, se, lr)
+ * @input record(meta, fna, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembly file for species identification and typing
  * - `r1`: Illumina R1 reads (paired-end) or null

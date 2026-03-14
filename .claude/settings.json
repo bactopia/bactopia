@@ -1,35 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Edit",
-      "Write",
-      "Bash(git *)",
-      "Bash(gh *)",
-      "Bash(bash *)",
-      "Bash(find *)",
-      "Bash(grep *)",
-      "Bash(wc *)",
-      "Bash(ls *)",
-      "Bash(chmod *)",
-      "Bash(mkdir *)",
-      "Bash(sort *)",
-      "Bash(cat *)",
-      "Bash(sed *)",
       "Bash(nf-test *)",
-      "Bash(conda *)",
-      "Read(//home/rpetit3/**)",
-      "Read(//tmp/**)",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:www.nf-test.com)"
     ],
     "additionalDirectories": [
-      "/home/rpetit3/.claude/skills/skill-creator",
       "/home/rpetit3/.claude/projects/-home-rpetit3-repos-bactopia-bactopia",
       "/home/rpetit3/repos/bactopia/bactopia-py",
       "/home/rpetit3/repos/bactopia/nf-bactopia",
-      "/home/rpetit3/repos/bactopia/bactopia.github.io",
-      "/tmp"
+      "/home/rpetit3/repos/bactopia/bactopia.github.io"
     ]
   }
 }

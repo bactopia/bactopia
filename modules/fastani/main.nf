@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation fastani
  *
- * @input tuple(meta, query)
+ * @input record(meta, query)
  * - `meta`: Groovy Map containing sample information
  * - `query`: One or more assembled contigs in FASTA format (Query genomes)
  *

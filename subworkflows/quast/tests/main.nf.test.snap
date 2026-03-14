@@ -1,0 +1,69 @@
+{
+    "quast - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-QUAST:QUAST_MODULE",
+                "logs_dir": "GCF_000292685/tools/quast//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            [
+                [
+                    "GCF_000292685.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f"
+                ],
+                [
+                    [
+                        "GCF_000292685_glimmer.stderr:md5,390dc7df727903e33d8127f8f12d9cf5",
+                        "GCF_000292685_glimmer_genes.gff:md5,9414b992673915e8b0125dfa14382e8b"
+                    ],
+                    "report.pdf:md5,f31a7a9dac27526fddbcd11ede809133",
+                    "transposed_report.txt:md5,7efa29427c9c4d52a54236bb848f8ca6",
+                    [
+                        "contig_size_viewer.html:md5,9b0bbefa284799b6d5b2ab390bf83095"
+                    ],
+                    "icarus.html:md5,a0ba4c3da16e1dc408204abd615131ca",
+                    "report.tex:md5,e5c576fbd6ec70fa30d1244f29954cb0",
+                    "report.tsv:md5,1843d6268bfc31fb6edb81e0dba25c9b",
+                    "report.html:md5,301f57d5e566e592bbcd411943da9f26",
+                    [
+                        "GCF_000292685_GC_content_plot.pdf:md5,2330218cf00f629c0f598d9327976f5f",
+                        "GC_content_plot.pdf:md5,a041cc64db5e6c97a7d4ff83ca8deb1a",
+                        "NGx_plot.pdf:md5,d9a330ff2b380f24ca22bbc8912c80f9",
+                        "Nx_plot.pdf:md5,4c33b25f989251dbc24422ba42c6b29f",
+                        "cumulative_plot.pdf:md5,355915c0ea1917c2c7b459c914755e77"
+                    ],
+                    "transposed_report.tex:md5,6b003450b25651309c03098e04d833ee",
+                    "report.txt:md5,a1632b8e1617788be93792fbfc5363f1"
+                ]
+            ],
+            [
+                "versions.yml:md5,83128d552544124c01b8b5502f773fc6"
+            ],
+            {
+                "id": "quast-QUAST:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/quast-concat/",
+                "name": "quast",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "quast.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            [
+                [
+                    "quast.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f"
+                ]
+            ],
+            [
+                "versions.yml:md5,f6625779099decc901ee6311371b1230"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:40.653048939",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

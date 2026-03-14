@@ -11,10 +11,10 @@
  *
  * @modules csvtk_concat, amrfinderplus_run
  *
- * @input tuple(meta, nucleotide, protein, gff)
+ * @input record(meta, genes, proteins, gff)
  * - `meta`: Groovy Map containing sample information
- * - `nucleotide`: Assembled contigs in FASTA format for AMR gene detection
- * - `protein`: Optional protein sequences in FASTA format (Path?)
+ * - `genes`: Nucleotide sequences of genes in FASTA format
+ * - `proteins`: Optional amino acid sequences of proteins in FASTA format (Path?)
  * - `gff`: Optional GFF3 annotation file (Path?)
  *
  * @input db

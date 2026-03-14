@@ -10,7 +10,7 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation phispy
  *
- * @input tuple(meta, gbk)
+ * @input record(meta, gbk)
  * - `meta`: Groovy Map containing sample information
  * - `gbk`: Annotated genome file in GenBank (*.gbk or *.gbff) format
  *

@@ -1,0 +1,55 @@
+{
+    "gamma - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-GAMMA:GAMMA_MODULE",
+                "logs_dir": "GCF_000292685/tools/gamma/null/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/gamma/null",
+                "process_name": "gamma",
+                "scope": "sample"
+            },
+            "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
+            "GCF_000292685.psl:md5,aceb29eb63760fcbd5e48f973b47c391",
+            [
+                [
+                    "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55"
+                ],
+                [
+                    "GCF_000292685.psl:md5,aceb29eb63760fcbd5e48f973b47c391"
+                ],
+                [
+                    
+                ],
+                [
+                    
+                ]
+            ],
+            [
+                "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb"
+            ],
+            {
+                "id": "gamma-GAMMA:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/gamma-concat/",
+                "name": "gamma",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "gamma.tsv:md5,b3995811a625996f8572cdf33b3f1c55",
+            [
+                [
+                    "gamma.tsv:md5,b3995811a625996f8572cdf33b3f1c55"
+                ]
+            ],
+            [
+                "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:26.200153194",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

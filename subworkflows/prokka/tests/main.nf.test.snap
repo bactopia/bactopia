@@ -1,0 +1,59 @@
+{
+    "prokka - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-PROKKA:PROKKA_MODULE",
+                "logs_dir": "GCF_000292685/main/annotator/prokka/logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/main/annotator/prokka/",
+                "process_name": "prokka",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6",
+            "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0",
+            [
+                [
+                    "GCF_000292685.gff:md5,317195393337364b36f09dff97623df1"
+                ],
+                [
+                    "GCF_000292685.gbk:md5,7a0b01f317ccafb723c8554542c2f3ca"
+                ],
+                [
+                    "GCF_000292685.fna:md5,595f4bad06e06b7dcd6584aea444bc22"
+                ],
+                [
+                    "GCF_000292685.faa:md5,b969e21a53efda46307cdddc87fcb723"
+                ],
+                [
+                    "GCF_000292685.ffn:md5,9cad426422a7a2151a8a4fa2df8e5d59"
+                ],
+                [
+                    "GCF_000292685.sqn:md5,26347aa55530da517d1f6e0b5a5352f5"
+                ],
+                [
+                    "GCF_000292685.fsa:md5,899a5228b9d1adc9cba269471c2050f7"
+                ],
+                [
+                    "GCF_000292685.tbl:md5,187660a989470c7a5ef059b0749ff271"
+                ],
+                [
+                    "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0"
+                ],
+                [
+                    "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6"
+                ],
+                [
+                    "GCF_000292685-blastdb.tar.gz:md5,41ca5fc7e5bab40a60604d076ba4004a"
+                ]
+            ],
+            [
+                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:58.024876251",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

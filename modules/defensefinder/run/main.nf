@@ -13,7 +13,7 @@
  * @note Database Required
  * Requires the DefenseFinder HMM database to be available.
  *
- * @input tuple(meta, proteins)
+ * @input record(meta, proteins)
  * - `meta`: Groovy Map containing sample information
  * - `proteins`: Protein sequences in FASTA format (amino acids)
  *

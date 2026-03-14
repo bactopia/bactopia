@@ -1,0 +1,45 @@
+{
+    "hpsuissero - subworkflow - GCF_002777395": {
+        "content": [
+            {
+                "id": "GCF_002777395-HPSUISSERO:HPSUISSERO_MODULE",
+                "logs_dir": "GCF_002777395/tools/hpsuissero//logs/",
+                "name": "GCF_002777395",
+                "output_dir": "GCF_002777395/tools/hpsuissero/",
+                "process_name": "hpsuissero",
+                "scope": "sample"
+            },
+            "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+            [
+                [
+                    "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc"
+                ]
+            ],
+            [
+                "versions.yml:md5,5a1275f48afabd2f73a93a99ed4843dd"
+            ],
+            {
+                "id": "hpsuissero-HPSUISSERO:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/hpsuissero-concat/",
+                "name": "hpsuissero",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "hpsuissero.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+            [
+                [
+                    "hpsuissero.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc"
+                ]
+            ],
+            [
+                "versions.yml:md5,f6953ae2271fe2a3415f7a5450e4f046"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:34.962406343",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

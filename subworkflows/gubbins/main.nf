@@ -16,7 +16,7 @@
  * @subworkflows snpdists
  * @modules gubbins
  *
- * @input tuple(meta, alignment)
+ * @input record(meta, alignment)
  * - `meta`: Groovy Map containing sample information
  * - `alignment`: Multiple sequence alignment in FASTA format
  *

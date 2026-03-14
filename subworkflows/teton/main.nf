@@ -18,7 +18,7 @@
  * @subworkflows scrubber, bracken
  * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
- * @input tuple(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)

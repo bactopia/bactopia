@@ -14,7 +14,7 @@
  *
  * @modules csvtk_concat, checkm2_predict, checkm2_download
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
  *   about the sample and a set of genome bins in FASTA format.

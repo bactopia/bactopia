@@ -13,7 +13,7 @@
  *
  * @modules pirate as pirate_module
  *
- * @input tuple(meta, gff)
+ * @input record(meta, gff)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *

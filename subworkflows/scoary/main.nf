@@ -14,7 +14,7 @@
  *
  * @modules scoary
  *
- * @input tuple(meta, csv)
+ * @input record(meta, csv)
  * - `meta`: Groovy Map containing sample information
  * - `csv`: Gene presence/absence matrix from pan-genome analysis in CSV format
  *

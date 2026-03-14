@@ -1,0 +1,48 @@
+{
+    "amrfinderplus - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-AMRFINDERPLUS:AMRFINDERPLUS_RUN",
+                "logs_dir": "SRR2838702/tools/amrfinderplus//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/amrfinderplus/",
+                "process_name": "amrfinderplus",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,376a8991c8eb010ea64c796115fb9b8d",
+            [
+                [
+                    "SRR2838702.tsv:md5,376a8991c8eb010ea64c796115fb9b8d"
+                ],
+                [
+                    
+                ]
+            ],
+            [
+                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c"
+            ],
+            {
+                "id": "amrfinderplus-AMRFINDERPLUS:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/amrfinderplus-concat/",
+                "name": "amrfinderplus",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "amrfinderplus.tsv:md5,376a8991c8eb010ea64c796115fb9b8d",
+            [
+                [
+                    "amrfinderplus.tsv:md5,376a8991c8eb010ea64c796115fb9b8d"
+                ]
+            ],
+            [
+                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:43.845281576",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

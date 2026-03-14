@@ -1,0 +1,34 @@
+{
+    "kraken2 - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-KRAKEN2:KRAKEN2_MODULE",
+                "logs_dir": "SRR2838702/tools/kraken2/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/kraken2",
+                "process_name": "kraken2",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "SRR2838702.kraken2.report.txt:md5,29a9ad9bb9b9b17a43e969f82c6e3e9f"
+            ],
+            [
+                [
+                    "SRR2838702.kraken2.report.txt:md5,29a9ad9bb9b9b17a43e969f82c6e3e9f"
+                ],
+                [
+                    
+                ]
+            ],
+            [
+                "versions.yml:md5,d3477e2f3d739cac1de4301e49d5e228"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:42.139008888",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

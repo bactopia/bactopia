@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation bactopia, bracken, sizemeup
  *
- * @input tuple(meta, classification)
+ * @input record(meta, classification)
  * - `meta`: Groovy Map containing sample information
  * - `classification`: Bracken species abundance report
  *

@@ -17,7 +17,7 @@
  * @note Database Required
  * Requires a standard Kraken2 database (directory or tarball). Memory usage depends on database size (Standard ~50GB).
  *
- * @input tuple(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)

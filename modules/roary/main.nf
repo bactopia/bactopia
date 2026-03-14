@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation roary
  *
- * @input tuple(meta, gff)
+ * @input record(meta, gff)
  * - `meta`: Groovy Map containing sample information
  * - `gff`: List of GFF3 files to be analyzed (typically from Prokka)
  *

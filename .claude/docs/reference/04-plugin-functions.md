@@ -2,12 +2,11 @@
 
 ## Overview
 
-The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. These functions handle the aggregation and transformation of channels, enabling the standard 4-channel output pattern.
+The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. The primary function is `gather`, which extracts fields from module record outputs and aggregates them for downstream processing.
 
 ## Import Statement
 
 ```groovy
-include { flattenPaths } from 'plugin/nf-bactopia'
 include { gather } from 'plugin/nf-bactopia'
 ```
 
@@ -15,197 +14,71 @@ include { gather } from 'plugin/nf-bactopia'
 
 ### gather
 
-Aggregates outputs from a channel into a single collection for downstream processing (e.g., concatenation with CSVTK_CONCAT).
+Extracts a specific field from module record outputs and aggregates them into a single collection for downstream processing (e.g., concatenation with CSVTK_CONCAT).
 
 #### Signature
 
 ```groovy
-gather(chResults, toolName, args = '')
+gather(moduleOut, toolName, field: 'fieldName')
 ```
 
 #### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `chResults` | Channel or List | Yes | Channel or list of `[meta, output]` tuples |
+| `moduleOut` | Channel | Yes | The module's full record output channel (e.g., `MODULE.out`) |
 | `toolName` | String | Yes | Tool identifier used as the `id` in output meta |
-| `args` | String | No | Optional arguments string (default: `''`) |
+| `field` | String (named) | Yes | The record field name to extract from each record |
 
 #### Returns
 
-Single tuple: `[[id: toolName, args: args], Set<outputs>]`
+Single tuple: `[[id: toolName], Set<extracted_field_values>]`
 
+- Extracts the specified field from each record in the channel
 - The original meta maps are discarded
-- All outputs are collected into a `Set`
-- New meta contains only `id` and `args`
+- All extracted field values are collected into a `Set`
+- New meta contains only `id`
 
 #### Usage Example
 
 ```groovy
 // Aggregate TSV outputs for concatenation
 CSVTK_CONCAT(
-    gather(MLST_MODULE.out.tsv, 'mlst'),
+    gather(MLST_MODULE.out, 'mlst', field: 'tsv'),
     'tsv',
     'tsv'
 )
 
-// With optional args
+// Aggregate report outputs
 CSVTK_CONCAT(
-    gather(ABRICATE_RUN.out.report, 'abricate', '--header'),
+    gather(ABRICATE_RUN.out, 'abricate', field: 'report'),
     'tsv',
     'tsv'
 )
 ```
 
-#### Implementation
+#### How It Works
 
-```groovy
-static Object gather(Object chResults, String toolName, String args = '') {
-    // Input validation
-    if (chResults == null) {
-        throw new IllegalArgumentException("chResults cannot be null")
-    }
-    if (toolName == null || toolName.trim().isEmpty()) {
-        throw new IllegalArgumentException("toolName cannot be null or empty")
-    }
-
-    // Detect if input is a channel
-    if (chResults instanceof DataflowReadChannel || chResults instanceof DataflowWriteChannel) {
-        // Apply built-in operators to the channel
-        return chResults
-            .collect { _meta, output -> output }
-            .map { output -> [[id: toolName, args: args], output.toSet()] }
-    } else {
-        // Input is a list - process directly
-        def outputs = chResults.collect { tuple -> tuple[1] }
-        return [[id: toolName, args: args], outputs.toSet()]
-    }
-}
-```
+1. Takes the full record output channel from a module
+2. Extracts the value of the named `field:` from each record
+3. Collects all extracted values into a set
+4. Wraps them with a new meta map containing only the tool name
 
 ---
 
-### flattenPaths
+### flattenPaths (deprecated)
 
-Consolidates multiple output channels into a single results channel by flattening file collections. Transforms `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>`.
+`flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` channels to `Tuple<Map, Path>` for the old 4-channel output pattern. It is **no longer used** in subworkflows.
 
-#### Signature
-
-```groovy
-flattenPaths(channels)
-```
-
-#### Parameters
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `channels` | List | Yes | List of channels, each containing `[meta, files]` tuples |
-
-#### Returns
-
-Channel of `[meta, file]` tuples - one tuple per individual file.
-
-- If `files` is a `Set<Path>` or `List<Path>`, each file becomes its own tuple
-- If `files` is a single `Path`, it remains as `[meta, file]`
-- Multiple channels are mixed before flattening
-
-#### Usage Example
+Subworkflows now pass through module record outputs directly:
 
 ```groovy
-// Standard subworkflow output pattern
 emit:
-results  = flattenPaths([
-    TOOL_MODULE.out.report,
-    TOOL_MODULE.out.summary,
-    TOOL_MODULE.out.json
-])
-logs     = flattenPaths([TOOL_MODULE.out.logs])
-nf_logs  = flattenPaths([TOOL_MODULE.out.nf_logs])
-versions = flattenPaths([TOOL_MODULE.out.versions])
+sample_outputs = MODULE.out
+run_outputs = CSVTK_CONCAT.out
 ```
 
-#### Implementation
-
-```groovy
-static Object flattenPaths(List channels) {
-    // Input validation
-    if (channels == null) {
-        throw new IllegalArgumentException("channels cannot be null")
-    }
-    if (channels.isEmpty()) {
-        return []
-    }
-    if (channels.any { it == null }) {
-        throw new IllegalArgumentException("channels list cannot contain null elements")
-    }
-
-    // Check if we're dealing with channels or lists
-    def firstItem = channels[0]
-    def isChannel = firstItem instanceof DataflowReadChannel || firstItem instanceof DataflowWriteChannel
-
-    if (isChannel) {
-        // Handle single channel case
-        if (channels.size() == 1) {
-            return channels[0].flatMap { tuple ->
-                def meta, files
-                if (tuple instanceof List && tuple.size() >= 2) {
-                    meta = tuple[0]
-                    files = tuple[1]
-                } else {
-                    return [tuple]  // Return as-is if structure is unexpected
-                }
-
-                // Check if files is a collection or single path
-                if (files instanceof Collection) {
-                    return files.collect { file -> [meta, file] }
-                } else {
-                    return [[meta, files]]
-                }
-            }
-        }
-
-        // Mix multiple channels and flatten
-        def mixed = channels[0]
-        channels[1..-1].each { ch -> mixed = mixed.mix(ch) }
-        return mixed.flatMap { tuple ->
-            def meta, files
-            if (tuple.size() == 1 && tuple[0] instanceof List && tuple[0].size() == 2) {
-                // Handle mixed channels where tuple is wrapped: [[meta, files]]
-                meta = tuple[0][0]
-                files = tuple[0][1]
-            } else if (tuple.size() == 2) {
-                // Handle normal case: [meta, files]
-                meta = tuple[0]
-                files = tuple[1]
-            } else {
-                return [tuple]  // Return as-is if structure is unexpected
-            }
-
-            if (files instanceof Collection) {
-                return files.collect { file -> [meta, file] }
-            } else {
-                return [[meta, files]]
-            }
-        }
-    } else {
-        // Process lists directly
-        def result = []
-        channels.each { list ->
-            list.each { tuple ->
-                def meta = tuple[0]
-                def files = tuple[1]
-
-                if (files instanceof Collection) {
-                    files.each { file -> result.add([meta, file]) }
-                } else {
-                    result.add([meta, files])
-                }
-            }
-        }
-        return result
-    }
-}
-```
+The function still exists in the plugin for backwards compatibility but should not be used in new code.
 
 ---
 
@@ -235,45 +108,53 @@ Initializes input channels from sample sheets and input specifications.
 
 ## Channel Flow Diagram
 
-```
-Module Outputs                    Subworkflow Aggregation
-─────────────────                 ───────────────────────
+```text
+Module Record Outputs              Subworkflow
+─────────────────────              ───────────
 
-TOOL.out.report ─┐
-TOOL.out.json   ─┼─→ flattenPaths([...]) ─→ results (Tuple<Map, Path>)
-TOOL.out.txt    ─┘
-
-TOOL.out.logs   ───→ flattenPaths([...]) ─→ logs    (Tuple<Map, Path>)
-
-TOOL.out.tsv ───────→ gather(..., 'tool') ─→ CSVTK_CONCAT ─→ merged.tsv
+MODULE(input, db)
+    │
+    ├─→ MODULE.out ──────────────→ emit: sample_outputs
+    │       (full record with meta, tsv, results, logs, etc.)
+    │
+    └─→ gather(MODULE.out, 'tool', field: 'tsv')
+            │
+            └─→ CSVTK_CONCAT ──→ emit: run_outputs
+                    (aggregated record)
 ```
 
 ## Common Patterns
 
-### Subworkflow Standard Output
+### Subworkflow Standard Pattern
 
 ```groovy
-workflow TOOL_WORKFLOW {
+nextflow.preview.types = true
+
+include { TOOL_MODULE } from '../../modules/tool/main'
+include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
+include { gather } from 'plugin/nf-bactopia'
+
+workflow TOOL {
     take:
-    ch_input
+    assembly: Channel<Record>
+    db: Path
 
     main:
-    TOOL_MODULE(ch_input)
+    TOOL_MODULE(assembly, db)
+    CSVTK_CONCAT(gather(TOOL_MODULE.out, 'tool', field: 'tsv'), 'tsv', 'tsv')
 
     emit:
-    results  = flattenPaths([TOOL_MODULE.out.report, TOOL_MODULE.out.summary])
-    logs     = flattenPaths([TOOL_MODULE.out.logs])
-    nf_logs  = flattenPaths([TOOL_MODULE.out.nf_logs])
-    versions = flattenPaths([TOOL_MODULE.out.versions])
+    sample_outputs = TOOL_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }
 ```
 
 ### Aggregation for Summary
 
 ```groovy
-// Collect all TSV outputs and concatenate into single file
+// Collect all TSV outputs from the module and concatenate into single file
 CSVTK_CONCAT(
-    gather(MLST.out.tsv, 'mlst'),
+    gather(MLST_MODULE.out, 'mlst', field: 'tsv'),
     'tsv',
     'tsv'
 )

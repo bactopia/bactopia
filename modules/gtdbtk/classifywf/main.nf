@@ -13,7 +13,7 @@
  * @note Database Required
  * Requires the massive GTDB-Tk database (~60GB+) to be available.
  *
- * @input tuple(meta, fna)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *

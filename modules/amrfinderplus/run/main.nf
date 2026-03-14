@@ -13,7 +13,7 @@
  *
  * @note Requires external database to be available
  *
- * @input tuple(meta, genes, proteins, gff)
+ * @input record(meta, genes, proteins, gff)
  * - `meta`: Groovy Map containing sample information
  * - `genes`: Nucleotide sequences of genes in FASTA format
  * - `proteins`: Optional amino acid sequences of proteins in FASTA format

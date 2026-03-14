@@ -21,8 +21,8 @@ The module is the basic building block that executes a specific tool.
 
 3. **Key requirements**:
    - Include `nextflow.preview.types = true` at the top
-   - Define inputs appropriately (`Tuple<Map, Path>` for single files, `Tuple<Map, Set<Path>>` for multiple)
-   - Emit `logs`, `nf_logs`, and `versions` channels
+   - Define inputs using Record syntax (e.g., `(_meta: Map, assembly: Path): Record`)
+   - Emit a single `record()` with named fields, `results`, `logs`, `nf_logs`, and `versions`
    - Include version tracking in `versions.yml`
 
 ### Step 2: Create Subworkflow (if needed)
@@ -39,9 +39,9 @@ The subworkflow orchestrates one or more modules to provide higher-level functio
 
 3. **Key requirements**:
    - Include necessary modules/subworkflows
-   - Always include `flattenPaths` and `gather` from plugin
-   - Emit exactly 4 channels: `results`, `logs`, `nf_logs`, `versions`
-   - Use `flattenPaths` for aggregate outputs
+   - Include `gather` from plugin for aggregation
+   - Emit `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
+   - Use `gather(MODULE.out, 'tool', field: 'fieldName')` for CSVTK_CONCAT input
 
 ### Step 3: Create Entry Workflow
 
@@ -84,20 +84,38 @@ The entry workflow is what users interact with directly.
 
 ### Step 5: Add Tests
 
-1. **Create test structure**:
+1. **Create test structure** (module example):
    ```groovy
-   test("tool_test_name") {
-       when {
-           process {
-               """
-               # Test setup code
-               """
+   nextflow_process {
+       name "Test TOOL_NAME"
+       script "../main.nf"
+       process "TOOL_NAME"
+       tag "modules"
+       tag "tool_name"
+
+       test("tool - module - sample_id") {
+           when {
+               params {
+                   test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+               }
+               process {
+                   """
+                   input[0] = Channel.of(
+                       record(
+                           _meta: [name: "sample_id"],
+                           assembly: file("${params.test_data_dir}/data/species/.../genome/sample.fna")
+                       )
+                   )
+                   """
+               }
            }
-       }
-       then {
-           assert workflow.completed
-           assert workflow.success
-           # Add specific assertions
+           then {
+               def record = process.out[0][0]
+               assertAll(
+                   { assert process.success },
+                   { assert snapshot(record.meta, record.tsv, record.versions).match() }
+               )
+           }
        }
    }
    ```
@@ -127,8 +145,8 @@ The entry workflow is what users interact with directly.
    ```
 
 3. **Channel Patterns**:
-   - Modules: Use `files()` for outputs
-   - Subworkflows: Always emit 4 standard channels
+   - Modules: Emit a single `record()` with named and generic fields
+   - Subworkflows: Emit `sample_outputs` and `run_outputs`
    - Workflows: Branch outputs by scope (run/sample)
 
 4. **Documentation**:
@@ -309,8 +327,8 @@ Before submitting a new tool:
 - [ ] Module created with all required files
 - [ ] Module follows typing conventions
 - [ ] Module uses consistent meta map structure
-- [ ] Module emits logs, nf_logs, and versions
-- [ ] Subworkflow emits all 4 standard channels (if applicable)
+- [ ] Module emits record() with named fields, results, logs, nf_logs, and versions
+- [ ] Subworkflow emits sample_outputs and run_outputs (if applicable)
 - [ ] Entry workflow follows standard pattern
 - [ ] Workflow schema validates correctly
 - [ ] Tests created and passing
@@ -324,7 +342,7 @@ Before submitting a new tool:
 1. **Hard-coding paths** - Use relative paths and meta.output_dir
 2. **Skipping version tracking** - Always include versions.yml
 3. **Inconsistent typing** - Use consistent types across connected components
-4. **Missing standard channels** - Subworkflows must emit 4 channels
+4. **Missing emit channels** - Subworkflows must emit sample_outputs and run_outputs
 5. **Breaking the 3-tier architecture** - Don't include modules directly in workflows
 
 ## See Also

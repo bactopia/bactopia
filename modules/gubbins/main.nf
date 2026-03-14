@@ -10,7 +10,7 @@
  * @tags complexity:complex input-type:single output-type:multiple features:compression
  * @citation gubbins
  *
- * @input tuple(meta, msa)
+ * @input record(meta, msa)
  * - `meta`: Groovy Map containing sample information
  * - `msa`: Multiple sequence alignment in FASTA format
  *

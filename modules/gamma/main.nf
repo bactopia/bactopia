@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation gamma
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *

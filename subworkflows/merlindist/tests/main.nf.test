@@ -24,13 +24,14 @@ nextflow_workflow {
         }
 
         then {
-            def sample_outputs = workflow.out.sample_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    sample_outputs.meta,
-                    sample_outputs.results,
-                    sample_outputs.versions
+                    sample.meta,
+                    sample.dist,
+                    sample.results,
+                    sample.versions
                 ).match() }
             )
         }

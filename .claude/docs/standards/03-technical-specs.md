@@ -14,14 +14,14 @@ This document contains the technical specifications, conventions, and "gotchas" 
 
 #### Single Files: `file()`
 - **Returns**: `Path`
-- **Used in**: `Tuple<Map, Path>`
-- **Example**: `versions = tuple(meta, file("versions.yml"))`
+- **Used in**: Named record fields for downstream access
+- **Example**: `tsv: file("${prefix}.tsv")` (inside `record()` output block)
 - **Use cases**: Single, known files with predictable names
 
 #### Multiple Files: `files()`
 - **Returns**: `Set<Path>`
-- **Used in**: `Tuple<Map, Set<Path>>`
-- **Example**: `logs = tuple(meta, files("*.{log,err}", optional: true))`
+- **Used in**: Generic record fields and `results` lists
+- **Example**: `logs: files("*.{log,err}", optional: true)` (inside `record()` output block)
 - **Use cases**: Wildcards, optional files, or multiple files
 
 **Key Rule**: Use `file()` for single, known files. Use `files()` for wildcards, optional files, or multiple files.
@@ -38,17 +38,18 @@ ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
 ### Standard Module Input Types
 
-The codebase uses explicit positional types for clarity:
+The codebase uses Record-typed inputs with explicit named parameters:
 
-- **Single assemblies**: `Tuple<Map, Path>` - For modules processing a single assembly file
-- **Multi-read inputs**: `Tuple<Map, Path?, Path?, Path?, Path?>` - For modules accepting multiple read types:
-    - Position 1: R1 (Illumina paired-end forward)
-    - Position 2: R2 (Illumina paired-end reverse)
-    - Position 3: SE (Single-end Illumina)
-    - Position 4: LR (Long reads - ONT/PacBio)
-- **Multiple distinct inputs**: `Tuple<Map, Path, Path>` - For modules requiring multiple files (e.g., assembly + metadata)
+- **Single assemblies**: `(_meta: Map, assembly: Path): Record` - For modules processing a single assembly file
+- **Multi-read inputs**: `(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
+    - `r1`: Illumina paired-end forward
+    - `r2`: Illumina paired-end reverse
+    - `se`: Single-end Illumina reads
+    - `lr`: Long reads (ONT/PacBio)
+- **Multiple distinct inputs**: `(_meta: Map, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
+- **Additional inputs** are declared on separate lines: `db: Path`, `proteins: Path?`, etc.
 
-**Note**: The codebase has transitioned from `Set<Path>` to explicit `Path` types for module inputs to provide clearer type safety and documentation.
+**Note**: The codebase uses `Record` return types with named parameters (e.g., `_meta: Map`) rather than `Tuple<>` type annotations.
 
 ## Path? Optional Parameters (Workarounds)
 
@@ -94,30 +95,40 @@ Located in `/data/empty/`:
 
 ## Channel Output Patterns
 
-### Module Output Pattern (3 channels)
+### Module Output Pattern (record block)
+
+Modules emit a single `record()` with named fields (for downstream access) and generic fields (for publishing):
 
 ```nextflow
 output:
-logs        = tuple(meta, files("*.{log,err}", optional: true))
-nf_logs     = tuple(meta, files(".command.*"))
-versions    = tuple(meta, files("versions.yml"))
+record(
+    // Named fields (used downstream)
+    meta: meta,
+    tsv: file("${prefix}.tsv"),
+    // Generic fields (used for publishing)
+    results: [
+        files("${prefix}.tsv")
+    ],
+    logs: files("*.{log,err}", optional: true),
+    nf_logs: files(".command.*"),
+    versions: files("versions.yml")
+)
 ```
 
-**Note**: All standard outputs use `files()` for consistency, even for single files like `versions.yml`.
+- Use `file()` for named fields that will be accessed downstream (returns `Path`)
+- Use `files()` in the `results` list and for logs/versions (returns `Set<Path>`)
 
-Modules may emit additional output channels as needed.
-
-### Subworkflow Output Pattern (4 channels)
+### Subworkflow Output Pattern (2 emit channels)
 
 ```nextflow
 emit:
-results    = flattenPaths([ch_results])
-logs       = flattenPaths([ch_logs])
-nf_logs    = flattenPaths([ch_nf_logs])
-versions   = flattenPaths([ch_versions])
+sample_outputs = MODULE.out
+run_outputs = CSVTK_CONCAT.out
 ```
 
-Subworkflows must always emit these four standard channels.
+Subworkflows emit two channels:
+- `sample_outputs`: The module's record output (passed through directly)
+- `run_outputs`: Aggregated results from CSVTK_CONCAT (or similar aggregation module)
 
 ## Meta Map Structure
 
@@ -231,7 +242,7 @@ Modules that process sequencing reads use a 5-slot positional tuple pattern to h
 ```groovy
 // Input signature
 input:
-(_meta, r1, r2, se, lr) : Tuple<Map, Path?, Path?, Path?, Path?>
+(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 ```
 
 | Slot | Variable | Description |
@@ -403,21 +414,19 @@ def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
 
 ## Utility Functions
 
-### flattenPaths
-Converts `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>` for outputs:
-
-```nextflow
-include { flattenPaths } from 'plugin/nf-bactopia'
-results = flattenPaths([ch_results])
-```
-
 ### gather
-Merges multiple channels for aggregate operations:
+Collects a specific field from module record outputs and merges them for aggregation:
 
 ```nextflow
 include { gather } from 'plugin/nf-bactopia'
-SUMMARY(gather(INPUT.out.report, 'tool-name'))
+CSVTK_CONCAT(gather(MODULE.out, 'tool-name', field: 'tsv'), 'tsv', 'tsv')
 ```
+
+The `field:` named parameter extracts the specified field from each record in the channel.
+
+### flattenPaths (deprecated)
+
+`flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>`. It is no longer used in subworkflows — they now pass through module record outputs directly via `sample_outputs` and `run_outputs`.
 
 ## Version Tracking
 Always include a `versions.yml` file with software version information:
@@ -442,7 +451,7 @@ Expected format:
 1. **Don't "fix" Path? workarounds** - They're necessary until Nextflow improves
 2. **Don't change `file()` to `files()`** - The difference is intentional
 3. **Don't modify typing without understanding** - Types are deliberately chosen
-4. **Don't alter the subworkflow 4-channel pattern** - It's fundamental to the architecture
+4. **Don't alter the subworkflow 2-channel emit pattern** (`sample_outputs`, `run_outputs`) - It's fundamental to the architecture
 
 ### Type Checking
 - Validate with `nextflow config` to check type annotations

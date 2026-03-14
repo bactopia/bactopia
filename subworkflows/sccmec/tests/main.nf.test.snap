@@ -1,0 +1,61 @@
+{
+    "sccmec - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-SCCMEC:SCCMEC_MODULE",
+                "logs_dir": "GCF_000017085/tools/sccmec//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/sccmec/",
+                "process_name": "sccmec",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,da49131b3619e12fac7c1efef5e109d0",
+            "GCF_000017085.targets.blastn.tsv:md5,5cd7054ed50c7d360feac0e51db54ac6",
+            "GCF_000017085.targets.details.tsv:md5,8938065005a5f984229c09cd4d9f91e2",
+            "GCF_000017085.regions.blastn.tsv:md5,ca426de41052a9f0bdcfb538610e5aa6",
+            "GCF_000017085.regions.details.tsv:md5,d8568654b8455ddebf37283918805b46",
+            [
+                [
+                    "GCF_000017085.tsv:md5,da49131b3619e12fac7c1efef5e109d0"
+                ],
+                [
+                    "GCF_000017085.targets.blastn.tsv:md5,5cd7054ed50c7d360feac0e51db54ac6"
+                ],
+                [
+                    "GCF_000017085.targets.details.tsv:md5,8938065005a5f984229c09cd4d9f91e2"
+                ],
+                [
+                    "GCF_000017085.regions.blastn.tsv:md5,ca426de41052a9f0bdcfb538610e5aa6"
+                ],
+                [
+                    "GCF_000017085.regions.details.tsv:md5,d8568654b8455ddebf37283918805b46"
+                ]
+            ],
+            [
+                "versions.yml:md5,cd9ded724580f921a03643bfaece66ee"
+            ],
+            {
+                "id": "sccmec-SCCMEC:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/sccmec-concat/",
+                "name": "sccmec",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975",
+            [
+                [
+                    "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
+                ]
+            ],
+            [
+                "versions.yml:md5,c6ede7b0533855a33c127cafa29de747"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:37.98757108",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

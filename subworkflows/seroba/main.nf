@@ -13,9 +13,9 @@
  *
  * @modules csvtk_concat, seroba_run
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, reads)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembly files in FASTA format for S. pneumoniae serotype prediction
+ * - `reads`: Paired-end FASTQ files for S. pneumoniae serotype prediction
  *
  * @output sample_outputs
  * - `tsv`: Serotype prediction results with predicted serotype and confidence in TSV format

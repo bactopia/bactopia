@@ -14,8 +14,12 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000017085"],
-                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz")
+                        _meta: [name: "GCF_000017085", runtype: "paired-end", single_end: false],
+                        fna: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
                 input[1] = file("${params.test_data_dir}/data/datasets/sketcher/mash-refseq88.k21.msh")
@@ -29,21 +33,18 @@ nextflow_workflow {
         }
 
         then {
-            def dist_outputs = workflow.out.dist_outputs[0]
-            def sample_outputs = workflow.out.sample_outputs[0]
-            def run_outputs = workflow.out.run_outputs[0]
+            def dist = workflow.out.dist_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    dist_outputs.meta,
-                    dist_outputs.results,
-                    dist_outputs.versions,
-                    sample_outputs.meta,
-                    sample_outputs.results,
-                    sample_outputs.versions,
-                    run_outputs.meta,
-                    run_outputs.results,
-                    run_outputs.versions
+                    dist.meta,
+                    dist.dist,
+                    dist.results,
+                    dist.versions,
+                    sample.meta,
+                    sample.results,
+                    sample.versions
                 ).match() }
             )
         }

@@ -1,0 +1,51 @@
+{
+    "hicap - subworkflow - GCF_900478275": {
+        "content": [
+            {
+                "id": "GCF_900478275-HICAP:HICAP_MODULE",
+                "logs_dir": "GCF_900478275/tools/hicap//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+            [
+                [
+                    "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172"
+                ],
+                [
+                    "GCF_900478275.gbk:md5,562d026956903354ac80721f501335d4"
+                ],
+                [
+                    "GCF_900478275.svg:md5,4fb94871dd0fdd8b4496049668176631"
+                ]
+            ],
+            [
+                "versions.yml:md5,583376a04d00362892444651f0f00a07"
+            ],
+            {
+                "id": "hicap-HICAP:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/hicap-concat/",
+                "name": "hicap",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "hicap.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+            [
+                [
+                    "hicap.tsv:md5,52c7c28a47111a27722b3c36a83d7172"
+                ]
+            ],
+            [
+                "versions.yml:md5,0c84033bcf201f320a96434ff2545e4a"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:43:06.349282024",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

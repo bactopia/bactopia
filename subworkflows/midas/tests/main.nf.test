@@ -21,23 +21,27 @@ nextflow_workflow {
                         lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas")
+                input[1] = file("${params.test_data_dir}/data/datasets/midas/midas_db_v1.2.tar.gz")
+                input[2] = false
                 """
             }
         }
 
         then {
-            def sample_outputs = workflow.out.sample_outputs[0]
-            def run_outputs = workflow.out.run_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    sample_outputs.meta,
-                    sample_outputs.results,
-                    sample_outputs.versions,
-                    run_outputs.meta,
-                    run_outputs.results,
-                    run_outputs.versions
+                    sample.meta,
+                    sample.tsv,
+                    sample.abundances,
+                    sample.results,
+                    sample.versions,
+                    run.meta,
+                    run.csv,
+                    run.results,
+                    run.versions
                 ).match() }
             )
         }

@@ -13,9 +13,9 @@
  *
  * @modules tblastx, csvtk_concat
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, blastdb)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
- * - `assembly`: Set of assembled contigs in FASTA format that will be translated and searched
+ * - `blastdb`: A compressed tarball containing the nucleotide BLAST database
  *
  * @input query
  * Path to nucleotide query sequences that will be translated and searched against translated database

@@ -1,0 +1,45 @@
+{
+    "shigeifinder - subworkflow - GCF_016726285": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGEIFINDER:SHIGEIFINDER_MODULE",
+                "logs_dir": "GCF_016726285/tools/shigeifinder//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigeifinder/",
+                "process_name": "shigeifinder",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,aa4996a8f1027de2483b70687c0e8f00",
+            [
+                [
+                    "GCF_016726285.tsv:md5,aa4996a8f1027de2483b70687c0e8f00"
+                ]
+            ],
+            [
+                "versions.yml:md5,52706f08422322288790d0e646e009e3"
+            ],
+            {
+                "id": "shigeifinder-SHIGEIFINDER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/shigeifinder-concat/",
+                "name": "shigeifinder",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "shigeifinder.tsv:md5,25be6cf1161e59d9a4eab8db8f9b9ebb",
+            [
+                [
+                    "shigeifinder.tsv:md5,25be6cf1161e59d9a4eab8db8f9b9ebb"
+                ]
+            ],
+            [
+                "versions.yml:md5,bb067649d1cb0b7cc78ced0baa36bf0e"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:44.813983377",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

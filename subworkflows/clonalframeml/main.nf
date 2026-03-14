@@ -15,7 +15,7 @@
  * @subworkflows iqtree, snpdists
  * @modules clonalframeml
  *
- * @input tuple(meta, alignment)
+ * @input record(meta, alignment)
  * - `meta`: Groovy Map containing sample information
  * - `alignment`: Core-genome alignment in FASTA format
  *

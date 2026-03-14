@@ -1,0 +1,71 @@
+{
+    "btyper3 - subworkflow - GCF_000008445": {
+        "content": [
+            {
+                "id": "GCF_000008445-BTYPER3:BTYPER3_MODULE",
+                "logs_dir": "GCF_000008445/tools/btyper3//logs/",
+                "name": "GCF_000008445",
+                "output_dir": "GCF_000008445/tools/btyper3/",
+                "process_name": "btyper3",
+                "scope": "sample"
+            },
+            "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803",
+            [
+                [
+                    "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803"
+                ],
+                [
+                    [
+                        "GCF_000008445_species_fastani.txt:md5,f79b4adff3bcfebb8983355dbcacb438"
+                    ],
+                    [
+                        "GCF_000008445_typestrains_fastani.txt:md5,9502b9147758c48adce54b524bfdd160"
+                    ],
+                    [
+                        "GCF_000008445_mlst.txt:md5,0d7d9aa7474e8277b4b1e4ea93395e03"
+                    ],
+                    [
+                        "GCF_000008445.log:md5,0dd77b955ec562c23d2581ef8bde4415"
+                    ],
+                    [
+                        "GCF_000008445_subspecies_fastani.txt:md5,2be240f213a9a8386cbc8f7c5a8fcca7"
+                    ],
+                    [
+                        "GCF_000008445_bt.txt:md5,f8996f2b86607d4f2d3ed54925212203"
+                    ],
+                    [
+                        "GCF_000008445_virulence.txt:md5,42e52c285f9cd734bf635e6812d0371d"
+                    ],
+                    [
+                        "GCF_000008445_panC.txt:md5,28b900185ad468292ab9a3832cb71f54"
+                    ]
+                ]
+            ],
+            [
+                "versions.yml:md5,0556b7dd459aafcfd66bb694721633ba"
+            ],
+            {
+                "id": "btyper3-BTYPER3:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/btyper3-concat/",
+                "name": "btyper3",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "btyper3.tsv:md5,23cd9060d11d2ef980b70603c89c5558",
+            [
+                [
+                    "btyper3.tsv:md5,23cd9060d11d2ef980b70603c89c5558"
+                ]
+            ],
+            [
+                "versions.yml:md5,40ee298a3f689113440883cada3337aa"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:44:02.93109153",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

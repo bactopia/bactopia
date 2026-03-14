@@ -1,0 +1,49 @@
+{
+    "roary - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-test-ROARY:ROARY_MODULE",
+                "logs_dir": "roary/logs",
+                "name": "portiera-test",
+                "output_dir": "",
+                "process_name": "roary",
+                "scope": "run"
+            },
+            [
+                [
+                    "portiera-test.aln.gz:md5,4a45eb4d32f364d98ef9985214432d05"
+                ],
+                [
+                    "blast_identity_frequency.Rtab:md5,1ee1bcf6b987bedbc694c6555b3d6e02",
+                    "clustered_proteins:md5,7620221911da129ec8d7592f86b47734",
+                    "accessory_graph.dot:md5,302cd98ab8b749e6f330c625d8d0e5d1",
+                    "number_of_unique_genes.Rtab:md5,4b06e3a1a4efd49e8d05fd8df3607526",
+                    "core_gene_alignment.aln.gz:md5,4a45eb4d32f364d98ef9985214432d05",
+                    "number_of_genes_in_pan_genome.Rtab:md5,2c51e4bc309cf8afb2eaaa81889c33b8",
+                    "gene_presence_absence.Rtab:md5,2ac90909e1196632192d01f1eb3baed7",
+                    "accessory.tab:md5,384540e380b68f8b3c831f8f68b444eb",
+                    "number_of_new_genes.Rtab:md5,cef4bda651eda8c79445c8d470f15ab2",
+                    "gene_presence_absence.csv:md5,30c320342387a2e0ccde49dc76cbd48e",
+                    "summary_statistics.txt:md5,c8e3a5956c4ccf71ae54e1775ca023b0",
+                    "core_alignment_header.embl:md5,5b3b283e22eebd349732a0557c02cd5e",
+                    "accessory_binary_genes.fa.newick:md5,9fb3f1a143e9e18fd35b8a74e1e949b2",
+                    "accessory.header.embl:md5,6f75d91639a957d0b63e811e6d0b6589",
+                    "core_accessory.header.embl:md5,ee1239a37215941db6882cfbe27e8dc3",
+                    "pan_genome_reference.fa.gz:md5,5e40b3881b7011ce820701e1443fc7d6",
+                    "accessory_binary_genes.fa.gz:md5,be2f8be258b9666b3cc6ac5f58b679d8",
+                    "number_of_conserved_genes.Rtab:md5,5bd777bc3a5b4006c64f75d966ea3ea6",
+                    "core_accessory.tab:md5,3b5c543b35663d98ca946b00e5d08cf8",
+                    "core_accessory_graph.dot:md5,9b6434f73c8ee0261940319d38513a83"
+                ]
+            ],
+            [
+                "versions.yml:md5,d5496a62b5ffe9e5af444bfc53221551"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:43:53.374100651",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

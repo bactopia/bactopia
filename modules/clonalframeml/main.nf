@@ -11,7 +11,7 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,compression
  * @citation clonalframeml
  *
- * @input tuple(meta, msa, newick)
+ * @input record(meta, msa, newick)
  * - `meta`: Groovy Map containing sample information
  * - `msa`: Multiple sequence alignment in FASTA format
  * - `newick`: Initial phylogenetic tree in Newick format

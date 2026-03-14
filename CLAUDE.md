@@ -107,8 +107,9 @@ When working with this codebase:
 
 ### Key Patterns
 
-**Module inputs**: Typically `Tuple<Map, Path>` or `Tuple<Map, Set<Path>>` depending on input requirements
-**Subworkflow outputs**: Always emit 4 channels (results, logs, nf_logs, versions)
+**Module inputs**: Record-typed with named parameters (e.g., `(_meta: Map, assembly: Path): Record`)
+**Module outputs**: Single `record()` with named fields (downstream) + generic fields (publishing)
+**Subworkflow outputs**: Emit `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
 **Optional parameters**: Use EMPTY_* files (temporary workaround)
 
 ### Important Reminders

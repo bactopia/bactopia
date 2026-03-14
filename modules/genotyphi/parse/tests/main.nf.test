@@ -1,7 +1,11 @@
 // NOTE: This test requires a Mykrobe JSON output file as input.
-// A fixture file (e.g., data/species/salmonella_typhi/mykrobe/test_mykrobe.json) needs to
-// be created before this test can run. The JSON must match the format produced by
-// `mykrobe predict` with the `--species typhi` option.
+// To make this test functional:
+//   1. Run `mykrobe predict --species typhi --format json_and_csv --sample test_typhi
+//      --output test_typhi --seq <typhi_reads>` to produce a test_typhi.json file
+//   2. Place the JSON at: $BACTOPIA_TESTS/data/datasets/genotyphi/test_typhi.json
+//   3. Uncomment the input and assertion blocks below
+// The JSON is parsed by `parse_typhi_mykrobe.py --jsons <json> --prefix <name>` which
+// produces a <prefix>_predictResults.tsv that is renamed to <prefix>.tsv.
 nextflow_process {
     name "Test GENOTYPHI_PARSE"
     script "../main.nf"
@@ -10,7 +14,7 @@ nextflow_process {
     tag "genotyphi"
     tag "genotyphi_parse"
 
-    test("genotyphi - module - stub") {
+    test("genotyphi_parse - module - stub") {
 
         when {
             params {
@@ -18,11 +22,12 @@ nextflow_process {
             }
             process {
                 """
-                // TODO: Replace with actual Mykrobe JSON fixture file path
+                // TODO: Activate once a Mykrobe JSON fixture is available at:
+                //   \${params.test_data_dir}/data/datasets/genotyphi/test_typhi.json
                 // input[0] = Channel.of(
                 //     record(
                 //         _meta: [name: "test_typhi"],
-                //         json: file("${params.test_data_dir}/data/species/salmonella_typhi/mykrobe/test_mykrobe.json")
+                //         json: file("\${params.test_data_dir}/data/datasets/genotyphi/test_typhi.json")
                 //     )
                 // )
                 input[0] = Channel.empty()
@@ -31,6 +36,16 @@ nextflow_process {
         }
 
         then {
+            // TODO: Replace with full assertions once fixture is available:
+            // def record = process.out[0][0]
+            // assertAll(
+            //     { assert process.success },
+            //     { assert snapshot(
+            //         record.meta,
+            //         record.tsv,
+            //         record.versions
+            //     ).match() }
+            // )
             assertAll(
                 { assert process.success }
             )

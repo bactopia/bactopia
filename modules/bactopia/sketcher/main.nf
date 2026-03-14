@@ -15,7 +15,7 @@
  * Requires the pre-compiled RefSeq (Mash) and GTDB (Sourmash) databases, usually downloaded
  * by the `datasets` module.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *

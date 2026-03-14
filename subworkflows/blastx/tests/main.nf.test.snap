@@ -1,0 +1,45 @@
+{
+    "blastx - subworkflow - SRX1390622": {
+        "content": [
+            {
+                "id": "SRX1390622-BLASTX:BLASTX_MODULE",
+                "logs_dir": "SRX1390622/tools/blastx//logs/",
+                "name": "SRX1390622",
+                "output_dir": "SRX1390622/tools/blastx/",
+                "process_name": "blastx",
+                "scope": "sample"
+            },
+            "SRX1390622.blastx.tsv:md5,1bdda4a6d2b611c8a529efdd9dcc71b8",
+            [
+                [
+                    "SRX1390622.blastx.tsv:md5,1bdda4a6d2b611c8a529efdd9dcc71b8"
+                ]
+            ],
+            [
+                "versions.yml:md5,e8157c9d3a54ebec3ab501178357e284"
+            ],
+            {
+                "id": "blastx-BLASTX:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/blastx-concat/",
+                "name": "blastx",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "blastx.tsv:md5,1bdda4a6d2b611c8a529efdd9dcc71b8",
+            [
+                [
+                    "blastx.tsv:md5,1bdda4a6d2b611c8a529efdd9dcc71b8"
+                ]
+            ],
+            [
+                "versions.yml:md5,8634f578eba8a3c37f4edffd83aad444"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:47.976328461",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

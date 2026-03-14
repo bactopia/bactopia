@@ -1,0 +1,38 @@
+{
+    "iqtree - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-IQTREE:IQTREE_MODULE",
+                "logs_dir": "iqtree/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "iqtree",
+                "scope": "run"
+            },
+            [
+                [
+                    "portiera.treefile:md5,5481842301adba65294e0b5bda8908d8"
+                ],
+                [
+                    "portiera.bionj:md5,203c2ceef6553f28589850bb0bf49b1a",
+                    "portiera.mldist:md5,4145795c5f79560603fccb1528f52f10",
+                    "portiera.splits.nex:md5,a257e91b7d51e5ce30e9c052428ce147",
+                    "portiera.log:md5,7cda6f599d3f258a8f89105bc42047a1",
+                    "portiera.alninfo.gz:md5,a26511cfcb61634424afa9f006242493",
+                    "portiera.contree:md5,51ef6b61e53543faec1a35768085aa53",
+                    "portiera.ufboot:md5,b8c4a9095ae476d751838ebfa1cee818",
+                    "portiera.ckp.gz:md5,4b4b25d32053421c37b2d82932cfdb75",
+                    "portiera.iqtree:md5,155e1e1cb683083430b496a6158763bd"
+                ]
+            ],
+            [
+                "versions.yml:md5,60770a1bf4400e66216eff87ac93e95c"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:10.657717169",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

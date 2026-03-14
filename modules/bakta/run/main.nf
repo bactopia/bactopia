@@ -13,7 +13,7 @@
  * @note Database Required
  * Requires a Bakta database (directory or tarball) to be available.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *

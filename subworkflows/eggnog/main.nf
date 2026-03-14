@@ -14,7 +14,7 @@
  *
  * @modules eggnog_download, eggnog_mapper
  *
- * @input tuple(meta, proteins)
+ * @input record(meta, proteins)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
  * - `proteins`: Protein sequences in FASTA format for functional annotation
  *

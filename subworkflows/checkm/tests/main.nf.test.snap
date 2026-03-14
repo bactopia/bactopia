@@ -1,0 +1,113 @@
+{
+    "checkm - subworkflow - GCF_000292685": {
+        "content": [
+            {
+                "id": "GCF_000292685-CHECKM:CHECKM_LINEAGEWF",
+                "logs_dir": "GCF_000292685/tools/checkm//logs/",
+                "name": "GCF_000292685",
+                "output_dir": "GCF_000292685/tools/checkm/",
+                "process_name": "checkm",
+                "scope": "sample"
+            },
+            "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            [
+                [
+                    "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d"
+                ],
+                [
+                    "GCF_000292685-genes.aln:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    [
+                        [
+                            "genes.faa.gz:md5,8166471fc5f08c82fd5643ab42327f9d",
+                            "genes.gff:md5,50752acb1c5a20be886bfdfc06635bcb",
+                            "hmmer.analyze.txt.gz:md5,6910ae7a27fd26f812e2a15877fb7e24",
+                            "hmmer.tree.txt:md5,6cfc15127d433192caeb44487dd8cb54"
+                        ]
+                    ],
+                    [
+                        [
+                            
+                        ],
+                        "bin_stats.analyze.tsv:md5,f963b63779861433e37f118eea3d3a30",
+                        "bin_stats.tree.tsv:md5,f963b63779861433e37f118eea3d3a30",
+                        "bin_stats_ext.tsv:md5,9cbcd1e99b7476958bfb0380eb89d87a",
+                        "checkm_hmm_info.pkl.gz:md5,0e602d9ce7756d3352639ee3e43e7676",
+                        "marker_gene_stats.tsv:md5,423e138dfe8c0af0f455a57b53dd36af",
+                        "phylo_hmm_info.pkl.gz:md5,e9145084e6615e5159d870b3b7e69c8a",
+                        [
+                            "PF00164.20.masked.faa.gz:md5,bf17fd0351c81c775195a3fa3355748e",
+                            "PF00177.16.masked.faa.gz:md5,3f5904669de302d10478abdc3211bb27",
+                            "PF00181.18.masked.faa.gz:md5,a42eb92099d20a4dd9d8a173c6bd49b4",
+                            "PF00189.15.masked.faa.gz:md5,268189109c2cb996ef117454ee1955b2",
+                            "PF00203.16.masked.faa.gz:md5,81da21d077a7e7000dfbdc4a9afc5ea4",
+                            "PF00237.14.masked.faa.gz:md5,b83c614eaad0fb1c8ccf6f77dbaadc3b",
+                            "PF00238.14.masked.faa.gz:md5,e0d433dced48aa09e65079e3c74e3b24",
+                            "PF00252.13.masked.faa.gz:md5,727d8fd33d4d1c9830e6c76555470432",
+                            "PF00276.15.masked.faa.gz:md5,cbdbb5a3cae38a2b8dc42641c3b212ae",
+                            "PF00281.14.masked.faa.gz:md5,c27c8b210a42756897a8e22d7fd2f408",
+                            "PF00297.17.masked.faa.gz:md5,0feef10ebb9bef6b583bb6d945ac0bfd",
+                            "PF00298.14.masked.faa.gz:md5,9c4b7e926082e30bd4054280a968dd7b",
+                            "PF00312.17.masked.faa.gz:md5,4def5cf6fe62836665745d504c3338f7",
+                            "PF00318.15.masked.faa.gz:md5,d36428de4cea7001b56efa07e8ab371c",
+                            "PF00333.15.masked.faa.gz:md5,576e559de21641bfd8a195fee0ed8754",
+                            "PF00366.15.masked.faa.gz:md5,d85a07600f877eb729028a732955cefb",
+                            "PF00380.14.masked.faa.gz:md5,1b0cbffd4bf36a6c509523a35178d05c",
+                            "PF00410.14.masked.faa.gz:md5,9c0bc5752b8d5ed5240c41da8f43bdb3",
+                            "PF00411.14.masked.faa.gz:md5,1d5ec722b06236755369b574396b0034",
+                            "PF00466.15.masked.faa.gz:md5,39076e1450e424f8efa24f54f971cb5b",
+                            "PF00562.23.masked.faa.gz:md5,73f4dfe4a61b6364ef266a3655a9cef2",
+                            "PF00572.13.masked.faa.gz:md5,c2b12518d52905a61609bf3cb2206d07",
+                            "PF00573.17.masked.faa.gz:md5,5c1a88b2344a8cd0eab64ba47665e23d",
+                            "PF00623.15.masked.faa.gz:md5,bd982f57b3c974017a5235169bb48207",
+                            "PF00673.16.masked.faa.gz:md5,9e23d4d5fe62b8a841a5ecc04f262e7f",
+                            "PF00687.16.masked.faa.gz:md5,1a5a0b1e9aacffc5bc18e5d1a5f5993f",
+                            "PF00831.18.masked.faa.gz:md5,2e20fc353fbc903e4407acebe9382588",
+                            "PF00861.17.masked.faa.gz:md5,64f67f80a4fbd9140d17746dd7a23f76",
+                            "PF03719.10.masked.faa.gz:md5,4d6f3cb02e140ae95a3d57bec176f105",
+                            "PF03946.9.masked.faa.gz:md5,45eaa9b6b3dbc2e5077839626c6b73de",
+                            "PF03947.13.masked.faa.gz:md5,3c6a2e7c0759a5e2c0e6a544c13dceea",
+                            "PF04560.15.masked.faa.gz:md5,e245bfdbe8c8f996f1bac9c3b2a408f4",
+                            "PF04561.9.masked.faa.gz:md5,2114a451330e55e029c7e7c2980f63c8",
+                            "PF04563.10.masked.faa.gz:md5,8c14aa564a7646782b8f11336d323d31",
+                            "PF04565.11.masked.faa.gz:md5,b6bd4b813010c908b4dfd54c40430db1",
+                            "PF04997.7.masked.faa.gz:md5,208e15a75788e809f197b081d6498869",
+                            "PF05000.12.masked.faa.gz:md5,6ae831010bef1fc02e96280f5561c123",
+                            "PF11987.3.masked.faa.gz:md5,7c2f0f71ecea2e11cbb1e5a7fb6606b2",
+                            "TIGR00422.masked.faa.gz:md5,2fd1da62450873c87a1acadd4f1270d0",
+                            "concatenated.fasta.gz:md5,4c170fc0a6734a821bf3b443f0b33bef",
+                            "concatenated.pplacer.json:md5,b90d4b286f836f9dda55367a874371a2",
+                            "concatenated.tre:md5,478880ccdff6d05c9e7f130773f717c3",
+                            "pplacer.out:md5,263d59de49aa60a312cc3e9ad6d822ba"
+                        ]
+                    ],
+                    "lineage.ms:md5,8005969b89525af560a3673afa0a2852"
+                ]
+            ],
+            [
+                "versions.yml:md5,a7ddd067ec3e18f6db31f3c12f9e5059"
+            ],
+            {
+                "id": "checkm-CHECKM:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/checkm-concat/",
+                "name": "checkm",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "checkm.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            [
+                [
+                    "checkm.tsv:md5,3a76623c675e0e6e12a987da198c6f5d"
+                ]
+            ],
+            [
+                "versions.yml:md5,9f9cdf7e89a396b859a6aec91820283a"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:50:13.945364921",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

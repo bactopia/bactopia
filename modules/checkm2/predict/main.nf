@@ -14,7 +14,7 @@
  * @note Database Required
  * Requires the CheckM2 database (Diamond database file) to be available.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *

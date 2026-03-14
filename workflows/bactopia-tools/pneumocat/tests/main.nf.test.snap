@@ -1,0 +1,23 @@
+{
+    "Pneumocat - ERR1438863|streptococcus_pneumoniae|compressed_fasta": {
+        "content": [
+            0,
+            [
+                "bactopia-runs",
+                "bactopia-runs/pneumocat",
+                "bactopia-runs/pneumocat/nf-reports",
+                "bactopia-runs/pneumocat/nf-reports/pneumocat-dag.dot",
+                "bactopia-runs/pneumocat/nf-reports/pneumocat-report.html",
+                "bactopia-runs/pneumocat/nf-reports/pneumocat-timeline.html"
+            ],
+            [
+                
+            ]
+        ],
+        "timestamp": "2026-03-11T05:55:28.263647852",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

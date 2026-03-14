@@ -13,7 +13,7 @@
  *
  * @modules blastn, csvtk_concat
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
  * - `assembly`: Set of assembled contigs in FASTA format to be searched against the database
  *

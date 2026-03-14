@@ -1,0 +1,54 @@
+{
+    "bracken - module - SRR2838702 - tarball": {
+        "content": [
+            {
+                "id": "SRR2838702-BRACKEN",
+                "logs_dir": "SRR2838702/tools/bracken//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/bracken/",
+                "process_name": "bracken",
+                "scope": "sample",
+                "single_end": false,
+                "teton_reads": "SRR2838702_R1.fastq.gz,SRR2838702_R2.fastq.gz"
+            },
+            "SRR2838702.bracken.tsv:md5,ea649edb882ed5adfb200f740bcdf17e",
+            "SRR2838702.kraken2.report.txt:md5,29a9ad9bb9b9b17a43e969f82c6e3e9f",
+            "SRR2838702.bracken.report.txt:md5,3ca9ddfeb074bce0b9fd1e8b8b9c8443",
+            "SRR2838702.bracken.abundances.txt:md5,bfc7aea2ef689c21fdab164d29d2d57b",
+            [
+                "versions.yml:md5,ff1f4d291f944b614a33758f4230d3b8"
+            ]
+        ],
+        "timestamp": "2026-03-14T04:44:37.629225244",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "bracken - module - SRR2838702SE - path": {
+        "content": [
+            {
+                "id": "SRR2838702-BRACKEN",
+                "logs_dir": "SRR2838702/tools/bracken//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/bracken/",
+                "process_name": "bracken",
+                "scope": "sample",
+                "single_end": true,
+                "teton_reads": "SRR2838702SE.fastq.gz"
+            },
+            "SRR2838702.bracken.tsv:md5,327dffe42a06c5819893b9043fc62f1a",
+            "SRR2838702.kraken2.report.txt:md5,8f8118f0d4eb6cef15f76c5c1fe880b8",
+            "SRR2838702.bracken.report.txt:md5,03fceefeff81b30a0fd7390584b5e5aa",
+            "SRR2838702.bracken.abundances.txt:md5,64fb9c79e36082acae54ead9cc8dcf83",
+            [
+                "versions.yml:md5,ff1f4d291f944b614a33758f4230d3b8"
+            ]
+        ],
+        "timestamp": "2026-03-14T04:47:36.574193298",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

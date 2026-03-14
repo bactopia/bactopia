@@ -1,0 +1,24 @@
+{
+    "ncbigenomedownload - module - single accession": {
+        "content": [
+            {
+                "accession": "GCF_000292685.1",
+                "id": "ncbigenomedownload",
+                "limit": null,
+                "logs_dir": "ncbigenomedownload/logs",
+                "output_dir": "ncbigenomedownload",
+                "process_name": "ncbigenomedownload",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,d7681d23ac421c72e51b4b078d708abb"
+            ]
+        ],
+        "timestamp": "2026-03-14T05:08:54.226864896",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

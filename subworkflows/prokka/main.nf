@@ -13,7 +13,7 @@
  *
  * @modules prokka as prokka_module
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Bacterial assembly files in FASTA format to be annotated
  *

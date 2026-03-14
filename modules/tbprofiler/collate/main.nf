@@ -9,7 +9,7 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent,conditional-logic
  * @citation tbprofiler
  *
- * @input tuple(meta, json)
+ * @input record(meta, json)
  * - `meta`: Groovy Map containing sample information
  * - `json`: List of TB-Profiler JSON output files
  *

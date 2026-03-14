@@ -1,0 +1,45 @@
+{
+    "mlst - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-MLST:MLST_MODULE",
+                "logs_dir": "GCF_000017085/tools/mlst//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/mlst/",
+                "process_name": "mlst",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,60c6b969e31f29664e99c69e6d7bb0e9",
+            [
+                [
+                    "GCF_000017085.tsv:md5,60c6b969e31f29664e99c69e6d7bb0e9"
+                ]
+            ],
+            [
+                "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a"
+            ],
+            {
+                "id": "mlst-MLST:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/mlst-concat/",
+                "name": "mlst",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            "mlst.tsv:md5,60c6b969e31f29664e99c69e6d7bb0e9",
+            [
+                [
+                    "mlst.tsv:md5,60c6b969e31f29664e99c69e6d7bb0e9"
+                ]
+            ],
+            [
+                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+            ]
+        ],
+        "timestamp": "2026-03-14T07:42:48.805084958",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

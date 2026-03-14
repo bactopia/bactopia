@@ -18,20 +18,23 @@ nextflow_workflow {
                         proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/eggnog")
+                input[1] = file("${params.test_data_dir}/data/datasets/eggnog/eggnog.tar.gz")
                 input[2] = false
                 """
             }
         }
 
         then {
-            def sample_outputs = workflow.out.sample_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    sample_outputs.meta,
-                    sample_outputs.results,
-                    sample_outputs.versions
+                    sample.meta,
+                    sample.hits,
+                    sample.seed_orthologs,
+                    sample.annotations,
+                    sample.results,
+                    sample.versions
                 ).match() }
             )
         }

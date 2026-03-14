@@ -16,7 +16,7 @@
  *
  * @subworkflows pirate, roary, panaroo, snpdists
  *
- * @input tuple(meta, gff)
+ * @input record(meta, gff)
  * - `meta`: Groovy Map containing sample information
  * - `gff`: Set of GFF3 annotation files from assembled genomes
  *

@@ -11,7 +11,7 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:compression
  * @citation pirate
  *
- * @input tuple(meta, gff)
+ * @input record(meta, gff)
  * - `meta`: Groovy Map containing sample information
  * - `gff`: A list of annotated genome files in GFF3 format
  *

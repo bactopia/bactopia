@@ -22,7 +22,7 @@
  *
  * @modules qc
  *
- * @input tuple(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1, r2, se, lr, assembly)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1`: Illumina R1 reads (paired-end forward)
  * - `r2`: Illumina R2 reads (paired-end reverse)

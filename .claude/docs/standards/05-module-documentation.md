@@ -8,7 +8,7 @@ This guide provides a comprehensive methodology for creating consistent and accu
 ### 1.1 Module Structure
 Bactopia modules are individual process definitions that execute specific bioinformatics tools. Each module:
 - Wraps a single tool or closely related functionality
-- Accepts standardized inputs (usually `Tuple<Map, Set<Path>>`)
+- Accepts standardized inputs using Record syntax (e.g., `(_meta: Map, assembly: Path): Record`)
 - Emits standardized outputs (including `logs`, `nf_logs`, `versions`)
 - Uses static typing throughout
 - Handles optional parameters via Path? workarounds
@@ -41,7 +41,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
  * @input <input_channel>
  * <Input description>
  *
- * @input tuple(meta, <input_name>)
+ * @input record(meta, <input_name>)
  * - `meta`: Groovy Map containing sample information
  * - `<input_name>`: <Description of the input files>
  *
@@ -160,7 +160,7 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 ### 4.1 Primary Data Inputs (Assembly)
 
 ```groovy
-@input tuple(meta, assembly)
+@input record(meta, assembly)
 - `meta`: Groovy Map containing sample information
 - `assembly`: Assembled contigs in FASTA format
 ```
@@ -170,7 +170,7 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 For modules accepting reads, use explicit positional slots:
 
 ```groovy
-@input tuple(meta, r1, r2, se, lr)
+@input record(meta, r1, r2, se, lr)
 - `meta`: Groovy Map containing sample information
 - `r1`: Illumina R1 reads (paired-end forward)
 - `r2`: Illumina R2 reads (paired-end reverse)
@@ -277,7 +277,7 @@ def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ?
 
 #### Conditional Database Handling
 ```groovy
-def is_tarball = db.toList()[0].getName().endsWith(".tar.gz") ? true : false
+def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
 if [ "${is_tarball}" == "true" ]; then
     # Extract tarball
 else
@@ -384,7 +384,7 @@ These fields are computed at runtime based on which inputs are provided.
  * @note Database Required
  * Requires the MLST database (derived from PubMLST) to be available.
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
@@ -409,7 +409,7 @@ These fields are computed at runtime based on which inputs are provided.
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation quast
  *
- * @input tuple(meta, assembly, meta_file)
+ * @input record(meta, assembly, meta_file)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  * - `meta_file`: Meta file containing reference size information
@@ -435,7 +435,7 @@ These fields are computed at runtime based on which inputs are provided.
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *
- * @input tuple(meta, assembly)
+ * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
@@ -462,12 +462,21 @@ These fields are computed at runtime based on which inputs are provided.
 
 ## 8. Special Cases
 
-### 8.1 Duplicate Output Channels
-Some modules create duplicate channels for pipeline routing:
+### 8.1 Duplicate Output Fields
+Some modules create duplicate record fields for pipeline routing:
 ```groovy
 output:
-classified     = tuple(meta, files("*.fastq.gz"))
-classified_extra = tuple(meta, files("*.fastq.gz"), file("EMPTY_EXTRA", optional: true))
+record(
+    meta: meta,
+    classified: files("*.classified*.fastq.gz", optional: true),
+    unclassified: files("*.unclassified*.fastq.gz", optional: true),
+    classified_extra: files("*.classified*.fastq.gz", optional: true),
+    unclassified_extra: files("*.unclassified*.fastq.gz", optional: true),
+    results: [...],
+    logs: files("*.{log,err}", optional: true),
+    nf_logs: files(".command.*"),
+    versions: files("versions.yml")
+)
 ```
 
 ### 8.2 Workflow-Dependent Processing
@@ -648,8 +657,8 @@ modules/{tool_name}/{process}/schema.json # Multi-process modules
 Before completing module documentation, verify:
 
 - [ ] All required tags are present (@status, @keywords, @tags, @citation)
-- [ ] Input types are correctly documented as tuples with meta
-- [ ] **Parameter names in code match documentation** (e.g., if `take:` has `assembly:`, doc should say `@input tuple(meta, assembly)`)
+- [ ] Input types are correctly documented as records with meta
+- [ ] **Parameter names in code match documentation** (e.g., if `take:` has `assembly:`, doc should say `@input record(meta, assembly)`)
 - [ ] `@output record(...)` lists all fields from the actual `record()` output block
 - [ ] Tool-specific fields have ` * - ` description lines
 - [ ] Standard fields (meta, results, logs, nf_logs, versions) are NOT described

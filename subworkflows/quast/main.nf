@@ -14,7 +14,7 @@
  *
  * @modules csvtk_concat, quast
  *
- * @input tuple(meta, assembly, meta_file)
+ * @input record(meta, assembly, meta_file)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format (Path)
  * - `meta_file`: Meta file containing reference size information (Path)

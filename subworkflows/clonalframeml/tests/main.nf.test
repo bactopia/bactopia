@@ -15,8 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz"),
-                        newick: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/genome_msa.nwk")
+                        msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz")
                     )
                 )
                 """
@@ -24,21 +23,26 @@ nextflow_workflow {
         }
 
         then {
-            def sample_outputs = workflow.out.sample_outputs[0]
-            def iqtree_outputs = workflow.out.iqtree_outputs[0]
-            def snpdists_outputs = workflow.out.snpdists_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
+            def iqtree = workflow.out.iqtree_outputs[0]
+            def snpdists = workflow.out.snpdists_outputs[0]
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    sample_outputs.meta,
-                    sample_outputs.results,
-                    sample_outputs.versions,
-                    iqtree_outputs.meta,
-                    iqtree_outputs.results,
-                    iqtree_outputs.versions,
-                    snpdists_outputs.meta,
-                    snpdists_outputs.results,
-                    snpdists_outputs.versions
+                    sample.meta,
+                    sample.em,
+                    sample.status,
+                    sample.newick,
+                    sample.masked_aln,
+                    sample.results,
+                    sample.versions,
+                    iqtree.meta,
+                    iqtree.results,
+                    iqtree.versions,
+                    snpdists.meta,
+                    snpdists.tsv,
+                    snpdists.results,
+                    snpdists.versions
                 ).match() }
             )
         }
