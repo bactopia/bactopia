@@ -12,14 +12,6 @@
             "GCF_001682305.tsv:md5,c5459d2965dfafe22f173023d0c35610",
             "GCF_001682305.fasta:md5,819b782ce2704d08e9cd4a43370e86c9",
             [
-                [
-                    "GCF_001682305.tsv:md5,c5459d2965dfafe22f173023d0c35610"
-                ],
-                [
-                    "GCF_001682305.fasta:md5,819b782ce2704d08e9cd4a43370e86c9"
-                ]
-            ],
-            [
                 "versions.yml:md5,f5904efa58b9d7434ff3687bf3220344"
             ],
             {
@@ -30,17 +22,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "mcroni.tsv:md5,c5459d2965dfafe22f173023d0c35610",
-            [
-                [
-                    "mcroni.tsv:md5,c5459d2965dfafe22f173023d0c35610"
-                ]
-            ],
             [
                 "versions.yml:md5,6eecf339ecef6511e62beca33a4b3fc6"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:41.4765331",
+        "timestamp": "2026-03-22T07:07:53.411435915",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

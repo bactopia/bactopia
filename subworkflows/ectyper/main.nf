@@ -36,7 +36,7 @@ workflow ECTYPER {
 
     main:
     ECTYPER_MODULE(assembly)
-    CSVTK_CONCAT(gather(ECTYPER_MODULE.out, 'ectyper', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(ECTYPER_MODULE.out, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records (contains meta, tsv, txt, results, logs, nf_logs, versions)

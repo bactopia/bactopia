@@ -113,7 +113,7 @@ process BRACKEN {
     first_read = meta.single_end ? se : r1
 
     special_meta = [:]
-    special_meta.id = prefix
+    special_meta.name = prefix
 
     def paired = meta.single_end ? "" : "--paired"
     classified = meta.single_end ? "${prefix}.classified.fastq" : "${prefix}.classified#.fastq"

@@ -36,7 +36,7 @@ workflow LISSERO {
 
     main:
     LISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(LISSERO_MODULE.out, 'lissero', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(LISSERO_MODULE.out, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)

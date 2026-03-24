@@ -62,7 +62,7 @@ workflow GTDB {
     } else {
         CLASSIFY(assembly, database)
     }
-    CSVTK_CONCAT(gather(CLASSIFY.out, 'gtdb', field: 'bac_tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CLASSIFY.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = CLASSIFY.out

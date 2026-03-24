@@ -11,11 +11,6 @@
             },
             "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
             [
-                [
-                    "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc"
-                ]
-            ],
-            [
                 "versions.yml:md5,5a1275f48afabd2f73a93a99ed4843dd"
             ],
             {
@@ -26,17 +21,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "hpsuissero.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
-            [
-                [
-                    "hpsuissero.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc"
-                ]
-            ],
             [
                 "versions.yml:md5,f6953ae2271fe2a3415f7a5450e4f046"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:34.962406343",
+        "timestamp": "2026-03-22T07:07:46.418374098",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

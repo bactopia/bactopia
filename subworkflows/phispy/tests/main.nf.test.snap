@@ -9,15 +9,6 @@
                 "process_name": "phispy",
                 "scope": "sample"
             },
-            "GCF_900478275.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960",
-            [
-                [
-                    "GCF_900478275.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960"
-                ],
-                [
-                    "GCF_900478275_GCF_900478275.gbk.gz:md5,33af0fada5716713d66981eeb6ba4882"
-                ]
-            ],
             [
                 "versions.yml:md5,d31e898a7479339255b07cdc3613c6d7"
             ],
@@ -29,17 +20,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "phispy.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960",
-            [
-                [
-                    "phispy.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960"
-                ]
-            ],
             [
                 "versions.yml:md5,07d57bb6615d099e188c1aad39da5c83"
             ]
         ],
-        "timestamp": "2026-03-14T07:44:59.633603956",
+        "timestamp": "2026-03-22T07:09:42.209167587",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

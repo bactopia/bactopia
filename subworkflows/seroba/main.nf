@@ -36,7 +36,7 @@ workflow SEROBA {
 
     main:
     SEROBA_RUN(assembly)
-    CSVTK_CONCAT(gather(SEROBA_RUN.out, 'seroba', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SEROBA_RUN.out

@@ -100,7 +100,7 @@ process KRAKEN2 {
     read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
 
     special_meta = [:]
-    special_meta.id = prefix
+    special_meta.name = prefix
     def paired = meta.single_end ? "" : "--paired"
     classified_naming = task.ext.wf != "kraken2" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq" : "${prefix}.${classified_naming}#.fastq"

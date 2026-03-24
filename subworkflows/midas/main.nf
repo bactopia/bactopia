@@ -58,7 +58,7 @@ workflow MIDAS {
         MIDAS_SPECIES(reads, database)
     }
 
-    CSVTK_CONCAT(gather(MIDAS_SPECIES.out, 'midas', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MIDAS_SPECIES.out, 'tsv', [name: 'midas']), 'tsv', 'tsv')
     emit:
     sample_outputs = MIDAS_SPECIES.out
     run_outputs = CSVTK_CONCAT.out

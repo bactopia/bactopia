@@ -35,7 +35,7 @@ workflow NGMASTER {
 
     main:
     NGMASTER_MODULE(assembly)
-    CSVTK_CONCAT(gather(NGMASTER_MODULE.out, 'ngmaster', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(NGMASTER_MODULE.out, 'tsv', [name: 'ngmaster']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = NGMASTER_MODULE.out

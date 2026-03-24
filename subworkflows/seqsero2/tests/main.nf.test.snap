@@ -9,15 +9,6 @@
                 "process_name": "seqsero2",
                 "scope": "sample"
             },
-            "GCF_016028495.tsv:md5,8aa2d961cccff62581d0042d36ac5860",
-            [
-                [
-                    "GCF_016028495.tsv:md5,8aa2d961cccff62581d0042d36ac5860"
-                ],
-                [
-                    "GCF_016028495.txt:md5,555d269867da5bed096b96bf46c786c2"
-                ]
-            ],
             [
                 "versions.yml:md5,e05fffa83523c10bcc49b5ac0a7aa8d7"
             ],
@@ -29,17 +20,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "seqsero2.tsv:md5,8aa2d961cccff62581d0042d36ac5860",
-            [
-                [
-                    "seqsero2.tsv:md5,8aa2d961cccff62581d0042d36ac5860"
-                ]
-            ],
             [
                 "versions.yml:md5,407bddfba34298df26d7fa5880a564e6"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:43.390583043",
+        "timestamp": "2026-03-22T07:07:49.495081207",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

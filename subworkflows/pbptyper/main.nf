@@ -37,7 +37,7 @@ workflow PBPTYPER {
 
     main:
     PBPTYPER_MODULE(assembly)
-    CSVTK_CONCAT(gather(PBPTYPER_MODULE.out, 'pbptyper', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PBPTYPER_MODULE.out, 'tsv', [name: 'pbptyper']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = PBPTYPER_MODULE.out

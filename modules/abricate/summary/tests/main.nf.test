@@ -29,7 +29,7 @@ nextflow_process {
 
                 input[0] = Channel.of(
                     record(
-                        _meta: [id: "abricate-ncbi"],
+                        _meta: [name: "abricate-ncbi"],
                         reports: [report1, report2]
                     )
                 )

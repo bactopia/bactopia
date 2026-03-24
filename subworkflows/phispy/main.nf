@@ -35,7 +35,7 @@ workflow PHISPY {
 
     main:
     PHISPY_MODULE(gbk)
-    CSVTK_CONCAT(gather(PHISPY_MODULE.out, 'phispy', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PHISPY_MODULE.out, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
     emit:
     sample_outputs = PHISPY_MODULE.out
     run_outputs = CSVTK_CONCAT.out

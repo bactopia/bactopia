@@ -39,7 +39,7 @@ workflow BLASTN {
 
     main:
     BLASTN_MODULE(assembly, query)
-    CSVTK_CONCAT(gather(BLASTN_MODULE.out, 'blastn', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BLASTN_MODULE.out, 'tsv', [name: 'blastn']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = BLASTN_MODULE.out

@@ -23,7 +23,7 @@
  * - `lr`: Long reads (ONT/PacBio)
  *
  * @output sample_outputs
- *   - `special_meta`: Groovy Map with ID for downstream aggregation
+ *   - `special_meta`: Groovy Map with name for downstream aggregation
  *   - `scrubbed`: Scrubbed FASTQ files with human reads removed
  *   - `scrubbed_extra`: Placeholder files for pipeline compatibility
  *   - `scrub_report`: Report of scrubbing statistics

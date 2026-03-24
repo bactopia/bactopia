@@ -53,7 +53,7 @@ workflow SNIPPY_CORE {
     SNIPPY_CORE_MODULE(alignments, reference, mask)
 
     // Per-sample SNP distances
-    SNPDISTS(gather(SNIPPY_CORE_MODULE.out, 'core-snp.distance', field: 'clean_full_aln'))
+    SNPDISTS(gather(SNIPPY_CORE_MODULE.out, 'clean_full_aln', [name: 'core-snp.distance']))
 
     emit:
     sample_outputs = SNIPPY_CORE_MODULE.out

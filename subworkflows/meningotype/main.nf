@@ -35,7 +35,7 @@ workflow MENINGOTYPE {
 
     main:
     MENINGOTYPE_MODULE(assembly)
-    CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out, 'meningotype', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = MENINGOTYPE_MODULE.out

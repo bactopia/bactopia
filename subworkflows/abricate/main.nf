@@ -34,7 +34,7 @@ workflow ABRICATE {
 
     main:
     ABRICATE_RUN(assembly)
-    ABRICATE_SUMMARY(gather(ABRICATE_RUN.out, 'abricate', field: 'report'))
+    ABRICATE_SUMMARY(gather(ABRICATE_RUN.out, 'report', [name: 'abricate']))
 
     emit:
     // Per-sample records (contains meta, report, logs, nf_logs, versions)

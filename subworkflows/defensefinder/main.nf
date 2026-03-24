@@ -45,9 +45,9 @@ workflow DEFENSEFINDER {
     DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.db)
 
     // Merge results
-    GENES_CONCAT(gather(DEFENSEFINDER_RUN.out, 'defensefinder-genes', field: 'genes_tsv'), 'tsv', 'tsv')
-    HMMER_CONCAT(gather(DEFENSEFINDER_RUN.out, 'defensefinder-hmmer', field: 'hmmer_tsv'), 'tsv', 'tsv')
-    SYSTEMS_CONCAT(gather(DEFENSEFINDER_RUN.out, 'defensefinder-systems', field: 'systems_tsv'), 'tsv', 'tsv')
+    GENES_CONCAT(gather(DEFENSEFINDER_RUN.out, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
+    HMMER_CONCAT(gather(DEFENSEFINDER_RUN.out, 'hmmer_tsv', [name: 'defensefinder-hmmer']), 'tsv', 'tsv')
+    SYSTEMS_CONCAT(gather(DEFENSEFINDER_RUN.out, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = DEFENSEFINDER_RUN.out

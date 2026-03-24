@@ -31,6 +31,7 @@ nextflow_workflow {
             def sample = workflow.out.sample_outputs[0]
             assertAll(
                 { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
                 { assert sample.tab != null },
                 { assert sample.txt != null },
                 { assert snapshot(

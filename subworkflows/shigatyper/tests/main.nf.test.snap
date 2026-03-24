@@ -12,14 +12,6 @@
             },
             "ERR6005894.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2",
             [
-                [
-                    "ERR6005894.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2"
-                ],
-                [
-                    
-                ]
-            ],
-            [
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17"
             ],
             {
@@ -30,17 +22,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "shigatyper.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2",
-            [
-                [
-                    "shigatyper.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2"
-                ]
-            ],
             [
                 "versions.yml:md5,c4954fe5c276fcd3b66857bacafa932e"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:35.006478453",
+        "timestamp": "2026-03-22T07:07:47.118268996",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

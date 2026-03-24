@@ -11,15 +11,6 @@
             },
             "GCF_000017085.tsv:md5,b483a3d6ca1908ab813427b06751e51a",
             [
-                [
-                    "GCF_000017085.tsv:md5,b483a3d6ca1908ab813427b06751e51a"
-                ],
-                [
-                    "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
-                    "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ]
-            ],
-            [
                 "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035"
             ],
             {
@@ -40,7 +31,7 @@
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:34.695901117",
+        "timestamp": "2026-03-22T07:07:44.315526673",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

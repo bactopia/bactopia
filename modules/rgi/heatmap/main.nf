@@ -47,7 +47,7 @@ process RGI_HEATMAP {
     )
 
     script:
-    prefix = task.ext.prefix ?: "${_meta.id}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
     meta = [:]

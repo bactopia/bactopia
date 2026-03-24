@@ -45,7 +45,7 @@ workflow HICAP {
 
     main:
     HICAP_MODULE(assembly, database_dir, model_fp)
-    CSVTK_CONCAT(gather(HICAP_MODULE.out, 'hicap', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(HICAP_MODULE.out, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = HICAP_MODULE.out

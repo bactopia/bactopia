@@ -37,7 +37,7 @@ workflow PASTY {
 
     main:
     PASTY_MODULE(assembly)
-    CSVTK_CONCAT(gather(PASTY_MODULE.out, 'pasty', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PASTY_MODULE.out, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = PASTY_MODULE.out

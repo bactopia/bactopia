@@ -39,7 +39,7 @@ workflow SISTR {
 
     main:
     SISTR_MODULE(assembly)
-    CSVTK_CONCAT(gather(SISTR_MODULE.out, 'sistr', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SISTR_MODULE.out, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SISTR_MODULE.out

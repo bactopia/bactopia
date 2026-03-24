@@ -34,7 +34,7 @@ workflow CLERMONTYPING {
 
     main:
     CLERMONTYPING_MODULE(assembly)
-    CSVTK_CONCAT(gather(CLERMONTYPING_MODULE.out, 'clermontyping', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CLERMONTYPING_MODULE.out, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records

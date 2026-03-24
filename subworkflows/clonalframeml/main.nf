@@ -48,7 +48,7 @@ workflow CLONALFRAMEML {
 
     main:
     // Create a quick start tree
-    IQTREE(gather(alignment, 'iqtree-fast', args: 'name: "iqtree-fast", process_name: "iqtree-fast"'))
+    IQTREE(gather(alignment, 'alignment', [name: 'iqtree-fast', process_name: 'iqtree-fast']))
 
     // Run ClonalFrameML - gather alignment and tree together
     ch_aln_tree = IQTREE.out.sample_outputs.collect{ r -> [r.msa, r.phylogeny] }.map{ msa, phylogeny ->
@@ -57,7 +57,7 @@ workflow CLONALFRAMEML {
     CLONALFRAMEML_MODULE(ch_aln_tree)
 
     // Per-sample SNP distances
-    SNPDISTS(gather(CLONALFRAMEML_MODULE.out, 'core-genome.masked.distance', field: 'masked_aln', args: 'name: "core-genome.masked.distance", process_name: "snpdists-masked"'))
+    SNPDISTS(gather(CLONALFRAMEML_MODULE.out, 'masked_aln', [name: 'core-genome.masked.distance', process_name: 'snpdists-masked']))
 
     emit:
     sample_outputs = CLONALFRAMEML_MODULE.out

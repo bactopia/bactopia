@@ -30,7 +30,7 @@ nextflow_process {
 
                 input[0] = Channel.of(
                     record(
-                        _meta: [id: "rgi-heatmap"],
+                        _meta: [name: "rgi-heatmap"],
                         json: [json1, json2]
                     )
                 )

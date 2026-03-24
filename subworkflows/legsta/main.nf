@@ -36,7 +36,7 @@ workflow LEGSTA {
 
     main:
     LEGSTA_MODULE(assembly)
-    CSVTK_CONCAT(gather(LEGSTA_MODULE.out, 'legsta', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(LEGSTA_MODULE.out, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)

@@ -11,11 +11,6 @@
             },
             "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f",
             [
-                [
-                    "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f"
-                ]
-            ],
-            [
                 "versions.yml:md5,560833e611613540427bf97dc53d156b"
             ],
             {
@@ -36,7 +31,7 @@
                 "versions.yml:md5,ff232e321a8b2b91adefba9a7b05d823"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:40.14094895",
+        "timestamp": "2026-03-22T07:07:40.219534328",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

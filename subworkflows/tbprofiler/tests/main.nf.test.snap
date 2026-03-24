@@ -10,25 +10,6 @@
                 "scope": "sample",
                 "single_end": false
             },
-            "SRR2838702.csv:md5,a67ec8b9cb7fd855835d84ba0e9d94fd",
-            "SRR2838702.results.json.gz:md5,b5a9a2c67f9d8d48454a578cd942a63b",
-            "SRR2838702.txt:md5,da926db8b4b96a28e5358ade8aaf0731",
-            [
-                [
-                    "SRR2838702.csv:md5,a67ec8b9cb7fd855835d84ba0e9d94fd"
-                ],
-                [
-                    "SRR2838702.results.json.gz:md5,b5a9a2c67f9d8d48454a578cd942a63b"
-                ],
-                [
-                    "SRR2838702.txt:md5,da926db8b4b96a28e5358ade8aaf0731"
-                ],
-                [
-                    "SRR2838702.targets.vcf.gz:md5,42dc0c481c80ce8e3a4393b0f68a8b5f",
-                    "SRR2838702.bam:md5,89a171d7994293ee02b54305a55e4b2f",
-                    "SRR2838702.bam.bai:md5,0d76977b2e36046cc176112776c5fa4e"
-                ]
-            ],
             [
                 "versions.yml:md5,2d87e4df08df0f8c93f13d385d3a25f0"
             ],
@@ -40,25 +21,11 @@
                 "process_name": "tbprofiler-collate",
                 "scope": "run"
             },
-            "tbprofiler.csv:md5,45f68f5bc198b73c2174d79899506127",
-            "tbprofiler.variants.csv:md5,80b42a0baec12f796ac8c6d6ecbcc629",
-            "tbprofiler.variants.txt:md5,e561fcbdd2e6c9aff39d9a9dc2b7d5f3",
-            [
-                [
-                    "tbprofiler.csv:md5,45f68f5bc198b73c2174d79899506127"
-                ],
-                [
-                    "tbprofiler.variants.csv:md5,80b42a0baec12f796ac8c6d6ecbcc629"
-                ],
-                [
-                    "tbprofiler.variants.txt:md5,e561fcbdd2e6c9aff39d9a9dc2b7d5f3"
-                ]
-            ],
             [
                 "versions.yml:md5,0a6c2ee40d0bbc1c31e66a46cc130523"
             ]
         ],
-        "timestamp": "2026-03-14T07:43:21.392066513",
+        "timestamp": "2026-03-22T07:08:19.455632196",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

@@ -39,7 +39,7 @@ workflow PLASMIDFINDER {
 
     main:
     PLASMIDFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gather(PLASMIDFINDER_MODULE.out, 'plasmidfinder', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(PLASMIDFINDER_MODULE.out, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = PLASMIDFINDER_MODULE.out

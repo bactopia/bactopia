@@ -12,20 +12,6 @@
             "GCF_000017085-chromosome.fasta.gz:md5,fe6e312b963fa5068c68cc25060ecd32",
             "GCF_000017085-contig_report.txt:md5,82e2079c35c1f808716f1dfd607ac235",
             [
-                [
-                    "GCF_000017085-chromosome.fasta.gz:md5,fe6e312b963fa5068c68cc25060ecd32"
-                ],
-                [
-                    "GCF_000017085-contig_report.txt:md5,82e2079c35c1f808716f1dfd607ac235"
-                ],
-                [
-                    "GCF_000017085-mobtyper.txt:md5,951dbd706ab78c4d00aa28735ab34e87"
-                ],
-                [
-                    "plasmid_AA840.fasta.gz:md5,0b1ed5edd6b757bccf0bade61c9c2dab"
-                ]
-            ],
-            [
                 "versions.yml:md5,6382560b7378f1c8df5a4b1485126c25"
             ],
             {
@@ -36,17 +22,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "mobsuite.tsv:md5,951dbd706ab78c4d00aa28735ab34e87",
-            [
-                [
-                    "mobsuite.tsv:md5,951dbd706ab78c4d00aa28735ab34e87"
-                ]
-            ],
             [
                 "versions.yml:md5,e586a98fe29a48792ce661d2649ada18"
             ]
         ],
-        "timestamp": "2026-03-14T07:43:45.339949612",
+        "timestamp": "2026-03-22T07:08:48.698165664",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

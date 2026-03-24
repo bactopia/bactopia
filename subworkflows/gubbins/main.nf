@@ -48,9 +48,9 @@ workflow GUBBINS {
 
     main:
     GUBBINS_MODULE(alignment)
-    SNPDISTS(gather(GUBBINS_MODULE.out, 'core-snp.masked.distance', field: 'masked_aln', args: 'name: "core-snp.masked.distance", process_name: "snpdists-masked"'))
+    SNPDISTS(gather(GUBBINS_MODULE.out, 'masked_aln', [name: 'core-snp.masked.distance', process_name: 'snpdists-masked']))
 
     emit:
     sample_outputs = GUBBINS_MODULE.out
-    snpdists_outputs = SNPDISTS.out.sample_outputs
+    snpdists_outputs = SNPDISTS.out
 }

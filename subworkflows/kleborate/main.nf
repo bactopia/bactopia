@@ -36,7 +36,7 @@ workflow KLEBORATE {
 
     main:
     KLEBORATE_MODULE(assembly)
-    CSVTK_CONCAT(gather(KLEBORATE_MODULE.out, 'kleborate', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(KLEBORATE_MODULE.out, 'tsv', [name: 'kleborate']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = KLEBORATE_MODULE.out

@@ -26,7 +26,7 @@ process SNPDISTS {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, msa: Path): Record
+    (_meta: Map, _msa: Set<Path>): Record
 
     output:
     record(
@@ -43,6 +43,8 @@ process SNPDISTS {
     )
 
     script:
+    assert _msa.size() == 1 : "Expected 1 alignment, got ${_msa.size()}"
+    msa = _msa.toList()[0]
     prefix = task.ext.prefix ?: "${_meta.name}"
     process_name = _meta.process_name ?: task.ext.process_name
 

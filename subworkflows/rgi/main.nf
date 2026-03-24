@@ -36,8 +36,8 @@ workflow RGI {
 
     main:
     RGI_MAIN(assembly)
-    CSVTK_CONCAT(gather(RGI_MAIN.out, 'rgi', field: 'tsv'), 'tsv', 'tsv')
-    RGI_HEATMAP(gather(RGI_MAIN.out, 'rgi', field: 'json'))
+    CSVTK_CONCAT(gather(RGI_MAIN.out, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
+    RGI_HEATMAP(gather(RGI_MAIN.out, 'json', [name: 'rgi']))
 
     emit:
     sample_outputs = RGI_MAIN.out

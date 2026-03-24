@@ -36,7 +36,7 @@ workflow HPSUISSERO {
 
     main:
     HPSUISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(HPSUISSERO_MODULE.out, 'hpsuissero', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(HPSUISSERO_MODULE.out, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records

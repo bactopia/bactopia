@@ -38,7 +38,7 @@ workflow QUAST {
 
     main:
     QUAST_MODULE(fasta)
-    CSVTK_CONCAT(gather(QUAST_MODULE.out, 'quast', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(QUAST_MODULE.out, 'tsv', [name: 'quast']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = QUAST_MODULE.out

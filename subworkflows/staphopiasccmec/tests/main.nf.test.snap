@@ -11,11 +11,6 @@
             },
             "GCF_000017085.tsv:md5,f631e5f4c80dc8ce004d72d9a3c56f58",
             [
-                [
-                    "GCF_000017085.tsv:md5,f631e5f4c80dc8ce004d72d9a3c56f58"
-                ]
-            ],
-            [
                 "versions.yml:md5,4bddaa70042adfd91f314e758e56296a"
             ],
             {
@@ -26,17 +21,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "staphopiasccmec.tsv:md5,d02a33b227b96a95a99e18ca117a019d",
-            [
-                [
-                    "staphopiasccmec.tsv:md5,d02a33b227b96a95a99e18ca117a019d"
-                ]
-            ],
             [
                 "versions.yml:md5,f59d6534316ffe1998c60f98b212d80f"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:45.350125328",
+        "timestamp": "2026-03-22T07:07:52.060087723",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

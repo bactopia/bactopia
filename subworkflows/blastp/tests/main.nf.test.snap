@@ -11,11 +11,6 @@
             },
             "SRX1390622.blastp.tsv:md5,edfb5d0475b332efefb9d312d703be87",
             [
-                [
-                    "SRX1390622.blastp.tsv:md5,edfb5d0475b332efefb9d312d703be87"
-                ]
-            ],
-            [
                 "versions.yml:md5,26948056627ab814f8527f8c213304f9"
             ],
             {
@@ -26,17 +21,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "blastp.tsv:md5,edfb5d0475b332efefb9d312d703be87",
-            [
-                [
-                    "blastp.tsv:md5,edfb5d0475b332efefb9d312d703be87"
-                ]
-            ],
             [
                 "versions.yml:md5,f96b9474386d395c01c2be97c4c63fea"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:36.942575385",
+        "timestamp": "2026-03-22T07:07:41.016546435",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

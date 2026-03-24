@@ -42,7 +42,7 @@ workflow GAMMA {
 
     main:
     GAMMA_MODULE(assembly, db)
-    CSVTK_CONCAT(gather(GAMMA_MODULE.out, 'gamma', field: 'gamma'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(GAMMA_MODULE.out, 'gamma', [name: 'gamma']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = GAMMA_MODULE.out

@@ -3,11 +3,7 @@
  *
  * This subworkflow acts as the entry point for independent Bactopia Tools. It uses internal
  * plugins to validate command-line parameters and organize input data into standardized
- * channel structures suitable for various tool requirements (primary inputs only, or including
- * secondary/tertiary files).
- *
- * For FASTQ-consuming tools, provides explicit positional tuple slots:
- * - reads: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * record-based channel structures suitable for various tool requirements.
  *
  * @status stable
  * @keywords initialization, validation, input-parsing, parameters, workflow
@@ -17,13 +13,13 @@
  * @input none
  * This workflow is parameter-driven and does not accept input channels.
  *
- * @output reads                  FASTQ reads: tuple(meta, r1, r2, se, lr) as Tuple<Map, Path?, Path?, Path?, Path?>
- * @output assembly               Assembly file: tuple(meta, fna) as Tuple<Map, Path>
- * @output assembly_reads         Assembly + reads: tuple(meta, fna, r1, r2, se, lr) as Tuple<Map, Path, Path?, Path?, Path?, Path?>
- * @output assembly_meta          Assembly + meta file: tuple(meta, fna, meta_file) as Tuple<Map, Path, Path>
- * @output assembly_proteins_gff  Assembly + proteins + GFF: tuple(meta, fna, faa, gff) as Tuple<Map, Path, Path?, Path?>
- * @output proteins               Protein sequences: tuple(meta, faa) as Tuple<Map, Path>
- * @output gffs                   Annotation file: tuple(meta, gff) as Tuple<Map, Path>
+ * @output reads                  FASTQ reads: record(meta, r1, r2, se, lr)
+ * @output assembly               Assembly file: record(meta, assembly)
+ * @output assembly_reads         Assembly + reads: record(meta, fna, r1, r2, se, lr)
+ * @output assembly_meta          Assembly + meta file: record(meta, assembly, meta_file)
+ * @output assembly_proteins_gff  Assembly + proteins + GFF: record(meta, assembly, proteins, gff)
+ * @output proteins               Protein sequences: record(meta, proteins)
+ * @output gffs                   Annotation file: record(meta, gff)
  */
 nextflow.preview.types = true
 
@@ -45,15 +41,13 @@ workflow BACTOPIATOOL_INIT {
     }
 
     // Initialize channels for various output types
-    def ch_reads                 = channel.empty() as Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
-    def ch_illumina_reads        = channel.empty() as Channel<Tuple<Map, Path?, Path?, Path?>>
-    def ch_illumina_pe_reads     = channel.empty() as Channel<Tuple<Map, Path?, Path?>>
-    def ch_assembly              = channel.empty() as Channel<Tuple<Map, Path>>
-    def ch_assembly_reads        = channel.empty() as Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>
-    def ch_assembly_meta         = channel.empty() as Channel<Tuple<Map, Path, Path>>
-    def ch_assembly_proteins_gff = channel.empty() as Channel<Tuple<Map, Path, Path?, Path?>>
-    def ch_proteins              = channel.empty() as Channel<Tuple<Map, Path>>
-    def ch_gffs                  = channel.empty() as Channel<Tuple<Map, Path>>
+    def ch_reads                 = channel.empty() as Channel<Record>
+    def ch_assembly              = channel.empty() as Channel<Record>
+    def ch_assembly_reads        = channel.empty() as Channel<Record>
+    def ch_assembly_meta         = channel.empty() as Channel<Record>
+    def ch_assembly_proteins_gff = channel.empty() as Channel<Record>
+    def ch_proteins              = channel.empty() as Channel<Record>
+    def ch_gffs                  = channel.empty() as Channel<Record>
 
     // Process inputs
     def collectedInputs = bactopiaToolInputs()
@@ -65,23 +59,21 @@ workflow BACTOPIATOOL_INIT {
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->
-        ch_reads                 << tuple(sample.meta, sample.r1, sample.r2, sample.se, sample.lr)
-        ch_illumina_reads        << tuple(sample.meta, sample.r1, sample.r2, sample.se)
-        ch_illumina_pe_reads     << tuple(sample.meta, sample.r1, sample.r2)
-        ch_assembly              << tuple(sample.meta, sample.assembly)
-        ch_assembly_reads        << tuple(sample.meta, sample.assembly, sample.r1, sample.r2, sample.se, sample.lr)
-        ch_assembly_meta         << tuple(sample.meta, sample.assembly, sample.meta_file)
-        ch_assembly_proteins_gff << tuple(sample.meta, sample.assembly, sample.proteins, sample.gff)
-        ch_proteins              << tuple(sample.meta, sample.proteins)
-        ch_gffs                  << tuple(sample.meta, sample.gff)
+        ch_reads                 << record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly              << record(meta: sample.meta, assembly: sample.assembly)
+        ch_assembly_reads        << record(meta: sample.meta, fna: sample.assembly, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly_meta         << record(meta: sample.meta, assembly: sample.assembly, meta_file: sample.meta_file)
+        ch_assembly_proteins_gff << record(meta: sample.meta, assembly: sample.assembly, proteins: sample.proteins, gff: sample.gff)
+        ch_proteins              << record(meta: sample.meta, proteins: sample.proteins)
+        ch_gffs                  << record(meta: sample.meta, gff: sample.gff)
     }
 
     emit:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>                  = ch_reads
-    assembly: Channel<Tuple<Map, Path>>                                     = ch_assembly
-    assembly_reads: Channel<Tuple<Map, Path, Path?, Path?, Path?, Path?>>   = ch_assembly_reads
-    assembly_meta: Channel<Tuple<Map, Path, Path>>                          = ch_assembly_meta
-    assembly_proteins_gff: Channel<Tuple<Map, Path, Path?, Path?>>          = ch_assembly_proteins_gff
-    proteins: Channel<Tuple<Map, Path>>                                     = ch_proteins
-    gffs: Channel<Tuple<Map, Path>>                                         = ch_gffs
+    reads: Channel<Record>                 = ch_reads
+    assembly: Channel<Record>              = ch_assembly
+    assembly_reads: Channel<Record>        = ch_assembly_reads
+    assembly_meta: Channel<Record>         = ch_assembly_meta
+    assembly_proteins_gff: Channel<Record> = ch_assembly_proteins_gff
+    proteins: Channel<Record>              = ch_proteins
+    gffs: Channel<Record>                  = ch_gffs
 }

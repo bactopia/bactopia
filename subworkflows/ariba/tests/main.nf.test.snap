@@ -9,46 +9,11 @@
                 "process_name": "ariba",
                 "scope": "sample"
             },
-            "SRR2838702-report.tsv:md5,c4313d619b3da902fec18a05ad896e60",
-            "SRR2838702-summary.csv:md5,678d2585a5a6e2c4e3b3b7bafe5e575a",
-            [
-                [
-                    "SRR2838702-report.tsv:md5,c4313d619b3da902fec18a05ad896e60"
-                ],
-                [
-                    "SRR2838702-summary.csv:md5,678d2585a5a6e2c4e3b3b7bafe5e575a"
-                ],
-                [
-                    "assembled_genes.fa.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "assembled_seqs.fa.gz:md5,6e225aebcfbbd7c70b1e9d4f618d61ce",
-                    "log.clusters.gz:md5,ff308ef8ecb4c2c1eb30499de9402506",
-                    "version_info.txt:md5,7cbabad3ea7639f0eebb0e9cf6477df2",
-                    "assemblies.fa.gz:md5,603d02747020d4ce78212c3da96837c8",
-                    "debug.report.tsv:md5,c42385e0b9af7acd2c9fe3a2707798b1"
-                ]
-            ],
             [
                 "versions.yml:md5,aaa688e30363067240a27dcbe85f29c6"
-            ],
-            {
-                "id": "card-summary-ARIBA:CSVTK_CONCAT_SUMMARY",
-                "logs_dir": "merged-results/logs/card-summary-concat/",
-                "name": "card-summary",
-                "output_dir": "merged-results",
-                "process_name": null,
-                "scope": "run"
-            },
-            "card-summary.csv:md5,678d2585a5a6e2c4e3b3b7bafe5e575a",
-            [
-                [
-                    "card-summary.csv:md5,678d2585a5a6e2c4e3b3b7bafe5e575a"
-                ]
-            ],
-            [
-                "versions.yml:md5,1a4d97856cb563f9b6c84132cd60d481"
             ]
         ],
-        "timestamp": "2026-03-14T07:44:56.687283614",
+        "timestamp": "2026-03-22T07:09:27.824764142",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

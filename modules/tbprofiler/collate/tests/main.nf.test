@@ -15,7 +15,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [id: "tbprofiler"],
+                        _meta: [name: "tbprofiler"],
                         json: [
                             file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.results.json.gz"),
                             file("${params.test_data_dir}/data/species/portiera/nanopore/ERR3772599.results.json.gz")

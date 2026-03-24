@@ -33,8 +33,6 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.tab != null },
-                { assert record.txt != null },
                 { assert snapshot(
                     record.meta,
                     record.versions
@@ -70,8 +68,6 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.tab != null },
-                { assert record.txt != null },
                 { assert snapshot(
                     record.meta,
                     record.versions

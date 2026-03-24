@@ -35,7 +35,7 @@ workflow BTYPER3 {
 
     main:
     BTYPER3_MODULE(assembly)
-    CSVTK_CONCAT(gather(BTYPER3_MODULE.out, 'btyper3', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BTYPER3_MODULE.out, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records

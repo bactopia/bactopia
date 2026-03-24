@@ -56,7 +56,7 @@ workflow CHECKM2 {
     }
 
     // Merge results
-    CSVTK_CONCAT(gather(CHECKM2_PREDICT.out, 'checkm2', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CHECKM2_PREDICT.out, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = CHECKM2_PREDICT.out

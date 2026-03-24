@@ -34,7 +34,7 @@ workflow AGRVATE {
 
     main:
     AGRVATE_MODULE(assembly)
-    CSVTK_CONCAT(gather(AGRVATE_MODULE.out, 'agrvate', field: 'summary'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(AGRVATE_MODULE.out, 'summary', [name: 'agrvate']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records (contains meta, summary, results, logs, nf_logs, versions)

@@ -35,7 +35,7 @@ workflow SEQSERO2 {
 
     main:
     SEQSERO2_MODULE(seqs)
-    CSVTK_CONCAT(gather(SEQSERO2_MODULE.out, 'seqsero2', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SEQSERO2_MODULE.out, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SEQSERO2_MODULE.out

@@ -39,7 +39,7 @@ workflow SCCMEC {
 
     main:
     SCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gather(SCCMEC_MODULE.out, 'sccmec', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SCCMEC_MODULE.out, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SCCMEC_MODULE.out

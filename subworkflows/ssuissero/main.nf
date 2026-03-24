@@ -35,7 +35,7 @@ workflow SSUISSERO {
 
     main:
     SSUISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(SSUISSERO_MODULE.out, 'ssuissero', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SSUISSERO_MODULE.out, 'tsv', [name: 'ssuissero']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SSUISSERO_MODULE.out

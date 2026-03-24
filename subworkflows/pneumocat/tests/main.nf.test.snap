@@ -10,18 +10,10 @@
                 "scope": "sample"
             },
             [
-                [
-                    "ERR1438863.xml:md5,7f8f94c64ced3e1bff14d2dfaebccfb3"
-                ],
-                [
-                    "ERR1438863.coverage_summary.txt:md5,72016a38b82c726548cf5b58794c4938"
-                ]
-            ],
-            [
                 "versions.yml:md5,4c8b3e01e7425c78f2849d2e585f9cec"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:28.093911945",
+        "timestamp": "2026-03-22T07:07:29.884413827",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

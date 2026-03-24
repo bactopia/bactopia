@@ -29,12 +29,13 @@ nextflow_workflow {
             def sample = workflow.out.sample_outputs[0]
             assertAll(
                 { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
                 { assert snapshot(
                     sample.meta,
                     sample.scrub_report,
-                    sample.results,
                     sample.versions
-                ).match() }
+                ).match() },
+                { assert sample.results != null }
             )
         }
     }

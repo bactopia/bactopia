@@ -11,14 +11,6 @@
             },
             "SRR2838702.tsv:md5,8c20690cc5ca0fd77228c830001e0b86",
             [
-                [
-                    "SRR2838702.tsv:md5,8c20690cc5ca0fd77228c830001e0b86"
-                ],
-                [
-                    
-                ]
-            ],
-            [
                 "versions.yml:md5,115e2b5bab3ac8b7d5ebc7334399cfaa"
             ],
             {
@@ -29,17 +21,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "seroba.tsv:md5,8c20690cc5ca0fd77228c830001e0b86",
-            [
-                [
-                    "seroba.tsv:md5,8c20690cc5ca0fd77228c830001e0b86"
-                ]
-            ],
             [
                 "versions.yml:md5,4fd4f724e2f19016eff39a2b524a9007"
             ]
         ],
-        "timestamp": "2026-03-14T07:43:13.386497968",
+        "timestamp": "2026-03-22T07:07:52.577022895",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

@@ -32,7 +32,7 @@ workflow MASHTREE {
     assembly: Channel<Record>
 
     main:
-    MASHTREE_MODULE(gather(assembly, 'mashtree', 'fna'))
+    MASHTREE_MODULE(gather(assembly, 'assembly', [name: 'mashtree']))
 
     emit:
     sample_outputs = MASHTREE_MODULE.out

@@ -9,21 +9,6 @@
                 "process_name": "sistr",
                 "scope": "sample"
             },
-            "GCF_016028495.tsv:md5,2f8e3732b947fb81e868063e187c73ab",
-            [
-                [
-                    "GCF_016028495.tsv:md5,2f8e3732b947fb81e868063e187c73ab"
-                ],
-                [
-                    "GCF_016028495-allele.fasta.gz:md5,7419584d8351b6c9760a847043387f00"
-                ],
-                [
-                    "GCF_016028495-allele.json.gz:md5,36750cb91ec4ef5d671d4b88fd3dde5d"
-                ],
-                [
-                    "GCF_016028495-cgmlst.csv:md5,ee363a38dd118e80b864bf34346867c1"
-                ]
-            ],
             [
                 "versions.yml:md5,977ae550815197bc19c457d3c17aaf07"
             ],
@@ -35,17 +20,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "sistr.tsv:md5,2f8e3732b947fb81e868063e187c73ab",
-            [
-                [
-                    "sistr.tsv:md5,2f8e3732b947fb81e868063e187c73ab"
-                ]
-            ],
             [
                 "versions.yml:md5,683c9c1a0fff623520a6d84e3a7d0210"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:51.744906567",
+        "timestamp": "2026-03-22T07:07:54.001323163",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

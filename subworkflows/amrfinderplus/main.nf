@@ -40,7 +40,7 @@ workflow AMRFINDERPLUS {
 
     main:
     AMRFINDERPLUS_RUN(fasta, db)
-    CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out, 'amrfinderplus', field: 'report'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = AMRFINDERPLUS_RUN.out

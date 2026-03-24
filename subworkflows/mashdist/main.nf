@@ -39,7 +39,7 @@ workflow MASHDIST {
 
     main:
     MASH_DIST(seqs, reference)
-    CSVTK_CONCAT(gather(MASH_DIST.out, 'mashdist', field: 'dist'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MASH_DIST.out, 'dist', [name: 'mashdist']), 'tsv', 'tsv')
     emit:
     sample_outputs = MASH_DIST.out
     run_outputs = CSVTK_CONCAT.out

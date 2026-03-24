@@ -43,7 +43,7 @@ workflow SPATYPER {
 
     main:
     SPATYPER_MODULE(assembly, repeats, repeat_order)
-    CSVTK_CONCAT(gather(SPATYPER_MODULE.out, 'spatyper', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SPATYPER_MODULE.out, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SPATYPER_MODULE.out

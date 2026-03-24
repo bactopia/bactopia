@@ -42,7 +42,7 @@ workflow BUSCO {
 
     main:
     BUSCO_MODULE(assembly)
-    CSVTK_CONCAT(gather(BUSCO_MODULE.out, "busco-${busco_lineage}", field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(BUSCO_MODULE.out, 'tsv', [name: "busco-${busco_lineage}"]), 'tsv', 'tsv')
 
     emit:
     sample_outputs = BUSCO_MODULE.out

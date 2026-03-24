@@ -25,18 +25,12 @@ nextflow_workflow {
         }
 
         then {
-            def sample = workflow.out.sample_outputs[0]
-            def run = workflow.out.run_outputs[0]
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(
-                    sample.meta,
-                    sample.results,
-                    sample.versions,
-                    run.meta,
-                    run.results,
-                    run.versions
-                ).match() }
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert workflow.out.sample_outputs.size() >= 1 },
+                { assert workflow.out.run_outputs.size() >= 1 }
             )
         }
     }

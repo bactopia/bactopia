@@ -38,7 +38,7 @@ workflow EMMTYPER {
 
     main:
     EMMTYPER_MODULE(assembly, blastdb)
-    CSVTK_CONCAT(gather(EMMTYPER_MODULE.out, 'emmtyper', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(EMMTYPER_MODULE.out, 'tsv', [name: 'emmtyper']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = EMMTYPER_MODULE.out

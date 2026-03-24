@@ -57,10 +57,10 @@ workflow BRACKEN {
     BRACKEN_MODULE(reads, database)
 
     // Merge Bracken Primary/Secondary Species abundance
-    CSVTK_CONCAT_TSV(gather(BRACKEN_MODULE.out, 'bracken-species-abundance', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT_TSV(gather(BRACKEN_MODULE.out, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
 
     // Merge Bracken adjusted abundance
-    CSVTK_CONCAT_ADJUSTED(gather(BRACKEN_MODULE.out, 'bracken-adjusted', field: 'adjusted_abundances'), 'tsv', 'tsv')
+    CSVTK_CONCAT_ADJUSTED(gather(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = BRACKEN_MODULE.out

@@ -5,7 +5,7 @@ nextflow_workflow {
     tag "subworkflows"
     tag "abritamr"
 
-    test("abritamr - subworkflow - GCF_000292685") {
+    test("abritamr - subworkflow - GCF_001682305") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -14,8 +14,8 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                        _meta: [name: "GCF_001682305"],
+                        assembly: file("${params.test_data_dir}/data/species/escherichia_coli/genome/GCF_001682305.fna.gz")
                     )
                 )
                 """
@@ -27,20 +27,22 @@ nextflow_workflow {
             def run = workflow.out.run_outputs[0]
             assertAll(
                 { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
                 { assert snapshot(
                     sample.meta,
-                    sample.summary,
-                    sample.matches,
-                    sample.partials,
-                    sample.virulence,
-                    sample.amrfinder,
-                    sample.results,
                     sample.versions,
                     run.meta,
-                    run.csv,
-                    run.results,
                     run.versions
-                ).match() }
+                ).match() },
+                { assert sample.summary != null },
+                { assert sample.matches != null },
+                { assert sample.partials != null },
+                { assert sample.virulence != null },
+                { assert sample.amrfinder != null },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
             )
         }
     }

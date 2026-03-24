@@ -68,7 +68,7 @@ workflow SCRUBBER {
         ch_scrubbed_extra = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.unclassified_extra) }
     }
 
-    CSVTK_CONCAT(gather(ch_scrub_report, 'scrubber'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(ch_sample_outputs, 'scrub_report', [name: 'scrubber']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = ch_sample_outputs

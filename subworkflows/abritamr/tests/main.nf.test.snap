@@ -1,0 +1,33 @@
+{
+    "abritamr - subworkflow - GCF_001682305": {
+        "content": [
+            {
+                "id": "GCF_001682305-ABRITAMR:ABRITAMR_RUN",
+                "logs_dir": "GCF_001682305/tools/abritamr//logs/",
+                "name": "GCF_001682305",
+                "output_dir": "GCF_001682305/tools/abritamr/",
+                "process_name": "abritamr",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,dc692e26e233daf630cb91d0f241951a"
+            ],
+            {
+                "id": "abritamr-ABRITAMR:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/abritamr-concat/",
+                "name": "abritamr",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,31f7f5153ed3b9aa6a6e432ec7939e0b"
+            ]
+        ],
+        "timestamp": "2026-03-22T23:15:38.856116793",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

@@ -9,12 +9,6 @@
                 "process_name": "kleborate",
                 "scope": "sample"
             },
-            "GCF_000009885.tsv:md5,b0eac8cd11514ab73f2118938553ec3a",
-            [
-                [
-                    "GCF_000009885.tsv:md5,b0eac8cd11514ab73f2118938553ec3a"
-                ]
-            ],
             [
                 "versions.yml:md5,aec7b340c249e69ce8f867062359afb9"
             ],
@@ -26,17 +20,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "kleborate.tsv:md5,b0eac8cd11514ab73f2118938553ec3a",
-            [
-                [
-                    "kleborate.tsv:md5,b0eac8cd11514ab73f2118938553ec3a"
-                ]
-            ],
             [
                 "versions.yml:md5,2351aac91e4aee5e9cfa2bd7a6a1bda0"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:55.638602224",
+        "timestamp": "2026-03-22T07:07:57.632873621",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

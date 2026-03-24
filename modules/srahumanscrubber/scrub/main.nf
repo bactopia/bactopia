@@ -24,7 +24,7 @@
  * SRA Human Scrubber database directory
  *
  * @output record(meta, special_meta, scrubbed, scrubbed_extra, scrub_report, results, logs, nf_logs, versions)
- * - `special_meta`: Groovy Map with ID for downstream aggregation
+ * - `special_meta`: Groovy Map with name for downstream aggregation
  * - `scrubbed`: Scrubbed FASTQ files with human reads removed
  * - `scrub_report`: Report of scrubbing statistics
  */
@@ -81,7 +81,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     meta.runtype = _meta.runtype
 
     special_meta = [:]
-    special_meta.id = prefix
+    special_meta.name = prefix
     if (meta.single_end) {
         """
         # Scrub human reads

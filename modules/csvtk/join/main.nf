@@ -59,7 +59,7 @@ process CSVTK_JOIN {
     script:
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     subdir = _meta.subdir ? "${_meta.subdir}/" : ''
-    prefix = task.ext.prefix ?: "${_meta.id}"
+    prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
     meta = [:]

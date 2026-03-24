@@ -30,7 +30,7 @@ process IQTREE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, msa: Path): Record
+    (_meta: Map, _msa: Set<Path>): Record
 
     output:
     record(
@@ -49,6 +49,8 @@ process IQTREE {
     )
 
     script:
+    assert _msa.size() == 1 : "Expected 1 MSA, got ${_msa.size()}"
+    msa = _msa.toList()[0]
     prefix = task.ext.prefix ?: "${_meta.name}"
     process_name = _meta.process_name == "iqtree-fast" ? "iqtree-fast" : task.ext.process_name
     args = process_name == "iqtree-fast" ? task.ext.fast_args : task.ext.args

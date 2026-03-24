@@ -12,14 +12,6 @@
             "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
             null,
             [
-                [
-                    "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2"
-                ],
-                [
-                    
-                ]
-            ],
-            [
                 "versions.yml:md5,048657b953eef617c2b64ccb02cd1155"
             ],
             {
@@ -30,17 +22,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "shigapass.tsv:md5,9982dbc252423a0507b7c397f66164f2",
-            [
-                [
-                    "shigapass.tsv:md5,9982dbc252423a0507b7c397f66164f2"
-                ]
-            ],
             [
                 "versions.yml:md5,f481607e2b7526fd798b2375bb3cc9c4"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:49.946180173",
+        "timestamp": "2026-03-22T07:07:58.176299541",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

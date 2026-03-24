@@ -35,7 +35,7 @@ workflow SHIGEIFINDER {
 
     main:
     SHIGEIFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gather(SHIGEIFINDER_MODULE.out, 'shigeifinder', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(SHIGEIFINDER_MODULE.out, 'tsv', [name: 'shigeifinder']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = SHIGEIFINDER_MODULE.out

@@ -39,7 +39,7 @@ workflow ABRITAMR {
 
     main:
     ABRITAMR_RUN(assembly)
-    CSVTK_CONCAT(gather(ABRITAMR_RUN.out, 'abritamr', field: 'summary'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(ABRITAMR_RUN.out, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records (contains meta, summary, matches, partials, virulence, amrfinder, results, logs, nf_logs, versions)

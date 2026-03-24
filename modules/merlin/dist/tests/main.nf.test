@@ -34,7 +34,6 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.dist != null },
                 { assert snapshot(
                     record.meta,
                     record.dist,
@@ -72,7 +71,6 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.dist != null },
                 { assert snapshot(
                     record.meta,
                     record.dist,

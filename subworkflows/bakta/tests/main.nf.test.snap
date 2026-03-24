@@ -12,45 +12,10 @@
             "GCF_000292685.tsv:md5,94c81a605e1473851e6bfde3a0395211",
             "GCF_000292685.txt:md5,bfdd9937f4796c8b8b2ee1f92a6cde81",
             [
-                [
-                    "GCF_000292685.tsv:md5,94c81a605e1473851e6bfde3a0395211"
-                ],
-                [
-                    "GCF_000292685.txt:md5,bfdd9937f4796c8b8b2ee1f92a6cde81"
-                ],
-                [
-                    "GCF_000292685.embl:md5,6d19fb192b704ceefb0e5b4e6a976cf1"
-                ],
-                [
-                    "GCF_000292685.faa:md5,2d458f394da307bbb77db6f9a932f072"
-                ],
-                [
-                    "GCF_000292685.ffn:md5,ef7725acb498a54c1b779a644cc7ffd7"
-                ],
-                [
-                    "GCF_000292685.fna:md5,0203f6406e7f9b188dc905a18ad42982"
-                ],
-                [
-                    "GCF_000292685.gbff:md5,b7a2e235dad007cab58209848a892c30"
-                ],
-                [
-                    "GCF_000292685.gff3:md5,6502ec7404abe74a2e45cfd34b31778b"
-                ],
-                [
-                    "GCF_000292685.hypotheticals.tsv:md5,bebc5124ed5a996f50fbc8dfbf0931f3"
-                ],
-                [
-                    "GCF_000292685.hypotheticals.faa:md5,2d45a0da8647aede9249d3570e1eed1c"
-                ],
-                [
-                    "GCF_000292685-blastdb.tar.gz:md5,5d85aafd3bdc100e042131efd5b108a3"
-                ]
-            ],
-            [
                 "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
             ]
         ],
-        "timestamp": "2026-03-14T07:45:30.66739664",
+        "timestamp": "2026-03-22T07:10:15.917525303",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

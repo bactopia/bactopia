@@ -38,7 +38,7 @@ workflow MOBSUITE {
 
     main:
     MOBSUITE_RECON(assembly)
-    CSVTK_CONCAT(gather(MOBSUITE_RECON.out, 'mobsuite', field: 'txt'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MOBSUITE_RECON.out, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = MOBSUITE_RECON.out

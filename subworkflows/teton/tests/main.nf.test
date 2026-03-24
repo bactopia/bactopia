@@ -28,18 +28,20 @@ nextflow_workflow {
         }
 
         then {
-            def scrubber_outputs = workflow.out.scrubber_outputs[0]
-            def bracken_outputs = workflow.out.bracken_outputs[0]
+            def scrubber = workflow.out.scrubber_outputs[0]
+            def bracken = workflow.out.bracken_outputs[0]
             assertAll(
                 { assert workflow.success },
+                { assert workflow.out.scrubber_outputs != null },
+                { assert workflow.out.bracken_outputs != null },
                 { assert snapshot(
-                    scrubber_outputs.meta,
-                    scrubber_outputs.results,
-                    scrubber_outputs.versions,
-                    bracken_outputs.meta,
-                    bracken_outputs.results,
-                    bracken_outputs.versions
-                ).match() }
+                    scrubber.meta,
+                    scrubber.versions,
+                    bracken.meta,
+                    bracken.versions
+                ).match() },
+                { assert scrubber.results != null },
+                { assert bracken.results != null }
             )
         }
     }

@@ -37,7 +37,7 @@ workflow MCRONI {
 
     main:
     MCRONI_MODULE(assembly)
-    CSVTK_CONCAT(gather(MCRONI_MODULE.out, 'mcroni', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(MCRONI_MODULE.out, 'tsv', [name: 'mcroni']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = MCRONI_MODULE.out

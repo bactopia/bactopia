@@ -37,7 +37,7 @@ workflow CHECKM {
 
     main:
     CHECKM_LINEAGEWF(assembly)
-    CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out, 'checkm', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
 
     emit:
     // Per-sample records

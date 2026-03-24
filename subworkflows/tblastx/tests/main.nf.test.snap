@@ -11,11 +11,6 @@
             },
             "SRX1390622.tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6",
             [
-                [
-                    "SRX1390622.tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6"
-                ]
-            ],
-            [
                 "versions.yml:md5,5ab5121dbb192614d6e77dd1da0fc291"
             ],
             {
@@ -26,17 +21,11 @@
                 "process_name": null,
                 "scope": "run"
             },
-            "tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6",
-            [
-                [
-                    "tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6"
-                ]
-            ],
             [
                 "versions.yml:md5,8ebdf55bc992d797630ad6f81b6cbe3d"
             ]
         ],
-        "timestamp": "2026-03-14T07:42:41.05322547",
+        "timestamp": "2026-03-22T07:07:52.222902289",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

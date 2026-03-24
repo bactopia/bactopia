@@ -39,7 +39,7 @@ workflow TBLASTX {
 
     main:
     TBLASTX_MODULE(assembly, query)
-    CSVTK_CONCAT(gather(TBLASTX_MODULE.out, 'tblastx', field: 'tsv'), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(TBLASTX_MODULE.out, 'tsv', [name: 'tblastx']), 'tsv', 'tsv')
 
     emit:
     sample_outputs = TBLASTX_MODULE.out
