@@ -84,19 +84,19 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 #### None
 - **Definition**: No sample/data channels; only parameters
-- **Pattern**: `String`, `Map`, or `Path` parameters without `Tuple<Map, ...>` channels
+- **Pattern**: No record input block; may accept simple `Path` or `String` parameters
 - **Use Case**: Utility modules for downloads, database setup, or internal maintenance
 - **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
-- **Pattern**: `Tuple<Map, Path>` for assemblies
-- **Pattern**: `Tuple<Map, Path?, Path?, Path?, Path?>` for read-based modules (r1, r2, se, lr)
+- **Pattern**: `(_meta: Map, assembly: Path): Record` for assemblies
+- **Pattern**: `(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
 - **Examples**: Most modules that process a single data type
 
 #### Multiple Inputs
-- **Definition**: Multiple data channels or complex multi-element tuples
-- **Pattern**: `Tuple<Map, Path, Path>` for multiple required files
+- **Definition**: Multiple data channels or complex multi-element records
+- **Pattern**: `(_meta: Map, assembly: Path, meta_file: Path): Record` for multiple required files
 - **Examples**: quast (assembly + meta_file)
 
 ### 3.3 Output-Type Classification
@@ -652,7 +652,278 @@ modules/{tool_name}/schema.json           # Simple modules
 modules/{tool_name}/{process}/schema.json # Multi-process modules
 ```
 
-## 10. Quality Checklist
+## 10. Module Configuration (module.config)
+
+Each module includes a `module.config` file that defines parameter defaults, container images, and process-level settings via `task.ext` properties.
+
+### 10.1 Template Structure
+
+```groovy
+/*
+Bactopia Module Configuration
+
+Defines parameter defaults, the container images, resource labels, and other settings
+for the process defined in this directory.
+*/
+
+params {
+    // Tool-specific parameters (prefixed with tool name)
+    {tool}_param1 = ""
+    {tool}_param2 = 95
+    {tool}_flag = false
+}
+
+process {
+    withName: '{PROCESS_NAME}' {
+        // Optional arguments (built from parameters)
+        ext.args = [
+            params.{tool}_flag ? "--flag" : "",
+            "--param2 ${params.{tool}_param2}"
+        ].join(' ').replaceAll("\\s{2,}", " ").trim()
+
+        // Environment information
+        ext.toolName = "bioconda::{package}={version}".replace("=", "-").replace(":", "-").replace(" ", "-")
+        ext.docker = "biocontainers/{package}:{version}--{build}"
+        ext.image = "https://depot.galaxyproject.org/singularity/{package}:{version}--{build}"
+        ext.condaDir = "${params.condadir}"
+
+        // Workflow information
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "{tool}"
+    }
+}
+```
+
+### 10.2 Key Properties
+
+| Property | Purpose | Example |
+|----------|---------|---------|
+| `ext.args` | CLI arguments passed to the tool | `"--minid 95 --mincov 10"` |
+| `ext.toolName` | Conda package spec (used for conda env path) | `"bioconda-mlst-2.32.2"` |
+| `ext.docker` | Docker container image reference | `"biocontainers/mlst:2.32.2--hdfd78af_0"` |
+| `ext.image` | Singularity/Apptainer image URL | `"https://depot.galaxyproject.org/singularity/mlst:2.32.2--hdfd78af_0"` |
+| `ext.condaDir` | Base directory for conda environments | `"${params.condadir}"` |
+| `ext.wf` | Current workflow name | `params.wf` |
+| `ext.scope` | Output scope: `"sample"` or `"run"` | `"sample"` |
+| `ext.subdir` | Subdirectory under output path | `""` or `params.abricate_db` |
+| `ext.logs_subdir` | Subdirectory for logs | `""` |
+| `ext.process_name` | Tool name used in output directory paths | `"mlst"` |
+
+### 10.3 No-Parameters Variant
+
+When a module has no user-configurable parameters:
+
+```groovy
+params {
+    // No parameters for this module
+}
+
+process {
+    withName: 'SSUISSERO' {
+        // Optional arguments
+        ext.args = ""
+
+        // Environment information
+        ext.toolName = "bioconda::ssuissero=1.0.1".replace("=", "-").replace(":", "-").replace(" ", "-")
+        ext.docker = "biocontainers/ssuissero:1.0.1--hdfd78af_1"
+        ext.image = "https://depot.galaxyproject.org/singularity/ssuissero:1.0.1--hdfd78af_1"
+        ext.condaDir = "${params.condadir}"
+
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "ssuissero"
+
+        // Version information not provided by tool on CLI
+        ext.version = "1.0.1"
+    }
+}
+```
+
+### 10.4 Hardcoded Version Pattern
+
+Some tools do not provide version information via CLI. In these cases, add `ext.version` to `module.config` and reference it in `main.nf`:
+
+**module.config:**
+```groovy
+ext.version = "1.0.1"
+```
+
+**main.nf (script block):**
+```groovy
+def VERSION = '1.0.1'
+// WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+```
+
+Or reference `task.ext.version` directly in the versions.yml block:
+```bash
+cat <<-END_VERSIONS > versions.yml
+"${task.process}":
+    ssuissero: ${task.ext.version}
+END_VERSIONS
+```
+
+### 10.5 Container URL Construction
+
+Container URLs follow a deterministic pattern derived from the bioconda package:
+
+- **Conda spec**: `bioconda::{package}={version}`
+- **Docker**: `biocontainers/{package}:{version}--{build_hash}`
+- **Singularity**: `https://depot.galaxyproject.org/singularity/{package}:{version}--{build_hash}`
+
+The `{build_hash}` (e.g., `hdfd78af_0`) comes from the Anaconda API. Prefer `linux-64` builds; fall back to `noarch` if no `linux-64` build exists.
+
+The `.replace("=", "-").replace(":", "-").replace(" ", "-")` chain on `ext.toolName` converts the conda spec into a valid directory name for the conda environment path.
+
+## 11. Module Tests
+
+Each module includes a test suite using the [nf-test](https://www.nf-test.com/) framework. For detailed testing guidance, see [Testing Framework](../project/04-testing-framework.md).
+
+### 11.1 Test File Structure
+
+```text
+modules/{tool}/tests/
+    main.nf.test       # Test specification
+    main.nf.test.snap  # Snapshot file (generated by nf-test)
+    nextflow.config    # Nextflow configuration for test
+    nf-test.config     # nf-test runner configuration
+```
+
+For multi-process modules, each subdirectory has its own test suite:
+```text
+modules/{tool}/{process}/tests/
+    main.nf.test
+    nextflow.config    # Note: includeConfig paths are one level deeper
+    nf-test.config
+```
+
+### 11.2 main.nf.test Template
+
+```groovy
+nextflow_process {
+    name "Test {PROCESS_NAME}"
+    script "../main.nf"
+    process "{PROCESS_NAME}"
+    tag "modules"
+    tag "{tool}"
+
+    test("{tool} - module - {sample_id}") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "{sample_id}"],
+                        assembly: file("${params.test_data_dir}/data/species/{species}/genome/{sample_id}.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}
+```
+
+**Key patterns:**
+- `input[0]` for the primary record input, `input[1]` for additional inputs (databases, etc.)
+- Output accessed via `process.out[0][0]` to get the first record
+- Snapshot only tool-specific fields + `meta` + `versions`
+- **Never snapshot**: `results`, `logs`, `nf_logs` (unstable across runs)
+- Default test species: Portiera (`portiera/genome/GCF_000292685.fna.gz`)
+
+### 11.3 nextflow.config Template
+
+```groovy
+// Minimal config for module-level testing
+nextflow.preview.types = true
+nextflow.enable.strict = true
+
+params {
+    workflow {
+        name = "{tool}"
+        logo_name = "bactopia-tools"
+        description = "{Tool description}"
+        ext = "fna"
+    }
+
+    bactopia_version = '4.0.0'
+    bactopia_cache = System.getenv("BACTOPIA_CACHEDIR") ?: "${System.getenv('HOME')}/.bactopia"
+    condadir = "${params.bactopia_cache}/conda"
+    wf = params.workflow.name
+    merge_folder = "merged-results"
+    test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+    is_ci = true
+
+    // Max Job Request Parameters
+    max_retry = 1
+    max_time = 2.h
+    max_memory = 8.GB
+    max_cpus = 2
+
+    // Nextflow Profile Parameters
+    registry = "quay.io"
+    singularity_cache = "${params.bactopia_cache}/singularity"
+    singularity_pull_docker_container = false
+    container_opts = ""
+}
+
+includeConfig "../module.config"
+includeConfig "../../../conf/base.config"
+includeConfig "../../../conf/profiles.config"
+```
+
+**Path depth for multi-process modules:** Use `../../../../conf/` instead of `../../../conf/` since the module.config is one level deeper (e.g., `modules/bakta/run/tests/nextflow.config`).
+
+### 11.4 nf-test.config Template
+
+This file is identical across all modules:
+
+```groovy
+config {
+    testsDir "."
+    workDir System.getenv("NFT_WORKDIR") ?: ".nf-test"
+    configFile "nextflow.config"
+    profile "docker"
+    options "--is_ci --max_memory 8.GB"
+
+    plugins {
+        load "nft-utils@0.0.5"
+    }
+}
+```
+
+### 11.5 Test Data Quick Reference
+
+| Species | Path | When to use |
+|---------|------|-------------|
+| **Portiera** | `portiera/genome/GCF_000292685.fna.gz` | **Default for all assembly modules** |
+| S. aureus | `staphylococcus_aureus/genome/GCF_000017085.fna` | Species-specific typing tools |
+| N. gonorrhoeae | `neisseria_gonorrhoeae/genome/GCF_001047255.fna` | Has .gz variant |
+| H. influenzae | `haemophilus_influenzae/genome/GCF_900478275.fna` | Has .gz variant |
+| Portiera reads | `portiera/illumina/SRR2838702_R{1,2}.fastq.gz` | **Default for read-based modules** |
+
+All test data is stored externally and referenced via the `BACTOPIA_TESTS` environment variable pointing to the [bactopia-tests](https://github.com/bactopia/bactopia-tests) repository.
+
+## 12. Quality Checklist
 
 Before completing module documentation, verify:
 
@@ -669,7 +940,7 @@ Before completing module documentation, verify:
 - [ ] Database requirements are clearly stated
 - [ ] Any Path? workarounds are noted in @note
 
-## 11. What to Avoid
+## 13. What to Avoid
 
 - **Do not** include parameter defaults or version numbers in the description
 - **Do not** reference `module.config` or `schema.json` in documentation

@@ -49,60 +49,60 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "amrfinder_ident_min": {
+                "amrfinderplus_ident_min": {
                     "type": "number",
                     "default": -1,
                     "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_coverage_min": {
+                "amrfinderplus_coverage_min": {
                     "type": "number",
                     "default": 0.5,
                     "description": "Minimum coverage of the reference protein (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_organism": {
+                "amrfinderplus_organism": {
                     "type": "string",
                     "description": "Taxonomy group to run additional screens against",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_translation_table": {
+                "amrfinderplus_translation_table": {
                     "type": "integer",
                     "default": 11,
                     "description": "NCBI genetic code for translated BLAST",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_noplus": {
+                "amrfinderplus_noplus": {
                     "type": "boolean",
                     "default": false,
                     "description": "Disable running AMRFinder+ with the --plus option",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_report_common": {
+                "amrfinderplus_report_common": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report proteins common to a taxonomy group",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_report_all_equal": {
+                "amrfinderplus_report_all_equal": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report all equally-scoring BLAST and HMM matches",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_opts": {
+                "amrfinderplus_opts": {
                     "type": "string",
                     "description": "Extra AMRFinder+ options in quotes.",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "amrfinder_db": {
+                "amrfinderplus_db": {
                     "type": "string",
                     "default": "",
                     "description": "A custom AMRFinder+ database to use, either a tarball or a folder",

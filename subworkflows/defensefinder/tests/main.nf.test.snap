@@ -11,20 +11,9 @@
             },
             [
                 "versions.yml:md5,cac1e24b64c152890e712ac2077fc111"
-            ],
-            {
-                "id": "defensefinder-genes-DEFENSEFINDER:GENES_CONCAT",
-                "logs_dir": "merged-results/logs/defensefinder-genes-concat/",
-                "name": "defensefinder-genes",
-                "output_dir": "merged-results",
-                "process_name": null,
-                "scope": "run"
-            },
-            [
-                "versions.yml:md5,ab4d2a29674466c5f88ae8061dd95d45"
             ]
         ],
-        "timestamp": "2026-03-22T07:08:31.564024391",
+        "timestamp": "2026-03-24T21:08:59.553298366",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

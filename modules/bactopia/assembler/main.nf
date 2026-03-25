@@ -57,10 +57,10 @@ process ASSEMBLER {
         // Named fields (used downstream)
         meta: meta,
         assembly: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: file(r1),
-        r2: file(r2),
-        se: file(se),
-        lr: file(lr),
+        r1: file(r1 ?: 'EMPTY_R1', optional: true),
+        r2: file(r2 ?: 'EMPTY_R2', optional: true),
+        se: file(se ?: 'EMPTY_SE', optional: true),
+        lr: file(lr ?: 'EMPTY_LR', optional: true),
         tsv: file("${prefix}.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [

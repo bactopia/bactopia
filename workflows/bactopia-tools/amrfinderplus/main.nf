@@ -17,7 +17,7 @@
  * @input rundir
  * Run directory containing Bactopia results
  *
- * @input amrfinder_db
+ * @input amrfinderplus_db
  * Path to AMRFinder+ database for AMR gene detection
  *
  * @section Per-Sample Results
@@ -40,7 +40,7 @@ params {
     rundir   : String
 
     // Tool-specific parameters
-    amrfinder_db : Path?
+    amrfinderplus_db : Path?
 }
 
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -58,11 +58,11 @@ workflow {
     // Execute subworkflows
     BACTOPIATOOL_INIT()
 
-    if (params.amrfinder_db) {
+    if (params.amrfinderplus_db) {
         // User specified database
         AMRFINDERPLUS(
             BACTOPIATOOL_INIT.out.assembly_proteins_gff,
-            params.amrfinder_db
+            params.amrfinderplus_db
         )
     } else {
         // Use default database

@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        msa: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz")
+                        alignment: file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz")
                     )
                 )
                 """

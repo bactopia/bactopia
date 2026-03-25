@@ -1,0 +1,136 @@
+/**
+ * Remove human reads from sequencing data.
+ *
+ * Uses [nohuman](https://github.com/mbhall88/nohuman) to classify and remove human reads
+ * from FASTQ files using a Kraken2 database built from Human Pangenome Reference Consortium
+ * (HPRC) genomes. Supports paired-end and single-end Illumina reads.
+ *
+ * @status stable
+ * @keywords human, contamination, decontamination, scrubbing, reads, kraken2, nohuman
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
+ * @citation nohuman
+ *
+ * @note Database Required
+ * Requires the nohuman Kraken2 database. Use the nohuman/download module or
+ * provide a pre-existing database via --nohuman_db.
+ *
+ * @input record(meta, r1, r2, se, lr)
+ * - `meta`: Groovy Map containing sample information
+ * - `r1`: Illumina R1 reads (paired-end forward)
+ * - `r2`: Illumina R2 reads (paired-end reverse)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
+ *
+ * @input db
+ * Directory or compressed tarball containing the nohuman Kraken2 database
+ *
+ * @output record(meta, scrubbed, scrub_report, results, logs, nf_logs, versions)
+ * - `scrubbed`: FASTQ files with human reads removed
+ * - `scrub_report`: Kraken2 report summarizing classification results (optional)
+ */
+nextflow.preview.types = true
+
+process NOHUMAN_RUN {
+    tag "${prefix}"
+    label 'process_low'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    db: Path
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        scrubbed: files("*.scrubbed.fastq.gz"),
+        scrub_report: file("${prefix}.kraken2.report.txt", optional: true),
+        // Generic fields (used for publishing)
+        results: [
+            files("*.scrubbed.fastq.gz"),
+            files("${prefix}.kraken2.report.txt", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = [:]
+    meta.id = "${prefix}-${task.process}"
+    meta.name = prefix
+    meta.scope = task.ext.scope
+    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
+    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+    meta.process_name = task.ext.process_name
+
+    // Determine read type from explicit slots
+    has_r1 = r1 != null
+    has_r2 = r2 != null
+    has_se = se != null
+    has_lr = lr != null
+    meta.single_end = (has_se || has_lr) && !has_r1 && !has_r2
+
+    // Pick the single-file input (se or lr)
+    def single_reads = has_se ? "${se}" : "${lr}"
+
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+    def report_flag = task.ext.nohuman_save_report ? "--kraken-report ${prefix}.kraken2.report.txt" : ""
+    def output_type = "--output-type g"
+    if (meta.single_end) {
+        """
+        if [ "${is_tarball}" == "true" ]; then
+            mkdir database
+            tar -xzf ${db} -C database
+            DB_PATH=\$(find database/ -name "hash.k2d" | head -1 | sed 's/hash.k2d//')
+        else
+            DB_PATH=\$(find ${db}/ -name "hash.k2d" | head -1 | sed 's/hash.k2d//')
+        fi
+
+        nohuman \\
+            --db \$DB_PATH \\
+            --threads ${task.cpus} \\
+            ${output_type} \\
+            ${report_flag} \\
+            ${task.ext.args} \\
+            --out1 ${prefix}.scrubbed.fastq.gz \\
+            ${single_reads}
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            nohuman: \$( nohuman --version 2>&1 | sed 's/nohuman //' )
+        END_VERSIONS
+        """
+    }
+    else {
+        """
+        if [ "${is_tarball}" == "true" ]; then
+            mkdir database
+            tar -xzf ${db} -C database
+            DB_PATH=\$(find database/ -name "hash.k2d" | head -1 | sed 's/hash.k2d//')
+        else
+            DB_PATH=\$(find ${db}/ -name "hash.k2d" | head -1 | sed 's/hash.k2d//')
+        fi
+
+        nohuman \\
+            --db \$DB_PATH \\
+            --threads ${task.cpus} \\
+            ${output_type} \\
+            ${report_flag} \\
+            ${task.ext.args} \\
+            --out1 ${prefix}_R1.scrubbed.fastq.gz \\
+            --out2 ${prefix}_R2.scrubbed.fastq.gz \\
+            ${r1} ${r2}
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            nohuman: \$( nohuman --version 2>&1 | sed 's/nohuman //' )
+        END_VERSIONS
+        """
+    }
+}

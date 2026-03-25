@@ -12,13 +12,13 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "df_coverage": {
+                "defensefinder_coverage": {
                     "type": "number",
                     "description": "Minimal percentage of coverage for each profiles",
                     "default": 0.4,
                     "fa_icon": "fas fa-file-alt"
                 },
-                "df_dbtype": {
+                "defensefinder_dbtype": {
                     "type": "string",
                     "description": "The macsyfinder --db-type option",
                     "default": "ordered_replicon",
@@ -29,13 +29,13 @@
                         "unordered"
                     ]
                 },
-                "df_preserveraw": {
+                "defensefinder_preserveraw": {
                     "type": "boolean",
                     "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
                     "fa_icon": "fas fa-fast-forward",
                     "hidden": true
                 },
-                "df_nocutga": {
+                "defensefinder_nocutga": {
                     "type": "boolean",
                     "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
                     "fa_icon": "fas fa-fast-forward",

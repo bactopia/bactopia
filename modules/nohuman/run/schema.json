@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/nohuman/run/schema.json",
+    "title": "Nohuman Run Module",
+    "description": "A module for removing human reads from sequencing data",
+    "type": "object",
+    "$defs": {
+        "nohuman_run_parameters": {
+            "title": "Nohuman Run Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nohuman_db": {
+                    "type": "string",
+                    "description": "Path to the nohuman database directory or tarball",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "nohuman_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "nohuman_human": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Invert output to keep only human reads instead of removing them",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
+                "nohuman_save_report": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save the Kraken2 classification report",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/nohuman_run_parameters"
+        }
+    ]
+}

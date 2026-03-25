@@ -1,0 +1,22 @@
+{
+    "mashtree - subworkflow - multi-species": {
+        "content": [
+            {
+                "id": "mashtree-MASHTREE:MASHTREE_MODULE",
+                "logs_dir": "logs/",
+                "name": "mashtree",
+                "output_dir": "",
+                "process_name": "mashtree",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,d8cd0c9b6f670d5ae21fda6592e85d32"
+            ]
+        ],
+        "timestamp": "2026-03-24T21:27:00.664276008",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

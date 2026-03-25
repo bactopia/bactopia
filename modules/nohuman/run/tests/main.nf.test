@@ -1,0 +1,75 @@
+nextflow_process {
+    name "Test NOHUMAN_RUN"
+    script "../main.nf"
+    process "NOHUMAN_RUN"
+    tag "modules"
+    tag "nohuman"
+
+    test("nohuman - module - SRR2838702 - tarball") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/nohuman/HPRC.r2.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.scrubbed.size() > 0 },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("nohuman - module - SRR2838702 - directory") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/data/datasets/nohuman/HPRC.r2")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.scrubbed.size() > 0 },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

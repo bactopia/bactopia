@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "staphopia_hamming": {
+                "staphopiasccmec_hamming": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report the results as hamming distances",

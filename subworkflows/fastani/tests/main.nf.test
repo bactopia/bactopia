@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "fastani-test"],
-                        query: [
+                        assembly: [
                             file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/GCF_900478275.fna.gz")
                         ]
                     )
@@ -23,7 +23,7 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     record(
                         _meta: [name: "fastani-ref"],
-                        query: [
+                        assembly: [
                             file("${params.test_data_dir}/data/species/haemophilus_influenzae/nthi/GCA_000027305.fna.gz")
                         ]
                     )

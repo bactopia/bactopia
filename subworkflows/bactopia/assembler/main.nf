@@ -40,49 +40,22 @@ nextflow.preview.types = true
 include { ASSEMBLER as ASSEMBLER_MODULE } from '../../../modules/bactopia/assembler/main'
 include { CSVTK_CONCAT                  } from '../../../modules/csvtk/concat/main'
 include { filterWithData                } from 'plugin/nf-bactopia'
-include { flattenPaths                  } from 'plugin/nf-bactopia'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow ASSEMBLER {
     take:
-    samples: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>>
+    samples: Channel<Record>
 
     main:
     ASSEMBLER_MODULE(samples)
-    CSVTK_CONCAT(gather(ASSEMBLER_MODULE.out.tsv, 'assembly-scan'), 'tsv', 'tsv')
-
-    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
-    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
-    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
-    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
-    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+    CSVTK_CONCAT(gather(ASSEMBLER_MODULE.out, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    assembly: Channel<Tuple<Map, Path?>> = filterWithData(ASSEMBLER_MODULE.out.assembly)
-    assembly_reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterWithData(ASSEMBLER_MODULE.out.assembly_reads)
-    tsv: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.tsv
-    merged_tsv = ch_concat_csv
-    error: Channel<Tuple<Map, Set<Path>>> = ASSEMBLER_MODULE.out.error
+    assembly = filterWithData(ASSEMBLER_MODULE.out, ['assembly'])
+    assembly_reads = filterWithData(ASSEMBLER_MODULE.out, ['assembly'])
 
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        ASSEMBLER_MODULE.out.assembly,
-        ASSEMBLER_MODULE.out.tsv,
-        ASSEMBLER_MODULE.out.error,
-        ASSEMBLER_MODULE.out.supplemental,
-        ch_concat_csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ASSEMBLER_MODULE.out.logs,
-        ch_concat_logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ASSEMBLER_MODULE.out.nf_logs,
-        ch_concat_nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        ASSEMBLER_MODULE.out.versions,
-        ch_concat_versions
-    ])
+    // Aggregate outputs
+    sample_outputs = ASSEMBLER_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

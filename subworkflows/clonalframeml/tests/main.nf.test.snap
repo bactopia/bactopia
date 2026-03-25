@@ -1,0 +1,49 @@
+{
+    "clonalframeml - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "core-genome-clonalframeml",
+                "logs_dir": "clonalframeml/logs/",
+                "name": "core-genome",
+                "output_dir": "",
+                "process_name": "clonalframeml",
+                "scope": "run"
+            },
+            "core-genome.em.txt:md5,8a93c4d39c326b3ec0c471f067384498",
+            "core-genome.importation_status.txt:md5,cd67d32ee61ed2bb56dc6d8e302b1517",
+            "core-genome.labelled_tree.newick:md5,66634ad58496ac73b7752ce0a7c02dad",
+            "core-genome.masked.aln.gz:md5,4b5579a69f81f0217a04a73841785ecf",
+            [
+                "versions.yml:md5,70f831abce5d4f7f4ad4177a0ad339cc"
+            ],
+            {
+                "id": "iqtree-fast-CLONALFRAMEML:IQTREE:IQTREE_MODULE",
+                "logs_dir": "iqtree-fast/logs/",
+                "name": "iqtree-fast",
+                "output_dir": "",
+                "process_name": "iqtree-fast",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,7fd8307f8faf3d132367078b8ed2290d"
+            ],
+            {
+                "id": "core-genome.masked.distance-snpdists",
+                "logs_dir": "snpdists-masked/logs/",
+                "name": "core-genome.masked.distance",
+                "output_dir": "",
+                "process_name": "snpdists-masked",
+                "scope": "run"
+            },
+            "core-genome.masked.distance.tsv:md5,c77caee512cc06210a303847b9d7f95c",
+            [
+                "versions.yml:md5,77f64a20eeab9152a61953ec5203b926"
+            ]
+        ],
+        "timestamp": "2026-03-24T23:10:30.57463762",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

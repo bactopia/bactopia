@@ -59,7 +59,7 @@ process GENOTYPHI_PARSE {
         --jsons ${json} \\
         --prefix ${prefix}
 
-    // Cleanup
+    # Cleanup
     mv ${prefix}_predictResults.tsv ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml

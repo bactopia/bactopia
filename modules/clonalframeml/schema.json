@@ -12,13 +12,13 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "clonal_emsim": {
+                "clonalframeml_emsim": {
                     "type": "integer",
                     "description": "Number of simulations to estimate uncertainty in the EM results",
                     "default": 100,
                     "fa_icon": "fas fa-hashtag"
                 },
-                "clonal_opts": {
+                "clonalframeml_opts": {
                     "type": "string",
                     "description": "Extra ClonalFrameML options in quotes",
                     "help": "Useful if you would like to fine tune your ClonalFrameML analysis. Example: '-imputation_only'",

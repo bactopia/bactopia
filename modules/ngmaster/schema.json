@@ -12,7 +12,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "ngm_csv": {
+                "ngmaster_csv": {
                     "type": "boolean",
                     "default": false,
                     "description": "output comma-separated format (CSV) rather than tab-separated",

@@ -40,7 +40,8 @@ workflow FASTANI {
     reference: Channel<Record>
 
     main:
-    FASTANI_MODULE(gather(query, 'assembly', [name: 'query']), gather(reference, 'assembly', [name: 'reference']))
+    ch_ref = reference.map { r -> r.assembly[0] }
+    FASTANI_MODULE(gather(query, 'assembly', [name: 'query']), ch_ref)
     CSVTK_CONCAT(gather(FASTANI_MODULE.out, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
 
     emit:

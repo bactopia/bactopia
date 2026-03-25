@@ -89,7 +89,7 @@ process DEFENSEFINDER_RUN {
     TMPDIR=df-tmp/df HOME=df-tmp/ macsydata \\
         install \\
         --target defense-finder/ \\
-        models/defense-finder-models-v${task.ext.df_models_version}.tar.gz
+        models/defense-finder-models-v${task.ext.defensefinder_models_version}.tar.gz
 
     mkdir -p df-tmp/cf
     TMPDIR=df-tmp/cf HOME=df-tmp/ macsydata \\
@@ -108,7 +108,7 @@ process DEFENSEFINDER_RUN {
         --models-dir defense-finder/ \\
         ${prefix}.fna
 
-    if [ "${task.ext.df_preserveraw}" == "true" ]; then
+    if [ "${task.ext.defensefinder_preserveraw}" == "true" ]; then
         tar -czf ${prefix}.macsydata.tar.gz defense-finder-tmp/
         rm -rf defense-finder-tmp/
     fi
@@ -118,8 +118,8 @@ process DEFENSEFINDER_RUN {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        defense-finder: ${task.ext.df_version}
-        defense-finder-models: ${task.ext.df_models_version}
+        defense-finder: ${task.ext.defensefinder_version}
+        defense-finder-models: ${task.ext.defensefinder_models_version}
         casfinder-models: ${task.ext.casfinder_version}
     END_VERSIONS
     """

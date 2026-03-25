@@ -43,20 +43,12 @@ workflow GENOTYPHI {
 
     main:
     MYKROBE_PREDICT(reads, "typhi")
-    GENOTYPHI_PARSE(MYKROBE_PREDICT.out.json)
+    GENOTYPHI_PARSE(MYKROBE_PREDICT.out.map { r ->
+        record(_meta: r.meta, json: r.json)
+    })
     CSVTK_CONCAT(gather(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
 
-    // Bridge MYKROBE_PREDICT tuple outputs into records (not yet converted)
-    ch_mykrobe_samples = MYKROBE_PREDICT.out.csv
-        .join(MYKROBE_PREDICT.out.json)
-        .join(MYKROBE_PREDICT.out.logs)
-        .join(MYKROBE_PREDICT.out.nf_logs)
-        .join(MYKROBE_PREDICT.out.versions)
-        .map { meta, csv, json, logs, nf_logs, versions ->
-            record(meta: meta, csv: csv, json: json, results: [csv, json], logs: logs, nf_logs: nf_logs, versions: versions)
-        }
-
     emit:
-    sample_outputs = GENOTYPHI_PARSE.out.mix(ch_mykrobe_samples)
+    sample_outputs = MYKROBE_PREDICT.out.mix(GENOTYPHI_PARSE.out)
     run_outputs = CSVTK_CONCAT.out
 }

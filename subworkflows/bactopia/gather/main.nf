@@ -38,46 +38,21 @@ nextflow.preview.types = true
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT            } from '../../../modules/csvtk/concat/main'
 include { filterWithData          } from 'plugin/nf-bactopia'
-include { flattenPaths            } from 'plugin/nf-bactopia'
 include { gather                  } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:
-    samples: Channel<Tuple<Map, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>>>
+    samples: Channel<Record>
 
     main:
     GATHER_MODULE(samples)
-    CSVTK_CONCAT(gather(GATHER_MODULE.out.tsv, 'meta'), 'tsv', 'tsv')
-
-    // Extract tuple channels from CSVTK_CONCAT record output for flattenPaths compatibility
-    ch_concat_csv = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.csv) }
-    ch_concat_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.logs) }
-    ch_concat_nf_logs = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.nf_logs) }
-    ch_concat_versions = CSVTK_CONCAT.out.map { r -> tuple(r.meta, r.versions) }
+    CSVTK_CONCAT(gather(GATHER_MODULE.out, 'tsv', [name: 'meta']), 'tsv', 'tsv')
 
     emit:
     // Individual outputs
-    tsv: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.tsv
-    merged_tsv = ch_concat_csv
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterWithData(GATHER_MODULE.out.reads)
-    error: Channel<Tuple<Map, Set<Path>>> = GATHER_MODULE.out.error
+    reads = filterWithData(GATHER_MODULE.out, ['r1', 'r2', 'se', 'lr'])
 
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        GATHER_MODULE.out.tsv,
-        GATHER_MODULE.out.error,
-        ch_concat_csv
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        GATHER_MODULE.out.logs,
-        ch_concat_logs
-    ])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([
-        ch_concat_nf_logs,
-        GATHER_MODULE.out.nf_logs
-    ])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([
-        GATHER_MODULE.out.versions,
-        ch_concat_versions
-    ])
+    // Aggregate outputs
+    sample_outputs = GATHER_MODULE.out
+    run_outputs = CSVTK_CONCAT.out
 }

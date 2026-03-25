@@ -41,13 +41,13 @@ process CLONALFRAMEML {
     record(
         // Named fields (used downstream)
         meta: meta,
-        emsim: files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
-        em: files("${task.ext.process_name}/${prefix}.em.txt"),
-        status: files("${task.ext.process_name}/${prefix}.importation_status.txt"),
-        newick: files("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
-        fasta: files("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
-        pos_ref: files("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
-        masked_aln: files("${prefix}.masked.aln.gz"),
+        emsim: file("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
+        em: file("${task.ext.process_name}/${prefix}.em.txt"),
+        status: file("${task.ext.process_name}/${prefix}.importation_status.txt"),
+        newick: file("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
+        fasta: file("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
+        pos_ref: file("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
+        masked_aln: file("${prefix}.masked.aln.gz"),
         // Generic fields (used for publishing)
         results: [
             files("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),

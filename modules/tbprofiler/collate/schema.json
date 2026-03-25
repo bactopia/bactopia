@@ -12,25 +12,25 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "tb_itol": {
+                "tbprofiler_itol": {
                     "type": "boolean",
                     "default": false,
                     "description": "Generate itol config files",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "tb_full": {
+                "tbprofiler_full": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output mutations in main result file",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "tb_all_variants": {
+                "tbprofiler_all_variants": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output all variants in variant matrix",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "tb_mark_missing": {
+                "tbprofiler_mark_missing": {
                     "type": "boolean",
                     "default": false,
                     "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",

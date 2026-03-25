@@ -5,7 +5,7 @@
     "description": "A module for rapid variant calling from sequence reads",
     "type": "object",
     "$defs": {
-        "snippycore_parameters": {
+        "snippy_core_parameters": {
             "title": "Snippy-Core Parameters",
             "type": "object",
             "description": "",
@@ -39,7 +39,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/$defs/snippycore_parameters"
+            "$ref": "#/$defs/snippy_core_parameters"
         }
     ]
 }

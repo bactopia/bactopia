@@ -105,114 +105,70 @@ workflow MERLIN {
     // ID potential species
     MERLINDIST(assembly, mash_db)
 
+    // Helper closures to build records from MERLINDIST output
+    def forAssembly = { r -> record(_meta: r.meta, assembly: r.fna) }
+    def forReads = { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+    def forSeqs = { r -> record(_meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+
     // Escherichia/Shigella
-    // Assembly-only: filter by genus marker, wrap fna in list for Set<Path> compatibility
-    ch_escherichia = MERLINDIST.out.sample_outputs
-        .filter { r -> r.escherichia != null }
-        .map { r -> [r.meta, [r.fna]] }
-    // Reads-only: collect non-null reads into list for Set<Path> compatibility
-    ch_escherichia_fq = MERLINDIST.out.sample_outputs
-        .filter { r -> r.escherichia != null }
-        .map { r ->
-            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
-            [r.meta, reads]
-        }
-    // Assembly + reads: pass as 6-slot tuple for STECFINDER
-    ch_escherichia_fna_fq = MERLINDIST.out.sample_outputs
-        .filter { r -> r.escherichia != null }
-        .map { r -> [r.meta, r.fna, r.r1, r.r2, r.se, r.lr] }
-    CLERMONTYPING(ch_escherichia)
-    ECTYPER(ch_escherichia)
-    SHIGAPASS(ch_escherichia)
-    SHIGATYPER(ch_escherichia_fq)
-    SHIGEIFINDER(ch_escherichia)
-    STECFINDER(ch_escherichia_fna_fq)
+    ch_escherichia = MERLINDIST.out.sample_outputs.filter { r -> r.escherichia != null }
+    CLERMONTYPING(ch_escherichia.map(forAssembly))
+    ECTYPER(ch_escherichia.map(forAssembly))
+    SHIGAPASS(ch_escherichia.map(forAssembly))
+    SHIGATYPER(ch_escherichia.map(forReads))
+    SHIGEIFINDER(ch_escherichia.map(forAssembly))
+    STECFINDER(ch_escherichia.map(forSeqs))
 
     // Haemophilus
-    ch_haemophilus = MERLINDIST.out.sample_outputs
-        .filter { r -> r.haemophilus != null }
-        .map { r -> [r.meta, [r.fna]] }
-    HICAP(ch_haemophilus, hicap_database_dir, hicap_model_fp)
-    HPSUISSERO(ch_haemophilus)
+    ch_haemophilus = MERLINDIST.out.sample_outputs.filter { r -> r.haemophilus != null }
+    HICAP(ch_haemophilus.map(forAssembly), hicap_database_dir, hicap_model_fp)
+    HPSUISSERO(ch_haemophilus.map(forAssembly))
 
     // Klebsiella
-    ch_klebsiella = MERLINDIST.out.sample_outputs
-        .filter { r -> r.klebsiella != null }
-        .map { r -> [r.meta, [r.fna]] }
-    KLEBORATE(ch_klebsiella)
+    ch_klebsiella = MERLINDIST.out.sample_outputs.filter { r -> r.klebsiella != null }
+    KLEBORATE(ch_klebsiella.map(forAssembly))
 
     // Legionella
-    ch_legionella = MERLINDIST.out.sample_outputs
-        .filter { r -> r.legionella != null }
-        .map { r -> [r.meta, [r.fna]] }
-    LEGSTA(ch_legionella)
+    ch_legionella = MERLINDIST.out.sample_outputs.filter { r -> r.legionella != null }
+    LEGSTA(ch_legionella.map(forAssembly))
 
     // Listeria
-    ch_listeria = MERLINDIST.out.sample_outputs
-        .filter { r -> r.listeria != null }
-        .map { r -> [r.meta, [r.fna]] }
-    LISSERO(ch_listeria)
+    ch_listeria = MERLINDIST.out.sample_outputs.filter { r -> r.listeria != null }
+    LISSERO(ch_listeria.map(forAssembly))
 
     // Mycobacterium
-    ch_mycobacterium_fq = MERLINDIST.out.sample_outputs
-        .filter { r -> r.mycobacterium != null }
-        .map { r ->
-            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
-            [r.meta, reads]
-        }
-    TBPROFILER(ch_mycobacterium_fq)
+    ch_mycobacterium = MERLINDIST.out.sample_outputs.filter { r -> r.mycobacterium != null }
+    TBPROFILER(ch_mycobacterium.map(forReads))
 
     // Neisseria
-    ch_neisseria = MERLINDIST.out.sample_outputs
-        .filter { r -> r.neisseria != null }
-        .map { r -> [r.meta, [r.fna]] }
-    MENINGOTYPE(ch_neisseria)
-    NGMASTER(ch_neisseria)
+    ch_neisseria = MERLINDIST.out.sample_outputs.filter { r -> r.neisseria != null }
+    MENINGOTYPE(ch_neisseria.map(forAssembly))
+    NGMASTER(ch_neisseria.map(forAssembly))
 
     // Pseudomonas
-    ch_pseudomonas = MERLINDIST.out.sample_outputs
-        .filter { r -> r.pseudomonas != null }
-        .map { r -> [r.meta, [r.fna]] }
-    PASTY(ch_pseudomonas)
+    ch_pseudomonas = MERLINDIST.out.sample_outputs.filter { r -> r.pseudomonas != null }
+    PASTY(ch_pseudomonas.map(forAssembly))
 
     // Salmonella
-    ch_salmonella = MERLINDIST.out.sample_outputs
-        .filter { r -> r.salmonella != null }
-        .map { r -> [r.meta, [r.fna]] }
-    ch_salmonella_fq = MERLINDIST.out.sample_outputs
-        .filter { r -> r.salmonella != null }
-        .map { r ->
-            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
-            [r.meta, reads]
-        }
-    GENOTYPHI(ch_salmonella_fq)
-    SEQSERO2(ch_salmonella)
-    SISTR(ch_salmonella)
+    ch_salmonella = MERLINDIST.out.sample_outputs.filter { r -> r.salmonella != null }
+    GENOTYPHI(ch_salmonella.map(forReads))
+    SEQSERO2(ch_salmonella.map(forAssembly))
+    SISTR(ch_salmonella.map(forAssembly))
 
     // Staphylococcus
-    ch_staphylococcus = MERLINDIST.out.sample_outputs
-        .filter { r -> r.staphylococcus != null }
-        .map { r -> [r.meta, [r.fna]] }
-    STAPHTYPER(ch_staphylococcus, staphtyper_repeats, staphtyper_repeat_order)
+    ch_staphylococcus = MERLINDIST.out.sample_outputs.filter { r -> r.staphylococcus != null }
+    STAPHTYPER(ch_staphylococcus.map(forAssembly), staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
-    ch_streptococcus = MERLINDIST.out.sample_outputs
-        .filter { r -> r.streptococcus != null }
-        .map { r -> [r.meta, [r.fna]] }
-    ch_streptococcus_fq = MERLINDIST.out.sample_outputs
-        .filter { r -> r.streptococcus != null }
-        .map { r ->
-            def reads = [r.r1, r.r2, r.se, r.lr].findAll { it != null }
-            [r.meta, reads]
-        }
-    EMMTYPER(ch_streptococcus, emmtyper_blastdb)
-    PBPTYPER(ch_streptococcus)
-    SEROBA(ch_streptococcus_fq)
-    SSUISSERO(ch_streptococcus)
+    ch_streptococcus = MERLINDIST.out.sample_outputs.filter { r -> r.streptococcus != null }
+    EMMTYPER(ch_streptococcus.map(forAssembly), emmtyper_blastdb)
+    PBPTYPER(ch_streptococcus.map(forAssembly))
+    SEROBA(ch_streptococcus.map(forReads))
+    SSUISSERO(ch_streptococcus.map(forAssembly))
 
     emit:
-    dist_outputs = MERLINDIST.out.sample_outputs
-    sample_outputs = CLERMONTYPING.out.sample_outputs.mix(
+    sample_outputs = MERLINDIST.out.sample_outputs.mix(
+        CLERMONTYPING.out.sample_outputs,
         ECTYPER.out.sample_outputs,
         EMMTYPER.out.sample_outputs,
         GENOTYPHI.out.sample_outputs,
@@ -235,5 +191,29 @@ workflow MERLIN {
         SSUISSERO.out.sample_outputs,
         STAPHTYPER.out.sample_outputs,
         TBPROFILER.out.sample_outputs
+    )
+    run_outputs = CLERMONTYPING.out.run_outputs.mix(
+        ECTYPER.out.run_outputs,
+        EMMTYPER.out.run_outputs,
+        GENOTYPHI.out.run_outputs,
+        HICAP.out.run_outputs,
+        HPSUISSERO.out.run_outputs,
+        KLEBORATE.out.run_outputs,
+        LEGSTA.out.run_outputs,
+        LISSERO.out.run_outputs,
+        MENINGOTYPE.out.run_outputs,
+        NGMASTER.out.run_outputs,
+        PASTY.out.run_outputs,
+        PBPTYPER.out.run_outputs,
+        SEQSERO2.out.run_outputs,
+        SEROBA.out.run_outputs,
+        SHIGAPASS.out.run_outputs,
+        SHIGATYPER.out.run_outputs,
+        SHIGEIFINDER.out.run_outputs,
+        STECFINDER.out.run_outputs,
+        SISTR.out.run_outputs,
+        SSUISSERO.out.run_outputs,
+        STAPHTYPER.out.run_outputs,
+        TBPROFILER.out.run_outputs
     )
 }

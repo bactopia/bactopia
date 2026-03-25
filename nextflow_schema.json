@@ -132,61 +132,61 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "amrfinder_ident_min": {
+                "amrfinderplus_ident_min": {
                     "type": "number",
                     "default": -1,
                     "description": "Minimum proportion of identical amino acids in alignment for hit (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_coverage_min": {
+                "amrfinderplus_coverage_min": {
                     "type": "number",
                     "default": 0.5,
                     "description": "Minimum coverage of the reference protein (0..1)",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_organism": {
+                "amrfinderplus_organism": {
                     "type": "string",
                     "description": "Taxonomy group to run additional screens against",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_translation_table": {
+                "amrfinderplus_translation_table": {
                     "type": "integer",
                     "default": 11,
                     "description": "NCBI genetic code for translated BLAST",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_noplus": {
+                "amrfinderplus_noplus": {
                     "type": "boolean",
                     "default": false,
                     "description": "Disable running AMRFinder+ with the --plus option",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_report_common": {
+                "amrfinderplus_report_common": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report proteins common to a taxonomy group",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_report_all_equal": {
+                "amrfinderplus_report_all_equal": {
                     "type": "boolean",
                     "default": false,
                     "description": "Report all equally-scoring BLAST and HMM matches",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_opts": {
+                "amrfinderplus_opts": {
                     "type": "string",
                     "description": "Extra AMRFinder+ options in quotes.",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "amrfinder_db": {
+                "amrfinderplus_db": {
                     "type": "string",
                     "default": "",
                     "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
@@ -531,7 +531,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "clermon_threshold": {
+                "clermontyping_threshold": {
                     "type": "number",
                     "description": "Do not use contigs under this size",
                     "default": 0,
@@ -908,7 +908,7 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "ngm_csv": {
+                "ngmaster_csv": {
                     "type": "boolean",
                     "default": false,
                     "description": "output comma-separated format (CSV) rather than tab-separated",
@@ -1209,14 +1209,14 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "tb_call_whole_genome": {
+                "tbprofiler_call_whole_genome": {
                     "type": "boolean",
                     "default": false,
                     "description": "Call whole genome",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_mapper": {
+                "tbprofiler_mapper": {
                     "type": "string",
                     "default": "bwa",
                     "description": "Mapping tool to use. If you are using nanopore data it will default to minimap2",
@@ -1229,7 +1229,7 @@
                     ],
                     "hidden": true
                 },
-                "tb_caller": {
+                "tbprofiler_caller": {
                     "type": "string",
                     "default": "freebayes",
                     "description": "Variant calling tool to use",
@@ -1241,35 +1241,35 @@
                     ],
                     "hidden": true
                 },
-                "tb_calling_params": {
+                "tbprofiler_calling_params": {
                     "type": "string",
                     "description": "Extra variant caller options in quotes",
                     "help": "Useful if you would like to fine tune your variant calling analysis.",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_suspect": {
+                "tbprofiler_suspect": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use the suspect suite of tools to add ML predictions",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_no_flagstat": {
+                "tbprofiler_no_flagstat": {
                     "type": "boolean",
                     "default": false,
                     "description": "Don't collect flagstats",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_no_delly": {
+                "tbprofiler_no_delly": {
                     "type": "boolean",
                     "default": false,
                     "description": "Don't run delly",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_opts": {
+                "tbprofiler_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for TBProfiler",
                     "fa_icon": "fas fa-italic",
@@ -1284,28 +1284,28 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "tb_itol": {
+                "tbprofiler_itol": {
                     "type": "boolean",
                     "default": false,
                     "description": "Generate itol config files",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_full": {
+                "tbprofiler_full": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output mutations in main result file",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_all_variants": {
+                "tbprofiler_all_variants": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output all variants in variant matrix",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
                 },
-                "tb_mark_missing": {
+                "tbprofiler_mark_missing": {
                     "type": "boolean",
                     "default": false,
                     "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",

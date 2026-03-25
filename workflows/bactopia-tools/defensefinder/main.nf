@@ -21,7 +21,7 @@
  * @publish *defense_finder_genes.tsv      TSV file with each gene found in defense systems
  * @publish *defense_finder_hmmer.tsv      TSV file with each HMM hit
  * @publish *defense_finder_systems.tsv    TSV file with information about each system found
- * @publish *.macsydata.tar.gz             Raw MACSyFinder output file (requires --df_preserveraw)
+ * @publish *.macsydata.tar.gz             Raw MACSyFinder output file (requires --defensefinder_preserveraw)
  *
  * @section Merged Results
  * @publish defensefinder-genes.tsv        Merged TSV of all genes found in defense systems

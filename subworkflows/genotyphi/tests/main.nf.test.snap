@@ -1,0 +1,34 @@
+{
+    "genotyphi - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-GENOTYPHI:MYKROBE_PREDICT",
+                "logs_dir": "SRR2838702/tools/genotyphi//logs/mykrobe",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/genotyphi/",
+                "process_name": "genotyphi",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,58cc026392506e5ec5266f0276d70c35"
+            ],
+            {
+                "id": "genotyphi-GENOTYPHI:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/genotyphi-concat/",
+                "name": "genotyphi",
+                "output_dir": "merged-results",
+                "process_name": null,
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,1e61ab9091b0ddd88b14c86fa3488bea"
+            ]
+        ],
+        "timestamp": "2026-03-24T23:44:25.56423371",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

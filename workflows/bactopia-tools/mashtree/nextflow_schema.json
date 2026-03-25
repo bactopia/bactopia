@@ -112,14 +112,14 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "mtree_trunclength": {
+                "mashtree_trunclength": {
                     "type": "integer",
                     "description": "How many characters to keep in a filename",
                     "default": 250,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "mtree_sortorder": {
+                "mashtree_sortorder": {
                     "type": "string",
                     "default": "ABC",
                     "description": "For neighbor-joining, the sort order can make a difference.",
@@ -130,32 +130,32 @@
                         "input-order"
                     ]
                 },
-                "mtree_genomesize": {
+                "mashtree_genomesize": {
                     "type": "integer",
                     "description": "Genome size of the input samples",
                     "default": 5000000,
                     "fa_icon": "fas fa-angle-double-down"
                 },
-                "mtree_mindepth": {
+                "mashtree_mindepth": {
                     "type": "integer",
                     "description": "If mindepth is zero, then it will be chosen in a smart but slower method, to discard lower-abundance kmers.",
                     "default": 5,
                     "fa_icon": "fas fa-angle-double-down"
                 },
-                "mtree_kmerlength": {
+                "mashtree_kmerlength": {
                     "type": "integer",
                     "description": "Hashes will be based on strings of this many nucleotides",
                     "default": 21,
                     "fa_icon": "fas fa-angle-double-down"
                 },
-                "mtree_sketchsize": {
+                "mashtree_sketchsize": {
                     "type": "integer",
                     "description": "Each sketch will have at most this many non-redundant min-hashes",
                     "default": 10000,
                     "fa_icon": "fas fa-angle-double-down",
                     "hidden": true
                 },
-                "mtree_save_sketches": {
+                "mashtree_save_sketches": {
                     "type": "boolean",
                     "default": false,
                     "description": "Save sketches created during the process",

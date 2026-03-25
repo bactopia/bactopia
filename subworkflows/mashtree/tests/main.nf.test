@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "mashtree-test"],
-                        seqs: [
+                        assembly: [
                             file("${params.test_data_dir}/data/species/klebsiella_pneumoniae/genome/GCF_000009885.fna.gz"),
                             file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
                             file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")

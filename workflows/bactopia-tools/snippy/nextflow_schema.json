@@ -183,7 +183,7 @@
                 }
             }
         },
-        "snippycore_parameters": {
+        "snippy_core_parameters": {
             "title": "Snippy-Core Parameters",
             "type": "object",
             "description": "",
@@ -714,7 +714,7 @@
             "$ref": "#/$defs/snippy_run_parameters"
         },
         {
-            "$ref": "#/$defs/snippycore_parameters"
+            "$ref": "#/$defs/snippy_core_parameters"
         },
         {
             "$ref": "#/$defs/gubbins_parameters"

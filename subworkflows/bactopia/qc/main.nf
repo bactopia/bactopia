@@ -48,11 +48,10 @@ nextflow.preview.types = true
 
 include { QC as QC_MODULE } from '../../../modules/bactopia/qc/main'
 include { filterWithData  } from 'plugin/nf-bactopia'
-include { flattenPaths    } from 'plugin/nf-bactopia'
 
 workflow QC {
     take:
-    samples: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>>
+    samples: Channel<Record>
     adapters: Path?
     phix: Path?
 
@@ -61,17 +60,8 @@ workflow QC {
 
     emit:
     // Individual outputs
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?, Path?>> = filterWithData(QC_MODULE.out.reads)
-    reads_only: Channel<Tuple<Map, Path?, Path?, Path?, Path?>> = filterWithData(QC_MODULE.out.reads_only)
-    error: Channel<Tuple<Map, Set<Path>>> = QC_MODULE.out.error
+    reads = filterWithData(QC_MODULE.out, ['r1', 'r2', 'se', 'lr'])
 
-    // Generic aggregate outputs
-    results: Channel<Tuple<Map, Path>> = flattenPaths([
-        QC_MODULE.out.reads_grouped,
-        QC_MODULE.out.supplemental,
-        QC_MODULE.out.error
-    ])
-    logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.logs])
-    nf_logs: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.nf_logs])
-    versions: Channel<Tuple<Map, Path>> = flattenPaths([QC_MODULE.out.versions])
+    // Aggregate outputs
+    sample_outputs = QC_MODULE.out
 }

@@ -51,13 +51,13 @@ process SNIPPY_CORE {
         // Named fields (used downstream)
         meta: meta,
         supplemental: files("snippy-core/*"),
-        aln: files("snippy-core/${prefix}.aln.gz"),
-        full_aln: files("${prefix}.full.aln.gz"),
-        clean_full_aln: files("${prefix}-clean.full.aln.gz"),
-        tab: files("snippy-core/${prefix}.tab.gz"),
-        vcf: files("snippy-core/${prefix}.vcf.gz"),
-        txt: files("snippy-core/${prefix}.txt"),
-        samples: files("${reference_name}.samples.txt"),
+        aln: file("snippy-core/${prefix}.aln.gz"),
+        full_aln: file("${prefix}.full.aln.gz"),
+        clean_full_aln: file("${prefix}-clean.full.aln.gz"),
+        tab: file("snippy-core/${prefix}.tab.gz"),
+        vcf: file("snippy-core/${prefix}.vcf.gz"),
+        txt: file("snippy-core/${prefix}.txt"),
+        samples: file("${reference_name}.samples.txt"),
         // Generic fields (used for publishing)
         results: [
             files("snippy-core/*"),

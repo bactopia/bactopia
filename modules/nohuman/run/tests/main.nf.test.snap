@@ -1,0 +1,44 @@
+{
+    "nohuman - module - SRR2838702 - directory": {
+        "content": [
+            {
+                "id": "SRR2838702-NOHUMAN_RUN",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,d5278d62ddf236d60cec98feba0d3821"
+            ]
+        ],
+        "timestamp": "2026-03-25T03:19:42.512043871",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    },
+    "nohuman - module - SRR2838702 - tarball": {
+        "content": [
+            {
+                "id": "SRR2838702-NOHUMAN_RUN",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,d5278d62ddf236d60cec98feba0d3821"
+            ]
+        ],
+        "timestamp": "2026-03-25T03:16:51.785602173",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}
