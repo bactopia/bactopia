@@ -26,7 +26,7 @@
  * - `lr`  : Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
  * @output assembly       Assembled contigs in FASTA format
- * @output assembly_reads Tuple containing assembly and read slots for downstream analysis
+ * @output assembly_reads Record containing assembly and read slots for downstream analysis
  * @output tsv            Per-sample tab-delimited assembly statistics (N50, length, coverage)
  * @output merged_tsv     Consolidated assembly statistics report across all samples
  * @output error          Captured error messages if assembly fails

@@ -52,7 +52,7 @@ All components use these required tags:
 
 Modules and subworkflows also use:
 - `@tags` — `complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<single|multiple> features:<list>`
-- `@input` — input channel descriptions (can be multi-line for tuples)
+- `@input` — input channel descriptions (can be multi-line for records)
 - `@output` — output channel descriptions (single-line)
 - `@note` — optional caveats or requirements
 

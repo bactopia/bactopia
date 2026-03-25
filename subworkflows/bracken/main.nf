@@ -5,8 +5,8 @@
  * and [Bracken](https://github.com/jenniferlu717/Bracken). It processes metagenomic reads, classifies them against a reference database,
  * and generates abundance estimates at different taxonomic levels with optional abundance correction.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenomics, taxonomic classification, abundance estimation, kraken2, bracken

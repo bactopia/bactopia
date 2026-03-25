@@ -5,8 +5,8 @@
  * to assign capsular types to *Streptococcus pneumoniae* using a two-step approach: first matching
  * reads to a global database, then using a mapped-based approach for specific serogroup differentiation.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords pneumocat, streptococcus pneumoniae, capsular typing, serotyping

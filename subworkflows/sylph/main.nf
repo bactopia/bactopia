@@ -7,8 +7,8 @@
  * process both short and long reads, offering taxonomic profiling from species to strain level
  * with confidence estimates for each identification.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenome, profiling, composition, abundance, kmer, taxonomic

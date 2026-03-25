@@ -7,8 +7,8 @@
  * a specific taxonomic level. It also generates an interactive [Krona](https://github.com/marbl/Krona/wiki)
  * plot for visualization.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenomics, classification, taxonomy, abundance, kraken2, bracken, krona
@@ -126,21 +126,21 @@ process BRACKEN {
     if [ "${is_tarball}" == "true" ]; then
         mkdir database
         tar -xzf ${db} -C database
-        KRAKEN_DB=\$(find database/ -name "hash.k2d" | sed 's=hash.k2d==')
+        KRAKEN_DB=\$(find database/ -name "hash.k2d" | head -1 | sed 's=hash.k2d==')
     else
-        KRAKEN_DB=\$(find ${db}/ -name "hash.k2d" | sed 's=hash.k2d==')
+        KRAKEN_DB=\$(find ${db}/ -name "hash.k2d" | head -1 | sed 's=hash.k2d==')
     fi
 
-    kraken2 \\
+    k2 classify \\
         --db \$KRAKEN_DB \\
         --threads ${task.cpus} \\
         --unclassified-out ${unclassified} \\
         --classified-out ${classified} \\
         --report ${prefix}.kraken2.report.txt \\
-        --gzip-compressed \\
+        --output ${prefix}.kraken2.output.txt \\
         ${paired} \\
         ${task.ext.args} \\
-        ${read_inputs} > ${prefix}.kraken2.output.txt
+        ${read_inputs}
 
     # Get read length
     if [ "${task.ext.bracken_read_length}" == "0" ]; then

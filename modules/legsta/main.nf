@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, legionella, pneumophila, typing, sbt, mlst, serogroup
- * @tags complexity:simple input-type:single output-type:single
+ * @tags complexity:simple input-type:single output-type:single features:database-dependent
  * @citation legsta
  *
  * @input record(meta, assembly)

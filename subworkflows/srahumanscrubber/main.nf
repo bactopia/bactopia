@@ -5,8 +5,8 @@
  * and remove human reads from sequencing data. It first initializes a human reference database
  * and then scrubs the input reads to ensure they meet SRA submission requirements.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords contamination, human, scrub, sra, sequencing, fastq

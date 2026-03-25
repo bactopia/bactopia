@@ -6,7 +6,7 @@
  *
  * @status stable
  * @keywords bacteria, tab-delimited, antimicrobial resistance
- * @tags complexity:simple input-type:single output-type:single
+ * @tags complexity:simple input-type:single output-type:single features:aggregation
  * @citation abricate
  *
  * @input record(meta, reports)

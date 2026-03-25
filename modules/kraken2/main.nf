@@ -6,8 +6,8 @@
  * Lowest Common Ancestor (LCA) algorithm to provide high-precision classification, making it
  * ideal for metagenomics or removing host contamination (scrubbing).
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, contamination, scrubbing, k-mer, lca
@@ -111,21 +111,21 @@ process KRAKEN2 {
     if [ "${is_tarball}" == "true" ]; then
         mkdir database
         tar -xzf ${db} -C database
-        KRAKEN_DB=\$(find database/ -name "hash.k2d" | sed 's=hash.k2d==')
+        KRAKEN_DB=\$(find database/ -name "hash.k2d" | head -1 | sed 's=hash.k2d==')
     else
-        KRAKEN_DB=\$(find ${db}/ -name "hash.k2d" | sed 's=hash.k2d==')
+        KRAKEN_DB=\$(find ${db}/ -name "hash.k2d" | head -1 | sed 's=hash.k2d==')
     fi
 
-    kraken2 \\
+    k2 classify \\
         --db \$KRAKEN_DB \\
         --threads ${task.cpus} \\
         --unclassified-out ${unclassified} \\
         --classified-out ${classified} \\
         --report ${prefix}.kraken2.report.txt \\
-        --gzip-compressed \\
+        --output /dev/null \\
         ${paired} \\
         ${task.ext.args} \\
-        ${read_inputs} > /dev/null
+        ${read_inputs}
 
     # If scrubbing, rename and summarize
     if [ "${unclassified_naming}" == "scrubbed" ]; then

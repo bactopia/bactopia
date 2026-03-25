@@ -1,7 +1,7 @@
 /**
  * Evaluate assembly quality using QUAST.
  *
- * This subworkflow assesses genome assembly quality using [QUAST](http://quast.sourceforge.net/)
+ * This subworkflow assesses genome assembly quality using [QUAST](https://quast.sourceforge.net/)
  * (Quality Assessment Tool for Genome Assemblies). It provides comprehensive metrics
  * including N50, L50, GC content, total length, and other quality statistics. The workflow
  * generates both individual sample reports and a combined summary for comparative analysis

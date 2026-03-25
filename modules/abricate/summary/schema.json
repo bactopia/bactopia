@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/abricate/summary/schema.json",
+    "title": "Abricate Summary Module",
+    "description": "A module for summarizing Abricate screening results",
+    "type": "object",
+    "$defs": {
+        "abricate_summary_parameters": {
+            "title": "Abricate Summary Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/abricate_summary_parameters"
+        }
+    ]
+}

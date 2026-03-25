@@ -7,8 +7,8 @@
  * and provides detailed variant calling results. It combines individual sample
  * results with population-level analysis for surveillance and epidemiological studies.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords Mycobacterium, tuberculosis, drug resistance, lineage, variants

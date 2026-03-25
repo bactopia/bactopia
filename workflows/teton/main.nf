@@ -76,7 +76,9 @@ workflow {
     TETON(
         GATHER.out.fastq_only,
         params.kraken2_db,
-        params.use_srascrubber
+        params.use_srascrubber,
+        params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+        params.download_nohuman
     )
     ch_results = ch_results.mix(TETON.out.results)
     ch_logs = ch_logs.mix(TETON.out.logs)

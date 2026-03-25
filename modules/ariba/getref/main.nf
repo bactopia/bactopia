@@ -21,6 +21,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012
 process ARIBA_GETREF {
     tag "${db_name}"
     label 'process_low'
@@ -32,8 +33,10 @@ process ARIBA_GETREF {
     db_name : String
 
     output:
-    db   = file("ariba/ariba-${db_name}.tar.gz")
-    logs = files("ariba/logs/*", optional: true)
+    record(
+        db:   file("ariba/ariba-${db_name}.tar.gz"),
+        logs: files("ariba/logs/*", optional: true)
+    )
 
     script:
     """

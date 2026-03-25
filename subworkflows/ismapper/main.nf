@@ -6,8 +6,8 @@
  * transposase insertion sites from short read sequence data by mapping reads
  * to reference sequences and detecting insertion sites with high precision.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords insertion, sequence, transposase, mobile genetic elements

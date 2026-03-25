@@ -6,6 +6,7 @@
  * The `plasmidfinder` module identifies plasmids in total or partial sequenced isolates of bacteria.
  *
  * @status stable
+ * @keywords plasmid, identification, replicon, typing, assembly
  *
  * @subworkflows bactopiatool_init, plasmidfinder
  *

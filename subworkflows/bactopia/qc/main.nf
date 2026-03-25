@@ -36,8 +36,8 @@
  * @input phix
  * Optional PhiX sequences in FASTA format for removal from Illumina reads
  *
- * @output reads      Tuple with all read slots and assembly: (meta, r1, r2, se, lr, assembly)
- * @output reads_only Tuple with read slots only: (meta, r1, r2, se, lr)
+ * @output reads      Record with all read slots and assembly: (meta, r1, r2, se, lr, assembly)
+ * @output reads_only Record with read slots only: (meta, r1, r2, se, lr)
  * @output error      Captured error messages if QC failed (e.g., reads empty after trimming)
  * @output results    Aggregated results channel containing output FASTQs, supplemental files, and errors
  * @output logs       Aggregated logs channel containing all execution logs

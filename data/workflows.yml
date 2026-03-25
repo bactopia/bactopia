@@ -460,10 +460,10 @@ workflows:
     description: "Scrub human reads from FASTQ files"
     ext: "fastq"
     modules:
-      - kraken2
+      - nohuman_download
+      - nohuman_run
       - srahumanscrubber_initdb
       - srahumanscrubber_scrub
-      - wget
       - csvtk_concat
     path: workflows/bactopia-tools/scrubber
   seqsero2:
@@ -651,6 +651,8 @@ modules:
   - mykrobe_predict
   - ncbigenomedownload
   - ngmaster
+  - nohuman_download
+  - nohuman_run
   - panaroo_run
   - pasty
   - pbptyper
@@ -685,4 +687,3 @@ modules:
   - sylph_profile
   - tbprofiler_collate
   - tbprofiler_profile
-  - wget

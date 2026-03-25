@@ -20,6 +20,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012
 process NOHUMAN_DOWNLOAD {
     label 'process_low'
     label 'process_long'

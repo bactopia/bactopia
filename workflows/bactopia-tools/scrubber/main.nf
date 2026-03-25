@@ -64,7 +64,9 @@ workflow {
     BACTOPIATOOL_INIT()
     SCRUBBER(
         BACTOPIATOOL_INIT.out.reads,
-        params.use_srascrubber
+        params.use_srascrubber,
+        params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+        params.download_nohuman
     )
 
     // Collect outputs

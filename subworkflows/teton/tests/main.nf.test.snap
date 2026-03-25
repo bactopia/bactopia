@@ -1,0 +1,37 @@
+{
+    "teton - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-TETON:SCRUBBER:NOHUMAN:NOHUMAN_MODULE",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,0e919355c3b46201c37e019227934b1b"
+            ],
+            {
+                "id": "SRR2838702-TETON:BRACKEN:BRACKEN_MODULE",
+                "logs_dir": "SRR2838702/teton/tools/bracken//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/teton/tools/bracken/",
+                "process_name": "bracken",
+                "scope": "sample",
+                "single_end": false,
+                "teton_reads": "SRR2838702_R1.scrubbed.fastq.gz,SRR2838702_R2.scrubbed.fastq.gz"
+            },
+            [
+                "versions.yml:md5,d49ddd31234e6ce5433484a08809785e"
+            ]
+        ],
+        "timestamp": "2026-03-25T07:43:30.050863498",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.01.0"
+        }
+    }
+}

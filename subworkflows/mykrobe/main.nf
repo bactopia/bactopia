@@ -5,8 +5,8 @@
  * resistance directly from sequencing reads. It provides rapid genotype-based resistance predictions
  * for specific bacterial species.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, genotype prediction

@@ -18,6 +18,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012
 process AMRFINDERPLUS_UPDATE {
     tag "amrfinderplus-update"
     label 'process_low'
@@ -26,8 +27,10 @@ process AMRFINDERPLUS_UPDATE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = file("updater/amrfinderplus.tar.gz")
-    logs = files("updater/logs/*", optional: true)
+    record(
+        db:   file("updater/amrfinderplus.tar.gz"),
+        logs: files("updater/logs/*", optional: true)
+    )
 
     script:
     """

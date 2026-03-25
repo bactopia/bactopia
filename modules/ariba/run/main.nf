@@ -4,8 +4,8 @@
  * Uses [ARIBA](https://github.com/sanger-pathogens/ariba) (Antimicrobial Resistance Identification
  * By Assembly) to detect AMR and virulence genes by creating local assemblies from paired-end reads.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords fastq, local assembly, antimicrobial resistance, virulence, ariba

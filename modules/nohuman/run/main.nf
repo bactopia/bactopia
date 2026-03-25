@@ -24,9 +24,13 @@
  * @input db
  * Directory or compressed tarball containing the nohuman Kraken2 database
  *
- * @output record(meta, scrubbed, scrub_report, results, logs, nf_logs, versions)
- * - `scrubbed`: FASTQ files with human reads removed
- * - `scrub_report`: Kraken2 report summarizing classification results (optional)
+ * @output record(meta, special_meta, r1, r2, se, lr, scrub_report, results, logs, nf_logs, versions)
+ * - `special_meta`: A simplified metadata map for downstream report joining
+ * - `r1`: Scrubbed paired-end forward reads (optional)
+ * - `r2`: Scrubbed paired-end reverse reads (optional)
+ * - `se`: Scrubbed single-end reads (optional)
+ * - `lr`: Scrubbed long reads (optional)
+ * - `scrub_report`: Summary report of reads removed during scrubbing
  */
 nextflow.preview.types = true
 
@@ -45,12 +49,16 @@ process NOHUMAN_RUN {
     record(
         // Named fields (used downstream)
         meta: meta,
-        scrubbed: files("*.scrubbed.fastq.gz"),
-        scrub_report: file("${prefix}.kraken2.report.txt", optional: true),
+        special_meta: special_meta,
+        r1: file("${prefix}_R1.scrubbed.fastq.gz", optional: true),
+        r2: file("${prefix}_R2.scrubbed.fastq.gz", optional: true),
+        se: file("${prefix}.scrubbed.fastq.gz", optional: true),
+        lr: file("${prefix}.scrubbed.fastq.gz", optional: true),
+        scrub_report: file("${prefix}.scrub.report.tsv"),
         // Generic fields (used for publishing)
         results: [
-            files("*.scrubbed.fastq.gz"),
-            files("${prefix}.kraken2.report.txt", optional: true)
+            files("${prefix}*.scrubbed.fastq.gz"),
+            files("${prefix}.scrub.report.tsv")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -69,18 +77,22 @@ process NOHUMAN_RUN {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
+    // Simplified meta for downstream report joining
+    special_meta = [:]
+    special_meta.name = prefix
+
     // Determine read type from explicit slots
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
     has_lr = lr != null
     meta.single_end = (has_se || has_lr) && !has_r1 && !has_r2
+    meta.runtype = _meta.containsKey('runtype') ? _meta.runtype : (has_r1 && has_r2 ? "paired-end" : (has_lr ? "lr" : "se"))
 
     // Pick the single-file input (se or lr)
     def single_reads = has_se ? "${se}" : "${lr}"
 
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
-    def report_flag = task.ext.nohuman_save_report ? "--kraken-report ${prefix}.kraken2.report.txt" : ""
     def output_type = "--output-type g"
     if (meta.single_end) {
         """
@@ -96,13 +108,21 @@ process NOHUMAN_RUN {
             --db \$DB_PATH \\
             --threads ${task.cpus} \\
             ${output_type} \\
-            ${report_flag} \\
             ${task.ext.args} \\
             --out1 ${prefix}.scrubbed.fastq.gz \\
             ${single_reads}
 
+        # Quick stats on reads
+        zcat ${single_reads} | fastq-scan > original.json
+        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+
+        # Remove temp json files
+        rm original.json scrubbed.json
+
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
+            fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
             nohuman: \$( nohuman --version 2>&1 | sed 's/nohuman //' )
         END_VERSIONS
         """
@@ -121,14 +141,22 @@ process NOHUMAN_RUN {
             --db \$DB_PATH \\
             --threads ${task.cpus} \\
             ${output_type} \\
-            ${report_flag} \\
             ${task.ext.args} \\
             --out1 ${prefix}_R1.scrubbed.fastq.gz \\
             --out2 ${prefix}_R2.scrubbed.fastq.gz \\
             ${r1} ${r2}
 
+        # Quick stats on reads
+        zcat ${r1} ${r2} | fastq-scan > original.json
+        zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
+        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+
+        # Remove temp json files
+        rm original.json scrubbed.json
+
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
+            fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
             nohuman: \$( nohuman --version 2>&1 | sed 's/nohuman //' )
         END_VERSIONS
         """

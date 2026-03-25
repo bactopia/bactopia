@@ -46,11 +46,14 @@ process SRAHUMANSCRUBBER_SCRUB {
         // Named fields (used downstream)
         meta: meta,
         special_meta: special_meta,
-        scrubbed: files("*.scrubbed.fastq.gz"),
+        r1: file("${prefix}_R1.scrubbed.fastq.gz", optional: true),
+        r2: file("${prefix}_R2.scrubbed.fastq.gz", optional: true),
+        se: file("${prefix}.scrubbed.fastq.gz", optional: true),
+        lr: file("${prefix}.scrubbed.fastq.gz", optional: true),
         scrub_report: file("${prefix}.scrub.report.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [
-            files("*.scrubbed.fastq.gz"),
+            files("${prefix}*.scrubbed.fastq.gz"),
             files("${prefix}.scrub.report.tsv", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
@@ -77,8 +80,9 @@ process SRAHUMANSCRUBBER_SCRUB {
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
-    meta.single_end = has_se && !has_r1 && !has_r2
-    meta.runtype = _meta.runtype
+    has_lr = lr != null
+    meta.single_end = (has_se || has_lr) && !has_r1 && !has_r2
+    meta.runtype = _meta.containsKey('runtype') ? _meta.runtype : (has_r1 && has_r2 ? "paired-end" : (has_lr ? "lr" : "se"))
 
     special_meta = [:]
     special_meta.name = prefix

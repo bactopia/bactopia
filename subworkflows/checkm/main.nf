@@ -16,7 +16,7 @@
  *
  * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Metagenome-assembled genome bins to evaluate. Each tuple contains metadata
+ * - `assembly`: Metagenome-assembled genome bins to evaluate. Each record contains metadata
  *   about the sample and a set of genome bins in FASTA format.
  *
  * @output sample_outputs

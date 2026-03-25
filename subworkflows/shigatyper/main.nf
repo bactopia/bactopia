@@ -5,8 +5,8 @@
  * serotypes of *Shigella* strains from either Illumina/Nanopore reads or assembled genomes.
  * It analyzes antigen-encoding genes to determine the serotype classification of each isolate.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords shigella, serotype, typing, prediction, antigen genes

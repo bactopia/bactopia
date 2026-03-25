@@ -20,6 +20,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012,M013
 process DATASETS {
     label "process_low"
 
@@ -27,10 +28,12 @@ process DATASETS {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    amrfinderplus_db = file(("${bactopia_version}/amrfinderplus.tar.gz"))
-    mlst_db          = file(("mlst.tar.gz"))
-    mash_db          = file(("mash-refseq88.k21.msh.xz"))
-    sourmash_db      = file(("gtdb-rs207.genomic-reps.dna.k31.lca.json.gz"))
+    record(
+        amrfinderplus_db: file("${bactopia_version}/amrfinderplus.tar.gz"),
+        mlst_db:          file("mlst.tar.gz"),
+        mash_db:          file("mash-refseq88.k21.msh.xz"),
+        sourmash_db:      file("gtdb-rs207.genomic-reps.dna.k31.lca.json.gz")
+    )
 
     script:
     bactopia_version = task.ext.amrfinder_url.replace("https://datasets.bactopia.com/datasets/", "").replace("/amrfinderplus.tar.gz", "")

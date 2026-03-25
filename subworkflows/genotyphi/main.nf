@@ -7,8 +7,8 @@
  * processes the results with GenoTyphi to assign specific genotypes based on
  * the presence of known genetic markers.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords Salmonella, Typhi, genotype, antimicrobial resistance

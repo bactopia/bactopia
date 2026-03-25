@@ -13,16 +13,18 @@ nextflow_workflow {
             workflow {
                 """
                 input[0] = Channel.of(
-                    tuple(
-                        [id: "SRR2838702", single_end: false],
-                        file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        null,
-                        null
+                    record(
+                        _meta: [name: "SRR2838702", runtype: "paired-end"],
+                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/kraken2")
+                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_standard_08_GB_20251015")
                 input[2] = false
+                input[3] = file("${params.test_data_dir}/data/datasets/nohuman/HPRC.r2")
+                input[4] = false
                 """
             }
         }

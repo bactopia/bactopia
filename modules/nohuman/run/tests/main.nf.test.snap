@@ -10,11 +10,15 @@
                 "scope": "sample",
                 "single_end": false
             },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,4b0dcd803f7da2cc2d79b8cc5cac403c",
             [
-                "versions.yml:md5,d5278d62ddf236d60cec98feba0d3821"
+                "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-03-25T03:19:42.512043871",
+        "timestamp": "2026-03-25T06:11:12.072045563",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"
@@ -31,11 +35,15 @@
                 "scope": "sample",
                 "single_end": false
             },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,4b0dcd803f7da2cc2d79b8cc5cac403c",
             [
-                "versions.yml:md5,d5278d62ddf236d60cec98feba0d3821"
+                "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-03-25T03:16:51.785602173",
+        "timestamp": "2026-03-25T06:08:19.519930804",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

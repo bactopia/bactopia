@@ -5,7 +5,7 @@
  * validate command-line parameters and organize input data (FASTQs, assemblies) into
  * a standardized channel structure for downstream analysis.
  *
- * The output uses explicit positional tuple slots with Set<Path> for each read type,
+ * The output uses explicit positional record fields with Set<Path> for each read type,
  * supporting merge operations where multiple files per slot are consolidated by GATHER:
  * - `r1`: Illumina R1 files (Set<Path>, consolidated to single file by GATHER)
  * - `r2`: Illumina R2 files (Set<Path>, consolidated to single file by GATHER)
@@ -20,7 +20,7 @@
  * @input none
  * This workflow is parameter-driven and does not accept input channels.
  *
- * @output samples  Pre-merge 5-slot structure: tuple(meta, r1, r2, se, lr) as Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>
+ * @output samples  Pre-merge 5-slot structure: record(meta, r1, r2, se, lr) as Record<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>
  */
 nextflow.preview.types = true
 
@@ -40,7 +40,7 @@ workflow BACTOPIA_INIT {
     }
 
     // Initialize samples channel
-    def ch_samples = channel.empty() as Channel<Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>>
+    def ch_samples = channel.empty() as Channel<Record>
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
         log.info collectedInputs.error
@@ -50,17 +50,17 @@ workflow BACTOPIA_INIT {
     }
 
     collectedInputs.samples.each { sample ->
-        ch_samples << tuple(
-            sample.meta,
-            (sample.r1 ?: []).collect { fastq -> file(fastq) }.toSet(),
-            (sample.r2 ?: []).collect { fastq -> file(fastq) }.toSet(),
-            (sample.se ?: []).collect { fastq -> file(fastq) }.toSet(),
-            (sample.lr ?: []).collect { fastq -> file(fastq) }.toSet(),
-            (sample.assembly ?: []).collect { fastq -> file(fastq) }.toSet()
+        ch_samples << record(
+            _meta:    sample.meta,
+            r1:       (sample.r1 ?: []).collect { fastq -> file(fastq) }.toSet(),
+            r2:       (sample.r2 ?: []).collect { fastq -> file(fastq) }.toSet(),
+            se:       (sample.se ?: []).collect { fastq -> file(fastq) }.toSet(),
+            lr:       (sample.lr ?: []).collect { fastq -> file(fastq) }.toSet(),
+            assembly: (sample.assembly ?: []).collect { assembly -> file(assembly) }.toSet()
         )
     }
 
     emit:
     // Full 6-slot structure for GATHER (pre-merge with Set<Path> for multiple files)
-    samples: Channel<Tuple<Map, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>, Set<Path?>>> = ch_samples
+    samples: Channel<Record> = ch_samples
 }

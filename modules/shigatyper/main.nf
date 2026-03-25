@@ -5,8 +5,8 @@
  * of *Shigella* isolates using Illumina paired-end reads or Oxford Nanopore long reads. It detects
  * serotype-specific genes and markers to provide a predicted serotype.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords shigella, serotype, typing, illumina, nanopore, reads

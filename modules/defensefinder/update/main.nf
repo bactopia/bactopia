@@ -18,6 +18,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012
 process DEFENSEFINDER_UPDATE {
     tag "update"
     label 'process_low'
@@ -26,8 +27,10 @@ process DEFENSEFINDER_UPDATE {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     output:
-    db   = file("defense-finder/defense-finder-models-${task.ext.defensefinder_models_version}.tar")
-    logs = files("defense-finder/logs/*", optional: true)
+    record(
+        db:   file("defense-finder/defense-finder-models-${task.ext.defensefinder_models_version}.tar"),
+        logs: files("defense-finder/logs/*", optional: true)
+    )
 
     script:
     """

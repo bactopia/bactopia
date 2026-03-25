@@ -7,8 +7,8 @@
  * It first removes host reads using the scrubber subworkflow, then classifies reads,
  * and finally creates sample sheets with genome size estimates for downstream Bactopia analysis.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
@@ -69,24 +69,26 @@ include { gather                                   } from 'plugin/nf-bactopia'
 
 workflow TETON {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     db: Path?
     use_srascrubber: Boolean
+    nohuman_db: Path?
+    download_nohuman: Boolean
 
     main:
     // Remove host reads
-    SCRUBBER(reads, use_srascrubber)
+    SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman)
 
     // Taxon Classification & Abundance
     BRACKEN(SCRUBBER.out.scrubbed, db)
 
     // Determine genome size and create sample sheet
-    ch_classification = BRACKEN.out.sample_outputs.map { r -> tuple(r.meta, r.classification) }
+    ch_classification = BRACKEN.out.sample_outputs.map { r -> record(_meta: r.meta, classification: r.classification) }
     BACTOPIA_SAMPLESHEET(ch_classification)
 
     // Join Scrubber and Bracken results
-    ch_bracken_special = BRACKEN.out.sample_outputs.map { r -> tuple(r.special_meta, r.tsv) }
-    ch_join_teton = SCRUBBER.out.special_tsv.join(ch_bracken_special, by:[0]).map{ meta, csv1, csv2 -> [meta, csv1, csv2] }
+    ch_bracken_special = BRACKEN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, tsv: r.tsv) }
+    ch_join_teton = SCRUBBER.out.special_tsv.join(ch_bracken_special, by:[0]).map { meta, csv1, csv2 -> record(meta: meta, csv1: csv1, csv2: csv2) }
     CSVTK_JOIN(ch_join_teton, 'tsv', 'tsv', 'sample')
 
     // Merge reports

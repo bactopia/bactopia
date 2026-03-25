@@ -1,7 +1,7 @@
 /**
  * Efficient phylogenomic inference using Maximum Likelihood.
  *
- * Uses [IQ-TREE](http://www.iqtree.org/) to construct a maximum-likelihood phylogenetic tree
+ * Uses [IQ-TREE](https://iqtree.github.io/) to construct a maximum-likelihood phylogenetic tree
  * from a multiple sequence alignment. It automatically determines the best-fit substitution model
  * (via ModelFinder) and assesses branch support using the Ultrafast Bootstrap approximation.
  *

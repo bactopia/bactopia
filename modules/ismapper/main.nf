@@ -6,8 +6,8 @@
  * to a library of IS queries and a reference genome to determine where the IS elements are located
  * relative to the reference coordinates.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords bacteria, mobile elements, insertion sequences, mapping, structural variation, ismapper

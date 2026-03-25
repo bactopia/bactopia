@@ -16,7 +16,7 @@
  *
  * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Genome assemblies to evaluate for completeness. Each tuple contains metadata
+ * - `assembly`: Genome assemblies to evaluate for completeness. Each record contains metadata
  *   about the sample and a set of assembled contigs in FASTA format.
  *
  * @input busco_lineage

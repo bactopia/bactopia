@@ -2,19 +2,16 @@
  * Remove contaminant sequences from metagenomic data.
  *
  * This subworkflow removes human and other contaminant sequences from metagenomic reads using either
- * the [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or a Kraken2-based approach (k2scrubber)
+ * the [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or [nohuman](https://github.com/mbhall88/nohuman)
  * with the HPRC human database. It provides flexible contamination removal with detailed reporting
  * and aggregates results across multiple samples.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
- *
  * @status stable
  * @keywords metagenomics, decontamination, human removal, read filtering
- * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, aggregation
- * @citation kraken2, srahumanscrubber
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic,aggregation
+ * @citation nohuman, srahumanscrubber
  *
- * @subworkflows srahumanscrubber, k2scrubber
+ * @subworkflows srahumanscrubber, nohuman
  * @modules csvtk_concat
  *
  * @input record(meta, r1, r2, se, lr)
@@ -25,29 +22,36 @@
  * - `lr`: Long reads (ONT/PacBio)
  *
  * @input use_srascrubber
- * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination.
+ * Boolean flag to choose between SRA Human Scrubber (true) or nohuman (false) for decontamination.
+ *
+ * @input nohuman_db
+ * Path to nohuman database directory or tarball (used when use_srascrubber is false)
+ *
+ * @input download_nohuman
+ * Boolean flag to download the nohuman database instead of using the provided path
  *
  * @output sample_outputs  Per-sample module record from the selected scrubbing tool
- * @output scrubbed        Clean metagenomic reads after contaminant removal (unified from SRA/K2)
- * @output scrubbed_extra  Additional cleaned reads from extended filtering
+ * @output scrubbed        Clean metagenomic reads after contaminant removal
+ * @output scrubbed_extra  Additional cleaned reads for extended filtering
  * @output special_tsv     Contamination reports keyed by special_meta for downstream joining
  * @output run_outputs     Merged contamination reports across all samples from CSVTK_CONCAT
  */
 nextflow.preview.types = true
 
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
-include { K2SCRUBBER       } from '../k2scrubber/main'
+include { NOHUMAN          } from '../nohuman/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
 include { gather           } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
     take:
-    reads: Channel<Tuple<Map, Path?, Path?, Path?, Path?>>
+    reads: Channel<Record>
     use_srascrubber: Boolean
+    nohuman_db: Path?
+    download_nohuman: Boolean
 
     main:
     ch_sample_outputs = channel.empty()
-    ch_scrub_report = channel.empty()
     ch_special_report = channel.empty()
     ch_scrubbed = channel.empty()
     ch_scrubbed_extra = channel.empty()
@@ -55,25 +59,25 @@ workflow SCRUBBER {
     if (use_srascrubber) {
         SRAHUMANSCRUBBER(reads)
         ch_sample_outputs = SRAHUMANSCRUBBER.out.sample_outputs
-        ch_scrub_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrub_report) }
-        ch_special_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.special_meta, r.scrub_report) }
-        ch_scrubbed = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrubbed) }
-        ch_scrubbed_extra = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrubbed_extra) }
+        ch_special_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
+        ch_scrubbed = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+        ch_scrubbed_extra = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
     } else {
-        K2SCRUBBER(reads)
-        ch_sample_outputs = K2SCRUBBER.out.sample_outputs
-        ch_scrub_report = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.scrub_report) }
-        ch_special_report = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.special_meta, r.scrub_report) }
-        ch_scrubbed = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.unclassified) }
-        ch_scrubbed_extra = K2SCRUBBER.out.sample_outputs.map { r -> tuple(r.meta, r.unclassified_extra) }
+        NOHUMAN(reads, nohuman_db, download_nohuman)
+        ch_sample_outputs = NOHUMAN.out.sample_outputs
+        ch_special_report = NOHUMAN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
+        ch_scrubbed = NOHUMAN.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+        ch_scrubbed_extra = NOHUMAN.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
     }
 
     CSVTK_CONCAT(gather(ch_sample_outputs, 'scrub_report', [name: 'scrubber']), 'tsv', 'tsv')
 
     emit:
-    sample_outputs = ch_sample_outputs
+    // Individual outputs
     scrubbed = ch_scrubbed
     scrubbed_extra = ch_scrubbed_extra
     special_tsv = ch_special_report
+    // Aggregated outputs
+    sample_outputs = ch_sample_outputs
     run_outputs = CSVTK_CONCAT.out
 }

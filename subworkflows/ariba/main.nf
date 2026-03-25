@@ -6,8 +6,8 @@
  * in a database by creating local assemblies. It first downloads and prepares an ARIBA database,
  * then analyzes paired-end reads to identify genes, and finally aggregates results across all samples.
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1, r2, se, lr) where each read slot is Path?
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, virulence, local assembly

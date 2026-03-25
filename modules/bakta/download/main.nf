@@ -21,6 +21,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M012
 process BAKTA_DOWNLOAD {
     label 'process_low'
     label 'process_long'

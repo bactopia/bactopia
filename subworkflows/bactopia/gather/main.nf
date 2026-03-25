@@ -6,9 +6,9 @@
  * NCBI assembly accessions, and assemblies. The workflow can merge multiple sequencing runs,
  * download remote data, and simulate reads from assemblies using [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art).
  *
- * Uses explicit positional tuple slots for reads:
- * - Input: tuple(meta, r1_files, r2_files, se_files, lr_files) with Set<Path> slots (pre-merge)
- * - Output: tuple(meta, r1, r2, se, lr) with Path? slots (post-merge, consolidated)
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1_files, r2_files, se_files, lr_files) with Set<Path> slots (pre-merge)
+ * - Output: record(meta, r1, r2, se, lr) with Path? slots (post-merge, consolidated)
  *
  * @status stable
  * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
@@ -26,7 +26,7 @@
  *
  * @output tsv         Per-sample metadata files in TSV format
  * @output merged_tsv  Consolidated metadata file containing information from all samples
- * @output reads       Tuple with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
+ * @output reads       Record with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
  * @output error       Error messages from validation or download failures
  * @output results     Aggregated results channel containing all output files
  * @output logs        Aggregated logs channel containing all execution logs
