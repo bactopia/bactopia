@@ -14,9 +14,9 @@
  * Abricate bundles multiple databases including NCBI, CARD, ResFinder, PlasmidFinder,
  * ARG-ANNOT, and VFDB.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, report, results, logs, nf_logs, versions)
  * - `report`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
@@ -31,7 +31,7 @@ process ABRICATE_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -60,7 +60,7 @@ process ABRICATE_RUN {
     meta.process_name = task.ext.process_name
     """
     abricate \\
-        ${assembly} \\
+        ${fna} \\
         $task.ext.args \\
         --threads $task.cpus > ${prefix}.tsv
 

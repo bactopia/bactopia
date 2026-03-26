@@ -21,6 +21,8 @@
  *   - `aln`: Core genome alignment in FASTA format (optional)
  *   - `csv`: Gene presence/absence matrix in CSV format
  *   - `supplemental`: Directory containing PIRATE intermediate files and detailed outputs
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -34,5 +36,7 @@ workflow PIRATE {
     PIRATE_MODULE(gff)
 
     emit:
+    // Published outputs
     sample_outputs = PIRATE_MODULE.out
+    run_outputs = channel.empty()
 }

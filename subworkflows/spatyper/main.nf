@@ -46,6 +46,7 @@ workflow SPATYPER {
     CSVTK_CONCAT(gather(SPATYPER_MODULE.out, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SPATYPER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

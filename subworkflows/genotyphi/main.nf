@@ -49,6 +49,7 @@ workflow GENOTYPHI {
     CSVTK_CONCAT(gather(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = MYKROBE_PREDICT.out.mix(GENOTYPHI_PARSE.out)
     run_outputs = CSVTK_CONCAT.out
 }

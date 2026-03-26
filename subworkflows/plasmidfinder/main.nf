@@ -42,6 +42,7 @@ workflow PLASMIDFINDER {
     CSVTK_CONCAT(gather(PLASMIDFINDER_MODULE.out, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = PLASMIDFINDER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

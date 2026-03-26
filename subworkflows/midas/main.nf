@@ -30,6 +30,9 @@
  * @input download_midas
  * Boolean flag to automatically download the MIDAS database if not available
  *
+ * @input save_as_tarball
+ * Boolean flag to save downloaded database as tarball
+ *
  * @output sample_outputs
  * - `tsv`: A tab-delimited summary of species abundance and coverage
  * - `abundances`: Detailed species abundance profile
@@ -47,19 +50,27 @@ include { gather         } from 'plugin/nf-bactopia'
 workflow MIDAS {
     take:
     reads: Channel<Record>
-    database: Path
+    database: Path?
     download_midas: Boolean
+    save_as_tarball: Boolean
 
     main:
     if (download_midas) {
         MIDAS_DOWNLOAD()
-        MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.db)
+
+        if (save_as_tarball) {
+            MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.map { r -> r.db_tarball })
+        } else {
+            MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.map { r -> r.db })
+        }
     } else {
         MIDAS_SPECIES(reads, database)
     }
 
     CSVTK_CONCAT(gather(MIDAS_SPECIES.out, 'tsv', [name: 'midas']), 'tsv', 'tsv')
+
     emit:
+    // Published outputs
     sample_outputs = MIDAS_SPECIES.out
     run_outputs = CSVTK_CONCAT.out
 }

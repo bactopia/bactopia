@@ -24,6 +24,9 @@
  * @input download_eggnog
  * Boolean flag to trigger database download if not provided
  *
+ * @input save_as_tarball
+ * Boolean flag to save downloaded database as tarball
+ *
  * @output sample_outputs
  * - `hits`: Raw search hits (Diamond/MMseqs2) against the eggNOG database
  * - `seed_orthologs`: List of identified seed orthologs used for annotation transfer
@@ -34,6 +37,8 @@
  * - `gff`: Annotations in GFF format (optional)
  * - `no_anno`: FASTA file of sequences that failed to be annotated (optional)
  * - `pfam`: Raw PFAM domain hits (optional)
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -43,18 +48,25 @@ include { EGGNOG_MAPPER   } from '../../modules/eggnog/mapper/main'
 workflow EGGNOG {
     take:
     proteins: Channel<Record>
-    database: Path
+    database: Path?
     download_eggnog: Boolean
+    save_as_tarball: Boolean
 
     main:
     if (download_eggnog) {
-        // Force EGGNOG_MAPPER to wait
         EGGNOG_DOWNLOAD()
-        EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.db)
+
+        if (save_as_tarball) {
+            EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.map { r -> r.db_tarball })
+        } else {
+            EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.map { r -> r.db })
+        }
     } else {
         EGGNOG_MAPPER(proteins, database)
     }
 
     emit:
+    // Published outputs
     sample_outputs = EGGNOG_MAPPER.out
+    run_outputs = channel.empty()
 }

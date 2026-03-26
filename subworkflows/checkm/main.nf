@@ -40,8 +40,7 @@ workflow CHECKM {
     CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records
+    // Published outputs
     sample_outputs = CHECKM_LINEAGEWF.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

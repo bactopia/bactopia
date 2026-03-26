@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation plasmidfinder
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, json, txt, tsv, genome_seq, plasmid_seq, results, logs, nf_logs, versions)
  * - `json`: PlasmidFinder results in JSON format
@@ -31,7 +31,7 @@ process PLASMIDFINDER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -69,16 +69,16 @@ process PLASMIDFINDER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     plasmidfinder.py \\
         ${task.ext.args} \\
-        -i ${assembly_name} \\
+        -i ${fna_name} \\
         -o ./ \\
         -x
 
@@ -94,7 +94,7 @@ process PLASMIDFINDER {
 
     # Cleanup
     gzip *.fsa
-    rm -rf ${assembly_name} results_tab.tsv tmp/
+    rm -rf ${fna_name} results_tab.tsv tmp/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

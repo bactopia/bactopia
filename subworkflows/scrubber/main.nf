@@ -53,31 +53,25 @@ workflow SCRUBBER {
     main:
     ch_sample_outputs = channel.empty()
     ch_special_report = channel.empty()
-    ch_scrubbed = channel.empty()
-    ch_scrubbed_extra = channel.empty()
 
     if (use_srascrubber) {
         SRAHUMANSCRUBBER(reads)
         ch_sample_outputs = SRAHUMANSCRUBBER.out.sample_outputs
         ch_special_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
-        ch_scrubbed = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
-        ch_scrubbed_extra = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
     } else {
         NOHUMAN(reads, nohuman_db, download_nohuman)
         ch_sample_outputs = NOHUMAN.out.sample_outputs
         ch_special_report = NOHUMAN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
-        ch_scrubbed = NOHUMAN.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
-        ch_scrubbed_extra = NOHUMAN.out.sample_outputs.map { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
     }
 
     CSVTK_CONCAT(gather(ch_sample_outputs, 'scrub_report', [name: 'scrubber']), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    scrubbed = ch_scrubbed
-    scrubbed_extra = ch_scrubbed_extra
+    // Downstream inputs
+    scrubbed = filterWithData(ch_sample_outputs, ['r1', 'r2', 'se', 'lr'])
+    scrubbed_extra = filterWithData(ch_sample_outputs, ['r1', 'r2', 'se', 'lr', 'fna'])
     special_tsv = ch_special_report
-    // Aggregated outputs
+    // Published outputs
     sample_outputs = ch_sample_outputs
     run_outputs = CSVTK_CONCAT.out
 }

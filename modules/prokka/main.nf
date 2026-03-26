@@ -11,9 +11,9 @@
  *
  * @note Uses EMPTY_* placeholder files for optional parameters
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input proteins
  * FASTA file of trusted proteins to first annotate from (Optional)
@@ -44,12 +44,12 @@ process PROKKA {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     proteins    : Path?
     prodigal_tf : Path?
 
     stage:
-    stageAs "input/*", assembly
+    stageAs "input/*", fna
 
     output:
     record(
@@ -88,8 +88,8 @@ process PROKKA {
     script:
     def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed
     def prodigal_opt = prodigal_tf?.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -118,7 +118,7 @@ process PROKKA {
     """
     echo "${proteins}"
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     if [ "${task.ext.prokka_debug}" == "true" ]; then
@@ -133,7 +133,7 @@ process PROKKA {
             ${locustag} \\
             ${proteins_opt} \\
             ${prodigal_opt} \\
-            ${assembly_name}
+            ${fna_name}
         rm -rf tmp_prokka/
     else
         prokka \\
@@ -144,7 +144,7 @@ process PROKKA {
             ${locustag} \\
             ${proteins_opt} \\
             ${prodigal_opt} \\
-            ${assembly_name}
+            ${fna_name}
     fi
 
     # Make blastdb of contigs, genes, proteins
@@ -168,7 +168,7 @@ process PROKKA {
     mv ${prefix}/* ./
 
     # Cleanup intermediate files
-    rm -rf ${assembly_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
+    rm -rf ${fna_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

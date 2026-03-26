@@ -60,21 +60,39 @@ workflow {
     ch_sample_nf_logs = KRAKEN2.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
+    ch_run_nf_logs = KRAKEN2.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
 
     publish:
     sample_outputs = KRAKEN2.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
+    run_outputs = KRAKEN2.out.run_outputs
+    run_nf_logs = ch_run_nf_logs
 }
 
 output {
     sample_outputs {
         path { r ->
-            r.results  >> "${r.meta.output_dir}/"
-            r.logs     >> "${r.meta.logs_dir}/"
-            r.versions >> "${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
     }
 }

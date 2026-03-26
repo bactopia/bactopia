@@ -41,6 +41,7 @@ workflow MLST {
     CSVTK_CONCAT(gather(MLST_MODULE.out, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = MLST_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

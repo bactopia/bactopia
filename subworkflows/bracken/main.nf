@@ -63,6 +63,7 @@ workflow BRACKEN {
     CSVTK_CONCAT_ADJUSTED(gather(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = BRACKEN_MODULE.out
     run_outputs = CSVTK_CONCAT_TSV.out.mix(CSVTK_CONCAT_ADJUSTED.out)
 }

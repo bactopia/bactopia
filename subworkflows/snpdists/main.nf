@@ -33,5 +33,6 @@ workflow SNPDISTS {
     SNPDISTS_MODULE(alignment)
 
     emit:
+    // Published outputs
     sample_outputs = SNPDISTS_MODULE.out
 }

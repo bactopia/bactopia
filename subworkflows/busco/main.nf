@@ -45,6 +45,7 @@ workflow BUSCO {
     CSVTK_CONCAT(gather(BUSCO_MODULE.out, 'tsv', [name: "busco-${busco_lineage}"]), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = BUSCO_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

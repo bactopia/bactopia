@@ -68,7 +68,7 @@ workflow {
     BACTOPIATOOL_INIT()
 
     // Reference if applicable
-    ch_reference = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+    ch_reference = channel.empty()
     if (params.fastani_reference) {
         ch_reference.mix(
             channel.of(tuple([id:params.fastani_reference.getSimpleName()], params.fastani_reference))
@@ -104,9 +104,9 @@ workflow {
 output {
     sample_outputs {
         path { r ->
-            r.results  >> "${r.meta.output_dir}/"
-            r.logs     >> "${r.meta.logs_dir}/"
-            r.versions >> "${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {
@@ -114,9 +114,9 @@ output {
     }
     run_outputs {
         path { r ->
-            r.results  >> "${params.rundir}/${r.meta.output_dir}/"
-            r.logs     >> "${params.rundir}/${r.meta.logs_dir}/"
-            r.versions >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
     run_nf_logs {

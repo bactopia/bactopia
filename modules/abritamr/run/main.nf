@@ -11,9 +11,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:archive-output,compression,conditional-logic
  * @citation abritamr
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, summary, matches, partials, virulence, amrfinder, results, logs, nf_logs, versions)
  * - `summary`: Tab-delimited NATA-accredited AMR report summary
@@ -32,7 +32,7 @@ process ABRITAMR_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -68,15 +68,15 @@ process ABRITAMR_RUN {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     abritamr run \\
-        --contigs ${assembly_name} \\
+        --contigs ${fna_name} \\
         --prefix ${prefix} \\
         ${task.ext.args} \\
         --jobs ${task.cpus}
@@ -92,7 +92,7 @@ process ABRITAMR_RUN {
     fi
 
     # Cleanup
-    rm -rf ${assembly_name} ${prefix}/
+    rm -rf ${fna_name} ${prefix}/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

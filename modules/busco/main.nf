@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download
  * @citation busco
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
  * - `tsv`: Text summary report of the completeness score (C/S/D/F/M%)
@@ -28,7 +28,7 @@ process BUSCO {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -57,12 +57,12 @@ process BUSCO {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def which_cat = assembly.getName().endsWith(".gz") ? "zcat" : "cat"
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def which_cat = fna.getName().endsWith(".gz") ? "zcat" : "cat"
+    def fna_name = fna.getName().replace(".gz", "")
     """
     # Have to put FASTA in a directory to force batch mode in busco
     mkdir tmp-fasta
-    ${which_cat} ${assembly} > tmp-fasta/${assembly_name}
+    ${which_cat} ${fna} > tmp-fasta/${fna_name}
 
     # Nextflow changes the container --entrypoint to /bin/bash (container default entrypoint: /usr/local/env-execute)
     # Check for container variable initialisation script and source it.
@@ -97,8 +97,8 @@ process BUSCO {
     find supplemental/ -type f -name "*.faa" | xargs -I {} gzip {}
     find supplemental/ -type f -path "*hmmer_output*" -name "*.out" | xargs -I {} gzip {}
     mv supplemental/batch_summary.txt supplemental/${prefix}-summary.txt
-    mv supplemental/${assembly_name}/* supplemental/
-    rm -rf supplemental/${assembly_name} busco_downloads/ tmp*/
+    mv supplemental/${fna_name}/* supplemental/
+    rm -rf supplemental/${fna_name} busco_downloads/ tmp*/
 
     # Busco outputs additional trailing tabs, clean them up
     sed -i 's/\t\t\t\$//' supplemental/${prefix}-summary.txt

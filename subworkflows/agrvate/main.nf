@@ -37,8 +37,7 @@ workflow AGRVATE {
     CSVTK_CONCAT(gather(AGRVATE_MODULE.out, 'summary', [name: 'agrvate']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records (contains meta, summary, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = AGRVATE_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

@@ -42,6 +42,7 @@ workflow SCCMEC {
     CSVTK_CONCAT(gather(SCCMEC_MODULE.out, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SCCMEC_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

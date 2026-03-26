@@ -59,6 +59,7 @@ workflow CLONALFRAMEML {
     SNPDISTS(gather(CLONALFRAMEML_MODULE.out, 'masked_aln', [name: 'core-genome.masked.distance', process_name: 'snpdists-masked']))
 
     emit:
+    // Published outputs
     sample_outputs = CLONALFRAMEML_MODULE.out
     iqtree_outputs = IQTREE.out.sample_outputs
     snpdists_outputs = SNPDISTS.out.sample_outputs

@@ -59,9 +59,9 @@ output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
-            r.results  >> "${r.meta.output_dir}/"
-            r.logs     >> "${r.meta.logs_dir}/"
-            r.versions >> "${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {
@@ -71,9 +71,9 @@ output {
     // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
-            r.results  >> "${params.rundir}/${r.meta.output_dir}/"
-            r.logs     >> "${params.rundir}/${r.meta.logs_dir}/"
-            r.versions >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
     run_nf_logs {

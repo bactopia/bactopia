@@ -5,117 +5,105 @@ description: Review nf-test run results and present a diagnostic summary with gr
 
 # Review Tests
 
-Analyze an nf-test run and present a diagnostic summary with grouped error analysis.
+Run the review-tests CLI and interpret the JSON output for the user.
 
 ## Steps
 
-### 1. Find the test run
+1. Run `bactopia-review-tests` via the wrapper script:
+   ```
+   bash .claude/skills/review-tests/scripts/run-bactopia-review-tests.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --json --silent
+   ```
+   If the user provided a timestamp argument (e.g., `/review-tests 20260324_081306`),
+   add `--run 20260324_081306`.
 
-If the user provided a timestamp argument (e.g., `/review-tests 20260324_081306`), look for `logs/{timestamp}/summary.json`. If it doesn't exist, list available runs from `logs/` and stop.
+2. Parse the JSON output and present a clean, readable summary. Lead with:
+   - Test run timestamp, total tests, tiers tested
+   - Duration stats (total, average, longest test name + time)
+   - Status breakdown as a compact table (counts per status)
+   - Pass rate: "N passed (X% of M total)"
 
-If no argument was provided, list directories in `logs/` at the repo root. Directory names are `YYYYMMDD_HHMMSS` timestamps -- take the lexicographically last one. If no directories exist, report "No test runs found in logs/" and stop.
+3. Present failure groups in priority order (skip groups with count 0):
 
-### 2. Read summary.json
+   **undeclared_parameter**: Show the `parameters` summary (parameter name -> count).
+   List all affected components grouped by parameter name for compactness.
 
-Read `logs/{timestamp}/summary.json`. Parse:
-- `summary` object: status counts (passed, tool_error, non_reproducible, etc.)
-- `results` array: per-component objects with component, tier, status, duration
+   **missing_config**: Show each component with the `missing_path` from the message.
 
-### 3. Present the header
+   **process_failure**: Show process name, `caused_by`, `exit_status`, and
+   `command_error` excerpt. Group by similar cause if multiple.
 
-Display:
-- Test run timestamp (reformat directory name to `YYYY-MM-DD HH:MM:SS UTC`)
-- Total tests run (sum of all status counts)
-- Tiers tested (check which tier subdirectories exist: modules, subworkflows)
-- Duration: total (sum all durations), average per test, longest test (name + duration)
+   **null_container**: Note which container resolved to null.
 
-### 4. Status breakdown
+   **abort_error**: Note nextflow.log path is available for deeper investigation.
 
-Show overall counts as a compact table:
+   **assertion_failure**: Show `assertions_failed` / `assertions_total` per component.
+   Note these likely need snapshot regeneration or investigation.
 
-```
-Status              Count
-passed              70
-tool_error          14
-non_reproducible    1
-```
+   **syntax_error**: Show component and compilation error message.
 
-### 5. Passed tests
+   **unclassified**: Show component and snippet for debugging.
 
-Report only count and percentage: "70 passed (82.4% of 85 total)". Do NOT list individual passed components.
+4. If `timing_anomalies.baselines_available` is true:
+   - Show slow tests (actual vs expected, ratio) if any
+   - Show suspiciously fast tests if any
+   - If none, note all tests within expected range
 
-### 6. Investigate failures
+   If baselines are not available, mention `--update-baselines` can create them.
 
-For each non-passed status, read the `.stdout.txt` files from `logs/{timestamp}/{tier}/{component}.stdout.txt`. Process in priority order:
+5. Summarize actionable items at the end:
+   - Count of unique error patterns
+   - Suggested next steps (e.g., "Declare `test_ont` parameter or remove from test params",
+     "Add missing module.config files")
 
-#### a. syntax_error
+## Progressive Disclosure
 
-Compilation failures. Extract the error message from stdout. Show component name, tier, and the compilation error.
+The initial summary should be compact and scannable. When the user asks for deeper detail:
 
-#### b. tool_error
+- **Specific component**: Read its stdout file at
+  `logs/{timestamp}/{tier}/{component}.stdout.txt` using the Read tool
+- **Abort errors**: Read the `nextflow_log` path from the JSON output
+  (focus on ERROR/WARN lines and last 50 lines)
+- **Assertion details**: Read the stdout file and look for specific assertion
+  mismatch information
 
-Read each failed component's stdout file. Classify into error groups and present grouped:
-
-**Group 1 -- Channel wiring errors**: Look for `java.lang.RuntimeException: Workflow has no output channels` or `ERROR ~ No such variable`. Extract the missing property and source file/line from `Check script '...' at line: N`. Present as: "Channel wiring errors (N): component1, component2 -- MissingPropertyException on ChannelOut"
-
-**Group 2 -- Process execution failures**: Look for `ERROR ~ Error executing process > '...'`. Extract: process name, "Caused by:" line, exit status, and relevant lines from "Command error:" section. Present grouped by similar cause (e.g., download failures together, missing output files together).
-
-**Group 3 -- Test assertion failures**: Look for `Assertion failed:` with `N of M assertions failed` but NO `ERROR ~` line. The workflow completed but test assertions failed. Present as: "Test assertion failures (N): component1, component2 -- workflow completed but output didn't match expectations"
-
-**Group 4 -- Assertion with Nextflow error**: Both `Assertion failed:` AND `ERROR ~` present. Extract the ERROR line. Present grouped by error type.
-
-#### c. non_reproducible
-
-CRITICAL: NEVER suggest "rerun with --update-snapshots" -- that does NOT fix the root cause.
-
-Report:
-- Component name and tier
-- The tool produced different output between two identical runs (generate mode ran the test twice)
-- Suggest investigating WHY the output differs: non-deterministic tool behavior, timestamps in output, random seeds, floating-point ordering, thread-dependent output ordering
-- Read the stdout file to see which assertions failed for additional context
-
-#### d. snapshot_mismatch
-
-Existing snapshot doesn't match current output. Could be expected if code was intentionally changed, or a regression. List components.
-
-#### e. no_snapshot
-
-Missing snapshot file. List components. Note these need a snapshot generated.
-
-#### f. skipped
-
-List components briefly.
-
-## Error Extraction from stdout Files
-
-The stdout files contain ANSI escape codes (`[31m`, `[0m`, etc.). Ignore these when parsing.
-
-Key markers to search for:
-- `ERROR ~ ` -- Primary Nextflow error message
-- `Caused by:` -- One-line error reason
-- `Assertion failed:` -- nf-test assertion failure count
-- `Command exit status:` -- Process exit code
-- `Command error:` -- Container stderr (useful for process failures)
-- `Container:` -- Docker image used
-- `Work dir:` -- Path for manual debugging
-- `Check script '...' at line:` -- Source location of the error
-- `Check '...nextflow.log'` -- Path to detailed Nextflow log
-
-## Deeper Investigation
-
-Do NOT read nextflow.log files during the initial summary. Only investigate when the user asks for deeper detail on a specific failure.
-
-The path to the nextflow.log is in the stdout file after `Check '...' file for details`. These files only exist for failed tests (passed tests have `.nf-test/` cleaned up).
-
-When reading nextflow.log (on request), focus on:
-- Lines containing ERROR or WARN
-- The last 50 lines (error/shutdown section)
-- Stack traces indicating root cause
+Do NOT read nextflow.log or stdout files during the initial summary.
 
 ## Important Reminders
 
-- Always read `.stdout.txt` files for diagnostics, NOT `.stderr.txt` -- stderr is misleading and lacks useful context
-- The `logs/{timestamp}/` directory contains tier subdirectories based on what was tested -- not all tiers are present in every run
-- Group errors by pattern for a scannable summary, not individual component dumps
-- The `.nf-test/` work directories under component test dirs only exist for failed tests
-- If the user asks about a specific component, offer to read its stdout file in full and check for nextflow.log
+- CRITICAL: NEVER suggest "rerun with --update-snapshots" for non_reproducible
+  failures -- that does NOT fix the root cause
+- Always read `.stdout.txt` files for diagnostics, NOT `.stderr.txt`
+- The `logs/{timestamp}/` directory contains tier subdirectories based on what
+  was tested -- not all tiers are present in every run
+- The `.nf-test/` work directories under component test dirs only exist for
+  failed tests
+- If the user asks about a specific component, offer to read its stdout file
+  in full and check for nextflow.log
+
+## JSON Output Fields
+
+- `timestamp` -- when the test run started (reformatted from directory name)
+- `run_dir` -- path to the test run directory
+- `total_tests` -- number of tests run
+- `tiers_tested` -- list of tiers present (modules, subworkflows, workflows)
+- `duration` -- `total_seconds`, `average_seconds`, `median_seconds`,
+  `longest` (component/tier/duration), `shortest` (component/tier/duration)
+- `status_counts` -- map of status to count (e.g., passed, tool_error)
+- `passed` -- `count` and `percentage`
+- `failure_groups` -- array of groups, each with:
+  - `pattern` -- error classification key
+  - `label` -- human-readable group name
+  - `count` -- number of failures in this group
+  - `detail` -- one-line explanation of this error type
+  - `parameters` -- (undeclared_parameter only) map of param name to count
+  - `components` -- array of affected components with pattern-specific fields:
+    - Common: `component`, `tier`, `status`, `duration`, `pattern`, `message`
+    - undeclared_parameter: `parameters` (list of param names)
+    - missing_config: `missing_path`
+    - process_failure: `process`, `caused_by`, `exit_status`, `command_error`
+    - abort_error: `nextflow_log` (path for deeper investigation)
+    - assertion_failure: `assertions_failed`, `assertions_total`
+    - unclassified: `snippet` (first 500 chars)
+- `timing_anomalies` -- `baselines_file`, `baselines_available`,
+  `slow_tests` and `fast_tests` arrays with `component`, `tier`,
+  `actual_seconds`, `expected_seconds`, `ratio`

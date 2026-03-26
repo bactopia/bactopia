@@ -10,9 +10,9 @@
  * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation ngmaster
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited NG-MASTER results with porB and tbpB alleles and sequence type
@@ -27,7 +27,7 @@ process NGMASTER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -54,20 +54,20 @@ process NGMASTER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     ngmaster \\
         ${task.ext.args} \\
-        ${assembly_name} \\
+        ${fna_name} \\
         > ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

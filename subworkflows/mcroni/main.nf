@@ -40,6 +40,7 @@ workflow MCRONI {
     CSVTK_CONCAT(gather(MCRONI_MODULE.out, 'tsv', [name: 'mcroni']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = MCRONI_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

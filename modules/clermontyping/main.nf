@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation clermontyping
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited E. coli phylogroup assignment with detected marker genes
@@ -27,7 +27,7 @@ process CLERMONTYPING {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -56,24 +56,24 @@ process CLERMONTYPING {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     clermonTyping.sh \\
-        --fasta ${assembly_name} \\
+        --fasta ${fna_name} \\
         --name supplemental \\
         ${task.ext.args}
 
     # Remove temporary files and rename outputs
-    rm supplemental/${assembly_name} ${assembly_name}
+    rm supplemental/${fna_name} ${fna_name}
     rm -rf supplemental/db
     rm -rf supplemental/supplemental.R
-    mv supplemental/${assembly_name}.xml supplemental/${prefix}.blast.xml
-    mv supplemental/${assembly_name}_mash_screen.tab supplemental/${prefix}.mash.tsv
+    mv supplemental/${fna_name}.xml supplemental/${prefix}.blast.xml
+    mv supplemental/${fna_name}_mash_screen.tab supplemental/${prefix}.mash.tsv
     mv supplemental/supplemental.html supplemental/${prefix}.html
 
     # add column names to phylogroups file

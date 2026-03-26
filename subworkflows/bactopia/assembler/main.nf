@@ -25,15 +25,13 @@
  * - `se`  : Single-end Illumina reads
  * - `lr`  : Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
- * @output assembly       Assembled contigs in FASTA format
- * @output assembly_reads Record containing assembly and read slots for downstream analysis
- * @output tsv            Per-sample tab-delimited assembly statistics (N50, length, coverage)
- * @output merged_tsv     Consolidated assembly statistics report across all samples
- * @output error          Captured error messages if assembly fails
- * @output results        Aggregated results channel containing all output files
- * @output logs           Aggregated logs channel containing all execution logs
- * @output nf_logs        Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions       Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
+ * - `supplemental`: Supplemental files including assembly graphs and tool-specific logs
+ * - `error`: Captured error messages if assembly fails
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated assembly statistics from all samples
  */
 nextflow.preview.types = true
 
@@ -51,11 +49,11 @@ workflow ASSEMBLER {
     CSVTK_CONCAT(gather(ASSEMBLER_MODULE.out, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    assembly = filterWithData(ASSEMBLER_MODULE.out, ['assembly'])
-    assembly_reads = filterWithData(ASSEMBLER_MODULE.out, ['assembly'])
+    // Downstream inputs
+    assembly = filterWithData(ASSEMBLER_MODULE.out, ['fna'])
+    assembly_reads = filterWithData(ASSEMBLER_MODULE.out, ['fna', 'r1', 'r2', 'se', 'lr'])
 
-    // Aggregate outputs
+    // Published outputs
     sample_outputs = ASSEMBLER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

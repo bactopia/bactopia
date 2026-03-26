@@ -40,7 +40,9 @@ workflow STECFINDER {
     main:
     STECFINDER_MODULE(seqs)
     CSVTK_CONCAT(gather(STECFINDER_MODULE.out, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
+
     emit:
+    // Published outputs
     sample_outputs = STECFINDER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

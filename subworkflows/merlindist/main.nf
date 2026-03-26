@@ -59,5 +59,6 @@ workflow MERLINDIST {
     MERLIN_DIST(ch_seqs, ch_mash_db)
 
     emit:
+    // Published outputs
     sample_outputs = MERLIN_DIST.out
 }

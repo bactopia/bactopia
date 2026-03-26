@@ -16,20 +16,20 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @input record(meta, r1_files, r2_files, se_files, lr_files, assembly_files)
+ * @input record(meta, r1_files, r2_files, se_files, lr_files, fna_files)
  * - `meta`: Groovy Map containing sample information
  * - `r1_files`: Illumina R1 read files (Set, for merging multiple runs)
  * - `r2_files`: Illumina R2 read files (Set, for merging multiple runs)
  * - `se_files`: Single-end read files (Set, for merging multiple runs)
  * - `lr_files`: Long read files (ONT) or assembly for simulation
- * - `assembly_files`: Input or downloaded assembly file
+ * - `fna_files`: Input or downloaded assembly file
  *
- * @output record(meta, r1, r2, se, lr, assembly, tsv, error, results, logs, nf_logs, versions)
+ * @output record(meta, r1, r2, se, lr, fna, tsv, error, results, logs, nf_logs, versions)
  * - `r1`: Merged Illumina R1 read file (Path?, optional)
  * - `r2`: Merged Illumina R2 read file (Path?, optional)
  * - `se`: Merged single-end read file (Path?, optional)
  * - `lr`: Merged long read file (ONT) (Path?, optional)
- * - `assembly`: Assembly file (Path?, optional)
+ * - `fna`: Assembly file (Path?, optional)
  * - `tsv`: A tab-delimited metadata file describing the valid samples
  * - `error`: Captured error messages for validation or download failures
  */
@@ -43,14 +43,14 @@ process GATHER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, assembly_files: Set<Path?>): Record
+    (_meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
 
     stage:
     stageAs '*???-r1', r1_files
     stageAs '*???-r2', r2_files
     stageAs '*???-se', se_files
     stageAs '*???-lr', lr_files
-    stageAs '*???-assembly', assembly_files
+    stageAs '*???-assembly', fna_files
 
     output:
     record(
@@ -60,7 +60,7 @@ process GATHER {
         r2: file("fastqs/${prefix}_R2.fastq.gz", optional: true),
         se: file("fastqs/${prefix}_SE.fastq.gz", optional: true),
         lr: file("fastqs/${prefix}_ONT.fastq.gz", optional: true),
-        assembly: file("assembly/${prefix}.fna.gz", optional: true),
+        fna: file("assembly/${prefix}.fna.gz", optional: true),
         tsv: file("${prefix}-meta.tsv"),
         // Generic fields (used for publishing)
         results: [
@@ -112,7 +112,7 @@ process GATHER {
     def Path r2_first = r2_files.size() > 0 ? r2_files.toList()[0] : null
     def Path se_first = se_files.size() > 0 ? se_files.toList()[0] : null
     def Path lr_first = lr_files.size() > 0 ? lr_files.toList()[0] : null
-    def Path assembly_first = assembly_files.size() > 0 ? assembly_files.toList()[0] : null
+    def Path fna_first = fna_files.size() > 0 ? fna_files.toList()[0] : null
     def String qin = runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     """
     #==========================================================================================
@@ -259,12 +259,12 @@ process GATHER {
                 gzip -cd assembly/${prefix}.fna.gz > ${prefix}-art.fna
             elif [ "${runtype}" == "assembly" ]; then
                 if [ "${meta.is_compressed}" == "true" ]; then
-                    gzip -cd ${assembly_first} > ${prefix}-art.fna
+                    gzip -cd ${fna_first} > ${prefix}-art.fna
                 else
-                    cat ${assembly_first} > ${prefix}-art.fna
+                    cat ${fna_first} > ${prefix}-art.fna
                 fi
                 # Keep the original assembly
-                cp -L ${assembly_first} assembly/${prefix}.fna.gz
+                cp -L ${fna_first} assembly/${prefix}.fna.gz
             fi
 
             # Simulate reads from assembly, reads are 250bp without errors

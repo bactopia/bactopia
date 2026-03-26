@@ -51,6 +51,7 @@ workflow GUBBINS {
     SNPDISTS(gather(GUBBINS_MODULE.out, 'masked_aln', [name: 'core-snp.masked.distance', process_name: 'snpdists-masked']))
 
     emit:
+    // Published outputs
     sample_outputs = GUBBINS_MODULE.out
     snpdists_outputs = SNPDISTS.out
 }

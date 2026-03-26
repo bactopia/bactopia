@@ -39,6 +39,7 @@ workflow SEROBA {
     CSVTK_CONCAT(gather(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SEROBA_RUN.out
     run_outputs = CSVTK_CONCAT.out
 }

@@ -42,7 +42,9 @@ workflow SHIGATYPER {
     main:
     SHIGATYPER_MODULE(reads)
     CSVTK_CONCAT(gather(SHIGATYPER_MODULE.out, 'tsv', [name: 'shigatyper']), 'tsv', 'tsv')
+
     emit:
+    // Published outputs
     sample_outputs = SHIGATYPER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

@@ -39,8 +39,7 @@ workflow LISSERO {
     CSVTK_CONCAT(gather(LISSERO_MODULE.out, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = LISSERO_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

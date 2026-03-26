@@ -45,6 +45,7 @@ workflow GAMMA {
     CSVTK_CONCAT(gather(GAMMA_MODULE.out, 'gamma', [name: 'gamma']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = GAMMA_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

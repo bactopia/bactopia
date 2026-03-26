@@ -10,9 +10,9 @@
  * @tags complexity:simple input-type:single output-type:single features:compression,conditional-logic
  * @citation hpsuissero
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Haemophilus parasuis serotype prediction results
@@ -27,7 +27,7 @@ process HPSUISSERO {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -55,15 +55,15 @@ process HPSUISSERO {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     HpsuisSero.sh \\
-        -i ${assembly_name} \\
+        -i ${fna_name} \\
         -o ./ \\
         -s ${prefix} \\
         -x fasta \\
@@ -71,7 +71,7 @@ process HPSUISSERO {
 
     # Cleanup
     mv ${prefix}_serotyping_res.tsv ./${prefix}.tsv
-    rm -rf ${assembly_name} blast_res/
+    rm -rf ${fna_name} blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

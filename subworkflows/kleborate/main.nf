@@ -39,6 +39,7 @@ workflow KLEBORATE {
     CSVTK_CONCAT(gather(KLEBORATE_MODULE.out, 'tsv', [name: 'kleborate']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = KLEBORATE_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

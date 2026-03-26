@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation hicap
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input database_dir
  * Optional path to a custom hicap reference database directory
@@ -35,7 +35,7 @@ process HICAP {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     database_dir   : Path?
     model_fp       : Path?
 
@@ -71,15 +71,15 @@ process HICAP {
 
     def database_args = database_dir ? "--database_dir ${database_dir}" : ""
     def model_args = model_fp ? "--model_fp ${model_fp}" : ""
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     hicap \\
-        --query_fp ${assembly_name} \\
+        --query_fp ${fna_name} \\
         ${database_args} \\
         ${model_args} \\
         ${task.ext.args} \\
@@ -95,7 +95,7 @@ process HICAP {
     fi
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

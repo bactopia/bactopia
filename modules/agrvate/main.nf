@@ -9,9 +9,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation agrvate
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled Staphylococcus aureus contigs in FASTA format
+ * - `fna`: Assembled Staphylococcus aureus contigs in FASTA format
  *
  * @output record(meta, summary, results, logs, nf_logs, versions)
  * - `summary`: Tab-delimited summary of agr locus type and operon variants
@@ -26,10 +26,10 @@ process AGRVATE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     stage:
-    stageAs 'input/*', assembly
+    stageAs 'input/*', fna
 
     output:
     record(
@@ -58,24 +58,24 @@ process AGRVATE {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = "${prefix}.fna"
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = "${prefix}.fna"
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ./${assembly_name}
+        gzip -c -d ${fna} > ./${fna_name}
     else
-        cp ${assembly} ./${assembly_name}
+        cp ${fna} ./${fna_name}
     fi
 
     agrvate \\
         ${task.ext.args} \\
-        -i ${assembly_name}
+        -i ${fna_name}
 
     mv ${prefix}-results/ supplemental/
     mv supplemental/${prefix}-summary.tab ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

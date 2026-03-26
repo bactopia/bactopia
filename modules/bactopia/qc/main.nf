@@ -21,13 +21,13 @@
  *
  * @note Uses EMPTY_* placeholder files for optional parameters (adapters, phix)
  *
- * @input record(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1, r2, se, lr, fna)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1`: Illumina R1 reads (paired-end forward)
  * - `r2`: Illumina R2 reads (paired-end reverse)
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT)
- * - `assembly`: Assembly file (FASTA) for assembly-based simulations
+ * - `fna`: Assembly file (FASTA) for assembly-based simulations
  *
  * @input adapters
  * Optional filepath for custom adapter sequences (FASTA)
@@ -35,12 +35,12 @@
  * @input phix
  * Optional filepath for custom PhiX sequences (FASTA)
  *
- * @output record(meta, r1, r2, se, lr, assembly, reads_grouped, supplemental, error, results, logs, nf_logs, versions)
+ * @output record(meta, r1, r2, se, lr, fna, reads_grouped, supplemental, error, results, logs, nf_logs, versions)
  * - `r1`: QC'd Illumina R1 reads (paired-end forward)
  * - `r2`: QC'd Illumina R2 reads (paired-end reverse)
  * - `se`: QC'd single-end Illumina reads
  * - `lr`: QC'd long reads (ONT)
- * - `assembly`: Assembly file (FASTA)
+ * - `fna`: Assembly file (FASTA)
  * - `reads_grouped`: All output FASTQs for publishing
  * - `supplemental`: QC reports (FastQC/NanoPlot), JSON metrics, and error FASTQs if QC failed
  * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
@@ -55,7 +55,7 @@ process QC {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, assembly: Path?): Record
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
     adapters                                                                 : Path?
     phix                                                                     : Path?
 
@@ -64,7 +64,7 @@ process QC {
     stageAs 'input-r2/*', r2
     stageAs 'input-se/*', se
     stageAs 'input-lr/*', lr
-    stageAs 'input-assembly/*', assembly
+    stageAs 'input-assembly/*', fna
 
     output:
     record(
@@ -73,7 +73,7 @@ process QC {
         r2: file("${prefix}_R2.fastq.gz", optional: true),
         se: file("${prefix}_SE.fastq.gz", optional: true),
         lr: file("${prefix}_ONT.fastq.gz", optional: true),
-        assembly: file("assembly/${prefix}.fna.gz", optional: true),
+        fna: file("assembly/${prefix}.fna.gz", optional: true),
         reads_grouped: files("${prefix}*.fastq.gz", optional: true),
         supplemental: files("supplemental/*", optional: true),
         error: files("*-error.txt", optional: true),
@@ -166,7 +166,7 @@ process QC {
 
     if is_assembly; then
         # Copy the assembly over to assembly
-        cp ${assembly} assembly/${prefix}.fna.gz
+        cp ${fna} assembly/${prefix}.fna.gz
     else
         touch assembly/EMPTY_ASSEMBLY
     fi

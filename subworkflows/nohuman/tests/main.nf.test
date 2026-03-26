@@ -32,7 +32,8 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert workflow.out.sample_outputs != null },
-                { assert sample.scrubbed.size() > 0 },
+                { assert sample.r1 != null },
+                { assert sample.r2 != null },
                 { assert snapshot(
                     sample.meta,
                     sample.versions

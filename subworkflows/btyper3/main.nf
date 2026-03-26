@@ -38,8 +38,7 @@ workflow BTYPER3 {
     CSVTK_CONCAT(gather(BTYPER3_MODULE.out, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records
+    // Published outputs
     sample_outputs = BTYPER3_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

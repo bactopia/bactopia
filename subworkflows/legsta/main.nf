@@ -39,8 +39,7 @@ workflow LEGSTA {
     CSVTK_CONCAT(gather(LEGSTA_MODULE.out, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records (contains meta, tsv, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = LEGSTA_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

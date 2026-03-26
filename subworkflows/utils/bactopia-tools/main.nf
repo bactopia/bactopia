@@ -60,11 +60,11 @@ workflow BACTOPIATOOL_INIT {
     }
     collectedInputs.samples.each { sample ->
         ch_reads                 << record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly              << record(meta: sample.meta, assembly: sample.assembly)
+        ch_assembly              << record(meta: sample.meta, fna: sample.assembly)
         ch_assembly_reads        << record(meta: sample.meta, fna: sample.assembly, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly_meta         << record(meta: sample.meta, assembly: sample.assembly, meta_file: sample.meta_file)
-        ch_assembly_proteins_gff << record(meta: sample.meta, assembly: sample.assembly, proteins: sample.proteins, gff: sample.gff)
-        ch_proteins              << record(meta: sample.meta, proteins: sample.proteins)
+        ch_assembly_meta         << record(meta: sample.meta, fna: sample.assembly, meta_file: sample.meta_file)
+        ch_assembly_proteins_gff << record(meta: sample.meta, fna: sample.assembly, faa: sample.proteins, gff: sample.gff)
+        ch_proteins              << record(meta: sample.meta, faa: sample.proteins)
         ch_gffs                  << record(meta: sample.meta, gff: sample.gff)
     }
 

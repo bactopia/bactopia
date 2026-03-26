@@ -32,6 +32,8 @@
  * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
  * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
  * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -46,5 +48,7 @@ workflow KRAKEN2 {
     KRAKEN2_MODULE(reads, database)
 
     emit:
+    // Published outputs
     sample_outputs = KRAKEN2_MODULE.out
+    run_outputs = channel.empty()
 }

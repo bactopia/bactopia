@@ -56,6 +56,7 @@ workflow SNIPPY_CORE {
     SNPDISTS(gather(SNIPPY_CORE_MODULE.out, 'clean_full_aln', [name: 'core-snp.distance']))
 
     emit:
+    // Published outputs
     sample_outputs = SNIPPY_CORE_MODULE.out
     snpdists_outputs = SNPDISTS.out.sample_outputs
 }

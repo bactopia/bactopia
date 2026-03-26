@@ -11,9 +11,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
  * @citation gamma
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
  * The reference gene database in FASTA format
@@ -34,7 +34,7 @@ process GAMMA {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     db                   : Path
 
     output:
@@ -69,23 +69,23 @@ process GAMMA {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     def VERSION = '2.1'
     // Version information not provided by tool on CLI
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     GAMMA.py \\
         ${task.ext.args} \\
-        ${assembly_name} \\
+        ${fna_name} \\
         ${db} \\
         ${prefix}
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

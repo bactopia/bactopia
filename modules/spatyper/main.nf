@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:single features:compression,conditional-logic
  * @citation spatyper
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input repeats
  * Custom repeat sequences file (Optional)
@@ -33,7 +33,7 @@ process SPATYPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     repeats        : Path?
     repeat_order   : Path?
 
@@ -64,21 +64,21 @@ process SPATYPER {
     meta.process_name = task.ext.process_name
 
     def input_args = repeats && repeat_order ? "-r ${repeats} -o ${repeat_order}" : ""
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     spaTyper \\
         ${task.ext.args} \\
         ${input_args} \\
-        --fasta ${assembly_name} \\
+        --fasta ${fna_name} \\
         --output ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

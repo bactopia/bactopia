@@ -7,6 +7,7 @@
                 "name": "SRR2838702",
                 "output_dir": "SRR2838702/tools/nohuman/",
                 "process_name": "nohuman",
+                "runtype": "paired-end",
                 "scope": "sample",
                 "single_end": false
             },
@@ -18,7 +19,7 @@
                 "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-03-25T06:11:12.072045563",
+        "timestamp": "2026-03-25T18:58:15.985405836",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"
@@ -32,6 +33,7 @@
                 "name": "SRR2838702",
                 "output_dir": "SRR2838702/tools/nohuman/",
                 "process_name": "nohuman",
+                "runtype": "paired-end",
                 "scope": "sample",
                 "single_end": false
             },
@@ -43,7 +45,7 @@
                 "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-03-25T06:08:19.519930804",
+        "timestamp": "2026-03-25T18:55:23.625199009",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

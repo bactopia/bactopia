@@ -13,9 +13,9 @@
  * @note Database Required
  * Requires the MLST database (derived from PubMLST) to be available.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
  * Directory or compressed tarball containing the MLST database schemes
@@ -33,7 +33,7 @@ process MLST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     db                : Path
 
     output:
@@ -78,7 +78,7 @@ process MLST {
         --blastdb \$MLST_DB/blast/mlst.fa \\
         --datadir \$MLST_DB/pubmlst \\
         ${task.ext.args} \\
-        ${assembly} \\
+        ${fna} \\
         > ${prefix}.tsv
 
     if [[ -f "\$MLST_DB/DB_VERSION" ]]; then

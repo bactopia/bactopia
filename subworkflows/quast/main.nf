@@ -41,6 +41,7 @@ workflow QUAST {
     CSVTK_CONCAT(gather(QUAST_MODULE.out, 'tsv', [name: 'quast']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = QUAST_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

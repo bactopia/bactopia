@@ -30,7 +30,8 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.scrubbed.size() > 0 },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
                 { assert record.scrub_report != null },
                 { assert record.special_meta != null },
                 { assert snapshot(
@@ -68,7 +69,8 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
-                { assert record.scrubbed.size() > 0 },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
                 { assert record.scrub_report != null },
                 { assert record.special_meta != null },
                 { assert snapshot(

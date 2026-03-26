@@ -21,6 +21,8 @@
  * - `tree`: Phylogenetic tree in Newick format
  * - `tsv`: Pairwise distance matrix
  * - `sketches`: Individual Mash sketch files
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -35,5 +37,7 @@ workflow MASHTREE {
     MASHTREE_MODULE(gather(assembly, 'assembly', [name: 'mashtree']))
 
     emit:
+    // Published outputs
     sample_outputs = MASHTREE_MODULE.out
+    run_outputs = channel.empty()
 }

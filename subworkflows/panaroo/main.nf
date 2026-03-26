@@ -23,6 +23,8 @@
  *   - `csv`: Gene presence/absence matrix in Roary-compatible CSV format (optional)
  *   - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
  *   - `supplemental`: Directory containing Panaroo intermediate files and data structures
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -36,5 +38,7 @@ workflow PANAROO {
     PANAROO_RUN(gff)
 
     emit:
+    // Published outputs
     sample_outputs = PANAROO_RUN.out
+    run_outputs = channel.empty()
 }

@@ -105,6 +105,7 @@ workflow {WORKFLOW_NAME} {
     CSVTK_CONCAT(gather({TOOL}_MODULE.out, '{field}', [name: '{tool}']), '{format}', '{format}')
 
     emit:
+    // Published outputs
     sample_outputs = {TOOL}_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }
@@ -128,7 +129,9 @@ workflow {WORKFLOW_NAME} {
     {TOOL}_MODULE({input_name}{, additional_args})
 
     emit:
+    // Published outputs
     sample_outputs = {TOOL}_MODULE.out
+    run_outputs = channel.empty()
 }
 ```
 
@@ -154,6 +157,7 @@ workflow {WORKFLOW_NAME} {
     CSVTK_CONCAT(gather(MODULE_B_RUN.out, '{field}', [name: '{tool}']), '{format}', '{format}')
 
     emit:
+    // Published outputs
     sample_outputs = MODULE_A_RUN.out.mix(MODULE_B_RUN.out)
     run_outputs = CSVTK_CONCAT.out
 }
@@ -164,31 +168,43 @@ workflow {WORKFLOW_NAME} {
 Use when: module has a separate download module for its database.
 
 ```groovy
-include { {TOOL}_DOWNLOAD         } from '../../modules/{tool}/download/main'
-include { {TOOL}_RUN as {TOOL}_MODULE } from '../../modules/{tool}/run/main'
-include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gather                  } from 'plugin/nf-bactopia'
+include { {TOOL}_DOWNLOAD              } from '../../modules/{tool}/download/main'
+include { {TOOL}_RUN as {TOOL}_MODULE  } from '../../modules/{tool}/run/main'
+include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
+include { gather                       } from 'plugin/nf-bactopia'
 
 workflow {WORKFLOW_NAME} {
     take:
     {input_name}: Channel<Record>
-    database: Path
+    database: Path?
     download_{tool}: Boolean
+    save_as_tarball: Boolean
 
     main:
     if (download_{tool}) {
         {TOOL}_DOWNLOAD()
-        {TOOL}_MODULE({input_name}, {TOOL}_DOWNLOAD.out.db)
+
+        if (save_as_tarball) {
+            {TOOL}_MODULE({input_name}, {TOOL}_DOWNLOAD.out.map { r -> r.db_tarball })
+        } else {
+            {TOOL}_MODULE({input_name}, {TOOL}_DOWNLOAD.out.map { r -> r.db })
+        }
     } else {
         {TOOL}_MODULE({input_name}, database)
     }
     CSVTK_CONCAT(gather({TOOL}_MODULE.out, '{field}', [name: '{tool}']), '{format}', '{format}')
 
     emit:
+    // Published outputs
     sample_outputs = {TOOL}_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }
 ```
+
+**Important notes for Pattern D:**
+- Download modules emit records: extract fields with `.out.map { r -> r.db }`, NOT `.out.db`
+- Download modules should emit `db` (directory), `db_tarball` (compressed), and `logs`
+- `database` parameter is `Path?` (nullable) since it's unused when downloading
 
 **Key rules for main.nf:**
 - ALWAYS include `nextflow.preview.types = true` before the workflow
@@ -250,21 +266,7 @@ nextflow_workflow {
 }
 ```
 
-If the subworkflow has no `run_outputs`, remove those assertions:
-```groovy
-        then {
-            def sample = workflow.out.sample_outputs[0]
-            assertAll(
-                { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
-                { assert snapshot(
-                    sample.meta,
-                    sample.{output_field},
-                    sample.versions
-                ).match() }
-            )
-        }
-```
+**Note:** All subworkflows now emit both `sample_outputs` and `run_outputs` (using `channel.empty()` when no aggregation). Tests should always assert both exist.
 
 **Default test data:** Same as add-module -- Portiera for assembly, Portiera reads for read-based.
 

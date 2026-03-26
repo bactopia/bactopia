@@ -30,7 +30,7 @@ process NOHUMAN_DOWNLOAD {
 
     output:
     record(
-        db:         files("nohuman-db/*", optional: true),
+        db:         file("nohuman-db", optional: true),
         db_tarball: file("nohuman-db.tar.gz", optional: true),
         logs:       files("logs/*", optional: true)
     )

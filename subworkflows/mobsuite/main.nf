@@ -41,6 +41,7 @@ workflow MOBSUITE {
     CSVTK_CONCAT(gather(MOBSUITE_RECON.out, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = MOBSUITE_RECON.out
     run_outputs = CSVTK_CONCAT.out
 }

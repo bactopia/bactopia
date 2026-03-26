@@ -38,6 +38,7 @@ workflow NGMASTER {
     CSVTK_CONCAT(gather(NGMASTER_MODULE.out, 'tsv', [name: 'ngmaster']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = NGMASTER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

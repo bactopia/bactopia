@@ -2,6 +2,7 @@ bactopia/
 bactopia.github.io/
 bactopia-tests/
 temp/
+temp-test/
 data/datasets/*.gz
 data/datasets/*.msh
 data/datasets/*.db

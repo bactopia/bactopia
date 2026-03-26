@@ -21,6 +21,8 @@
  *   - `aln`: Core genome alignment in FASTA format (optional)
  *   - `csv`: Gene presence/absence table
  *   - `supplemental`: Supplemental files including accessory binary genes and graphs
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -34,5 +36,7 @@ workflow ROARY {
     ROARY_MODULE(gff)
 
     emit:
+    // Published outputs
     sample_outputs = ROARY_MODULE.out
+    run_outputs = channel.empty()
 }

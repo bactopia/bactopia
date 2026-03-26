@@ -42,8 +42,7 @@ workflow ABRITAMR {
     CSVTK_CONCAT(gather(ABRITAMR_RUN.out, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records (contains meta, summary, matches, partials, virulence, amrfinder, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = ABRITAMR_RUN.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

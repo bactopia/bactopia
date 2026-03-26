@@ -14,9 +14,9 @@
  * Kleborate bundles the required databases for species identification, MLST,
  * and virulence/resistance gene detection.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Kleborate results with species, MLST, virulence, and resistance predictions
@@ -31,7 +31,7 @@ process KLEBORATE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -63,7 +63,7 @@ process KLEBORATE {
     kleborate \\
         ${task.ext.args} \\
         --outdir results/ \\
-        --assemblies ${assembly}
+        --assemblies ${fna}
 
     # Rename output file to include the prefix name
     find results/ -name "*output.txt" -print0 | while read -d \$'\0' file; do mv "\$file" "${prefix}.txt"; done

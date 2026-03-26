@@ -13,9 +13,9 @@
  * @note Database Required
  * Requires the DefenseFinder HMM database to be available.
  *
- * @input record(meta, proteins)
+ * @input record(meta, faa)
  * - `meta`: Groovy Map containing sample information
- * - `proteins`: Protein sequences in FASTA format (amino acids)
+ * - `faa`: Protein sequences in FASTA format (amino acids)
  *
  * @input db
  * Directory containing the DefenseFinder models database
@@ -38,11 +38,11 @@ process DEFENSEFINDER_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, proteins: Path): Record
+    (_meta: Map, faa: Path): Record
     db                          : Path
 
     stage:
-    stageAs 'proteins/*', proteins
+    stageAs 'proteins/*', faa
 
     output:
     record(
@@ -80,7 +80,7 @@ process DEFENSEFINDER_RUN {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def which_cat = proteins.getName().endsWith(".gz") ? "zcat" : "cat"
+    def which_cat = faa.getName().endsWith(".gz") ? "zcat" : "cat"
     """
     # Extract database
     # Use custom TMPDIR to prevent FileExistsError related to writing to same tmpdir (/tmp/tmp-macsy-cache/)
@@ -99,7 +99,7 @@ process DEFENSEFINDER_RUN {
 
     # DefenseFinder will attempt to gunzip the original symlink input file, so we need to
     # create a temporary uncompressed copy if the input is gzipped
-    ${which_cat} ${proteins} > ${prefix}.fna
+    ${which_cat} ${faa} > ${prefix}.fna
 
     TMPDIR=df-tmp/ HOME=df-tmp/ defense-finder \\
         run \\

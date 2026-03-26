@@ -5,15 +5,15 @@ nextflow_pipeline {
     tag "workflows"
     tag "bactopia"
 
-    test("Bactopia (pe) - SRR2838702|portiera|compressed_fastq") {
+    test("Bactopia (pe) - SRR2838702|portiera|illumina") {
         when {
             params {
                 bactopia_test = ""
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R1.fastq.gz"
-                test_r2 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R2.fastq.gz"
+                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
                 test_ont = ""
                 is_ci = true
@@ -43,7 +43,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (se) - SRR2838702|portiera|compressed_fastq") {
+    test("Bactopia (se) - SRR2838702|portiera|illumina") {
         when {
             params {
                 bactopia_test = ""
@@ -52,7 +52,7 @@ nextflow_pipeline {
                 test_dataset3 = ""
                 test_r1 = ""
                 test_r2 = ""
-                test_se = "/species//mixed/reads/SRR2838702SE/main/qc/SRR2838702SE.fastq.gz"
+                test_se = "/data/species/portiera/illumina/SRR2838702SE.fastq.gz"
                 test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
@@ -81,7 +81,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (ont) - ERR3772599|portiera|compressed_fastq") {
+    test("Bactopia (ont) - ERR3772599|portiera|nanopore") {
         when {
             params {
                 bactopia_test = ""
@@ -91,7 +91,7 @@ nextflow_pipeline {
                 test_r1 = ""
                 test_r2 = ""
                 test_se = ""
-                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"
@@ -119,17 +119,17 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (hybrid) - ERR3772599|portiera|compressed_fastq") {
+    test("Bactopia (hybrid) - ERR3772599|portiera|illumina+nanopore") {
         when {
             params {
                 bactopia_test = ""
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R1.fastq.gz"
-                test_r2 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R2.fastq.gz"
+                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
-                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"
@@ -158,17 +158,17 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (short polish) - ERR3772599|portiera|compressed_fastq") {
+    test("Bactopia (short polish) - ERR3772599|portiera|illumina+nanopore") {
         when {
             params {
                 bactopia_test = ""
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R1.fastq.gz"
-                test_r2 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R2.fastq.gz"
+                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
-                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"
@@ -198,15 +198,15 @@ nextflow_pipeline {
     }
 
     // Fail gracefully
-    test("Bactopia (low proportion) - SRR2838702|portiera|compressed_fastq") {
+    test("Bactopia (low proportion) - SRR2838702|portiera|illumina") {
         when {
             params {
                 bactopia_test = ""
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
-                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2-low-proportion.fastq.gz"
+                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2-low-proportion.fastq.gz"
                 test_se = ""
                 test_ont = ""
                 is_ci = true
@@ -236,7 +236,7 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (low coverage) - ERR3772599|portiera|compressed_fastq") {
+    test("Bactopia (low coverage) - ERR3772599|portiera|nanopore") {
         when {
             params {
                 bactopia_test = ""
@@ -246,7 +246,7 @@ nextflow_pipeline {
                 test_r1 = ""
                 test_r2 = ""
                 test_se = ""
-                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"

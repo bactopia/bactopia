@@ -43,6 +43,7 @@ workflow AMRFINDERPLUS {
     CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = AMRFINDERPLUS_RUN.out
     run_outputs = CSVTK_CONCAT.out
 }

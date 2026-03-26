@@ -26,6 +26,8 @@
  * @output sample_outputs
  * - `xml`: The PneumoCaT result files in XML format
  * - `txt`: A file containing the coverage information across the genes
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -39,5 +41,7 @@ workflow PNEUMOCAT {
     PNEUMOCAT_MODULE(reads)
 
     emit:
+    // Published outputs
     sample_outputs = PNEUMOCAT_MODULE.out
+    run_outputs = channel.empty()
 }

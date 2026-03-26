@@ -68,6 +68,7 @@ workflow PANGENOME {
     SNPDISTS(gather(ch_sample_outputs, aln_field, [name: 'core-genome.distance']))
 
     emit:
+    // Published outputs
     sample_outputs = ch_sample_outputs
     snpdists_outputs = SNPDISTS.out.sample_outputs
 }

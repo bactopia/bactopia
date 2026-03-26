@@ -47,6 +47,7 @@ workflow NCBIGENOMEDOWNLOAD {
     ch_to_bactopia_tools = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path -> [[id: file(path).getSimpleName()], file(path)] }
 
     emit:
+    // Published outputs
     sample_outputs = NCBIGENOMEDOWNLOAD_MODULE.out
     bactopia_tools = ch_to_bactopia_tools
 }

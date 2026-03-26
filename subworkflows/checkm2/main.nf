@@ -50,7 +50,7 @@ workflow CHECKM2 {
     main:
     if (download_checkm2) {
         CHECKM2_DOWNLOAD()
-        CHECKM2_PREDICT(assembly, CHECKM2_DOWNLOAD.out.db)
+        CHECKM2_PREDICT(assembly, CHECKM2_DOWNLOAD.out.map { r -> r.db })
     } else {
         CHECKM2_PREDICT(assembly, database)
     }
@@ -59,6 +59,7 @@ workflow CHECKM2 {
     CSVTK_CONCAT(gather(CHECKM2_PREDICT.out, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = CHECKM2_PREDICT.out
     run_outputs = CSVTK_CONCAT.out
 }

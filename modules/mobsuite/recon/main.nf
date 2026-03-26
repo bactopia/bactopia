@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation mobsuite
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, chromosome, contig_report, txt, plasmids, results, logs, nf_logs, versions)
  * - `chromosome`: Chromosomal sequences separated from plasmid contigs (gzipped FASTA)
@@ -30,7 +30,7 @@ process MOBSUITE_RECON {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -64,11 +64,11 @@ process MOBSUITE_RECON {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def fasta_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fasta_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${fasta_name}
+        gzip -c -d ${fna} > ${fasta_name}
     fi
 
     mob_recon \\

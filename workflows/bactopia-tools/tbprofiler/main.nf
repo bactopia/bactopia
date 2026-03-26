@@ -69,8 +69,8 @@ output {
             r.json     >> "${r.meta.output_dir}/"
             r.txt      >> "${r.meta.output_dir}/"
             r.vcf      >> "${r.meta.output_dir}/"
-            r.logs     >> "${r.meta.logs_dir}/"
-            r.versions >> "${r.meta.logs_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {
@@ -78,10 +78,10 @@ output {
     }
     run_outputs {
         path { r ->
-            r.results  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
             r.itol     >> "${params.rundir}/${r.meta.output_dir}/"
-            r.logs     >> "${params.rundir}/${r.meta.logs_dir}/"
-            r.versions >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
     run_nf_logs {

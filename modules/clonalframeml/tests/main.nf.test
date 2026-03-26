@@ -32,7 +32,6 @@ nextflow_process {
                     record.em,
                     record.status,
                     record.newick,
-                    record.masked_aln,
                     record.versions
                 ).match() }
             )
@@ -66,7 +65,6 @@ nextflow_process {
                     record.em,
                     record.status,
                     record.newick,
-                    record.masked_aln,
                     record.versions
                 ).match() }
             )

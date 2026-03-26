@@ -20,9 +20,11 @@
  * - `alignment`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs
- *   - `msa`: Input multiple sequence alignment (passed through)
- *   - `phylogeny`: Maximum-likelihood phylogenetic tree in Newick format
- *   - `supplemental`: Detailed report, distance matrix, and model parameters
+ * - `msa`: Input multiple sequence alignment (passed through)
+ * - `phylogeny`: Maximum-likelihood phylogenetic tree in Newick format
+ * - `supplemental`: Detailed report, distance matrix, and model parameters
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -36,5 +38,7 @@ workflow IQTREE {
     IQTREE_MODULE(aln)
 
     emit:
+    // Published outputs
     sample_outputs = IQTREE_MODULE.out
+    run_outputs = channel.empty()
 }

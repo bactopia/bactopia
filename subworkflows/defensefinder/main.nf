@@ -42,7 +42,7 @@ workflow DEFENSEFINDER {
 
     main:
     DEFENSEFINDER_UPDATE()
-    DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.db)
+    DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.map { r -> r.db })
 
     // Merge results
     GENES_CONCAT(gather(DEFENSEFINDER_RUN.out, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
@@ -50,6 +50,7 @@ workflow DEFENSEFINDER {
     SYSTEMS_CONCAT(gather(DEFENSEFINDER_RUN.out, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = DEFENSEFINDER_RUN.out
     run_outputs = GENES_CONCAT.out.mix(HMMER_CONCAT.out, SYSTEMS_CONCAT.out)
 }

@@ -13,9 +13,9 @@
  * @note Database Required
  * Requires the eggNOG database (including the diamond database and taxonomic data) to be available.
  *
- * @input record(meta, proteins)
+ * @input record(meta, faa)
  * - `meta`: Groovy Map containing sample information
- * - `proteins`: Protein sequences in FASTA format (amino acids)
+ * - `faa`: Protein sequences in FASTA format (amino acids)
  *
  * @input db
  * Directory or compressed tarball containing the eggNOG database
@@ -41,7 +41,7 @@ process EGGNOG_MAPPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, proteins: Path): Record
+    (_meta: Map, faa: Path): Record
     db                          : Path
 
     output:
@@ -101,7 +101,7 @@ process EGGNOG_MAPPER {
         --cpu ${task.cpus} \\
         --data_dir \$EGGNOG_DB \\
         --output ${prefix} \\
-        -i ${proteins}
+        -i ${faa}
 
     # Cleanup
     if [ "${is_tarball}" == "true" ]; then

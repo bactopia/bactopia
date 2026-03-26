@@ -37,8 +37,7 @@ workflow CLERMONTYPING {
     CSVTK_CONCAT(gather(CLERMONTYPING_MODULE.out, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records
+    // Published outputs
     sample_outputs = CLERMONTYPING_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

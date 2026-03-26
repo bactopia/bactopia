@@ -39,8 +39,7 @@ workflow ECTYPER {
     CSVTK_CONCAT(gather(ECTYPER_MODULE.out, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records (contains meta, tsv, txt, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = ECTYPER_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

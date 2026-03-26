@@ -38,6 +38,7 @@ workflow MENINGOTYPE {
     CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = MENINGOTYPE_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

@@ -28,6 +28,8 @@
  *   - `msh`: Mash sketch files for k=21 and k=31
  *   - `mash`: Mash Screen classification report against RefSeq
  *   - `sourmash`: Sourmash LCA classification report against GTDB
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -43,5 +45,7 @@ workflow SKETCHER {
     SKETCHER_MODULE(assembly, mash_db, sourmash_db)
 
     emit:
+    // Published outputs
     sample_outputs = SKETCHER_MODULE.out
+    run_outputs = channel.empty()
 }

@@ -41,6 +41,7 @@ workflow BLASTP {
     CSVTK_CONCAT(gather(BLASTP_MODULE.out, 'tsv', [name: 'blastp']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = BLASTP_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

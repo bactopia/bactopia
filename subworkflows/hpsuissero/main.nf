@@ -39,8 +39,7 @@ workflow HPSUISSERO {
     CSVTK_CONCAT(gather(HPSUISSERO_MODULE.out, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
 
     emit:
-    // Per-sample records
+    // Published outputs
     sample_outputs = HPSUISSERO_MODULE.out
-    // Cross-sample aggregation record
     run_outputs = CSVTK_CONCAT.out
 }

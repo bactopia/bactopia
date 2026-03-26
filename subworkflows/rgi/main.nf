@@ -40,6 +40,7 @@ workflow RGI {
     RGI_HEATMAP(gather(RGI_MAIN.out, 'json', [name: 'rgi']))
 
     emit:
+    // Published outputs
     sample_outputs = RGI_MAIN.out
     run_outputs = CSVTK_CONCAT.out
 }

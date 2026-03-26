@@ -19,16 +19,16 @@
  * @note When runtype is 'assembly' or 'assembly_accession' and --reassemble is not set,
  * the original assembly is used without re-assembly.
  *
- * @input record(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1, r2, se, lr, fna)
  * - `meta`    : Groovy Map containing sample information
  * - `r1`      : Illumina R1 reads (paired-end)
  * - `r2`      : Illumina R2 reads (paired-end)
  * - `se`      : Single-end Illumina reads
  * - `lr`      : Long reads (ONT/PacBio) for long-read or hybrid assembly
- * - `assembly`: Assembly file (FASTA) for assembly-based runtypes
+ * - `fna`     : Assembly file (FASTA) for assembly-based runtypes
  *
- * @output record(meta, assembly, r1, r2, se, lr, tsv, supplemental, error, results, logs, nf_logs, versions)
- * - `assembly`: Assembled contigs in FASTA format
+ * @output record(meta, fna, r1, r2, se, lr, tsv, supplemental, error, results, logs, nf_logs, versions)
+ * - `fna`: Assembled contigs in FASTA format
  * - `r1`: Passthrough Illumina R1 reads
  * - `r2`: Passthrough Illumina R2 reads
  * - `se`: Passthrough single-end reads
@@ -47,16 +47,16 @@ process ASSEMBLER {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, assembly: Path?): Record
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
 
     stage:
-    stageAs 'input-assembly/*', assembly
+    stageAs 'input-assembly/*', fna
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        assembly: file("${prefix}.{fna,fna.gz}", optional: true),
+        fna: file("${prefix}.{fna,fna.gz}", optional: true),
         r1: file(r1 ?: 'EMPTY_R1', optional: true),
         r2: file(r2 ?: 'EMPTY_R2', optional: true),
         se: file(se ?: 'EMPTY_SE', optional: true),
@@ -111,7 +111,7 @@ process ASSEMBLER {
     if [ "${use_original_assembly}" == "true" ]; then
         # Skip assembly and use provided assembly
         echo "Using provided assembly for ${prefix} without re-assembly." > supplemental/assembly-info.txt
-        gzip -cd ${assembly} > ${prefix}.fna
+        gzip -cd ${fna} > ${prefix}.fna
     elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
         #======================================================================================
         # Unicycler Assembler

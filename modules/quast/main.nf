@@ -9,9 +9,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation quast
  *
- * @input record(meta, assembly, meta_file)
+ * @input record(meta, fna, meta_file)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format (Path)
+ * - `fna`: Assembled contigs in FASTA format (Path)
  * - `meta_file`: Meta file containing reference size information (Path)
  *
  * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
@@ -28,7 +28,7 @@ process QUAST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path, meta_file: Path): Record
+    (_meta: Map, fna: Path, meta_file: Path): Record
 
     output:
     record(
@@ -57,11 +57,11 @@ process QUAST {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     est_ref_size=""
@@ -71,7 +71,7 @@ process QUAST {
         est_ref_size="--est-ref-size \${ref_size}"
     fi
 
-    quast ${assembly_name} \${est_ref_size} \\
+    quast ${fna_name} \${est_ref_size} \\
         -o supplemental \\
         --threads ${task.cpus} \\
         ${task.ext.args} \\
@@ -81,7 +81,7 @@ process QUAST {
     mv supplemental/transposed_report.tsv ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

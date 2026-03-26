@@ -40,6 +40,7 @@ workflow PBPTYPER {
     CSVTK_CONCAT(gather(PBPTYPER_MODULE.out, 'tsv', [name: 'pbptyper']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = PBPTYPER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

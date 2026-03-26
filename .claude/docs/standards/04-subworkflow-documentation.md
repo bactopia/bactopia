@@ -79,11 +79,11 @@ This pattern uses `Tuple<Map, Path?, Path?, Path?, Path?>` where each slot is op
 
 ### 2.4 Outputs
 
-Subworkflows use `@output sample_outputs` and optionally `@output run_outputs` to document their emit channels. Only tool-specific fields are described.
+Subworkflows use `@output sample_outputs` and `@output run_outputs` to document their emit channels. Both are always present. Only tool-specific fields are described.
 
 #### Standard Tool Subworkflows
 
-Most subworkflows emit `sample_outputs` (per-sample records from the main module) and optionally `run_outputs` (cross-sample aggregation from CSVTK_CONCAT):
+Most subworkflows emit `sample_outputs` (per-sample records from the main module) and `run_outputs` (cross-sample aggregation from CSVTK_CONCAT, or `channel.empty()` when no aggregation occurs):
 
 ```groovy
  * @output sample_outputs
@@ -103,11 +103,15 @@ Most subworkflows emit `sample_outputs` (per-sample records from the main module
 
 #### Passthrough Subworkflows
 
-Subworkflows that only pass through module records without tool-specific fields:
+Subworkflows that pass through module records without tool-specific fields still document both outputs:
 
 ```groovy
  * @output sample_outputs
+ *
+ * @output run_outputs
 ```
+
+When `run_outputs` has no aggregation (`channel.empty()`), it is documented with no field descriptions.
 
 #### Composite Subworkflows
 
@@ -126,9 +130,96 @@ Some composite subworkflows (e.g., clonalframeml, gubbins, pangenome, snippy/cor
 
 #### Core/Infrastructure Subworkflows
 
-Core subworkflows (bactopia/assembler, bactopia/gather, bactopia/qc) and utility subworkflows (utils/bactopia, utils/bactopia-tools) use individual channel names rather than `sample_outputs`/`run_outputs`. These follow their own conventions.
+Utility subworkflows that do not process samples (bactopia/datasets, utils/bactopia, utils/bactopia-tools) use their own emit conventions. These subworkflows provide databases, initialization channels, or other infrastructure -- they do NOT emit `sample_outputs`/`run_outputs`.
 
-### 2.5 The @note Tag
+### 2.5 Emit Block Patterns
+
+This section documents the Nextflow code patterns for subworkflow `emit:` blocks. Every sample-processing subworkflow MUST emit both `sample_outputs` and `run_outputs`. Utility subworkflows that only emit databases or initialization channels (bactopia/datasets, utils/bactopia, utils/bactopia-tools) are exempt and follow their own conventions.
+
+#### Rules
+
+1. Every sample-processing subworkflow MUST emit both `sample_outputs` and `run_outputs`
+2. `run_outputs` is CSVTK_CONCAT output (aggregation) or `channel.empty()` (no aggregation)
+3. Filtered outputs via `filterWithData` are added only when a downstream consumer exists (as-needed policy)
+4. All emit blocks MUST use comments: `// Downstream inputs` and `// Published outputs`
+5. Blank line before `main:` and `emit:` blocks for visual separation
+6. `results`, `logs`, `nf_logs`, `versions` are publishing concerns -- they flow through `sample_outputs` and are unpacked in the workflow `output {}` block
+
+#### A. Standard Aggregating Pattern
+
+Used by most subworkflows (~49) that aggregate per-sample results via CSVTK_CONCAT:
+
+```groovy
+    main:
+    MODULE(input)
+    CSVTK_CONCAT(gather(MODULE.out, 'tsv', [name: 'toolname']), 'tsv', 'tsv')
+
+    emit:
+    // Published outputs
+    sample_outputs = MODULE.out
+    run_outputs = CSVTK_CONCAT.out
+```
+
+#### B. Leaf Pattern
+
+Used by subworkflows (~12) with no cross-sample aggregation:
+
+```groovy
+    main:
+    MODULE(input)
+
+    emit:
+    // Published outputs
+    sample_outputs = MODULE.out
+    run_outputs = channel.empty()
+```
+
+`channel.empty()` flows through `.mix()`, `flatMap`, and `output {}` blocks harmlessly -- closures never fire on empty channels.
+
+#### C. Filtered Downstream Pattern
+
+Used by subworkflows (bakta, prokka, assembler, gather, qc, scrubber) that provide filtered records for downstream consumers:
+
+```groovy
+    main:
+    MODULE(input)
+
+    emit:
+    // Downstream inputs
+    annotations = filterWithData(MODULE.out, ['fna', 'faa', 'gff'])
+    // Published outputs
+    sample_outputs = MODULE.out
+    run_outputs = channel.empty()
+```
+
+**As-needed policy**: Only add a `filterWithData` output when an actual downstream consumer requires it. Each filtered output documents a real data dependency. Adding a new one is a 1-line change.
+
+#### D. Composite Pattern
+
+Used by subworkflows (clonalframeml, gubbins, snippy/core, pangenome) with multiple pipeline stages:
+
+```groovy
+    emit:
+    // Published outputs
+    sample_outputs = MODULE_A.out
+    snpdists_outputs = SNPDISTS.out.sample_outputs
+    run_outputs = channel.empty()
+```
+
+#### E. Orchestration Pattern
+
+Used by subworkflows (merlin, staphtyper, teton) that compose other subworkflows:
+
+```groovy
+    emit:
+    // Published outputs
+    sample_outputs = SUBWORKFLOW_A.out.sample_outputs
+        .mix(SUBWORKFLOW_B.out.sample_outputs)
+    run_outputs = SUBWORKFLOW_A.out.run_outputs
+        .mix(SUBWORKFLOW_B.out.run_outputs)
+```
+
+### 2.6 The @note Tag
 
 Use `@note` to document special requirements, caveats, or important information:
 

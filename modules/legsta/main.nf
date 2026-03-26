@@ -10,9 +10,9 @@
  * @tags complexity:simple input-type:single output-type:single features:database-dependent
  * @citation legsta
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Legionella pneumophila SBT results with allele numbers and sequence type
@@ -27,7 +27,7 @@ process LEGSTA {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -57,7 +57,7 @@ process LEGSTA {
     """
     legsta \\
         ${task.ext.args} \\
-        ${assembly} | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
+        ${fna} | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

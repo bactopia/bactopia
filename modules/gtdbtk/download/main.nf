@@ -30,7 +30,7 @@ process GTDBTK_DOWNLOAD {
 
     output:
     record(
-        db:         files("gtdbtk/", optional: true),
+        db:         file("gtdbtk", optional: true),
         db_tarball: file("gtdbtk.tar.gz", optional: true),
         logs:       files("logs/*", optional: true)
     )

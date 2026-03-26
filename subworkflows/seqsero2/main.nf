@@ -38,6 +38,7 @@ workflow SEQSERO2 {
     CSVTK_CONCAT(gather(SEQSERO2_MODULE.out, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SEQSERO2_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

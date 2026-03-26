@@ -439,32 +439,67 @@ Path to adapter sequences file for removal during QC
 
 ## 8. Implementation Patterns
 
-### 8.1 Standard 8-Channel Output Pattern
-All workflows follow the same output channel structure:
-```groovy
-publish:
-    // Run-level outputs
-    run_results: ch_final_results.run
-    run_logs: ch_final_logs.run
-    run_nf_logs: ch_final_nf_logs.run
-    run_versions: ch_final_versions.run
+### 8.1 Standard Publish and Output Block Pattern
 
+All workflows follow the same record-based publish/output structure. Since every subworkflow emits both `sample_outputs` and `run_outputs`, every workflow uses the same template:
+
+```groovy
+workflow {
+    main:
+    BACTOPIATOOL_INIT()
+    TOOL(BACTOPIATOOL_INIT.out.assembly)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = TOOL.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = TOOL.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+
+    publish:
+    // Per-sample records (scope: sample)
+    sample_outputs = TOOL.out.sample_outputs
+    sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
+    run_outputs = TOOL.out.run_outputs
+    run_nf_logs = ch_run_nf_logs
+}
+
+output {
     // Sample-level outputs
-    sample_results: ch_final_results.sample
-    sample_logs: ch_final_logs.sample
-    sample_nf_logs: ch_final_nf_logs.sample
-    sample_versions: ch_final_versions.sample
-```
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
 
-### 8.2 Branching by Scope
-```groovy
-ch_final_results = ch_results.branch{ meta, _file ->
-    run: meta.scope == 'run'
-    sample: meta.scope == 'sample'
+    // Run-level outputs
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
+    }
 }
 ```
 
-### 8.3 Parameter Declarations
+#### Key rules:
+- `flatten()` is called in the `output {}` block because `results` is a list of `files()` outputs (list of lists). This is a **publishing concern** -- subworkflows should NOT flatten.
+- Every workflow includes both sample and run output sections. When a subworkflow uses `channel.empty()` for `run_outputs`, the closures simply never fire.
+- The nf_logs extraction pattern (`flatMap` + `collect` + `tuple`) is identical across all workflows.
+
+### 8.2 Parameter Declarations
+
 ```groovy
 params {
     rundir : String

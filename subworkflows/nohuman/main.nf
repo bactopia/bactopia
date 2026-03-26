@@ -25,9 +25,14 @@
  * @input download_nohuman
  * Boolean flag to download the database instead of using the provided path
  *
+ * @input save_as_tarball
+ * Boolean flag to save downloaded database as tarball
+ *
  * @output sample_outputs
  * - `scrubbed`: FASTQ files with human reads removed
  * - `scrub_report`: Kraken2 classification report (optional)
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -37,17 +42,25 @@ include { NOHUMAN_RUN as NOHUMAN_MODULE   } from '../../modules/nohuman/run/main
 workflow NOHUMAN {
     take:
     reads: Channel<Record>
-    database: Path
+    database: Path?
     download_nohuman: Boolean
+    save_as_tarball: Boolean
 
     main:
     if (download_nohuman) {
         NOHUMAN_DOWNLOAD()
-        NOHUMAN_MODULE(reads, NOHUMAN_DOWNLOAD.out.db)
+
+        if (save_as_tarball) {
+            NOHUMAN_MODULE(reads, NOHUMAN_DOWNLOAD.out.map { r -> r.db_tarball })
+        } else {
+            NOHUMAN_MODULE(reads, NOHUMAN_DOWNLOAD.out.map { r -> r.db })
+        }
     } else {
         NOHUMAN_MODULE(reads, database)
     }
 
     emit:
+    // Published outputs
     sample_outputs = NOHUMAN_MODULE.out
+    run_outputs = channel.empty()
 }

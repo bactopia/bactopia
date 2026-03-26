@@ -13,10 +13,10 @@
  *
  * @note Requires external database to be available
  *
- * @input record(meta, genes, proteins, gff)
+ * @input record(meta, fna, faa, gff)
  * - `meta`: Groovy Map containing sample information
- * - `genes`: Nucleotide sequences of genes in FASTA format
- * - `proteins`: Optional amino acid sequences of proteins in FASTA format
+ * - `fna`: Nucleotide sequences of genes in FASTA format
+ * - `faa`: Optional amino acid sequences of proteins in FASTA format
  * - `gff`: Optional genome annotation in GFF3 format
  *
  * @input db
@@ -36,12 +36,12 @@ process AMRFINDERPLUS_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, genes: Path, proteins: Path, gff: Path): Record
+    (_meta: Map, fna: Path, faa: Path, gff: Path): Record
     db: Path
 
     stage:
-    stageAs 'genes/*', genes
-    stageAs 'proteins/*', proteins
+    stageAs 'genes/*', fna
+    stageAs 'proteins/*', faa
     stageAs 'gff/*', gff
 
     output:
@@ -73,12 +73,12 @@ process AMRFINDERPLUS_RUN {
     meta.process_name = task.ext.process_name
 
     // Check for optional inputs
-    def has_proteins = proteins != null
+    def has_proteins = faa != null
     def has_gff = gff != null
 
     // WF specific parameters
-    def fna_cat = genes.getName().endsWith(".gz") ? "zcat" : "cat"
-    def faa_cat = has_proteins ? proteins.getName().endsWith(".gz") ? "zcat" : "cat" : ""
+    def fna_cat = fna.getName().endsWith(".gz") ? "zcat" : "cat"
+    def faa_cat = has_proteins ? faa.getName().endsWith(".gz") ? "zcat" : "cat" : ""
     def gff_cat = has_gff ? gff.getName().endsWith(".gz") ? "zcat" : "cat" : ""
     organism_param = _meta.containsKey("organism") ? "--organism ${_meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
     fna_name = "${prefix}.fna"
@@ -92,10 +92,10 @@ process AMRFINDERPLUS_RUN {
     def gff_param = has_proteins && has_gff ? "--gff ${gff_name} --annotation_format ${annotation_format}" : ""
     """
     # Prepare input files
-    ${fna_cat} ${genes} > ${fna_name}
+    ${fna_cat} ${fna} > ${fna_name}
 
     if [ "${has_proteins}" == "true" ]; then
-        ${faa_cat} ${proteins} > ${faa_name}
+        ${faa_cat} ${faa} > ${faa_name}
     fi
 
     if [ "${has_gff}" == "true" ]; then

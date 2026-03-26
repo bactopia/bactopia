@@ -41,6 +41,7 @@ workflow EMMTYPER {
     CSVTK_CONCAT(gather(EMMTYPER_MODULE.out, 'tsv', [name: 'emmtyper']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = EMMTYPER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

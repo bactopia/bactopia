@@ -38,6 +38,7 @@ workflow SSUISSERO {
     CSVTK_CONCAT(gather(SSUISSERO_MODULE.out, 'tsv', [name: 'ssuissero']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SSUISSERO_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

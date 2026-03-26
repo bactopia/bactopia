@@ -106,7 +106,7 @@ workflow MERLIN {
     MERLINDIST(assembly, mash_db)
 
     // Helper closures to build records from MERLINDIST output
-    def forAssembly = { r -> record(_meta: r.meta, assembly: r.fna) }
+    def forAssembly = { r -> record(_meta: r.meta, fna: r.fna) }
     def forReads = { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
     def forSeqs = { r -> record(_meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
 
@@ -167,6 +167,7 @@ workflow MERLIN {
     SSUISSERO(ch_streptococcus.map(forAssembly))
 
     emit:
+    // Published outputs
     sample_outputs = MERLINDIST.out.sample_outputs.mix(
         CLERMONTYPING.out.sample_outputs,
         ECTYPER.out.sample_outputs,

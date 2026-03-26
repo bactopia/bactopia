@@ -39,6 +39,7 @@ workflow STAPHOPIASCCMEC {
     CSVTK_CONCAT(gather(STAPHOPIASCCMEC_MODULE.out, 'tsv', [name: 'staphopiasccmec']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = STAPHOPIASCCMEC_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

@@ -48,6 +48,7 @@ workflow HICAP {
     CSVTK_CONCAT(gather(HICAP_MODULE.out, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = HICAP_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

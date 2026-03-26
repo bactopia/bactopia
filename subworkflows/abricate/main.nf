@@ -37,8 +37,7 @@ workflow ABRICATE {
     ABRICATE_SUMMARY(gather(ABRICATE_RUN.out, 'report', [name: 'abricate']))
 
     emit:
-    // Per-sample records (contains meta, report, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = ABRICATE_RUN.out
-    // Cross-sample aggregation record
     run_outputs = ABRICATE_SUMMARY.out
 }

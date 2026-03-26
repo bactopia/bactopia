@@ -104,6 +104,7 @@ workflow TETON {
     CSVTK_CONCAT_SIZEMEUP(gather(BACTOPIA_SAMPLESHEET.out, 'sizemeup', [name: 'sizemeup']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     scrubber_outputs = SCRUBBER.out.sample_outputs
     bracken_outputs = BRACKEN.out.sample_outputs
     samplesheet_outputs = BACTOPIA_SAMPLESHEET.out

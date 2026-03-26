@@ -48,13 +48,12 @@ workflow ARIBA {
 
     main:
     ARIBA_GETREF(db)
-    ARIBA_RUN(reads, ARIBA_GETREF.out.db)
+    ARIBA_RUN(reads, ARIBA_GETREF.out.map { r -> r.db })
     CSVTK_CONCAT_REPORT(gather(ARIBA_RUN.out, 'report', [name: "${db}-report", args: '-C "$" --lazy-quotes']), 'tsv', 'tsv')
     CSVTK_CONCAT_SUMMARY(gather(ARIBA_RUN.out, 'summary', [name: "${db}-summary", args: '--lazy-quotes']), 'csv', 'csv')
 
     emit:
-    // Per-sample records (contains meta, report, summary, results, logs, nf_logs, versions)
+    // Published outputs
     sample_outputs = ARIBA_RUN.out
-    // Cross-sample aggregation records (self-routing via meta)
     run_outputs = CSVTK_CONCAT_REPORT.out.mix(CSVTK_CONCAT_SUMMARY.out)
 }

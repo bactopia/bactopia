@@ -30,7 +30,7 @@ process MIDAS_DOWNLOAD {
 
     output:
     record(
-        db:         files("midas_db_v${db_version}/*", optional: true),
+        db:         file("midas_db_v${db_version}", optional: true),
         db_tarball: file("midas_db_v${db_version}.tar.gz", optional: true),
         logs:       files("logs/*", optional: true)
     )

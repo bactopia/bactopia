@@ -52,6 +52,7 @@ workflow STAPHTYPER {
     SCCMEC(assembly)
 
     emit:
+    // Published outputs
     sample_outputs = AGRVATE.out.sample_outputs.mix(SPATYPER.out.sample_outputs, SCCMEC.out.sample_outputs)
     run_outputs = AGRVATE.out.run_outputs.mix(SPATYPER.out.run_outputs, SCCMEC.out.run_outputs)
 }

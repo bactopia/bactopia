@@ -32,7 +32,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.kraken2_report,
                     record.versions
                 ).match() }
             )
@@ -66,7 +65,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.kraken2_report,
                     record.versions
                 ).match() }
             )

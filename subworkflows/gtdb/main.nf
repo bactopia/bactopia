@@ -37,10 +37,10 @@
  */
 nextflow.preview.types = true
 
-include { GTDBTK_DOWNLOAD as DOWNLOAD   } from '../../modules/gtdbtk/download/main'
-include { GTDBTK_CLASSIFYWF as CLASSIFY } from '../../modules/gtdbtk/classifywf/main'
-include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { gather                        } from 'plugin/nf-bactopia'
+include { GTDBTK_DOWNLOAD   } from '../../modules/gtdbtk/download/main'
+include { GTDBTK_CLASSIFYWF } from '../../modules/gtdbtk/classifywf/main'
+include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
+include { gather            } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
@@ -52,19 +52,20 @@ workflow GTDB {
     main:
     if (download_gtdb) {
         // Force CLASSIFY to wait
-        DOWNLOAD()
+        GTDBTK_DOWNLOAD()
 
         if (save_as_tarball) {
-            CLASSIFY(assembly, DOWNLOAD.out.db_tarball)
+            GTDBTK_CLASSIFYWF(assembly, GTDBTK_DOWNLOAD.out.map { r -> r.db_tarball })
         } else {
-            CLASSIFY(assembly, DOWNLOAD.out.db)
+            GTDBTK_CLASSIFYWF(assembly, GTDBTK_DOWNLOAD.out.map { r -> r.db })
         }
     } else {
-        CLASSIFY(assembly, database)
+        GTDBTK_CLASSIFYWF(assembly, database)
     }
-    CSVTK_CONCAT(gather(CLASSIFY.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gather(GTDBTK_CLASSIFYWF.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
 
     emit:
-    sample_outputs = CLASSIFY.out
+    // Published outputs
+    sample_outputs = GTDBTK_CLASSIFYWF.out
     run_outputs = CSVTK_CONCAT.out
 }

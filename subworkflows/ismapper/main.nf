@@ -31,6 +31,8 @@
  *
  * @output sample_outputs
  * - `supplemental`: Directory containing the final tables of insertion sites and visual summaries
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -46,5 +48,7 @@ workflow ISMAPPER {
     ISMAPPER_MODULE(reads, reference, insertions)
 
     emit:
+    // Published outputs
     sample_outputs = ISMAPPER_MODULE.out
+    run_outputs = channel.empty()
 }

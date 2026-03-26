@@ -86,13 +86,6 @@ include { IQTREE             } from '../../../subworkflows/iqtree/main'
 
 workflow {
     main:
-    // Initialize output channels
-    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-
-    // Execute subworkflows
     BACTOPIATOOL_INIT()
 
     // Download if applicable
@@ -105,112 +98,70 @@ workflow {
     }
 
     // Run Snippy per-sample
-    SNIPPY(
-        BACTOPIATOOL_INIT.out.reads,
-        ch_reference
-    )
-    ch_results = ch_results.mix(SNIPPY.out.results)
-    ch_logs = ch_logs.mix(SNIPPY.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(SNIPPY.out.nf_logs)
-    ch_versions = ch_versions.mix(SNIPPY.out.versions)
+    SNIPPY(BACTOPIATOOL_INIT.out.reads, ch_reference)
+    ch_sample_outputs = SNIPPY.out.sample_outputs
+
+    // Collect VCFs and aligned FAs across all samples for core-SNP analysis
+    ch_vcfs = SNIPPY.out.sample_outputs.flatMap { r -> r.vcf }.collect()
+    ch_fas = SNIPPY.out.sample_outputs.flatMap { r -> r.aligned_fa }.collect()
+    ch_snippy_core_input = ch_vcfs.combine(ch_fas).map { vcfs, fas ->
+        record(_meta: [id: 'core-snp'], _vcf: vcfs.toSet(), _aligned_fa: fas.toSet())
+    }
 
     // Identify core SNPs
-    ch_merge_vcf = SNIPPY.out.vcf.collect{_meta, vcf -> vcf}.map{ vcf -> [[id:'core-snp'], vcf]}
-    ch_merge_aligned_fa = SNIPPY.out.aligned_fa.collect{_meta, aligned_fa -> aligned_fa}.map{ aligned_fa -> [[id:'core-snp'], aligned_fa]}
-    ch_snippy_core = ch_merge_vcf.join( ch_merge_aligned_fa )
-
-    // Identify core SNPs
-    SNIPPY_CORE(ch_snippy_core, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
-    ch_results = ch_results.mix(SNIPPY_CORE.out.results)
-    ch_logs = ch_logs.mix(SNIPPY_CORE.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(SNIPPY_CORE.out.nf_logs)
-    ch_versions = ch_versions.mix(SNIPPY_CORE.out.versions)
+    SNIPPY_CORE(ch_snippy_core_input, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
+    ch_sample_outputs = ch_sample_outputs
+        .mix(SNIPPY_CORE.out.sample_outputs)
+        .mix(SNIPPY_CORE.out.snpdists_outputs)
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        // Run Gubbins
-        GUBBINS(SNIPPY_CORE.out.clean_full_aln)
-        ch_results = ch_results.mix(GUBBINS.out.results)
-        ch_logs = ch_logs.mix(GUBBINS.out.logs)
-        ch_nf_logs = ch_nf_logs.mix(GUBBINS.out.nf_logs)
-        ch_versions = ch_versions.mix(GUBBINS.out.versions)
+        ch_gubbins_input = SNIPPY_CORE.out.sample_outputs.map { r ->
+            record(_meta: r.meta, msa: r.clean_full_aln)
+        }
+        GUBBINS(ch_gubbins_input)
+        ch_sample_outputs = ch_sample_outputs
+            .mix(GUBBINS.out.sample_outputs)
+            .mix(GUBBINS.out.snpdists_outputs)
     }
 
     // Create core-snp phylogeny
     if (!params.skip_phylogeny) {
+        ch_final_aln = channel.empty()
         if (!params.skip_recombination) {
-            IQTREE(GUBBINS.out.masked_aln)
+            ch_final_aln = GUBBINS.out.sample_outputs.map { r ->
+                record(_meta: [name: "core-snp", process_name: "iqtree"], _msa: [r.masked_aln].toSet())
+            }
         } else {
-            IQTREE(SNIPPY_CORE.out.clean_full_aln)
+            ch_final_aln = SNIPPY_CORE.out.sample_outputs.map { r ->
+                record(_meta: [name: "core-snp", process_name: "iqtree"], _msa: [r.clean_full_aln].toSet())
+            }
         }
-        ch_results = ch_results.mix(IQTREE.out.results)
-        ch_logs = ch_logs.mix(IQTREE.out.logs)
-        ch_nf_logs = ch_nf_logs.mix(IQTREE.out.nf_logs)
-        ch_versions = ch_versions.mix(IQTREE.out.versions)
+        IQTREE(ch_final_aln)
+        ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
     }
 
-    // Branch the based on scope (sample or run)
-    ch_final_results = ch_results.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
-    }
-
-    ch_final_logs = ch_logs.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
-    }
-
-    ch_final_nf_logs = ch_nf_logs.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
-    }
-
-    ch_final_versions = ch_versions.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = ch_sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
 
     publish:
-    run_results = ch_final_results.run
-    run_logs = ch_final_logs.run
-    run_nf_logs = ch_final_nf_logs.run
-    run_versions = ch_final_versions.run
-    sample_results = ch_final_results.sample
-    sample_logs = ch_final_logs.sample
-    sample_nf_logs = ch_final_nf_logs.sample
-    sample_versions = ch_final_versions.sample
+    // Per-sample records (scope: sample)
+    sample_outputs = ch_sample_outputs
+    sample_nf_logs = ch_sample_nf_logs
 }
 
 output {
-    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
-    }
-    run_logs: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
-    }
-    run_nf_logs: Channel<Tuple<Map, Path>> {
-        path { meta, file ->
-            file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
-        }
-    }
-    run_versions: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
-    }
-
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    sample_logs: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.logs_dir}/" }
-    }
-    sample_nf_logs: Channel<Tuple<Map, Path>> {
-        path { meta, file ->
-            file >> "${meta.logs_dir}/nf${file.name}"
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
-    sample_versions: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.logs_dir}/" }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
 }

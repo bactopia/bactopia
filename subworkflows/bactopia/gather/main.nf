@@ -24,14 +24,11 @@
  * - `se_files`: Single-end read files (Set, for merging multiple runs)
  * - `lr_files`: Long read files (ONT/PacBio) or assembly for simulation
  *
- * @output tsv         Per-sample metadata files in TSV format
- * @output merged_tsv  Consolidated metadata file containing information from all samples
- * @output reads       Record with explicit read slots: (meta, r1, r2, se, lr) where each is Path?
- * @output error       Error messages from validation or download failures
- * @output results     Aggregated results channel containing all output files
- * @output logs        Aggregated logs channel containing all execution logs
- * @output nf_logs     Aggregated Nextflow execution scripts and logs for debugging from all processes
- * @output versions    Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `tsv`: A tab-delimited metadata file describing the valid samples
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated metadata from all samples
  */
 nextflow.preview.types = true
 
@@ -49,10 +46,10 @@ workflow GATHER {
     CSVTK_CONCAT(gather(GATHER_MODULE.out, 'tsv', [name: 'meta']), 'tsv', 'tsv')
 
     emit:
-    // Individual outputs
-    reads = filterWithData(GATHER_MODULE.out, ['r1', 'r2', 'se', 'lr'])
+    // Downstream inputs
+    reads = filterWithData(GATHER_MODULE.out, ['r1', 'r2', 'se', 'lr', 'fna'])
 
-    // Aggregate outputs
+    // Published outputs
     sample_outputs = GATHER_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

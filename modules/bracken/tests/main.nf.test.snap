@@ -16,10 +16,10 @@
             "SRR2838702.bracken.report.txt:md5,3ca9ddfeb074bce0b9fd1e8b8b9c8443",
             "SRR2838702.bracken.abundances.txt:md5,bfc7aea2ef689c21fdab164d29d2d57b",
             [
-                "versions.yml:md5,ff1f4d291f944b614a33758f4230d3b8"
+                "versions.yml:md5,3e962dd665b7527b4a41bb72d0bea1f3"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:05.892896884",
+        "timestamp": "2026-03-25T17:22:12.368865853",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"
@@ -42,10 +42,10 @@
             "SRR2838702.bracken.report.txt:md5,03fceefeff81b30a0fd7390584b5e5aa",
             "SRR2838702.bracken.abundances.txt:md5,64fb9c79e36082acae54ead9cc8dcf83",
             [
-                "versions.yml:md5,ff1f4d291f944b614a33758f4230d3b8"
+                "versions.yml:md5,3e962dd665b7527b4a41bb72d0bea1f3"
             ]
         ],
-        "timestamp": "2026-03-24T07:24:03.276644132",
+        "timestamp": "2026-03-25T17:25:37.907609732",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

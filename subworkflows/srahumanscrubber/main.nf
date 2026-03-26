@@ -40,8 +40,9 @@ workflow SRAHUMANSCRUBBER {
 
     main:
     SRAHUMANSCRUBBER_INITDB()
-    SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.db)
+    SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.map{ r -> r.db })
 
     emit:
+    // Published outputs
     sample_outputs = SRAHUMANSCRUBBER_SCRUB.out
 }

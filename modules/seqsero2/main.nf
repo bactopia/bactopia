@@ -9,9 +9,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation seqsero2
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: FASTQ reads or Assembled contigs
+ * - `fna`: FASTQ reads or Assembled contigs
  *
  * @output record(meta, tsv, txt, results, logs, nf_logs, versions)
  * - `tsv`: SeqSero2 serotype prediction results in TSV format
@@ -27,7 +27,7 @@ process SEQSERO2 {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -57,11 +57,11 @@ process SEQSERO2 {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed_fna = assembly.getName().endsWith("fna.gz") ? true : false
-    def seq_name = is_compressed_fna ? assembly.getName().replace(".gz", "") : "${assembly}"
+    def is_compressed_fna = fna.getName().endsWith("fna.gz") ? true : false
+    def seq_name = is_compressed_fna ? fna.getName().replace(".gz", "") : "${fna}"
     """
     if [ "${is_compressed_fna}" == "true" ]; then
-        gzip -c -d ${assembly} > ${seq_name}
+        gzip -c -d ${fna} > ${seq_name}
     fi
 
     SeqSero2_package.py \\

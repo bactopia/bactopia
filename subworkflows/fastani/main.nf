@@ -45,6 +45,7 @@ workflow FASTANI {
     CSVTK_CONCAT(gather(FASTANI_MODULE.out, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = FASTANI_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

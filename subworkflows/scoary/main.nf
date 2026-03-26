@@ -36,5 +36,6 @@ workflow SCOARY {
     SCOARY_MODULE(csv, traits)
 
     emit:
+    // Published outputs
     sample_outputs = SCOARY_MODULE.out
 }

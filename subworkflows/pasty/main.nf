@@ -40,6 +40,7 @@ workflow PASTY {
     CSVTK_CONCAT(gather(PASTY_MODULE.out, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = PASTY_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

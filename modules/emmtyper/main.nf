@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:single features:database-dependent,conditional-logic
  * @citation emmtyper
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input blastdb
  * Optional path to a custom *emm* cluster BLAST database
@@ -30,7 +30,7 @@ process EMMTYPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     blastdb                     : Path?
 
     output:
@@ -59,18 +59,18 @@ process EMMTYPER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     # Conditionally add the database if it is provided by user
     if [ "${blastdb}" == "null" ]; then
         emmtyper \\
             ${task.ext.args} \\
-            ${assembly_name} \\
+            ${fna_name} \\
             > ${prefix}.tsv
     else
         # Make the blast database
@@ -79,20 +79,20 @@ process EMMTYPER {
         emmtyper \\
             --blast_db ${blastdb} \\
             ${task.ext.args} \\
-            ${assembly_name} \\
+            ${fna_name} \\
             > ${prefix}.tsv
 
         # Remove the blast database
         rm ${blastdb}.*
     fi
 
-    # If 'tmp' is not in ${assembly_name}, remove '.tmp' from the output files contents
-    if [ ${assembly_name} != *.tmp* ]; then
+    # If 'tmp' is not in ${fna_name}, remove '.tmp' from the output files contents
+    if [ ${fna_name} != *.tmp* ]; then
         sed -i 's/.tmp\t/\t/g' ${prefix}.tsv
     fi
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

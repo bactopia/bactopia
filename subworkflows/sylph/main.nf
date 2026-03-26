@@ -30,6 +30,8 @@
  *
  * @output sample_outputs
  * - `tsv`: TSV file with profiling results
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -44,5 +46,7 @@ workflow SYLPH {
     SYLPH_PROFILE(reads, database)
 
     emit:
+    // Published outputs
     sample_outputs = SYLPH_PROFILE.out
+    run_outputs = channel.empty()
 }

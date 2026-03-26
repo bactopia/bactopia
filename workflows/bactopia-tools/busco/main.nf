@@ -82,9 +82,9 @@ output {
     }
     run_outputs {
         path { r ->
-            r.results  >> "${params.rundir}/${r.meta.output_dir}/"
-            r.logs     >> "${params.rundir}/${r.meta.logs_dir}/"
-            r.versions >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
     run_nf_logs {

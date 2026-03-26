@@ -56,97 +56,73 @@ include { TETON           } from '../../subworkflows/teton/main'
 
 workflow {
     main:
-    // Initialize output channels
-    ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-    ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-
-    // Execute subworkflows
     BACTOPIA_INIT()
 
     // Gather samples in one place
     GATHER(BACTOPIA_INIT.out.samples)
-    ch_results = ch_results.mix(GATHER.out.results)
-    ch_logs = ch_logs.mix(GATHER.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(GATHER.out.nf_logs)
-    ch_versions = ch_versions.mix(GATHER.out.versions)
 
     // Run Teton
     TETON(
-        GATHER.out.fastq_only,
+        GATHER.out.reads,
         params.kraken2_db,
         params.use_srascrubber,
         params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
         params.download_nohuman
     )
-    ch_results = ch_results.mix(TETON.out.results)
-    ch_logs = ch_logs.mix(TETON.out.logs)
-    ch_nf_logs = ch_nf_logs.mix(TETON.out.nf_logs)
-    ch_versions = ch_versions.mix(TETON.out.versions)
 
-    // Branch the based on scope (sample or run)
-    ch_final_results = ch_results.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
+    // Collect all sample-level outputs
+    ch_sample_outputs = GATHER.out.sample_outputs
+        .mix(TETON.out.scrubber_outputs)
+        .mix(TETON.out.bracken_outputs)
+        .mix(TETON.out.samplesheet_outputs)
+        .mix(TETON.out.report_outputs)
+
+    // Collect all run-level outputs
+    ch_run_outputs = GATHER.out.run_outputs
+        .mix(TETON.out.merged_report)
+        .mix(TETON.out.merged_bacteria)
+        .mix(TETON.out.merged_nonbacteria)
+        .mix(TETON.out.merged_sizemeup)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = ch_sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
-
-    ch_final_logs = ch_logs.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
-    }
-
-    ch_final_nf_logs = ch_nf_logs.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
-    }
-
-    ch_final_versions = ch_versions.branch{ meta, _file ->
-        run: meta.scope == 'run'
-        sample: meta.scope == 'sample'
+    ch_run_nf_logs = ch_run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
 
     publish:
-    run_results = ch_final_results.run
-    run_logs = ch_final_logs.run
-    run_nf_logs = ch_final_nf_logs.run
-    run_versions = ch_final_versions.run
-    sample_results = ch_final_results.sample
-    sample_logs = ch_final_logs.sample
-    sample_nf_logs = ch_final_nf_logs.sample
-    sample_versions = ch_final_versions.sample
+    // Per-sample records (scope: sample)
+    sample_outputs = ch_sample_outputs
+    sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
+    run_outputs = ch_run_outputs
+    run_nf_logs = ch_run_nf_logs
 }
 
 output {
-    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
-    run_results: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.output_dir}" }
-    }
-    run_logs: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
-    }
-    run_nf_logs: Channel<Tuple<Map, Path>> {
-        path { meta, file ->
-            file >> "${params.rundir}/${meta.logs_dir}/nf${file.name}"
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
-    run_versions: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${params.rundir}/${meta.logs_dir}/" }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
 
-    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_results: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.output_dir}/" }
-    }
-    sample_logs: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.logs_dir}/" }
-    }
-    sample_nf_logs: Channel<Tuple<Map, Path>> {
-        path { meta, file ->
-            file >> "${meta.logs_dir}/nf${file.name}"
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
-    sample_versions: Channel<Tuple<Map, Path>> {
-        path { meta, _file -> "${meta.logs_dir}/" }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
     }
 }

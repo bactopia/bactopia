@@ -14,9 +14,9 @@
  * @note Database Required
  * Requires the CheckM2 database (Diamond database file) to be available.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
  * The CheckM2 database file (*.dmnd)
@@ -35,7 +35,7 @@ process CHECKM2_PREDICT {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     db                : Path
 
     output:
@@ -65,12 +65,12 @@ process CHECKM2_PREDICT {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     # Decompress fasta file if compressed
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     # Check if db is a directory - if so, find the diamond database
@@ -86,14 +86,14 @@ process CHECKM2_PREDICT {
         --threads ${task.cpus} \\
         --database_path \$CHECKM2_DB \\
         ${task.ext.args} \\
-        --input ${assembly_name}
+        --input ${fna_name}
 
     mv supplemental/checkm2.log ./
     mv supplemental/quality_report.tsv ./${prefix}.tsv
 
     # Cleanup
     gzip supplemental/protein_files/*.faa
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -7,6 +7,7 @@
                 "name": "SRR2838702",
                 "output_dir": "SRR2838702/tools/nohuman/",
                 "process_name": "nohuman",
+                "runtype": "paired-end",
                 "scope": "sample",
                 "single_end": false
             },
@@ -25,7 +26,7 @@
                 "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
             ]
         ],
-        "timestamp": "2026-03-25T06:44:09.41472701",
+        "timestamp": "2026-03-25T19:51:02.852589801",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.01.0"

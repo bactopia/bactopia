@@ -47,7 +47,9 @@ workflow MYKROBE {
     main:
     MYKROBE_PREDICT(reads, mykrobe_species)
     CSVTK_CONCAT(gather(MYKROBE_PREDICT.out, 'csv', [name: 'mykrobe']), 'csv', 'csv')
+
     emit:
+    // Published outputs
     sample_outputs = MYKROBE_PREDICT.out
     run_outputs = CSVTK_CONCAT.out
 }

@@ -50,11 +50,14 @@
  * - `tsv`: Annotations as simple human readable tab-separated values
  * - `txt`: Broad summary of Bakta annotations
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
 include { BAKTA_RUN      } from '../../modules/bakta/run/main'
+include { filterWithData } from 'plugin/nf-bactopia'
 include { gather         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
@@ -73,14 +76,19 @@ workflow BAKTA {
         BAKTA_DOWNLOAD()
 
         if (save_as_tarball) {
-            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.db_tarball, proteins, prodigal_tf, replicons)
+            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.map { r -> r.db_tarball }, proteins, prodigal_tf, replicons)
         } else {
-            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.db, proteins, prodigal_tf, replicons)
+            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.map { r -> r.db }, proteins, prodigal_tf, replicons)
         }
     } else {
         BAKTA_RUN(assembly, database, proteins, prodigal_tf, replicons)
     }
 
     emit:
+    // Downstream inputs
+    annotations = filterWithData(BAKTA_RUN.out, ['fna', 'faa', 'gff'])
+
+    // Published outputs
     sample_outputs = BAKTA_RUN.out
+    run_outputs = channel.empty()
 }

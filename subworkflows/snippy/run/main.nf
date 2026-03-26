@@ -49,6 +49,8 @@
  *   - `subs_vcf`: VCF containing only substitution variants
  *   - `tab`: A simple tab-separated summary of all variants
  *   - `txt`: Tab-separated columnar list of alignment statistics
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -64,5 +66,7 @@ workflow SNIPPY {
     SNIPPY_RUN(reads, reference)
 
     emit:
+    // Published outputs
     sample_outputs = SNIPPY_RUN.out
+    run_outputs = channel.empty()
 }

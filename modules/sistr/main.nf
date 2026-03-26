@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
  * @citation sistr
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, allele_fasta, allele_json, cgmlst_csv, results, logs, nf_logs, versions)
  * - `tsv`: SISTR prediction results in TSV format
@@ -30,7 +30,7 @@ process SISTR {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -64,11 +64,11 @@ process SISTR {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     sistr \\
@@ -80,14 +80,14 @@ process SISTR {
         --cgmlst-profiles ${prefix}-cgmlst.csv \\
         --output-prediction ${prefix} \\
         --output-format tab \\
-        ${assembly_name}
+        ${fna_name}
 
     mv ${prefix}.tab ${prefix}.tsv
     gzip ${prefix}-allele.json
     gzip ${prefix}-allele.fasta
 
     # Cleanup
-    rm -rf ${assembly_name}
+    rm -rf ${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

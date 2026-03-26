@@ -10,9 +10,9 @@
  * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
  * @citation scoary
  *
- * @input record(meta, genes)
+ * @input record(meta, csv)
  * - `meta`: Groovy Map containing sample information
- * - `genes`: Gene presence/absence CSV file (typically from Roary)
+ * - `csv`: Gene presence/absence CSV file (typically from Roary)
  *
  * @input traits
  * CSV file containing trait information for the samples
@@ -29,7 +29,7 @@ process SCOARY {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, genes: Path): Record
+    (_meta: Map, csv: Path): Record
     traits: Path
 
     output:
@@ -62,7 +62,7 @@ process SCOARY {
         --no-time \\
         --threads ${task.cpus} \\
         --traits ${traits} \\
-        --genes ${genes}
+        --genes ${csv}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

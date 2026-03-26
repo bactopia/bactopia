@@ -52,6 +52,7 @@ workflow TBPROFILER {
     TBPROFILER_COLLATE(gather(TBPROFILER_PROFILE.out, 'json', [name: 'tbprofiler']))
 
     emit:
+    // Published outputs
     sample_outputs = TBPROFILER_PROFILE.out
     run_outputs = TBPROFILER_COLLATE.out
 }

@@ -10,9 +10,9 @@
  * @tags complexity:simple input-type:single output-type:multiple features:conditional-logic
  * @citation pasty
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, tsv, blast, details, results, logs, nf_logs, versions)
  * - `tsv`: A tab-delimited summary file with the predicted O-antigen serogroup
@@ -29,7 +29,7 @@ process PASTY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
 
     output:
     record(
@@ -64,7 +64,7 @@ process PASTY {
     pasty \\
         ${task.ext.args} \\
         --prefix ${prefix} \\
-        --input ${assembly}
+        --input ${fna}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

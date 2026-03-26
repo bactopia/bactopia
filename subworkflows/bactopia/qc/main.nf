@@ -36,13 +36,12 @@
  * @input phix
  * Optional PhiX sequences in FASTA format for removal from Illumina reads
  *
- * @output reads      Record with all read slots and assembly: (meta, r1, r2, se, lr, assembly)
- * @output reads_only Record with read slots only: (meta, r1, r2, se, lr)
- * @output error      Captured error messages if QC failed (e.g., reads empty after trimming)
- * @output results    Aggregated results channel containing output FASTQs, supplemental files, and errors
- * @output logs       Aggregated logs channel containing all execution logs
- * @output nf_logs    Aggregated Nextflow execution scripts and logs for debugging
- * @output versions   Aggregated version information from all executed tools
+ * @output sample_outputs
+ * - `reads_grouped`: All output FASTQs for publishing
+ * - `supplemental`: QC reports (FastQC/NanoPlot), JSON metrics, and error FASTQs if QC failed
+ * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -59,9 +58,10 @@ workflow QC {
     QC_MODULE(samples, adapters, phix)
 
     emit:
-    // Individual outputs
-    reads = filterWithData(QC_MODULE.out, ['r1', 'r2', 'se', 'lr'])
+    // Downstream inputs
+    reads = filterWithData(QC_MODULE.out, ['r1', 'r2', 'se', 'lr', 'fna'])
 
-    // Aggregate outputs
+    // Published outputs
     sample_outputs = QC_MODULE.out
+    run_outputs = channel.empty()
 }

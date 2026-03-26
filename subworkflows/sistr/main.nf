@@ -42,6 +42,7 @@ workflow SISTR {
     CSVTK_CONCAT(gather(SISTR_MODULE.out, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
 
     emit:
+    // Published outputs
     sample_outputs = SISTR_MODULE.out
     run_outputs = CSVTK_CONCAT.out
 }

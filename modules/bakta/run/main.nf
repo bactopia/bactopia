@@ -13,9 +13,9 @@
  * @note Database Required
  * Requires a Bakta database (directory or tarball) to be available.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
  * Path to the Bakta database (Directory or compressed tarball)
@@ -52,7 +52,7 @@ process BAKTA_RUN {
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    (_meta: Map, fna: Path): Record
     db             : Path
     proteins       : Path?
     prodigal_tf    : Path?
@@ -127,7 +127,7 @@ process BAKTA_RUN {
         ${proteins_opt} \\
         ${prodigal_opt} \\
         ${replicons_opt} \\
-        ${assembly}
+        ${fna}
 
     # Make blastdb of contigs, genes, proteins
     mkdir blastdb

@@ -35,10 +35,13 @@
  * - `txt`: Summary statistics relating to the annotated features found
  * - `tsv`: Tab-separated file of all features
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
 include { PROKKA as PROKKA_MODULE } from '../../modules/prokka/main'
+include { filterWithData          } from 'plugin/nf-bactopia'
 
 workflow PROKKA {
     take:
@@ -50,5 +53,9 @@ workflow PROKKA {
     PROKKA_MODULE(assembly, proteins, prodigal_tf)
 
     emit:
+    // Downstream inputs
+    annotations = filterWithData(PROKKA_MODULE.out, ['fna', 'faa', 'gff'])
+    // Published outputs
     sample_outputs = PROKKA_MODULE.out
+    run_outputs = channel.empty()
 }
