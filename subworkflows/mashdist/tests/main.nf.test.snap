@@ -1,5 +1,5 @@
 {
-    "mashdist - subworkflow - GCF_000292685": {
+    "mashdist - subworkflow - SRR2838702": {
         "content": [
             {
                 "id": "mashdist-test-MASHDIST:MASH_DIST",
@@ -9,7 +9,7 @@
                 "process_name": "mashdist",
                 "scope": "sample"
             },
-            "mashdist-test-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            "mashdist-test-dist.txt:md5,630500729ddf987a8f487cd409d0afce",
             [
                 "versions.yml:md5,a5e76b9a562b0b311239e1342781fb42"
             ],
@@ -25,9 +25,9 @@
                 "versions.yml:md5,fa387a5652585c181be4884eb12f37b0"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:32.328126214",
+        "timestamp": "2026-03-28T06:53:30.688477019",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

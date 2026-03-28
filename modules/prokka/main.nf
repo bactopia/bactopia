@@ -86,8 +86,8 @@ process PROKKA {
     )
 
     script:
-    def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""            // TODO: Remove when Path? is fixed
-    def prodigal_opt = prodigal_tf?.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
+    def proteins_opt = proteins != null && proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
+    def prodigal_opt = prodigal_tf != null && prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : ""
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"

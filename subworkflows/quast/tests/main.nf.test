@@ -5,7 +5,7 @@ nextflow_workflow {
     tag "subworkflows"
     tag "quast"
 
-    test("quast - subworkflow - GCF_000292685") {
+    test("quast - subworkflow - SRR2838702") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -14,9 +14,9 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz"),
-                        meta_file: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-meta.tsv")
+                        _meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz"),
+                        meta_file: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
                     )
                 )
                 """

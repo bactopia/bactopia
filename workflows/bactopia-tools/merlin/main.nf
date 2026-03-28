@@ -41,11 +41,7 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     emmtyper_blastdb      : Path?

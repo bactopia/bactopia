@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        _msa: [file("${params.test_data_dir}/data/species/portiera/genome/genome.aln.gz")] as Set
+                        _msa: [file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")] as Set
                     )
                 )
                 """

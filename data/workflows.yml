@@ -82,6 +82,7 @@ workflows:
     ext: "fna"
     modules:
       - abricate_run
+      - abricate_summary
     path: workflows/bactopia-tools/abricate
   abritamr:
     description: "A NATA accredited tool for reporting AMR genes"
@@ -102,6 +103,8 @@ workflows:
     ext: "fna_faa_gff"
     modules:
       - amrfinderplus_run
+      - amrfinderplus_update
+      - bactopia_datasets
       - csvtk_concat
     path: workflows/bactopia-tools/amrfinderplus
   ariba:
@@ -188,6 +191,7 @@ workflows:
     ext: "fna"
     modules:
       - defensefinder_run
+      - defensefinder_update
       - csvtk_concat
     path: workflows/bactopia-tools/defensefinder
   ectyper:
@@ -320,7 +324,6 @@ workflows:
     description: "MinmER assisted species-specific bactopia tool seLectIoN"
     ext: "fna_fastq"
     includes:
-      - mashdist
       - agrvate
       - clermontyping
       - ectyper
@@ -331,7 +334,6 @@ workflows:
       - kleborate
       - legsta
       - lissero
-      - meningotype
       - ngmaster
       - pasty
       - pbptyper
@@ -347,6 +349,7 @@ workflows:
       - stecfinder
       - tbprofiler
     modules:
+      - merlin_dist
       - csvtk_concat
       - bactopia_datasets
     path: workflows/bactopia-tools/midas
@@ -447,6 +450,7 @@ workflows:
     ext: "fna"
     modules:
       - rgi_main
+      - rgi_heatmap
       - csvtk_concat
     path: workflows/bactopia-tools/rgi
   sccmec:
@@ -588,10 +592,11 @@ workflows:
 # All available modules
 modules:
   - abricate_run
+  - abricate_summary
   - abritamr_run
   - agrvate
-  - amrfinderplus
   - amrfinderplus_run
+  - amrfinderplus_update
   - ariba_getref
   - ariba_run
   - bactopia_assembler
@@ -620,6 +625,7 @@ modules:
   - custom_dumpsoftwareversions
   - datasets
   - defensefinder_run
+  - defensefinder_update
   - ectyper
   - eggnog_download
   - eggnog_mapper
@@ -641,10 +647,10 @@ modules:
   - legsta
   - lissero
   - mash_dist
-  - mashdist
   - mashtree
   - mcroni
   - meningotype
+  - merlin_dist
   - midas_species
   - mlst
   - mobsuite_recon
@@ -664,6 +670,7 @@ modules:
   - qc
   - quast
   - rgi_main
+  - rgi_heatmap
   - roary
   - sccmec
   - scoary

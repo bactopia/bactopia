@@ -15,7 +15,7 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_006364235"],
-                        assembly: file("${params.test_data_dir}/data/species/streptococcus_pyogenes/genome/GCF_006364235.fna")
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/uncompressed/GCF_006364235/main/assembler/GCF_006364235.fna")
                     )
                 )
                 input[1] = null
@@ -46,7 +46,7 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_006364235"],
-                        assembly: file("${params.test_data_dir}/data/species/streptococcus_pyogenes/genome/GCF_006364235.fna.gz")
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
                     )
                 )
                 input[1] = null
@@ -77,10 +77,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_006364235"],
-                        assembly: file("${params.test_data_dir}/data/species/streptococcus_pyogenes/genome/GCF_006364235.fna.gz")
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/emmtyper/emmtyper.tfa")
+                input[1] = file("${params.test_data_dir}/datasets/emmtyper/emmtyper.tfa")
                 """
             }
         }

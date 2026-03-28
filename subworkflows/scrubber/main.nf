@@ -30,6 +30,9 @@
  * @input download_nohuman
  * Boolean flag to download the nohuman database instead of using the provided path
  *
+ * @input nohuman_save_as_tarball
+ * Boolean flag to save downloaded nohuman database as tarball
+ *
  * @output sample_outputs  Per-sample module record from the selected scrubbing tool
  * @output scrubbed        Clean metagenomic reads after contaminant removal
  * @output scrubbed_extra  Additional cleaned reads for extended filtering
@@ -42,6 +45,7 @@ include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { NOHUMAN          } from '../nohuman/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
 include { gather           } from 'plugin/nf-bactopia'
+include { filterWithData   } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
     take:
@@ -49,6 +53,7 @@ workflow SCRUBBER {
     use_srascrubber: Boolean
     nohuman_db: Path?
     download_nohuman: Boolean
+    nohuman_save_as_tarball: Boolean
 
     main:
     ch_sample_outputs = channel.empty()
@@ -59,7 +64,7 @@ workflow SCRUBBER {
         ch_sample_outputs = SRAHUMANSCRUBBER.out.sample_outputs
         ch_special_report = SRAHUMANSCRUBBER.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
     } else {
-        NOHUMAN(reads, nohuman_db, download_nohuman)
+        NOHUMAN(reads, nohuman_db, download_nohuman, nohuman_save_as_tarball)
         ch_sample_outputs = NOHUMAN.out.sample_outputs
         ch_special_report = NOHUMAN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
     }

@@ -42,11 +42,7 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     prokka_proteins    : Path?
@@ -64,6 +60,8 @@ workflow {
         params.prokka_proteins,
         params.prokka_prodigal_tf
     )
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = PROKKA.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -72,6 +70,7 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = PROKKA.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
     // Run-level records (scope: run)
@@ -80,6 +79,7 @@ workflow {
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"

@@ -15,13 +15,13 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "SRR2838702"],
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
                         se: null,
                         lr: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/kraken2/k2_viral_20251015.tar.gz")
+                input[1] = file("${params.test_data_dir}/datasets/kraken2/k2_viral_20251015.tar.gz")
                 """
             }
         }

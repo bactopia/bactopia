@@ -10,14 +10,14 @@
                 "runtype": "paired-end",
                 "single_end": false
             },
-            "GCF_000017085-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            "GCF_000017085-dist.txt:md5,d6e99e81627f0476832c63f080f7da91",
             [
                 "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
             ]
         ],
-        "timestamp": "2026-03-24T07:20:34.144473587",
+        "timestamp": "2026-03-28T06:52:44.253794367",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
@@ -32,14 +32,14 @@
                 "runtype": "paired-end",
                 "single_end": false
             },
-            "GCF_000017085-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            "GCF_000017085-dist.txt:md5,8204b0caa799d04ee7e5519fc4f92ff5",
             [
                 "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:01.685876801",
+        "timestamp": "2026-03-28T06:55:39.233862992",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

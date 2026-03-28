@@ -29,16 +29,16 @@
 nextflow.preview.types = true
 
 include { BLAST_BLASTN as BLASTN_MODULE } from '../../modules/blast/blastn/main'
-include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
+include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
 include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTN {
     take:
-    assembly: Channel<Record>
+    blastdb: Channel<Record>
     query: Path
 
     main:
-    BLASTN_MODULE(assembly, query)
+    BLASTN_MODULE(blastdb, query)
     CSVTK_CONCAT(gather(BLASTN_MODULE.out, 'tsv', [name: 'blastn']), 'tsv', 'tsv')
 
     emit:

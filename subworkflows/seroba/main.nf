@@ -13,9 +13,12 @@
  *
  * @modules csvtk_concat, seroba_run
  *
- * @input record(meta, reads)
+ * @input record(meta, r1, r2, se, lr)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end FASTQ files for S. pneumoniae serotype prediction
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
+ * - `se`: Single-end Illumina reads
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @output sample_outputs
  * - `tsv`: Serotype prediction results with predicted serotype and confidence in TSV format
@@ -26,16 +29,17 @@
  */
 nextflow.preview.types = true
 
-include { SEROBA_RUN   } from '../../modules/seroba/run/main'
-include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gather       } from 'plugin/nf-bactopia'
+include { SEROBA_RUN     } from '../../modules/seroba/run/main'
+include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
+include { filterWithData } from 'plugin/nf-bactopia'
+include { gather         } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:
-    assembly: Channel<Record>
+    reads: Channel<Record>
 
     main:
-    SEROBA_RUN(assembly)
+    SEROBA_RUN(filterWithData(reads, ['r1', 'r2']))
     CSVTK_CONCAT(gather(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
 
     emit:

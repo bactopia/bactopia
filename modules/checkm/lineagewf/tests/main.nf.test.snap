@@ -1,43 +1,43 @@
 {
-    "checkm_lineagewf - module - GCF_000292685 - uncompressed": {
+    "checkm_lineagewf - module - SRR2838702 - uncompressed": {
         "content": [
             {
-                "id": "GCF_000292685-CHECKM_LINEAGEWF",
-                "logs_dir": "GCF_000292685/tools/checkm//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/checkm/",
+                "id": "SRR2838702-CHECKM_LINEAGEWF",
+                "logs_dir": "SRR2838702/tools/checkm//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm/",
                 "process_name": "checkm",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            "SRR2838702.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
             [
                 "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
             ]
         ],
-        "timestamp": "2026-03-24T07:27:40.187534845",
+        "timestamp": "2026-03-28T07:02:07.715313791",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
-    "checkm_lineagewf - module - GCF_000292685 - compressed": {
+    "checkm_lineagewf - module - SRR2838702 - compressed": {
         "content": [
             {
-                "id": "GCF_000292685-CHECKM_LINEAGEWF",
-                "logs_dir": "GCF_000292685/tools/checkm//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/checkm/",
+                "id": "SRR2838702-CHECKM_LINEAGEWF",
+                "logs_dir": "SRR2838702/tools/checkm//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm/",
                 "process_name": "checkm",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,3a76623c675e0e6e12a987da198c6f5d",
+            "SRR2838702.tsv:md5,8bca9541c38622e9b44e8f7e03a7a9c3",
             [
                 "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
             ]
         ],
-        "timestamp": "2026-03-24T07:34:56.53463706",
+        "timestamp": "2026-03-28T07:03:33.250739176",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

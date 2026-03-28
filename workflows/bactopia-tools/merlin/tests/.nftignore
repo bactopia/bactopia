@@ -4,7 +4,5 @@ bactopia-runs/**/nf-reports/*.{dot,html}
 
 **/mashdist.tsv
 **/blast_output_alleles.txt
-**/*.{bam,xml,yml}
-**/SRR2838702.{tsv,txt}
-**/SRR2838702.results.{csv,txt}
-**/SRR2838702-hmm*
+**/*.{bai,bam,csv,json,tab,tsv,txt,xml,yml}
+**/*hmm*

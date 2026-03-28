@@ -1,11 +1,11 @@
 {
-    "eggnog - subworkflow - GCF_000292685": {
+    "eggnog - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-EGGNOG:EGGNOG_MAPPER",
-                "logs_dir": "GCF_000292685/tools/eggnog//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/eggnog/",
+                "id": "SRR2838702-EGGNOG:EGGNOG_MAPPER",
+                "logs_dir": "SRR2838702/tools/eggnog//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/eggnog/",
                 "process_name": "eggnog",
                 "scope": "sample"
             },
@@ -13,9 +13,9 @@
                 "versions.yml:md5,1b179e895ab51b7321ae747976b92b31"
             ]
         ],
-        "timestamp": "2026-03-24T19:59:20.683302908",
+        "timestamp": "2026-03-28T07:08:49.459872558",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

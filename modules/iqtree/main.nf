@@ -78,7 +78,7 @@ process IQTREE {
     fi
 
     mkdir ${process_name}/
-    find . -maxdepth 1 -name "${prefix}*" -not -type d -exec mv {} ${process_name}/ \\;
+    find . -maxdepth 1 -name "${prefix}*" -not -name "${msa}" -not -type d -exec mv {} ${process_name}/ \\;
 
     if [ "${process_name}" == "iqtree" ]; then
         # We don't want the fast-tree to be on the same level as the main tree in the outputs

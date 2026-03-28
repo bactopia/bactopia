@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("emmtyper - GCF_006364235|streptococcus_pyogenes|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/streptococcus_pyogenes"
+                bactopia_test = "/species/streptococcus_pyogenes/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
@@ -44,7 +44,7 @@ nextflow_pipeline {
     test("emmtyper (with --emmtyper_blastdb) - GCF_006364235|streptococcus_pyogenes|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/streptococcus_pyogenes"
+                bactopia_test = "/species/streptococcus_pyogenes/compressed"
                 test_dataset = "/datasets/emmtyper/emmtyper.tfa"
                 test_dataset2 = ""
                 test_dataset3 = ""

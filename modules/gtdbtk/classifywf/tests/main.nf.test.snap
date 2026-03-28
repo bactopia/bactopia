@@ -9,14 +9,14 @@
                 "process_name": "gtdb",
                 "scope": "sample"
             },
-            "gtdbtk-test.bac120.summary.tsv:md5,06f01f9c6777f4ce18227b5da1ea5138",
+            "gtdbtk-test.bac120.summary.tsv:md5,3f882601b823ac52e85bf65e97145c35",
             [
                 "versions.yml:md5,5089e20ff2dfd72f49ce38267f9ec75a"
             ]
         ],
-        "timestamp": "2026-03-24T07:48:33.430211219",
+        "timestamp": "2026-03-28T07:21:22.851240313",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

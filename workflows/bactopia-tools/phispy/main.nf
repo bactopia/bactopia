@@ -40,7 +40,9 @@ include { PHISPY            } from '../../../subworkflows/phispy/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    PHISPY(BACTOPIATOOL_INIT.out.gffs)
+    PHISPY(BACTOPIATOOL_INIT.out.gbks)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = PHISPY.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -49,13 +51,16 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = PHISPY.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = PHISPY.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results      >> "${r.meta.output_dir}/"
@@ -67,6 +72,8 @@ output {
     sample_nf_logs {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"

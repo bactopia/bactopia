@@ -15,11 +15,11 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRX1390622"],
-                        blastdb: file("${params.test_data_dir}/data/species/portiera/genome/SRX1390622-blastdb.tar.gz")
+                        _meta: [name: "SRR2838702"],
+                        blastdb: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702-blastdb.tar.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/single-protein.faa")
+                input[1] = file("${params.test_data_dir}/datasets/blast/single-protein.faa")
                 """
             }
         }

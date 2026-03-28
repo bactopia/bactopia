@@ -12,7 +12,7 @@
  *
  * @status stable
  * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, resource-download, conditional-logic
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation, resource-download, conditional-logic, no-test
  * @citation art, fastq-dl, fastq-scan, ncbi-genome-download, pigz
  *
  * @modules gather, csvtk_concat

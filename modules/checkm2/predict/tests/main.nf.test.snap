@@ -1,43 +1,43 @@
 {
-    "checkm2_predict - module - GCF_000292685 - compressed": {
+    "checkm2_predict - module - SRR2838702 - compressed": {
         "content": [
             {
-                "id": "GCF_000292685-CHECKM2_PREDICT",
-                "logs_dir": "GCF_000292685/tools/checkm2//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/checkm2/",
+                "id": "SRR2838702-CHECKM2_PREDICT",
+                "logs_dir": "SRR2838702/tools/checkm2//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm2/",
                 "process_name": "checkm2",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,31d39c9c83f31fdc54fda9d10a6127d6",
+            "SRR2838702.tsv:md5,74b16d4449c799491deea540f6367e89",
             [
                 "versions.yml:md5,f13e02312d6a08ca746e6de2659d8195"
             ]
         ],
-        "timestamp": "2026-03-24T07:28:21.574786108",
+        "timestamp": "2026-03-28T07:01:49.189755108",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
-    "checkm2_predict - module - GCF_000292685 - uncompressed": {
+    "checkm2_predict - module - SRR2838702 - uncompressed": {
         "content": [
             {
-                "id": "GCF_000292685-CHECKM2_PREDICT",
-                "logs_dir": "GCF_000292685/tools/checkm2//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/checkm2/",
+                "id": "SRR2838702-CHECKM2_PREDICT",
+                "logs_dir": "SRR2838702/tools/checkm2//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm2/",
                 "process_name": "checkm2",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,31d39c9c83f31fdc54fda9d10a6127d6",
+            "SRR2838702.tsv:md5,31d39c9c83f31fdc54fda9d10a6127d6",
             [
                 "versions.yml:md5,f13e02312d6a08ca746e6de2659d8195"
             ]
         ],
-        "timestamp": "2026-03-24T07:25:01.260549595",
+        "timestamp": "2026-03-28T06:57:17.088251648",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

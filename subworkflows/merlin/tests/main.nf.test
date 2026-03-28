@@ -15,14 +15,14 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_000017085", runtype: "paired-end", single_end: false],
-                        fna: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna.gz"),
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz"),
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/sketcher/mash-refseq88.k21.msh.xz")
+                input[1] = file("${params.test_data_dir}/datasets/sketcher/mash-refseq88.k21.msh.xz")
                 input[2] = null
                 input[3] = null
                 input[4] = null

@@ -5,7 +5,7 @@
     "description": "A module for calculating Mash distances between sequences",
     "type": "object",
     "$defs": {
-        "mash_dist_parameters": {
+        "merlin_dist_parameters": {
             "title": "mashdist Parameters",
             "type": "object",
             "description": "",
@@ -85,7 +85,7 @@
     },
     "allOf": [
         {
-            "$ref": "#/$defs/mash_dist_parameters"
+            "$ref": "#/$defs/merlin_dist_parameters"
         }
     ]
 }

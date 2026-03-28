@@ -1,43 +1,99 @@
 {
     "emmtyper - GCF_006364235|streptococcus_pyogenes|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_006364235",
+                "GCF_006364235/tools",
+                "GCF_006364235/tools/emmtyper",
+                "GCF_006364235/tools/emmtyper/GCF_006364235.tsv",
+                "GCF_006364235/tools/emmtyper/logs",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.begin",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.err",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.log",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.out",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.run",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.sh",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.trace",
+                "GCF_006364235/tools/emmtyper/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/emmtyper",
+                "bactopia-runs/emmtyper/merged-results",
+                "bactopia-runs/emmtyper/merged-results/emmtyper.tsv",
+                "bactopia-runs/emmtyper/merged-results/logs",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.begin",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.err",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.log",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.out",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.run",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.sh",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.trace",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/versions.yml",
                 "bactopia-runs/emmtyper/nf-reports",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-dag.dot",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-report.html",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-timeline.html"
             ],
             [
-                
+                "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+                "versions.yml:md5,ca260192e0d49be5baa2933234bae4ac",
+                "emmtyper.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+                "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:27.485716534",
+        "timestamp": "2026-03-28T06:54:57.820896307",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "emmtyper (with --emmtyper_blastdb) - GCF_006364235|streptococcus_pyogenes|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_006364235",
+                "GCF_006364235/tools",
+                "GCF_006364235/tools/emmtyper",
+                "GCF_006364235/tools/emmtyper/GCF_006364235.tsv",
+                "GCF_006364235/tools/emmtyper/logs",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.begin",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.err",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.log",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.out",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.run",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.sh",
+                "GCF_006364235/tools/emmtyper/logs/nf.command.trace",
+                "GCF_006364235/tools/emmtyper/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/emmtyper",
+                "bactopia-runs/emmtyper/merged-results",
+                "bactopia-runs/emmtyper/merged-results/emmtyper.tsv",
+                "bactopia-runs/emmtyper/merged-results/logs",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.begin",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.err",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.log",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.out",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.run",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.sh",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/nf.command.trace",
+                "bactopia-runs/emmtyper/merged-results/logs/emmtyper-concat/versions.yml",
                 "bactopia-runs/emmtyper/nf-reports",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-dag.dot",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-report.html",
                 "bactopia-runs/emmtyper/nf-reports/emmtyper-timeline.html"
             ],
             [
-                
+                "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+                "versions.yml:md5,ca260192e0d49be5baa2933234bae4ac",
+                "emmtyper.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+                "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:41.161484203",
+        "timestamp": "2026-03-28T06:57:35.95965478",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

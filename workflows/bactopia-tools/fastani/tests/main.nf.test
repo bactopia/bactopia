@@ -9,8 +9,8 @@ nextflow_pipeline {
     test("FastANI - haemophilus_influenzae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/haemophilus_influenzae"
-                test_dataset = "/species/haemophilus_influenzae/GCA_000027305/main/assembler/GCA_000027305.fna.gz"
+                bactopia_test = "/species/haemophilus_influenzae/compressed"
+                test_dataset = "/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""
@@ -44,7 +44,7 @@ nextflow_pipeline {
     test("FastANI (pairwise) - haemophilus_influenzae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/haemophilus_influenzae"
+                bactopia_test = "/species/haemophilus_influenzae/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
@@ -80,7 +80,7 @@ nextflow_pipeline {
     test("FastANI (accession) - haemophilus_influenzae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/haemophilus_influenzae"
+                bactopia_test = "/species/haemophilus_influenzae/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

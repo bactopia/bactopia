@@ -12,9 +12,10 @@
  * @note Database Required
  * Requires the SeroBA database to be set up using `seroba createDBs` before running.
  *
- * @input record(meta, reads)
+ * @input record(meta, r1, r2)
  * - `meta`: Groovy Map containing sample information
- * - `reads`: Paired-end FASTQ files
+ * - `r1`: Illumina R1 reads (paired-end)
+ * - `r2`: Illumina R2 reads (paired-end)
  *
  * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
  * - `tsv`: Serotype prediction results with predicted serotype and confidence in TSV format
@@ -30,7 +31,7 @@ process SEROBA_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, reads: Set<Path>): Record
+    (_meta: Map, r1: Path?, r2: Path?): Record
 
     output:
     record(
@@ -60,7 +61,7 @@ process SEROBA_RUN {
     """
     seroba \\
         runSerotyping \\
-        ${reads.join(' ')} \\
+        ${r1} ${r2} \\
         supplemental ${task.ext.args}
 
     # Avoid name collisions

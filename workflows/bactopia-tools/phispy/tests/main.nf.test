@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("PhiSpy - haemophilus_influenzae|compressed_genbank") {
         when {
             params {
-                bactopia_test = "/species/haemophilus_influenzae"
+                bactopia_test = "/species/haemophilus_influenzae/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

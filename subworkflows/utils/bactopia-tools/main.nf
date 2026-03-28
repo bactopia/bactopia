@@ -20,6 +20,7 @@
  * @output assembly_proteins_gff  Assembly + proteins + GFF: record(meta, assembly, proteins, gff)
  * @output proteins               Protein sequences: record(meta, proteins)
  * @output gffs                   Annotation file: record(meta, gff)
+ * @output gbks                   GenBank file: record(meta, gbk)
  */
 nextflow.preview.types = true
 
@@ -46,8 +47,10 @@ workflow BACTOPIATOOL_INIT {
     def ch_assembly_reads        = channel.empty() as Channel<Record>
     def ch_assembly_meta         = channel.empty() as Channel<Record>
     def ch_assembly_proteins_gff = channel.empty() as Channel<Record>
+    def ch_blastdb               = channel.empty() as Channel<Record>
     def ch_proteins              = channel.empty() as Channel<Record>
     def ch_gffs                  = channel.empty() as Channel<Record>
+    def ch_gbks                  = channel.empty() as Channel<Record>
 
     // Process inputs
     def collectedInputs = bactopiaToolInputs()
@@ -59,13 +62,15 @@ workflow BACTOPIATOOL_INIT {
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->
-        ch_reads                 << record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly              << record(meta: sample.meta, fna: sample.assembly)
-        ch_assembly_reads        << record(meta: sample.meta, fna: sample.assembly, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly_meta         << record(meta: sample.meta, fna: sample.assembly, meta_file: sample.meta_file)
-        ch_assembly_proteins_gff << record(meta: sample.meta, fna: sample.assembly, faa: sample.proteins, gff: sample.gff)
-        ch_proteins              << record(meta: sample.meta, faa: sample.proteins)
-        ch_gffs                  << record(meta: sample.meta, gff: sample.gff)
+        ch_reads                 << record(_meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly              << record(_meta: sample.meta, fna: sample.assembly)
+        ch_assembly_reads        << record(_meta: sample.meta, fna: sample.assembly, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly_meta         << record(_meta: sample.meta, fna: sample.assembly, meta_file: sample.meta_file)
+        ch_assembly_proteins_gff << record(_meta: sample.meta, fna: sample.anno_fna, faa: sample.proteins, gff: sample.gff)
+        ch_blastdb               << record(_meta: sample.meta, blastdb: sample.blastdb)
+        ch_proteins              << record(_meta: sample.meta, faa: sample.proteins)
+        ch_gffs                  << record(_meta: sample.meta, gff: sample.gff)
+        ch_gbks                  << record(_meta: sample.meta, gbk: sample.gbk)
     }
 
     emit:
@@ -74,6 +79,8 @@ workflow BACTOPIATOOL_INIT {
     assembly_reads: Channel<Record>        = ch_assembly_reads
     assembly_meta: Channel<Record>         = ch_assembly_meta
     assembly_proteins_gff: Channel<Record> = ch_assembly_proteins_gff
+    blastdb: Channel<Record>               = ch_blastdb
     proteins: Channel<Record>              = ch_proteins
     gffs: Channel<Record>                  = ch_gffs
+    gbks: Channel<Record>                  = ch_gbks
 }

@@ -10,6 +10,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
+                nohuman_test = "/datasets/nohuman/HPRC.r2"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

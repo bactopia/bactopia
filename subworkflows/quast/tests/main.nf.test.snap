@@ -1,15 +1,15 @@
 {
-    "quast - subworkflow - GCF_000292685": {
+    "quast - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-QUAST:QUAST_MODULE",
-                "logs_dir": "GCF_000292685/tools/quast//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/quast/",
+                "id": "SRR2838702-QUAST:QUAST_MODULE",
+                "logs_dir": "SRR2838702/tools/quast//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/quast/",
                 "process_name": "quast",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            "SRR2838702.tsv:md5,a02f798379d9982810a198ec9b389079",
             [
                 "versions.yml:md5,83128d552544124c01b8b5502f773fc6"
             ],
@@ -25,9 +25,9 @@
                 "versions.yml:md5,f6625779099decc901ee6311371b1230"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:42.901889746",
+        "timestamp": "2026-03-28T06:53:27.337013639",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

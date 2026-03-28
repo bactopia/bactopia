@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("ShigEiFinder - GCF_016726285|shigella_boydii|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/shigella_boydii"
+                bactopia_test = "/species/shigella_boydii/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

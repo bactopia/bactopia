@@ -10,7 +10,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/sylph/sylph.syldb"
+                test_dataset = "/datasets/sylph/gtdb-r226-c200-dbv1.syldb"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

@@ -39,10 +39,6 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
     rundir   : String
 
     // Tool-specific parameters
@@ -55,15 +51,25 @@ include { TBLASTX           } from '../../../subworkflows/tblastx/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    TBLASTX(BACTOPIATOOL_INIT.out.assembly, params.tblastx_query)
-    ch_sample_nf_logs = TBLASTX.out.sample_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
-    ch_run_nf_logs = TBLASTX.out.run_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
+    TBLASTX(BACTOPIATOOL_INIT.out.blastdb, params.tblastx_query)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = TBLASTX.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = TBLASTX.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = TBLASTX.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = TBLASTX.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
+
 output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {

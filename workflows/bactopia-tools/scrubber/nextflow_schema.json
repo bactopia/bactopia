@@ -42,85 +42,69 @@
                 }
             }
         },
-        "kraken2_parameters": {
-            "title": "Kraken2 Parameters",
+        "nohuman_download_parameters": {
+            "title": "Nohuman Download Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "kraken2_db": {
+                "nohuman_db": {
                     "type": "string",
-                    "description": "The a single tarball or path to a Kraken2 formatted database",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "description": "Path to the nohuman database or directory to download it to",
+                    "fa_icon": "fas fa-file-alt",
                     "is_required": true
                 },
-                "kraken2_quick_mode": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Quick operation (use first hit or hits)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                "nohuman_db_version": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Database version to download (default: latest HPRC release)",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "kraken2_confidence": {
+                "nohuman_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the nohuman database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-file-alt"
+                },
+                "download_nohuman": {
+                    "type": "boolean",
+                    "description": "Download the nohuman database to the path given by --nohuman_db",
+                    "default": false,
+                    "fa_icon": "fas fa-italic"
+                }
+            }
+        },
+        "nohuman_run_parameters": {
+            "title": "Nohuman Run Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nohuman_db": {
+                    "type": "string",
+                    "description": "Path to the nohuman database directory or tarball",
+                    "fa_icon": "fas fa-file-alt",
+                    "is_required": true
+                },
+                "nohuman_confidence": {
                     "type": "number",
                     "default": 0.0,
-                    "description": "Confidence score threshold between 0 and 1",
+                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "kraken2_minimum_base_quality": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Minimum base quality used in classification",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_use_mpa_style": {
+                "nohuman_human": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Format report output like Kraken 1's kraken-mpa-report",
+                    "description": "Invert output to keep only human reads instead of removing them",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "kraken2_report_zero_counts": {
+                "nohuman_save_report": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Report counts for ALL taxa, even if counts are zero",
+                    "description": "Save the Kraken2 classification report",
                     "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "kraken2_report_minimizer_data": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Include minimizer and distinct minimizer count information in report",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_use_names": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Print scientific names instead of just taxids",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_memory_mapping": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Avoid loading database into RAM",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_minimum_hit_groups": {
-                    "type": "integer",
-                    "default": 2,
-                    "description": "Minimum number of hit groups needed to make a call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "kraken2_keep_filtered_reads": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep the classified and unclassified FASTQs produced by Kraken2",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
                 }
             }
         },
@@ -136,26 +120,6 @@
                     "default": false,
                     "description": "Use SRAHumanScrubber for scrubbing human reads",
                     "fa_icon": "fas fa-file-alt"
-                }
-            }
-        },
-        "wget_parameters": {
-            "title": "Wget Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "no_check_certificate": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Don't validate the server's certificate",
-                    "fa_icon": "fas fa-shield-alt"
-                },
-                "wget_opts": {
-                    "type": "string",
-                    "description": "Additional wget options",
-                    "default": ""
                 }
             }
         },
@@ -525,13 +489,13 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/kraken2_parameters"
+            "$ref": "#/$defs/nohuman_download_parameters"
+        },
+        {
+            "$ref": "#/$defs/nohuman_run_parameters"
         },
         {
             "$ref": "#/$defs/srahumanscrubber_parameters"
-        },
-        {
-            "$ref": "#/$defs/wget_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"

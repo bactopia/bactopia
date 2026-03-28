@@ -76,7 +76,7 @@
                     "hidden": true
                 },
                 "btyper3_overlap": {
-                    "type": "integer",
+                    "type": "number",
                     "default": 0.7,
                     "description": "Specify maximum proportion of overlap for overlapping Bt toxin genes to be considered separate genes",
                     "fa_icon": "fas fa-expand-arrows-alt",

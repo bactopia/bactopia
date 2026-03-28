@@ -1,22 +1,47 @@
 {
     "Busco - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/busco",
+                "SRR2838702/tools/busco/bacteria_odb10",
+                "SRR2838702/tools/busco/bacteria_odb10/logs",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.begin",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.err",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.log",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.out",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.run",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.sh",
+                "SRR2838702/tools/busco/bacteria_odb10/logs/nf.command.trace",
                 "bactopia-runs",
                 "bactopia-runs/busco-bacteria_odb10",
+                "bactopia-runs/busco-bacteria_odb10/merged-results",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/busco-bacteria_odb10.tsv",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.begin",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.err",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.log",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.out",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.run",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.sh",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/nf.command.trace",
+                "bactopia-runs/busco-bacteria_odb10/merged-results/logs/busco-bacteria_odb10-concat/versions.yml",
                 "bactopia-runs/busco-bacteria_odb10/nf-reports",
                 "bactopia-runs/busco-bacteria_odb10/nf-reports/busco-dag.dot",
                 "bactopia-runs/busco-bacteria_odb10/nf-reports/busco-report.html",
                 "bactopia-runs/busco-bacteria_odb10/nf-reports/busco-timeline.html"
             ],
             [
-                
+                "busco-bacteria_odb10.tsv:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
+                "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:32.066466963",
+        "timestamp": "2026-03-28T06:55:11.256458919",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

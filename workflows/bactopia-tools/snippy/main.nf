@@ -63,11 +63,7 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     reference          : Path
@@ -91,7 +87,7 @@ workflow {
     // Download if applicable
     ch_reference = channel.empty()
     if (params.reference) {
-        ch_reference = [[id: 'snippy'], params.reference]
+        ch_reference = params.reference
     } else if (params.accession) {
         NCBIGENOMEDOWNLOAD([])
         ch_reference = NCBIGENOMEDOWNLOAD.out.bactopia_tools.first()
@@ -101,25 +97,24 @@ workflow {
     SNIPPY(BACTOPIATOOL_INIT.out.reads, ch_reference)
     ch_sample_outputs = SNIPPY.out.sample_outputs
 
-    // Collect VCFs and aligned FAs across all samples for core-SNP analysis
-    ch_vcfs = SNIPPY.out.sample_outputs.flatMap { r -> r.vcf }.collect()
-    ch_fas = SNIPPY.out.sample_outputs.flatMap { r -> r.aligned_fa }.collect()
-    ch_snippy_core_input = ch_vcfs.combine(ch_fas).map { vcfs, fas ->
-        record(_meta: [id: 'core-snp'], _vcf: vcfs.toSet(), _aligned_fa: fas.toSet())
+    // Collect per-sample VCFs and aligned FAs for core-SNP analysis
+    ch_core_input = SNIPPY.out.variants.collect().map { records ->
+        record(
+            _meta: [id: 'core-snp'],
+            _vcf: records.collectMany { r -> r.vcf ?: [] }.toSet(),
+            _aligned_fa: records.collectMany { r -> r.aligned_fa ?: [] }.toSet()
+        )
     }
 
     // Identify core SNPs
-    SNIPPY_CORE(ch_snippy_core_input, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
+    SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
     ch_sample_outputs = ch_sample_outputs
         .mix(SNIPPY_CORE.out.sample_outputs)
         .mix(SNIPPY_CORE.out.snpdists_outputs)
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        ch_gubbins_input = SNIPPY_CORE.out.sample_outputs.map { r ->
-            record(_meta: r.meta, msa: r.clean_full_aln)
-        }
-        GUBBINS(ch_gubbins_input)
+        GUBBINS(SNIPPY_CORE.out.clean_full_alignment)
         ch_sample_outputs = ch_sample_outputs
             .mix(GUBBINS.out.sample_outputs)
             .mix(GUBBINS.out.snpdists_outputs)

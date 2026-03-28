@@ -3,9 +3,9 @@
         "content": [
             {
                 "id": "GCA_000027305-FASTANI:FASTANI_MODULE",
-                "logs_dir": "fastani/logs/GCA_000027305",
+                "logs_dir": "GCA_000027305/tools/fastani/logs/GCA_000027305",
                 "name": "GCA_000027305",
-                "output_dir": "",
+                "output_dir": "GCA_000027305/tools/fastani",
                 "process_name": "fastani",
                 "scope": "run"
             },
@@ -25,9 +25,9 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-03-24T21:32:06.181037669",
+        "timestamp": "2026-03-28T13:54:24.782417251",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

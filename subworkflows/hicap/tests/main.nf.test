@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_900478275"],
-                        assembly: file("${params.test_data_dir}/data/species/haemophilus_influenzae/genome/GCF_900478275.fna.gz")
+                        fna: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/assembler/GCF_900478275.fna.gz")
                     )
                 )
                 input[1] = null

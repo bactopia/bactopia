@@ -46,7 +46,7 @@ nextflow_pipeline {
             params {
                 bactopia_test = "/species/portiera/compressed"
                 test_dataset = "datasets/blast/single-gene.ffn.gz"
-                blastx_use_genes = true
+
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

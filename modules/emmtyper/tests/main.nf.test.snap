@@ -14,9 +14,9 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:17.067207274",
+        "timestamp": "2026-03-28T06:53:33.734432073",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
@@ -35,9 +35,9 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:30.468636709",
+        "timestamp": "2026-03-28T06:55:15.05237565",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
@@ -56,9 +56,9 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:01.270399303",
+        "timestamp": "2026-03-28T06:51:34.965609705",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

@@ -1,22 +1,50 @@
 {
     "Seroba - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/seroba",
+                "SRR2838702/tools/seroba/SRR2838702.tsv",
+                "SRR2838702/tools/seroba/logs",
+                "SRR2838702/tools/seroba/logs/nf.command.begin",
+                "SRR2838702/tools/seroba/logs/nf.command.err",
+                "SRR2838702/tools/seroba/logs/nf.command.log",
+                "SRR2838702/tools/seroba/logs/nf.command.out",
+                "SRR2838702/tools/seroba/logs/nf.command.run",
+                "SRR2838702/tools/seroba/logs/nf.command.sh",
+                "SRR2838702/tools/seroba/logs/nf.command.trace",
+                "SRR2838702/tools/seroba/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/seroba",
+                "bactopia-runs/seroba/merged-results",
+                "bactopia-runs/seroba/merged-results/logs",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.begin",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.err",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.log",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.out",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.run",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.sh",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/nf.command.trace",
+                "bactopia-runs/seroba/merged-results/logs/seroba-concat/versions.yml",
+                "bactopia-runs/seroba/merged-results/seroba.tsv",
                 "bactopia-runs/seroba/nf-reports",
                 "bactopia-runs/seroba/nf-reports/seroba-dag.dot",
                 "bactopia-runs/seroba/nf-reports/seroba-report.html",
                 "bactopia-runs/seroba/nf-reports/seroba-timeline.html"
             ],
             [
-                
+                "SRR2838702.tsv:md5,8c20690cc5ca0fd77228c830001e0b86",
+                "versions.yml:md5,115e2b5bab3ac8b7d5ebc7334399cfaa",
+                "versions.yml:md5,4fd4f724e2f19016eff39a2b524a9007",
+                "seroba.tsv:md5,8c20690cc5ca0fd77228c830001e0b86"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:30.44413587",
+        "timestamp": "2026-03-28T13:53:11.437032114",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

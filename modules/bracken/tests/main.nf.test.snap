@@ -19,9 +19,9 @@
                 "versions.yml:md5,3e962dd665b7527b4a41bb72d0bea1f3"
             ]
         ],
-        "timestamp": "2026-03-25T17:22:12.368865853",
+        "timestamp": "2026-03-28T06:52:48.371153107",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
@@ -45,9 +45,9 @@
                 "versions.yml:md5,3e962dd665b7527b4a41bb72d0bea1f3"
             ]
         ],
-        "timestamp": "2026-03-25T17:25:37.907609732",
+        "timestamp": "2026-03-28T07:00:15.398000809",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

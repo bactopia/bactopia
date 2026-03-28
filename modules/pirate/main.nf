@@ -41,7 +41,7 @@ process PIRATE {
         // Named fields (used downstream)
         meta: meta,
         aln: file("${prefix}.aln.gz", optional: true),
-        csv: files("pirate/gene_presence_absence.csv", optional: true),
+        csv: file("pirate/gene_presence_absence.csv", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.aln.gz", optional: true),

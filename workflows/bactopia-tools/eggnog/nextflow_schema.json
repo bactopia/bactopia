@@ -66,31 +66,31 @@
                     "description": "Save the eggNOG database as a single tarball",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "skip_diamond": {
+                "eggnog_skip_diamond": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do not install the diamond database",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "install_mmseq": {
+                "eggnog_install_mmseq": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the MMseqs2 database",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "install_pfam": {
+                "eggnog_install_pfam": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the Pfam database, required for de novo annotation or realignment",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "install_hmm": {
+                "eggnog_install_hmm": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the HMMER database specified with --hmmer_taxid",
                     "fa_icon": "fas fa-expand-arrows-alt"
                 },
-                "hmmer_taxid": {
+                "eggnog_hmmer_taxid": {
                     "type": "integer",
                     "default": 2,
                     "description": "Tax ID of eggNOG HMM database to download",

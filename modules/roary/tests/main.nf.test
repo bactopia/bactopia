@@ -16,10 +16,10 @@ nextflow_process {
                     record(
                         _meta: [name: "portiera-roary"],
                         gff: [
-                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000292685.gff.gz"),
-                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000298385.gff.gz"),
-                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_002849995.gff.gz"),
-                            file("${params.test_data_dir}/data/species/portiera/genome/gff/GCF_000300075.gff.gz")
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000292685.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000298385.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_002849995.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000300075.gff.gz")
                         ]
                     )
                 )

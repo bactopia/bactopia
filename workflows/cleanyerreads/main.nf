@@ -85,7 +85,7 @@ workflow {
 
     if (params.use_k2scrubber || params.use_srascrubber) {
         // Remove host reads
-        SCRUBBER(GATHER.out.reads, params.use_srascrubber, params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"), params.download_nohuman)
+        SCRUBBER(GATHER.out.reads, params.use_srascrubber, params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"), params.download_nohuman, params.nohuman_save_as_tarball)
         ch_sample_outputs = ch_sample_outputs.mix(SCRUBBER.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(SCRUBBER.out.run_outputs)
 

@@ -1,45 +1,45 @@
 {
-    "bakta - module - GCF_000292685 - path (full)": {
+    "bakta - module - SRR2838702 - tarball (light)": {
         "content": [
             {
-                "id": "GCF_000292685-BAKTA_RUN",
-                "logs_dir": "GCF_000292685/main/annotator/bakta/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/main/annotator/bakta/",
+                "id": "SRR2838702-BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
                 "process_name": "bakta",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,94c81a605e1473851e6bfde3a0395211",
-            "GCF_000292685.txt:md5,bfdd9937f4796c8b8b2ee1f92a6cde81",
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
             [
                 "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
             ]
         ],
-        "timestamp": "2026-03-24T07:25:56.866565897",
+        "timestamp": "2026-03-28T06:56:44.545915321",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
-    "bakta - module - GCF_000292685 - tarball (light)": {
+    "bakta - module - SRR2838702 - path (full)": {
         "content": [
             {
-                "id": "GCF_000292685-BAKTA_RUN",
-                "logs_dir": "GCF_000292685/main/annotator/bakta/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/main/annotator/bakta/",
+                "id": "SRR2838702-BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
                 "process_name": "bakta",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,94c81a605e1473851e6bfde3a0395211",
-            "GCF_000292685.txt:md5,bfdd9937f4796c8b8b2ee1f92a6cde81",
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
             [
                 "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
             ]
         ],
-        "timestamp": "2026-03-24T07:24:11.531283103",
+        "timestamp": "2026-03-28T07:00:22.805225921",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

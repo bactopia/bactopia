@@ -13,9 +13,9 @@
  *
  * @modules csvtk_concat, mash_dist
  *
- * @input record(meta, seqs)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: Sequences in FASTA format to compare against reference
+ * - `fna`: Sequences in FASTA format to compare against reference
  *
  * @input reference
  * Reference sequence in FASTA format for distance calculations

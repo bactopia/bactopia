@@ -34,11 +34,7 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     mash_sketch : Path
@@ -50,10 +46,9 @@ include { MASHDIST          } from '../../../subworkflows/mashdist/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    MASHDIST(
-        BACTOPIATOOL_INIT.out.assembly,
-        params.mash_sketch
-    )
+    MASHDIST(BACTOPIATOOL_INIT.out.assembly, params.mash_sketch)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = MASHDIST.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -62,13 +57,16 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = MASHDIST.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = MASHDIST.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"
@@ -79,6 +77,8 @@ output {
     sample_nf_logs {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"

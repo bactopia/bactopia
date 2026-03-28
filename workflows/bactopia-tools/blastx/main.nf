@@ -47,15 +47,25 @@ include { BLASTX            } from '../../../subworkflows/blastx/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    BLASTX(BACTOPIATOOL_INIT.out.assembly, params.blastx_query)
-    ch_sample_nf_logs = BLASTX.out.sample_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
-    ch_run_nf_logs = BLASTX.out.run_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
+    BLASTX(BACTOPIATOOL_INIT.out.blastdb, params.blastx_query)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = BLASTX.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = BLASTX.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = BLASTX.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = BLASTX.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
+
 output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {

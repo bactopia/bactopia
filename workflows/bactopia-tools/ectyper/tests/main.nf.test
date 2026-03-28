@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("ECTyper - GCF_001695515|escherichia_coli|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/escherichia_coli"
+                bactopia_test = "/species/escherichia_coli/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

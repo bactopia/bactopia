@@ -12,8 +12,8 @@ nextflow_pipeline {
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
-                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
                 test_ont = ""
                 is_ci = true
@@ -52,7 +52,7 @@ nextflow_pipeline {
                 test_dataset3 = ""
                 test_r1 = ""
                 test_r2 = ""
-                test_se = "/data/species/portiera/illumina/SRR2838702SE.fastq.gz"
+                test_se = "/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"
                 test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
@@ -91,12 +91,13 @@ nextflow_pipeline {
                 test_r1 = ""
                 test_r2 = ""
                 test_se = ""
-                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"
                 genome_size = 358242
                 min_coverage = 10
+                min_reads = 4000
             }
         }
 
@@ -119,22 +120,23 @@ nextflow_pipeline {
         }
     }
 
-    test("Bactopia (hybrid) - ERR3772599|portiera|illumina+nanopore") {
+    test("Bactopia (hybrid) - SRR2838702|portiera|illumina+nanopore") {
         when {
             params {
                 bactopia_test = ""
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
-                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
-                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
-                sample = "ERR3772599"
+                sample = "SRR2838702"
                 genome_size = 358242
                 min_coverage = 10
+                min_reads = 4000
                 hybrid = true
             }
         }
@@ -165,15 +167,16 @@ nextflow_pipeline {
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
-                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
                 test_se = ""
-                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"
                 genome_size = 358242
                 min_coverage = 10
+                min_reads = 4000
                 short_polish = true
             }
         }
@@ -205,8 +208,8 @@ nextflow_pipeline {
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
-                test_r1 = "/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"
-                test_r2 = "/data/species/portiera/illumina/SRR2838702_R2-low-proportion.fastq.gz"
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2-low-proportion.fastq.gz"
                 test_se = ""
                 test_ont = ""
                 is_ci = true
@@ -246,7 +249,7 @@ nextflow_pipeline {
                 test_r1 = ""
                 test_r2 = ""
                 test_se = ""
-                test_ont = "/data/species/portiera/nanopore/ERR3772599.fastq.gz"
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
                 is_ci = true
                 outdir = "$outputDir"
                 sample = "ERR3772599"

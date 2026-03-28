@@ -39,11 +39,7 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     use_srascrubber : Boolean
@@ -59,7 +55,8 @@ workflow {
         BACTOPIATOOL_INIT.out.reads,
         params.use_srascrubber,
         params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
-        params.download_nohuman
+        params.download_nohuman,
+        params.nohuman_save_as_tarball
     )
 
     // Extract nf_logs as individual (meta, file) tuples for renaming

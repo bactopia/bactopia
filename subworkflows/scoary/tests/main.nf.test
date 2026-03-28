@@ -15,10 +15,10 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "scoary"],
-                        genes: file("${params.test_data_dir}/data/species/portiera/genome/gene_presence_absence.csv")
+                        csv: file("${params.test_data_dir}/datasets/generic/genome/gene_presence_absence.csv")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/gene_traits.csv")
+                input[1] = file("${params.test_data_dir}/datasets/generic/gene_traits.csv")
                 """
             }
         }

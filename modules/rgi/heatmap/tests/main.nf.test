@@ -21,7 +21,7 @@ nextflow_process {
                 """
                 // TODO: Replace with actual RGI JSON fixture files
                 // RGI heatmap requires >= 2 RGI JSON results to generate output
-                // Example fixture path: \${params.test_data_dir}/data/tools/rgi/sample1.json
+                // Example fixture path: \${params.test_data_dir}/tools/rgi/sample1.json
                 def json1 = file("\${workDir}/sample1.json")
                 json1.text = '{}'
 

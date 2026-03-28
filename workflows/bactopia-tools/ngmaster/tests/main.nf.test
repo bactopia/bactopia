@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("ngmaster - GCF_001047255|neisseria_gonorrhoeae|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/neisseria_gonorrhoeae"
+                bactopia_test = "/species/neisseria_gonorrhoeae/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

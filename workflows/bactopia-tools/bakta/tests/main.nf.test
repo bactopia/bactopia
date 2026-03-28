@@ -10,7 +10,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/bakta/db-light"
+                test_dataset = "/datasets/bakta/light/db-light"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""
@@ -45,7 +45,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/bakta/bakta-light.tar.gz"
+                test_dataset = "/datasets/bakta/light/bakta-light.tar.gz"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

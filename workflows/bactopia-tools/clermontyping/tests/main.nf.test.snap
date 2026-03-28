@@ -1,22 +1,54 @@
 {
     "clermontyping - GCF_001695515|escherichia_coli|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_001695515",
+                "GCF_001695515/tools",
+                "GCF_001695515/tools/clermontyping",
+                "GCF_001695515/tools/clermontyping/GCF_001695515.tsv",
+                "GCF_001695515/tools/clermontyping/logs",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.begin",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.err",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.log",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.out",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.run",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.sh",
+                "GCF_001695515/tools/clermontyping/logs/nf.command.trace",
+                "GCF_001695515/tools/clermontyping/logs/versions.yml",
+                "GCF_001695515/tools/clermontyping/supplemental",
+                "GCF_001695515/tools/clermontyping/supplemental/GCF_001695515.blast.xml",
+                "GCF_001695515/tools/clermontyping/supplemental/GCF_001695515.html",
+                "GCF_001695515/tools/clermontyping/supplemental/GCF_001695515.mash.tsv",
                 "bactopia-runs",
                 "bactopia-runs/clermontyping",
+                "bactopia-runs/clermontyping/merged-results",
+                "bactopia-runs/clermontyping/merged-results/clermontyping.tsv",
+                "bactopia-runs/clermontyping/merged-results/logs",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.begin",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.err",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.log",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.out",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.run",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.sh",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/nf.command.trace",
+                "bactopia-runs/clermontyping/merged-results/logs/clermontyping-concat/versions.yml",
                 "bactopia-runs/clermontyping/nf-reports",
                 "bactopia-runs/clermontyping/nf-reports/clermontyping-dag.dot",
                 "bactopia-runs/clermontyping/nf-reports/clermontyping-report.html",
                 "bactopia-runs/clermontyping/nf-reports/clermontyping-timeline.html"
             ],
             [
-                
+                "GCF_001695515.tsv:md5,ada70bc3ddf029316f3f169c440f0b0b",
+                "versions.yml:md5,0af03e4bf500503c36d6425e4169eb18",
+                "clermontyping.tsv:md5,ada70bc3ddf029316f3f169c440f0b0b",
+                "versions.yml:md5,867a114cb8d26e2302391ce5a5a0a959"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:28.055848157",
+        "timestamp": "2026-03-28T06:54:51.921380107",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

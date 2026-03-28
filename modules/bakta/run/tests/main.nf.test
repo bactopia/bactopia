@@ -6,7 +6,7 @@ nextflow_process {
     tag "bakta"
     tag "bakta_run"
 
-    test("bakta - module - GCF_000292685 - tarball (light)") {
+    test("bakta - module - SRR2838702 - tarball (light)") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -15,14 +15,14 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                        _meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/bakta/light/bakta-light.tar.gz")
-                input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
-                input[3] = file("${params.test_data_dir}/data/empty/EMPTY_PRODIGAL_TF")
-                input[4] = file("${params.test_data_dir}/data/empty/EMPTY_REPLICONS")
+                input[1] = file("${params.test_data_dir}/datasets/bakta/light/bakta-light.tar.gz")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
+                input[3] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
+                input[4] = file("${params.test_data_dir}/empty/EMPTY_REPLICONS")
                 """
             }
         }
@@ -41,7 +41,7 @@ nextflow_process {
         }
     }
 
-    test("bakta - module - GCF_000292685 - path (full)") {
+    test("bakta - module - SRR2838702 - path (full)") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -50,14 +50,14 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                        _meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/bakta/light/db-light")
-                input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
-                input[3] = file("${params.test_data_dir}/data/empty/EMPTY_PRODIGAL_TF")
-                input[4] = file("${params.test_data_dir}/data/empty/EMPTY_REPLICONS")
+                input[1] = file("${params.test_data_dir}/datasets/bakta/light/db-light")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
+                input[3] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
+                input[4] = file("${params.test_data_dir}/empty/EMPTY_REPLICONS")
                 """
             }
         }

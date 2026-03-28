@@ -38,15 +38,11 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
-    reference : Path
-    insertions: Path
+    reference  : Path
+    insertions : Path
 }
 
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -58,8 +54,10 @@ workflow {
     ISMAPPER(
         BACTOPIATOOL_INIT.out.reads,
         params.reference,
-        params.insertions,
+        params.insertions
     )
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = ISMAPPER.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -68,6 +66,7 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = ISMAPPER.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
     // Run-level records (scope: run)
@@ -76,6 +75,7 @@ workflow {
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.supplemental >> "${r.meta.output_dir}/"

@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("meningotype - GCF_003355215|neisseria_meningitidis|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/neisseria_meningitidis"
+                bactopia_test = "/species/neisseria_meningitidis/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

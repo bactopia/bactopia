@@ -42,12 +42,20 @@ workflow {
     main:
     BACTOPIATOOL_INIT()
     PBPTYPER(BACTOPIATOOL_INIT.out.assembly)
-    ch_sample_nf_logs = PBPTYPER.out.sample_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
-    ch_run_nf_logs = PBPTYPER.out.run_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = PBPTYPER.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = PBPTYPER.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = PBPTYPER.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = PBPTYPER.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }

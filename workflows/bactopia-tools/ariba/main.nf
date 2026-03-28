@@ -55,10 +55,7 @@ include { ARIBA             } from '../../../subworkflows/ariba/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    ARIBA(
-        BACTOPIATOOL_INIT.out.reads,
-        params.ariba_db
-    )
+    ARIBA(BACTOPIATOOL_INIT.out.reads, params.ariba_db)
 
     // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = ARIBA.out.sample_outputs.flatMap { r ->
@@ -83,7 +80,7 @@ output {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"
             r.logs.flatten()     >> "${r.meta.logs_dir}/"
-            r.versions     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {

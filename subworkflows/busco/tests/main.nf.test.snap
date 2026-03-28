@@ -1,15 +1,15 @@
 {
-    "busco - subworkflow - GCF_000292685": {
+    "busco - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-BUSCO:BUSCO_MODULE",
-                "logs_dir": "GCF_000292685/tools/busco/bacteria_odb10/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/busco/bacteria_odb10",
+                "id": "SRR2838702-BUSCO:BUSCO_MODULE",
+                "logs_dir": "SRR2838702/tools/busco/bacteria_odb10/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/busco/bacteria_odb10",
                 "process_name": "busco",
                 "scope": "sample"
             },
-            "GCF_000292685-summary.txt:md5,6f1755af3cdf443a46475b3cac0e37cf",
+            "SRR2838702-summary.txt:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
             [
                 "versions.yml:md5,84a39022a8e62bb5b3eb9c860e79d49f"
             ],
@@ -25,9 +25,9 @@
                 "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:47.073395487",
+        "timestamp": "2026-03-28T06:54:55.19548543",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

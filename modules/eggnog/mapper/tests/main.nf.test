@@ -6,7 +6,7 @@ nextflow_process {
     tag "eggnog"
     tag "eggnog_mapper"
 
-    test("eggnog - module - GCF_000292685 - tarball") {
+    test("eggnog - module - SRR2838702 - tarball") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -15,11 +15,11 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
+                        _meta: [name: "SRR2838702"],
+                        faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/eggnog/eggnog.tar.gz")
+                input[1] = file("${params.test_data_dir}/datasets/eggnog/eggnog.tar.gz")
                 """
             }
         }
@@ -36,7 +36,7 @@ nextflow_process {
         }
     }
 
-    test("eggnog - module - GCF_000292685 - path") {
+    test("eggnog - module - SRR2838702 - path") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -45,11 +45,11 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        proteins: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685-single.faa.gz")
+                        _meta: [name: "SRR2838702"],
+                        faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/eggnog/db")
+                input[1] = file("${params.test_data_dir}/datasets/eggnog/db")
                 """
             }
         }

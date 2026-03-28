@@ -13,9 +13,9 @@
  *
  * @modules blastx, csvtk_concat
  *
- * @input record(meta, assembly)
+ * @input record(meta, blastdb)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
- * - `assembly`: Set of assembled contigs in FASTA format that will be translated and searched
+ * - `blastdb`: A compressed tarball containing the nucleotide BLAST database
  *
  * @input query
  * Path to BLAST protein database for searching translated sequences
@@ -34,11 +34,11 @@ include { gather                        } from 'plugin/nf-bactopia'
 
 workflow BLASTX {
     take:
-    assembly: Channel<Record>
+    blastdb: Channel<Record>
     query: Path
 
     main:
-    BLASTX_MODULE(assembly, query)
+    BLASTX_MODULE(blastdb, query)
     CSVTK_CONCAT(gather(BLASTX_MODULE.out, 'tsv', [name: 'blastx']), 'tsv', 'tsv')
 
     emit:

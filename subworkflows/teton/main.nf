@@ -74,10 +74,11 @@ workflow TETON {
     use_srascrubber: Boolean
     nohuman_db: Path?
     download_nohuman: Boolean
+    nohuman_save_as_tarball: Boolean
 
     main:
     // Remove host reads
-    SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman)
+    SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman, nohuman_save_as_tarball)
 
     // Taxon Classification & Abundance
     BRACKEN(SCRUBBER.out.scrubbed, db)

@@ -50,15 +50,24 @@ workflow {
         params.spatyper_repeats,
         params.spatyper_repeat_order
     )
-    ch_sample_nf_logs = STAPHTYPER.out.sample_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
-    ch_run_nf_logs = STAPHTYPER.out.run_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = STAPHTYPER.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = STAPHTYPER.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = STAPHTYPER.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = STAPHTYPER.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
+
 output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {

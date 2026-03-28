@@ -10,9 +10,9 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation mash
  *
- * @input record(meta, query)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `query`: FASTA, FASTQ, or Mash sketch file to be queried
+ * - `fna`: FASTA, FASTQ, or Mash sketch file to be queried
  *
  * @input reference
  * The reference file (FASTA, FASTQ, or Mash sketch) to compare against
@@ -30,7 +30,7 @@ process MASH_DIST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, query: Set<Path>): Record
+    (_meta: Map, fna: Path): Record
     reference      : Path
 
     output:
@@ -71,7 +71,7 @@ process MASH_DIST {
         -p ${task.cpus} \\
         ${task.ext.args} \\
         ${reference_name} \\
-        ${query} | sed 's/.fna.gz//g' | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
+        ${fna} | sed 's/.fna.gz//g' | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

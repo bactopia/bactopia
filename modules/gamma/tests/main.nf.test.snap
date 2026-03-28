@@ -1,45 +1,45 @@
 {
-    "gamma - module - GCF_000292685 - compressed": {
+    "gamma - module - SRR2838702 - uncompressed": {
         "content": [
             {
-                "id": "GCF_000292685-GAMMA",
-                "logs_dir": "GCF_000292685/tools/gamma/null/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/gamma/null",
+                "id": "SRR2838702-GAMMA",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
                 "process_name": "gamma",
                 "scope": "sample"
             },
-            "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
-            "GCF_000292685.psl:md5,aceb29eb63760fcbd5e48f973b47c391",
+            "SRR2838702.gamma:md5,e2748b908aec89d7da03d032b8754ed7",
+            "SRR2838702.psl:md5,fc3003533d8232082c6e5c5788093a59",
             [
                 "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:05.311498597",
+        "timestamp": "2026-03-28T06:52:13.63465221",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
-    "gamma - module - GCF_000292685 - uncompressed": {
+    "gamma - module - SRR2838702 - compressed": {
         "content": [
             {
-                "id": "GCF_000292685-GAMMA",
-                "logs_dir": "GCF_000292685/tools/gamma/null/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/gamma/null",
+                "id": "SRR2838702-GAMMA",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
                 "process_name": "gamma",
                 "scope": "sample"
             },
-            "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
-            "GCF_000292685.psl:md5,aceb29eb63760fcbd5e48f973b47c391",
+            "SRR2838702.gamma:md5,ac083bb8cb217da1d58c75e5e1bf93d6",
+            "SRR2838702.psl:md5,d41d8cd98f00b204e9800998ecf8427e",
             [
                 "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
             ]
         ],
-        "timestamp": "2026-03-24T07:20:38.40482702",
+        "timestamp": "2026-03-28T06:54:04.284672421",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

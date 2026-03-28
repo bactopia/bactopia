@@ -17,22 +17,22 @@ nextflow_process {
                     record(
                         _meta: [name: "snippy-core-test"],
                         _vcf: [
-                            file("${params.test_data_dir}/data/datasets/snippy/test1.vcf.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test2.vcf.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test3.vcf.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test4.vcf.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test5.vcf.gz")
+                            file("${params.test_data_dir}/datasets/snippy/test1.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.vcf.gz")
                         ],
                         _aligned_fa: [
-                            file("${params.test_data_dir}/data/datasets/snippy/test1.aligned.fa.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test2.aligned.fa.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test3.aligned.fa.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test4.aligned.fa.gz"),
-                            file("${params.test_data_dir}/data/datasets/snippy/test5.aligned.fa.gz")
+                            file("${params.test_data_dir}/datasets/snippy/test1.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.aligned.fa.gz")
                         ]
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.gbk.gz")
+                input[1] = file("${params.test_data_dir}/datasets/generic/GCF_000292685.gbk")
                 input[2] = null
                 """
             }

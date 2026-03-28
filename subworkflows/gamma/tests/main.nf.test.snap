@@ -1,16 +1,16 @@
 {
-    "gamma - subworkflow - GCF_000292685": {
+    "gamma - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-GAMMA:GAMMA_MODULE",
-                "logs_dir": "GCF_000292685/tools/gamma/null/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/gamma/null",
+                "id": "SRR2838702-GAMMA:GAMMA_MODULE",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
                 "process_name": "gamma",
                 "scope": "sample"
             },
-            "GCF_000292685.gamma:md5,b3995811a625996f8572cdf33b3f1c55",
-            "GCF_000292685.psl:md5,aceb29eb63760fcbd5e48f973b47c391",
+            "SRR2838702.gamma:md5,ac083bb8cb217da1d58c75e5e1bf93d6",
+            "SRR2838702.psl:md5,d41d8cd98f00b204e9800998ecf8427e",
             [
                 "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb"
             ],
@@ -26,9 +26,9 @@
                 "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:38.808822393",
+        "timestamp": "2026-03-28T06:53:47.598472141",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

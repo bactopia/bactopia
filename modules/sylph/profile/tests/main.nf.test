@@ -16,13 +16,13 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "SRR2838702"],
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
                         se: null,
                         lr: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/sylph/gtdb-r226-c200-dbv1.syldb")
+                input[1] = file("${params.test_data_dir}/datasets/sylph/gtdb-r226-c200-dbv1.syldb")
                 """
             }
         }
@@ -52,11 +52,11 @@ nextflow_process {
                         _meta: [name: "SRR2838702SE"],
                         r1: null,
                         r2: null,
-                        se: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702SE.fastq.gz"),
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
                         lr: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/sylph/gtdb-r226-c200-dbv1.syldb")
+                input[1] = file("${params.test_data_dir}/datasets/sylph/gtdb-r226-c200-dbv1.syldb")
                 """
             }
         }

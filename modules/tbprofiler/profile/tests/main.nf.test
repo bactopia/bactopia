@@ -16,10 +16,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "SRR2838702"],
-                        r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz")
                     )
                 )
                 """
@@ -48,10 +48,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "SRR2838702"],
-                        r1: file("${params.test_data_dir}/data/empty/EMPTY_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/empty/EMPTY_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702SE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/data/empty/EMPTY.fastq.gz")
+                        r1: file("${params.test_data_dir}/empty/EMPTY_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/empty/EMPTY_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz")
                     )
                 )
                 """
@@ -80,10 +80,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "ERR3772599"],
-                        r1: file("${params.test_data_dir}/data/empty/EMPTY_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/empty/EMPTY_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/data/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/data/species/portiera/nanopore/ERR3772599.fastq.gz")
+                        r1: file("${params.test_data_dir}/empty/EMPTY_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/empty/EMPTY_R2.fastq.gz"),
+                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
                     )
                 )
                 """

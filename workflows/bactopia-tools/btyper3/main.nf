@@ -61,7 +61,7 @@ workflow {
 }
 
 output {
-    // Sample-level outputs
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"
@@ -73,7 +73,7 @@ output {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
 
-    // Run-level outputs
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"

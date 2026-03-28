@@ -1,45 +1,45 @@
 {
-    "prokka - module - GCF_000292685 - uncompressed": {
+    "prokka - module - SRR2838702 - uncompressed": {
         "content": [
             {
-                "id": "GCF_000292685-PROKKA",
-                "logs_dir": "GCF_000292685/main/annotator/prokka/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/main/annotator/prokka/",
+                "id": "SRR2838702-PROKKA",
+                "logs_dir": "SRR2838702/main/annotator/prokka/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/prokka/",
                 "process_name": "prokka",
                 "scope": "sample"
             },
-            "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0",
-            "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6",
+            "SRR2838702.txt:md5,09c05b70e569b8397697494b799fe2b0",
+            "SRR2838702.tsv:md5,f65694ef35f5464acaf281b88a9d3a0c",
             [
                 "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:40.396575124",
+        "timestamp": "2026-03-28T06:52:16.618769429",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
-    "prokka - module - GCF_000292685 - compressed": {
+    "prokka - module - SRR2838702 - compressed": {
         "content": [
             {
-                "id": "GCF_000292685-PROKKA",
-                "logs_dir": "GCF_000292685/main/annotator/prokka/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/main/annotator/prokka/",
+                "id": "SRR2838702-PROKKA",
+                "logs_dir": "SRR2838702/main/annotator/prokka/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/prokka/",
                 "process_name": "prokka",
                 "scope": "sample"
             },
-            "GCF_000292685.txt:md5,09c05b70e569b8397697494b799fe2b0",
-            "GCF_000292685.tsv:md5,4bf94a84b08c83052bbcb3b06d0eb5a6",
+            "SRR2838702.txt:md5,3bb57f34e7d7ef4866cd475edf5bb9c1",
+            "SRR2838702.tsv:md5,e42c80d920d126ff5a35802abe96fd4b",
             [
                 "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
             ]
         ],
-        "timestamp": "2026-03-24T07:22:23.385694307",
+        "timestamp": "2026-03-28T06:54:29.345265926",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

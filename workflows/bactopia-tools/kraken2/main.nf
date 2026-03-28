@@ -37,10 +37,6 @@
 nextflow.preview.types = true
 
 params {
-    bactopia : String
-    includes : String
-    excludes : String
-    workflow : Map
     rundir   : String
 
     // Tool-specific parameters
@@ -53,10 +49,9 @@ include { KRAKEN2           } from '../../../subworkflows/kraken2/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    KRAKEN2(
-        BACTOPIATOOL_INIT.out.reads,
-        params.kraken2_db
-    )
+    KRAKEN2(BACTOPIATOOL_INIT.out.reads, params.kraken2_db)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = KRAKEN2.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -65,6 +60,7 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = KRAKEN2.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
     // Run-level records (scope: run)
@@ -73,6 +69,7 @@ workflow {
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"

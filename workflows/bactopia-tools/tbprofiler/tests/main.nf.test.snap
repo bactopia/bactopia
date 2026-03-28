@@ -1,22 +1,52 @@
 {
     "TBProfiler - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/tbprofiler",
+                "SRR2838702/tools/tbprofiler/SRR2838702.csv",
+                "SRR2838702/tools/tbprofiler/SRR2838702.results.json.gz",
+                "SRR2838702/tools/tbprofiler/SRR2838702.txt",
+                "SRR2838702/tools/tbprofiler/logs",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.begin",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.err",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.log",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.out",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.run",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.sh",
+                "SRR2838702/tools/tbprofiler/logs/nf.command.trace",
+                "SRR2838702/tools/tbprofiler/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/tbprofiler",
+                "bactopia-runs/tbprofiler/merged-results",
+                "bactopia-runs/tbprofiler/merged-results/logs",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.begin",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.err",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.log",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.out",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.run",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.sh",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/nf.command.trace",
+                "bactopia-runs/tbprofiler/merged-results/logs/tbprofiler-collate/versions.yml",
+                "bactopia-runs/tbprofiler/merged-results/tbprofiler.csv",
+                "bactopia-runs/tbprofiler/merged-results/tbprofiler.variants.csv",
+                "bactopia-runs/tbprofiler/merged-results/tbprofiler.variants.txt",
                 "bactopia-runs/tbprofiler/nf-reports",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-dag.dot",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-report.html",
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,2d87e4df08df0f8c93f13d385d3a25f0",
+                "versions.yml:md5,0a6c2ee40d0bbc1c31e66a46cc130523"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:31.901408244",
+        "timestamp": "2026-03-28T06:55:32.784186571",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

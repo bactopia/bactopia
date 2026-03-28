@@ -1,22 +1,50 @@
 {
     "SeqSero2 - GCF_016028495|salmonella_enterica|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_016028495",
+                "GCF_016028495/tools",
+                "GCF_016028495/tools/seqsero2",
+                "GCF_016028495/tools/seqsero2/GCF_016028495.tsv",
+                "GCF_016028495/tools/seqsero2/GCF_016028495.txt",
+                "GCF_016028495/tools/seqsero2/logs",
+                "GCF_016028495/tools/seqsero2/logs/GCF_016028495.log",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.begin",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.err",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.log",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.out",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.run",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.sh",
+                "GCF_016028495/tools/seqsero2/logs/nf.command.trace",
+                "GCF_016028495/tools/seqsero2/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/seqsero2",
+                "bactopia-runs/seqsero2/merged-results",
+                "bactopia-runs/seqsero2/merged-results/logs",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.begin",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.err",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.log",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.out",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.run",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.sh",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/nf.command.trace",
+                "bactopia-runs/seqsero2/merged-results/logs/seqsero2-concat/versions.yml",
+                "bactopia-runs/seqsero2/merged-results/seqsero2.tsv",
                 "bactopia-runs/seqsero2/nf-reports",
                 "bactopia-runs/seqsero2/nf-reports/seqsero2-dag.dot",
                 "bactopia-runs/seqsero2/nf-reports/seqsero2-report.html",
                 "bactopia-runs/seqsero2/nf-reports/seqsero2-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,e05fffa83523c10bcc49b5ac0a7aa8d7",
+                "versions.yml:md5,407bddfba34298df26d7fa5880a564e6"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:31.304551491",
+        "timestamp": "2026-03-28T06:54:37.70347339",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

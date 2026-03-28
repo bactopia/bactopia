@@ -48,10 +48,9 @@ include { SYLPH             } from '../../../subworkflows/sylph/main'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    SYLPH(
-        BACTOPIATOOL_INIT.out.reads,
-        params.sylph_db
-    )
+    SYLPH(BACTOPIATOOL_INIT.out.reads, params.sylph_db)
+
+    // Extract nf_logs as individual (meta, file) tuples for renaming
     ch_sample_nf_logs = SYLPH.out.sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
@@ -60,6 +59,7 @@ workflow {
     }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = SYLPH.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
     // Run-level records (scope: run)
@@ -68,6 +68,7 @@ workflow {
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"

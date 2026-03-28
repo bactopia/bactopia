@@ -147,33 +147,32 @@ workflow {
     }
 
     // Pan-genome GWAS
+    log.info "Running Scoary with traits file: ${params.scoary_traits}"
     if (params.scoary_traits) {
         ch_csv = PANGENOME.out.sample_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
-        SCOARY(ch_csv, file(params.scoary_traits, checkIfExists: true))
+        SCOARY(ch_csv, params.scoary_traits)
         ch_sample_outputs = ch_sample_outputs.mix(SCOARY.out.sample_outputs)
     }
 
     // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = ch_sample_outputs.flatMap { r ->
+    ch_run_nf_logs = ch_sample_outputs.flatMap { r ->
         r.nf_logs.collect { f -> tuple(r.meta, f) }
     }
 
     publish:
-    // Per-sample records (scope: sample)
-    sample_outputs = ch_sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
+    run_outputs = ch_sample_outputs
+    run_nf_logs = ch_run_nf_logs
 }
 
 output {
-    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
-    sample_outputs {
+    run_outputs {
         path { r ->
-            r.results.flatten()  >> "${r.meta.output_dir}/"
-            r.logs.flatten()     >> "${r.meta.logs_dir}/"
-            r.versions.flatten() >> "${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }
     }
-    sample_nf_logs {
-        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
     }
 }

@@ -1,22 +1,49 @@
 {
     "Mykrobe - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/mykrobe",
+                "SRR2838702/tools/mykrobe/SRR2838702.csv",
+                "SRR2838702/tools/mykrobe/SRR2838702.json",
+                "SRR2838702/tools/mykrobe/logs",
+                "SRR2838702/tools/mykrobe/logs/nf.command.begin",
+                "SRR2838702/tools/mykrobe/logs/nf.command.err",
+                "SRR2838702/tools/mykrobe/logs/nf.command.log",
+                "SRR2838702/tools/mykrobe/logs/nf.command.out",
+                "SRR2838702/tools/mykrobe/logs/nf.command.run",
+                "SRR2838702/tools/mykrobe/logs/nf.command.sh",
+                "SRR2838702/tools/mykrobe/logs/nf.command.trace",
+                "SRR2838702/tools/mykrobe/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/mykrobe",
+                "bactopia-runs/mykrobe/merged-results",
+                "bactopia-runs/mykrobe/merged-results/logs",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.begin",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.err",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.log",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.out",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.run",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.sh",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/nf.command.trace",
+                "bactopia-runs/mykrobe/merged-results/logs/mykrobe-concat/versions.yml",
+                "bactopia-runs/mykrobe/merged-results/mykrobe.csv",
                 "bactopia-runs/mykrobe/nf-reports",
                 "bactopia-runs/mykrobe/nf-reports/mykrobe-dag.dot",
                 "bactopia-runs/mykrobe/nf-reports/mykrobe-report.html",
                 "bactopia-runs/mykrobe/nf-reports/mykrobe-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,0bb4264d1e075a8c456f1cb32275d24e",
+                "versions.yml:md5,b61c6df6bd9d4c4092a94b7ebb604057"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:32.531296808",
+        "timestamp": "2026-03-28T06:54:34.256616157",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

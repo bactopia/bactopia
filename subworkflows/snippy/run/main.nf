@@ -50,12 +50,16 @@
  *   - `tab`: A simple tab-separated summary of all variants
  *   - `txt`: Tab-separated columnar list of alignment statistics
  *
+ * @output variants
+ * Per-sample VCFs and aligned FAs filtered to only samples with variant data
+ *
  * @output run_outputs
  */
 nextflow.preview.types = true
 
-include { SNIPPY_RUN } from '../../../modules/snippy/run/main'
-include { gather     } from 'plugin/nf-bactopia'
+include { SNIPPY_RUN    } from '../../../modules/snippy/run/main'
+include { gather        } from 'plugin/nf-bactopia'
+include { filterWithData } from 'plugin/nf-bactopia'
 
 workflow SNIPPY {
     take:
@@ -66,6 +70,9 @@ workflow SNIPPY {
     SNIPPY_RUN(reads, reference)
 
     emit:
+    // Downstream inputs
+    variants = filterWithData(SNIPPY_RUN.out, ['vcf', 'aligned_fa'])
+
     // Published outputs
     sample_outputs = SNIPPY_RUN.out
     run_outputs = channel.empty()

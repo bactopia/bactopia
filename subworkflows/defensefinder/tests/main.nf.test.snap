@@ -1,11 +1,11 @@
 {
-    "defensefinder - subworkflow - GCF_000292685": {
+    "defensefinder - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-DEFENSEFINDER:DEFENSEFINDER_RUN",
-                "logs_dir": "GCF_000292685/tools/defensefinder//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/defensefinder/",
+                "id": "SRR2838702-DEFENSEFINDER:DEFENSEFINDER_RUN",
+                "logs_dir": "SRR2838702/tools/defensefinder//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/defensefinder/",
                 "process_name": "defensefinder",
                 "scope": "sample"
             },
@@ -13,9 +13,9 @@
                 "versions.yml:md5,cac1e24b64c152890e712ac2077fc111"
             ]
         ],
-        "timestamp": "2026-03-24T21:08:59.553298366",
+        "timestamp": "2026-03-28T06:55:48.974293939",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

@@ -13,7 +13,7 @@
  * @citation mash
  *
  * @subworkflows merlindist, clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,
- *              legsta, lissero, meningotype, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
+ *              legsta, lissero, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
  * @input record(meta, fna, r1, r2, se, lr)
@@ -76,7 +76,6 @@ include { GENOTYPHI     } from '../genotyphi/main';
 include { KLEBORATE     } from '../kleborate/main';
 include { LEGSTA        } from '../legsta/main';
 include { LISSERO       } from '../lissero/main';
-include { MENINGOTYPE   } from '../meningotype/main';
 include { NGMASTER      } from '../ngmaster/main';
 include { PASTY         } from '../pasty/main';
 include { PBPTYPER      } from '../pbptyper/main';
@@ -142,7 +141,6 @@ workflow MERLIN {
 
     // Neisseria
     ch_neisseria = MERLINDIST.out.sample_outputs.filter { r -> r.neisseria != null }
-    MENINGOTYPE(ch_neisseria.map(forAssembly))
     NGMASTER(ch_neisseria.map(forAssembly))
 
     // Pseudomonas
@@ -178,7 +176,6 @@ workflow MERLIN {
         KLEBORATE.out.sample_outputs,
         LEGSTA.out.sample_outputs,
         LISSERO.out.sample_outputs,
-        MENINGOTYPE.out.sample_outputs,
         NGMASTER.out.sample_outputs,
         PASTY.out.sample_outputs,
         PBPTYPER.out.sample_outputs,
@@ -202,7 +199,6 @@ workflow MERLIN {
         KLEBORATE.out.run_outputs,
         LEGSTA.out.run_outputs,
         LISSERO.out.run_outputs,
-        MENINGOTYPE.out.run_outputs,
         NGMASTER.out.run_outputs,
         PASTY.out.run_outputs,
         PBPTYPER.out.run_outputs,

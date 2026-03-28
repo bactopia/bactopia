@@ -1,22 +1,46 @@
 {
     "QUAST - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/quast",
+                "SRR2838702/tools/quast/logs",
+                "SRR2838702/tools/quast/logs/nf.command.begin",
+                "SRR2838702/tools/quast/logs/nf.command.err",
+                "SRR2838702/tools/quast/logs/nf.command.log",
+                "SRR2838702/tools/quast/logs/nf.command.out",
+                "SRR2838702/tools/quast/logs/nf.command.run",
+                "SRR2838702/tools/quast/logs/nf.command.sh",
+                "SRR2838702/tools/quast/logs/nf.command.trace",
                 "bactopia-runs",
                 "bactopia-runs/quast",
+                "bactopia-runs/quast/merged-results",
+                "bactopia-runs/quast/merged-results/logs",
+                "bactopia-runs/quast/merged-results/logs/quast-concat",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.begin",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.err",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.log",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.out",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.run",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.sh",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/nf.command.trace",
+                "bactopia-runs/quast/merged-results/logs/quast-concat/versions.yml",
+                "bactopia-runs/quast/merged-results/quast.tsv",
                 "bactopia-runs/quast/nf-reports",
                 "bactopia-runs/quast/nf-reports/quast-dag.dot",
                 "bactopia-runs/quast/nf-reports/quast-report.html",
                 "bactopia-runs/quast/nf-reports/quast-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,f6625779099decc901ee6311371b1230",
+                "quast.tsv:md5,a02f798379d9982810a198ec9b389079"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:28.64535809",
+        "timestamp": "2026-03-28T06:54:44.082345517",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

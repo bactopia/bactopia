@@ -1,22 +1,53 @@
 {
     "ECTyper - GCF_001695515|escherichia_coli|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_001695515",
+                "GCF_001695515/tools",
+                "GCF_001695515/tools/ectyper",
+                "GCF_001695515/tools/ectyper/GCF_001695515.blast_alleles.txt",
+                "GCF_001695515/tools/ectyper/GCF_001695515.tsv",
+                "GCF_001695515/tools/ectyper/logs",
+                "GCF_001695515/tools/ectyper/logs/ectyper.log",
+                "GCF_001695515/tools/ectyper/logs/nf.command.begin",
+                "GCF_001695515/tools/ectyper/logs/nf.command.err",
+                "GCF_001695515/tools/ectyper/logs/nf.command.log",
+                "GCF_001695515/tools/ectyper/logs/nf.command.out",
+                "GCF_001695515/tools/ectyper/logs/nf.command.run",
+                "GCF_001695515/tools/ectyper/logs/nf.command.sh",
+                "GCF_001695515/tools/ectyper/logs/nf.command.trace",
+                "GCF_001695515/tools/ectyper/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/ectyper",
+                "bactopia-runs/ectyper/merged-results",
+                "bactopia-runs/ectyper/merged-results/ectyper.tsv",
+                "bactopia-runs/ectyper/merged-results/logs",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.begin",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.err",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.log",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.out",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.run",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.sh",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/nf.command.trace",
+                "bactopia-runs/ectyper/merged-results/logs/ectyper-concat/versions.yml",
                 "bactopia-runs/ectyper/nf-reports",
                 "bactopia-runs/ectyper/nf-reports/ectyper-dag.dot",
                 "bactopia-runs/ectyper/nf-reports/ectyper-report.html",
                 "bactopia-runs/ectyper/nf-reports/ectyper-timeline.html"
             ],
             [
-                
+                "GCF_001695515.blast_alleles.txt:md5,8fefda3ab2f156e1a9fc8891076085b2",
+                "GCF_001695515.tsv:md5,def2ecdc6211f53c1ec322747af5048e",
+                "versions.yml:md5,80932b27b22fcb0fd3d07bb31cb6edee",
+                "ectyper.tsv:md5,def2ecdc6211f53c1ec322747af5048e",
+                "versions.yml:md5,c8ed62b01b9e766b6ba10622c55a02e1"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:32.607548234",
+        "timestamp": "2026-03-28T06:55:07.986711303",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

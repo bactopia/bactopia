@@ -67,7 +67,8 @@ workflow {
         params.kraken2_db,
         params.use_srascrubber,
         params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
-        params.download_nohuman
+        params.download_nohuman,
+        params.nohuman_save_as_tarball
     )
 
     // Collect all sample-level outputs

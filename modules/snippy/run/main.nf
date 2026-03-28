@@ -189,6 +189,7 @@ process SNIPPY_RUN {
         pigz -n --best -p ${task.cpus} ${prefix}/${prefix}.coverage.txt
     fi
     mv ${prefix}/* ./
+    rm -rf ${prefix}/
 
     # Check for SNPs
     TOTAL_SNPS=\$(wc -l < ${prefix}.tab)

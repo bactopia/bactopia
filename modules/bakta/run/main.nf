@@ -105,9 +105,9 @@ process BAKTA_RUN {
     meta.logs_dir = "${prefix}/main/annotator/bakta/logs/"
     meta.process_name = task.ext.process_name
 
-    def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""             // TODO: Remove when Path? is fixed
-    def prodigal_opt = prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigal-tf ${prodigal_tf.getName()}" : "" // TODO: Remove when Path? is fixed
-    def replicons_opt = replicons.getName() != "EMPTY_REPLICONS" ? "--replicons ${replicons.getName()}" : ""        // TODO: Remove when Path? is fixed
+    def proteins_opt = proteins != null && proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
+    def prodigal_opt = prodigal_tf != null && prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigal-tf ${prodigal_tf.getName()}" : ""
+    def replicons_opt = replicons != null && replicons.getName() != "EMPTY_REPLICONS" ? "--replicons ${replicons.getName()}" : ""
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     """
     if [ "${is_tarball}" == "true" ]; then

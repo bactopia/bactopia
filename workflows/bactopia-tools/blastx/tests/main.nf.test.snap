@@ -1,64 +1,148 @@
 {
     "blastx (single-gene.ffn.gz|--blastx_use_genes) - SRR2838702|portiera|blastdb": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/blastx",
+                "SRR2838702/tools/blastx/SRR2838702.blastx.tsv",
+                "SRR2838702/tools/blastx/logs",
+                "SRR2838702/tools/blastx/logs/nf.command.begin",
+                "SRR2838702/tools/blastx/logs/nf.command.err",
+                "SRR2838702/tools/blastx/logs/nf.command.log",
+                "SRR2838702/tools/blastx/logs/nf.command.out",
+                "SRR2838702/tools/blastx/logs/nf.command.run",
+                "SRR2838702/tools/blastx/logs/nf.command.sh",
+                "SRR2838702/tools/blastx/logs/nf.command.trace",
+                "SRR2838702/tools/blastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/blastx",
+                "bactopia-runs/blastx/merged-results",
+                "bactopia-runs/blastx/merged-results/blastx.tsv",
+                "bactopia-runs/blastx/merged-results/logs",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.begin",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.err",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.log",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.out",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.run",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.sh",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.trace",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/versions.yml",
                 "bactopia-runs/blastx/nf-reports",
                 "bactopia-runs/blastx/nf-reports/blastx-dag.dot",
                 "bactopia-runs/blastx/nf-reports/blastx-report.html",
                 "bactopia-runs/blastx/nf-reports/blastx-timeline.html"
             ],
             [
-                
+                "SRR2838702.blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,e8157c9d3a54ebec3ab501178357e284",
+                "blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,8634f578eba8a3c37f4edffd83aad444"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:42.481456781",
+        "timestamp": "2026-03-28T06:57:18.368965262",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "blastx (single-gene.ffn) - SRR2838702|portiera|blastdb": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/blastx",
+                "SRR2838702/tools/blastx/SRR2838702.blastx.tsv",
+                "SRR2838702/tools/blastx/logs",
+                "SRR2838702/tools/blastx/logs/nf.command.begin",
+                "SRR2838702/tools/blastx/logs/nf.command.err",
+                "SRR2838702/tools/blastx/logs/nf.command.log",
+                "SRR2838702/tools/blastx/logs/nf.command.out",
+                "SRR2838702/tools/blastx/logs/nf.command.run",
+                "SRR2838702/tools/blastx/logs/nf.command.sh",
+                "SRR2838702/tools/blastx/logs/nf.command.trace",
+                "SRR2838702/tools/blastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/blastx",
+                "bactopia-runs/blastx/merged-results",
+                "bactopia-runs/blastx/merged-results/blastx.tsv",
+                "bactopia-runs/blastx/merged-results/logs",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.begin",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.err",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.log",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.out",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.run",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.sh",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.trace",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/versions.yml",
                 "bactopia-runs/blastx/nf-reports",
                 "bactopia-runs/blastx/nf-reports/blastx-dag.dot",
                 "bactopia-runs/blastx/nf-reports/blastx-report.html",
                 "bactopia-runs/blastx/nf-reports/blastx-timeline.html"
             ],
             [
-                
+                "SRR2838702.blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,e8157c9d3a54ebec3ab501178357e284",
+                "blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,8634f578eba8a3c37f4edffd83aad444"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:50.09152789",
+        "timestamp": "2026-03-28T06:58:08.616212543",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "blastx (single-gene.ffn.gz) - SRR2838702|portiera|blastdb": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/blastx",
+                "SRR2838702/tools/blastx/SRR2838702.blastx.tsv",
+                "SRR2838702/tools/blastx/logs",
+                "SRR2838702/tools/blastx/logs/nf.command.begin",
+                "SRR2838702/tools/blastx/logs/nf.command.err",
+                "SRR2838702/tools/blastx/logs/nf.command.log",
+                "SRR2838702/tools/blastx/logs/nf.command.out",
+                "SRR2838702/tools/blastx/logs/nf.command.run",
+                "SRR2838702/tools/blastx/logs/nf.command.sh",
+                "SRR2838702/tools/blastx/logs/nf.command.trace",
+                "SRR2838702/tools/blastx/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/blastx",
+                "bactopia-runs/blastx/merged-results",
+                "bactopia-runs/blastx/merged-results/blastx.tsv",
+                "bactopia-runs/blastx/merged-results/logs",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.begin",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.err",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.log",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.out",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.run",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.sh",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/nf.command.trace",
+                "bactopia-runs/blastx/merged-results/logs/blastx-concat/versions.yml",
                 "bactopia-runs/blastx/nf-reports",
                 "bactopia-runs/blastx/nf-reports/blastx-dag.dot",
                 "bactopia-runs/blastx/nf-reports/blastx-report.html",
                 "bactopia-runs/blastx/nf-reports/blastx-timeline.html"
             ],
             [
-                
+                "SRR2838702.blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,e8157c9d3a54ebec3ab501178357e284",
+                "blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+                "versions.yml:md5,8634f578eba8a3c37f4edffd83aad444"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:32.501278512",
+        "timestamp": "2026-03-28T06:54:29.534013628",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

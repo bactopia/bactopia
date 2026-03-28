@@ -1,23 +1,23 @@
 {
-    "bakta - subworkflow - GCF_000292685": {
+    "bakta - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-BAKTA:BAKTA_RUN",
-                "logs_dir": "GCF_000292685/main/annotator/bakta/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/main/annotator/bakta/",
+                "id": "SRR2838702-BAKTA:BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
                 "process_name": "bakta",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,94c81a605e1473851e6bfde3a0395211",
-            "GCF_000292685.txt:md5,bfdd9937f4796c8b8b2ee1f92a6cde81",
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
             [
                 "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
             ]
         ],
-        "timestamp": "2026-03-24T19:52:15.607939966",
+        "timestamp": "2026-03-28T06:57:33.338255518",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

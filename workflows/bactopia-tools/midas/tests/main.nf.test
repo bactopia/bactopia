@@ -10,7 +10,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/midas/midas_db"
+                test_dataset = "/datasets/midas/midas_db_v1.2"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""
@@ -45,7 +45,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/midas/midas.tar.gz"
+                test_dataset = "/datasets/midas/midas_db_v1.2"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

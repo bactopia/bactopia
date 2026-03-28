@@ -34,11 +34,11 @@ include { gather                          } from 'plugin/nf-bactopia'
 
 workflow TBLASTN {
     take:
-    assembly: Channel<Record>
+    blastdb: Channel<Record>
     query: Path
 
     main:
-    TBLASTN_MODULE(assembly, query)
+    TBLASTN_MODULE(blastdb, query)
     CSVTK_CONCAT(gather(TBLASTN_MODULE.out, 'tsv', [name: 'tblastn']), 'tsv', 'tsv')
 
     emit:

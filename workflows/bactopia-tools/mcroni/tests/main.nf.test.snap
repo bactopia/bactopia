@@ -1,22 +1,52 @@
 {
     "mcroni - GCF_001682305|escherichia_coli_mcr1|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_001682305",
+                "GCF_001682305/tools",
+                "GCF_001682305/tools/mcroni",
+                "GCF_001682305/tools/mcroni/GCF_001682305.fasta",
+                "GCF_001682305/tools/mcroni/GCF_001682305.tsv",
+                "GCF_001682305/tools/mcroni/logs",
+                "GCF_001682305/tools/mcroni/logs/nf.command.begin",
+                "GCF_001682305/tools/mcroni/logs/nf.command.err",
+                "GCF_001682305/tools/mcroni/logs/nf.command.log",
+                "GCF_001682305/tools/mcroni/logs/nf.command.out",
+                "GCF_001682305/tools/mcroni/logs/nf.command.run",
+                "GCF_001682305/tools/mcroni/logs/nf.command.sh",
+                "GCF_001682305/tools/mcroni/logs/nf.command.trace",
+                "GCF_001682305/tools/mcroni/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/mcroni",
+                "bactopia-runs/mcroni/merged-results",
+                "bactopia-runs/mcroni/merged-results/logs",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.begin",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.err",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.log",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.out",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.run",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.sh",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/nf.command.trace",
+                "bactopia-runs/mcroni/merged-results/logs/mcroni-concat/versions.yml",
+                "bactopia-runs/mcroni/merged-results/mcroni.tsv",
                 "bactopia-runs/mcroni/nf-reports",
                 "bactopia-runs/mcroni/nf-reports/mcroni-dag.dot",
                 "bactopia-runs/mcroni/nf-reports/mcroni-report.html",
                 "bactopia-runs/mcroni/nf-reports/mcroni-timeline.html"
             ],
             [
-                
+                "GCF_001682305.fasta:md5,819b782ce2704d08e9cd4a43370e86c9",
+                "GCF_001682305.tsv:md5,c5459d2965dfafe22f173023d0c35610",
+                "versions.yml:md5,f5904efa58b9d7434ff3687bf3220344",
+                "versions.yml:md5,6eecf339ecef6511e62beca33a4b3fc6",
+                "mcroni.tsv:md5,c5459d2965dfafe22f173023d0c35610"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:27.06723025",
+        "timestamp": "2026-03-28T06:54:44.196203042",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

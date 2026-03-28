@@ -1,15 +1,15 @@
 {
-    "abricate - subworkflow - GCF_000292685": {
+    "abricate - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-ABRICATE:ABRICATE_RUN",
-                "logs_dir": "GCF_000292685/tools/abricate/ncbi/logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/abricate/ncbi",
+                "id": "SRR2838702-ABRICATE:ABRICATE_RUN",
+                "logs_dir": "SRR2838702/tools/abricate/ncbi/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/abricate/ncbi",
                 "process_name": "abricate",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,69af3321b0bc808b7ef85f102395736f",
+            "SRR2838702.tsv:md5,69af3321b0bc808b7ef85f102395736f",
             [
                 "versions.yml:md5,560833e611613540427bf97dc53d156b"
             ],
@@ -31,9 +31,9 @@
                 "versions.yml:md5,ff232e321a8b2b91adefba9a7b05d823"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:37.490034484",
+        "timestamp": "2026-03-28T06:53:20.958260028",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

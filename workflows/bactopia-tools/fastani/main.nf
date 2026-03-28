@@ -68,17 +68,21 @@ workflow {
     BACTOPIATOOL_INIT()
 
     // Reference if applicable
-    ch_reference = channel.empty()
+    ch_reference = channel.empty() as Channel<Record>
     if (params.fastani_reference) {
-        ch_reference.mix(
-            channel.of(tuple([id:params.fastani_reference.getSimpleName()], params.fastani_reference))
+        ch_reference = ch_reference.mix(
+            channel.of(record(_meta: [id: params.fastani_reference.getSimpleName()], fna: params.fastani_reference))
         )
     }
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
         NCBIGENOMEDOWNLOAD(params.accessions)
-        ch_reference = ch_reference.mix(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+        ch_reference = ch_reference.mix(
+            NCBIGENOMEDOWNLOAD.out.bactopia_tools.map { meta, path ->
+                record(_meta: meta, fna: path)
+            }
+        )
     }
 
     // Add query if pairwise
@@ -91,17 +95,25 @@ workflow {
     // Run FastANI
     FASTANI(ch_query, ch_reference)
 
-    ch_sample_nf_logs = FASTANI.out.sample_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
-    ch_run_nf_logs = FASTANI.out.run_outputs.flatMap { r -> r.nf_logs.collect { f -> tuple(r.meta, f) } }
+    // Extract nf_logs as individual (meta, file) tuples for renaming
+    ch_sample_nf_logs = FASTANI.out.sample_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
+    ch_run_nf_logs = FASTANI.out.run_outputs.flatMap { r ->
+        r.nf_logs.collect { f -> tuple(r.meta, f) }
+    }
 
     publish:
+    // Per-sample records (scope: sample)
     sample_outputs = FASTANI.out.sample_outputs
     sample_nf_logs = ch_sample_nf_logs
+    // Run-level records (scope: run)
     run_outputs = FASTANI.out.run_outputs
     run_nf_logs = ch_run_nf_logs
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
             r.results.flatten()  >> "${r.meta.output_dir}/"
@@ -112,6 +124,8 @@ output {
     sample_nf_logs {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
     }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"

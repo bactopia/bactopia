@@ -1,22 +1,46 @@
 {
     "GTDB - SRR2838702|portiera|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/gtdb",
+                "SRR2838702/tools/gtdb/logs",
+                "SRR2838702/tools/gtdb/logs/nf.command.begin",
+                "SRR2838702/tools/gtdb/logs/nf.command.err",
+                "SRR2838702/tools/gtdb/logs/nf.command.log",
+                "SRR2838702/tools/gtdb/logs/nf.command.out",
+                "SRR2838702/tools/gtdb/logs/nf.command.run",
+                "SRR2838702/tools/gtdb/logs/nf.command.sh",
+                "SRR2838702/tools/gtdb/logs/nf.command.trace",
                 "bactopia-runs",
                 "bactopia-runs/gtdb",
+                "bactopia-runs/gtdb/merged-results",
+                "bactopia-runs/gtdb/merged-results/gtdb.tsv",
+                "bactopia-runs/gtdb/merged-results/logs",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.begin",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.err",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.log",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.out",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.run",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.sh",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/nf.command.trace",
+                "bactopia-runs/gtdb/merged-results/logs/gtdb-concat/versions.yml",
                 "bactopia-runs/gtdb/nf-reports",
                 "bactopia-runs/gtdb/nf-reports/gtdb-dag.dot",
                 "bactopia-runs/gtdb/nf-reports/gtdb-report.html",
                 "bactopia-runs/gtdb/nf-reports/gtdb-timeline.html"
             ],
             [
-                
+                "gtdb.tsv:md5,1e145e5f5a582a6ca171e331ffc9eb86",
+                "versions.yml:md5,ec94f157437c25058fdce9d4346342a2"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:28.624740452",
+        "timestamp": "2026-03-28T07:07:23.183459127",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

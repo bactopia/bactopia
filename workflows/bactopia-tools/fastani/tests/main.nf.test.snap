@@ -1,64 +1,160 @@
 {
     "FastANI (accession) - haemophilus_influenzae|compressed_fasta": {
         "content": [
-            0,
+            3,
             [
+                "GCF_020736045.1_ASM2073604v1_genomic",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/GCF_020736045.1_ASM2073604v1_genomic.tsv",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.begin",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.err",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.log",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.out",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.run",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.sh",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/nf.command.trace",
+                "GCF_020736045.1_ASM2073604v1_genomic/tools/fastani/logs/GCF_020736045.1_ASM2073604v1_genomic/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/fastani",
+                "bactopia-runs/fastani/merged-results",
+                "bactopia-runs/fastani/merged-results/fastani.tsv",
+                "bactopia-runs/fastani/merged-results/logs",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.begin",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.err",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.log",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.out",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.run",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.sh",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.trace",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/versions.yml",
                 "bactopia-runs/fastani/nf-reports",
                 "bactopia-runs/fastani/nf-reports/fastani-dag.dot",
                 "bactopia-runs/fastani/nf-reports/fastani-report.html",
                 "bactopia-runs/fastani/nf-reports/fastani-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,4a463fc68a116f31d84fdf8da4103e35",
+                "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:48.728001912",
+        "timestamp": "2026-03-28T06:58:27.487400486",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "FastANI (pairwise) - haemophilus_influenzae|compressed_fasta": {
         "content": [
-            0,
+            3,
             [
+                "GCA_000027305",
+                "GCA_000027305/tools",
+                "GCA_000027305/tools/fastani",
+                "GCA_000027305/tools/fastani/GCA_000027305.tsv",
+                "GCA_000027305/tools/fastani/logs",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.begin",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.err",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.log",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.out",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.run",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.sh",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.trace",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/versions.yml",
+                "GCF_900478275",
+                "GCF_900478275/tools",
+                "GCF_900478275/tools/fastani",
+                "GCF_900478275/tools/fastani/GCF_900478275.tsv",
+                "GCF_900478275/tools/fastani/logs",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.begin",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.err",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.log",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.out",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.run",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.sh",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/nf.command.trace",
+                "GCF_900478275/tools/fastani/logs/GCF_900478275/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/fastani",
+                "bactopia-runs/fastani/merged-results",
+                "bactopia-runs/fastani/merged-results/fastani.tsv",
+                "bactopia-runs/fastani/merged-results/logs",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.begin",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.err",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.log",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.out",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.run",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.sh",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.trace",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/versions.yml",
                 "bactopia-runs/fastani/nf-reports",
                 "bactopia-runs/fastani/nf-reports/fastani-dag.dot",
                 "bactopia-runs/fastani/nf-reports/fastani-report.html",
                 "bactopia-runs/fastani/nf-reports/fastani-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,4a463fc68a116f31d84fdf8da4103e35",
+                "versions.yml:md5,4a463fc68a116f31d84fdf8da4103e35",
+                "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:41.919159378",
+        "timestamp": "2026-03-28T06:57:31.897829173",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "FastANI - haemophilus_influenzae|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCA_000027305",
+                "GCA_000027305/tools",
+                "GCA_000027305/tools/fastani",
+                "GCA_000027305/tools/fastani/GCA_000027305.tsv",
+                "GCA_000027305/tools/fastani/logs",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.begin",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.err",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.log",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.out",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.run",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.sh",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/nf.command.trace",
+                "GCA_000027305/tools/fastani/logs/GCA_000027305/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/fastani",
+                "bactopia-runs/fastani/merged-results",
+                "bactopia-runs/fastani/merged-results/fastani.tsv",
+                "bactopia-runs/fastani/merged-results/logs",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.begin",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.err",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.log",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.out",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.run",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.sh",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/nf.command.trace",
+                "bactopia-runs/fastani/merged-results/logs/fastani-concat/versions.yml",
                 "bactopia-runs/fastani/nf-reports",
                 "bactopia-runs/fastani/nf-reports/fastani-dag.dot",
                 "bactopia-runs/fastani/nf-reports/fastani-report.html",
                 "bactopia-runs/fastani/nf-reports/fastani-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,4a463fc68a116f31d84fdf8da4103e35",
+                "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:29.337234549",
+        "timestamp": "2026-03-28T06:54:49.253201855",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

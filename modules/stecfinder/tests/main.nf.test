@@ -15,9 +15,9 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_002949675"],
-                        fna: file("${params.test_data_dir}/data/species/shigella_dysenteriae/genome/GCF_002949675.fna"),
-                        r1: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R2.fastq.gz"),
+                        fna: file("${params.test_data_dir}/species/shigella_dysenteriae/uncompressed/GCF_002949675/main/assembler/GCF_002949675.fna"),
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
                         se: null,
                         lr: null
                     )
@@ -49,9 +49,9 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_002949675"],
-                        fna: file("${params.test_data_dir}/data/species/shigella_dysenteriae/genome/GCF_002949675.fna.gz"),
-                        r1: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R2.fastq.gz"),
+                        fna: file("${params.test_data_dir}/species/shigella_dysenteriae/assembly/GCF_002949675/main/assembler/GCF_002949675.fna.gz"),
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
                         se: null,
                         lr: null
                     )
@@ -84,9 +84,9 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_002949675"],
-                        fna: file("${params.test_data_dir}/data/species/shigella_dysenteriae/genome/GCF_002949675.fna.gz"),
-                        r1: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/data/species/shigella_dysenteriae/illumina/ERR6005894_R2.fastq.gz"),
+                        fna: file("${params.test_data_dir}/species/shigella_dysenteriae/assembly/GCF_002949675/main/assembler/GCF_002949675.fna.gz"),
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
                         se: null,
                         lr: null
                     )

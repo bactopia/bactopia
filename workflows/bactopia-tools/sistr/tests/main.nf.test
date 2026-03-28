@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("SISTR - GCF_016028495|salmonella_enterica|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/salmonella_enterica"
+                bactopia_test = "/species/salmonella_enterica/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

@@ -1,8 +1,22 @@
 {
     "Pneumocat - ERR1438863|streptococcus_pneumoniae|compressed_fasta": {
         "content": [
-            0,
+            1,
             [
+                "ERR1438863",
+                "ERR1438863/tools",
+                "ERR1438863/tools/pneumocat",
+                "ERR1438863/tools/pneumocat/ERR1438863.coverage_summary.txt",
+                "ERR1438863/tools/pneumocat/ERR1438863.xml",
+                "ERR1438863/tools/pneumocat/logs",
+                "ERR1438863/tools/pneumocat/logs/nf.command.begin",
+                "ERR1438863/tools/pneumocat/logs/nf.command.err",
+                "ERR1438863/tools/pneumocat/logs/nf.command.log",
+                "ERR1438863/tools/pneumocat/logs/nf.command.out",
+                "ERR1438863/tools/pneumocat/logs/nf.command.run",
+                "ERR1438863/tools/pneumocat/logs/nf.command.sh",
+                "ERR1438863/tools/pneumocat/logs/nf.command.trace",
+                "ERR1438863/tools/pneumocat/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/pneumocat",
                 "bactopia-runs/pneumocat/nf-reports",
@@ -11,12 +25,14 @@
                 "bactopia-runs/pneumocat/nf-reports/pneumocat-timeline.html"
             ],
             [
-                
+                "ERR1438863.coverage_summary.txt:md5,72016a38b82c726548cf5b58794c4938",
+                "ERR1438863.xml:md5,a9d9d8db3cbeff3f45859bed7eadaf9b",
+                "versions.yml:md5,4c8b3e01e7425c78f2849d2e585f9cec"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:28.263647852",
+        "timestamp": "2026-03-28T06:53:04.168188997",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

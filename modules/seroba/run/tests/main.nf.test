@@ -16,10 +16,8 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "SRR2838702"],
-                        reads: [
-                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
-                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz")
-                        ] as Set
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")
                     )
                 )
                 """

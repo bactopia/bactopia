@@ -10,7 +10,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/single"
-                test_dataset = "/datasets/eggnog/"
+                test_dataset = "/datasets/eggnog/db"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

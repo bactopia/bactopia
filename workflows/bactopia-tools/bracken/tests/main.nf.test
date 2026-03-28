@@ -45,7 +45,7 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "/datasets/kraken2/kraken2.tar.gz"
+                test_dataset = "/datasets/kraken2/k2_standard_08_GB_20251015.tar.gz"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = ""

@@ -9,7 +9,8 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = ""
-                test_dataset = "/datasets/kraken2/"
+                test_dataset = "/datasets/kraken2/k2_standard_08_GB_20251015"
+                nohuman_test = "/datasets/nohuman/HPRC.r2"
                 test_dataset2 = ""
                 test_dataset3 = ""
                 test_r1 = "/species/portiera/compressed/SRR2838702/main/qc/SRR2838702_R1.fastq.gz"

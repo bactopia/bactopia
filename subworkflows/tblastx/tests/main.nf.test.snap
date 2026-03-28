@@ -2,14 +2,14 @@
     "tblastx - subworkflow - SRX1390622": {
         "content": [
             {
-                "id": "SRX1390622-TBLASTX:TBLASTX_MODULE",
-                "logs_dir": "SRX1390622/tools/tblastx//logs/",
-                "name": "SRX1390622",
-                "output_dir": "SRX1390622/tools/tblastx/",
+                "id": "SRR2838702-TBLASTX:TBLASTX_MODULE",
+                "logs_dir": "SRR2838702/tools/tblastx//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tblastx/",
                 "process_name": "tblastx",
                 "scope": "sample"
             },
-            "SRX1390622.tblastx.tsv:md5,12717c8aa587241825144a1f0c929ab6",
+            "SRR2838702.tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033",
             [
                 "versions.yml:md5,5ab5121dbb192614d6e77dd1da0fc291"
             ],
@@ -25,9 +25,9 @@
                 "versions.yml:md5,8ebdf55bc992d797630ad6f81b6cbe3d"
             ]
         ],
-        "timestamp": "2026-03-24T19:49:37.64264737",
+        "timestamp": "2026-03-28T06:54:08.96034934",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

@@ -1,22 +1,50 @@
 {
     "meningotype - GCF_003355215|neisseria_meningitidis|compressed_fasta": {
         "content": [
-            0,
+            2,
             [
+                "GCF_003355215",
+                "GCF_003355215/tools",
+                "GCF_003355215/tools/meningotype",
+                "GCF_003355215/tools/meningotype/GCF_003355215.tsv",
+                "GCF_003355215/tools/meningotype/logs",
+                "GCF_003355215/tools/meningotype/logs/nf.command.begin",
+                "GCF_003355215/tools/meningotype/logs/nf.command.err",
+                "GCF_003355215/tools/meningotype/logs/nf.command.log",
+                "GCF_003355215/tools/meningotype/logs/nf.command.out",
+                "GCF_003355215/tools/meningotype/logs/nf.command.run",
+                "GCF_003355215/tools/meningotype/logs/nf.command.sh",
+                "GCF_003355215/tools/meningotype/logs/nf.command.trace",
+                "GCF_003355215/tools/meningotype/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/meningotype",
+                "bactopia-runs/meningotype/merged-results",
+                "bactopia-runs/meningotype/merged-results/logs",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.begin",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.err",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.log",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.out",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.run",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.sh",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/nf.command.trace",
+                "bactopia-runs/meningotype/merged-results/logs/meningotype-concat/versions.yml",
+                "bactopia-runs/meningotype/merged-results/meningotype.tsv",
                 "bactopia-runs/meningotype/nf-reports",
                 "bactopia-runs/meningotype/nf-reports/meningotype-dag.dot",
                 "bactopia-runs/meningotype/nf-reports/meningotype-report.html",
                 "bactopia-runs/meningotype/nf-reports/meningotype-timeline.html"
             ],
             [
-                
+                "GCF_003355215.tsv:md5,cdf1cbd9f28a9ce2138f072c6d0ab391",
+                "versions.yml:md5,536b9f738da49450c0af1efcbf823558",
+                "versions.yml:md5,2210210917992673f792050a55c95b2e",
+                "meningotype.tsv:md5,cdf1cbd9f28a9ce2138f072c6d0ab391"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:23.581183533",
+        "timestamp": "2026-03-28T06:54:46.770958663",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

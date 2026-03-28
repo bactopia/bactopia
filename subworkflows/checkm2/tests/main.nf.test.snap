@@ -1,15 +1,15 @@
 {
-    "checkm2 - subworkflow - GCF_000292685": {
+    "checkm2 - subworkflow - SRR2838702": {
         "content": [
             {
-                "id": "GCF_000292685-CHECKM2:CHECKM2_PREDICT",
-                "logs_dir": "GCF_000292685/tools/checkm2//logs/",
-                "name": "GCF_000292685",
-                "output_dir": "GCF_000292685/tools/checkm2/",
+                "id": "SRR2838702-CHECKM2:CHECKM2_PREDICT",
+                "logs_dir": "SRR2838702/tools/checkm2//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm2/",
                 "process_name": "checkm2",
                 "scope": "sample"
             },
-            "GCF_000292685.tsv:md5,31d39c9c83f31fdc54fda9d10a6127d6",
+            "SRR2838702.tsv:md5,74b16d4449c799491deea540f6367e89",
             [
                 "versions.yml:md5,08a22fc5436e8e0dfd2884ff9d64d75b"
             ],
@@ -25,9 +25,9 @@
                 "versions.yml:md5,b7cf6dd33e2fefeb729064b0d46f2081"
             ]
         ],
-        "timestamp": "2026-03-24T19:52:52.910490677",
+        "timestamp": "2026-03-28T06:57:50.678016217",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

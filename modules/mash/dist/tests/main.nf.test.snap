@@ -9,14 +9,14 @@
                 "process_name": "mashdist",
                 "scope": "sample"
             },
-            "mashdist-test-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            "mashdist-test-dist.txt:md5,630500729ddf987a8f487cd409d0afce",
             [
                 "versions.yml:md5,fcbb8bfc66b899b46ba971030f287212"
             ]
         ],
-        "timestamp": "2026-03-24T07:21:02.413401261",
+        "timestamp": "2026-03-28T06:53:41.081290151",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
@@ -30,14 +30,14 @@
                 "process_name": "mashdist",
                 "scope": "sample"
             },
-            "mashdist-test-dist.txt:md5,4389211aaebf12c7a477469fd6d0598a",
+            "mashdist-test-dist.txt:md5,cc5ae905b929a3943adaf9de3e591ae1",
             [
                 "versions.yml:md5,fcbb8bfc66b899b46ba971030f287212"
             ]
         ],
-        "timestamp": "2026-03-24T07:20:33.902455449",
+        "timestamp": "2026-03-28T06:51:41.955540264",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

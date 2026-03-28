@@ -5,7 +5,7 @@ nextflow_workflow {
     tag "subworkflows"
     tag "mashdist"
 
-    test("mashdist - subworkflow - GCF_000292685") {
+    test("mashdist - subworkflow - SRR2838702") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -15,12 +15,10 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "mashdist-test"],
-                        query: [
-                            file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
-                        ]
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/variants/refseq-genomes.msh")
+                input[1] = file("${params.test_data_dir}/datasets/variants/refseq-genomes.msh")
                 """
             }
         }

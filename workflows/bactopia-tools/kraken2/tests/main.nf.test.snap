@@ -1,8 +1,21 @@
 {
     "Kraken2 - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            0,
+            1,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/kraken2",
+                "SRR2838702/tools/kraken2/SRR2838702.kraken2.report.txt",
+                "SRR2838702/tools/kraken2/logs",
+                "SRR2838702/tools/kraken2/logs/nf.command.begin",
+                "SRR2838702/tools/kraken2/logs/nf.command.err",
+                "SRR2838702/tools/kraken2/logs/nf.command.log",
+                "SRR2838702/tools/kraken2/logs/nf.command.out",
+                "SRR2838702/tools/kraken2/logs/nf.command.run",
+                "SRR2838702/tools/kraken2/logs/nf.command.sh",
+                "SRR2838702/tools/kraken2/logs/nf.command.trace",
+                "SRR2838702/tools/kraken2/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/kraken2",
                 "bactopia-runs/kraken2/nf-reports",
@@ -11,19 +24,33 @@
                 "bactopia-runs/kraken2/nf-reports/kraken2-timeline.html"
             ],
             [
-                
+                "SRR2838702.kraken2.report.txt:md5,dbc13f97657d22326cabf4bd19564174",
+                "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:31.817819479",
+        "timestamp": "2026-03-28T06:57:00.027525447",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     },
     "Kraken2 (tarball) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            0,
+            1,
             [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/kraken2",
+                "SRR2838702/tools/kraken2/SRR2838702.kraken2.report.txt",
+                "SRR2838702/tools/kraken2/logs",
+                "SRR2838702/tools/kraken2/logs/nf.command.begin",
+                "SRR2838702/tools/kraken2/logs/nf.command.err",
+                "SRR2838702/tools/kraken2/logs/nf.command.log",
+                "SRR2838702/tools/kraken2/logs/nf.command.out",
+                "SRR2838702/tools/kraken2/logs/nf.command.run",
+                "SRR2838702/tools/kraken2/logs/nf.command.sh",
+                "SRR2838702/tools/kraken2/logs/nf.command.trace",
+                "SRR2838702/tools/kraken2/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/kraken2",
                 "bactopia-runs/kraken2/nf-reports",
@@ -32,12 +59,13 @@
                 "bactopia-runs/kraken2/nf-reports/kraken2-timeline.html"
             ],
             [
-                
+                "SRR2838702.kraken2.report.txt:md5,055b6535f05d0342e7926ca9603340bf",
+                "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
             ]
         ],
-        "timestamp": "2026-03-11T05:55:42.107294921",
+        "timestamp": "2026-03-28T06:58:28.971402117",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.5",
             "nextflow": "26.01.0"
         }
     }

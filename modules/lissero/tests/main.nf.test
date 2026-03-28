@@ -15,7 +15,7 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_002285835"],
-                        assembly: file("${params.test_data_dir}/data/species/listeria_monocytogenes/genome/GCF_002285835.fna")
+                        fna: file("${params.test_data_dir}/species/listeria_monocytogenes/uncompressed/GCF_002285835/main/assembler/GCF_002285835.fna")
                     )
                 )
                 """
@@ -45,7 +45,7 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "GCF_002285835"],
-                        assembly: file("${params.test_data_dir}/data/species/listeria_monocytogenes/genome/GCF_002285835.fna.gz")
+                        fna: file("${params.test_data_dir}/species/listeria_monocytogenes/compressed/GCF_002285835/main/assembler/GCF_002285835.fna.gz")
                     )
                 )
                 """

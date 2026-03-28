@@ -19,12 +19,12 @@ nextflow_pipeline {
                 test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
-                min_window_size = 5000
-                mincov = 1
-                minqual = 1
-                basequal = 1
-                mapqual = 1
-                maxsoft = 1
+                gubbins_min_window_size = 5000
+                snippy_mincov = 1
+                snippy_minqual = 1
+                snippy_basequal = 1
+                snippy_mapqual = 1
+                snippy_maxsoft = 1
             }
         }
 
@@ -60,12 +60,12 @@ nextflow_pipeline {
                 test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"
-                min_window_size = 5000
-                mincov = 1
-                minqual = 1
-                basequal = 1
-                mapqual = 1
-                maxsoft = 1
+                gubbins_min_window_size = 5000
+                snippy_mincov = 1
+                snippy_minqual = 1
+                snippy_basequal = 1
+                snippy_mapqual = 1
+                snippy_maxsoft = 1
             }
         }
 

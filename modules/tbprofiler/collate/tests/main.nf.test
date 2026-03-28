@@ -17,8 +17,8 @@ nextflow_process {
                     record(
                         _meta: [name: "tbprofiler"],
                         json: [
-                            file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702.results.json.gz"),
-                            file("${params.test_data_dir}/data/species/portiera/nanopore/ERR3772599.results.json.gz")
+                            file("${params.test_data_dir}/datasets/tbprofiler/illumina/SRR2838702.results.json.gz"),
+                            file("${params.test_data_dir}/datasets/tbprofiler/nanopore/ERR3772599.results.json.gz")
                         ]
                     )
                 )

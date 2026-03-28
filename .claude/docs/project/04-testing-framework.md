@@ -274,8 +274,8 @@ $BACTOPIA_TESTS/data/
 │   ├── bakta/
 │   │   └── light/
 │   │       └── bakta-light.tar.gz
-│   ├── amrdb/
-│   │   └── amrfinderdb.tar.gz
+│   ├── amrfinderplus/
+│   │   └── amrfinderplus.tar.gz
 │   └── {other tool databases}
 └── empty/
     ├── EMPTY_ADAPTERS

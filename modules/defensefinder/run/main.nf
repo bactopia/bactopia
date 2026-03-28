@@ -51,16 +51,16 @@ process DEFENSEFINDER_RUN {
         genes_tsv: file("${prefix}_defense_finder_genes.tsv"),
         hmmer_tsv: file("${prefix}_defense_finder_hmmer.tsv"),
         systems_tsv: file("${prefix}_defense_finder_systems.tsv"),
-        proteins: file("${prefix}.prt"),
-        proteins_index: file("${prefix}.prt.idx"),
+        proteins: file("${prefix}.prt", optional: true),
+        proteins_index: file("${prefix}.prt.idx", optional: true),
         macsydata_raw: file("${prefix}.macsydata.tar.gz", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}_defense_finder_genes.tsv"),
             files("${prefix}_defense_finder_hmmer.tsv"),
             files("${prefix}_defense_finder_systems.tsv"),
-            files("${prefix}.prt"),
-            files("${prefix}.prt.idx"),
+            files("${prefix}.prt", optional: true),
+            files("${prefix}.prt.idx", optional: true),
             files("${prefix}.macsydata.tar.gz", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),

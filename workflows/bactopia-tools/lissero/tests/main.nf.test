@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("LisSero - GCF_002285835|listeria_monocytogenes|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/listeria_monocytogenes"
+                bactopia_test = "/species/listeria_monocytogenes/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""

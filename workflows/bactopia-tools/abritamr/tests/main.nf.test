@@ -9,7 +9,7 @@ nextflow_pipeline {
     test("abriTAMR - GCF_001682305|escherichia_coli_mcr1|compressed_fasta") {
         when {
             params {
-                bactopia_test = "/species/escherichia_coli_mcr1"
+                bactopia_test = "/species/escherichia_coli_mcr1/compressed"
                 test_dataset = ""
                 test_dataset2 = ""
                 test_dataset3 = ""
