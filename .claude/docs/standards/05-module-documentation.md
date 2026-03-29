@@ -48,6 +48,9 @@ Bactopia modules are individual process definitions that execute specific bioinf
  * @output record(meta, <field1>, <field2>, results, logs, nf_logs, versions)
  * - `<field1>`: Description of tool-specific output field
  * - `<field2>`: Description of tool-specific output field
+ *
+ * @results <Optional: supplemental or directory name, only if results has extra files>
+ * - `<pattern>`: Description of published file not covered by named fields
  */
 ```
 
@@ -260,6 +263,35 @@ These fields appear in most `record()` outputs but are not documented with descr
  * - `db`: A compressed tarball of the latest AMRFinder+ database
 ```
 
+### 5.5 Published Results Documentation (@results)
+
+Some modules publish additional files via the `results` list that are NOT named record fields (e.g., `supplemental/` directories, tool output directories). Use `@results` to document these so users know what files appear in their output directory.
+
+**When to use:** Only when the `results` list contains `files()` patterns beyond what's already covered by named output fields. If every `files()` pattern in results corresponds to a named field, no `@results` is needed.
+
+**Format:**
+```groovy
+ * @output record(meta, masked_aln, results, logs, nf_logs, versions)
+ * - `masked_aln`: The input alignment with recombinant regions masked
+ *
+ * @results supplemental
+ * - `*.recombination_predictions.gff.gz`: Predicted recombination regions in GFF format
+ * - `*.per_branch_statistics.csv`: Statistics for each branch of the phylogeny
+ * - `*.final_tree.tre`: Final recombination-free phylogenetic tree
+```
+
+**Rules:**
+1. `@results` goes AFTER `@output` (with a blank ` *` line between them)
+2. The header word describes the source: `supplemental`, `additional`, or a directory name (e.g., `panaroo/`, `pirate/`)
+3. Each bullet describes a file pattern and what it contains
+4. Use the same ` * - \`pattern\`: Description` format as @output field descriptions
+5. Keep descriptions concise (one line per item)
+
+**Common patterns:**
+- `@results supplemental` -- for modules with a `supplemental/` directory
+- `@results additional` -- for extra files not in a specific directory
+- `@results <dirname>/` -- for modules publishing a tool's full output directory (e.g., `panaroo/`)
+
 ## 6. Implementation Patterns
 
 ### 6.1 Path? Parameter Handling
@@ -414,9 +446,14 @@ These fields are computed at runtime based on which inputs are provided.
  * - `assembly`: Assembled contigs in FASTA format
  * - `meta_file`: Meta file containing reference size information
  *
- * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Transposed report in TSV format
- * - `supplemental`: Supplemental files including plots and HTML reports
+ *
+ * @results supplemental
+ * - `report.html`: Interactive HTML report with assembly metrics and plots
+ * - `report.txt`: Plain text version of the assembly report
+ * - `icarus.html`: Icarus contig size viewer
+ * - `basic_stats/`: Directory containing GC content and coverage statistics
  */
 ```
 
@@ -931,6 +968,7 @@ Before completing module documentation, verify:
 - [ ] `@output record(...)` lists all fields from the actual `record()` output block
 - [ ] Tool-specific fields have ` * - ` description lines
 - [ ] Standard fields (meta, results, logs, nf_logs, versions) are NOT described
+- [ ] `@results` present if module publishes files beyond named record fields (e.g., supplemental/)
 - [ ] Complexity level accurately reflects implementation
 - [ ] Feature tags match actual implementation
 - [ ] Tool name includes link to source repository

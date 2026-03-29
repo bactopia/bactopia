@@ -8,7 +8,7 @@
  * @status stable
  * @keywords gtdb, taxonomy, database, download, setup, bacteria, archaea
  * @tags complexity:simple input-type:none output-type:multiple features:internet-access,resource-download,conditional-logic,no-test
- * @citation gtdbtk
+ * @citation gtdb_tk
  *
  * @note Internet & Storage Required
  * This process requires an active internet connection and significant disk space (~60GB+ uncompressed)

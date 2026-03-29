@@ -1,0 +1,45 @@
+nextflow_workflow {
+    name "Test SKETCHER Subworkflow"
+    script "../main.nf"
+    workflow "SKETCHER"
+    tag "subworkflows"
+    tag "bactopia"
+    tag "bactopia_sketcher"
+
+    test("sketcher - subworkflow - GCF_000292685") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "GCF_000292685"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/sketcher/mash-refseq88.k21.msh")
+                input[2] = file("${params.test_data_dir}/datasets/sketcher/gtdb-rs207.genomic-reps.dna.k31.lca.json.gz")
+                """
+            }
+        }
+
+        then {
+            def sample_outputs = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                // Verify named output fields from the sketcher module record
+                { assert sample_outputs.sig != null },
+                { assert sample_outputs.mash != null },
+                { assert sample_outputs.sourmash != null },
+                { assert snapshot(
+                    sample_outputs.meta,
+                    sample_outputs.mash,
+                    sample_outputs.sourmash,
+                    sample_outputs.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,194 @@
+{
+    "assembler - module - hybrid": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "hybrid",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:41:44.190932425",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - long-read - raven": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "ont",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:44:47.845720412",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - paired-end - spades": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:44:32.214005942",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - short_polish": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "short_polish",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:43:30.62557661",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - paired-end - megahit": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:43:53.304608318",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - paired-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:34:26.285543871",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - single-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "single-end",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:34:44.293267988",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "assembler - module - long-read": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-ASSEMBLER",
+                "logs_dir": "output/main/assembler//logs/",
+                "name": "output",
+                "output_dir": "output/main/assembler/",
+                "process_name": "assembler",
+                "runtype": "ont",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,1994edd423cce6275472b40a7ec7499e"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:37:26.126881739",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    }
+}

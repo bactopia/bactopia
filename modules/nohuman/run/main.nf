@@ -8,7 +8,7 @@
  * @status stable
  * @keywords human, contamination, decontamination, scrubbing, reads, kraken2, nohuman
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic
- * @citation nohuman
+ * @citation kraken2
  *
  * @note Database Required
  * Requires the nohuman Kraken2 database. Use the nohuman/download module or

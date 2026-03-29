@@ -15,6 +15,11 @@
  *
  * @output record(meta, summary, results, logs, nf_logs, versions)
  * - `summary`: Tab-delimited summary of agr locus type and operon variants
+ *
+ * @results supplemental
+ * - `*-agr_gp.tab`: agr group allele BLAST results
+ * - `*-agr_operon.fna`: Extracted agr operon nucleotide sequence
+ * - `*-frameshifts.tab`: Detected frameshift mutations in the agr operon
  */
 nextflow.preview.types = true
 

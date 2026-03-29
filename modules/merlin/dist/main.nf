@@ -22,7 +22,7 @@
  * @input reference
  * The reference Mash database to screen against
  *
- * @output record(meta, dist, results, fna, r1, r2, se, lr, escherichia, haemophilus, klebsiella, legionella, listeria, mycobacterium, neisseria, pseudomonas, salmonella, staphylococcus, streptococcus, genus, logs, nf_logs, versions)
+ * @output record(meta, fna, r1, r2, se, lr, escherichia, haemophilus, klebsiella, legionella, listeria, mycobacterium, neisseria, pseudomonas, salmonella, staphylococcus, streptococcus, genus, dist, results, logs, nf_logs, versions)
  * - `dist`: Raw Mash distance results
  * - `fna`: Passthrough of assembled contigs
  * - `r1`: Passthrough of Illumina R1 reads

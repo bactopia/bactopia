@@ -27,15 +27,17 @@
  * - `lr`      : Long reads (ONT/PacBio) for long-read or hybrid assembly
  * - `fna`     : Assembly file (FASTA) for assembly-based runtypes
  *
- * @output record(meta, fna, r1, r2, se, lr, tsv, supplemental, error, results, logs, nf_logs, versions)
+ * @output record(meta, fna, r1, r2, se, lr, tsv, results, logs, nf_logs, versions)
  * - `fna`: Assembled contigs in FASTA format
  * - `r1`: Passthrough Illumina R1 reads
  * - `r2`: Passthrough Illumina R2 reads
  * - `se`: Passthrough single-end reads
  * - `lr`: Passthrough long reads
  * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
- * - `supplemental`: Supplemental files including assembly graphs (*.gfa) and tool-specific logs
- * - `error`: Captured error messages if assembly fails
+ *
+ * @results supplemental/
+ * - `supplemental/*`: Assembler-specific intermediate files (graphs, logs, polishing info)
+ * - `${prefix}-*-error.*`: Error files when assembly fails size or contig checks
  */
 nextflow.preview.types = true
 

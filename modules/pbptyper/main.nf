@@ -15,10 +15,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tsv, blast, details, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, blast, results, logs, nf_logs, versions)
  * - `tsv`: A tab-delimited summary file with the predicted PBP type for each gene
  * - `blast`: A tab-delimited file of the raw TBLASTN hits used for gene identification
- * - `details`: Detailed PBP typing results for each gene analyzed
  */
 nextflow.preview.types = true
 

@@ -1,0 +1,208 @@
+{
+    "gather - module - long-read": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "ont",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "ont",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "output-meta.tsv:md5,ef455a74203f7b19de75cb17a98cb547",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:41.485666707",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - hybrid": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "hybrid",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "hybrid",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "output-meta.tsv:md5,ba9712352bf788edfdfbf6d059dbc042",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:50.979680163",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - error - empty input": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "paired-end",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:28:35.612011768",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - error - low read count": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "paired-end",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:28:26.78355527",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - assembly": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "SRR2838702-GATHER",
+                "is_compressed": true,
+                "logs_dir": "SRR2838702/main/gather//logs/",
+                "name": "SRR2838702",
+                "original_runtype": "assembly",
+                "output_dir": "SRR2838702/main/gather/",
+                "process_name": "gather",
+                "runtype": "assembly",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "SRR2838702-meta.tsv:md5,1a1053e05f4f7a7407b6a1c03c74cd75",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:28:07.297041734",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - merge paired-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "merge-pe",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "output-meta.tsv:md5,83fb00c77440761635fd0606ebddbec0",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:28:17.113312881",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - paired-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "paired-end",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "output-meta.tsv:md5,64f8cba4de7e40198f70b08bfb166a13",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:23.946993161",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "gather - module - single-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-GATHER",
+                "is_compressed": true,
+                "logs_dir": "output/main/gather//logs/",
+                "name": "output",
+                "original_runtype": "single-end",
+                "output_dir": "output/main/gather/",
+                "process_name": "gather",
+                "runtype": "single-end",
+                "scope": "sample",
+                "species": "Portiera aleyrodidarum"
+            },
+            "output-meta.tsv:md5,d350d0a30825ec8a049363594e5ff9dd",
+            [
+                "versions.yml:md5,ff5c005955cb1888d143ce01ca4a4846"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:32.451652652",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    }
+}

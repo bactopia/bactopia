@@ -15,12 +15,14 @@
  * - `meta`: Groovy Map containing sample information
  * - `gff`: A list of annotated genome files in GFF3 format (required input)
  *
- * @output record(meta, aln, filtered_aln, csv, panaroo_csv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, aln, filtered_aln, csv, panaroo_csv, results, logs, nf_logs, versions)
  * - `aln`: The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
  * - `filtered_aln`: The core-genome alignment with highly recombinant regions filtered out (optional)
  * - `csv`: Gene presence/absence matrix in Roary-compatible CSV format (optional)
  * - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
- * - `supplemental`: Directory containing the full set of Panaroo intermediate files and data structures
+ *
+ * @results panaroo/
+ * - `panaroo/*`: Full Panaroo output directory (graphs, gene data, struct files, etc.)
  */
 nextflow.preview.types = true
 

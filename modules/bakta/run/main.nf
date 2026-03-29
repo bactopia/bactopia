@@ -40,6 +40,9 @@
  * - `tsv`: Annotations as simple human readable tab-separated values
  * - `txt`: Broad summary of Bakta annotations
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
+ *
+ * @results additional
+ * - `${prefix}.embl`: Annotations and sequences in EMBL format
  */
 nextflow.preview.types = true
 

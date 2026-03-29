@@ -82,4 +82,42 @@ nextflow_process {
             )
         }
     }
+
+    test("nohuman - module - SRR2838702 - single-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/nohuman/HPRC.r2")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.se != null },
+                { assert record.scrub_report != null },
+                { assert record.special_meta != null },
+                { assert snapshot(
+                    record.meta,
+                    record.special_meta,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
 }

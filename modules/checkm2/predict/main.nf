@@ -21,9 +21,12 @@
  * @input db
  * The CheckM2 database file (*.dmnd)
  *
- * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited report of quality metrics (Completeness, Contamination)
- * - `supplemental`: Directory containing intermediate protein files and Diamond alignments
+ *
+ * @results supplemental
+ * - `protein_files/*.faa.gz`: Predicted protein sequences from Prodigal (compressed)
+ * - `diamond_output/`: DIAMOND alignment results against the CheckM2 database
  */
 nextflow.preview.types = true
 

@@ -25,8 +25,11 @@
  * @input query
  * FASTA file containing the insertion sequences to search for
  *
- * @output record(meta, supplemental, results, logs, nf_logs, versions)
- * - `supplemental`: Directory containing the final tables of insertion sites and visual summaries
+ * @output record(meta, results, logs, nf_logs, versions)
+ *
+ * @results supplemental
+ * - `*.bed.gz`: Insertion site coordinates in BED format
+ * - `*.fastq.gz`: Supporting reads mapped to insertion sites
  */
 nextflow.preview.types = true
 

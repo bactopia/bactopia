@@ -1,0 +1,195 @@
+nextflow_process {
+    name "Test QC"
+    script "../main.nf"
+    process "QC"
+    tag "modules"
+    tag "bactopia"
+    tag "bactopia_qc"
+
+    test("qc - module - paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("qc - module - single-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "output", runtype: "single-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null,
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.se != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("qc - module - long-read") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "output", runtype: "ont", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.lr != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("qc - module - hybrid") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                min_reads = 100
+                min_basepairs = 100
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "output", runtype: "hybrid", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.lr != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("qc - module - skip qc") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                skip_qc = true
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

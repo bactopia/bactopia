@@ -14,10 +14,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `msa`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
  *
- * @output record(meta, msa, phylogeny, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, msa, phylogeny, results, logs, nf_logs, versions)
  * - `msa`: The input alignment (passed through)
  * - `phylogeny`: The final maximum-likelihood phylogenetic tree (Newick format)
- * - `supplemental`: Directory containing the detailed report (*.iqtree), distance matrix, and model parameters
+ *
+ * @results iqtree (or iqtree-fast)
+ * - `${prefix}.*`: IQ-TREE output files (model info, bootstrap trees, log, alninfo, etc.)
  */
 nextflow.preview.types = true
 

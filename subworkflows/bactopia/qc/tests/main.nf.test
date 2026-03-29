@@ -1,0 +1,44 @@
+nextflow_workflow {
+    name "Test QC Subworkflow"
+    script "../main.nf"
+    workflow "QC"
+    tag "subworkflows"
+    tag "bactopia"
+    tag "bactopia_qc"
+
+    test("qc - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                // PE reads QC test
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        assembly: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
+                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.reads[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.reads != null },
+                { assert workflow.out.sample_outputs != null },
+                { assert sample.r1 != null },
+                { assert sample.r2 != null }
+            )
+        }
+    }
+}

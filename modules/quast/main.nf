@@ -14,9 +14,17 @@
  * - `fna`: Assembled contigs in FASTA format (Path)
  * - `meta_file`: Meta file containing reference size information (Path)
  *
- * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Transposed report in TSV format
- * - `supplemental`: Supplemental files including plots and HTML reports
+ *
+ * @results supplemental
+ * - `report.html`: Interactive HTML report with assembly quality visualizations
+ * - `report.txt`: Plain text assembly quality report
+ * - `report.tsv`: Assembly metrics in TSV format
+ * - `icarus.html`: Contig alignment viewer (Icarus)
+ * - `icarus_viewers/`: Interactive contig size viewer files
+ * - `predicted_genes/`: Glimmer gene predictions for the assembly
+ * - `basic_stats/`: Cumulative plots and GC content statistics
  */
 nextflow.preview.types = true
 

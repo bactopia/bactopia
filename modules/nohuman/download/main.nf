@@ -8,7 +8,7 @@
  * @status stable
  * @keywords bacteria, database, download, human, decontamination, kraken2, nohuman
  * @tags complexity:simple input-type:none output-type:multiple features:internet-access,archive-output,compression,resource-download,no-test
- * @citation nohuman
+ * @citation kraken2
  *
  * @note Internet & Storage Required
  * This process requires an active internet connection and sufficient disk space

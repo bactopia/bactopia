@@ -14,9 +14,15 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Text summary report of the completeness score (C/S/D/F/M%)
- * - `supplemental`: Directory containing full tables, missing gene lists, and lineage data
+ *
+ * @results supplemental
+ * - `full_table.tsv`: Complete BUSCO assessment results for every searched ortholog
+ * - `missing_busco_list.tsv`: List of BUSCO IDs not found in the assembly
+ * - `run_*/single_copy_busco_sequences/*.fna.gz`: Nucleotide sequences of single-copy BUSCOs
+ * - `run_*/single_copy_busco_sequences/*.faa.gz`: Protein sequences of single-copy BUSCOs
+ * - `run_*/hmmer_output/*.out.gz`: Raw HMMER search results for each BUSCO
  */
 nextflow.preview.types = true
 

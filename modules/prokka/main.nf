@@ -21,7 +21,7 @@
  * @input prodigal_tf
  * Training file to use for gene prediction (Optional)
  *
- * @output record(meta, annotations, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
+ * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
  * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
  * - `fna`: Nucleotide FASTA file of the input contig sequences

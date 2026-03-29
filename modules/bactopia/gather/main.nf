@@ -24,14 +24,17 @@
  * - `lr_files`: Long read files (ONT) or assembly for simulation
  * - `fna_files`: Input or downloaded assembly file
  *
- * @output record(meta, r1, r2, se, lr, fna, tsv, error, results, logs, nf_logs, versions)
+ * @output record(meta, r1, r2, se, lr, fna, tsv, results, logs, nf_logs, versions)
  * - `r1`: Merged Illumina R1 read file (Path?, optional)
  * - `r2`: Merged Illumina R2 read file (Path?, optional)
  * - `se`: Merged single-end read file (Path?, optional)
  * - `lr`: Merged long read file (ONT) (Path?, optional)
  * - `fna`: Assembly file (Path?, optional)
  * - `tsv`: A tab-delimited metadata file describing the valid samples
- * - `error`: Captured error messages for validation or download failures
+ *
+ * @results additional
+ * - `*-error.txt`: Error files from failed downloads, validation, or accession checks
+ * - `*-merged.txt`: Log of merged read sets when multiple runs are combined
  */
 nextflow.preview.types = true
 

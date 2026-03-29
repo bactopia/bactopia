@@ -20,10 +20,14 @@
  * @input db
  * Path (or Set of paths) to the GTDB-Tk reference database
  *
- * @output record(meta, bac_tsv, ar_tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, bac_tsv, ar_tsv, results, logs, nf_logs, versions)
  * - `bac_tsv`: The bacterial classification summary file containing the taxonomic assignment
  * - `ar_tsv`: The archaeal classification summary file containing the taxonomic assignment
- * - `supplemental`: Directory containing the reference tree, alignments, and detailed logs
+ *
+ * @results supplemental
+ * - `align/`: Multiple sequence alignments of identified marker genes
+ * - `classify/`: Detailed classification results and tree placement files
+ * - `identify/`: Marker gene identification results and translation tables
  */
 nextflow.preview.types = true
 

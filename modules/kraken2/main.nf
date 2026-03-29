@@ -27,7 +27,7 @@
  * @input db
  * Kraken2 database (Directory or compressed tarball)
  *
- * @output record(meta, kraken2_report, scrub_report, special_meta, classified, unclassified, results, logs, nf_logs, versions)
+ * @output record(meta, special_meta, kraken2_report, scrub_report, classified, unclassified, results, logs, nf_logs, versions)
  * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
  * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
  * - `special_meta`: A simplified metadata map for internal use

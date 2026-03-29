@@ -6,15 +6,15 @@
  * sequences that align to human references.
  *
  * Uses explicit positional named parameters for reads:
- * - Input: (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?) as Record
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
  *
  * @status stable
  * @keywords human, contamination, scrubber, decontamination, ncbi, sra
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation srahumanscrubber
  *
- * @input (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?)
- * - `_meta`: Groovy Map containing sample information
+ * @input record(meta, r1, r2, se, lr)
+ * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
@@ -23,9 +23,12 @@
  * @input db
  * SRA Human Scrubber database directory
  *
- * @output record(meta, special_meta, scrubbed, scrubbed_extra, scrub_report, results, logs, nf_logs, versions)
- * - `special_meta`: Groovy Map with name for downstream aggregation
- * - `scrubbed`: Scrubbed FASTQ files with human reads removed
+ * @output record(meta, special_meta, r1, r2, se, lr, scrub_report, results, logs, nf_logs, versions)
+ * - `special_meta`: A simplified metadata map for downstream report joining
+ * - `r1`: Scrubbed paired-end forward reads (optional)
+ * - `r2`: Scrubbed paired-end reverse reads (optional)
+ * - `se`: Scrubbed single-end reads (optional)
+ * - `lr`: Scrubbed long reads (optional)
  * - `scrub_report`: Report of scrubbing statistics
  */
 nextflow.preview.types = true

@@ -21,6 +21,12 @@
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited genome quality report with completeness and contamination estimates
+ *
+ * @results supplemental
+ * - `*-genes.aln`: Alignment of identified marker genes
+ * - `bins/`: Bin-specific marker gene analysis files
+ * - `lineage/`: Lineage-specific marker set information
+ * - `storage/`: Intermediate CheckM data (HMM hits, compressed .faa.gz and .fasta.gz files)
  */
 nextflow.preview.types = true
 

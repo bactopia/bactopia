@@ -14,9 +14,15 @@
  * - `meta`: Groovy Map containing sample information
  * - `gbk`: Annotated genome file in GenBank (*.gbk or *.gbff) format
  *
- * @output record(meta, tsv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Coordinates (start/end) of each predicted prophage region in the genome
- * - `supplemental`: Directory containing detailed prophage information, sequences, and annotations
+ *
+ * @results supplemental
+ * - `*_prophage.gff3`: Predicted prophage regions in GFF3 format
+ * - `*_prophage.gbk`: Predicted prophage regions in GenBank format
+ * - `*_prophage.tsv`: Detailed prophage information with feature annotations
+ * - `*_bacteria.fasta`: Host bacterial sequences with prophages removed
+ * - `*_phage.fasta`: Extracted prophage nucleotide sequences
  */
 nextflow.preview.types = true
 

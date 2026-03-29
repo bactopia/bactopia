@@ -35,15 +35,25 @@
  * @input phix
  * Optional filepath for custom PhiX sequences (FASTA)
  *
- * @output record(meta, r1, r2, se, lr, fna, reads_grouped, supplemental, error, results, logs, nf_logs, versions)
+ * @output record(meta, r1, r2, se, lr, fna, reads_grouped, error, results, logs, nf_logs, versions)
  * - `r1`: QC'd Illumina R1 reads (paired-end forward)
  * - `r2`: QC'd Illumina R2 reads (paired-end reverse)
  * - `se`: QC'd single-end Illumina reads
  * - `lr`: QC'd long reads (ONT)
  * - `fna`: Assembly file (FASTA)
  * - `reads_grouped`: All output FASTQs for publishing
- * - `supplemental`: QC reports (FastQC/NanoPlot), JSON metrics, and error FASTQs if QC failed
  * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
+ *
+ * @results supplemental
+ * - `*-original.json`: Pre-QC read statistics from fastq-scan
+ * - `*-final.json`: Post-QC read statistics from fastq-scan
+ * - `*.fastp.json`: Fastp filtering statistics in JSON format
+ * - `*.fastp.html`: Fastp interactive quality report
+ * - `*_fastqc.html`: FastQC quality report for each FASTQ
+ * - `*_fastqc.zip`: FastQC data archive for each FASTQ
+ * - `*_NanoPlot-report.html`: NanoPlot quality report for ONT reads
+ * - `*_NanoPlot.tar.gz`: Full NanoPlot output archive for ONT reads
+ * - `*.error-fastq.gz`: Original or processed reads preserved when QC fails
  */
 nextflow.preview.types = true
 

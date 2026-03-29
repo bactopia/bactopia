@@ -23,6 +23,13 @@
  * @output record(meta, report, summary, results, logs, nf_logs, versions)
  * - `report`: Tab-delimited detailed report of gene detection results
  * - `summary`: Comma-separated condensed summary of detected genes
+ *
+ * @results supplemental
+ * - `assembled_genes.fa.gz`: FASTA of locally assembled gene sequences
+ * - `assembled_seqs.fa.gz`: FASTA of assembled contig sequences
+ * - `assemblies.fa.gz`: Raw assembly output sequences
+ * - `log.clusters.gz`: Per-cluster log of assembly and mapping details
+ * - `version_info.txt`: ARIBA version and database information
  */
 nextflow.preview.types = true
 

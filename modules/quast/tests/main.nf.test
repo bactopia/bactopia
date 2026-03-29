@@ -66,4 +66,35 @@ nextflow_process {
             )
         }
     }
+
+    test("quast - module - SRR2838702 - no reference") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        _meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna"),
+                        meta_file: file("${params.test_data_dir}/datasets/generic/genome/GCF_000292685-meta-noref.tsv")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
 }

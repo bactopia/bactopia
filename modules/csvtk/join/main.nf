@@ -10,8 +10,8 @@
  * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
  * @citation csvtk
  *
- * @input record(_meta, csv1, csv2)
- * - `_meta`: Groovy Map containing sample information
+ * @input record(meta, csv1, csv2)
+ * - `meta`: Groovy Map containing sample information
  * - `csv1`: The first CSV/TSV file (Left table)
  * - `csv2`: The second CSV/TSV file (Right table)
  *

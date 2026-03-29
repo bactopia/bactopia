@@ -18,6 +18,9 @@
  * CSV file containing trait information for the samples
  *
  * @output record(meta, results, logs, nf_logs, versions)
+ *
+ * @results gwas
+ * - `*.results.csv`: Per-trait GWAS results with gene associations and p-values
  */
 nextflow.preview.types = true
 

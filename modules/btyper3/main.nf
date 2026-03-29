@@ -16,6 +16,14 @@
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Bacillus cereus group typing results including PanC clade and virulence factors
+ *
+ * @results supplemental
+ * - `*_bt.txt`: Bt toxin gene screening results
+ * - `*_cereulide.txt`: Cereulide synthetase gene detection results
+ * - `*_amr.txt`: Antimicrobial resistance gene screening results
+ * - `*_virulence.txt`: Virulence factor screening results
+ * - `*_panC.txt`: PanC clade assignment details
+ * - `*_mlst.txt`: Multi-locus sequence typing results
  */
 nextflow.preview.types = true
 

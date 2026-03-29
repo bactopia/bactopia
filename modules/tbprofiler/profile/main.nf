@@ -20,11 +20,15 @@
  * - `se`: Single-end Illumina reads
  * - `lr`: Long reads (ONT/PacBio)
  *
- * @output record(meta, csv, json, txt, supplemental, vcf, results, logs, nf_logs, versions)
+ * @output record(meta, csv, json, txt, results, logs, nf_logs, versions)
  * - `csv`: Results in CSV format
  * - `json`: Compressed JSON results file
  * - `txt`: Results in text format
- * - `supplemental`: BAM and VCF file outputs
+ *
+ * @results supplemental
+ * - `*.bam`: Aligned reads in BAM format
+ * - `*.bam.bai`: BAM index file
+ * - `*.targets.csq.vcf.gz`: Variant calls with consequence annotations (VCF)
  */
 nextflow.preview.types = true
 

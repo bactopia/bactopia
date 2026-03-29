@@ -14,10 +14,12 @@
  * - `meta`: Groovy Map containing sample information
  * - `gff`: List of GFF3 files to be analyzed (typically from Prokka)
  *
- * @output record(meta, aln, csv, supplemental, results, logs, nf_logs, versions)
+ * @output record(meta, aln, csv, results, logs, nf_logs, versions)
  * - `aln`: Core genome alignment in FASTA format
  * - `csv`: Gene presence/absence table
- * - `supplemental`: Supplemental files including accessory binary genes and graphs
+ *
+ * @results roary/
+ * - `roary/*`: Full Roary output directory (cluster files, alignments, Rtab, etc.)
  */
 nextflow.preview.types = true
 

@@ -1,0 +1,122 @@
+{
+    "qc - module - paired-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-QC",
+                "logs_dir": "output/main/qc/logs/",
+                "name": "output",
+                "output_dir": "output/main/qc/",
+                "process_name": "qc",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,0adbfb5d9248bdeb133a3a61fd54b00a"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:26:00.696434843",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "qc - module - single-end": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-QC",
+                "logs_dir": "output/main/qc/logs/",
+                "name": "output",
+                "output_dir": "output/main/qc/",
+                "process_name": "qc",
+                "runtype": "single-end",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,0adbfb5d9248bdeb133a3a61fd54b00a"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:26:18.222907197",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "qc - module - hybrid": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-QC",
+                "logs_dir": "output/main/qc/logs/",
+                "name": "output",
+                "output_dir": "output/main/qc/",
+                "process_name": "qc",
+                "runtype": "hybrid",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,0adbfb5d9248bdeb133a3a61fd54b00a"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:38.854234351",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "qc - module - long-read": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-QC",
+                "logs_dir": "output/main/qc/logs/",
+                "name": "output",
+                "output_dir": "output/main/qc/",
+                "process_name": "qc",
+                "runtype": "ont",
+                "scope": "sample",
+                "single_end": true,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,0adbfb5d9248bdeb133a3a61fd54b00a"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:26:51.212724564",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    },
+    "qc - module - skip qc": {
+        "content": [
+            {
+                "genome_size": 350000,
+                "id": "output-QC",
+                "logs_dir": "output/main/qc/logs/",
+                "name": "output",
+                "output_dir": "output/main/qc/",
+                "process_name": "qc",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false,
+                "species": "Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,0adbfb5d9248bdeb133a3a61fd54b00a"
+            ]
+        ],
+        "timestamp": "2026-03-29T04:27:57.641768335",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.01.0"
+        }
+    }
+}

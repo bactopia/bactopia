@@ -16,6 +16,11 @@
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited E. coli phylogroup assignment with detected marker genes
+ *
+ * @results supplemental
+ * - `*.blast.xml`: Raw BLAST XML output for marker gene detection
+ * - `*.mash.tsv`: Mash screen results for phylogroup confirmation
+ * - `*.html`: Interactive HTML report of the phylogroup assignment
  */
 nextflow.preview.types = true
 
