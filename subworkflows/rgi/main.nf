@@ -28,7 +28,7 @@ nextflow.preview.types = true
 include { RGI_MAIN     } from '../../modules/rgi/main/main'
 include { RGI_HEATMAP  } from '../../modules/rgi/heatmap/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gather       } from 'plugin/nf-bactopia'
+include { gatherCsvtk       } from 'plugin/nf-bactopia'
 
 workflow RGI {
     take:
@@ -36,8 +36,8 @@ workflow RGI {
 
     main:
     RGI_MAIN(assembly)
-    CSVTK_CONCAT(gather(RGI_MAIN.out, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
-    RGI_HEATMAP(gather(RGI_MAIN.out, 'json', [name: 'rgi']))
+    CSVTK_CONCAT(gatherCsvtk(RGI_MAIN.out, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
+    RGI_HEATMAP(gatherCsvtk(RGI_MAIN.out, 'json', [name: 'rgi']))
 
     emit:
     // Published outputs

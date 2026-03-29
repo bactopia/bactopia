@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../modules/meningotype/main'
 include { CSVTK_CONCAT                      } from '../../modules/csvtk/concat/main'
-include { gather                            } from 'plugin/nf-bactopia'
+include { gatherCsvtk                            } from 'plugin/nf-bactopia'
 
 workflow MENINGOTYPE {
     take:
@@ -35,7 +35,7 @@ workflow MENINGOTYPE {
 
     main:
     MENINGOTYPE_MODULE(assembly)
-    CSVTK_CONCAT(gather(MENINGOTYPE_MODULE.out, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(MENINGOTYPE_MODULE.out, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

@@ -43,18 +43,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { EMMTYPER          } from '../../../subworkflows/emmtyper/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     EMMTYPER(BACTOPIATOOL_INIT.out.assembly, params.emmtyper_blastdb)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = EMMTYPER.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = EMMTYPER.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(EMMTYPER.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(EMMTYPER.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

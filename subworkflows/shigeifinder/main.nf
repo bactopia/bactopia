@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { SHIGEIFINDER as SHIGEIFINDER_MODULE } from '../../modules/shigeifinder/main'
 include { CSVTK_CONCAT                        } from '../../modules/csvtk/concat/main'
-include { gather                              } from 'plugin/nf-bactopia'
+include { gatherCsvtk                              } from 'plugin/nf-bactopia'
 
 workflow SHIGEIFINDER {
     take:
@@ -35,7 +35,7 @@ workflow SHIGEIFINDER {
 
     main:
     SHIGEIFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gather(SHIGEIFINDER_MODULE.out, 'tsv', [name: 'shigeifinder']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SHIGEIFINDER_MODULE.out, 'tsv', [name: 'shigeifinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

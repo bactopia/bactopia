@@ -67,6 +67,38 @@ Do NOT read nextflow.log or stdout files during the initial summary.
 - If the user asks about a specific component, offer to read its stdout file
   in full and check for nextflow.log
 
+## Updating Baselines
+
+Baselines file: `conf/test-times.json`
+
+To update baselines after a clean all-pass run, add `--update-baselines`:
+```
+bash .claude/skills/review-tests/scripts/run-bactopia-review-tests.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --silent --update-baselines
+```
+This writes actual runtimes from the current run into the baselines file and updates the
+`_meta.updated` timestamp. Only entries for tested components are updated; other tiers
+are left unchanged.
+
+After updating, re-run without `--update-baselines` to confirm anomalies are resolved.
+
+## Interpreting Timing Anomalies
+
+- **generate=true vs generate=false**: A `generate=true` run executes tests twice
+  (generate snapshots, then test against them). If baselines were recorded from a
+  `generate=true` run but the current run uses `generate=false`, tests will run at
+  ~0.5x baseline. This is expected, not suspicious.
+- **Slow tests**: May reflect newly added test cases rather than regressions. Check
+  recent commits to the component's test file before flagging as a problem.
+- **Only flag anomalies as concerning** when the `generate` parameter matches between
+  the baseline run and the current run.
+
+## Self-Improvement
+
+If you find yourself writing ad-hoc Python or bash to parse, explore, or extract data
+from the CLI output, that logic should be added to this skill or the underlying
+`bactopia-review-tests` CLI tool instead. Update the skill so future sessions don't
+need to reinvent it.
+
 ## JSON Output (Fallback)
 
 The `--json` flag is available as a fallback for programmatic access or when the

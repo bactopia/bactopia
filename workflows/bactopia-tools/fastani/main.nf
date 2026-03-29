@@ -63,6 +63,8 @@ include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/
 include { FASTANI            } from '../../../subworkflows/fastani/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
@@ -95,13 +97,8 @@ workflow {
     // Run FastANI
     FASTANI(ch_query, ch_reference)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = FASTANI.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = FASTANI.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(FASTANI.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(FASTANI.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

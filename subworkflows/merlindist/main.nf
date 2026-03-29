@@ -48,7 +48,7 @@
 nextflow.preview.types = true
 
 include { MERLIN_DIST } from '../../modules/merlin/dist/main'
-include { gather      } from 'plugin/nf-bactopia'
+include { gatherCsvtk      } from 'plugin/nf-bactopia'
 
 workflow MERLINDIST {
     take:

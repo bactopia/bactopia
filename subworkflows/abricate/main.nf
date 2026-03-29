@@ -26,7 +26,7 @@ nextflow.preview.types = true
 
 include { ABRICATE_RUN     } from '../../modules/abricate/run/main'
 include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'
-include { gather           } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
     take:
@@ -34,7 +34,7 @@ workflow ABRICATE {
 
     main:
     ABRICATE_RUN(assembly)
-    ABRICATE_SUMMARY(gather(ABRICATE_RUN.out, 'report', [name: 'abricate']))
+    ABRICATE_SUMMARY(gatherCsvtk(ABRICATE_RUN.out, 'report', [name: 'abricate']))
 
     emit:
     // Published outputs

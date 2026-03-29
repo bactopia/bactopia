@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { MLST as MLST_MODULE } from '../../modules/mlst/main'
 include { CSVTK_CONCAT        } from '../../modules/csvtk/concat/main'
-include { gather              } from 'plugin/nf-bactopia'
+include { gatherCsvtk              } from 'plugin/nf-bactopia'
 
 workflow MLST {
     take:
@@ -38,7 +38,7 @@ workflow MLST {
 
     main:
     MLST_MODULE(assembly, db)
-    CSVTK_CONCAT(gather(MLST_MODULE.out, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(MLST_MODULE.out, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

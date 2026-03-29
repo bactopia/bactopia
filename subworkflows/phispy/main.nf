@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gather                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk                  } from 'plugin/nf-bactopia'
 
 workflow PHISPY {
     take:
@@ -35,7 +35,7 @@ workflow PHISPY {
 
     main:
     PHISPY_MODULE(gbk)
-    CSVTK_CONCAT(gather(PHISPY_MODULE.out, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(PHISPY_MODULE.out, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

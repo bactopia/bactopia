@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { BUSCO as BUSCO_MODULE } from '../../modules/busco/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gather                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:
@@ -42,7 +42,7 @@ workflow BUSCO {
 
     main:
     BUSCO_MODULE(assembly)
-    CSVTK_CONCAT(gather(BUSCO_MODULE.out, 'tsv', [name: "busco-${busco_lineage}"]), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(BUSCO_MODULE.out, 'tsv', [name: "busco-${busco_lineage}"]), 'tsv', 'tsv')
 
     emit:
     // Published outputs

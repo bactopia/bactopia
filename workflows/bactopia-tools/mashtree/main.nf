@@ -49,6 +49,8 @@ include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/
 include { MASHTREE           } from '../../../subworkflows/mashtree/main'
 include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
@@ -62,13 +64,8 @@ workflow {
 
     MASHTREE(ch_samples)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = MASHTREE.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = MASHTREE.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(MASHTREE.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(MASHTREE.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

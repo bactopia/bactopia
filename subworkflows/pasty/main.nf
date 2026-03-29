@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { PASTY as PASTY_MODULE } from '../../modules/pasty/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gather                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:
@@ -37,7 +37,7 @@ workflow PASTY {
 
     main:
     PASTY_MODULE(assembly)
-    CSVTK_CONCAT(gather(PASTY_MODULE.out, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(PASTY_MODULE.out, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

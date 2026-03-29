@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { SPATYPER as SPATYPER_MODULE } from '../../modules/spatyper/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gather                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                      } from 'plugin/nf-bactopia'
 
 workflow SPATYPER {
     take:
@@ -43,7 +43,7 @@ workflow SPATYPER {
 
     main:
     SPATYPER_MODULE(assembly, repeats, repeat_order)
-    CSVTK_CONCAT(gather(SPATYPER_MODULE.out, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SPATYPER_MODULE.out, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

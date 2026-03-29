@@ -26,7 +26,7 @@ nextflow.preview.types = true
 
 include { CLERMONTYPING as CLERMONTYPING_MODULE } from '../../modules/clermontyping/main'
 include { CSVTK_CONCAT                          } from '../../modules/csvtk/concat/main'
-include { gather                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                                } from 'plugin/nf-bactopia'
 
 workflow CLERMONTYPING {
     take:
@@ -34,7 +34,7 @@ workflow CLERMONTYPING {
 
     main:
     CLERMONTYPING_MODULE(assembly)
-    CSVTK_CONCAT(gather(CLERMONTYPING_MODULE.out, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(CLERMONTYPING_MODULE.out, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

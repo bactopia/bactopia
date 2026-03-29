@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { SHIGATYPER as SHIGATYPER_MODULE } from '../../modules/shigatyper/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
-include { gather                          } from 'plugin/nf-bactopia'
+include { gatherCsvtk                          } from 'plugin/nf-bactopia'
 
 workflow SHIGATYPER {
     take:
@@ -41,7 +41,7 @@ workflow SHIGATYPER {
 
     main:
     SHIGATYPER_MODULE(reads)
-    CSVTK_CONCAT(gather(SHIGATYPER_MODULE.out, 'tsv', [name: 'shigatyper']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SHIGATYPER_MODULE.out, 'tsv', [name: 'shigatyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

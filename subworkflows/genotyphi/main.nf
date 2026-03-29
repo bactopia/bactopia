@@ -35,7 +35,7 @@ nextflow.preview.types = true
 include { MYKROBE_PREDICT } from '../../modules/mykrobe/predict/main'
 include { GENOTYPHI_PARSE } from '../../modules/genotyphi/parse/main'
 include { CSVTK_CONCAT    } from '../../modules/csvtk/concat/main'
-include { gather          } from 'plugin/nf-bactopia'
+include { gatherCsvtk          } from 'plugin/nf-bactopia'
 
 workflow GENOTYPHI {
     take:
@@ -46,7 +46,7 @@ workflow GENOTYPHI {
     GENOTYPHI_PARSE(MYKROBE_PREDICT.out.map { r ->
         record(_meta: r.meta, json: r.json)
     })
-    CSVTK_CONCAT(gather(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

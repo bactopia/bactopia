@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { BLAST_BLASTP as BLASTP_MODULE } from '../../modules/blast/blastp/main'
 include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
-include { gather                        } from 'plugin/nf-bactopia'
+include { gatherCsvtk                        } from 'plugin/nf-bactopia'
 
 workflow BLASTP {
     take:
@@ -38,7 +38,7 @@ workflow BLASTP {
 
     main:
     BLASTP_MODULE(blastdb, query)
-    CSVTK_CONCAT(gather(BLASTP_MODULE.out, 'tsv', [name: 'blastp']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(BLASTP_MODULE.out, 'tsv', [name: 'blastp']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

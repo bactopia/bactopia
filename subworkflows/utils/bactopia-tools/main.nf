@@ -16,8 +16,8 @@
  * @output reads                  FASTQ reads: record(meta, r1, r2, se, lr)
  * @output assembly               Assembly file: record(meta, assembly)
  * @output assembly_reads         Assembly + reads: record(meta, fna, r1, r2, se, lr)
- * @output assembly_meta          Assembly + meta file: record(meta, assembly, meta_file)
- * @output assembly_proteins_gff  Assembly + proteins + GFF: record(meta, assembly, proteins, gff)
+ * @output assembly_meta          Assembly + meta file: record(meta, fna, tsv_meta)
+ * @output assembly_proteins_gff  Assembly + proteins + GFF: record(meta, fna, faa, gff)
  * @output proteins               Protein sequences: record(meta, proteins)
  * @output gffs                   Annotation file: record(meta, gff)
  * @output gbks                   GenBank file: record(meta, gbk)
@@ -63,12 +63,12 @@ workflow BACTOPIATOOL_INIT {
     }
     collectedInputs.samples.each { sample ->
         ch_reads                 << record(_meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly              << record(_meta: sample.meta, fna: sample.assembly)
-        ch_assembly_reads        << record(_meta: sample.meta, fna: sample.assembly, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly_meta         << record(_meta: sample.meta, fna: sample.assembly, meta_file: sample.meta_file)
-        ch_assembly_proteins_gff << record(_meta: sample.meta, fna: sample.anno_fna, faa: sample.proteins, gff: sample.gff)
+        ch_assembly              << record(_meta: sample.meta, fna: sample.fna)
+        ch_assembly_reads        << record(_meta: sample.meta, fna: sample.fna, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly_meta         << record(_meta: sample.meta, fna: sample.fna, tsv_meta: sample.tsv_meta)
+        ch_assembly_proteins_gff << record(_meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
         ch_blastdb               << record(_meta: sample.meta, blastdb: sample.blastdb)
-        ch_proteins              << record(_meta: sample.meta, faa: sample.proteins)
+        ch_proteins              << record(_meta: sample.meta, faa: sample.faa)
         ch_gffs                  << record(_meta: sample.meta, gff: sample.gff)
         ch_gbks                  << record(_meta: sample.meta, gbk: sample.gbk)
     }

@@ -46,18 +46,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { DEFENSEFINDER     } from '../../../subworkflows/defensefinder/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     DEFENSEFINDER(BACTOPIATOOL_INIT.out.proteins)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = DEFENSEFINDER.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = DEFENSEFINDER.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(DEFENSEFINDER.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(DEFENSEFINDER.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

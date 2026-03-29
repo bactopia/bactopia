@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { SISTR as SISTR_MODULE } from '../../modules/sistr/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gather                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                } from 'plugin/nf-bactopia'
 
 workflow SISTR {
     take:
@@ -39,7 +39,7 @@ workflow SISTR {
 
     main:
     SISTR_MODULE(assembly)
-    CSVTK_CONCAT(gather(SISTR_MODULE.out, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SISTR_MODULE.out, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

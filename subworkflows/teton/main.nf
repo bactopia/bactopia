@@ -65,7 +65,7 @@ include { CSVTK_CONCAT                             } from '../../modules/csvtk/c
 include { CSVTK_CONCAT as CSVTK_CONCAT_BACTERIA    } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_NONBACTERIA } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SIZEMEUP    } from '../../modules/csvtk/concat/main'
-include { gather                                   } from 'plugin/nf-bactopia'
+include { gatherCsvtk                                   } from 'plugin/nf-bactopia'
 
 workflow TETON {
     take:
@@ -93,16 +93,16 @@ workflow TETON {
     CSVTK_JOIN(ch_join_teton, 'tsv', 'tsv', 'sample')
 
     // Merge reports
-    CSVTK_CONCAT(gather(CSVTK_JOIN.out, 'csv', [name: 'teton']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(CSVTK_JOIN.out, 'csv', [name: 'teton']), 'tsv', 'tsv')
 
     // Merge Teton prepare (bacteria)
-    CSVTK_CONCAT_BACTERIA(gather(BACTOPIA_SAMPLESHEET.out, 'bacteria_tsv', [name: 'teton-prepare']), 'tsv', 'tsv')
+    CSVTK_CONCAT_BACTERIA(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'bacteria_tsv', [name: 'teton-prepare']), 'tsv', 'tsv')
 
     // Merge Teton prepare (non-bacteria)
-    CSVTK_CONCAT_NONBACTERIA(gather(BACTOPIA_SAMPLESHEET.out, 'nonbacteria_tsv', [name: 'teton-prepare-nonbacteria']), 'tsv', 'tsv')
+    CSVTK_CONCAT_NONBACTERIA(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'nonbacteria_tsv', [name: 'teton-prepare-nonbacteria']), 'tsv', 'tsv')
 
     // Merge sizemeup results
-    CSVTK_CONCAT_SIZEMEUP(gather(BACTOPIA_SAMPLESHEET.out, 'sizemeup', [name: 'sizemeup']), 'tsv', 'tsv')
+    CSVTK_CONCAT_SIZEMEUP(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'sizemeup', [name: 'sizemeup']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

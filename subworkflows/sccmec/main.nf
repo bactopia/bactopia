@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { SCCMEC as SCCMEC_MODULE } from '../../modules/sccmec/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gather                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk                  } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:
@@ -39,7 +39,7 @@ workflow SCCMEC {
 
     main:
     SCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gather(SCCMEC_MODULE.out, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SCCMEC_MODULE.out, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
-include { gather            } from 'plugin/nf-bactopia'
+include { gatherCsvtk            } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:
@@ -40,7 +40,7 @@ workflow AMRFINDERPLUS {
 
     main:
     AMRFINDERPLUS_RUN(fasta, db)
-    CSVTK_CONCAT(gather(AMRFINDERPLUS_RUN.out, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(AMRFINDERPLUS_RUN.out, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

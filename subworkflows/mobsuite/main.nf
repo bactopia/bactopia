@@ -30,7 +30,7 @@ nextflow.preview.types = true
 
 include { MOBSUITE_RECON } from '../../modules/mobsuite/recon/main'
 include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
-include { gather         } from 'plugin/nf-bactopia'
+include { gatherCsvtk         } from 'plugin/nf-bactopia'
 
 workflow MOBSUITE {
     take:
@@ -38,7 +38,7 @@ workflow MOBSUITE {
 
     main:
     MOBSUITE_RECON(assembly)
-    CSVTK_CONCAT(gather(MOBSUITE_RECON.out, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(MOBSUITE_RECON.out, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

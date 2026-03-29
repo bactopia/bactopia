@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { SEQSERO2 as SEQSERO2_MODULE } from '../../modules/seqsero2/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gather                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                      } from 'plugin/nf-bactopia'
 
 workflow SEQSERO2 {
     take:
@@ -35,7 +35,7 @@ workflow SEQSERO2 {
 
     main:
     SEQSERO2_MODULE(seqs)
-    CSVTK_CONCAT(gather(SEQSERO2_MODULE.out, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SEQSERO2_MODULE.out, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

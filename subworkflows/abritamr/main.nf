@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { ABRITAMR_RUN } from '../../modules/abritamr/run/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gather       } from 'plugin/nf-bactopia'
+include { gatherCsvtk       } from 'plugin/nf-bactopia'
 
 workflow ABRITAMR {
     take:
@@ -39,7 +39,7 @@ workflow ABRITAMR {
 
     main:
     ABRITAMR_RUN(assembly)
-    CSVTK_CONCAT(gather(ABRITAMR_RUN.out, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(ABRITAMR_RUN.out, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

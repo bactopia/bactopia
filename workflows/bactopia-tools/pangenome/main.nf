@@ -96,6 +96,9 @@ include { CLONALFRAMEML      } from '../../../subworkflows/clonalframeml/main'
 include { IQTREE             } from '../../../subworkflows/iqtree/main'
 include { SCOARY             } from '../../../subworkflows/scoary/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+include { gather              } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
@@ -113,9 +116,8 @@ workflow {
     }
 
     // Create the pangenome
-    ch_merge_gff = ch_samples.map { r -> r.gff }.collect().map { gffs ->
-        record(_meta: [id: params.use_pirate ? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')], gff: gffs.toSet())
-    }
+    def String pangenome_tool = params.use_pirate ? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')
+    ch_merge_gff = gather(ch_samples, 'gff', [name: pangenome_tool])
     PANGENOME(ch_merge_gff, params.use_pirate, params.use_roary)
     ch_sample_outputs = PANGENOME.out.sample_outputs
         .mix(PANGENOME.out.snpdists_outputs)
@@ -154,10 +156,7 @@ workflow {
         ch_sample_outputs = ch_sample_outputs.mix(SCOARY.out.sample_outputs)
     }
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_run_nf_logs = ch_sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_run_nf_logs = collectNextflowLogs(ch_sample_outputs)
 
     publish:
     run_outputs = ch_sample_outputs

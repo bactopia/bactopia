@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE } from '../../modules/staphopiasccmec/main'
 include { CSVTK_CONCAT                              } from '../../modules/csvtk/concat/main'
-include { gather                                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk                                    } from 'plugin/nf-bactopia'
 
 workflow STAPHOPIASCCMEC {
     take:
@@ -36,7 +36,7 @@ workflow STAPHOPIASCCMEC {
 
     main:
     STAPHOPIASCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gather(STAPHOPIASCCMEC_MODULE.out, 'tsv', [name: 'staphopiasccmec']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(STAPHOPIASCCMEC_MODULE.out, 'tsv', [name: 'staphopiasccmec']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

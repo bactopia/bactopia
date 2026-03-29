@@ -1,360 +1,360 @@
 {
   "_meta": {
-    "updated": "2026-03-25 22:51:11 UTC",
+    "updated": "2026-03-29 14:48:50 UTC",
     "source_run": "manual",
     "total_components": 241
   },
   "components": {
     "modules/abricate_run": {
-      "expected_seconds": 100.8,
+      "expected_seconds": 36.6,
       "tolerance_factor": 2.0
     },
     "modules/abricate_summary": {
-      "expected_seconds": 67.3,
+      "expected_seconds": 49.6,
       "tolerance_factor": 2.0
     },
     "modules/abritamr_run": {
-      "expected_seconds": 418.0,
+      "expected_seconds": 330.1,
       "tolerance_factor": 2.0
     },
     "modules/agrvate": {
-      "expected_seconds": 153.4,
+      "expected_seconds": 64.5,
       "tolerance_factor": 2.0
     },
     "modules/amrfinderplus_run": {
-      "expected_seconds": 164.9,
+      "expected_seconds": 67.8,
       "tolerance_factor": 2.0
     },
     "modules/ariba_run": {
-      "expected_seconds": 141.3,
+      "expected_seconds": 67.0,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_assembler": {
-      "expected_seconds": 816.7,
+      "expected_seconds": 804.9,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_datasets": {
-      "expected_seconds": 43.7,
+      "expected_seconds": 21.9,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_gather": {
-      "expected_seconds": 81.8,
+      "expected_seconds": 165.0,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_qc": {
-      "expected_seconds": 132.9,
+      "expected_seconds": 236.1,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_sketcher": {
-      "expected_seconds": 271.8,
+      "expected_seconds": 194.3,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_teton": {
-      "expected_seconds": 74.6,
+      "expected_seconds": 61.5,
       "tolerance_factor": 2.0
     },
     "modules/bakta_run": {
-      "expected_seconds": 401.9,
+      "expected_seconds": 336.8,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastn": {
-      "expected_seconds": 69.3,
+      "expected_seconds": 46.5,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastp": {
-      "expected_seconds": 68.2,
+      "expected_seconds": 51.7,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastx": {
-      "expected_seconds": 74.7,
+      "expected_seconds": 45.7,
       "tolerance_factor": 2.0
     },
     "modules/blast_tblastn": {
-      "expected_seconds": 73.7,
+      "expected_seconds": 51.6,
       "tolerance_factor": 2.0
     },
     "modules/blast_tblastx": {
-      "expected_seconds": 104.2,
+      "expected_seconds": 35.4,
       "tolerance_factor": 2.0
     },
     "modules/bracken": {
-      "expected_seconds": 329.5,
+      "expected_seconds": 230.9,
       "tolerance_factor": 2.0
     },
     "modules/btyper3": {
-      "expected_seconds": 266.3,
+      "expected_seconds": 196.6,
       "tolerance_factor": 2.0
     },
     "modules/busco": {
-      "expected_seconds": 199.7,
+      "expected_seconds": 102.4,
       "tolerance_factor": 2.0
     },
     "modules/checkm2_predict": {
-      "expected_seconds": 543.9,
+      "expected_seconds": 441.9,
       "tolerance_factor": 2.0
     },
     "modules/checkm_lineagewf": {
-      "expected_seconds": 928.8,
+      "expected_seconds": 474.2,
       "tolerance_factor": 2.0
     },
     "modules/clermontyping": {
-      "expected_seconds": 180.6,
+      "expected_seconds": 82.8,
       "tolerance_factor": 2.0
     },
     "modules/clonalframeml": {
-      "expected_seconds": 236.9,
+      "expected_seconds": 153.8,
       "tolerance_factor": 2.0
     },
     "modules/csvtk_concat": {
-      "expected_seconds": 144.7,
+      "expected_seconds": 56.1,
       "tolerance_factor": 2.0
     },
     "modules/csvtk_join": {
-      "expected_seconds": 146.5,
+      "expected_seconds": 59.9,
       "tolerance_factor": 2.0
     },
     "modules/defensefinder_run": {
-      "expected_seconds": 138.1,
+      "expected_seconds": 63.5,
       "tolerance_factor": 2.0
     },
     "modules/defensefinder_update": {
-      "expected_seconds": 85.9,
+      "expected_seconds": 54.6,
       "tolerance_factor": 2.0
     },
     "modules/ectyper": {
-      "expected_seconds": 184.4,
+      "expected_seconds": 88.6,
       "tolerance_factor": 2.0
     },
     "modules/eggnog_mapper": {
-      "expected_seconds": 982.8,
+      "expected_seconds": 791.9,
       "tolerance_factor": 2.0
     },
     "modules/emmtyper": {
-      "expected_seconds": 180.8,
+      "expected_seconds": 70.0,
       "tolerance_factor": 2.0
     },
     "modules/fastani": {
-      "expected_seconds": 164.5,
+      "expected_seconds": 58.7,
       "tolerance_factor": 2.0
     },
     "modules/gamma": {
-      "expected_seconds": 150.4,
+      "expected_seconds": 62.2,
       "tolerance_factor": 2.0
     },
     "modules/genotyphi_parse": {
-      "expected_seconds": 40.0,
+      "expected_seconds": 30.0,
       "tolerance_factor": 2.0
     },
     "modules/gtdbtk_classifywf": {
-      "expected_seconds": 1786.5,
+      "expected_seconds": 1428.2,
       "tolerance_factor": 2.0
     },
     "modules/gubbins": {
-      "expected_seconds": 182.6,
+      "expected_seconds": 93.4,
       "tolerance_factor": 2.0
     },
     "modules/hicap": {
-      "expected_seconds": 250.8,
+      "expected_seconds": 147.2,
       "tolerance_factor": 2.0
     },
     "modules/hpsuissero": {
-      "expected_seconds": 150.1,
+      "expected_seconds": 56.3,
       "tolerance_factor": 2.0
     },
     "modules/iqtree": {
-      "expected_seconds": 167.4,
+      "expected_seconds": 59.8,
       "tolerance_factor": 2.0
     },
     "modules/ismapper": {
-      "expected_seconds": 93.2,
+      "expected_seconds": 89.0,
       "tolerance_factor": 2.0
     },
     "modules/kleborate": {
-      "expected_seconds": 129.7,
+      "expected_seconds": 59.6,
       "tolerance_factor": 2.0
     },
     "modules/kraken2": {
-      "expected_seconds": 326.3,
+      "expected_seconds": 227.8,
       "tolerance_factor": 2.0
     },
     "modules/legsta": {
-      "expected_seconds": 85.1,
+      "expected_seconds": 53.6,
       "tolerance_factor": 2.0
     },
     "modules/lissero": {
-      "expected_seconds": 157.9,
+      "expected_seconds": 60.9,
       "tolerance_factor": 2.0
     },
     "modules/mash_dist": {
-      "expected_seconds": 159.4,
+      "expected_seconds": 61.2,
       "tolerance_factor": 2.0
     },
     "modules/mashtree": {
-      "expected_seconds": 70.6,
+      "expected_seconds": 29.3,
       "tolerance_factor": 2.0
     },
     "modules/mcroni": {
-      "expected_seconds": 169.7,
+      "expected_seconds": 63.1,
       "tolerance_factor": 2.0
     },
     "modules/meningotype": {
-      "expected_seconds": 152.3,
+      "expected_seconds": 58.2,
       "tolerance_factor": 2.0
     },
     "modules/merlin_dist": {
-      "expected_seconds": 161.5,
+      "expected_seconds": 151.1,
       "tolerance_factor": 2.0
     },
     "modules/midas_species": {
-      "expected_seconds": 483.0,
+      "expected_seconds": 347.4,
       "tolerance_factor": 2.0
     },
     "modules/mlst": {
-      "expected_seconds": 113.5,
+      "expected_seconds": 31.2,
       "tolerance_factor": 2.0
     },
     "modules/mobsuite_recon": {
-      "expected_seconds": 248.6,
+      "expected_seconds": 163.3,
       "tolerance_factor": 2.0
     },
     "modules/mykrobe_predict": {
-      "expected_seconds": 100.3,
+      "expected_seconds": 32.5,
       "tolerance_factor": 2.0
     },
     "modules/ncbigenomedownload": {
-      "expected_seconds": 86.7,
+      "expected_seconds": 64.8,
       "tolerance_factor": 2.0
     },
     "modules/ngmaster": {
-      "expected_seconds": 169.7,
+      "expected_seconds": 75.3,
       "tolerance_factor": 2.0
     },
     "modules/nohuman_run": {
-      "expected_seconds": 646.2,
+      "expected_seconds": 702.0,
       "tolerance_factor": 2.0
     },
     "modules/panaroo_run": {
-      "expected_seconds": 184.3,
+      "expected_seconds": 127.9,
       "tolerance_factor": 2.0
     },
     "modules/pasty": {
-      "expected_seconds": 86.3,
+      "expected_seconds": 54.3,
       "tolerance_factor": 2.0
     },
     "modules/pbptyper": {
-      "expected_seconds": 144.5,
+      "expected_seconds": 77.4,
       "tolerance_factor": 2.0
     },
     "modules/phispy": {
-      "expected_seconds": 236.5,
+      "expected_seconds": 162.0,
       "tolerance_factor": 2.0
     },
     "modules/pirate": {
-      "expected_seconds": 265.0,
+      "expected_seconds": 166.5,
       "tolerance_factor": 2.0
     },
     "modules/plasmidfinder": {
-      "expected_seconds": 157.0,
+      "expected_seconds": 63.2,
       "tolerance_factor": 2.0
     },
     "modules/pneumocat": {
-      "expected_seconds": 77.9,
+      "expected_seconds": 34.2,
       "tolerance_factor": 2.0
     },
     "modules/prokka": {
-      "expected_seconds": 203.8,
+      "expected_seconds": 87.1,
       "tolerance_factor": 2.0
     },
     "modules/quast": {
-      "expected_seconds": 165.7,
+      "expected_seconds": 86.4,
       "tolerance_factor": 2.0
     },
     "modules/rgi_heatmap": {
-      "expected_seconds": 157.7,
+      "expected_seconds": 69.1,
       "tolerance_factor": 2.0
     },
     "modules/rgi_main": {
-      "expected_seconds": 230.5,
+      "expected_seconds": 154.4,
       "tolerance_factor": 2.0
     },
     "modules/roary": {
-      "expected_seconds": 184.3,
+      "expected_seconds": 107.2,
       "tolerance_factor": 2.0
     },
     "modules/sccmec": {
-      "expected_seconds": 161.5,
+      "expected_seconds": 64.6,
       "tolerance_factor": 2.0
     },
     "modules/scoary": {
-      "expected_seconds": 115.3,
+      "expected_seconds": 50.8,
       "tolerance_factor": 2.0
     },
     "modules/seqsero2": {
-      "expected_seconds": 166.8,
+      "expected_seconds": 65.1,
       "tolerance_factor": 2.0
     },
     "modules/seroba_run": {
-      "expected_seconds": 122.6,
+      "expected_seconds": 65.0,
       "tolerance_factor": 2.0
     },
     "modules/shigapass": {
-      "expected_seconds": 166.8,
+      "expected_seconds": 79.2,
       "tolerance_factor": 2.0
     },
     "modules/shigatyper": {
-      "expected_seconds": 118.2,
+      "expected_seconds": 42.2,
       "tolerance_factor": 2.0
     },
     "modules/shigeifinder": {
-      "expected_seconds": 170.4,
+      "expected_seconds": 55.7,
       "tolerance_factor": 2.0
     },
     "modules/sistr": {
-      "expected_seconds": 181.2,
+      "expected_seconds": 86.3,
       "tolerance_factor": 2.0
     },
     "modules/snippy_core": {
-      "expected_seconds": 144.5,
+      "expected_seconds": 42.9,
       "tolerance_factor": 2.0
     },
     "modules/snippy_run": {
-      "expected_seconds": 199.8,
+      "expected_seconds": 84.3,
       "tolerance_factor": 2.0
     },
     "modules/snpdists": {
-      "expected_seconds": 77.1,
+      "expected_seconds": 53.4,
       "tolerance_factor": 2.0
     },
     "modules/spatyper": {
-      "expected_seconds": 176.8,
+      "expected_seconds": 67.5,
       "tolerance_factor": 2.0
     },
     "modules/srahumanscrubber_scrub": {
-      "expected_seconds": 218.3,
+      "expected_seconds": 143.2,
       "tolerance_factor": 2.0
     },
     "modules/ssuissero": {
-      "expected_seconds": 148.7,
+      "expected_seconds": 58.8,
       "tolerance_factor": 2.0
     },
     "modules/staphopiasccmec": {
-      "expected_seconds": 156.7,
+      "expected_seconds": 55.5,
       "tolerance_factor": 2.0
     },
     "modules/stecfinder": {
-      "expected_seconds": 180.7,
+      "expected_seconds": 73.2,
       "tolerance_factor": 2.0
     },
     "modules/sylph_profile": {
-      "expected_seconds": 225.8,
+      "expected_seconds": 149.9,
       "tolerance_factor": 2.0
     },
     "modules/tbprofiler_collate": {
-      "expected_seconds": 78.0,
+      "expected_seconds": 58.5,
       "tolerance_factor": 2.0
     },
     "modules/tbprofiler_profile": {
-      "expected_seconds": 261.2,
+      "expected_seconds": 162.1,
       "tolerance_factor": 2.0
     },
     "subworkflows/abricate": {

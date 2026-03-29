@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gather                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:
@@ -42,7 +42,7 @@ workflow GAMMA {
 
     main:
     GAMMA_MODULE(assembly, db)
-    CSVTK_CONCAT(gather(GAMMA_MODULE.out, 'gamma', [name: 'gamma']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(GAMMA_MODULE.out, 'gamma', [name: 'gamma']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

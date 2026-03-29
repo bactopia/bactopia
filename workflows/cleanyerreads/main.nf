@@ -72,6 +72,8 @@ include { QC              } from '../../subworkflows/bactopia/qc/main'
 // Scrubber
 include { SCRUBBER        } from '../../subworkflows/scrubber/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIA_INIT()
@@ -97,13 +99,8 @@ workflow {
     }
     ch_sample_outputs = ch_sample_outputs.mix(QC.out.sample_outputs)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = ch_sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = ch_run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(ch_run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

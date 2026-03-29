@@ -27,14 +27,14 @@
 nextflow.preview.types = true
 
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
-include { gather                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
     assembly: Channel<Record>
 
     main:
-    MASHTREE_MODULE(gather(assembly, 'assembly', [name: 'mashtree']))
+    MASHTREE_MODULE(gatherCsvtk(assembly, 'assembly', [name: 'mashtree']))
 
     emit:
     // Published outputs

@@ -40,7 +40,7 @@ nextflow.preview.types = true
 include { GTDBTK_DOWNLOAD   } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF } from '../../modules/gtdbtk/classifywf/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
-include { gather            } from 'plugin/nf-bactopia'
+include { gatherCsvtk            } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:
@@ -62,7 +62,7 @@ workflow GTDB {
     } else {
         GTDBTK_CLASSIFYWF(assembly, database)
     }
-    CSVTK_CONCAT(gather(GTDBTK_CLASSIFYWF.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(GTDBTK_CLASSIFYWF.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

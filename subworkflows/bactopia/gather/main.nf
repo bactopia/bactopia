@@ -35,7 +35,7 @@ nextflow.preview.types = true
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT            } from '../../../modules/csvtk/concat/main'
 include { filterWithData          } from 'plugin/nf-bactopia'
-include { gather                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk                  } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:
@@ -43,7 +43,7 @@ workflow GATHER {
 
     main:
     GATHER_MODULE(samples)
-    CSVTK_CONCAT(gather(GATHER_MODULE.out, 'tsv', [name: 'meta']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(GATHER_MODULE.out, 'tsv', [name: 'meta']), 'tsv', 'tsv')
 
     emit:
     // Downstream inputs

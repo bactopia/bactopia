@@ -40,7 +40,7 @@ include { ARIBA_RUN                            } from '../../modules/ariba/run/m
 include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT  } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../modules/csvtk/concat/main'
 include { filterWithData                       } from 'plugin/nf-bactopia'
-include { gather                               } from 'plugin/nf-bactopia'
+include { gatherCsvtk                               } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:
@@ -50,8 +50,8 @@ workflow ARIBA {
     main:
     ARIBA_GETREF(db)
     ARIBA_RUN(filterWithData(reads, ['r1', 'r2']), ARIBA_GETREF.out.map { r -> r.db })
-    CSVTK_CONCAT_REPORT(gather(ARIBA_RUN.out, 'report', [name: "${db}-report", args: '-C "$" --lazy-quotes']), 'tsv', 'tsv')
-    CSVTK_CONCAT_SUMMARY(gather(ARIBA_RUN.out, 'summary', [name: "${db}-summary", args: '--lazy-quotes']), 'csv', 'csv')
+    CSVTK_CONCAT_REPORT(gatherCsvtk(ARIBA_RUN.out, 'report', [name: "${db}-report", args: '-C "$" --lazy-quotes']), 'tsv', 'tsv')
+    CSVTK_CONCAT_SUMMARY(gatherCsvtk(ARIBA_RUN.out, 'summary', [name: "${db}-summary", args: '--lazy-quotes']), 'csv', 'csv')
 
     emit:
     // Published outputs

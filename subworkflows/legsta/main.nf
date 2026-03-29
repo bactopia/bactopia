@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { LEGSTA as LEGSTA_MODULE } from '../../modules/legsta/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gather                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk                  } from 'plugin/nf-bactopia'
 
 workflow LEGSTA {
     take:
@@ -36,7 +36,7 @@ workflow LEGSTA {
 
     main:
     LEGSTA_MODULE(assembly)
-    CSVTK_CONCAT(gather(LEGSTA_MODULE.out, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(LEGSTA_MODULE.out, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

@@ -1,0 +1,6410 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-29T22:09:46Z",
+  "bactopia_version": "4.0.0",
+  "bactopia_py_version": "1.7.0",
+  "nf_bactopia_version": "1.1.0",
+  "modules": {
+    "abricate_run": {
+      "description": "Mass screening of contigs for antimicrobial and virulence genes.",
+      "path": "modules/abricate/run/",
+      "scope": "sample",
+      "process_name": "abricate",
+      "tool": {
+        "name": "abricate",
+        "version": "1.2.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "report"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "abricate_summary": {
+      "description": "Summarize Abricate screening results.",
+      "path": "modules/abricate/summary/",
+      "scope": "run",
+      "process_name": "params.merge_folder",
+      "tool": {
+        "name": "abricate",
+        "version": "1.2.0"
+      },
+      "takes": [
+        "reports"
+      ],
+      "emits": [
+        "report"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "abritamr_run": {
+      "description": "Detect antimicrobial resistance and virulence genes.",
+      "path": "modules/abritamr/run/",
+      "scope": "sample",
+      "process_name": "abritamr",
+      "tool": {
+        "name": "abritamr",
+        "version": "1.0.20"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "summary",
+        "matches",
+        "partials",
+        "virulence",
+        "amrfinder"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "archive-output",
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "agrvate": {
+      "description": "Determine the agr locus type and operon variants in Staphylococcus aureus.",
+      "path": "bactopia/modules/agrvate/",
+      "scope": "sample",
+      "process_name": "agrvate",
+      "tool": {
+        "name": "agrvate",
+        "version": "1.0.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "summary"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "amrfinderplus_run": {
+      "description": "Identify antimicrobial resistance and virulence genes in gene or protein sequences.",
+      "path": "modules/amrfinderplus/run/",
+      "scope": "sample",
+      "process_name": "amrfinderplus",
+      "tool": {
+        "name": "ncbi-amrfinderplus",
+        "version": "4.2.7"
+      },
+      "takes": [
+        "fna",
+        "faa",
+        "gff"
+      ],
+      "emits": [
+        "report",
+        "mutation_report"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "amrfinderplus_update": {
+      "description": "Download and index the latest AMRFinder+ database.",
+      "path": "modules/amrfinderplus/update/",
+      "scope": "sample",
+      "process_name": "amrfinderplus_update",
+      "tool": {
+        "name": "ncbi-amrfinderplus",
+        "version": "4.2.7"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "archive-output",
+          "compression",
+          "database-dependent",
+          "no-test"
+        ]
+      }
+    },
+    "ariba_getref": {
+      "description": "Download and prepare reference databases for ARIBA analysis.",
+      "path": "modules/ariba/getref/",
+      "scope": "run",
+      "process_name": "ariba_getref",
+      "tool": {
+        "name": "ariba",
+        "version": "2.14.7"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "archive-output",
+          "compression",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "ariba_run": {
+      "description": "Identify genes by local assembly of reads.",
+      "path": "modules/ariba/run/",
+      "scope": "sample",
+      "process_name": "ariba",
+      "tool": {
+        "name": "ariba",
+        "version": "2.14.7"
+      },
+      "takes": [
+        "r1",
+        "r2"
+      ],
+      "emits": [
+        "report",
+        "summary"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "archive-output",
+          "compression"
+        ]
+      }
+    },
+    "bactopia_assembler": {
+      "description": "Assemble bacterial genomes using short read, long read, or hybrid strategies.",
+      "path": "modules/bactopia/assembler/",
+      "scope": "sample",
+      "process_name": "assembler",
+      "tool": {
+        "name": "bactopia-assembler",
+        "version": "1.0.4"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "fna"
+      ],
+      "emits": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic",
+          "alternative-execution"
+        ]
+      }
+    },
+    "bactopia_datasets": {
+      "description": "Download pre-compiled datasets required by Bactopia.",
+      "path": "modules/bactopia/datasets/",
+      "scope": "run",
+      "process_name": "datasets",
+      "tool": {
+        "name": "gnu-wget",
+        "version": "1.18"
+      },
+      "emits": [
+        "amrfinderplus_db",
+        "mlst_db",
+        "mash_db",
+        "sourmash_db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download"
+        ]
+      }
+    },
+    "bactopia_gather": {
+      "description": "Search, validate, gather, or simulate input samples.",
+      "path": "modules/bactopia/gather/",
+      "scope": "sample",
+      "process_name": "gather",
+      "tool": {
+        "name": "bactopia-gather",
+        "version": "1.0.4"
+      },
+      "takes": [
+        "r1_files",
+        "r2_files",
+        "se_files",
+        "lr_files",
+        "fna_files"
+      ],
+      "emits": [
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "fna",
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "conditional-logic"
+        ]
+      }
+    },
+    "bactopia_qc": {
+      "description": "Automated quality control, error correction, and read subsampling.",
+      "path": "modules/bactopia/qc/",
+      "scope": "sample",
+      "process_name": "qc",
+      "tool": {
+        "name": "bactopia-qc",
+        "version": "1.0.3"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "fna"
+      ],
+      "emits": [
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "fna",
+        "reads_grouped",
+        "error"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic",
+          "compression",
+          "path-workarounds"
+        ]
+      }
+    },
+    "bactopia_sketcher": {
+      "description": "Create genomic sketches and perform rapid taxonomic classification.",
+      "path": "modules/bactopia/sketcher/",
+      "scope": "sample",
+      "process_name": "sketcher",
+      "tool": {
+        "name": "bactopia-sketcher",
+        "version": "1.0.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "sig",
+        "msh",
+        "mash",
+        "sourmash"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "compression"
+        ]
+      }
+    },
+    "bactopia_teton": {
+      "description": "Predict genome size and route samples based on taxonomic classification.",
+      "path": "modules/bactopia/teton/",
+      "scope": "sample",
+      "process_name": "teton-prepare",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.1"
+      },
+      "takes": [
+        "classification"
+      ],
+      "emits": [
+        "bacteria_tsv",
+        "nonbacteria_tsv",
+        "sizemeup"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "bakta_download": {
+      "description": "Download the Bakta annotation database.",
+      "path": "modules/bakta/download/",
+      "scope": "run",
+      "process_name": "bakta_download",
+      "tool": {
+        "name": "bakta",
+        "version": "1.12.0"
+      },
+      "emits": [
+        "db",
+        "db_tarball"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "archive-output",
+          "compression",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "bakta_run": {
+      "description": "Rapid and standardized annotation of bacterial genomes and plasmids.",
+      "path": "modules/bakta/run/",
+      "scope": "sample",
+      "process_name": "bakta",
+      "tool": {
+        "name": "bakta",
+        "version": "1.12.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "faa",
+        "ffn",
+        "fna",
+        "gbff",
+        "gff",
+        "hypotheticals_tsv",
+        "hypotheticals_faa",
+        "tsv",
+        "txt",
+        "blastdb"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic",
+          "archive-output"
+        ]
+      }
+    },
+    "blast_blastn": {
+      "description": "Search a nucleotide database using a nucleotide query.",
+      "path": "modules/blast/blastn/",
+      "scope": "sample",
+      "process_name": "blastn",
+      "tool": {
+        "name": "blast",
+        "version": "2.17.0"
+      },
+      "takes": [
+        "blastdb"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "blast_blastp": {
+      "description": "Search a protein database using a protein query.",
+      "path": "modules/blast/blastp/",
+      "scope": "sample",
+      "process_name": "blastp",
+      "tool": {
+        "name": "blast",
+        "version": "2.17.0"
+      },
+      "takes": [
+        "blastdb"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "blast_blastx": {
+      "description": "Search a protein database using a translated nucleotide query.",
+      "path": "modules/blast/blastx/",
+      "scope": "sample",
+      "process_name": "blastx",
+      "tool": {
+        "name": "blast",
+        "version": "2.17.0"
+      },
+      "takes": [
+        "blastdb"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "blast_tblastn": {
+      "description": "Search a translated nucleotide database using a protein query.",
+      "path": "modules/blast/tblastn/",
+      "scope": "sample",
+      "process_name": "tblastn",
+      "tool": {
+        "name": "blast",
+        "version": "2.17.0"
+      },
+      "takes": [
+        "blastdb"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "blast_tblastx": {
+      "description": "Search a translated nucleotide database using a translated nucleotide query.",
+      "path": "modules/blast/tblastx/",
+      "scope": "sample",
+      "process_name": "tblastx",
+      "tool": {
+        "name": "blast",
+        "version": "2.17.0"
+      },
+      "takes": [
+        "blastdb"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "bracken": {
+      "description": "Taxonomic classification and abundance estimation.",
+      "path": "bactopia/modules/bracken/",
+      "scope": "sample",
+      "process_name": "bracken",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "tsv",
+        "special_meta",
+        "classified",
+        "unclassified",
+        "kraken2_report",
+        "kraken2_output",
+        "bracken_report",
+        "krona",
+        "abundances",
+        "classification",
+        "adjusted_abundances"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "btyper3": {
+      "description": "In silico typing and characterization of *Bacillus cereus* group genomes.",
+      "path": "bactopia/modules/btyper3/",
+      "scope": "sample",
+      "process_name": "btyper3",
+      "tool": {
+        "name": "btyper3",
+        "version": "3.4.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "busco": {
+      "description": "Assess genome assembly completeness using single-copy orthologs.",
+      "path": "bactopia/modules/busco/",
+      "scope": "sample",
+      "process_name": "busco",
+      "tool": {
+        "name": "busco",
+        "version": "6.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download"
+        ]
+      }
+    },
+    "checkm_lineagewf": {
+      "description": "Assess genome quality using lineage-specific marker sets.",
+      "path": "modules/checkm/lineagewf/",
+      "scope": "sample",
+      "process_name": "checkm",
+      "tool": {
+        "name": "checkm-genome",
+        "version": "1.2.5"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "checkm2_download": {
+      "description": "Download the pre-trained CheckM2 database.",
+      "path": "modules/checkm2/download/",
+      "scope": "sample",
+      "process_name": "checkm2_download",
+      "tool": {
+        "name": "aria2",
+        "version": "1.36.0"
+      },
+      "emits": [
+        "db",
+        "json"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "checkm2_predict": {
+      "description": "Assess genome quality using machine learning.",
+      "path": "modules/checkm2/predict/",
+      "scope": "sample",
+      "process_name": "checkm2",
+      "tool": {
+        "name": "checkm2",
+        "version": "1.1.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "clermontyping": {
+      "description": "Determine the phylogroup of Escherichia coli isolates.",
+      "path": "bactopia/modules/clermontyping/",
+      "scope": "sample",
+      "process_name": "clermontyping",
+      "tool": {
+        "name": "clermontyping",
+        "version": "24.02"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "clonalframeml": {
+      "description": "Inference of recombination in bacterial genomes.",
+      "path": "bactopia/modules/clonalframeml/",
+      "scope": "run",
+      "process_name": "clonalframeml",
+      "tool": {
+        "name": "clonalframeml",
+        "version": "1.12"
+      },
+      "takes": [
+        "msa",
+        "newick"
+      ],
+      "emits": [
+        "emsim",
+        "em",
+        "status",
+        "newick",
+        "fasta",
+        "pos_ref",
+        "masked_aln"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic",
+          "compression"
+        ]
+      }
+    },
+    "csvtk_concat": {
+      "description": "Concatenate multiple CSV or TSV files into a single table.",
+      "path": "modules/csvtk/concat/",
+      "scope": "run",
+      "tool": {
+        "name": "csvtk",
+        "version": "0.31.0"
+      },
+      "takes": [
+        "csv"
+      ],
+      "emits": [
+        "csv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "csvtk_join": {
+      "description": "Join two CSV or TSV files based on common fields.",
+      "path": "modules/csvtk/join/",
+      "scope": "run",
+      "tool": {
+        "name": "csvtk",
+        "version": "0.31.0"
+      },
+      "takes": [
+        "csv1",
+        "csv2"
+      ],
+      "emits": [
+        "csv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "defensefinder_run": {
+      "description": "Detect anti-phage defense systems using HMM profiles.",
+      "path": "modules/defensefinder/run/",
+      "scope": "sample",
+      "process_name": "defensefinder",
+      "tool": {
+        "name": "defense-finder",
+        "version": "2.0.1"
+      },
+      "takes": [
+        "faa"
+      ],
+      "emits": [
+        "genes_tsv",
+        "hmmer_tsv",
+        "systems_tsv",
+        "proteins",
+        "proteins_index",
+        "macsydata_raw"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "compression"
+        ]
+      }
+    },
+    "defensefinder_update": {
+      "description": "Download and package the DefenseFinder and CasFinder model databases.",
+      "path": "modules/defensefinder/update/",
+      "scope": "run",
+      "process_name": "defensefinder",
+      "tool": {
+        "name": "defense-finder",
+        "version": "2.0.1"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "archive-output"
+        ]
+      }
+    },
+    "ectyper": {
+      "description": "Predict *Escherichia coli* serotype (O and H antigens).",
+      "path": "bactopia/modules/ectyper/",
+      "scope": "sample",
+      "process_name": "ectyper",
+      "tool": {
+        "name": "ectyper",
+        "version": "2.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "eggnog_download": {
+      "description": "Download the eggNOG database for functional annotation.",
+      "path": "modules/eggnog/download/",
+      "scope": "sample",
+      "process_name": "eggnog",
+      "tool": {
+        "name": "eggnog-mapper",
+        "version": "2.1.13"
+      },
+      "emits": [
+        "db",
+        "db_tarball"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "eggnog_mapper": {
+      "description": "Functional annotation of proteins using eggNOG orthology data.",
+      "path": "modules/eggnog/mapper/",
+      "scope": "sample",
+      "process_name": "eggnog",
+      "tool": {
+        "name": "eggnog-mapper",
+        "version": "2.1.13"
+      },
+      "takes": [
+        "faa"
+      ],
+      "emits": [
+        "hits",
+        "seed_orthologs",
+        "annotations",
+        "xlsx",
+        "orthologs",
+        "genepred",
+        "gff",
+        "no_anno",
+        "pfam"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "emmtyper": {
+      "description": "emm*-typing of *Streptococcus pyogenes* (Group A Strep) assemblies.",
+      "path": "bactopia/modules/emmtyper/",
+      "scope": "sample",
+      "process_name": "emmtyper",
+      "tool": {
+        "name": "emmtyper",
+        "version": "0.2.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "fastani": {
+      "description": "Compute whole-genome Average Nucleotide Identity (ANI).",
+      "path": "bactopia/modules/fastani/",
+      "scope": "run",
+      "process_name": "fastani",
+      "tool": {
+        "name": "fastani",
+        "version": "1.34"
+      },
+      "takes": [
+        "query"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "gamma": {
+      "description": "Identification, classification, and annotation of translated gene matches.",
+      "path": "bactopia/modules/gamma/",
+      "scope": "sample",
+      "process_name": "gamma",
+      "tool": {
+        "name": "gamma",
+        "version": "2.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "gamma",
+        "psl",
+        "gff",
+        "fasta"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "genotyphi_parse": {
+      "description": "Parse Mykrobe results to genotype *Salmonella* Typhi.",
+      "path": "modules/genotyphi/parse/",
+      "scope": "sample",
+      "process_name": "genotyphi",
+      "tool": {
+        "name": "mykrobe",
+        "version": "0.13.0"
+      },
+      "takes": [
+        "json"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "gtdbtk_classifywf": {
+      "description": "Taxonomic classification of bacterial and archaeal genomes using GTDB-Tk.",
+      "path": "modules/gtdbtk/classifywf/",
+      "scope": "sample",
+      "process_name": "gtdb",
+      "tool": {
+        "name": "gtdbtk",
+        "version": "2.6.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "bac_tsv",
+        "ar_tsv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "gtdbtk_download": {
+      "description": "Download and configure the GTDB-Tk reference database.",
+      "path": "modules/gtdbtk/download/",
+      "scope": "sample",
+      "process_name": "gtdbtk",
+      "tool": {
+        "name": "gtdbtk",
+        "version": "2.6.1"
+      },
+      "emits": [
+        "db",
+        "db_tarball"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "conditional-logic",
+          "no-test"
+        ]
+      }
+    },
+    "gubbins": {
+      "description": "Detect recombination and construct a recombination-free phylogeny.",
+      "path": "bactopia/modules/gubbins/",
+      "scope": "run",
+      "process_name": "gubbins",
+      "tool": {
+        "name": "gubbins",
+        "version": "3.4.3"
+      },
+      "takes": [
+        "msa"
+      ],
+      "emits": [
+        "masked_aln"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "hicap": {
+      "description": "Predict *Haemophilus influenzae* capsule serotype.",
+      "path": "bactopia/modules/hicap/",
+      "scope": "sample",
+      "process_name": "hicap",
+      "tool": {
+        "name": "hicap",
+        "version": "1.0.4"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "gbk",
+        "svg",
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "hpsuissero": {
+      "description": "Predict *Haemophilus parasuis* serotype.",
+      "path": "bactopia/modules/hpsuissero/",
+      "scope": "sample",
+      "process_name": "hpsuissero",
+      "tool": {
+        "name": "hpsuissero",
+        "version": "1.0.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "iqtree": {
+      "description": "Efficient phylogenomic inference using Maximum Likelihood.",
+      "path": "bactopia/modules/iqtree/",
+      "scope": "run",
+      "process_name": "iqtree",
+      "tool": {
+        "name": "iqtree",
+        "version": "3.0.1"
+      },
+      "takes": [
+        "msa"
+      ],
+      "emits": [
+        "msa",
+        "phylogeny"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "ismapper": {
+      "description": "Identify insertion sites and orientation of mobile genetic elements.",
+      "path": "bactopia/modules/ismapper/",
+      "scope": "sample",
+      "process_name": "ismapper",
+      "tool": {
+        "name": "ismapper",
+        "version": "2.0.2"
+      },
+      "takes": [
+        "r1",
+        "r2"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "kleborate": {
+      "description": "Genotyping and screening of *Klebsiella* genome assemblies.",
+      "path": "bactopia/modules/kleborate/",
+      "scope": "sample",
+      "process_name": "kleborate",
+      "tool": {
+        "name": "kleborate",
+        "version": "3.2.4"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "kraken2": {
+      "description": "Taxonomic classification and host filtering of sequence reads.",
+      "path": "bactopia/modules/kraken2/",
+      "scope": "sample",
+      "process_name": "kraken2",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "kraken2_report",
+        "scrub_report",
+        "classified",
+        "unclassified"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "legsta": {
+      "description": "In silico Sequence Based Typing (SBT) of *Legionella pneumophila*.",
+      "path": "bactopia/modules/legsta/",
+      "scope": "sample",
+      "process_name": "legsta",
+      "tool": {
+        "name": "legsta",
+        "version": "0.5.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "lissero": {
+      "description": "Predict *Listeria monocytogenes* serogroup.",
+      "path": "bactopia/modules/lissero/",
+      "scope": "sample",
+      "process_name": "lissero",
+      "tool": {
+        "name": "lissero",
+        "version": "0.4.9"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "mash_dist": {
+      "description": "Calculate genomic distances using MinHash sketches.",
+      "path": "modules/mash/dist/",
+      "scope": "sample",
+      "process_name": "mashdist",
+      "tool": {
+        "name": "mash",
+        "version": "2.3"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "dist"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "mashtree": {
+      "description": "Rapid alignment-free phylogenomic tree construction.",
+      "path": "bactopia/modules/mashtree/",
+      "scope": "run",
+      "process_name": "mashtree",
+      "tool": {
+        "name": "mashtree",
+        "version": "1.4.6"
+      },
+      "takes": [
+        "seqs"
+      ],
+      "emits": [
+        "tree",
+        "tsv",
+        "sketches"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "mcroni": {
+      "description": "Detect sequence variations in the *mcr-1* colistin resistance gene.",
+      "path": "bactopia/modules/mcroni/",
+      "scope": "sample",
+      "process_name": "mcroni",
+      "tool": {
+        "name": "mcroni",
+        "version": "1.0.4"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "fa"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "meningotype": {
+      "description": "Serotyping and finetyping of *Neisseria meningitidis*.",
+      "path": "bactopia/modules/meningotype/",
+      "scope": "sample",
+      "process_name": "meningotype",
+      "tool": {
+        "name": "meningotype",
+        "version": "0.8.6b"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "merlin_dist": {
+      "description": "Identify species to trigger genus-specific downstream analyses (Merlin).",
+      "path": "modules/merlin/dist/",
+      "scope": "sample",
+      "process_name": "merlindist",
+      "tool": {
+        "name": "mash",
+        "version": "2.3"
+      },
+      "takes": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "escherichia",
+        "haemophilus",
+        "klebsiella",
+        "legionella",
+        "listeria",
+        "mycobacterium",
+        "neisseria",
+        "pseudomonas",
+        "salmonella",
+        "staphylococcus",
+        "streptococcus",
+        "genus",
+        "dist"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "midas_download": {
+      "description": "Download the MIDAS reference database.",
+      "path": "modules/midas/download/",
+      "scope": "run",
+      "process_name": "midas_download",
+      "tool": {
+        "name": "gnu-wget",
+        "version": "1.18"
+      },
+      "emits": [
+        "db",
+        "db_tarball"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "midas_species": {
+      "description": "Estimate bacterial species abundance from metagenomic reads.",
+      "path": "modules/midas/species/",
+      "scope": "sample",
+      "process_name": "midas",
+      "tool": {
+        "name": "midas=1.3.2",
+        "version": "pyh7cba7a3_7"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se"
+      ],
+      "emits": [
+        "tsv",
+        "abundances"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "mlst": {
+      "description": "Automatic Multi-Locus Sequence Typing (MLST) of genome assemblies.",
+      "path": "bactopia/modules/mlst/",
+      "scope": "sample",
+      "process_name": "mlst",
+      "tool": {
+        "name": "mlst",
+        "version": "2.32.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "mobsuite_recon": {
+      "description": "Reconstruct and type plasmids from a bacterial genome assembly.",
+      "path": "modules/mobsuite/recon/",
+      "scope": "sample",
+      "process_name": "mobsuite",
+      "tool": {
+        "name": "mob_suite",
+        "version": "3.1.9"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "chromosome",
+        "contig_report",
+        "txt",
+        "plasmids"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "compression"
+        ]
+      }
+    },
+    "mykrobe_predict": {
+      "description": "Predict Antimicrobial Resistance (AMR) for supported bacterial species.",
+      "path": "modules/mykrobe/predict/",
+      "scope": "sample",
+      "process_name": "mykrobe",
+      "tool": {
+        "name": "mykrobe",
+        "version": "0.13.0"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "csv",
+        "json"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "ncbigenomedownload": {
+      "description": "Download assemblies and annotation files from NCBI's Assembly database.",
+      "path": "bactopia/modules/ncbigenomedownload/",
+      "scope": "run",
+      "process_name": "ncbigenomedownload",
+      "tool": {
+        "name": "ncbi-genome-download",
+        "version": "0.3.3"
+      },
+      "emits": [
+        "gbk",
+        "fna",
+        "rm",
+        "features",
+        "gff",
+        "faa",
+        "gpff",
+        "wgs_gbk",
+        "cds",
+        "rna",
+        "rna_fna",
+        "report",
+        "stats",
+        "accessions"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "conditional-logic"
+        ]
+      }
+    },
+    "ngmaster": {
+      "description": "Serotyping and Multi-Antigen Sequence Typing (MAST) of *Neisseria gonorrhoeae*.",
+      "path": "bactopia/modules/ngmaster/",
+      "scope": "sample",
+      "process_name": "ngmaster",
+      "tool": {
+        "name": "ngmaster",
+        "version": "1.1.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "nohuman_download": {
+      "description": "Download the nohuman database for human read removal.",
+      "path": "modules/nohuman/download/",
+      "scope": "run",
+      "process_name": "nohuman_download",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.2"
+      },
+      "emits": [
+        "db",
+        "db_tarball"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "archive-output",
+          "compression",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "nohuman_run": {
+      "description": "Remove human reads from sequencing data.",
+      "path": "modules/nohuman/run/",
+      "scope": "sample",
+      "process_name": "nohuman",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "scrub_report"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "panaroo_run": {
+      "description": "Fast and scalable bacterial pangenome analysis using a graph-based approach.",
+      "path": "modules/panaroo/run/",
+      "scope": "run",
+      "process_name": "panaroo_run",
+      "tool": {
+        "name": "panaroo",
+        "version": "1.6.0"
+      },
+      "takes": [
+        "gff"
+      ],
+      "emits": [
+        "aln",
+        "filtered_aln",
+        "csv",
+        "panaroo_csv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "pasty": {
+      "description": "Predict O-antigen serogroup of Pseudomonas aeruginosa isolates.",
+      "path": "bactopia/modules/pasty/",
+      "scope": "sample",
+      "process_name": "pasty",
+      "tool": {
+        "name": "pasty",
+        "version": "2.2.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "blast",
+        "details"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "pbptyper": {
+      "description": "Predict Penicillin Binding Protein (PBP) type of *Streptococcus pneumoniae* assemblies.",
+      "path": "bactopia/modules/pbptyper/",
+      "scope": "sample",
+      "process_name": "pbptyper",
+      "tool": {
+        "name": "pbptyper",
+        "version": "2.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "blast"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "phispy": {
+      "description": "Predict prophage regions integrated into bacterial genomes.",
+      "path": "bactopia/modules/phispy/",
+      "scope": "sample",
+      "process_name": "phispy",
+      "tool": {
+        "name": "phispy",
+        "version": "4.2.21"
+      },
+      "takes": [
+        "gbk"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "pirate": {
+      "description": "Pangenome Identification and Reconciliation Analysis Tool for Epidemiology (PIRATE).",
+      "path": "bactopia/modules/pirate/",
+      "scope": "run",
+      "process_name": "pirate",
+      "tool": {
+        "name": "pirate",
+        "version": "1.0.5"
+      },
+      "takes": [
+        "gff"
+      ],
+      "emits": [
+        "aln",
+        "csv"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "compression"
+        ]
+      }
+    },
+    "plasmidfinder": {
+      "description": "Identify plasmid replicon types in bacterial sequences and assemblies.",
+      "path": "bactopia/modules/plasmidfinder/",
+      "scope": "sample",
+      "process_name": "plasmidfinder",
+      "tool": {
+        "name": "plasmidfinder=2.1.6",
+        "version": "py310hdfd78af_1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "json",
+        "txt",
+        "tsv",
+        "genome_seq",
+        "plasmid_seq"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "compression"
+        ]
+      }
+    },
+    "pneumocat": {
+      "description": "Capsular typing of Streptococcus pneumoniae from Illumina reads.",
+      "path": "bactopia/modules/pneumocat/",
+      "scope": "sample",
+      "process_name": "pneumocat",
+      "tool": {
+        "name": "pneumocat",
+        "version": "1.2.1"
+      },
+      "takes": [
+        "r1",
+        "r2"
+      ],
+      "emits": [
+        "xml",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "prokka": {
+      "description": "Annotate prokaryotic genomes.",
+      "path": "bactopia/modules/prokka/",
+      "scope": "sample",
+      "process_name": "prokka",
+      "tool": {
+        "name": "prokka",
+        "version": "1.15.6"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "gff",
+        "gbk",
+        "fna",
+        "faa",
+        "ffn",
+        "sqn",
+        "fsa",
+        "tbl",
+        "txt",
+        "tsv",
+        "blastdb"
+      ],
+      "tags": {
+        "complexity": "complex",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "archive-output",
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "quast": {
+      "description": "Quality Assessment Tool for Genome Assemblies.",
+      "path": "bactopia/modules/quast/",
+      "scope": "sample",
+      "process_name": "quast",
+      "tool": {
+        "name": "quast",
+        "version": "5.3.0"
+      },
+      "takes": [
+        "fna",
+        "meta_file"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "rgi_heatmap": {
+      "description": "Create heatmaps of resistance gene presence/absence.",
+      "path": "modules/rgi/heatmap/",
+      "scope": "run",
+      "process_name": "rgi_heatmap",
+      "tool": {
+        "name": "rgi",
+        "version": "6.0.5"
+      },
+      "takes": [
+        "json"
+      ],
+      "emits": [
+        "heatmap"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "rgi_main": {
+      "description": "Predict antibiotic resistance from assemblies.",
+      "path": "modules/rgi/main/",
+      "scope": "sample",
+      "process_name": "rgi_main",
+      "tool": {
+        "name": "rgi",
+        "version": "6.0.5"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "json"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "roary": {
+      "description": "Rapid large-scale prokaryote pan genome analysis.",
+      "path": "bactopia/modules/roary/",
+      "scope": "run",
+      "process_name": "roary",
+      "tool": {
+        "name": "roary",
+        "version": "3.13.0"
+      },
+      "takes": [
+        "gff"
+      ],
+      "emits": [
+        "aln",
+        "csv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "sccmec": {
+      "description": "Identify SCCmec elements in Staphylococcus aureus genomes.",
+      "path": "bactopia/modules/sccmec/",
+      "scope": "sample",
+      "process_name": "sccmec",
+      "tool": {
+        "name": "sccmec",
+        "version": "1.2.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "targets",
+        "target_details",
+        "regions",
+        "regions_details"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "scoary": {
+      "description": "Pan-genome wide association studies.",
+      "path": "bactopia/modules/scoary/",
+      "scope": "run",
+      "process_name": "scoary",
+      "tool": {
+        "name": "scoary",
+        "version": "1.6.16"
+      },
+      "takes": [
+        "csv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "seqsero2": {
+      "description": "Salmonella serotype prediction from genome sequencing data.",
+      "path": "bactopia/modules/seqsero2/",
+      "scope": "sample",
+      "process_name": "seqsero2",
+      "tool": {
+        "name": "seqsero2",
+        "version": "1.3.2"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "seroba_run": {
+      "description": "k-mer based Streptococcus pneumoniae serotyping.",
+      "path": "modules/seroba/run/",
+      "scope": "sample",
+      "process_name": "seroba",
+      "tool": {
+        "name": "seroba",
+        "version": "1.0.2"
+      },
+      "takes": [
+        "r1",
+        "r2"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "shigapass": {
+      "description": "Predict Shigella serotypes and differentiate Shigella/EIEC.",
+      "path": "bactopia/modules/shigapass/",
+      "scope": "sample",
+      "process_name": "shigapass",
+      "tool": {
+        "name": "shigapass",
+        "version": "1.5.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "flex_tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "shigatyper": {
+      "description": "Shigella serotype from Illumina or Oxford Nanopore reads.",
+      "path": "bactopia/modules/shigatyper/",
+      "scope": "sample",
+      "process_name": "shigatyper",
+      "tool": {
+        "name": "shigatyper",
+        "version": "2.0.5"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "tsv",
+        "hits"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "shigeifinder": {
+      "description": "Shigella and EIEC serotyping from assemblies.",
+      "path": "bactopia/modules/shigeifinder/",
+      "scope": "sample",
+      "process_name": "shigeifinder",
+      "tool": {
+        "name": "shigeifinder",
+        "version": "1.3.5"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "sistr": {
+      "description": "Serovar prediction of Salmonella assemblies.",
+      "path": "bactopia/modules/sistr/",
+      "scope": "sample",
+      "process_name": "sistr",
+      "tool": {
+        "name": "sistr_cmd",
+        "version": "1.1.3"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv",
+        "allele_fasta",
+        "allele_json",
+        "cgmlst_csv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "snippy_core": {
+      "description": "Core-SNP alignment from Snippy outputs.",
+      "path": "modules/snippy/core/",
+      "scope": "run",
+      "process_name": "snippy-core",
+      "tool": {
+        "name": "bactopia-variants",
+        "version": "1.0.2"
+      },
+      "takes": [
+        "vcf",
+        "aligned_fa"
+      ],
+      "emits": [
+        "supplemental",
+        "aln",
+        "full_aln",
+        "clean_full_aln",
+        "tab",
+        "vcf",
+        "txt",
+        "samples"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "snippy_run": {
+      "description": "Rapid haploid variant calling and core genome alignment.",
+      "path": "modules/snippy/run/",
+      "scope": "sample",
+      "process_name": "snippy",
+      "tool": {
+        "name": "bactopia-variants",
+        "version": "1.0.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se"
+      ],
+      "emits": [
+        "aligned_fa",
+        "vcf",
+        "aligned_fa_error",
+        "vcf_error",
+        "error",
+        "annotated_vcf",
+        "bam",
+        "bai",
+        "bed",
+        "consensus_fa",
+        "consensus_subs_fa",
+        "consensus_subs_masked_fa",
+        "coverage",
+        "csv",
+        "filt_vcf",
+        "gff",
+        "html",
+        "raw_vcf",
+        "subs_vcf",
+        "tab",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "snpdists": {
+      "description": "Create a SNP distance matrix from a multiple sequence alignment.",
+      "path": "bactopia/modules/snpdists/",
+      "scope": "run",
+      "process_name": "snpdists",
+      "tool": {
+        "name": "snp-dists",
+        "version": "1.2.0"
+      },
+      "takes": [
+        "msa"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "spatyper": {
+      "description": "Finding spa types in Staphylococcus aureus.",
+      "path": "bactopia/modules/spatyper/",
+      "scope": "sample",
+      "process_name": "spatyper",
+      "tool": {
+        "name": "spatyper",
+        "version": "0.3.3"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "srahumanscrubber_initdb": {
+      "description": "Initialize human read removal database for SRA Human Scrubber.",
+      "path": "modules/srahumanscrubber/initdb/",
+      "scope": "sample",
+      "process_name": "sra-human-scrubber",
+      "tool": {
+        "name": "sra-human-scrubber",
+        "version": "2.2.1"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "srahumanscrubber_scrub": {
+      "description": "Scrub human reads from FASTQ files.",
+      "path": "modules/srahumanscrubber/scrub/",
+      "scope": "sample",
+      "process_name": "srahumanscrubber",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "scrub_report"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "ssuissero": {
+      "description": "Serotype prediction of Streptococcus suis assemblies.",
+      "path": "bactopia/modules/ssuissero/",
+      "scope": "sample",
+      "process_name": "ssuissero",
+      "tool": {
+        "name": "ssuissero",
+        "version": "1.0.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "staphopiasccmec": {
+      "description": "Primer based SCCmec typing of S. aureus genomes.",
+      "path": "bactopia/modules/staphopiasccmec/",
+      "scope": "sample",
+      "process_name": "staphopiasccmec",
+      "tool": {
+        "name": "staphopia-sccmec",
+        "version": "1.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "stecfinder": {
+      "description": "Serotype of Shigatoxin producing E. coli using reads/assemblies.",
+      "path": "bactopia/modules/stecfinder/",
+      "scope": "sample",
+      "process_name": "stecfinder",
+      "tool": {
+        "name": "stecfinder",
+        "version": "1.1.2"
+      },
+      "takes": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "sylph_profile": {
+      "description": "Profile metagenome samples against a database using Sylph.",
+      "path": "modules/sylph/profile/",
+      "scope": "sample",
+      "process_name": "sylph",
+      "tool": {
+        "name": "sylph",
+        "version": "0.9.0"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "tbprofiler_collate": {
+      "description": "Collate TB-Profiler results from multiple samples.",
+      "path": "modules/tbprofiler/collate/",
+      "scope": "run",
+      "process_name": "tbprofiler-collate",
+      "tool": {
+        "name": "tb-profiler",
+        "version": "6.6.6"
+      },
+      "takes": [
+        "json"
+      ],
+      "emits": [
+        "csv",
+        "variants_csv",
+        "variants_txt",
+        "itol"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "tbprofiler_profile": {
+      "description": "Detect resistance and lineages of Mycobacterium tuberculosis genomes.",
+      "path": "modules/tbprofiler/profile/",
+      "scope": "sample",
+      "process_name": "tbprofiler",
+      "tool": {
+        "name": "tb-profiler",
+        "version": "6.6.6"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "csv",
+        "json",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    }
+  },
+  "subworkflows": {
+    "abricate": {
+      "description": "Mass screening of contigs for antimicrobial and virulence genes.",
+      "path": "bactopia/subworkflows/abricate/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "report"
+        ],
+        "run_outputs": [
+          "report"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "abricate_run",
+          "abricate_summary"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "abritamr": {
+      "description": "Identify antimicrobial resistance genes using AMRFinderPlus.",
+      "path": "bactopia/subworkflows/abritamr/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "summary",
+          "matches",
+          "partials",
+          "virulence",
+          "amrfinder"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "abritamr_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "agrvate": {
+      "description": "Identify Staphylococcus aureus agr locus type and operon variants.",
+      "path": "bactopia/subworkflows/agrvate/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "summary"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "agrvate",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "amrfinderplus": {
+      "description": "Find antimicrobial resistance genes and point mutations.",
+      "path": "bactopia/subworkflows/amrfinderplus/",
+      "takes": [
+        "genes",
+        "proteins",
+        "gff"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "report",
+          "mutation_report"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "amrfinderplus_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "ariba": {
+      "description": "Rapidly identify genes by creating local assemblies from paired-end reads.",
+      "path": "bactopia/subworkflows/ariba/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "report",
+          "summary"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ariba_getref",
+          "ariba_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "bactopia_assembler": {
+      "description": "Assemble bacterial genomes using automated assembler selection.",
+      "path": "subworkflows/bactopia/assembler/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "supplemental",
+          "error"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bactopia_assembler",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "alternative-execution"
+        ]
+      }
+    },
+    "bactopia_datasets": {
+      "description": "Download and provide pre-compiled datasets required by Bactopia.",
+      "path": "subworkflows/bactopia/datasets/",
+      "emits": {
+        "amrfinderplus_db": [],
+        "mlst_db": [],
+        "mash_db": [],
+        "sourmash_db": []
+      },
+      "scope": "custom",
+      "calls": {
+        "modules": [
+          "bactopia_datasets"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download"
+        ]
+      }
+    },
+    "bactopia_gather": {
+      "description": "Search, validate, gather, and standardize input samples.",
+      "path": "subworkflows/bactopia/gather/",
+      "takes": [
+        "r1_files",
+        "r2_files",
+        "se_files",
+        "lr_files"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bactopia_gather",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "bactopia_qc": {
+      "description": "Perform comprehensive quality control on sequencing reads.",
+      "path": "subworkflows/bactopia/qc/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "assembly"
+      ],
+      "takes_params": [
+        "adapters",
+        "phix"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "reads_grouped",
+          "supplemental",
+          "error"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bactopia_qc"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "conditional-logic",
+          "path-workarounds"
+        ]
+      }
+    },
+    "bactopia_sketcher": {
+      "description": "Create genomic sketches and perform rapid taxonomic classification.",
+      "path": "subworkflows/bactopia/sketcher/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "mash_db",
+        "sourmash_db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "sig",
+          "msh",
+          "mash",
+          "sourmash"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bactopia_sketcher"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "bakta": {
+      "description": "Rapid bacterial genome annotation.",
+      "path": "bactopia/subworkflows/bakta/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "database",
+        "download_bakta",
+        "save_as_tarball",
+        "proteins",
+        "prodigal_tf",
+        "replicons"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "embl",
+          "faa",
+          "ffn",
+          "fna",
+          "gbff",
+          "gff",
+          "hypotheticals_tsv",
+          "hypotheticals_faa",
+          "tsv",
+          "txt",
+          "blastdb"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bakta_download",
+          "bakta_run"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "blastn": {
+      "description": "Search a nucleotide database using nucleotide query sequences.",
+      "path": "bactopia/subworkflows/blastn/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "blast_blastn",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "blastp": {
+      "description": "Search protein sequences against protein database.",
+      "path": "bactopia/subworkflows/blastp/",
+      "takes": [
+        "blastdb"
+      ],
+      "takes_params": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "blast_blastp",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "blastx": {
+      "description": "Translate nucleotide sequences and search protein database.",
+      "path": "bactopia/subworkflows/blastx/",
+      "takes": [
+        "blastdb"
+      ],
+      "takes_params": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "blast_blastx",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "bracken": {
+      "description": "Estimate species abundance from metagenomic reads.",
+      "path": "bactopia/subworkflows/bracken/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "special_meta",
+          "classified",
+          "unclassified",
+          "kraken2_report",
+          "kraken2_output",
+          "bracken_report",
+          "krona",
+          "abundances",
+          "classification",
+          "adjusted_abundances"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "bracken",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "btyper3": {
+      "description": "In silico taxonomic classification of Bacillus cereus group genomes.",
+      "path": "bactopia/subworkflows/btyper3/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "btyper3",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "busco": {
+      "description": "Assess genome assembly completeness using BUSCO.",
+      "path": "bactopia/subworkflows/busco/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "busco_lineage"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "supplemental"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "busco",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "checkm": {
+      "description": "Assess metagenome bin completeness using CheckM.",
+      "path": "bactopia/subworkflows/checkm/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "checkm_lineagewf",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "checkm2": {
+      "description": "Assess metagenome bin completeness using CheckM2.",
+      "path": "bactopia/subworkflows/checkm2/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "database",
+        "download_checkm2"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "supplemental"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "checkm2_download",
+          "checkm2_predict",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "clermontyping": {
+      "description": "Predict phylogroups of Escherichia coli from genome assemblies.",
+      "path": "bactopia/subworkflows/clermontyping/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "clermontyping",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "clonalframeml": {
+      "description": "Detect and mask recombination events in bacterial phylogenies.",
+      "path": "bactopia/subworkflows/clonalframeml/",
+      "takes": [
+        "alignment"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "masked_aln",
+          "emsim",
+          "em",
+          "status",
+          "newick",
+          "fasta",
+          "pos_ref"
+        ],
+        "iqtree_outputs": [
+          "msa",
+          "phylogeny"
+        ],
+        "snpdists_outputs": [
+          "tsv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "clonalframeml"
+        ],
+        "subworkflows": [
+          "iqtree",
+          "snpdists"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "defensefinder": {
+      "description": "Systematically search for anti-phage defense systems.",
+      "path": "bactopia/subworkflows/defensefinder/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "genes_tsv",
+          "hmmer_tsv",
+          "systems_tsv",
+          "proteins",
+          "proteins_index",
+          "macsydata_raw"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "defensefinder_update",
+          "defensefinder_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "ectyper": {
+      "description": "In silico prediction of Escherichia coli serotype.",
+      "path": "bactopia/subworkflows/ectyper/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "txt"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ectyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "eggnog": {
+      "description": "Functional annotation through orthology assignment.",
+      "path": "bactopia/subworkflows/eggnog/",
+      "takes": [
+        "proteins"
+      ],
+      "takes_params": [
+        "database",
+        "download_eggnog",
+        "save_as_tarball"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "hits",
+          "seed_orthologs",
+          "annotations",
+          "xlsx",
+          "orthologs",
+          "genepred",
+          "gff",
+          "no_anno",
+          "pfam"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "eggnog_download",
+          "eggnog_mapper"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "emmtyper": {
+      "description": "Predict emm types of Streptococcus pyogenes from genome assemblies.",
+      "path": "bactopia/subworkflows/emmtyper/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "blastdb"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "emmtyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "fastani": {
+      "description": "Calculate Average Nucleotide Identity (ANI) between genomes.",
+      "path": "bactopia/subworkflows/fastani/",
+      "takes": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "fastani",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "gamma": {
+      "description": "Gene Allele Mutation Microbial Assessment.",
+      "path": "bactopia/subworkflows/gamma/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "gamma",
+          "psl",
+          "gff",
+          "fasta"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "gamma",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "genotyphi": {
+      "description": "Assign genotypes to Salmonella Typhi genomes.",
+      "path": "bactopia/subworkflows/genotyphi/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mykrobe_predict",
+          "genotyphi_parse",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "gtdb": {
+      "description": "Taxonomic classification with the Genome Taxonomy Database.",
+      "path": "bactopia/subworkflows/gtdb/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "database",
+        "download_gtdb",
+        "save_as_tarball"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "bac_tsv",
+          "ar_tsv",
+          "supplemental"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "gtdbtk_download",
+          "gtdbtk_classifywf",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "gubbins": {
+      "description": "Detect and filter recombination regions in bacterial alignments.",
+      "path": "bactopia/subworkflows/gubbins/",
+      "takes": [
+        "alignment"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "masked_aln",
+          "fasta",
+          "gff",
+          "vcf",
+          "stats",
+          "phylip",
+          "embl_predicted",
+          "embl_branch",
+          "tree",
+          "tree_labelled",
+          "bootstrap_tree"
+        ],
+        "snpdists_outputs": [
+          "tsv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "gubbins"
+        ],
+        "subworkflows": [
+          "snpdists"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "hicap": {
+      "description": "In silico serotyping of the Haemophilus influenzae capsule locus.",
+      "path": "bactopia/subworkflows/hicap/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "database_dir",
+        "model_fp"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "gbk",
+          "svg",
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "hicap",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-input"
+        ]
+      }
+    },
+    "hpsuissero": {
+      "description": "Rapid Haemophilus parasuis serotyping.",
+      "path": "bactopia/subworkflows/hpsuissero/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "hpsuissero",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "iqtree": {
+      "description": "Construct maximum likelihood phylogenetic trees from alignments.",
+      "path": "bactopia/subworkflows/iqtree/",
+      "takes": [
+        "alignment"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "msa",
+          "phylogeny",
+          "supplemental"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "iqtree"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple"
+      }
+    },
+    "ismapper": {
+      "description": "Identify transposase insertion sites in bacterial genomes.",
+      "path": "bactopia/subworkflows/ismapper/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "reference",
+        "insertions"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "supplemental"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ismapper"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "multiple",
+        "output_type": "single"
+      }
+    },
+    "kleborate": {
+      "description": "Genotyping tool for Klebsiella pneumoniae and its related species complex.",
+      "path": "bactopia/subworkflows/kleborate/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "kleborate",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "kraken2": {
+      "description": "Classify metagenomic reads using Kraken2.",
+      "path": "bactopia/subworkflows/kraken2/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "kraken2_report",
+          "scrub_report",
+          "special_meta",
+          "classified",
+          "unclassified"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "kraken2"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "legsta": {
+      "description": "In silico Legionella pneumophila Sequence Based Typing.",
+      "path": "bactopia/subworkflows/legsta/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "legsta",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "lissero": {
+      "description": "In silico serotype prediction for Listeria monocytogenes.",
+      "path": "bactopia/subworkflows/lissero/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "lissero",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "mashdist": {
+      "description": "Calculate Mash distances between sequences and a reference.",
+      "path": "bactopia/subworkflows/mashdist/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "reference"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "dist"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mash_dist",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "mashtree": {
+      "description": "Create phylogenetic trees using Mash distances.",
+      "path": "bactopia/subworkflows/mashtree/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tree",
+          "tsv",
+          "sketches"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mashtree"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "mcroni": {
+      "description": "Scripts for finding and processing promoter variants upstream of mcr-1.",
+      "path": "bactopia/subworkflows/mcroni/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "fa"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mcroni",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "meningotype": {
+      "description": "Predict serotypes of Neisseria meningitidis from genome assemblies.",
+      "path": "bactopia/subworkflows/meningotype/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "meningotype",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "merlin": {
+      "description": "MinER assisted species-specific bactopia tool seLectIoN.",
+      "path": "bactopia/subworkflows/merlin/",
+      "takes": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "mash_db",
+        "emmtyper_blastdb",
+        "hicap_database_dir",
+        "hicap_model_fp",
+        "staphtyper_repeats",
+        "staphtyper_repeat_order"
+      ],
+      "emits": {
+        "dist_outputs": [
+          "dist",
+          "fna",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "escherichia",
+          "haemophilus",
+          "klebsiella",
+          "legionella",
+          "listeria",
+          "mycobacterium",
+          "neisseria",
+          "pseudomonas",
+          "salmonella",
+          "staphylococcus",
+          "streptococcus",
+          "genus"
+        ],
+        "sample_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "subworkflows": [
+          "merlindist",
+          "clermontyping",
+          "ectyper",
+          "emmtyper",
+          "hicap",
+          "hpsuissero",
+          "genotyphi",
+          "kleborate",
+          "legsta",
+          "lissero",
+          "ngmaster",
+          "pasty",
+          "pbptyper",
+          "seqsero2",
+          "seroba",
+          "shigapass",
+          "shigatyper",
+          "shigeifinder",
+          "sistr",
+          "ssuissero",
+          "staphtyper",
+          "stecfinder",
+          "tbprofiler"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "merlindist": {
+      "description": "Identify species from assembly and read data using Mash distances.",
+      "path": "bactopia/subworkflows/merlindist/",
+      "takes": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "mash_db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "dist",
+          "fna",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "escherichia",
+          "haemophilus",
+          "klebsiella",
+          "legionella",
+          "listeria",
+          "mycobacterium",
+          "neisseria",
+          "pseudomonas",
+          "salmonella",
+          "staphylococcus",
+          "streptococcus",
+          "genus"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "merlin_dist"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "midas": {
+      "description": "Species-level profiling from metagenomic data.",
+      "path": "bactopia/subworkflows/midas/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database",
+        "download_midas",
+        "save_as_tarball"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "abundances"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "midas_download",
+          "midas_species",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "mlst": {
+      "description": "Determine multilocus sequence types (MLST) from bacterial assemblies.",
+      "path": "bactopia/subworkflows/mlst/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mlst",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "mobsuite": {
+      "description": "Reconstruct and type plasmids from bacterial genome assemblies.",
+      "path": "bactopia/subworkflows/mobsuite/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "chromosome",
+          "contig_report",
+          "txt",
+          "plasmids"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mobsuite_recon",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "mykrobe": {
+      "description": "Predict antibiotic resistance from sequence reads.",
+      "path": "bactopia/subworkflows/mykrobe/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "mykrobe_species"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "csv",
+          "json"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "mykrobe_predict",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "ncbigenomedownload": {
+      "description": "Download bacterial genomes from NCBI's RefSeq database.",
+      "path": "bactopia/subworkflows/ncbigenomedownload/",
+      "takes_params": [
+        "accessions"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "gbk",
+          "fna",
+          "gff",
+          "faa",
+          "gpff",
+          "wgs_gbk",
+          "cds",
+          "rna",
+          "rna_fna",
+          "features",
+          "rm",
+          "report",
+          "stats",
+          "accessions"
+        ],
+        "bactopia_tools": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ncbigenomedownload"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "resource-download"
+        ]
+      }
+    },
+    "ngmaster": {
+      "description": "Perform multi-antigen sequence typing of Neisseria gonorrhoeae from genome assemblies.",
+      "path": "bactopia/subworkflows/ngmaster/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ngmaster",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "nohuman": {
+      "description": "Remove human reads from sequencing data using nohuman.",
+      "path": "bactopia/subworkflows/nohuman/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database",
+        "download_nohuman",
+        "save_as_tarball"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "scrubbed",
+          "scrub_report"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "nohuman_download",
+          "nohuman_run"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
+        ]
+      }
+    },
+    "panaroo": {
+      "description": "Build a pangenome from GFF3 annotations using Panaroo.",
+      "path": "bactopia/subworkflows/panaroo/",
+      "takes": [
+        "gff"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aln",
+          "filtered_aln",
+          "csv",
+          "panaroo_csv",
+          "supplemental"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "panaroo_run"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "pangenome": {
+      "description": "Perform pangenome analysis with optional core-genome phylogeny.",
+      "path": "bactopia/subworkflows/pangenome/",
+      "takes": [
+        "gff"
+      ],
+      "takes_params": [
+        "use_pirate",
+        "use_roary"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aln",
+          "csv",
+          "supplemental"
+        ],
+        "snpdists_outputs": [
+          "tsv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "subworkflows": [
+          "pirate",
+          "roary",
+          "panaroo",
+          "snpdists"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "pasty": {
+      "description": "Predict serogroups of Pseudomonas aeruginosa from assemblies.",
+      "path": "bactopia/subworkflows/pasty/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "blast",
+          "details"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "pasty",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "pbptyper": {
+      "description": "Predict penicillin binding protein (PBP) types of Streptococcus pneumoniae from genome assemblies.",
+      "path": "bactopia/subworkflows/pbptyper/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "blast",
+          "details"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "pbptyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "phispy": {
+      "description": "Prediction of prophages from bacterial genomes.",
+      "path": "bactopia/subworkflows/phispy/",
+      "takes_params": [
+        "gbk"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "supplemental"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "phispy",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "pirate": {
+      "description": "Build a pangenome from GFF3 annotations using PIRATE.",
+      "path": "bactopia/subworkflows/pirate/",
+      "takes": [
+        "gff"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aln",
+          "csv",
+          "supplemental"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "pirate"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "plasmidfinder": {
+      "description": "Identify plasmid replicons in bacterial genome assemblies.",
+      "path": "bactopia/subworkflows/plasmidfinder/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "json",
+          "txt",
+          "tsv",
+          "genome_seq",
+          "plasmid_seq"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "plasmidfinder",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "pneumocat": {
+      "description": "Perform capsular typing of Streptococcus pneumoniae from NGS data.",
+      "path": "bactopia/subworkflows/pneumocat/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "xml",
+          "txt"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "pneumocat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "prokka": {
+      "description": "Annotate bacterial genomes with functional information.",
+      "path": "bactopia/subworkflows/prokka/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "proteins",
+        "prodigal_tf"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "gff",
+          "gbk",
+          "fna",
+          "faa",
+          "ffn",
+          "sqn",
+          "fsa",
+          "tbl",
+          "txt",
+          "tsv",
+          "blastdb"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "prokka"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-input"
+        ]
+      }
+    },
+    "quast": {
+      "description": "Evaluate assembly quality using QUAST.",
+      "path": "bactopia/subworkflows/quast/",
+      "takes": [
+        "assembly",
+        "meta_file"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "supplemental"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "quast",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "rgi": {
+      "description": "Predict antimicrobial resistance from protein or nucleotide data.",
+      "path": "bactopia/subworkflows/rgi/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "json"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "rgi_main",
+          "rgi_heatmap",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "roary": {
+      "description": "Build a pangenome from GFF3 annotations using Roary.",
+      "path": "bactopia/subworkflows/roary/",
+      "takes": [
+        "gff"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aln",
+          "csv",
+          "supplemental"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "roary"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "sccmec": {
+      "description": "Identify SCCmec elements in Staphylococcus aureus genomes.",
+      "path": "bactopia/subworkflows/sccmec/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "targets",
+          "target_details",
+          "regions",
+          "regions_details"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "sccmec",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "scoary": {
+      "description": "Pan-genome wide association studies.",
+      "path": "bactopia/subworkflows/scoary/",
+      "takes": [
+        "csv"
+      ],
+      "takes_params": [
+        "traits"
+      ],
+      "emits": {
+        "sample_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "scoary"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "multiple",
+        "output_type": "single",
+        "features": [
+          "conditional-input"
+        ]
+      }
+    },
+    "scrubber": {
+      "description": "Remove contaminant sequences from metagenomic data.",
+      "path": "bactopia/subworkflows/scrubber/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "use_srascrubber",
+        "nohuman_db",
+        "download_nohuman",
+        "nohuman_save_as_tarball"
+      ],
+      "emits": {
+        "sample_outputs": [],
+        "scrubbed": [],
+        "scrubbed_extra": [],
+        "special_tsv": [],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "csvtk_concat"
+        ],
+        "subworkflows": [
+          "srahumanscrubber",
+          "nohuman"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "conditional-logic",
+          "aggregation"
+        ]
+      }
+    },
+    "seqsero2": {
+      "description": "Predict Salmonella serotypes from genome assemblies.",
+      "path": "bactopia/subworkflows/seqsero2/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "txt"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "seqsero2",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "seroba": {
+      "description": "k-mer based pipeline to identify the serotype of Streptococcus pneumoniae.",
+      "path": "bactopia/subworkflows/seroba/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "txt"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "seroba_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "shigapass": {
+      "description": "Predict serotypes of Shigella from assemblies.",
+      "path": "bactopia/subworkflows/shigapass/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "flex_tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "shigapass",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "shigatyper": {
+      "description": "Predict serotypes of Shigella from reads or assemblies.",
+      "path": "bactopia/subworkflows/shigatyper/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "hits"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "shigatyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "shigeifinder": {
+      "description": "Predict serotypes of Shigella and EIEC from assemblies.",
+      "path": "bactopia/subworkflows/shigeifinder/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "shigeifinder",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "sistr": {
+      "description": "Salmonella In Silico Typing Resource command-line tool.",
+      "path": "bactopia/subworkflows/sistr/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv",
+          "allele_fasta",
+          "allele_json",
+          "cgmlst_csv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "sistr",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "snippy_core": {
+      "description": "Generate core-genome SNP alignment from per-sample Snippy outputs.",
+      "path": "subworkflows/snippy/core/",
+      "takes_params": [
+        "alignments",
+        "reference",
+        "mask"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aln",
+          "full_aln",
+          "clean_full_aln",
+          "tab",
+          "vcf",
+          "txt",
+          "samples",
+          "supplemental"
+        ],
+        "snpdists_outputs": [
+          "tsv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "snippy_core"
+        ],
+        "subworkflows": [
+          "snpdists"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple"
+      }
+    },
+    "snippy_run": {
+      "description": "Call variants against a reference genome using Snippy.",
+      "path": "subworkflows/snippy/run/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "reference"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "aligned_fa",
+          "vcf",
+          "aligned_fa_error",
+          "vcf_error",
+          "error",
+          "annotated_vcf",
+          "bam",
+          "bai",
+          "bed",
+          "consensus_fa",
+          "consensus_subs_fa",
+          "consensus_subs_masked_fa",
+          "coverage",
+          "csv",
+          "filt_vcf",
+          "gff",
+          "html",
+          "raw_vcf",
+          "subs_vcf",
+          "tab",
+          "txt"
+        ],
+        "variants": [],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "snippy_run"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple"
+      }
+    },
+    "snpdists": {
+      "description": "Calculate pairwise SNP distances from sequence alignments.",
+      "path": "bactopia/subworkflows/snpdists/",
+      "takes": [
+        "alignment"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "snpdists"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple"
+      }
+    },
+    "spatyper": {
+      "description": "Predict spa types of Staphylococcus aureus from genome assemblies.",
+      "path": "bactopia/subworkflows/spatyper/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "repeats",
+        "repeat_order"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "spatyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "srahumanscrubber": {
+      "description": "Remove human contamination from sequencing reads for SRA submission.",
+      "path": "bactopia/subworkflows/srahumanscrubber/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "special_meta",
+          "scrubbed",
+          "scrubbed_extra",
+          "scrub_report"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "srahumanscrubber_initdb",
+          "srahumanscrubber_scrub"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "ssuissero": {
+      "description": "Predict serotypes of Streptococcus suis from genome assemblies.",
+      "path": "bactopia/subworkflows/ssuissero/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ssuissero",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "staphopiasccmec": {
+      "description": "Identify SCCmec elements in Staphylococcus aureus genomes using Staphopia method.",
+      "path": "bactopia/subworkflows/staphopiasccmec/",
+      "takes": [
+        "assembly"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "staphopiasccmec",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "staphtyper": {
+      "description": "Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.",
+      "path": "bactopia/subworkflows/staphtyper/",
+      "takes": [
+        "assembly"
+      ],
+      "takes_params": [
+        "repeats",
+        "repeat_order"
+      ],
+      "emits": {
+        "sample_outputs": [],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "subworkflows": [
+          "agrvate",
+          "spatyper",
+          "sccmec"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "stecfinder": {
+      "description": "Identify and serotype Shiga toxin-producing E. coli (STEC) from assemblies.",
+      "path": "bactopia/subworkflows/stecfinder/",
+      "takes": [
+        "fna",
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "stecfinder",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "sylph": {
+      "description": "Profile microbial composition using Sylph.",
+      "path": "bactopia/subworkflows/sylph/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "sylph_profile"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent"
+        ]
+      }
+    },
+    "tblastn": {
+      "description": "Search protein query sequences against nucleotide database.",
+      "path": "bactopia/subworkflows/tblastn/",
+      "takes": [
+        "blastdb"
+      ],
+      "takes_params": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "blast_tblastn",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "tblastx": {
+      "description": "Translate nucleotide query sequences and search nucleotide database.",
+      "path": "bactopia/subworkflows/tblastx/",
+      "takes": [
+        "blastdb"
+      ],
+      "takes_params": [
+        "query"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "blast_tblastx",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "tbprofiler": {
+      "description": "Profiling tool for Mycobacterium tuberculosis to detect resistance and strain type.",
+      "path": "bactopia/subworkflows/tbprofiler/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "bam",
+          "csv",
+          "json",
+          "txt",
+          "vcf"
+        ],
+        "run_outputs": [
+          "csv",
+          "variants_csv",
+          "variants_txt",
+          "itol"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "tbprofiler_profile",
+          "tbprofiler_collate"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
+    "teton": {
+      "description": "Perform taxonomic classification and estimate bacterial genome sizes.",
+      "path": "bactopia/subworkflows/teton/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "db",
+        "use_srascrubber"
+      ],
+      "emits": {
+        "scrubber_outputs": [],
+        "bracken_outputs": [],
+        "samplesheet_outputs": [],
+        "report_outputs": [],
+        "merged_report": [],
+        "merged_bacteria": [],
+        "merged_nonbacteria": [],
+        "merged_sizemeup": []
+      },
+      "scope": "custom",
+      "calls": {
+        "modules": [
+          "bactopia_teton",
+          "csvtk_join",
+          "csvtk_concat"
+        ],
+        "subworkflows": [
+          "scrubber",
+          "bracken"
+        ]
+      },
+      "tags": {
+        "complexity": "complex",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    }
+  },
+  "workflows": {
+    "abricate": {
+      "description": "Mass screening of contigs for antimicrobial resistance and virulence genes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/abricate/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "abricate"
+      ]
+    },
+    "abritamr": {
+      "description": "A NATA accredited tool for reporting the presence of antimicrobial resistance genes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/abritamr/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "abritamr"
+      ]
+    },
+    "agrvate": {
+      "description": "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/agrvate/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "agrvate"
+      ]
+    },
+    "amrfinderplus": {
+      "description": "Bactopia Tool: Amrfinderplus.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/amrfinderplus/",
+      "ext": [
+        "fna",
+        "faa",
+        "gff"
+      ],
+      "subworkflows": [
+        "amrfinderplus",
+        "bactopia_datasets"
+      ]
+    },
+    "ariba": {
+      "description": "Gene identification through local assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ariba/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "ariba"
+      ]
+    },
+    "bakta": {
+      "description": "Rapid annotation of bacterial genomes and plasmids.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/bakta/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "bakta"
+      ]
+    },
+    "blastn": {
+      "description": "Search against nucleotide BLAST databases using nucleotide queries.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/blastn/",
+      "ext": [
+        "blastdb"
+      ],
+      "subworkflows": [
+        "blastn"
+      ]
+    },
+    "blastp": {
+      "description": "Search against protein BLAST databases using protein queries.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/blastp/",
+      "ext": [
+        "blastdb"
+      ],
+      "subworkflows": [
+        "blastp"
+      ]
+    },
+    "blastx": {
+      "description": "Search against protein BLAST databases using translated nucleotide queries.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/blastx/",
+      "ext": [
+        "blastdb"
+      ],
+      "subworkflows": [
+        "blastx"
+      ]
+    },
+    "bracken": {
+      "description": "Estimate taxonomic abundance of metagenomic samples.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/bracken/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "bracken"
+      ]
+    },
+    "btyper3": {
+      "description": "Taxonomic classification of Bacillus cereus group isolates.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/btyper3/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "btyper3"
+      ]
+    },
+    "busco": {
+      "description": "Assessment of genome assembly completeness using evolutionarily informed expectations.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/busco/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "busco"
+      ]
+    },
+    "checkm": {
+      "description": "Assessment of microbial genome assembly quality.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/checkm/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "checkm"
+      ]
+    },
+    "checkm2": {
+      "description": "Machine learning-based assessment of microbial genome assembly quality.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/checkm2/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "checkm2"
+      ]
+    },
+    "clermontyping": {
+      "description": "In silico phylotyping of Escherichia genus.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/clermontyping/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "clermontyping"
+      ]
+    },
+    "defensefinder": {
+      "description": "Systematic identification of anti-phage defense systems.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/defensefinder/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "defensefinder"
+      ]
+    },
+    "ectyper": {
+      "description": "In silico prediction of Escherichia coli serotype.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ectyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "ectyper"
+      ]
+    },
+    "eggnog": {
+      "description": "Functional annotation of proteins using orthologous groups and phylogenies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/eggnog/",
+      "ext": [
+        "faa"
+      ],
+      "subworkflows": [
+        "eggnog"
+      ]
+    },
+    "emmtyper": {
+      "description": "emm-typing of Streptococcus pyogenes assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/emmtyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "emmtyper"
+      ]
+    },
+    "fastani": {
+      "description": "Fast alignment-free computation of whole-genome Average Nucleotide Identity.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/fastani/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "fastani",
+        "ncbigenomedownload"
+      ]
+    },
+    "gamma": {
+      "description": "Identification, classification, and annotation of translated gene matches.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/gamma/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "gamma"
+      ]
+    },
+    "genotyphi": {
+      "description": "Salmonella Typhi genotyping with lineage assignment.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/genotyphi/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "genotyphi"
+      ]
+    },
+    "gtdb": {
+      "description": "Identify marker genes and assign taxonomic classifications using GTDB.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/gtdb/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "gtdb"
+      ]
+    },
+    "hicap": {
+      "description": "Identify cap locus serotype and structure in Haemophilus influenzae assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/hicap/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "hicap"
+      ]
+    },
+    "hpsuissero": {
+      "description": "Serotype prediction of Haemophilus parasuis assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/hpsuissero/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "hpsuissero"
+      ]
+    },
+    "ismapper": {
+      "description": "Identify insertion sequence positions in bacterial genomes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ismapper/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "ismapper"
+      ]
+    },
+    "kleborate": {
+      "description": "Comprehensive screening of Klebsiella genomes for virulence and resistance determinants.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/kleborate/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "kleborate"
+      ]
+    },
+    "kraken2": {
+      "description": "Taxonomic classification of metagenomic sequence reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/kraken2/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "kraken2"
+      ]
+    },
+    "legsta": {
+      "description": "Sequence Based Typing (SBT) of Legionella pneumophila.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/legsta/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "legsta"
+      ]
+    },
+    "lissero": {
+      "description": "Serogroup typing prediction for Listeria monocytogenes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/lissero/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "lissero"
+      ]
+    },
+    "mashdist": {
+      "description": "Calculate Mash distances between sequences and reference genomes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mashdist/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "mashdist"
+      ]
+    },
+    "mashtree": {
+      "description": "Rapid phylogenetic tree construction using Mash distances.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mashtree/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "mashtree",
+        "ncbigenomedownload"
+      ]
+    },
+    "mcroni": {
+      "description": "Sequence variation analysis of mcr-1 genes (mobilized colistin resistance).",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mcroni/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "mcroni"
+      ]
+    },
+    "meningotype": {
+      "description": "Comprehensive typing of Neisseria meningitidis.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/meningotype/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "meningotype"
+      ]
+    },
+    "merlin": {
+      "description": "MinMER-assisted species-specific tool selection and execution.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/merlin/",
+      "ext": [
+        "fna",
+        "fastq"
+      ],
+      "subworkflows": [
+        "bactopia_datasets",
+        "merlin"
+      ]
+    },
+    "midas": {
+      "description": "Estimate species abundances from metagenomic samples.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/midas/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "midas"
+      ]
+    },
+    "mlst": {
+      "description": "Automatic Multi-Locus Sequence Type (MLST) calling from assembled contigs.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mlst/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "mlst"
+      ]
+    },
+    "mobsuite": {
+      "description": "Reconstruction and annotation of plasmids from bacterial genome assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mobsuite/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "mobsuite"
+      ]
+    },
+    "mykrobe": {
+      "description": "Antimicrobial resistance detection for specific bacterial species.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/mykrobe/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "mykrobe"
+      ]
+    },
+    "ngmaster": {
+      "description": "Multi-antigen sequence typing of Neisseria gonorrhoeae.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ngmaster/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "ngmaster"
+      ]
+    },
+    "pangenome": {
+      "description": "Pangenome analysis with optional core-genome phylogeny.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/pangenome/",
+      "ext": [
+        "gff"
+      ],
+      "subworkflows": [
+        "ncbigenomedownload",
+        "prokka",
+        "pangenome",
+        "clonalframeml",
+        "iqtree",
+        "scoary"
+      ]
+    },
+    "pasty": {
+      "description": "In silico serogrouping of Pseudomonas aeruginosa isolates.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/pasty/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "pasty"
+      ]
+    },
+    "pbptyper": {
+      "description": "Penicillin Binding Protein (PBP) typing for Streptococcus pneumoniae.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/pbptyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "pbptyper"
+      ]
+    },
+    "phispy": {
+      "description": "Prediction of prophages in bacterial and archaeal genomes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/phispy/",
+      "ext": [
+        "gbk"
+      ],
+      "subworkflows": [
+        "phispy"
+      ]
+    },
+    "plasmidfinder": {
+      "description": "Bactopia Tool: Plasmidfinder.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/plasmidfinder/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "plasmidfinder"
+      ]
+    },
+    "pneumocat": {
+      "description": "Capsular type assignment to Streptococcus pneumoniae from sequence reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/pneumocat/",
+      "ext": [
+        "r1",
+        "r2"
+      ],
+      "subworkflows": [
+        "pneumocat"
+      ]
+    },
+    "prokka": {
+      "description": "Rapid whole genome annotation of bacterial, archaeal, and viral genomes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/prokka/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "prokka"
+      ]
+    },
+    "quast": {
+      "description": "Quality assessment of assembled contigs using QUAST.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/quast/",
+      "ext": [
+        "fna",
+        "tsv_meta"
+      ],
+      "subworkflows": [
+        "quast"
+      ]
+    },
+    "rgi": {
+      "description": "Prediction of antibiotic resistance genes using RGI.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/rgi/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "rgi"
+      ]
+    },
+    "sccmec": {
+      "description": "Typing of SCCmec cassettes in Staphylococcus aureus assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/sccmec/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "sccmec"
+      ]
+    },
+    "scrubber": {
+      "description": "Removal of human and contaminant sequences from metagenomic reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/scrubber/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "scrubber"
+      ]
+    },
+    "seqsero2": {
+      "description": "Salmonella serotype prediction from sequencing reads or assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/seqsero2/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "seqsero2"
+      ]
+    },
+    "seroba": {
+      "description": "Serotyping of Streptococcus pneumoniae from Illumina paired-end reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/seroba/",
+      "ext": [
+        "r1",
+        "r2"
+      ],
+      "subworkflows": [
+        "seroba"
+      ]
+    },
+    "shigapass": {
+      "description": "Prediction of Shigella serotypes and differentiation from EIEC.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/shigapass/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "shigapass"
+      ]
+    },
+    "shigatyper": {
+      "description": "Rapid determination of Shigella serotypes from sequencing reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/shigatyper/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "shigatyper"
+      ]
+    },
+    "shigeifinder": {
+      "description": "In silico serotype prediction for Shigella and Enteroinvasive E. coli (EIEC).",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/shigeifinder/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "shigeifinder"
+      ]
+    },
+    "sistr": {
+      "description": "Serovar prediction of Salmonella enterica from assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/sistr/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "sistr"
+      ]
+    },
+    "snippy": {
+      "description": "Rapid haplotype variant calling and core genome alignment.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/snippy/",
+      "ext": [
+        "r1",
+        "r2",
+        "se"
+      ],
+      "subworkflows": [
+        "ncbigenomedownload",
+        "snippy_run",
+        "snippy_core",
+        "gubbins",
+        "iqtree"
+      ]
+    },
+    "spatyper": {
+      "description": "spa typing of Staphylococcus aureus assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/spatyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "spatyper"
+      ]
+    },
+    "ssuissero": {
+      "description": "Serotype prediction of Streptococcus suis assemblies.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ssuissero/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "ssuissero"
+      ]
+    },
+    "staphtyper": {
+      "description": "Comprehensive typing of Staphylococcus aureus genomes.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/staphtyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "staphtyper"
+      ]
+    },
+    "stecfinder": {
+      "description": "Serotype identification of Shiga toxin-producing E. coli.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/stecfinder/",
+      "ext": [
+        "fna",
+        "fastq"
+      ],
+      "subworkflows": [
+        "stecfinder"
+      ]
+    },
+    "sylph": {
+      "description": "Taxonomic profiling by abundance-corrected MinHash.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/sylph/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "sylph"
+      ]
+    },
+    "tblastn": {
+      "description": "Search against translated nucleotide databases using protein queries.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/tblastn/",
+      "ext": [
+        "blastdb"
+      ],
+      "subworkflows": [
+        "tblastn"
+      ]
+    },
+    "tblastx": {
+      "description": "Search against translated nucleotide databases using translated nucleotide queries.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/tblastx/",
+      "ext": [
+        "blastdb"
+      ],
+      "subworkflows": [
+        "tblastx"
+      ]
+    },
+    "tbprofiler": {
+      "description": "Detection of antimicrobial resistance and lineage typing of Mycobacterium tuberculosis.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/tbprofiler/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "tbprofiler"
+      ]
+    },
+    "cleanyerreads": {
+      "description": "Quality control and optional host read removal from raw sequencing reads.",
+      "type": "named",
+      "path": "workflows/cleanyerreads/",
+      "subworkflows": [
+        "bactopia_gather",
+        "bactopia_qc",
+        "scrubber"
+      ]
+    },
+    "staphopia": {
+      "description": "Comprehensive analysis pipeline for Staphylococcus aureus isolates.",
+      "type": "named",
+      "path": "workflows/staphopia/",
+      "subworkflows": [
+        "amrfinderplus",
+        "bactopia_assembler",
+        "bactopia_datasets",
+        "bactopia_gather",
+        "bactopia_sketcher",
+        "mlst",
+        "bactopia_qc",
+        "bakta",
+        "prokka",
+        "staphtyper"
+      ]
+    },
+    "teton": {
+      "description": "Taxonomic classification and abundance profiling of metagenomic reads.",
+      "type": "named",
+      "path": "workflows/teton/",
+      "subworkflows": [
+        "bactopia_gather",
+        "teton"
+      ]
+    },
+    "bactopia": {
+      "description": "Comprehensive bacterial analysis pipeline for complete genomic characterization.",
+      "type": "named",
+      "path": "bactopia/bactopia",
+      "subworkflows": [
+        "amrfinderplus",
+        "bactopia_assembler",
+        "bactopia_datasets",
+        "bactopia_gather",
+        "bactopia_sketcher",
+        "mlst",
+        "bactopia_qc",
+        "bakta",
+        "prokka",
+        "merlin"
+      ]
+    }
+  }
+}

@@ -52,18 +52,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { ARIBA             } from '../../../subworkflows/ariba/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     ARIBA(BACTOPIATOOL_INIT.out.reads, params.ariba_db)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = ARIBA.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = ARIBA.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(ARIBA.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(ARIBA.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

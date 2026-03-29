@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { CHECKM_LINEAGEWF } from '../../modules/checkm/lineagewf/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { gather           } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow CHECKM {
     take:
@@ -37,7 +37,7 @@ workflow CHECKM {
 
     main:
     CHECKM_LINEAGEWF(assembly)
-    CSVTK_CONCAT(gather(CHECKM_LINEAGEWF.out, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(CHECKM_LINEAGEWF.out, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { EMMTYPER as EMMTYPER_MODULE } from '../../modules/emmtyper/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gather                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                      } from 'plugin/nf-bactopia'
 
 workflow EMMTYPER {
     take:
@@ -38,7 +38,7 @@ workflow EMMTYPER {
 
     main:
     EMMTYPER_MODULE(assembly, blastdb)
-    CSVTK_CONCAT(gather(EMMTYPER_MODULE.out, 'tsv', [name: 'emmtyper']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(EMMTYPER_MODULE.out, 'tsv', [name: 'emmtyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

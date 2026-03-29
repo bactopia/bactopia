@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../modules/plasmidfinder/main'
 include { CSVTK_CONCAT                          } from '../../modules/csvtk/concat/main'
-include { gather                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                                } from 'plugin/nf-bactopia'
 
 workflow PLASMIDFINDER {
     take:
@@ -39,7 +39,7 @@ workflow PLASMIDFINDER {
 
     main:
     PLASMIDFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gather(PLASMIDFINDER_MODULE.out, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(PLASMIDFINDER_MODULE.out, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

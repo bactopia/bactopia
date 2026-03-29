@@ -34,7 +34,7 @@ include { DEFENSEFINDER_RUN              } from '../../modules/defensefinder/run
 include { CSVTK_CONCAT as GENES_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as HMMER_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as SYSTEMS_CONCAT } from '../../modules/csvtk/concat/main'
-include { gather                         } from 'plugin/nf-bactopia'
+include { gatherCsvtk                         } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:
@@ -45,9 +45,9 @@ workflow DEFENSEFINDER {
     DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.map { r -> r.db })
 
     // Merge results
-    GENES_CONCAT(gather(DEFENSEFINDER_RUN.out, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
-    HMMER_CONCAT(gather(DEFENSEFINDER_RUN.out, 'hmmer_tsv', [name: 'defensefinder-hmmer']), 'tsv', 'tsv')
-    SYSTEMS_CONCAT(gather(DEFENSEFINDER_RUN.out, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
+    GENES_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
+    HMMER_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'hmmer_tsv', [name: 'defensefinder-hmmer']), 'tsv', 'tsv')
+    SYSTEMS_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

@@ -58,7 +58,7 @@ nextflow.preview.types = true
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
 include { BAKTA_RUN      } from '../../modules/bakta/run/main'
 include { filterWithData } from 'plugin/nf-bactopia'
-include { gather         } from 'plugin/nf-bactopia'
+include { gatherCsvtk         } from 'plugin/nf-bactopia'
 
 workflow BAKTA {
     take:

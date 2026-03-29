@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { HPSUISSERO as HPSUISSERO_MODULE } from '../../modules/hpsuissero/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
-include { gather                          } from 'plugin/nf-bactopia'
+include { gatherCsvtk                          } from 'plugin/nf-bactopia'
 
 workflow HPSUISSERO {
     take:
@@ -36,7 +36,7 @@ workflow HPSUISSERO {
 
     main:
     HPSUISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(HPSUISSERO_MODULE.out, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(HPSUISSERO_MODULE.out, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

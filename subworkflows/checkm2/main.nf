@@ -39,7 +39,7 @@ nextflow.preview.types = true
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'
 include { CHECKM2_PREDICT  } from '../../modules/checkm2/predict/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { gather           } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:
@@ -56,7 +56,7 @@ workflow CHECKM2 {
     }
 
     // Merge results
-    CSVTK_CONCAT(gather(CHECKM2_PREDICT.out, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(CHECKM2_PREDICT.out, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

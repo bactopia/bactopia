@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { ECTYPER as ECTYPER_MODULE } from '../../modules/ectyper/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gather                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk                    } from 'plugin/nf-bactopia'
 
 workflow ECTYPER {
     take:
@@ -36,7 +36,7 @@ workflow ECTYPER {
 
     main:
     ECTYPER_MODULE(assembly)
-    CSVTK_CONCAT(gather(ECTYPER_MODULE.out, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(ECTYPER_MODULE.out, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

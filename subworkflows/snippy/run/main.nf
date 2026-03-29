@@ -58,7 +58,7 @@
 nextflow.preview.types = true
 
 include { SNIPPY_RUN    } from '../../../modules/snippy/run/main'
-include { gather        } from 'plugin/nf-bactopia'
+include { gatherCsvtk        } from 'plugin/nf-bactopia'
 include { filterWithData } from 'plugin/nf-bactopia'
 
 workflow SNIPPY {

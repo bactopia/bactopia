@@ -32,7 +32,7 @@ nextflow.preview.types = true
 include { SEROBA_RUN     } from '../../modules/seroba/run/main'
 include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
 include { filterWithData } from 'plugin/nf-bactopia'
-include { gather         } from 'plugin/nf-bactopia'
+include { gatherCsvtk         } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:
@@ -40,7 +40,7 @@ workflow SEROBA {
 
     main:
     SEROBA_RUN(filterWithData(reads, ['r1', 'r2']))
-    CSVTK_CONCAT(gather(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

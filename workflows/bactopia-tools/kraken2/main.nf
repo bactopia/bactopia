@@ -46,18 +46,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { KRAKEN2           } from '../../../subworkflows/kraken2/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     KRAKEN2(BACTOPIATOOL_INIT.out.reads, params.kraken2_db)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = KRAKEN2.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = KRAKEN2.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(KRAKEN2.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(KRAKEN2.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

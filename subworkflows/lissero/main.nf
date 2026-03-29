@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { LISSERO as LISSERO_MODULE } from '../../modules/lissero/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gather                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk                    } from 'plugin/nf-bactopia'
 
 workflow LISSERO {
     take:
@@ -36,7 +36,7 @@ workflow LISSERO {
 
     main:
     LISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gather(LISSERO_MODULE.out, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(LISSERO_MODULE.out, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

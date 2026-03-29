@@ -50,6 +50,8 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { CHECKM2           } from '../../../subworkflows/checkm2/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
@@ -59,13 +61,8 @@ workflow {
         params.download_checkm2
     )
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = CHECKM2.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = CHECKM2.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(CHECKM2.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(CHECKM2.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

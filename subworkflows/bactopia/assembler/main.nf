@@ -38,7 +38,7 @@ nextflow.preview.types = true
 include { ASSEMBLER as ASSEMBLER_MODULE } from '../../../modules/bactopia/assembler/main'
 include { CSVTK_CONCAT                  } from '../../../modules/csvtk/concat/main'
 include { filterWithData                } from 'plugin/nf-bactopia'
-include { gather                        } from 'plugin/nf-bactopia'
+include { gatherCsvtk                        } from 'plugin/nf-bactopia'
 
 workflow ASSEMBLER {
     take:
@@ -46,7 +46,7 @@ workflow ASSEMBLER {
 
     main:
     ASSEMBLER_MODULE(samples)
-    CSVTK_CONCAT(gather(ASSEMBLER_MODULE.out, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(ASSEMBLER_MODULE.out, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
 
     emit:
     // Downstream inputs

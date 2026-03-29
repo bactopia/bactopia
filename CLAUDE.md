@@ -38,6 +38,10 @@ The pipeline uses standardized GroovyDoc documentation and static typing through
     - *Read this for*: Complete methodology for documenting entry workflows
     - User-facing documentation patterns with @publish and @section organization
 
+- **[Tier Architecture](.claude/docs/standards/07-tier-architecture.md)**
+    - *Read this for*: Formalized rules for workflows, subworkflows, and modules
+    - Tier responsibilities, allowed operations, plugin functions, ext system, catalog.json
+
 ### Project Documentation
 - **[Repository Structure](.claude/docs/project/01-repository-structure.md)**
     - *Read this for*: Directory organization and three-tier architecture

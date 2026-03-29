@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { BTYPER3 as BTYPER3_MODULE } from '../../modules/btyper3/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gather                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk                    } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:
@@ -35,7 +35,7 @@ workflow BTYPER3 {
 
     main:
     BTYPER3_MODULE(assembly)
-    CSVTK_CONCAT(gather(BTYPER3_MODULE.out, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(BTYPER3_MODULE.out, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

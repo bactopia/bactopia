@@ -46,7 +46,7 @@ nextflow.preview.types = true
 include { BRACKEN as BRACKEN_MODULE             } from '../../modules/bracken/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_TSV      } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_ADJUSTED } from '../../modules/csvtk/concat/main'
-include { gather                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                                } from 'plugin/nf-bactopia'
 
 workflow BRACKEN {
     take:
@@ -57,10 +57,10 @@ workflow BRACKEN {
     BRACKEN_MODULE(reads, database)
 
     // Merge Bracken Primary/Secondary Species abundance
-    CSVTK_CONCAT_TSV(gather(BRACKEN_MODULE.out, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
+    CSVTK_CONCAT_TSV(gatherCsvtk(BRACKEN_MODULE.out, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
 
     // Merge Bracken adjusted abundance
-    CSVTK_CONCAT_ADJUSTED(gather(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
+    CSVTK_CONCAT_ADJUSTED(gatherCsvtk(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

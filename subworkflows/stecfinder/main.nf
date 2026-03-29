@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { STECFINDER as STECFINDER_MODULE } from '../../modules/stecfinder/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
-include { gather                          } from 'plugin/nf-bactopia'
+include { gatherCsvtk                          } from 'plugin/nf-bactopia'
 
 workflow STECFINDER {
     take:
@@ -39,7 +39,7 @@ workflow STECFINDER {
 
     main:
     STECFINDER_MODULE(seqs)
-    CSVTK_CONCAT(gather(STECFINDER_MODULE.out, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(STECFINDER_MODULE.out, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

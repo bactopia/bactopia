@@ -35,7 +35,7 @@ nextflow.preview.types = true
 
 include { HICAP as HICAP_MODULE } from '../../modules/hicap/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gather                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                } from 'plugin/nf-bactopia'
 
 workflow HICAP {
     take:
@@ -45,7 +45,7 @@ workflow HICAP {
 
     main:
     HICAP_MODULE(assembly, database_dir, model_fp)
-    CSVTK_CONCAT(gather(HICAP_MODULE.out, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(HICAP_MODULE.out, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

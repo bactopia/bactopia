@@ -37,18 +37,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { LEGSTA            } from '../../../subworkflows/legsta/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     LEGSTA(BACTOPIATOOL_INIT.out.assembly)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = LEGSTA.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = LEGSTA.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(LEGSTA.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(LEGSTA.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)

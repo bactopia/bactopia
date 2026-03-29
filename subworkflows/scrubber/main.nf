@@ -44,7 +44,7 @@ nextflow.preview.types = true
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { NOHUMAN          } from '../nohuman/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { gather           } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 include { filterWithData   } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {
@@ -69,7 +69,7 @@ workflow SCRUBBER {
         ch_special_report = NOHUMAN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
     }
 
-    CSVTK_CONCAT(gather(ch_sample_outputs, 'scrub_report', [name: 'scrubber']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(ch_sample_outputs, 'scrub_report', [name: 'scrubber']), 'tsv', 'tsv')
 
     emit:
     // Downstream inputs

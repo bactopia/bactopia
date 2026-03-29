@@ -41,18 +41,15 @@ params {
 include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
 include { MENINGOTYPE       } from '../../../subworkflows/meningotype/main'
 
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
 workflow {
     main:
     BACTOPIATOOL_INIT()
     MENINGOTYPE(BACTOPIATOOL_INIT.out.assembly)
 
-    // Extract nf_logs as individual (meta, file) tuples for renaming
-    ch_sample_nf_logs = MENINGOTYPE.out.sample_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
-    ch_run_nf_logs = MENINGOTYPE.out.run_outputs.flatMap { r ->
-        r.nf_logs.collect { f -> tuple(r.meta, f) }
-    }
+    ch_sample_nf_logs = collectNextflowLogs(MENINGOTYPE.out.sample_outputs)
+    ch_run_nf_logs = collectNextflowLogs(MENINGOTYPE.out.run_outputs)
 
     publish:
     // Per-sample records (scope: sample)
