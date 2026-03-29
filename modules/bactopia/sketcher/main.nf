@@ -20,7 +20,7 @@
  * - `fna`: Assembled contigs in FASTA format
  *
  * @input mash_db
- * Path to the Mash RefSeq database 
+ * Path to the Mash RefSeq database
  *
  * @input sourmash_db
  * Path to the Sourmash GTDB LCA database
@@ -38,7 +38,7 @@ process SKETCHER {
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, fna: Path): Record
@@ -76,11 +76,12 @@ process SKETCHER {
     meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def is_compressed = mash_db.getName().endsWith(".xz") ? true : false
     def mash_name = mash_db.getName().replace(".xz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        xz -c -d ${mash_db} > ${mash_name}
+        xz -c -d ${mash_db} > ./${mash_name}
     fi
 
     gzip -cd ${fna} | mash sketch -o ${prefix}-k21 -k 21 ${task.ext.args} -I ${prefix} -
@@ -95,7 +96,9 @@ process SKETCHER {
     sourmash lca classify --query ${prefix}.sig --db ${sourmash_db} > ${prefix}-sourmash-gtdb-rs207-k31.txt
 
     # Cleanup
-    rm -rf ${mash_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${mash_name}
+    fi
 
     # Capture versions
     cat <<-END_VERSIONS > versions.yml

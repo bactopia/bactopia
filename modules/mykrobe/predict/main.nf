@@ -38,7 +38,7 @@ process MYKROBE_PREDICT {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    species                 : String
+    species: String
 
     output:
     record(

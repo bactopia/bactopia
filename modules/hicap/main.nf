@@ -36,8 +36,8 @@ process HICAP {
 
     input:
     (_meta: Map, fna: Path): Record
-    database_dir   : Path?
-    model_fp       : Path?
+    database_dir: Path?
+    model_fp    : Path?
 
     output:
     record(
@@ -95,7 +95,9 @@ process HICAP {
     fi
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -65,6 +65,7 @@ process PHISPY {
         -o supplemental \\
         ${gbk}
 
+    # Cleanup
     mv supplemental/${prefix}_prophage_coordinates.tsv ${prefix}.tsv
     mv supplemental/${prefix}_phispy.log ${prefix}.log
 

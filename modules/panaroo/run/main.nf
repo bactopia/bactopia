@@ -30,7 +30,7 @@ process PANAROO_RUN {
     label 'process_long'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, gff: Set<Path>): Record
@@ -50,6 +50,8 @@ process PANAROO_RUN {
         results: [
             files("${prefix}.aln.gz", optional: true),
             files("${prefix}.filtered.aln.gz", optional: true),
+            files("panaroo/gene_presence_absence_roary.csv", optional: true),
+            files("panaroo/gene_presence_absence.csv", optional: true),
             files("panaroo/*")
         ],
         logs: files("*.{log,err}", optional: true),

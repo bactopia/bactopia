@@ -61,8 +61,10 @@ process ABRICATE_RUN {
     """
     abricate \\
         ${fna} \\
-        $task.ext.args \\
-        --threads $task.cpus > ${prefix}.tsv
+        ${task.ext.args} \\
+        --threads ${task.cpus} > ${prefix}.tsv
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

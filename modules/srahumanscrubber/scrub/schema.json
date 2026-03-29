@@ -16,7 +16,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Use SRAHumanScrubber for scrubbing human reads",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

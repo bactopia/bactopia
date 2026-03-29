@@ -25,7 +25,7 @@ process GUBBINS {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, msa: Path): Record
@@ -77,6 +77,9 @@ process GUBBINS {
         --out ${prefix}.masked.aln
 
     # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${msa_name}
+    fi
     gzip *.masked.aln *.embl *.fasta *.gff *.vcf
 
     # Move outputs to tool specific folder

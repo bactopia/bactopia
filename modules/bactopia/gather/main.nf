@@ -35,12 +35,13 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M026
 process GATHER {
     tag "${prefix}"
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
@@ -135,7 +136,7 @@ process GATHER {
         local label="\$1"
         local pattern="\$2"
         local output="\$3"
-        
+
         echo "\${label}:" >> \${MERGED}
         find -name "\${pattern}" | sort | xargs -I {} readlink {} | xargs -I {} ls -l {} | awk '{print \$5"\t"\$9}' >> \${MERGED}
         find -name "\${pattern}" | sort | xargs -I {} readlink {} | xargs -I {} cat {} > "\${output}"
@@ -152,7 +153,7 @@ process GATHER {
     validate_single() {
         local fq="\$1"
         gzip -cd "\${fq}" | fastq-scan > r1.json
-        
+
         if [[ -s r1.json ]]; then
             check-fastqs.py --fq1 r1.json \${OPTS} || { rm -f r1.json; return 1; }
         else
@@ -160,7 +161,7 @@ process GATHER {
             rm -f r1.json
             return 1
         fi
-        
+
         rm -f r1.json
         return 0
     }
@@ -334,21 +335,10 @@ process GATHER {
     # Create metadata file
     #==========================================================================================
     printf "sample\\truntype\\toriginal_runtype\\tis_paired\\tis_compressed\\tspecies\\tgenome_size\\n" > ${prefix}-meta.tsv
-    printf "%s\\t%s\\t%s\\t%s\\t%s\\t%s\\t%s\\n" "${meta.name}" "${meta.runtype}" "${meta.original_runtype}" "\$IS_PAIRED" "${meta.is_compressed}" "${meta.species}" "${meta.genome_size}" >> ${prefix}-meta.tsv
+    printf "%s\\t%s\\t%s\\t%s\\t%s\\t%s\\t%s\\n" "${prefix}" "${meta.runtype}" "${meta.original_runtype}" "\$IS_PAIRED" "${meta.is_compressed}" "${meta.species}" "${meta.genome_size}" >> ${prefix}-meta.tsv
 
-    #==========================================================================================
-    # Capture versions
-    #==========================================================================================
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        art: \$(echo \$(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*\$//')
-        fastq-dl: \$(echo \$(fastq-dl --version 2>&1) | sed 's/fastq-dl, version //')
-        fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
-        ncbi-genome-download: \$(echo \$(ncbi-genome-download --version 2>&1))
-        pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
-    END_VERSIONS
+    # Cleanup
 
-    # Capture versions
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         art: \$(echo \$(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*\$//')

@@ -45,6 +45,7 @@ nextflow.preview.types = true
 include { MIDAS_DOWNLOAD } from '../../modules/midas/download/main'
 include { MIDAS_SPECIES  } from '../../modules/midas/species/main'
 include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
+include { filterWithData } from 'plugin/nf-bactopia'
 include { gather         } from 'plugin/nf-bactopia'
 
 workflow MIDAS {
@@ -55,16 +56,18 @@ workflow MIDAS {
     save_as_tarball: Boolean
 
     main:
+    def filtered_reads = filterWithData(reads, ['r1', 'r2', 'se'])
+
     if (download_midas) {
         MIDAS_DOWNLOAD()
 
         if (save_as_tarball) {
-            MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.map { r -> r.db_tarball })
+            MIDAS_SPECIES(filtered_reads, MIDAS_DOWNLOAD.out.map { r -> r.db_tarball })
         } else {
-            MIDAS_SPECIES(reads, MIDAS_DOWNLOAD.out.map { r -> r.db })
+            MIDAS_SPECIES(filtered_reads, MIDAS_DOWNLOAD.out.map { r -> r.db })
         }
     } else {
-        MIDAS_SPECIES(reads, database)
+        MIDAS_SPECIES(filtered_reads, database)
     }
 
     CSVTK_CONCAT(gather(MIDAS_SPECIES.out, 'tsv', [name: 'midas']), 'tsv', 'tsv')

@@ -47,17 +47,18 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M026
 process QC {
     tag "${prefix}"
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
-    adapters                                                                 : Path?
-    phix                                                                     : Path?
+    adapters: Path?
+    phix    : Path?
 
     stage:
     stageAs 'input-r1/*', r1
@@ -68,6 +69,7 @@ process QC {
 
     output:
     record(
+        // Named fields (used downstream)
         meta: meta,
         r1: file("${prefix}_R1.fastq.gz", optional: true),
         r2: file("${prefix}_R2.fastq.gz", optional: true),
@@ -75,9 +77,13 @@ process QC {
         lr: file("${prefix}_ONT.fastq.gz", optional: true),
         fna: file("assembly/${prefix}.fna.gz", optional: true),
         reads_grouped: files("${prefix}*.fastq.gz", optional: true),
-        supplemental: files("supplemental/*", optional: true),
         error: files("*-error.txt", optional: true),
-        results: [files("${prefix}*.fastq.gz", optional: true)],
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}*.fastq.gz", optional: true),
+            files("supplemental/*", optional: true),
+            files("*-error.txt", optional: true),
+        ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
         versions: files("versions.yml")
@@ -139,14 +145,14 @@ process QC {
         local input="\$1"
         local suffix="\$2"
         local outdir="supplemental/${prefix}-\${suffix}"
-        
+
         mkdir -p "\${outdir}"
         NanoPlot ${task.ext.nanoplot_opts} \
             --threads ${task.cpus} \
             --fastq "\${input}" \
             --outdir "\${outdir}/" \
             --prefix "${prefix}-\${suffix}_"
-        
+
         cp "\${outdir}/${prefix}-\${suffix}_NanoPlot-report.html" "supplemental/${prefix}-\${suffix}_NanoPlot-report.html"
         tar -cvf - "\${outdir}/" | pigz --best -p ${task.cpus} > "supplemental/${prefix}-\${suffix}_NanoPlot.tar.gz"
         rm -rf "\${outdir}"
@@ -238,7 +244,7 @@ process QC {
                     fi
                 else
                     # No need to validate single-end read IDs
-                    gunzip -c ${fq1} > repair-r1.fq 
+                    gunzip -c ${fq1} > repair-r1.fq
                 fi
 
                 if [ "\${ERROR}" -eq "0" ]; then
@@ -357,7 +363,7 @@ process QC {
             if is_paired; then
                 compress subsample-r1.fq ${prefix}_R1.fastq.gz
                 compress subsample-r2.fq ${prefix}_R2.fastq.gz
-            fi 
+            fi
 
             if has_ont_reads; then
                 compress subsample-ont.fq ${prefix}_ONT.fastq.gz
@@ -498,7 +504,7 @@ process QC {
 
     #==========================================================================================
     # Handle Errors
-    # 
+    #
     # ERROR=0 : QC process successful
     # ERROR=1 : Original reads could not be processed (e.g. empty after trimming)
     # ERROR=2 : Final QC checks failed (e.g. insufficient reads after QC)
@@ -508,7 +514,7 @@ process QC {
         if is_paired; then
             cp ${fq1} supplemental/${prefix}_R1.error-fastq.gz
             cp ${fq2} supplemental/${prefix}_R2.error-fastq.gz
-            
+
             if [ -s repair-singles.fq ]; then
                 compress repair-singles.fq supplemental/${prefix}.singles.fastq.gz
             fi
@@ -541,7 +547,8 @@ process QC {
         fi
     fi
 
-    # Capture versions
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         bbduk: \$(echo \$(bbduk.sh --version 2>&1) | sed 's/^.*BBTools version //;s/ .*\$//')

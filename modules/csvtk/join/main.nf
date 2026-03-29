@@ -34,7 +34,7 @@ process CSVTK_JOIN {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, csv1: Path, csv2: Path): Record
@@ -67,8 +67,8 @@ process CSVTK_JOIN {
     meta.name = prefix
     meta.scope = task.ext.scope
     meta.output_dir = "merged-results"
-    meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
-    meta.process_name = task.ext.process_name
+    meta.logs_dir = "merged-results/logs/${prefix}-join/${subdir}"
+    meta.process_name = "${prefix}-join"
 
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
@@ -82,6 +82,8 @@ process CSVTK_JOIN {
         ${out_delimiter} \\
         --out-file ${prefix}.${out_extension} \\
         ${csv1} ${csv2}
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -40,7 +40,7 @@ nextflow.preview.types = true
 
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
 include { SNPDISTS                  } from '../snpdists/main'
-include { gather                    } from 'plugin/nf-bactopia'
+
 
 workflow GUBBINS {
     take:
@@ -48,7 +48,9 @@ workflow GUBBINS {
 
     main:
     GUBBINS_MODULE(alignment)
-    SNPDISTS(gather(GUBBINS_MODULE.out, 'masked_aln', [name: 'core-snp.masked.distance', process_name: 'snpdists-masked']))
+    SNPDISTS(GUBBINS_MODULE.out.map { r ->
+        record(_meta: [name: 'core-snp.masked.distance', process_name: 'snpdists-masked'], msa: r.masked_aln)
+    })
 
     emit:
     // Published outputs

@@ -7,7 +7,7 @@
  * abundance estimates.
  *
  * Uses explicit positional record fields for reads:
- * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: record(meta, r1, r2, se) where each read slot is Path?
  *
  * @status stable
  * @keywords metagenomics, abundance, species, midas, marker genes, diversity
@@ -17,12 +17,11 @@
  * @note Database Required
  * Requires a compatible MIDAS database (containing marker gene sequences and taxonomy).
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2, se)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (not supported by MIDAS)
  *
  * @input db
  * Directory containing the MIDAS database
@@ -42,8 +41,8 @@ process MIDAS_SPECIES {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    db                      : Path
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?): Record
+    db: Path
 
     output:
     record(
@@ -62,8 +61,6 @@ process MIDAS_SPECIES {
     )
 
     script:
-    def VERSION = '1.3.2'
-    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -83,6 +80,9 @@ process MIDAS_SPECIES {
 
     def read_opts = meta.single_end ? "-1 ${se}" : "-1 ${r1} -2 ${r2}"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.3.2'
     """
     if [ "${is_tarball}" == "true" ]; then
         mkdir database
@@ -106,7 +106,7 @@ process MIDAS_SPECIES {
     # Cleanup
     rm -rf results/
     if [ "${is_tarball}" == "true" ]; then
-        rm -rf database
+        rm -rf database/
     fi
 
     cat <<-END_VERSIONS > versions.yml

@@ -370,7 +370,7 @@
                 },
                 "bakta_opts": {
                     "type": "string",
-                    "description": "Extra Backa options in quotes. Example: '--gram +'",
+                    "description": "Extra Bakta options in quotes. Example: '--gram +'",
                     "help": "Useful if you would like to fine tune your Bakta analysis.",
                     "default": "",
                     "fa_icon": "fas fa-italic",

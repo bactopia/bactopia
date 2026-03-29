@@ -80,7 +80,9 @@ process STECFINDER {
         -t ${task.cpus} > ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${seq_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${seq_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

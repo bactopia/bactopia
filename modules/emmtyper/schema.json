@@ -16,73 +16,76 @@
                     "type": "string",
                     "default": "blast",
                     "description": "Workflow for emmtyper to use.",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "enum": ["blast", "pcr"]
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "blast",
+                        "pcr"
+                    ]
                 },
                 "emmtyper_blastdb": {
                     "type": "string",
                     "description": "Path to custom EMM BLAST DB.",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "emmtyper_cluster_distance": {
                     "type": "integer",
                     "default": 500,
                     "description": "Distance between cluster of matches to consider as different clusters",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "emmtyper_percid": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimal percent identity of sequence",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "emmtyper_culling_limit": {
                     "type": "integer",
                     "default": 5,
                     "description": "Total hits to return in a position",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_mismatch": {
                     "type": "integer",
                     "default": 5,
                     "description": "Threshold for number of mismatch to allow in BLAST hit",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_align_diff": {
                     "type": "integer",
                     "default": 5,
                     "description": "Threshold for difference between alignment length and subject length in BLAST",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_gap": {
                     "type": "integer",
                     "default": 2,
                     "description": "Threshold gap to allow in BLAST hit",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_min_perfect": {
                     "type": "integer",
                     "default": 15,
                     "description": "Minimum size of perfect match at 3 primer end",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_min_good": {
                     "type": "integer",
                     "default": 15,
                     "description": "Minimum size where there must be 2 matches for each mismatch",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "emmtyper_max_size": {
                     "type": "integer",
                     "default": 2000,
                     "description": "Maximum size of PCR product",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 }
             }

@@ -28,7 +28,7 @@ process PIRATE {
     label 'process_long'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, gff: Set<Path>): Record
@@ -45,6 +45,7 @@ process PIRATE {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.aln.gz", optional: true),
+            files("pirate/gene_presence_absence.csv", optional: true),
             files("pirate/*")
         ],
         logs: files("*.{log,err}", optional: true),

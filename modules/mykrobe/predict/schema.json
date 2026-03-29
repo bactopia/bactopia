@@ -16,7 +16,7 @@
                     "type": "string",
                     "default": "",
                     "description": "Species panel to use",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true,
                     "enum": [
                         "sonnei",
@@ -29,21 +29,21 @@
                     "type": "integer",
                     "default": 21,
                     "description": "K-mer length",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "mykrobe_min_depth": {
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum depth",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "mykrobe_model": {
                     "type": "string",
                     "default": "kmer_count",
                     "description": "Genotype model used.",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "kmer_count",
@@ -54,14 +54,14 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Report all calls",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "mykrobe_opts": {
                     "type": "string",
                     "description": "Extra Mykrobe options in quotes",
                     "help": "Useful if you would like to fine tune your Mykrobe analysis.",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 }
             }
         }

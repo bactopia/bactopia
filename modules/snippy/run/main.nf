@@ -6,19 +6,18 @@
  * the reference, calls variants, and generates a consensus sequence.
  *
  * Uses explicit positional record fields for reads:
- * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: record(meta, r1, r2, se) where each read slot is Path?
  *
  * @status stable
  * @keywords snippy, variant calling, snp, indel, alignment, bacteria
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation snippy
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2, se)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) - not typically used by Snippy
  *
  * @input record(meta, reference)
  * - `meta`: Groovy Map containing reference information
@@ -54,10 +53,10 @@ process SNIPPY_RUN {
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (_meta: Map, r1: Path?, r2: Path?, se: Path?): Record
     reference: Path
 
     output:
@@ -175,8 +174,11 @@ process SNIPPY_RUN {
         ${prefix}/${prefix}.coverage.txt \\
         --mincov ${task.ext.mincov} > ${prefix}/${prefix}.consensus.subs.masked.fa
 
-    # Clean Up
-    rm -rf tmp_snippy/ ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz* ${final_reference}
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${final_reference}
+    fi
+    rm -rf tmp_snippy/ ${prefix}/reference ${prefix}/ref.fa* ${prefix}/${prefix}.vcf.gz*
 
     if [[ ${task.ext.snippy_remove_bam} == "true" ]]; then
         rm ${prefix}/${prefix}.bam ${prefix}/${prefix}.bam.bai

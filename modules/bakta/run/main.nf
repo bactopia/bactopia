@@ -29,8 +29,7 @@
  * @input replicons
  * Optional table (TSV/CSV) of replicon information for origin detection
  *
- * @output record(meta, annotations, embl, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, tsv, txt, blastdb, results, logs, nf_logs, versions)
- * - `embl`: Annotations and sequences in EMBL format
+ * @output record(meta, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, tsv, txt, blastdb, results, logs, nf_logs, versions)
  * - `faa`: CDS/sORF amino acid sequences as FASTA
  * - `ffn`: Feature nucleotide sequences as FASTA
  * - `fna`: Replicon/contig DNA sequences as FASTA
@@ -49,21 +48,19 @@ process BAKTA_RUN {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, fna: Path): Record
-    db             : Path
-    proteins       : Path?
-    prodigal_tf    : Path?
-    replicons      : Path?
+    db         : Path
+    proteins   : Path?
+    prodigal_tf: Path?
+    replicons  : Path?
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        annotations: [file("bakta/${prefix}.{fna,fna.gz}"), file("bakta/${prefix}.{faa,faa.gz}"), file("bakta/${prefix}.{gff3,gff3.gz}")],
-        embl: file("bakta/${prefix}.{embl,embl.gz}"),
         faa: file("bakta/${prefix}.{faa,faa.gz}"),
         ffn: file("bakta/${prefix}.{ffn,ffn.gz}"),
         fna: file("bakta/${prefix}.{fna,fna.gz}"),
@@ -146,9 +143,9 @@ process BAKTA_RUN {
         gzip --best bakta/${prefix}.hypotheticals.faa
     fi
 
-    # Clean up
+    # Cleanup
     if [ "${is_tarball}" == "true" ]; then
-        rm -rf database
+        rm -rf database/
     fi
     rm -rf blastdb/
     mv bakta/*.log ./

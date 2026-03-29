@@ -26,7 +26,7 @@ process BACTOPIA_SAMPLESHEET {
     label 'process_single'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, classification: Path): Record
@@ -81,6 +81,8 @@ process BACTOPIA_SAMPLESHEET {
         touch ${prefix}.bacteria.tsv
         touch ${prefix}.nonbacteria.tsv
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "A database to query, if unavailable it will be downloaded to the path given by --datasets_cache",
                     "default": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "argannot",
                         "card",
@@ -35,13 +35,13 @@
                     "type": "integer",
                     "description": "Minimum alignment identity (delta-filter -i)",
                     "default": 90,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ariba_nucmer_min_len": {
                     "type": "integer",
                     "description": "Minimum alignment identity (delta-filter -i)",
                     "default": 20,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ariba_nucmer_breaklen": {
                     "type": "integer",
@@ -60,40 +60,40 @@
                     "type": "integer",
                     "description": "Minimum number of read pairs needed as evidence for scaffold link between two contigs",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "ariba_spades_options": {
                     "type": "string",
                     "description": "Extra options to pass to Spades assembler",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "ariba_assembled_threshold": {
                     "type": "number",
                     "description": "If proportion of gene assembled (regardless of into how many contigs) is at least this value then the flag gene_assembled is set",
                     "default": 0.95,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "ariba_gene_nt_extend": {
                     "type": "integer",
                     "description": "Max number of nucleotides to extend ends of gene matches to look for start/stop codons",
                     "default": 30,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "ariba_unique_threshold": {
                     "type": "number",
                     "description": "If proportion of bases in gene assembled more than once is <= this value, then the flag unique_contig is set",
                     "default": 0.03,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "ariba_no_clean": {
                     "type": "boolean",
                     "description": "Do not clean up intermediate files created by Ariba.",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }

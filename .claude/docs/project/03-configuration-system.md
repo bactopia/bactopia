@@ -73,37 +73,32 @@ Each module includes configuration files:
 ### `module.config`
 Combined configuration file containing both parameters and process settings:
 ```groovy
-/*
-Bactopia Module Configuration
-
-Defines parameter defaults, container images, resource labels, and other settings
-for the process defined in this directory.
-*/
-
 params {
-    // Module parameters with descriptions
+    // tool_name
     tool_option = "default_value"
     tool_threshold = 80
     tool_database = "default_db"
 }
 
 process {
-    withName: 'MODULE_NAME' {
-        // Arguments and options
-        ext.args = "--option1 value1 --option2 value2"
-
-        // Environment information
-        ext.toolName = "bioconda::tool-name=1.0.0"
-        ext.docker = "biocontainers/tool-name:1.0.0"
-        ext.image = "https://depot.galaxyproject.org/singularity/tool-name:1.0.0"
-        ext.condaDir = "${params.condadir}"
-
-        // Metadata
+    withName: 'TOOL_NAME' {
         ext.wf = params.wf
-        ext.scope = "sample" // or "run"
+        ext.scope = "sample"
         ext.subdir = ""
         ext.logs_subdir = ""
         ext.process_name = "tool-name"
+
+        // Tool arguments
+        ext.args = [
+            "--option1 ${params.tool_option}",
+            "--threshold ${params.tool_threshold}"
+        ].join(' ').replaceAll("\\s{2,}", " ").trim()
+
+        // Environment information
+        ext.toolName = "bioconda::tool-name=1.0.0".replace("=", "-").replace(":", "-").replace(" ", "-")
+        ext.docker = "biocontainers/tool-name:1.0.0--hash_0"
+        ext.image = "https://depot.galaxyproject.org/singularity/tool-name:1.0.0--hash_0"
+        ext.condaDir = "${params.condadir}"
     }
 }
 ```
@@ -163,10 +158,10 @@ includeConfig '../modules/{tool}/module.config'
 - Use descriptive names (e.g., `kraken2_database` not `db`)
 - Follow snake_case convention
 - Include tool prefix to avoid conflicts
+- Parameters must be in **alphabetical order** within the params block
 
 ### Default Values
 - Provide sensible defaults
-- Document why a default was chosen
 - Use EMPTY_* files for optional Path? parameters
 
 ### Resource Allocation
@@ -177,9 +172,9 @@ Use standard process labels:
 - `process_long` - Long-running processes
 
 ### Container Management
-- Always specify both Docker and Singularity images
-- Use consistent tagging
-- Include conda package specification
+- Always specify `ext.docker`, `ext.image`, and `ext.toolName` in module.config
+- Container resolution is handled globally in `conf/base.config` (sets `ext.container`)
+- Modules use `container "${task.ext.container}"` — never inline ternary logic
 
 ## Common Configuration Patterns
 

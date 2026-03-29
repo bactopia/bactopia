@@ -31,11 +31,12 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M017,M026
 process NCBIGENOMEDOWNLOAD {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     accessions : Path?
@@ -71,6 +72,7 @@ process NCBIGENOMEDOWNLOAD {
     script:
     meta = [:]
     meta.id = task.ext.meta_id
+    meta.name = task.ext.meta_id
     meta.limit = task.ext.meta_limit
     meta.accession = task.ext.meta_accession
     meta.species = task.ext.meta_species
@@ -99,6 +101,8 @@ process NCBIGENOMEDOWNLOAD {
     if [ "${has_accessions}" == "true" ]; then
         ncbi-genome-download ${opts} -u "https://ftp.ncbi.nlm.nih.gov/genomes" -A ${accessions}
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

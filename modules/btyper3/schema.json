@@ -16,40 +16,40 @@
                     "type": "integer",
                     "default": 70,
                     "description": "Minimum percent amino acid/nucleotide identity threshold for a virulence gene to be considered present",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "btyper3_virulence_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum percent coverage threshold for a virulence gene to be considered present",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "btyper3_identity": {
                     "type": "integer",
                     "default": 50,
                     "description": "Minimum percent amino acid identity threshold for a Bt toxin gene to be considered present",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "btyper3_coverage": {
                     "type": "integer",
                     "default": 70,
                     "description": "Minimum percent coverage threshold for a Bt toxin gene to be considered present",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "btyper3_overlap": {
                     "type": "number",
                     "default": 0.7,
                     "description": "Specify maximum proportion of overlap for overlapping Bt toxin genes to be considered separate genes",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "btyper3_opts": {
                     "type": "string",
                     "default": "",
                     "description": "Additional options to pass to BTyper3",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 }
             }
         }

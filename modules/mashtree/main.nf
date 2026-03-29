@@ -27,7 +27,7 @@ process MASHTREE {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, seqs: Set<Path>): Record
@@ -72,7 +72,7 @@ process MASHTREE {
         --tempdir mashtree-tmp/ \\
         ${seqs.join(' ')}
 
-    # Clean up
+    # Cleanup
     rm -rf mashtree-tmp/
 
     cat <<-END_VERSIONS > versions.yml

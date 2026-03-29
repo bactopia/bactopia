@@ -48,8 +48,6 @@ process MCRONI {
     )
 
     script:
-    def VERSION = '1.0.4'
-    // Version information not provided by tool on CLI
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -63,6 +61,9 @@ process MCRONI {
 
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.0.4'
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ${fna_name}
@@ -81,7 +82,10 @@ process MCRONI {
     # Cleanup
     mv ${prefix}_table.tsv ${prefix}.tsv
     mv ${prefix}_sequence.fa ${prefix}.fasta
-    rm -rf ${fna_name} ${fna_name}.ndb ${fna_name}.not ${fna_name}.ntf ${fna_name}.nto
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+    rm -rf ${fna_name}.ndb ${fna_name}.not ${fna_name}.ntf ${fna_name}.nto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

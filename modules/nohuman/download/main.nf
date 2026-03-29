@@ -20,19 +20,19 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012
+// bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028
 process NOHUMAN_DOWNLOAD {
     label 'process_low'
     label 'process_long'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     output:
     record(
-        db:         file("nohuman-db", optional: true),
+        db: file("nohuman-db", optional: true),
         db_tarball: file("nohuman-db.tar.gz", optional: true),
-        logs:       files("logs/*", optional: true)
+        logs: files("logs/*", optional: true)
     )
 
     script:

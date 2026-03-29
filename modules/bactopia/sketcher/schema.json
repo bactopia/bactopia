@@ -30,7 +30,7 @@
                     "type": "boolean",
                     "description": "Disable winner-takes-all strategy for identity estimates",
                     "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "screen_i": {
@@ -38,7 +38,7 @@
                     "description": "Minimum identity to report.",
                     "help": "Inclusive unless set to zero, in which case only identities greater than zero (i.e. with at least one shared hash) will be reported. Set to -1 to output everything.",
                     "default": 0.8,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 }
             }

@@ -40,7 +40,7 @@ nextflow.preview.types = true
 include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalframeml/main'
 include { IQTREE                                } from '../iqtree/main'
 include { SNPDISTS                              } from '../snpdists/main'
-include { gather                                } from 'plugin/nf-bactopia'
+
 
 workflow CLONALFRAMEML {
     take:
@@ -48,7 +48,9 @@ workflow CLONALFRAMEML {
 
     main:
     // Create a quick start tree
-    IQTREE(gather(alignment, 'alignment', [name: 'iqtree-fast', process_name: 'iqtree-fast']))
+    IQTREE(alignment.map { r ->
+        record(_meta: [name: r._meta.name, process_name: 'iqtree-fast'], msa: r.alignment)
+    })
 
     // Run ClonalFrameML
     CLONALFRAMEML_MODULE(IQTREE.out.sample_outputs.map { r ->
@@ -56,7 +58,9 @@ workflow CLONALFRAMEML {
     })
 
     // Per-sample SNP distances
-    SNPDISTS(gather(CLONALFRAMEML_MODULE.out, 'masked_aln', [name: 'core-genome.masked.distance', process_name: 'snpdists-masked']))
+    SNPDISTS(CLONALFRAMEML_MODULE.out.map { r ->
+        record(_meta: [name: 'core-genome.masked.distance', process_name: 'snpdists-masked'], msa: r.masked_aln)
+    })
 
     emit:
     // Published outputs

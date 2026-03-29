@@ -20,19 +20,19 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012,M013
+// bactopia-lint: ignore M012,M013,M017,M018,M022,M023,M024,M025,M026,M027,M028
 process DATASETS {
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     output:
     record(
         amrfinderplus_db: file("${bactopia_version}/amrfinderplus.tar.gz"),
-        mlst_db:          file("mlst.tar.gz"),
-        mash_db:          file("mash-refseq88.k21.msh.xz"),
-        sourmash_db:      file("gtdb-rs207.genomic-reps.dna.k31.lca.json.gz")
+        mlst_db: file("mlst.tar.gz"),
+        mash_db: file("mash-refseq88.k21.msh.xz"),
+        sourmash_db: file("gtdb-rs207.genomic-reps.dna.k31.lca.json.gz")
     )
 
     script:

@@ -37,6 +37,7 @@
 nextflow.preview.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
+include { filterWithData             } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:
@@ -45,7 +46,7 @@ workflow ISMAPPER {
     insertions: Path
 
     main:
-    ISMAPPER_MODULE(reads, reference, insertions)
+    ISMAPPER_MODULE(filterWithData(reads, ['r1', 'r2']), reference, insertions)
 
     emit:
     // Published outputs

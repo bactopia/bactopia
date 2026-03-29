@@ -37,7 +37,7 @@ process GTDBTK_CLASSIFYWF {
 
     input:
     (_meta: Map, fna: Set<Path>): Record
-    db           : Path
+    db: Path
 
     stage:
     stageAs 'fna-tmp/*', fna
@@ -98,11 +98,9 @@ process GTDBTK_CLASSIFYWF {
 
     # Cleanup
     if [ "${is_tarball}" == "true" ]; then
-        # Delete the untarred database
-        rm -rf database
+        rm -rf database/
     fi
     if [ "${task.ext.gtdb_keep_msa}" == "false" ]; then
-        # Delete MSA of submitted and reference genomes.
         rm -rf supplemental/align/*.msa.fasta.gz
     fi
     rm -rf fna/

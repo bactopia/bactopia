@@ -21,16 +21,17 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M026
 process IQTREE {
     tag "${prefix}"
     label 'process_medium'
     label 'process_long'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
-    (_meta: Map, _msa: Set<Path>): Record
+    (_meta: Map, msa: Path): Record
 
     output:
     record(
@@ -49,8 +50,6 @@ process IQTREE {
     )
 
     script:
-    assert _msa.size() == 1 : "Expected 1 MSA, got ${_msa.size()}"
-    msa = _msa.toList()[0]
     prefix = task.ext.prefix ?: "${_meta.name}"
     process_name = _meta.process_name == "iqtree-fast" ? "iqtree-fast" : task.ext.process_name
     args = process_name == "iqtree-fast" ? task.ext.fast_args : task.ext.args
@@ -84,6 +83,8 @@ process IQTREE {
         # We don't want the fast-tree to be on the same level as the main tree in the outputs
         mv ${process_name}/${prefix}.treefile ./
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

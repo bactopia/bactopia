@@ -41,8 +41,7 @@ nextflow.preview.types = true
 
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE  } from '../../../modules/snippy/core/main'
 include { SNPDISTS                           } from '../../snpdists/main'
-include { gather                             } from 'plugin/nf-bactopia'
-include { filterWithData                     } from 'plugin/nf-bactopia'
+
 
 workflow SNIPPY_CORE {
     take:
@@ -54,7 +53,9 @@ workflow SNIPPY_CORE {
     SNIPPY_CORE_MODULE(alignments, reference, mask)
 
     // Per-sample SNP distances
-    SNPDISTS(gather(SNIPPY_CORE_MODULE.out, 'clean_full_aln', [name: 'core-snp.distance']))
+    SNPDISTS(SNIPPY_CORE_MODULE.out.map { r ->
+        record(_meta: [name: 'core-snp.distance', process_name: 'snpdists'], msa: r.clean_full_aln)
+    })
 
     emit:
     // Downstream inputs

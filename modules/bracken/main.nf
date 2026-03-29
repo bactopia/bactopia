@@ -71,13 +71,16 @@ process BRACKEN {
         adjusted_abundances: file("${prefix}.bracken.adjusted.abundances.txt"),
         // Generic fields (used for publishing)
         results: [
+            files('*classified*', optional: true),
+            files('*unclassified*', optional: true),
             files("${prefix}.bracken.tsv"),
             files("${prefix}.kraken2.report.txt"),
             files("${prefix}.kraken2.output.txt", optional: true),
             files("${prefix}.bracken.report.txt"),
             files("${prefix}.bracken.abundances.txt"),
             files("${prefix}.bracken.classification.txt"),
-            files("${prefix}.bracken.adjusted.abundances.txt")
+            files("${prefix}.bracken.adjusted.abundances.txt"),
+            files("*.krona.html", optional: true),
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -202,7 +205,7 @@ process BRACKEN {
         ktImportText -o ${prefix}.bracken.krona.html bracken-krona.temp
     fi
 
-    # Clean up large files produced by Kraken2/Bracken
+    # Cleanup large files produced by Kraken2/Bracken
     rm *.temp
     if [ "${task.ext.kraken2_keep_raw_output}" == "false" ]; then
         # Remove kraken2 STDOUT output file
@@ -218,8 +221,10 @@ process BRACKEN {
     fi
 
     if [ "${is_tarball}" == "true" ]; then
-        rm -rf database
+        rm -rf database/
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

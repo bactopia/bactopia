@@ -213,6 +213,8 @@ process {PROCESS_NAME} {
         {input_flag} ${assembly_name} \\
         {output_flags}
 
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         {tool}: $( {version_command} )
@@ -284,30 +286,31 @@ And add database handling in the script block:
 - Use 4 spaces for indentation
 - If the tool has no `--version` flag, use hardcoded VERSION:
   ```groovy
-  def VERSION = '{version}'
   // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+  def VERSION = '{version}'
   ```
 - Skip the gzip decompression block if the tool handles .gz natively
+- Use exactly **one space** after the colon in record fields (e.g., `meta: meta`, not `meta:  meta`)
+- Always include `# Cleanup` comment before the versions block (even if no cleanup needed)
 
 #### File 2: module.config
 
 ```groovy
-/*
-Bactopia Module Configuration
-
-Defines parameter defaults, the container images, resource labels, and other settings
-for the process defined in this directory.
-*/
-
 params {
-    // {Tool Name}
+    // {tool}
     {tool}_{param1} = {default1}
     {tool}_{param2} = {default2}
 }
 
 process {
     withName: '{PROCESS_NAME}' {
-        // Optional arguments
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "{tool}"
+
+        // Tool arguments
         ext.args = [
             params.{tool}_{param1} ? "--flag1 ${params.{tool}_{param1}}" : "",
             "--param2 ${params.{tool}_{param2}}"
@@ -318,28 +321,33 @@ process {
         ext.docker = "biocontainers/{package}:{version}--{build}"
         ext.image = "https://depot.galaxyproject.org/singularity/{package}:{version}--{build}"
         ext.condaDir = "${params.condadir}"
+    }
+}
+```
 
+**Block ordering:** routing first, then `// Tool arguments`, then `// Environment information`, then `// Module-specific parameters` (optional).
+
+**Params conventions:** parameters in alphabetical order, section comment uses snake_case (`// {tool}`), capitalize `// No parameters` for empty blocks.
+
+If no parameters:
+```groovy
+params {
+    // No parameters
+}
+
+process {
+    withName: '{PROCESS_NAME}' {
         ext.wf = params.wf
         ext.scope = "sample"
         ext.subdir = ""
         ext.logs_subdir = ""
         ext.process_name = "{tool}"
-    }
-}
-```
 
-If no parameters:
-```groovy
-params {
-    // No parameters for this module
-}
-
-process {
-    withName: '{PROCESS_NAME}' {
-        // Optional arguments
+        // Tool arguments
         ext.args = ""
 
-        // ... rest same as above
+        // Environment information
+        // ... same as above
     }
 }
 ```
@@ -371,7 +379,7 @@ If no CLI version command, add:
                     "type": "{string|integer|number|boolean}",
                     "default": {default_value},
                     "description": "{Parameter description}",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "{icon_by_type}"
                 }
             }
         }
@@ -386,6 +394,7 @@ If no CLI version command, add:
 
 - `{module_path}` is the relative path under `modules/` (e.g., `mlst` or `bakta/run`)
 - If no parameters, the `properties` object should be empty `{}`
+- `{icon_by_type}`: `string` = `fas fa-font`, `integer` = `fas fa-hashtag`, `number` = `fas fa-percentage`, `boolean` = `fas fa-toggle-on`
 
 #### File 4: tests/main.nf.test
 

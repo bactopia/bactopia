@@ -15,49 +15,49 @@
                 "eggnog_db": {
                     "type": "string",
                     "description": "Tarball or path to eggNOG databases",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "download_eggnog": {
                     "type": "boolean",
                     "default": false,
                     "description": "Required if downloading latest eggNOG database, will overwrite existing databases.",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_save_as_tarball": {
                     "type": "string",
                     "description": "Save the eggNOG database as a single tarball",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "eggnog_skip_diamond": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do not install the diamond database",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_install_mmseq": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the MMseqs2 database",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_install_pfam": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the Pfam database, required for de novo annotation or realignment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_install_hmm": {
                     "type": "boolean",
                     "default": false,
                     "description": "Install the HMMER database specified with --hmmer_taxid",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_hmmer_taxid": {
                     "type": "integer",
                     "default": 2,
                     "description": "Tax ID of eggNOG HMM database to download",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         }

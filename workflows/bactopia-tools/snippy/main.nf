@@ -125,11 +125,11 @@ workflow {
         ch_final_aln = channel.empty()
         if (!params.skip_recombination) {
             ch_final_aln = GUBBINS.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-snp", process_name: "iqtree"], _msa: [r.masked_aln].toSet())
+                record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.masked_aln)
             }
         } else {
             ch_final_aln = SNIPPY_CORE.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-snp", process_name: "iqtree"], _msa: [r.clean_full_aln].toSet())
+                record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.clean_full_aln)
             }
         }
         IQTREE(ch_final_aln)

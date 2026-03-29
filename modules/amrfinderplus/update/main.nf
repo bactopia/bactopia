@@ -18,17 +18,17 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012
+// bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028
 process AMRFINDERPLUS_UPDATE {
     tag "amrfinderplus-update"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     output:
     record(
-        db:   file("updater/amrfinderplus.tar.gz"),
+        db: file("updater/amrfinderplus.tar.gz"),
         logs: files("updater/logs/*", optional: true)
     )
 
@@ -39,7 +39,7 @@ process AMRFINDERPLUS_UPDATE {
     amrfinder_update -d amrfinderplus-temp
     mv amrfinderplus-temp/\$(readlink amrfinderplus-temp/latest) amrfinderplus/
     tar czvf amrfinderplus.tar.gz amrfinderplus/
-    mv amrfinderplus.tar.gz updater/ 
+    mv amrfinderplus.tar.gz updater/
 
     # Move outputs to tool specific folder
     cp .command.begin updater/logs/nf.command.begin

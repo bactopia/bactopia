@@ -21,20 +21,20 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012
+// bactopia-lint: ignore M012,M017,M018,M023,M024,M025,M026,M028
 process ARIBA_GETREF {
     tag "${db_name}"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     db_name : String
 
     output:
     record(
-        db:   file("ariba/ariba-${db_name}.tar.gz"),
+        db: file("ariba/ariba-${db_name}.tar.gz"),
         logs: files("ariba/logs/*", optional: true)
     )
 

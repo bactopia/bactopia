@@ -7,19 +7,17 @@
  * relative to the reference coordinates.
  *
  * Uses explicit positional record fields for reads:
- * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: record(meta, r1, r2) where each read slot is Path
  *
  * @status stable
  * @keywords bacteria, mobile elements, insertion sequences, mapping, structural variation, ismapper
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation ismapper
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads (not supported by ISMapper)
- * - `lr`: Long reads (not supported by ISMapper)
  *
  * @input reference
  * Reference genome in GenBank format (*.gbk) to map insertion sites against
@@ -40,7 +38,7 @@ process ISMAPPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (_meta: Map, r1: Path, r2: Path): Record
     reference: Path
     query    : Path
 
@@ -69,10 +67,6 @@ process ISMAPPER {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${query_name}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
-
-    // Determine read type from explicit slots (ISMapper requires paired-end reads)
-    has_r1 = r1 != null
-    has_r2 = r2 != null
 
     def ref_compressed = reference.getName().endsWith(".gz") ? true : false
     def reference_name = reference.getName().replace(".gz", "")

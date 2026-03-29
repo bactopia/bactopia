@@ -31,7 +31,7 @@ process MASH_DIST {
 
     input:
     (_meta: Map, fna: Path): Record
-    reference      : Path
+    reference: Path
 
     output:
     record(
@@ -58,6 +58,7 @@ process MASH_DIST {
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
+
     def is_compressed = reference.getName().endsWith(".xz") ? true : false
     def reference_name = reference.getName().replace(".xz", "")
     """
@@ -72,6 +73,11 @@ process MASH_DIST {
         ${task.ext.args} \\
         ${reference_name} \\
         ${fna} | sed 's/.fna.gz//g' | sort -rn -k5,5 -t\$'\t' >> ${prefix}-dist.txt
+
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${reference_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

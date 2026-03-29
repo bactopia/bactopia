@@ -64,6 +64,11 @@ process STAPHOPIASCCMEC {
 
     staphopia-sccmec --assembly ${fna_name} ${task.ext.args} > ${prefix}.tsv
 
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         staphopia-sccmec: \$(staphopia-sccmec --version 2>&1 | sed 's/^.*staphopia-sccmec //')

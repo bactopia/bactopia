@@ -15,14 +15,14 @@
                 "plasmidfinder_mincov": {
                     "type": "number",
                     "description": "Minimum percent coverage to be considered a hit",
-                    "default": 0.60,
-                    "fa_icon": "fas fa-file-alt"
+                    "default": 0.6,
+                    "fa_icon": "fas fa-percentage"
                 },
                 "plasmidfinder_threshold": {
                     "type": "number",
                     "description": "Minimum threshold for identity",
-                    "default": 0.90,
-                    "fa_icon": "fas fa-hashtag"
+                    "default": 0.9,
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         }

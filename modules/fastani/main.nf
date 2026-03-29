@@ -22,6 +22,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M017
 process FASTANI {
     tag "${prefix}"
     label 'process_medium'
@@ -31,7 +32,7 @@ process FASTANI {
 
     input:
     (_meta: Map, query: Set<Path>): Record
-    reference                     : Path
+    reference: Path
 
     stage:
     stageAs 'query-tmp/*', query
@@ -54,6 +55,7 @@ process FASTANI {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
+
     prefix = task.ext.prefix ?: "${reference_name}"
 
     // Create a new meta variable
@@ -83,7 +85,10 @@ process FASTANI {
     sed 's=^query/==' fastani-result.tmp >> ${reference_name}.tsv
 
     # Cleanup
-    rm -rf ${reference_fasta} query/ query-list.txt fastani-result.tmp
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${reference_fasta}
+    fi
+    rm -rf query/ query-list.txt fastani-result.tmp
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

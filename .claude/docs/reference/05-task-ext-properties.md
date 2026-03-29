@@ -52,11 +52,26 @@ Some modules define custom properties for internal logic:
 
 ## Configuration Patterns
 
+### Block Ordering
+
+Sections within a `withName` block must follow this order:
+
+1. **Routing** — `ext.wf`, `ext.scope`, `ext.subdir`, `ext.logs_subdir`, `ext.process_name`
+2. **Tool arguments** — `ext.args` (and `ext.args2`, `ext.args3` if needed)
+3. **Environment information** — `ext.toolName`, `ext.docker`, `ext.image`, `ext.condaDir`
+4. **Module-specific parameters** — any additional `ext.*` properties (optional)
+
 ### Basic Module Configuration
 
 ```groovy
 process {
     withName: 'MLST' {
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "mlst"
+
         // Tool arguments
         ext.args = [
             params.mlst_nopath ? "--nopath" : "",
@@ -65,18 +80,11 @@ process {
             "--mincov ${params.mlst_mincov}"
         ].join(' ').replaceAll("\\s{2,}", " ").trim()
 
-        // Container configuration
+        // Environment information
         ext.toolName = "bioconda::mlst=2.23.0".replace("=", "-").replace(":", "-").replace(" ", "-")
         ext.docker = "biocontainers/mlst:2.23.0--hdfd78af_1"
         ext.image = "https://depot.galaxyproject.org/singularity/mlst:2.23.0--hdfd78af_1"
         ext.condaDir = "${params.condadir}"
-
-        // Output organization
-        ext.wf = params.wf
-        ext.scope = "sample"
-        ext.subdir = ""
-        ext.logs_subdir = ""
-        ext.process_name = "mlst"
     }
 }
 ```

@@ -27,14 +27,12 @@
  * @input db
  * Kraken2 database (Directory or compressed tarball)
  *
- * @output record(meta, kraken2_report, scrub_report, special_meta, classified, unclassified, classified_extra, unclassified_extra, results, logs, nf_logs, versions)
+ * @output record(meta, kraken2_report, scrub_report, special_meta, classified, unclassified, results, logs, nf_logs, versions)
  * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
  * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
  * - `special_meta`: A simplified metadata map for internal use
  * - `classified`: Reads assigned to a taxon in the database (FASTQ)
  * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
- * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
- * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
  */
 nextflow.preview.types = true
 
@@ -54,16 +52,16 @@ process KRAKEN2 {
         // Named fields (used downstream)
         meta: meta,
         special_meta: special_meta,
-        kraken2_report: files('*.kraken2.report.txt'),
-        scrub_report: files('*.scrub.report.tsv', optional: true),
+        kraken2_report: file("${prefix}.kraken2.report.txt"),
+        scrub_report: file("${prefix}.scrub.report.tsv", optional: true),
         classified: files("*.${classified_naming}*.fastq.gz", optional: true),
         unclassified: files("*.${unclassified_naming}*.fastq.gz", optional: true),
-        classified_extra: files("*.${classified_naming}*.fastq.gz", optional: true),
-        unclassified_extra: files("*.${unclassified_naming}*.fastq.gz", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.kraken2.report.txt"),
-            files("${prefix}.scrub.report.tsv", optional: true)
+            files("${prefix}.scrub.report.tsv", optional: true),
+            files("*.${classified_naming}*.fastq.gz", optional: true),
+            files("*.${unclassified_naming}*.fastq.gz", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -144,9 +142,9 @@ process KRAKEN2 {
         rm ${prefix}.host*.fastq original.json scrubbed.json
     fi
 
-    # Clean up database and large files produced by Kraken2
+    # Cleanup database and large files produced by Kraken2
     if [ "${is_tarball}" == "true" ]; then
-        rm -rf database
+        rm -rf database/
     fi
 
     if [[ "${task.ext.keep_filtered_reads}" == "true" || "${task.ext.wf}" == "scrubber" || "${task.ext.wf}" == "teton" ]]; then
@@ -156,6 +154,8 @@ process KRAKEN2 {
         # Remove filtered FASTQs
         rm *.fastq
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

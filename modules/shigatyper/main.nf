@@ -79,6 +79,8 @@ process SHIGATYPER {
             --ont \\
             --name ${prefix}
 
+        # Cleanup
+
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
             shigatyper: \$(echo \$(shigatyper --version 2>&1) | sed 's/^.*ShigaTyper //' )
@@ -91,6 +93,8 @@ process SHIGATYPER {
             ${task.ext.args}  \\
             --SE ${se} \\
             --name ${prefix}
+
+        # Cleanup
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
@@ -105,6 +109,8 @@ process SHIGATYPER {
             --R1 ${r1} \\
             --R2 ${r2} \\
             --name ${prefix}
+
+        # Cleanup
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":

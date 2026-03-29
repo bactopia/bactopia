@@ -43,27 +43,27 @@
                     "type": "number",
                     "description": "Filter out taxa with more than this percentage of gaps",
                     "default": 25.0,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "gubbins_remove_identical_sequences": {
                     "type": "boolean",
                     "description": "Remove identical sequences",
                     "default": false,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "gubbins_opts": {
                     "type": "string",
                     "description": "Extra Gubbins options in quotes",
                     "help": "Useful if you would like to fine tune your Gubbins analysis. Example: '--bootstrap 100'",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "skip_recombination": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip Gubbins execution in subworkflows",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

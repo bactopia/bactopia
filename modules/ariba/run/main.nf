@@ -5,19 +5,17 @@
  * By Assembly) to detect AMR and virulence genes by creating local assemblies from paired-end reads.
  *
  * Uses explicit positional record fields for reads:
- * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: record(meta, r1, r2) where each read slot is Path
  *
  * @status stable
  * @keywords fastq, local assembly, antimicrobial resistance, virulence, ariba
  * @tags complexity:moderate input-type:multiple output-type:multiple features:archive-output,compression
  * @citation ariba
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads (not supported by ARIBA)
- * - `lr`: Long reads (not supported by ARIBA)
  *
  * @input db
  * An [ARIBA](https://github.com/sanger-pathogens/ariba) prepared database
@@ -29,14 +27,14 @@
 nextflow.preview.types = true
 
 process ARIBA_RUN {
-    tag "${_meta.name} - ${db.name}"
+    tag "${prefix} - ${db.name}"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (_meta: Map, r1: Path, r2: Path): Record
     db: Path
 
     output:

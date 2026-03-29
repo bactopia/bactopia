@@ -32,7 +32,7 @@ process CLONALFRAMEML {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, msa: Path, newick: Path): Record
@@ -98,7 +98,7 @@ process CLONALFRAMEML {
     gzip *.ML_sequence.fasta
     gzip *.position_cross_reference.txt
 
-    # Organize 
+    # Organize
     mkdir ${task.ext.process_name}/
     mv *.emsim.txt ${task.ext.process_name}/
     mv *.em.txt ${task.ext.process_name}/

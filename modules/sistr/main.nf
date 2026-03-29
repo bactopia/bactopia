@@ -87,7 +87,9 @@ process SISTR {
     gzip ${prefix}-allele.fasta
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

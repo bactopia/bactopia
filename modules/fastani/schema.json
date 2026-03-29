@@ -16,32 +16,32 @@
                     "title": "Reference genome in FASTA format",
                     "type": "string",
                     "description": "Path to reference genome in FASTA format",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "fastani_kmer": {
                     "type": "integer",
                     "default": 16,
                     "description": "kmer size (<= 16) for ANI calculation ",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "fastani_min_fraction": {
                     "type": "number",
                     "default": 0.2,
                     "description": "Minimum fraction of genome that must be shared for trusting ANI.",
                     "help": "If reference and query genome size differ, smaller one among the two is considered.",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "fastani_frag_len": {
                     "type": "integer",
                     "default": 3000,
                     "description": "fragment length",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "fastani_skip_pairwise": {
                     "type": "boolean",
                     "default": false,
                     "description": "Only use RefSeq or local assemblies for ANI calculations",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

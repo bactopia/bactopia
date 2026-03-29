@@ -33,7 +33,7 @@ process AMRFINDERPLUS_RUN {
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, fna: Path, faa: Path, gff: Path): Record
@@ -111,6 +111,7 @@ process AMRFINDERPLUS_RUN {
         AMRFINDER_DB=\$(find ${db}/ -name "AMR.LIB" | sed 's=AMR.LIB==')
     fi
     echo "Using AMRFINDER_DB: \$AMRFINDER_DB"
+    DB_VERSION=\$(echo \$(echo \$(amrfinder --database \$AMRFINDER_DB --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
 
     # AMRFinderPlus search (with optional protein/gff inputs)
     amrfinder \\
@@ -123,9 +124,10 @@ process AMRFINDERPLUS_RUN {
         --threads ${task.cpus} \\
         --name ${prefix} > ${prefix}.tsv
 
-    # Clean up
-    DB_VERSION=\$(echo \$(echo \$(amrfinder --database \$AMRFINDER_DB --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
-    rm -rf database/
+    # Cleanup
+    if [ "${is_tarball}" == "true" ]; then
+        rm -rf database/
+    fi
     rm -rf ${fna_name} ${faa_name} ${gff_name}
 
     cat <<-END_VERSIONS > versions.yml

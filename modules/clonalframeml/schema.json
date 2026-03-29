@@ -22,14 +22,14 @@
                     "type": "string",
                     "description": "Extra ClonalFrameML options in quotes",
                     "help": "Useful if you would like to fine tune your ClonalFrameML analysis. Example: '-imputation_only'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "skip_recombination": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip ClonalFrameML execution in subworkflows",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

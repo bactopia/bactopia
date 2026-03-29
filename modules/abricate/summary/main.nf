@@ -58,6 +58,8 @@ process ABRICATE_SUMMARY {
         --summary \\
         ${reports.join(' ')} > ${prefix}.tsv
 
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         abricate: \$(echo \$(abricate --version 2>&1) | sed 's/^.*abricate //' )

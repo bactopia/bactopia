@@ -323,8 +323,8 @@ END_VERSIONS
 Some tools do not provide version information via CLI. In these cases, use a hardcoded VERSION variable with a comment explaining why:
 
 ```groovy
-def VERSION = '2.1'
 // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+def VERSION = '2.1'
 ```
 
 **Modules using this pattern**: gamma, mcroni, plasmidfinder, pneumocat, midas, ssuissero
@@ -659,23 +659,22 @@ Each module includes a `module.config` file that defines parameter defaults, con
 ### 10.1 Template Structure
 
 ```groovy
-/*
-Bactopia Module Configuration
-
-Defines parameter defaults, the container images, resource labels, and other settings
-for the process defined in this directory.
-*/
-
 params {
-    // Tool-specific parameters (prefixed with tool name)
+    // {tool}
+    {tool}_flag = false
     {tool}_param1 = ""
     {tool}_param2 = 95
-    {tool}_flag = false
 }
 
 process {
     withName: '{PROCESS_NAME}' {
-        // Optional arguments (built from parameters)
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "{tool}"
+
+        // Tool arguments
         ext.args = [
             params.{tool}_flag ? "--flag" : "",
             "--param2 ${params.{tool}_param2}"
@@ -686,16 +685,23 @@ process {
         ext.docker = "biocontainers/{package}:{version}--{build}"
         ext.image = "https://depot.galaxyproject.org/singularity/{package}:{version}--{build}"
         ext.condaDir = "${params.condadir}"
-
-        // Workflow information
-        ext.wf = params.wf
-        ext.scope = "sample"
-        ext.subdir = ""
-        ext.logs_subdir = ""
-        ext.process_name = "{tool}"
     }
 }
 ```
+
+**Section ordering within `withName` blocks:**
+
+1. Routing — `ext.wf`, `ext.scope`, `ext.subdir`, `ext.logs_subdir`, `ext.process_name`
+2. `// Tool arguments` — `ext.args` (and `ext.args2`, `ext.args3` if needed)
+3. `// Environment information` — `ext.toolName`, `ext.docker`, `ext.image`, `ext.condaDir`
+4. `// Module-specific parameters` — any additional `ext.*` properties (optional)
+
+**Params block conventions:**
+
+- Parameters must be in **alphabetical order**
+- First line is a section comment using the module name in snake_case: `// {tool}` or `// {tool}_{process}`
+- Modules with no parameters use `// No parameters` (capital N)
+- `fa_icon` in schema.json is determined by type: `string` = `fas fa-font`, `integer` = `fas fa-hashtag`, `number` = `fas fa-percentage`, `boolean` = `fas fa-toggle-on`
 
 ### 10.2 Key Properties
 
@@ -718,12 +724,18 @@ When a module has no user-configurable parameters:
 
 ```groovy
 params {
-    // No parameters for this module
+    // No parameters
 }
 
 process {
     withName: 'SSUISSERO' {
-        // Optional arguments
+        ext.wf = params.wf
+        ext.scope = "sample"
+        ext.subdir = ""
+        ext.logs_subdir = ""
+        ext.process_name = "ssuissero"
+
+        // Tool arguments
         ext.args = ""
 
         // Environment information
@@ -731,12 +743,6 @@ process {
         ext.docker = "biocontainers/ssuissero:1.0.1--hdfd78af_1"
         ext.image = "https://depot.galaxyproject.org/singularity/ssuissero:1.0.1--hdfd78af_1"
         ext.condaDir = "${params.condadir}"
-
-        ext.wf = params.wf
-        ext.scope = "sample"
-        ext.subdir = ""
-        ext.logs_subdir = ""
-        ext.process_name = "ssuissero"
 
         // Version information not provided by tool on CLI
         ext.version = "1.0.1"
@@ -755,16 +761,8 @@ ext.version = "1.0.1"
 
 **main.nf (script block):**
 ```groovy
-def VERSION = '1.0.1'
 // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
-```
-
-Or reference `task.ext.version` directly in the versions.yml block:
-```bash
-cat <<-END_VERSIONS > versions.yml
-"${task.process}":
-    ssuissero: ${task.ext.version}
-END_VERSIONS
+def VERSION = '1.0.1'
 ```
 
 ### 10.5 Container URL Construction

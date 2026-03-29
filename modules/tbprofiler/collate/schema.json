@@ -16,25 +16,25 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Generate itol config files",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_full": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output mutations in main result file",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_all_variants": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output all variants in variant matrix",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_mark_missing": {
                     "type": "boolean",
                     "default": false,
-                    "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "An asterisk will be used to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

@@ -79,7 +79,12 @@ process CLERMONTYPING {
     # add column names to phylogroups file
     echo "sample<TAB>detected_genes<TAB>quadruplex_genes<TAB>quadruplex_alleles<TAB>phylogroup<TAB>mash_group" | sed 's/<TAB>/\t/g' > ${prefix}.tsv
     cat supplemental/supplemental_phylogroups.txt >> ${prefix}.tsv
+
+    # Cleanup
     rm supplemental/supplemental_phylogroups.txt
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

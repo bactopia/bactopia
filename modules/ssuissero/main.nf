@@ -57,6 +57,9 @@ process SSUISSERO {
 
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.0.1'
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ${fna_name}
@@ -71,11 +74,14 @@ process SSUISSERO {
 
     # Cleanup
     mv ${prefix}_serotyping_res.tsv ${prefix}.tsv
-    rm -rf ${fna_name} blast_res/
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+    rm -rf blast_res/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        ssuissero: ${task.ext.version}
+        ssuissero: ${VERSION}
     END_VERSIONS
     """
 }

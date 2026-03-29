@@ -24,7 +24,7 @@ process RGI_HEATMAP {
     label 'process_single'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, json: Set<Path>): Record
@@ -66,6 +66,8 @@ process RGI_HEATMAP {
             --output ${prefix} \\
             --input json/
     fi
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

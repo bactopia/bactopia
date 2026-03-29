@@ -16,60 +16,60 @@
                     "type": "string",
                     "default": "bacteria_odb10",
                     "description": "Specify the name of the BUSCO lineage to be used",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "busco_evalue": {
                     "type": "string",
                     "default": "1e-03",
                     "description": "E-value cutoff for BLAST searches. Allowed formats, 0.001 or 1e-03",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "busco_limit": {
                     "type": "integer",
                     "default": 3,
                     "description": "Total candidate regions to consider per BUSCO",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "busco_metaeuk_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Metaeuk first-pass arguments contained within a single pair of quotation marks, separated by commas",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "busco_metaeuk_rerun_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Metaeuk second-pass arguments contained within a single pair of quotation marks, separated by commas",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "busco_use_augustus": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use augustus gene predictor for eukaryote runs",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "busco_augustus_parameters": {
                     "type": "string",
                     "default": "",
                     "description": "Additional Augustus arguments contained within a single pair of quotation marks, separated by commas",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "busco_augustus_species": {
                     "type": "string",
                     "default": "",
                     "description": "Specify a species for Augustus training",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "busco_augustus_long": {
                     "type": "boolean",
                     "default": false,
                     "description": "Optimization Augustus self-training mode",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }

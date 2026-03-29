@@ -72,6 +72,8 @@ process SCCMEC {
         --prefix ${prefix} \\
         --input ${fna}
 
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         sccmec: \$(echo \$(sccmec --version 2>&1) | sed 's/.*sccmec_regions, version //;s/ .*\$//' )

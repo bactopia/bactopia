@@ -16,25 +16,25 @@
                     "type": "integer",
                     "default": 90,
                     "description": "Minimum percent identity to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_targets_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum percent coverage to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_regions_pident": {
                     "type": "integer",
                     "default": 85,
                     "description": "Minimum percent identity to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_regions_coverage": {
                     "type": "integer",
                     "default": 93,
                     "description": "Minimum percent coverage to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         }

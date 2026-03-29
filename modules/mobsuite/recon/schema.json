@@ -35,7 +35,7 @@
                     "description": "Extra MOB-suite options in quotes. Example: '--min_mob_evalue 0.001'",
                     "help": "Useful if you would like to fine tune your MOB-suite analysis.",
                     "default": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

@@ -18,7 +18,7 @@
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) - not typically used
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input db
  * SRA Human Scrubber database directory
@@ -35,7 +35,7 @@ process SRAHUMANSCRUBBER_SCRUB {
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
@@ -62,8 +62,6 @@ process SRAHUMANSCRUBBER_SCRUB {
     )
 
     script:
-    def VERSION = '2.2.1'
-    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
     output_folder = task.ext.wf == "scrubber" || task.ext.wf == "teton" ? "scrubber" : "${task.ext.process_name}"
 
@@ -86,6 +84,9 @@ process SRAHUMANSCRUBBER_SCRUB {
 
     special_meta = [:]
     special_meta.name = prefix
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '2.2.1'
     if (meta.single_end) {
         """
         # Scrub human reads
@@ -98,7 +99,7 @@ process SRAHUMANSCRUBBER_SCRUB {
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove temp json files
+        # Cleanup
         rm original.json scrubbed.json
 
         cat <<-END_VERSIONS > versions.yml
@@ -123,7 +124,7 @@ process SRAHUMANSCRUBBER_SCRUB {
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove temp json files
+        # Cleanup
         rm original.json scrubbed.json
 
         cat <<-END_VERSIONS > versions.yml

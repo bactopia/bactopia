@@ -15,25 +15,25 @@
                 "prokka_proteins": {
                     "type": "string",
                     "description": "FASTA file of trusted proteins to first annotate from",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "prokka_prodigal_tf": {
                     "type": "string",
                     "description": "Training file to use for Prodigal",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "prokka_compliant": {
                     "type": "boolean",
                     "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
-                    "fa_icon": "fas fa-check",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "prokka_centre": {
                     "type": "string",
                     "default": "Bactopia",
                     "description": "Sequencing centre ID",
-                    "fa_icon": "fas fa-school",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "prokka_coverage": {
@@ -46,14 +46,21 @@
                     "type": "string",
                     "description": "Similarity e-value cut-off",
                     "default": "1e-09",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "prokka_opts": {
                     "type": "string",
                     "description": "Extra Prokka options in quotes.",
                     "default": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "prokka_debug": {
+                    "type": "boolean",
+                    "description": "Enable debug mode for Prokka",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }

@@ -1,9 +1,9 @@
 /**
  * Detect antimicrobial resistance and virulence genes.
  *
- * Uses [abriTAMR](https://github.com/MDU-PHL/abritamr), a NATA (National Association of 
- * Testing Authorities) accredited pipeline, to report the presence of reportable AMR 
- * genes. It acts as a wrapper for AMRFinderPlus, formatted for clinical reporting standards 
+ * Uses [abriTAMR](https://github.com/MDU-PHL/abritamr), a NATA (National Association of
+ * Testing Authorities) accredited pipeline, to report the presence of reportable AMR
+ * genes. It acts as a wrapper for AMRFinderPlus, formatted for clinical reporting standards
  * used in Victoria, Australia.
  *
  * @status stable
@@ -72,7 +72,7 @@ process ABRITAMR_RUN {
     def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fna} > ${fna_name}
+        gzip -c -d ${fna} > ./${fna_name}
     fi
 
     abritamr run \\
@@ -92,7 +92,10 @@ process ABRITAMR_RUN {
     fi
 
     # Cleanup
-    rm -rf ${fna_name} ${prefix}/
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+    rm -rf ${prefix}/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

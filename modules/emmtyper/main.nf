@@ -31,7 +31,7 @@ process EMMTYPER {
 
     input:
     (_meta: Map, fna: Path): Record
-    blastdb                     : Path?
+    blastdb: Path?
 
     output:
     record(
@@ -92,7 +92,9 @@ process EMMTYPER {
     fi
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

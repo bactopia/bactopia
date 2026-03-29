@@ -94,7 +94,10 @@ process MOBSUITE_RECON {
     # Cleanup
     gzip supplemental/*.fasta
     mv supplemental/*.fasta.gz ./
-    rm -rf ${fasta_name} supplemental/
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fasta_name}
+    fi
+    rm -rf supplemental/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -15,14 +15,14 @@
                 "bakta_db": {
                     "type": "string",
                     "description": "Tarball or path to the Bakta database",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "bakta_db_type": {
                     "type": "string",
                     "default": "full",
                     "description": "Which Bakta DB to download 'full' (~30GB) or 'light' (~2GB)",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "full",
                         "light"
@@ -32,13 +32,13 @@
                     "type": "boolean",
                     "description": "Save the Bakta database as a tarball",
                     "default": false,
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "download_bakta": {
                     "type": "boolean",
                     "description": "Download the Bakta database to the path given by --bakta_db",
                     "default": false,
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

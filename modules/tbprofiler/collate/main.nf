@@ -46,7 +46,8 @@ process TBPROFILER_COLLATE {
         results: [
             files("tbprofiler.csv"),
             files("tbprofiler.variants.csv"),
-            files("tbprofiler.variants.txt")
+            files("tbprofiler.variants.txt"),
+            files("*.itol.*.txt", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -79,6 +80,8 @@ process TBPROFILER_COLLATE {
         ${task.ext.args} \\
         --db_dir database/ \\
         --format csv
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -39,7 +39,7 @@ process SNIPPY_CORE {
     label "process_medium"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
@@ -61,6 +61,10 @@ process SNIPPY_CORE {
         // Generic fields (used for publishing)
         results: [
             files("snippy-core/*"),
+            files("snippy-core/${prefix}.tab.gz"),
+            files("snippy-core/${prefix}.vcf.gz"),
+            files("snippy-core/${prefix}.txt"),
+            files("snippy-core/${prefix}.aln.gz"),
             files("${prefix}.full.aln.gz"),
             files("${prefix}-clean.full.aln.gz"),
             files("${reference_name}.samples.txt")
@@ -105,9 +109,12 @@ process SNIPPY_CORE {
         ${mask_opt} \\
         samples/*
 
-    # Cleanup the alignment
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${final_reference}
+    fi
     snippy-clean_full_aln ${prefix}.full.aln > ${prefix}-clean.full.aln
-    rm -rf *ref.fa ${final_reference} samples/
+    rm -rf *ref.fa samples/
 
     # Compress outputs
     if [[ ${task.ext.skip_compression} == "false" ]]; then

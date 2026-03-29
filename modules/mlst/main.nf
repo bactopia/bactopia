@@ -34,7 +34,7 @@ process MLST {
 
     input:
     (_meta: Map, fna: Path): Record
-    db                : Path
+    db: Path
 
     output:
     record(
@@ -66,7 +66,7 @@ process MLST {
     """
     # Extract database
     if [ "${is_tarball}" == "true" ]; then
-        mkdir database
+        mkdir database/
         tar -xzf ${db} -C database
         MLST_DB=\$(find database/ -name "mlst.fa" | sed 's=blast/mlst.fa==')
     else
@@ -88,7 +88,9 @@ process MLST {
     fi
 
     # Cleanup
-    rm -rf database/
+    if [ "${is_tarball}" == "true" ]; then
+        rm -rf database/
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

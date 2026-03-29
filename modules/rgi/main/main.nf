@@ -33,16 +33,16 @@ process RGI_MAIN {
     output:
     record(
         // Named fields (used downstream)
-        meta:     meta,
-        tsv:      file("${prefix}.tsv"),
-        json:     file("${prefix}.json", optional: true),
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        json: file("${prefix}.json", optional: true),
         // Generic fields (used for publishing)
         results:  [
             files("${prefix}.tsv"),
             files("${prefix}.json", optional: true)
         ],
-        logs:     files("*.{log,err}", optional: true),
-        nf_logs:  files(".command.*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
         versions: files("versions.yml")
     )
 
@@ -67,7 +67,7 @@ process RGI_MAIN {
         --output_file ${prefix} \\
         --input_sequence ${fna}
 
-    # Remove empty json files
+    # Cleanup
     if grep "^{}\$" ${prefix}.json; then
         rm ${prefix}.json
     fi

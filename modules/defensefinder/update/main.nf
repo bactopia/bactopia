@@ -18,17 +18,17 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012
+// bactopia-lint: ignore M012,M017,M018,M023,M024,M025,M026,M028
 process DEFENSEFINDER_UPDATE {
     tag "update"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     output:
     record(
-        db:   file("defense-finder/defense-finder-models-${task.ext.defensefinder_models_version}.tar"),
+        db: file("defense-finder/defense-finder-models-${task.ext.defensefinder_models_version}.tar"),
         logs: files("defense-finder/logs/*", optional: true)
     )
 
@@ -55,6 +55,8 @@ process DEFENSEFINDER_UPDATE {
     cp .command.run defense-finder/logs/nf.command.run
     cp .command.sh defense-finder/logs/nf.command.sh
     cp .command.trace defense-finder/logs/nf.command.trace
+
+    # Cleanup
 
     cat <<-END_VERSIONS > defense-finder/logs/versions.yml
     "${task.process}":

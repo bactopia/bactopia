@@ -47,7 +47,6 @@ process SHIGAPASS {
     )
 
     script:
-    def SHIGAPASS_VERSION = "1.5.0"
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -61,6 +60,9 @@ process SHIGAPASS {
 
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
+
+    // WARN: Version information needed for -p parameter, see below. Please update this string when bumping container versions.
+    def SHIGAPASS_VERSION = "1.5.0"
     """
     # ShigaPass does not accept compressed FASTA files
     if [ "${is_compressed}" == "true" ]; then
@@ -79,13 +81,18 @@ process SHIGAPASS {
         -o ${prefix}
 
     # Remove the temporary file from above
-    rm ${fna_name}_tmp.txt ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm ${fna_name}
+    fi
+    rm ${fna_name}_tmp.txt
 
     # Convert to tab delimited and move to the pwd
     sed 's/;/\t/g' ${prefix}/ShigaPass_summary.csv > ${prefix}.tsv
 
     # Convert to tab delimited and move to the pwd
     [ ! -f ${prefix}/ShigaPass_Flex_summary.csv ] || sed 's/;/\t/g' ${prefix}/ShigaPass_Flex_summary.csv > ${prefix}_Flex_summary.tsv
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

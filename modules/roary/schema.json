@@ -16,52 +16,52 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Use PRANK instead of MAFFT for core gene",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "use_roary": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use Roary instead of PIRATE in the 'pangenome' subworkflow",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "roary_i": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum percentage identity for blastp",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "roary_cd": {
                     "type": "integer",
                     "default": 99,
                     "description": "Percentage of isolates a gene must be in to be core",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "roary_g": {
                     "type": "integer",
                     "default": 50000,
                     "description": "Maximum number of clusters",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "roary_s": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do not split paralogs",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "roary_ap": {
                     "type": "boolean",
                     "default": false,
                     "description": "Allow paralogs in core alignment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "roary_iv": {
                     "type": "number",
                     "default": 1.5,
                     "description": "MCL inflation value",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 }
             }

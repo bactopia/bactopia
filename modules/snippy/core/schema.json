@@ -16,23 +16,23 @@
                     "type": "integer",
                     "description": "Largest haplotype to decompose",
                     "default": 100,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_core_mask": {
                     "type": "string",
                     "description": "BED file of sites to mask",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_core_mask_char": {
                     "type": "string",
                     "description": "Masking character",
                     "default": "X",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_core_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for snippy-core",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 }
             }
         }

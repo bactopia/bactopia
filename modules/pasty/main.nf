@@ -34,18 +34,18 @@ process PASTY {
     output:
     record(
         // Named fields (used downstream)
-        meta:     meta,
-        tsv:      file("${prefix}.tsv"),
-        blast:    file("${prefix}.blastn.tsv"),
-        details:  file("${prefix}.details.tsv"),
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        blast: file("${prefix}.blastn.tsv"),
+        details: file("${prefix}.details.tsv"),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.tsv"),
             files("${prefix}.blastn.tsv"),
             files("${prefix}.details.tsv")
         ],
-        logs:     files("*.{log,err}", optional: true),
-        nf_logs:  files(".command.*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
         versions: files("versions.yml")
     )
 
@@ -65,6 +65,8 @@ process PASTY {
         ${task.ext.args} \\
         --prefix ${prefix} \\
         --input ${fna}
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

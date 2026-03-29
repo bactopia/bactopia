@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

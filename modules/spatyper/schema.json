@@ -15,20 +15,20 @@
                 "spatyper_repeats": {
                     "type": "string",
                     "description": "List of spa repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_repeat_order": {
                     "type": "string",
                     "description": "List spa types and order of repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do PCR product enrichment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

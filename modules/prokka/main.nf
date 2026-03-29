@@ -45,8 +45,8 @@ process PROKKA {
 
     input:
     (_meta: Map, fna: Path): Record
-    proteins    : Path?
-    prodigal_tf : Path?
+    proteins   : Path?
+    prodigal_tf: Path?
 
     stage:
     stageAs "input/*", fna
@@ -116,7 +116,6 @@ process PROKKA {
         compliant = "--compliant"
     }
     """
-    echo "${proteins}"
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ${fna_name}
     fi
@@ -167,8 +166,11 @@ process PROKKA {
 
     mv ${prefix}/* ./
 
-    # Cleanup intermediate files
-    rm -rf ${fna_name} ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+    rm -rf ${prefix}/ blastdb/ *.pdb *.pjs *.pot *.ptf *.pto
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

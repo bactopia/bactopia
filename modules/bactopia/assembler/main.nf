@@ -44,7 +44,7 @@ process ASSEMBLER {
     label "process_low"
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
@@ -215,7 +215,7 @@ process ASSEMBLER {
     fi
 
     #==========================================================================================
-    # Cleanup intermediate files
+    # Cleanup
     #==========================================================================================
     if [ "${task.ext.keep_all_files}" == "false" ]; then
         # Remove intermediate files

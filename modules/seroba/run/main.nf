@@ -31,19 +31,20 @@ process SEROBA_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?): Record
+    (_meta: Map, r1: Path, r2: Path): Record
 
     output:
     record(
-        meta:     meta,
-        tsv:      file("${prefix}.tsv"),
+        // Named fields (used downstream)
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.tsv"),
             files("supplemental/*", optional: true)
         ],
-        logs:     files("*.{log,err}", optional: true),
-        nf_logs:  files(".command.*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
         versions: files("versions.yml")
     )
 
@@ -66,6 +67,8 @@ process SEROBA_RUN {
 
     # Avoid name collisions
     mv supplemental/pred.tsv ${prefix}.tsv
+
+    # Cleanup
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/iqtree/schema.json",
     "title": "IQ-TREE Module",
-    "description": "Phylogeny from a multiple sequence alignment using the maxium likelihood algorithm.",
+    "description": "Phylogeny from a multiple sequence alignment using the maximum likelihood algorithm.",
     "type": "object",
     "$defs": {
         "iqtree_parameters": {
@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "Substitution model name",
                     "default": "HKY",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "iqtree_bb": {
                     "type": "integer",
@@ -34,20 +34,20 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Ancestral state reconstruction by empirical Bayes",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "iqtree_opts": {
                     "type": "string",
                     "description": "Extra IQ-TREE options in quotes.",
                     "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "skip_phylogeny": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip IQ-TREE execution in subworkflows",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

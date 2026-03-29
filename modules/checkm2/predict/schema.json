@@ -15,32 +15,32 @@
                 "checkm2_lowmem": {
                     "type": "boolean",
                     "description": "Low memory mode. Reduces DIAMOND blocksize to significantly reduce RAM usage at the expense of longer runtime",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_general": {
                     "type": "boolean",
                     "description": "Force the use of the general quality prediction model (gradient boost)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_specific": {
                     "type": "boolean",
                     "description": "Force the use of the specific quality prediction model (neural network)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_allmodels": {
                     "type": "boolean",
                     "description": "Output quality prediction for both models for each genome.",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_genes": {
                     "type": "boolean",
                     "description": "Treat input files as protein files. [Default: False]",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_opts": {
                     "type": "string",
                     "description": "Additional options to pass to CheckM2",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 }
             }
         }

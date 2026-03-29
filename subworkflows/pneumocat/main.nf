@@ -32,13 +32,14 @@
 nextflow.preview.types = true
 
 include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
+include { filterWithData               } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:
     reads: Channel<Record>
 
     main:
-    PNEUMOCAT_MODULE(reads)
+    PNEUMOCAT_MODULE(filterWithData(reads, ['r1', 'r2']))
 
     emit:
     // Published outputs

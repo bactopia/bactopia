@@ -30,8 +30,6 @@
  * - `special_meta`: A simplified metadata map for internal use
  * - `classified`: Reads assigned to a taxon in the database (FASTQ)
  * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
- * - `classified_extra`: Duplicate classified channel with placeholder for pipeline routing
- * - `unclassified_extra`: Duplicate unclassified channel with placeholder for pipeline routing
  *
  * @output run_outputs
  */

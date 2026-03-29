@@ -15,70 +15,70 @@
                 "reference": {
                     "type": "string",
                     "description": "Reference genome in GenBank format",
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "snippy_mapqual": {
                     "type": "integer",
                     "description": "Minimum read mapping quality to consider",
                     "default": 60,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_basequal": {
                     "type": "integer",
                     "description": "Minimum base quality to consider",
                     "default": 13,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_mincov": {
                     "type": "integer",
                     "description": "Minimum site depth to for calling alleles",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_minfrac": {
                     "type": "integer",
                     "description": "Minimum proportion for variant evidence (0=AUTO)",
                     "default": 0,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_minqual": {
                     "type": "integer",
                     "description": "Minimum QUALITY in VCF column 6",
                     "default": 100,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_maxsoft": {
                     "type": "integer",
                     "description": "Maximum soft clipping to allow",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_bwaopt": {
                     "type": "string",
                     "description": "Extra BWA MEM options, eg. -x pacbio",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_fbopt": {
                     "type": "string",
                     "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_remove_bam": {
                     "type": "boolean",
                     "default": false,
                     "description": "Delete BAM files after variant calling",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "snippy_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for Snippy",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": false
                 }
             }

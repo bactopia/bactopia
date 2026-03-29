@@ -17,7 +17,7 @@
                     "default": false,
                     "description": "Report the results as hamming distances",
                     "help": "This is useful to determine how similar the hit was, the default is either perfect match or not",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

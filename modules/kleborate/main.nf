@@ -73,7 +73,7 @@ process KLEBORATE {
         touch "${prefix}.txt"
     fi
 
-    # cleanup
+    # Cleanup
     mv ${prefix}.txt ${prefix}.tsv
     rm -rf results/
 

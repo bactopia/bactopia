@@ -16,21 +16,30 @@
                     "type": "string",
                     "default": "search",
                     "description": "Method to use for gene prediction",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "enum": ["search", "prodigal"]
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "search",
+                        "prodigal"
+                    ]
                 },
                 "eggnog_mode": {
                     "type": "string",
                     "default": "diamond",
                     "description": "Method to search against eggNOG sequences",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "enum": ["diamond", "hmmer", "mmseqs", "cache", "no_search"]
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "diamond",
+                        "hmmer",
+                        "mmseqs",
+                        "cache",
+                        "no_search"
+                    ]
                 },
                 "eggnog_opts": {
                     "type": "string",
                     "description": "Extra eggNOG Mapper options in quotes",
                     "help": "Useful if you would like to fine tune your eggnog-mapper analysis. Example: '--dmnd_algo 1 --pident 99'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

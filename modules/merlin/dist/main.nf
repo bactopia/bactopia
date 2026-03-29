@@ -44,17 +44,18 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M026
 process MERLIN_DIST {
     // Used by Merlin to extract species with matches
     tag "${prefix}"
     label 'process_low'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    reference                                                          : Path
+    reference: Path
 
     stage:
     stageAs 'fna/*', fna
@@ -101,6 +102,7 @@ process MERLIN_DIST {
     meta = [:]
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
+    meta.scope = task.ext.scope
     meta.runtype = _meta.runtype
     meta.single_end = _meta.single_end
     meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
@@ -152,8 +154,10 @@ process MERLIN_DIST {
         fi
     done
 
-    # Clean up
-    rm ${reference_name}
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${reference_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

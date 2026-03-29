@@ -11,8 +11,7 @@
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-            }
+            "properties": {}
         }
     },
     "allOf": [

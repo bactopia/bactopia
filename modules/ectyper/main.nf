@@ -74,7 +74,9 @@ process ECTYPER {
     # Cleanup
     mv output.tsv ${prefix}.tsv
     mv blastn_output_alleles.txt ${prefix}.blast_alleles.txt
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

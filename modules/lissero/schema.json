@@ -16,13 +16,13 @@
                     "type": "number",
                     "default": 95.0,
                     "description": "Minimum percent identity to accept a match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "lissero_min_cov": {
                     "type": "number",
                     "default": 95.0,
                     "description": "Minimum coverage of the gene to accept a match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         }

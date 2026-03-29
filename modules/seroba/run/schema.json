@@ -16,15 +16,14 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Do not clean up intermediate files",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
-                    
                 },
                 "seroba_coverage": {
                     "type": "integer",
                     "default": 20,
                     "description": "Threshold for k-mer coverage of the reference sequence",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         }

@@ -135,11 +135,11 @@ workflow {
         ch_final_aln = channel.empty()
         if (params.skip_recombination) {
             ch_final_aln = PANGENOME.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-genome", process_name: "iqtree"], _msa: [r.aln].toSet())
+                record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.aln)
             }
         } else {
             ch_final_aln = CLONALFRAMEML.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-genome", process_name: "iqtree"], _msa: [r.masked_aln].toSet())
+                record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.masked_aln)
             }
         }
         IQTREE(ch_final_aln)

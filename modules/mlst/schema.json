@@ -16,37 +16,37 @@
                     "type": "string",
                     "default": "",
                     "description": "Don't autodetect, force this scheme on all inputs",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "mlst_minid": {
                     "type": "integer",
                     "default": 95,
-                    "description": "Minimum DNA percent identity of full allelle to consider 'similar'",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Minimum DNA percent identity of full allele to consider 'similar'",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mlst_mincov": {
                     "type": "integer",
                     "default": 10,
                     "description": "Minimum DNA percent coverage to report partial allele at all",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mlst_minscore": {
                     "type": "integer",
                     "default": 50,
                     "description": "Minimum score out of 100 to match a scheme",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "mlst_nopath": {
                     "type": "boolean",
                     "default": false,
                     "description": "Strip filename paths from FILE column",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "mlst_db": {
                     "type": "string",
                     "default": "",
                     "description": "A custom MLST database to use, either a tarball or a directory",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 }
             }
         }

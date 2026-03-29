@@ -35,7 +35,10 @@ process GAMMA {
 
     input:
     (_meta: Map, fna: Path): Record
-    db                   : Path
+    db: Path
+
+    stage:
+    stageAs 'input/*', fna
 
     output:
     record(
@@ -71,11 +74,14 @@ process GAMMA {
 
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     def VERSION = '2.1'
-    // Version information not provided by tool on CLI
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fna} > ${fna_name}
+        gzip -c -d ${fna} > ./${fna_name}
+    else
+        cp ${fna} ./${fna_name}
     fi
 
     GAMMA.py \\
@@ -85,7 +91,9 @@ process GAMMA {
         ${prefix}
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

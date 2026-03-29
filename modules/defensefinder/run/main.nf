@@ -39,7 +39,7 @@ process DEFENSEFINDER_RUN {
 
     input:
     (_meta: Map, faa: Path): Record
-    db                          : Path
+    db: Path
 
     stage:
     stageAs 'proteins/*', faa
@@ -113,7 +113,7 @@ process DEFENSEFINDER_RUN {
         rm -rf defense-finder-tmp/
     fi
 
-    # Cleanup intermediate files and unused outputs
+    # Cleanup
     rm -rf models/ defense-finder/ df-tmp/ ${prefix}.fna
 
     cat <<-END_VERSIONS > versions.yml

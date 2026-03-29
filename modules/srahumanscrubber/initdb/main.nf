@@ -18,16 +18,16 @@
  */
 nextflow.preview.types = true
 
-// bactopia-lint: ignore M012
+// bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028
 process SRAHUMANSCRUBBER_INITDB {
     label 'process_single'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     output:
     record(
-        db:   files("${prefix}/*human_filter.db*"),
+        db: files("${prefix}/*human_filter.db*"),
         logs: files("${prefix}/logs/*", optional: true)
     )
 

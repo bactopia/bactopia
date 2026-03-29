@@ -6,7 +6,7 @@
  * reads to a global database, then using a mapped-based approach for specific serogroup differentiation.
  *
  * Uses explicit positional record fields for reads:
- * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ * - Input: record(meta, r1, r2) where each read slot is Path
  *
  * @status stable
  * @keywords pneumocat, streptococcus pneumoniae, capsular typing, serotyping
@@ -16,12 +16,10 @@
  * @note
  * Negative results will cause non-0 exit codes from PneumoCaT
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1, r2)
  * - `meta`: Groovy Map containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
- * - `lr`: Long reads (not supported by PneumoCaT)
  *
  * @output record(meta, xml, txt, results, logs, nf_logs, versions)
  * - `xml`: The PneumoCaT result files in XML format
@@ -37,11 +35,7 @@ process PNEUMOCAT {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-
-    stage:
-    stageAs 'reads/se/*', se
-    stageAs 'reads/lr/*', lr
+    (_meta: Map, r1: Path, r2: Path): Record
 
     output:
     record(
@@ -60,8 +54,6 @@ process PNEUMOCAT {
     )
 
     script:
-    def VERSION = '1.2.1'
-    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
@@ -73,16 +65,15 @@ process PNEUMOCAT {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    // Determine read type from explicit slots (PneumoCaT requires paired-end reads)
-    has_r1 = r1 != null
-    has_r2 = r2 != null
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.2.1'
     """
     PneumoCaT.py \\
         --input_directory ./ \\
         --threads ${task.cpus} \\
         --output_dir ./
 
-    # clean up
+    # Cleanup
     rm -rf *.bam *.bai ComponentComplete.txt
 
     # PneumoCAT uses first match in a glob, so moves between R1 and R2

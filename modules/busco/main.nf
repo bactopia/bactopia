@@ -90,7 +90,7 @@ process BUSCO {
         --download_base_url=https://busco-data2.ezlab.org/v5/data \\
         ${task.ext.args}
 
-    # cleanup output directory structure
+    # Cleanup
     find supplemental/ -name "*.log" | xargs -I {} mv {} ./
     find supplemental/ -type d -path "*logs" | xargs -I {} rm -rf {}
     find supplemental/ -type f -name "*.fna" | xargs -I {} gzip {}

@@ -32,14 +32,14 @@ process SHIGEIFINDER {
     output:
     record(
         // Named fields (used downstream)
-        meta:     meta,
-        tsv:      file("${prefix}.tsv"),
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
         results:  [
             files("${prefix}.tsv")
         ],
-        logs:     files("*.{log,err}", optional: true),
-        nf_logs:  files(".command.*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
         versions: files("versions.yml")
     )
 
@@ -55,10 +55,11 @@ process SHIGEIFINDER {
     meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
 
-    def VERSION = '1.3.2'
-    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
+
+    // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.3.2'
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ${fna_name}
@@ -71,7 +72,9 @@ process SHIGEIFINDER {
         -i ${fna_name}
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

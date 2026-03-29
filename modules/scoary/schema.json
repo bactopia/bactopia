@@ -15,13 +15,13 @@
                 "scoary_traits": {
                     "type": "string",
                     "description": "Input trait table (CSV) to test for associations",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "scoary_p_value_cutoff": {
                     "type": "number",
                     "default": 0.05,
                     "description": "For statistical tests, genes with higher p-values will not be reported",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "scoary_correction": {
@@ -29,21 +29,28 @@
                     "default": "I",
                     "description": "Apply the indicated filtration measure.",
                     "help": "I=Individual (naive) p-value. B=Bonferroni adjusted p-value. BH=Benjamini-Hochberg adjusted p. PW=Best (lowest) pairwise comparison. EPW=Entire range of pairwise comparison p-values. P=Empirical p-value from permutations",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "enum": ["I", "B", "BH","PW","EPW","P"],
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "I",
+                        "B",
+                        "BH",
+                        "PW",
+                        "EPW",
+                        "P"
+                    ],
                     "hidden": true
                 },
                 "scoary_permute": {
                     "type": "integer",
                     "default": 0,
                     "description": "Perform N number of permutations of the significant results post-analysis",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "scoary_start_col": {
                     "type": "integer",
                     "default": 15,
                     "description": "On which column in the gene presence/absence file do individual strain info start",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 }
             }

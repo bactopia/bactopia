@@ -66,7 +66,7 @@ process BLAST_TBLASTX {
     def outcols = "sample ${task.ext.outfmt}".replace(" ", "<TAB>")
     """
     tar -xzf ${blastdb}
-    
+
     ${which_cat} ${query} | \\
     tblastx \\
         -num_threads ${task.cpus} \\

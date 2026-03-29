@@ -31,14 +31,15 @@ process NGMASTER {
 
     output:
     record(
-        meta:     meta,
-        tsv:      file("${prefix}.tsv"),
+        // Named fields (used downstream)
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
-        results:  [
+        results: [
             files("${prefix}.tsv")
         ],
-        logs:     files("*.{log,err}", optional: true),
-        nf_logs:  files(".command.*"),
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
         versions: files("versions.yml")
     )
 
@@ -67,7 +68,9 @@ process NGMASTER {
         > ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

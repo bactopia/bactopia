@@ -70,7 +70,9 @@ process LISSERO {
     sed -i 's/^.*${fna_name}/${fna_name}/' ${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

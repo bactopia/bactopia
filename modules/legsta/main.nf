@@ -59,6 +59,8 @@ process LEGSTA {
         ${task.ext.args} \\
         ${fna} | sed 's/.fna//; s/.gz//' > ${prefix}.tsv
 
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         legsta: \$(echo \$(legsta --version 2>&1) | sed 's/^.*legsta //; s/ .*\$//;')

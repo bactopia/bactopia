@@ -27,7 +27,7 @@ process ROARY {
     label 'process_long'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ? task.ext.image : task.ext.docker}"
+    container "${task.ext.container}"
 
     input:
     (_meta: Map, gff: Set<Path>): Record
@@ -44,6 +44,7 @@ process ROARY {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.aln.gz", optional: true),
+            files("roary/gene_presence_absence.csv", optional: true),
             files("roary/*")
         ],
         logs: files("*.{log,err}", optional: true),
@@ -86,9 +87,8 @@ process ROARY {
         cp supplemental/core_gene_alignment.aln.gz ./${prefix}.aln.gz
     fi
 
-    # clean up
+    # Cleanup
     rm -rf gff/
-
     mv supplemental/ roary/
 
     cat <<-END_VERSIONS > versions.yml

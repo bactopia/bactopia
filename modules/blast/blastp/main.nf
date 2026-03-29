@@ -62,7 +62,7 @@ process BLAST_BLASTP {
     def outcols = "sample ${task.ext.outfmt}".replace(" ", "<TAB>")
     """
     tar -xzf ${blastdb}
-    
+
     ${which_cat} ${query} | \\
     blastp \\
         -num_threads ${task.cpus} \\

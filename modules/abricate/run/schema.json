@@ -16,19 +16,19 @@
                     "type": "string",
                     "default": "ncbi",
                     "description": "Database to use",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "abricate_minid": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum DNA percent identity",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "abricate_mincov": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum DNA percent coverage",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         }

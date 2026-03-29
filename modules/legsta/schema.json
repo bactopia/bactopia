@@ -16,7 +16,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Don't print header row",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

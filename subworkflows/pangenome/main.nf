@@ -40,7 +40,7 @@ include { PIRATE   } from '../pirate/main'
 include { ROARY    } from '../roary/main'
 include { PANAROO  } from '../panaroo/main'
 include { SNPDISTS } from '../snpdists/main'
-include { gather   } from 'plugin/nf-bactopia'
+
 
 workflow PANGENOME {
     take:
@@ -64,8 +64,10 @@ workflow PANGENOME {
     }
 
     // Per-sample SNP distances (panaroo uses filtered_aln, others use aln)
-    def aln_field = use_pirate || use_roary ? 'aln' : 'filtered_aln'
-    SNPDISTS(gather(ch_sample_outputs, aln_field, [name: 'core-genome.distance']))
+    SNPDISTS(ch_sample_outputs.map { r ->
+        def msa = use_pirate || use_roary ? r.aln : r.filtered_aln
+        record(_meta: [name: 'core-genome.distance', process_name: 'snpdists'], msa: msa)
+    })
 
     emit:
     // Published outputs

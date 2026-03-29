@@ -25,6 +25,7 @@
  */
 nextflow.preview.types = true
 
+// bactopia-lint: ignore M017
 process CSVTK_CONCAT {
     tag "${prefix}"
     label 'process_low'
@@ -34,7 +35,7 @@ process CSVTK_CONCAT {
 
     input:
     (_meta: Map, csv: Set<Path>): Record
-    in_format:  String
+    in_format : String
     out_format: String
 
     stage:
@@ -67,7 +68,7 @@ process CSVTK_CONCAT {
     meta.scope = task.ext.scope
     meta.output_dir = "merged-results"
     meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
-    meta.process_name = task.ext.process_name
+    meta.process_name = "${prefix}-concat"
 
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")

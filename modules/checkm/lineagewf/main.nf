@@ -82,7 +82,9 @@ process CHECKM_LINEAGEWF {
     mv supplemental/${prefix}-results.txt ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fna_name}
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

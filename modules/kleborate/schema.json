@@ -16,7 +16,7 @@
                     "type": "string",
                     "default": "kpsc",
                     "description": "Preset module to use for Kleborate",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": false,
                     "enum": [
                         "kpsc",
@@ -27,7 +27,7 @@
                 "kleborate_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for Kleborate",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": false
                 }
             }

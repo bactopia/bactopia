@@ -16,7 +16,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fa-solid fa-toggle-on"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         }

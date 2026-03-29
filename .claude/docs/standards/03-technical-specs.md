@@ -117,6 +117,7 @@ record(
 
 - Use `file()` for named fields that will be accessed downstream (returns `Path`)
 - Use `files()` in the `results` list and for logs/versions (returns `Set<Path>`)
+- Use exactly **one space** after the colon in record fields (e.g., `meta: meta`, not `meta:  meta`)
 
 ### Subworkflow Output Pattern (2 emit channels)
 
@@ -427,6 +428,38 @@ The `field:` named parameter extracts the specified field from each record in th
 ### flattenPaths (deprecated)
 
 `flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>`. It is no longer used in subworkflows — they now pass through module record outputs directly via `sample_outputs` and `run_outputs`.
+
+## Container Directives
+
+All modules use the short-form container directive:
+
+```groovy
+conda "${task.ext.condaDir}/${task.ext.toolName}"
+container "${task.ext.container}"
+```
+
+Container resolution (choosing Docker vs Singularity image) is handled globally in `conf/base.config` via a `withName: '.*'` block that sets `ext.container` based on the container engine. Do **not** use the inline ternary pattern in individual modules.
+
+## Script Block Structure
+
+Module script blocks must include a `# Cleanup` comment before the version tracking block. This marks where cleanup operations (e.g., removing temporary files) should go:
+
+```bash
+    # Cleanup
+    rm -rf temp_dir/
+
+    cat <<-END_VERSIONS > versions.yml
+    ...
+```
+
+If no cleanup is needed, the comment is still required as a placeholder for consistency:
+
+```bash
+    # Cleanup
+
+    cat <<-END_VERSIONS > versions.yml
+    ...
+```
 
 ## Version Tracking
 Always include a `versions.yml` file with software version information:

@@ -65,6 +65,8 @@ process PBPTYPER {
         --prefix ${prefix} \\
         --input ${fna}
 
+    # Cleanup
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         pbptyper: \$(echo \$(pbptyper --version 2>&1) | sed 's/.*pbptyper, version //;s/ .*\$//' )

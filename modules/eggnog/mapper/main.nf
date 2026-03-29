@@ -42,7 +42,7 @@ process EGGNOG_MAPPER {
 
     input:
     (_meta: Map, faa: Path): Record
-    db                          : Path
+    db: Path
 
     output:
     record(
@@ -105,8 +105,7 @@ process EGGNOG_MAPPER {
 
     # Cleanup
     if [ "${is_tarball}" == "true" ]; then
-        # Delete the untarred database
-        rm -rf database
+        rm -rf database/
     fi
 
     cat <<-END_VERSIONS > versions.yml

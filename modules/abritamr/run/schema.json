@@ -15,12 +15,12 @@
                 "abritamr_species": {
                     "type": "string",
                     "description": "Use species specific point mutations, must provide a valid species",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "abritamr_identity": {
                     "type": "integer",
                     "description": "Minimum identity of matches with amrfinder (0 - 1.0), defaults to amrfinder preset",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         }

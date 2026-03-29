@@ -73,7 +73,10 @@ process BTYPER3 {
     mv supplemental/${prefix}_final_results.txt ./${prefix}.tsv
 
     # Cleanup
-    rm -rf ${fna_name} ${fna_name}.njs
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${fna_name}
+    fi
+    rm -rf ${fna_name}.njs
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

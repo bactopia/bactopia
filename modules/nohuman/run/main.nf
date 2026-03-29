@@ -91,7 +91,6 @@ process NOHUMAN_RUN {
 
     // Pick the single-file input (se or lr)
     def single_reads = has_se ? "${se}" : "${lr}"
-
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
     def output_type = "--output-type g"
     if (meta.single_end) {
@@ -117,7 +116,10 @@ process NOHUMAN_RUN {
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove temp json files
+        # Cleanup
+        if [ "${is_tarball}" == "true" ]; then
+            rm -rf database/
+        fi
         rm original.json scrubbed.json
 
         cat <<-END_VERSIONS > versions.yml
@@ -151,7 +153,10 @@ process NOHUMAN_RUN {
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
         scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
-        # Remove temp json files
+        # Cleanup
+        if [ "${is_tarball}" == "true" ]; then
+            rm -rf database/
+        fi
         rm original.json scrubbed.json
 
         cat <<-END_VERSIONS > versions.yml

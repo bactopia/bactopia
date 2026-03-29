@@ -18,7 +18,7 @@
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) - not typically used
+ * - `lr`: Long reads (ONT/PacBio)
  *
  * @input db
  * Path to the Sylph database file (*.syldb)
@@ -37,7 +37,7 @@ process SYLPH_PROFILE {
 
     input:
     (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
-    db                                                      : Path
+    db: Path
 
     output:
     record(
@@ -88,6 +88,8 @@ process SYLPH_PROFILE {
     else
         sed 's/^${prefix}_R1.fastq.gz/${prefix}/' ${prefix}.original.tsv > ${prefix}.tsv
     fi
+
+    # Cleanup
     rm ${prefix}.original.tsv
 
     cat <<-END_VERSIONS > versions.yml
