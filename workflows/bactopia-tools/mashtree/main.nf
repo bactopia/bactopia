@@ -45,10 +45,9 @@ params {
     rundir : String
 }
 
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { MASHTREE           } from '../../../subworkflows/mashtree/main'
-include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { MASHTREE            } from '../../../subworkflows/mashtree/main'
+include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -59,21 +58,17 @@ workflow {
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
         NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
-        ch_samples = ch_samples.mix(NCBIGENOMEDOWNLOAD.out.bactopia_tools)
+        ch_samples = ch_samples.mix(NCBIGENOMEDOWNLOAD.out.assemblies)
     }
-
     MASHTREE(ch_samples)
 
-    ch_sample_nf_logs = collectNextflowLogs(MASHTREE.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(MASHTREE.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = MASHTREE.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(MASHTREE.out.sample_outputs)
+    // Run-level
     run_outputs = MASHTREE.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(MASHTREE.out.run_outputs)
 }
 
 output {

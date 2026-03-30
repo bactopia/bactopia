@@ -36,15 +36,14 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     mykrobe_species : String
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { MYKROBE           } from '../../../subworkflows/mykrobe/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { MYKROBE             } from '../../../subworkflows/mykrobe/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -52,16 +51,13 @@ workflow {
     BACTOPIATOOL_INIT()
     MYKROBE(BACTOPIATOOL_INIT.out.reads, params.mykrobe_species)
 
-    ch_sample_nf_logs = collectNextflowLogs(MYKROBE.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(MYKROBE.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = MYKROBE.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(MYKROBE.out.sample_outputs)
+    // Run-level
     run_outputs = MYKROBE.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(MYKROBE.out.run_outputs)
 }
 
 output {

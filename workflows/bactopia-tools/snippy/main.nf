@@ -73,14 +73,14 @@ params {
     skip_phylogeny     : Boolean
 }
 
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-include { SNIPPY             } from '../../../subworkflows/snippy/run/main'
-include { SNIPPY_CORE        } from '../../../subworkflows/snippy/core/main'
-include { GUBBINS            } from '../../../subworkflows/gubbins/main'
-include { IQTREE             } from '../../../subworkflows/iqtree/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { SNIPPY              } from '../../../subworkflows/snippy/run/main'
+include { SNIPPY_CORE         } from '../../../subworkflows/snippy/core/main'
+include { GUBBINS             } from '../../../subworkflows/gubbins/main'
+include { IQTREE              } from '../../../subworkflows/iqtree/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
+include { gatherFields        } from 'plugin/nf-bactopia'
 
 workflow {
     main:
@@ -92,58 +92,47 @@ workflow {
         ch_reference = params.reference
     } else if (params.accession) {
         NCBIGENOMEDOWNLOAD([])
-        ch_reference = NCBIGENOMEDOWNLOAD.out.bactopia_tools.first()
+        ch_reference = NCBIGENOMEDOWNLOAD.out.reference
     }
 
     // Run Snippy per-sample
     SNIPPY(BACTOPIATOOL_INIT.out.reads, ch_reference)
     ch_sample_outputs = SNIPPY.out.sample_outputs
+    ch_run_outputs = SNIPPY.out.run_outputs
 
     // Collect per-sample VCFs and aligned FAs for core-SNP analysis
-    ch_core_input = SNIPPY.out.variants.collect().map { records ->
-        record(
-            _meta: [id: 'core-snp'],
-            _vcf: records.collectMany { r -> r.vcf ?: [] }.toSet(),
-            _aligned_fa: records.collectMany { r -> r.aligned_fa ?: [] }.toSet()
-        )
-    }
+    ch_core_input = gatherFields(
+        SNIPPY.out.variants,
+        [vcf: '_vcf', aligned_fa: '_aligned_fa'],
+        [name: 'core-snp']
+    )
 
     // Identify core SNPs
     SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
-    ch_sample_outputs = ch_sample_outputs
-        .mix(SNIPPY_CORE.out.sample_outputs)
-        .mix(SNIPPY_CORE.out.snpdists_outputs)
+    ch_sample_outputs = ch_sample_outputs.mix(SNIPPY_CORE.out.sample_outputs)
+    ch_run_outputs = ch_run_outputs.mix(SNIPPY_CORE.out.run_outputs)
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        GUBBINS(SNIPPY_CORE.out.clean_full_alignment)
-        ch_sample_outputs = ch_sample_outputs
-            .mix(GUBBINS.out.sample_outputs)
-            .mix(GUBBINS.out.snpdists_outputs)
+        GUBBINS(SNIPPY_CORE.out.msa)
+        ch_sample_outputs = ch_sample_outputs.mix(GUBBINS.out.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(GUBBINS.out.run_outputs)
     }
 
     // Create core-snp phylogeny
     if (!params.skip_phylogeny) {
-        ch_final_aln = channel.empty()
-        if (!params.skip_recombination) {
-            ch_final_aln = GUBBINS.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.masked_aln)
-            }
-        } else {
-            ch_final_aln = SNIPPY_CORE.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.clean_full_aln)
-            }
-        }
-        IQTREE(ch_final_aln)
+        IQTREE(params.skip_recombination ? SNIPPY_CORE.out.msa : GUBBINS.out.msa)
         ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
     }
 
-    ch_sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = ch_sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
+    sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    // Run-level
+    run_outputs = ch_run_outputs
+    run_nf_logs = collectNextflowLogs(ch_run_outputs)
 }
 
 output {
@@ -157,5 +146,17 @@ output {
     }
     sample_nf_logs {
         path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
     }
 }

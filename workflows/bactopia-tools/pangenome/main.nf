@@ -70,13 +70,13 @@ params {
     rundir : String
 
     // Pangenome tool selection
-    use_pirate : Boolean
-    use_roary  : Boolean
+    use_pirate         : Boolean
+    use_roary          : Boolean
 
     // Reference genome parameters
-    species   : String?
-    accession : String?
-    accessions : Path?
+    species            : String?
+    accession          : String?
+    accessions         : Path?
 
     // Prokka parameters
     prokka_proteins    : Path?
@@ -88,14 +88,13 @@ params {
     scoary_traits      : Path?
 }
 
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-include { PROKKA             } from '../../../subworkflows/prokka/main'
-include { PANGENOME          } from '../../../subworkflows/pangenome/main'
-include { CLONALFRAMEML      } from '../../../subworkflows/clonalframeml/main'
-include { IQTREE             } from '../../../subworkflows/iqtree/main'
-include { SCOARY             } from '../../../subworkflows/scoary/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { PROKKA              } from '../../../subworkflows/prokka/main'
+include { PANGENOME           } from '../../../subworkflows/pangenome/main'
+include { CLONALFRAMEML       } from '../../../subworkflows/clonalframeml/main'
+include { IQTREE              } from '../../../subworkflows/iqtree/main'
+include { SCOARY              } from '../../../subworkflows/scoary/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 include { gather              } from 'plugin/nf-bactopia'
 
@@ -108,11 +107,11 @@ workflow {
     if (params.species || params.accession || params.accessions) {
         NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
         PROKKA(
-            NCBIGENOMEDOWNLOAD.out.bactopia_tools,
+            NCBIGENOMEDOWNLOAD.out.assemblies,
             params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
             params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
         )
-        ch_samples = ch_samples.mix(PROKKA.out.sample_outputs.map { r -> record(_meta: r.meta, gff: r.gff) })
+        ch_samples = ch_samples.mix(PROKKA.out.gffs)
     }
 
     // Create the pangenome
@@ -120,50 +119,52 @@ workflow {
     ch_merge_gff = gather(ch_samples, 'gff', [name: pangenome_tool])
     PANGENOME(ch_merge_gff, params.use_pirate, params.use_roary)
     ch_sample_outputs = PANGENOME.out.sample_outputs
-        .mix(PANGENOME.out.snpdists_outputs)
+    ch_run_outputs = PANGENOME.out.run_outputs
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        ch_aln = PANGENOME.out.sample_outputs.map { r -> record(_meta: r.meta, alignment: r.aln) }
-        CLONALFRAMEML(ch_aln)
-        ch_sample_outputs = ch_sample_outputs
-            .mix(CLONALFRAMEML.out.sample_outputs)
-            .mix(CLONALFRAMEML.out.iqtree_outputs)
-            .mix(CLONALFRAMEML.out.snpdists_outputs)
+        CLONALFRAMEML(PANGENOME.out.alignment)
+        ch_sample_outputs = ch_sample_outputs.mix(CLONALFRAMEML.out.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(CLONALFRAMEML.out.run_outputs)
     }
 
     // (optional) Create core-genome phylogeny
     if (!params.skip_phylogeny) {
-        ch_final_aln = channel.empty()
-        if (params.skip_recombination) {
-            ch_final_aln = PANGENOME.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.aln)
-            }
-        } else {
-            ch_final_aln = CLONALFRAMEML.out.sample_outputs.map { r ->
-                record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.masked_aln)
-            }
-        }
-        IQTREE(ch_final_aln)
+        IQTREE(params.skip_recombination ? PANGENOME.out.msa : CLONALFRAMEML.out.msa)
         ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
     }
 
     // Pan-genome GWAS
-    log.info "Running Scoary with traits file: ${params.scoary_traits}"
     if (params.scoary_traits) {
-        ch_csv = PANGENOME.out.sample_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
-        SCOARY(ch_csv, params.scoary_traits)
+        SCOARY(PANGENOME.out.csv, params.scoary_traits)
         ch_sample_outputs = ch_sample_outputs.mix(SCOARY.out.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(SCOARY.out.run_outputs)
     }
 
-    ch_run_nf_logs = collectNextflowLogs(ch_sample_outputs)
-
     publish:
-    run_outputs = ch_sample_outputs
-    run_nf_logs = ch_run_nf_logs
+    // Per-sample
+    sample_outputs = ch_sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    // Run-level
+    run_outputs = ch_run_outputs
+    run_nf_logs = collectNextflowLogs(ch_run_outputs)
 }
 
 output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"

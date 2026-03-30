@@ -59,9 +59,10 @@ workflow SNIPPY_CORE {
 
     emit:
     // Downstream inputs
-    clean_full_alignment = SNIPPY_CORE_MODULE.out.map { r -> record(_meta: r.meta, msa: r.clean_full_aln) }
-
+    msa = SNIPPY_CORE_MODULE.out.map { r ->
+        record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.clean_full_aln)
+    }
     // Published outputs
     sample_outputs = SNIPPY_CORE_MODULE.out
-    snpdists_outputs = SNPDISTS.out.sample_outputs
+    run_outputs = channel.empty()
 }

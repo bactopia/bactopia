@@ -55,6 +55,7 @@ workflow PROKKA {
     emit:
     // Downstream inputs
     annotations = filterWithData(PROKKA_MODULE.out, ['fna', 'faa', 'gff'])
+    gffs = PROKKA_MODULE.out.map { r -> record(_meta: r.meta, gff: r.gff) }
     // Published outputs
     sample_outputs = PROKKA_MODULE.out
     run_outputs = channel.empty()

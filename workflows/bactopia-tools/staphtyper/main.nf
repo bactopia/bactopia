@@ -32,16 +32,15 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { STAPHTYPER        } from '../../../subworkflows/staphtyper/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { STAPHTYPER          } from '../../../subworkflows/staphtyper/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -53,16 +52,13 @@ workflow {
         params.spatyper_repeat_order
     )
 
-    ch_sample_nf_logs = collectNextflowLogs(STAPHTYPER.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(STAPHTYPER.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = STAPHTYPER.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(STAPHTYPER.out.sample_outputs)
+    // Run-level
     run_outputs = STAPHTYPER.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(STAPHTYPER.out.run_outputs)
 }
 
 output {

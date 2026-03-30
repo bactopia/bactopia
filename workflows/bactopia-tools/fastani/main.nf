@@ -49,7 +49,7 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     fastani_reference : Path?
@@ -59,10 +59,9 @@ params {
     accessions        : Path?
 }
 
-include { BACTOPIATOOL_INIT  } from '../../../subworkflows/utils/bactopia-tools/main'
-include { FASTANI            } from '../../../subworkflows/fastani/main'
-include { NCBIGENOMEDOWNLOAD } from '../../../subworkflows/ncbigenomedownload/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { FASTANI             } from '../../../subworkflows/fastani/main'
+include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -72,19 +71,16 @@ workflow {
     // Reference if applicable
     ch_reference = channel.empty() as Channel<Record>
     if (params.fastani_reference) {
-        ch_reference = ch_reference.mix(
-            channel.of(record(_meta: [id: params.fastani_reference.getSimpleName()], fna: params.fastani_reference))
-        )
+        ch_reference = ch_reference.mix(channel.of(record(
+            _meta: [id: params.fastani_reference.getSimpleName()],
+            fna: params.fastani_reference
+        )))
     }
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
         NCBIGENOMEDOWNLOAD(params.accessions)
-        ch_reference = ch_reference.mix(
-            NCBIGENOMEDOWNLOAD.out.bactopia_tools.map { meta, path ->
-                record(_meta: meta, fna: path)
-            }
-        )
+        ch_reference = ch_reference.mix(NCBIGENOMEDOWNLOAD.out.assemblies)
     }
 
     // Add query if pairwise
@@ -97,16 +93,13 @@ workflow {
     // Run FastANI
     FASTANI(ch_query, ch_reference)
 
-    ch_sample_nf_logs = collectNextflowLogs(FASTANI.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(FASTANI.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = FASTANI.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(FASTANI.out.sample_outputs)
+    // Run-level
     run_outputs = FASTANI.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(FASTANI.out.run_outputs)
 }
 
 output {

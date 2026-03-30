@@ -43,15 +43,14 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     ariba_db : String
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { ARIBA             } from '../../../subworkflows/ariba/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { ARIBA               } from '../../../subworkflows/ariba/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -59,16 +58,13 @@ workflow {
     BACTOPIATOOL_INIT()
     ARIBA(BACTOPIATOOL_INIT.out.reads, params.ariba_db)
 
-    ch_sample_nf_logs = collectNextflowLogs(ARIBA.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(ARIBA.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = ARIBA.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(ARIBA.out.sample_outputs)
+    // Run-level
     run_outputs = ARIBA.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(ARIBA.out.run_outputs)
 }
 
 output {

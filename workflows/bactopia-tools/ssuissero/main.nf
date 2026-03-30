@@ -34,9 +34,8 @@ params {
     rundir : String
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { SSUISSERO         } from '../../../subworkflows/ssuissero/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { SSUISSERO           } from '../../../subworkflows/ssuissero/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -44,16 +43,13 @@ workflow {
     BACTOPIATOOL_INIT()
     SSUISSERO(BACTOPIATOOL_INIT.out.assembly)
 
-    ch_sample_nf_logs = collectNextflowLogs(SSUISSERO.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(SSUISSERO.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = SSUISSERO.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(SSUISSERO.out.sample_outputs)
+    // Run-level
     run_outputs = SSUISSERO.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(SSUISSERO.out.run_outputs)
 }
 
 output {

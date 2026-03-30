@@ -26,7 +26,7 @@ nextflow.preview.types = true
 
 include { ABRICATE_RUN     } from '../../modules/abricate/run/main'
 include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'
-include { gatherCsvtk           } from 'plugin/nf-bactopia'
+include { gatherCsvtk      } from 'plugin/nf-bactopia'
 
 workflow ABRICATE {
     take:

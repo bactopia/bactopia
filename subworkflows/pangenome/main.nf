@@ -70,7 +70,15 @@ workflow PANGENOME {
     })
 
     emit:
+    // Downstream inputs
+    alignment = ch_sample_outputs.map { r ->
+        record(_meta: r.meta, alignment: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+    }
+    csv = ch_sample_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
+    msa = ch_sample_outputs.map { r ->
+        record(_meta: [name: "core-genome", process_name: "iqtree"], msa: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+    }
     // Published outputs
     sample_outputs = ch_sample_outputs
-    snpdists_outputs = SNPDISTS.out.sample_outputs
+    run_outputs = channel.empty()
 }

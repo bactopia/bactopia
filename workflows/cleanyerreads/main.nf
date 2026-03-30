@@ -55,7 +55,7 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     use_k2scrubber  : Boolean
@@ -65,13 +65,12 @@ params {
 }
 
 // Core
-include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia/main'
-include { GATHER          } from '../../subworkflows/bactopia/gather/main'
-include { QC              } from '../../subworkflows/bactopia/qc/main'
+include { BACTOPIA_INIT       } from '../../subworkflows/utils/bactopia/main'
+include { GATHER              } from '../../subworkflows/bactopia/gather/main'
+include { QC                  } from '../../subworkflows/bactopia/qc/main'
 
 // Scrubber
-include { SCRUBBER        } from '../../subworkflows/scrubber/main'
-
+include { SCRUBBER            } from '../../subworkflows/scrubber/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -87,7 +86,13 @@ workflow {
 
     if (params.use_k2scrubber || params.use_srascrubber) {
         // Remove host reads
-        SCRUBBER(GATHER.out.reads, params.use_srascrubber, params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"), params.download_nohuman, params.nohuman_save_as_tarball)
+        SCRUBBER(
+            GATHER.out.reads,
+            params.use_srascrubber,
+            params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+            params.download_nohuman,
+            params.nohuman_save_as_tarball
+        )
         ch_sample_outputs = ch_sample_outputs.mix(SCRUBBER.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(SCRUBBER.out.run_outputs)
 
@@ -98,17 +103,15 @@ workflow {
         QC(GATHER.out.reads, params.adapters, params.phix)
     }
     ch_sample_outputs = ch_sample_outputs.mix(QC.out.sample_outputs)
-
-    ch_sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(ch_run_outputs)
+    ch_run_outputs = ch_run_outputs.mix(QC.out.run_outputs)
 
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = ch_sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    // Run-level
     run_outputs = ch_run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(ch_run_outputs)
 }
 
 output {

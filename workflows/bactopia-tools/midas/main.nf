@@ -40,16 +40,15 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     midas_db       : Path
     download_midas : Boolean
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { MIDAS             } from '../../../subworkflows/midas/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { MIDAS               } from '../../../subworkflows/midas/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -61,16 +60,14 @@ workflow {
         params.download_midas,
         params.midas_save_as_tarball
     )
-    ch_sample_nf_logs = collectNextflowLogs(MIDAS.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(MIDAS.out.run_outputs)
 
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = MIDAS.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(MIDAS.out.sample_outputs)
+    // Run-level
     run_outputs = MIDAS.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(MIDAS.out.run_outputs)
 }
 
 output {

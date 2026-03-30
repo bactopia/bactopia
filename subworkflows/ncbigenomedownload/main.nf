@@ -44,10 +44,15 @@ workflow NCBIGENOMEDOWNLOAD {
 
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
-    ch_to_bactopia_tools = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path -> [[id: file(path).getSimpleName()], file(path)] }
+    ch_assemblies = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path ->
+        record(_meta: [id: file(path).getSimpleName()], fna: path)
+    }
+    ch_reference = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().first()
 
     emit:
+    // Downstream inputs
+    assemblies = ch_assemblies
+    reference = ch_reference
     // Published outputs
     sample_outputs = NCBIGENOMEDOWNLOAD_MODULE.out
-    bactopia_tools = ch_to_bactopia_tools
 }

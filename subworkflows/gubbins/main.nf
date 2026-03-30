@@ -53,7 +53,11 @@ workflow GUBBINS {
     })
 
     emit:
+    // Downstream inputs
+    msa = GUBBINS_MODULE.out.map { r ->
+        record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.masked_aln)
+    }
     // Published outputs
     sample_outputs = GUBBINS_MODULE.out
-    snpdists_outputs = SNPDISTS.out
+    run_outputs = channel.empty()
 }

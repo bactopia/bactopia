@@ -19,9 +19,9 @@
  *
  * @section Per-Sample Results
  * @publish *.results.txt              Text file containing TBProfiler resistance and strain typing results
- * @publish *.results.json            JSON file containing detailed TBProfiler analysis results
- * @publish *.results.csv             CSV file containing TBProfiler results in tabular format
- * @publish bam/*.bam                 BAM file with read alignment details against reference genomes
+ * @publish *.results.json             JSON file containing detailed TBProfiler analysis results
+ * @publish *.results.csv              CSV file containing TBProfiler results in tabular format
+ * @publish bam/*.bam                  BAM file with read alignment details against reference genomes
  * @publish vcf/*.targets.csq.vcf.gz   VCF file with variant annotations and functional consequences
  *
  * @section Merged Results
@@ -40,9 +40,8 @@ params {
     rundir : String
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { TBPROFILER        } from '../../../subworkflows/tbprofiler/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { TBPROFILER          } from '../../../subworkflows/tbprofiler/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -50,27 +49,20 @@ workflow {
     BACTOPIATOOL_INIT()
     TBPROFILER(BACTOPIATOOL_INIT.out.reads)
 
-    ch_sample_nf_logs = collectNextflowLogs(TBPROFILER.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(TBPROFILER.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = TBPROFILER.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(TBPROFILER.out.sample_outputs)
+    // Run-level
     run_outputs = TBPROFILER.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(TBPROFILER.out.run_outputs)
 }
 
 output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
-            r.bam      >> "${r.meta.output_dir}/"
-            r.csv      >> "${r.meta.output_dir}/"
-            r.json     >> "${r.meta.output_dir}/"
-            r.txt      >> "${r.meta.output_dir}/"
-            r.vcf      >> "${r.meta.output_dir}/"
+            r.results.flatten()  >> "${r.meta.output_dir}/"
             r.logs.flatten()     >> "${r.meta.logs_dir}/"
             r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
@@ -83,7 +75,6 @@ output {
     run_outputs {
         path { r ->
             r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
-            r.itol     >> "${params.rundir}/${r.meta.output_dir}/"
             r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
             r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
         }

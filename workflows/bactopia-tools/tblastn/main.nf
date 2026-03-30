@@ -38,15 +38,14 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     tblastn_query : Path
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { TBLASTN           } from '../../../subworkflows/tblastn/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { TBLASTN             } from '../../../subworkflows/tblastn/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -54,16 +53,13 @@ workflow {
     BACTOPIATOOL_INIT()
     TBLASTN(BACTOPIATOOL_INIT.out.blastdb, params.tblastn_query)
 
-    ch_sample_nf_logs = collectNextflowLogs(TBLASTN.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(TBLASTN.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = TBLASTN.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(TBLASTN.out.sample_outputs)
+    // Run-level
     run_outputs = TBLASTN.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(TBLASTN.out.run_outputs)
 }
 
 output {

@@ -37,15 +37,14 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     kraken2_db : Path
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { KRAKEN2           } from '../../../subworkflows/kraken2/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { KRAKEN2             } from '../../../subworkflows/kraken2/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -53,16 +52,13 @@ workflow {
     BACTOPIATOOL_INIT()
     KRAKEN2(BACTOPIATOOL_INIT.out.reads, params.kraken2_db)
 
-    ch_sample_nf_logs = collectNextflowLogs(KRAKEN2.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(KRAKEN2.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = KRAKEN2.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(KRAKEN2.out.sample_outputs)
+    // Run-level
     run_outputs = KRAKEN2.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(KRAKEN2.out.run_outputs)
 }
 
 output {

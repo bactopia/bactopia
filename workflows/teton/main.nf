@@ -43,17 +43,16 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     kraken2_db      : Path
     use_srascrubber : Boolean
 }
 
-include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia'
-include { GATHER          } from '../../subworkflows/bactopia/gather/main'
-include { TETON           } from '../../subworkflows/teton/main'
-
+include { BACTOPIA_INIT       } from '../../subworkflows/utils/bactopia'
+include { GATHER              } from '../../subworkflows/bactopia/gather/main'
+include { TETON               } from '../../subworkflows/teton/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -73,30 +72,17 @@ workflow {
         params.nohuman_save_as_tarball
     )
 
-    // Collect all sample-level outputs
-    ch_sample_outputs = GATHER.out.sample_outputs
-        .mix(TETON.out.scrubber_outputs)
-        .mix(TETON.out.bracken_outputs)
-        .mix(TETON.out.samplesheet_outputs)
-        .mix(TETON.out.report_outputs)
-
-    // Collect all run-level outputs
-    ch_run_outputs = GATHER.out.run_outputs
-        .mix(TETON.out.merged_report)
-        .mix(TETON.out.merged_bacteria)
-        .mix(TETON.out.merged_nonbacteria)
-        .mix(TETON.out.merged_sizemeup)
-
-    ch_sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(ch_run_outputs)
+    // Collect all outputs
+    ch_sample_outputs = GATHER.out.sample_outputs.mix(TETON.out.sample_outputs)
+    ch_run_outputs = GATHER.out.run_outputs.mix(TETON.out.run_outputs)
 
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = ch_sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    // Run-level
     run_outputs = ch_run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(ch_run_outputs)
 }
 
 output {

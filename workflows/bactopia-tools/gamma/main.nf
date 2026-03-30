@@ -34,35 +34,28 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     gamma_db : Path
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { GAMMA             } from '../../../subworkflows/gamma/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { GAMMA               } from '../../../subworkflows/gamma/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    GAMMA(
-        BACTOPIATOOL_INIT.out.assembly,
-        params.gamma_db
-    )
-
-    ch_sample_nf_logs = collectNextflowLogs(GAMMA.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(GAMMA.out.run_outputs)
+    GAMMA(BACTOPIATOOL_INIT.out.assembly, params.gamma_db)
 
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = GAMMA.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(GAMMA.out.sample_outputs)
+    // Run-level
     run_outputs = GAMMA.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(GAMMA.out.run_outputs)
 }
 
 output {

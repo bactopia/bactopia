@@ -51,10 +51,9 @@ params {
     spatyper_repeat_order : Path?
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { DATASETS          } from '../../../subworkflows/bactopia/datasets/main'
-include { MERLIN            } from '../../../subworkflows/merlin/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { DATASETS            } from '../../../subworkflows/bactopia/datasets/main'
+include { MERLIN              } from '../../../subworkflows/merlin/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -74,16 +73,13 @@ workflow {
         params.spatyper_repeat_order
     )
 
-    ch_sample_nf_logs = collectNextflowLogs(MERLIN.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(MERLIN.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = MERLIN.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(MERLIN.out.sample_outputs)
+    // Run-level
     run_outputs = MERLIN.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(MERLIN.out.run_outputs)
 }
 
 output {

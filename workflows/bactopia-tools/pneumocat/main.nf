@@ -31,9 +31,8 @@ params {
     rundir : String
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { PNEUMOCAT         } from '../../../subworkflows/pneumocat/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { PNEUMOCAT           } from '../../../subworkflows/pneumocat/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -41,16 +40,13 @@ workflow {
     BACTOPIATOOL_INIT()
     PNEUMOCAT(BACTOPIATOOL_INIT.out.reads)
 
-    ch_sample_nf_logs = collectNextflowLogs(PNEUMOCAT.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(PNEUMOCAT.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = PNEUMOCAT.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(PNEUMOCAT.out.sample_outputs)
+    // Run-level
     run_outputs = PNEUMOCAT.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(PNEUMOCAT.out.run_outputs)
 }
 
 output {

@@ -107,7 +107,7 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     adapters              : Path?
@@ -126,22 +126,21 @@ params {
 }
 
 // Core
-include { BACTOPIA_INIT   } from '../../subworkflows/utils/bactopia'
-include { AMRFINDERPLUS   } from '../../subworkflows/amrfinderplus/main'
-include { ASSEMBLER       } from '../../subworkflows/bactopia/assembler/main'
-include { DATASETS        } from '../../subworkflows/bactopia/datasets/main'
-include { GATHER          } from '../../subworkflows/bactopia/gather/main'
-include { SKETCHER        } from '../../subworkflows/bactopia/sketcher/main'
-include { MLST            } from '../../subworkflows/mlst/main'
-include { QC              } from '../../subworkflows/bactopia/qc/main'
+include { BACTOPIA_INIT       } from '../../subworkflows/utils/bactopia'
+include { AMRFINDERPLUS       } from '../../subworkflows/amrfinderplus/main'
+include { ASSEMBLER           } from '../../subworkflows/bactopia/assembler/main'
+include { DATASETS            } from '../../subworkflows/bactopia/datasets/main'
+include { GATHER              } from '../../subworkflows/bactopia/gather/main'
+include { SKETCHER            } from '../../subworkflows/bactopia/sketcher/main'
+include { MLST                } from '../../subworkflows/mlst/main'
+include { QC                  } from '../../subworkflows/bactopia/qc/main'
 
 // Annotation wih Bakta or Prokka
-include { BAKTA           } from '../../subworkflows/bakta/main'
-include { PROKKA          } from '../../subworkflows/prokka/main'
+include { BAKTA               } from '../../subworkflows/bakta/main'
+include { PROKKA              } from '../../subworkflows/prokka/main'
 
 // Merlin
-include { STAPHTYPER      } from '../../subworkflows/staphtyper/main'
-
+include { STAPHTYPER          } from '../../subworkflows/staphtyper/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -165,7 +164,7 @@ workflow {
 
     // Annotate samples
     ch_annotations = channel.empty()
-    ch_annotation_sample_outputs = channel.empty()
+    ch_annotation_outputs = channel.empty()
     if (params.use_bakta) {
         BAKTA(
             ASSEMBLER.out.assembly,
@@ -176,7 +175,7 @@ workflow {
             params.bakta_prodigal_tf,
             params.bakta_replicons
         )
-        ch_annotation_sample_outputs = BAKTA.out.sample_outputs
+        ch_annotation_outputs = BAKTA.out
         ch_annotations = BAKTA.out.annotations
     } else {
         PROKKA(
@@ -184,7 +183,7 @@ workflow {
             params.prokka_proteins,
             params.prokka_prodigal_tf
         )
-        ch_annotation_sample_outputs = PROKKA.out.sample_outputs
+        ch_annotation_outputs = PROKKA.out
         ch_annotations = PROKKA.out.annotations
     }
 
@@ -201,33 +200,32 @@ workflow {
         params.spatyper_repeat_order
     )
 
-    // Collect all sample-level outputs
+    // Collect all outputs
     ch_sample_outputs = GATHER.out.sample_outputs
         .mix(QC.out.sample_outputs)
         .mix(ASSEMBLER.out.sample_outputs)
         .mix(SKETCHER.out.sample_outputs)
-        .mix(ch_annotation_sample_outputs)
+        .mix(ch_annotation_outputs.sample_outputs)
         .mix(AMRFINDERPLUS.out.sample_outputs)
         .mix(MLST.out.sample_outputs)
         .mix(STAPHTYPER.out.sample_outputs)
 
-    // Collect all run-level outputs (only subworkflows that have them)
     ch_run_outputs = GATHER.out.run_outputs
+        .mix(QC.out.run_outputs)
         .mix(ASSEMBLER.out.run_outputs)
+        .mix(SKETCHER.out.run_outputs)
+        .mix(ch_annotation_outputs.run_outputs)
         .mix(AMRFINDERPLUS.out.run_outputs)
         .mix(MLST.out.run_outputs)
         .mix(STAPHTYPER.out.run_outputs)
 
-    ch_sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(ch_run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = ch_sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(ch_sample_outputs)
+    // Run-level
     run_outputs = ch_run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(ch_run_outputs)
 }
 
 output {

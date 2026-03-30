@@ -63,8 +63,12 @@ workflow CLONALFRAMEML {
     })
 
     emit:
+    // Downstream inputs
+    msa = CLONALFRAMEML_MODULE.out.map { r ->
+        record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.masked_aln)
+    }
     // Published outputs
     sample_outputs = CLONALFRAMEML_MODULE.out
-    iqtree_outputs = IQTREE.out.sample_outputs
+    run_outputs = channel.empty()
     snpdists_outputs = SNPDISTS.out.sample_outputs
 }

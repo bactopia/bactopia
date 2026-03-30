@@ -42,7 +42,7 @@
 nextflow.preview.types = true
 
 params {
-    rundir   : String
+    rundir : String
 
     // Tool-specific parameters
     gtdb                 : Path
@@ -50,9 +50,8 @@ params {
     gtdb_save_as_tarball : Boolean
 }
 
-include { BACTOPIATOOL_INIT } from '../../../subworkflows/utils/bactopia-tools/main'
-include { GTDB              } from '../../../subworkflows/gtdb/main'
-
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { GTDB                } from '../../../subworkflows/gtdb/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -65,26 +64,22 @@ workflow {
         params.gtdb_save_as_tarball
     )
 
-    ch_sample_nf_logs = collectNextflowLogs(GTDB.out.sample_outputs)
-    ch_run_nf_logs = collectNextflowLogs(GTDB.out.run_outputs)
-
     publish:
-    // Per-sample records (scope: sample)
+    // Per-sample
     sample_outputs = GTDB.out.sample_outputs
-    sample_nf_logs = ch_sample_nf_logs
-    // Run-level records (scope: run)
+    sample_nf_logs = collectNextflowLogs(GTDB.out.sample_outputs)
+    // Run-level
     run_outputs = GTDB.out.run_outputs
-    run_nf_logs = ch_run_nf_logs
+    run_nf_logs = collectNextflowLogs(GTDB.out.run_outputs)
 }
 
 output {
     // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
     sample_outputs {
         path { r ->
-            r.results      >> "${r.meta.output_dir}/"
-            r.supplemental >> "${r.meta.output_dir}/"
-            r.logs         >> "${r.meta.logs_dir}/"
-            r.versions     >> "${r.meta.logs_dir}/"
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
         }
     }
     sample_nf_logs {
