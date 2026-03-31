@@ -54,7 +54,7 @@ process BAKTA_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path): Record
+    (meta: Map, fna: Path): Record
     db         : Path
     proteins   : Path?
     prodigal_tf: Path?
@@ -94,6 +94,7 @@ process BAKTA_RUN {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

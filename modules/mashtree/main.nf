@@ -30,7 +30,7 @@ process MASHTREE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Set<Path>): Record
+    (meta: Map, fna: Set<Path>): Record
 
     output:
     record(
@@ -51,6 +51,7 @@ process MASHTREE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

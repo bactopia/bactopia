@@ -14,7 +14,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_900478275"],
+                        meta: [name: "GCF_900478275"],
                         gbff: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/annotator/prokka/GCF_900478275.gbk.gz")
                     )
                 )

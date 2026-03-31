@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_002285535"],
+                        meta: [name: "GCF_002285535"],
                         fna: file("${params.test_data_dir}/species/streptococcus_suis/uncompressed/GCF_002285535/main/assembler/GCF_002285535.fna")
                     )
                 )
@@ -44,7 +44,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_002285535"],
+                        meta: [name: "GCF_002285535"],
                         fna: file("${params.test_data_dir}/species/streptococcus_suis/compressed/GCF_002285535/main/assembler/GCF_002285535.fna.gz")
                     )
                 )

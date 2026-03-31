@@ -49,7 +49,7 @@ process ASSEMBLER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
+    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
 
     stage:
     stageAs 'input-assembly/*', fna
@@ -77,6 +77,7 @@ process ASSEMBLER {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

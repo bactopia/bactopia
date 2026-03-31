@@ -56,7 +56,7 @@ process SNIPPY_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?): Record
+    (meta: Map, r1: Path?, r2: Path?, se: Path?): Record
     reference: Path
 
     output:
@@ -114,6 +114,7 @@ process SNIPPY_RUN {
     )
 
     script:
+    def _meta = meta
     reference_name = reference.getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.name}"
 

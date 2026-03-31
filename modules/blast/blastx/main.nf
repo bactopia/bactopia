@@ -30,7 +30,7 @@ process BLAST_BLASTX {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, blastdb: Path): Record
+    (meta: Map, blastdb: Path): Record
     query: Path
 
     output:
@@ -48,6 +48,7 @@ process BLAST_BLASTX {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

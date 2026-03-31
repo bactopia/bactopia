@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "test", process_name: "iqtree"],
+                        meta: [name: "test", process_name: "iqtree"],
                         aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
                     )
                 )
@@ -43,7 +43,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "test", process_name: "iqtree-fast"],
+                        meta: [name: "test", process_name: "iqtree-fast"],
                         aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
                     )
                 )

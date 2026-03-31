@@ -36,7 +36,7 @@ process AMRFINDERPLUS_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path, faa: Path, gff: Path): Record
+    (meta: Map, fna: Path, faa: Path, gff: Path): Record
     db: Path
 
     stage:
@@ -61,6 +61,7 @@ process AMRFINDERPLUS_RUN {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

@@ -71,11 +71,10 @@
                 "versions.yml:md5,4a19310417d04abb9e1eeec05629f944",
                 "versions.yml:md5,c1294552ba205b057bd368875a4eac93",
                 "versions.yml:md5,84fa922dc8ecb987b4ee03caffd09c32",
-                "rgi-2.csv:md5,1b9fe3fe98225aa59891d4450619f9a4",
                 "rgi.tsv:md5,6dabb1f8c3cab56929ecab6236f6fa67"
             ]
         ],
-        "timestamp": "2026-03-31T16:34:50.420263904",
+        "timestamp": "2026-03-31T21:33:52.691065251",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -42,7 +42,7 @@ process SNIPPY_CORE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
+    (meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
     reference: Path
     mask: Path?
 
@@ -75,6 +75,7 @@ process SNIPPY_CORE {
     )
 
     script:
+    def _meta = meta
     reference_name = reference.getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.name}"
 

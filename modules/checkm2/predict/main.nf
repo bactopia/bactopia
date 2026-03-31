@@ -38,7 +38,7 @@ process CHECKM2_PREDICT {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path): Record
+    (meta: Map, fna: Path): Record
     db: Path
 
     output:
@@ -57,6 +57,7 @@ process CHECKM2_PREDICT {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

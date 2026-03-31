@@ -45,7 +45,7 @@ workflow GENOTYPHI {
     main:
     MYKROBE_PREDICT(reads, "typhi")
     GENOTYPHI_PARSE(MYKROBE_PREDICT.out.map { r ->
-        record(_meta: r.meta, json: r.json)
+        record(meta: r.meta, json: r.json)
     })
     CSVTK_CONCAT(gatherCsvtk(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
 

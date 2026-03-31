@@ -29,7 +29,7 @@ process BACTOPIA_SAMPLESHEET {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, classification: Path): Record
+    (meta: Map, classification: Path): Record
 
     output:
     record(
@@ -50,6 +50,7 @@ process BACTOPIA_SAMPLESHEET {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

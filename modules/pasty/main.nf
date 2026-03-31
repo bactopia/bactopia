@@ -29,7 +29,7 @@ process PASTY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path): Record
+    (meta: Map, fna: Path): Record
 
     output:
     record(
@@ -50,6 +50,7 @@ process PASTY {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

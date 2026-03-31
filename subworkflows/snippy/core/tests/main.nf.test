@@ -15,7 +15,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "snippy-core-test"],
+                        meta: [name: "snippy-core-test"],
                         _vcf: [
                             file("${params.test_data_dir}/datasets/snippy/test1.vcf.gz"),
                             file("${params.test_data_dir}/datasets/snippy/test2.vcf.gz"),

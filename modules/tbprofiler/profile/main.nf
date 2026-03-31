@@ -40,7 +40,7 @@ process TBPROFILER_PROFILE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 
     output:
     record(
@@ -62,6 +62,7 @@ process TBPROFILER_PROFILE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

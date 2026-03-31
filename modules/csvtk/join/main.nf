@@ -37,7 +37,7 @@ process CSVTK_JOIN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, csv1: Path, csv2: Path): Record
+    (meta: Map, csv1: Path, csv2: Path): Record
     in_format : String
     out_format: String
     key       : String
@@ -57,6 +57,7 @@ process CSVTK_JOIN {
     )
 
     script:
+    def _meta = meta
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     subdir = _meta.subdir ? "${_meta.subdir}/" : ''
     prefix = task.ext.prefix ?: "${_meta.name}"

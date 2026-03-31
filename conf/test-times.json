@@ -1,384 +1,388 @@
 {
   "_meta": {
-    "updated": "2026-03-29 14:48:50 UTC",
+    "updated": "2026-03-31 23:05:57 UTC",
     "source_run": "manual",
-    "total_components": 241
+    "total_components": 244
   },
   "components": {
     "modules/abricate_run": {
-      "expected_seconds": 36.6,
+      "expected_seconds": 24.0,
       "tolerance_factor": 2.0
     },
     "modules/abricate_summary": {
-      "expected_seconds": 49.6,
+      "expected_seconds": 20.9,
       "tolerance_factor": 2.0
     },
     "modules/abritamr_run": {
-      "expected_seconds": 330.1,
+      "expected_seconds": 428.5,
       "tolerance_factor": 2.0
     },
     "modules/agrvate": {
-      "expected_seconds": 64.5,
+      "expected_seconds": 34.0,
       "tolerance_factor": 2.0
     },
     "modules/amrfinderplus_run": {
-      "expected_seconds": 67.8,
+      "expected_seconds": 42.4,
       "tolerance_factor": 2.0
     },
     "modules/ariba_run": {
-      "expected_seconds": 67.0,
+      "expected_seconds": 57.9,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_assembler": {
-      "expected_seconds": 804.9,
+      "expected_seconds": 990.6,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_datasets": {
-      "expected_seconds": 21.9,
+      "expected_seconds": 17.0,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_gather": {
-      "expected_seconds": 165.0,
+      "expected_seconds": 209.0,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_qc": {
-      "expected_seconds": 236.1,
+      "expected_seconds": 298.3,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_sketcher": {
-      "expected_seconds": 194.3,
+      "expected_seconds": 219.7,
       "tolerance_factor": 2.0
     },
     "modules/bactopia_teton": {
-      "expected_seconds": 61.5,
+      "expected_seconds": 45.3,
       "tolerance_factor": 2.0
     },
     "modules/bakta_run": {
-      "expected_seconds": 336.8,
+      "expected_seconds": 419.7,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastn": {
-      "expected_seconds": 46.5,
+      "expected_seconds": 20.2,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastp": {
-      "expected_seconds": 51.7,
+      "expected_seconds": 21.6,
       "tolerance_factor": 2.0
     },
     "modules/blast_blastx": {
-      "expected_seconds": 45.7,
+      "expected_seconds": 33.4,
       "tolerance_factor": 2.0
     },
     "modules/blast_tblastn": {
-      "expected_seconds": 51.6,
+      "expected_seconds": 21.0,
       "tolerance_factor": 2.0
     },
     "modules/blast_tblastx": {
-      "expected_seconds": 35.4,
+      "expected_seconds": 18.9,
       "tolerance_factor": 2.0
     },
     "modules/bracken": {
-      "expected_seconds": 230.9,
+      "expected_seconds": 281.0,
       "tolerance_factor": 2.0
     },
     "modules/btyper3": {
-      "expected_seconds": 196.6,
+      "expected_seconds": 244.4,
       "tolerance_factor": 2.0
     },
     "modules/busco": {
-      "expected_seconds": 102.4,
+      "expected_seconds": 118.0,
       "tolerance_factor": 2.0
     },
     "modules/checkm2_predict": {
-      "expected_seconds": 441.9,
+      "expected_seconds": 562.3,
       "tolerance_factor": 2.0
     },
     "modules/checkm_lineagewf": {
-      "expected_seconds": 474.2,
+      "expected_seconds": 596.1,
       "tolerance_factor": 2.0
     },
     "modules/clermontyping": {
-      "expected_seconds": 82.8,
+      "expected_seconds": 90.1,
       "tolerance_factor": 2.0
     },
     "modules/clonalframeml": {
-      "expected_seconds": 153.8,
+      "expected_seconds": 181.4,
       "tolerance_factor": 2.0
     },
     "modules/csvtk_concat": {
-      "expected_seconds": 56.1,
+      "expected_seconds": 40.5,
       "tolerance_factor": 2.0
     },
     "modules/csvtk_join": {
-      "expected_seconds": 59.9,
+      "expected_seconds": 36.2,
       "tolerance_factor": 2.0
     },
     "modules/defensefinder_run": {
-      "expected_seconds": 63.5,
+      "expected_seconds": 61.4,
       "tolerance_factor": 2.0
     },
     "modules/defensefinder_update": {
-      "expected_seconds": 54.6,
+      "expected_seconds": 36.3,
       "tolerance_factor": 2.0
     },
     "modules/ectyper": {
-      "expected_seconds": 88.6,
+      "expected_seconds": 87.0,
       "tolerance_factor": 2.0
     },
     "modules/eggnog_mapper": {
-      "expected_seconds": 791.9,
+      "expected_seconds": 957.2,
       "tolerance_factor": 2.0
     },
     "modules/emmtyper": {
-      "expected_seconds": 70.0,
+      "expected_seconds": 64.4,
       "tolerance_factor": 2.0
     },
     "modules/fastani": {
-      "expected_seconds": 58.7,
+      "expected_seconds": 44.5,
       "tolerance_factor": 2.0
     },
     "modules/gamma": {
-      "expected_seconds": 62.2,
+      "expected_seconds": 39.2,
       "tolerance_factor": 2.0
     },
     "modules/genotyphi_parse": {
-      "expected_seconds": 30.0,
+      "expected_seconds": 29.9,
       "tolerance_factor": 2.0
     },
     "modules/gtdbtk_classifywf": {
-      "expected_seconds": 1428.2,
+      "expected_seconds": 1608.3,
       "tolerance_factor": 2.0
     },
     "modules/gubbins": {
-      "expected_seconds": 93.4,
+      "expected_seconds": 78.0,
       "tolerance_factor": 2.0
     },
     "modules/hicap": {
-      "expected_seconds": 147.2,
+      "expected_seconds": 160.5,
       "tolerance_factor": 2.0
     },
     "modules/hpsuissero": {
-      "expected_seconds": 56.3,
+      "expected_seconds": 36.5,
       "tolerance_factor": 2.0
     },
     "modules/iqtree": {
-      "expected_seconds": 59.8,
+      "expected_seconds": 44.5,
       "tolerance_factor": 2.0
     },
     "modules/ismapper": {
-      "expected_seconds": 89.0,
+      "expected_seconds": 82.6,
       "tolerance_factor": 2.0
     },
     "modules/kleborate": {
-      "expected_seconds": 59.6,
+      "expected_seconds": 58.1,
       "tolerance_factor": 2.0
     },
     "modules/kraken2": {
-      "expected_seconds": 227.8,
+      "expected_seconds": 276.3,
       "tolerance_factor": 2.0
     },
     "modules/legsta": {
-      "expected_seconds": 53.6,
+      "expected_seconds": 20.9,
       "tolerance_factor": 2.0
     },
     "modules/lissero": {
-      "expected_seconds": 60.9,
+      "expected_seconds": 38.2,
       "tolerance_factor": 2.0
     },
     "modules/mash_dist": {
-      "expected_seconds": 61.2,
+      "expected_seconds": 40.7,
       "tolerance_factor": 2.0
     },
     "modules/mashtree": {
-      "expected_seconds": 29.3,
+      "expected_seconds": 23.0,
       "tolerance_factor": 2.0
     },
     "modules/mcroni": {
-      "expected_seconds": 63.1,
+      "expected_seconds": 43.5,
       "tolerance_factor": 2.0
     },
     "modules/meningotype": {
-      "expected_seconds": 58.2,
+      "expected_seconds": 39.8,
       "tolerance_factor": 2.0
     },
     "modules/merlin_dist": {
-      "expected_seconds": 151.1,
+      "expected_seconds": 192.3,
       "tolerance_factor": 2.0
     },
     "modules/midas_species": {
-      "expected_seconds": 347.4,
+      "expected_seconds": 461.1,
       "tolerance_factor": 2.0
     },
     "modules/mlst": {
-      "expected_seconds": 31.2,
+      "expected_seconds": 35.7,
       "tolerance_factor": 2.0
     },
     "modules/mobsuite_recon": {
-      "expected_seconds": 163.3,
+      "expected_seconds": 197.6,
       "tolerance_factor": 2.0
     },
     "modules/mykrobe_predict": {
-      "expected_seconds": 32.5,
+      "expected_seconds": 32.3,
       "tolerance_factor": 2.0
     },
     "modules/ncbigenomedownload": {
-      "expected_seconds": 64.8,
+      "expected_seconds": 38.2,
       "tolerance_factor": 2.0
     },
     "modules/ngmaster": {
-      "expected_seconds": 75.3,
+      "expected_seconds": 61.3,
       "tolerance_factor": 2.0
     },
     "modules/nohuman_run": {
-      "expected_seconds": 702.0,
+      "expected_seconds": 856.7,
       "tolerance_factor": 2.0
     },
     "modules/panaroo_run": {
-      "expected_seconds": 127.9,
+      "expected_seconds": 136.8,
       "tolerance_factor": 2.0
     },
     "modules/pasty": {
-      "expected_seconds": 54.3,
+      "expected_seconds": 37.1,
       "tolerance_factor": 2.0
     },
     "modules/pbptyper": {
-      "expected_seconds": 77.4,
+      "expected_seconds": 60.6,
       "tolerance_factor": 2.0
     },
     "modules/phispy": {
-      "expected_seconds": 162.0,
+      "expected_seconds": 187.8,
       "tolerance_factor": 2.0
     },
     "modules/pirate": {
-      "expected_seconds": 166.5,
+      "expected_seconds": 211.1,
       "tolerance_factor": 2.0
     },
     "modules/plasmidfinder": {
-      "expected_seconds": 63.2,
+      "expected_seconds": 58.1,
       "tolerance_factor": 2.0
     },
     "modules/pneumocat": {
-      "expected_seconds": 34.2,
+      "expected_seconds": 42.6,
       "tolerance_factor": 2.0
     },
     "modules/prokka": {
-      "expected_seconds": 87.1,
+      "expected_seconds": 94.9,
       "tolerance_factor": 2.0
     },
     "modules/quast": {
-      "expected_seconds": 86.4,
+      "expected_seconds": 70.7,
       "tolerance_factor": 2.0
     },
     "modules/rgi_heatmap": {
-      "expected_seconds": 69.1,
+      "expected_seconds": 32.9,
       "tolerance_factor": 2.0
     },
     "modules/rgi_main": {
-      "expected_seconds": 154.4,
+      "expected_seconds": 166.3,
       "tolerance_factor": 2.0
     },
     "modules/roary": {
-      "expected_seconds": 107.2,
+      "expected_seconds": 119.0,
       "tolerance_factor": 2.0
     },
     "modules/sccmec": {
-      "expected_seconds": 64.6,
+      "expected_seconds": 47.7,
       "tolerance_factor": 2.0
     },
     "modules/scoary": {
-      "expected_seconds": 50.8,
+      "expected_seconds": 22.8,
       "tolerance_factor": 2.0
     },
     "modules/seqsero2": {
-      "expected_seconds": 65.1,
+      "expected_seconds": 41.6,
       "tolerance_factor": 2.0
     },
     "modules/seroba_run": {
-      "expected_seconds": 65.0,
+      "expected_seconds": 55.9,
       "tolerance_factor": 2.0
     },
     "modules/shigapass": {
-      "expected_seconds": 79.2,
+      "expected_seconds": 65.7,
       "tolerance_factor": 2.0
     },
     "modules/shigatyper": {
-      "expected_seconds": 42.2,
+      "expected_seconds": 26.2,
       "tolerance_factor": 2.0
     },
     "modules/shigeifinder": {
-      "expected_seconds": 55.7,
+      "expected_seconds": 36.7,
       "tolerance_factor": 2.0
     },
     "modules/sistr": {
-      "expected_seconds": 86.3,
+      "expected_seconds": 96.6,
       "tolerance_factor": 2.0
     },
     "modules/snippy_core": {
-      "expected_seconds": 42.9,
+      "expected_seconds": 24.1,
       "tolerance_factor": 2.0
     },
     "modules/snippy_run": {
-      "expected_seconds": 84.3,
+      "expected_seconds": 80.2,
       "tolerance_factor": 2.0
     },
     "modules/snpdists": {
-      "expected_seconds": 53.4,
+      "expected_seconds": 19.4,
       "tolerance_factor": 2.0
     },
     "modules/spatyper": {
-      "expected_seconds": 67.5,
+      "expected_seconds": 47.1,
       "tolerance_factor": 2.0
     },
     "modules/srahumanscrubber_scrub": {
-      "expected_seconds": 143.2,
+      "expected_seconds": 149.6,
       "tolerance_factor": 2.0
     },
     "modules/ssuissero": {
-      "expected_seconds": 58.8,
+      "expected_seconds": 37.5,
       "tolerance_factor": 2.0
     },
     "modules/staphopiasccmec": {
-      "expected_seconds": 55.5,
+      "expected_seconds": 36.2,
       "tolerance_factor": 2.0
     },
     "modules/stecfinder": {
-      "expected_seconds": 73.2,
+      "expected_seconds": 61.2,
       "tolerance_factor": 2.0
     },
     "modules/sylph_profile": {
-      "expected_seconds": 149.9,
+      "expected_seconds": 152.0,
       "tolerance_factor": 2.0
     },
     "modules/tbprofiler_collate": {
-      "expected_seconds": 58.5,
+      "expected_seconds": 29.9,
       "tolerance_factor": 2.0
     },
     "modules/tbprofiler_profile": {
-      "expected_seconds": 162.1,
+      "expected_seconds": 209.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/abricate": {
-      "expected_seconds": 147.8,
+      "expected_seconds": 25.1,
       "tolerance_factor": 2.0
     },
     "subworkflows/abritamr": {
-      "expected_seconds": 266.0,
+      "expected_seconds": 242.9,
       "tolerance_factor": 2.0
     },
     "subworkflows/agrvate": {
-      "expected_seconds": 163.0,
+      "expected_seconds": 23.9,
       "tolerance_factor": 2.0
     },
     "subworkflows/amrfinderplus": {
-      "expected_seconds": 154.8,
+      "expected_seconds": 34.8,
       "tolerance_factor": 2.0
     },
     "subworkflows/ariba": {
-      "expected_seconds": 269.6,
+      "expected_seconds": 410.0,
       "tolerance_factor": 2.0
     },
     "subworkflows/bactopia_assembler": {
-      "expected_seconds": 248.5,
+      "expected_seconds": 158.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/bactopia_datasets": {
+      "expected_seconds": 18.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/bactopia_gather": {
@@ -386,587 +390,595 @@
       "tolerance_factor": 2.0
     },
     "subworkflows/bactopia_qc": {
-      "expected_seconds": 114.7,
+      "expected_seconds": 61.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/bactopia_sketcher": {
-      "expected_seconds": 155.3,
+      "expected_seconds": 100.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/bakta": {
-      "expected_seconds": 299.8,
+      "expected_seconds": 273.8,
       "tolerance_factor": 2.0
     },
     "subworkflows/blastn": {
-      "expected_seconds": 165.1,
+      "expected_seconds": 30.8,
       "tolerance_factor": 2.0
     },
     "subworkflows/blastp": {
-      "expected_seconds": 172.8,
+      "expected_seconds": 31.9,
       "tolerance_factor": 2.0
     },
     "subworkflows/blastx": {
-      "expected_seconds": 176.6,
+      "expected_seconds": 31.1,
       "tolerance_factor": 2.0
     },
     "subworkflows/bracken": {
-      "expected_seconds": 161.0,
+      "expected_seconds": 68.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/btyper3": {
-      "expected_seconds": 189.9,
+      "expected_seconds": 136.9,
       "tolerance_factor": 2.0
     },
     "subworkflows/busco": {
-      "expected_seconds": 161.0,
+      "expected_seconds": 60.3,
       "tolerance_factor": 2.0
     },
     "subworkflows/checkm": {
-      "expected_seconds": 550.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/checkm2": {
-      "expected_seconds": 350.0,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/clermontyping": {
-      "expected_seconds": 152.9,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/clonalframeml": {
-      "expected_seconds": 210.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/defensefinder": {
-      "expected_seconds": 201.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ectyper": {
-      "expected_seconds": 158.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/eggnog": {
-      "expected_seconds": 840.4,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/emmtyper": {
-      "expected_seconds": 164.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/fastani": {
-      "expected_seconds": 159.6,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/gamma": {
-      "expected_seconds": 159.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/genotyphi": {
-      "expected_seconds": 180.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/gtdb": {
-      "expected_seconds": 1684.9,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/gubbins": {
-      "expected_seconds": 162.0,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/hicap": {
-      "expected_seconds": 176.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/hpsuissero": {
-      "expected_seconds": 174.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/iqtree": {
-      "expected_seconds": 99.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ismapper": {
-      "expected_seconds": 97.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/kleborate": {
-      "expected_seconds": 169.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/kraken2": {
-      "expected_seconds": 124.9,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/legsta": {
-      "expected_seconds": 173.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/lissero": {
-      "expected_seconds": 149.9,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mashdist": {
-      "expected_seconds": 106.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mashtree": {
-      "expected_seconds": 89.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mcroni": {
-      "expected_seconds": 162.6,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/meningotype": {
-      "expected_seconds": 174.4,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/merlin": {
-      "expected_seconds": 214.0,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/merlindist": {
-      "expected_seconds": 104.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/midas": {
-      "expected_seconds": 464.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mlst": {
-      "expected_seconds": 151.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mobsuite": {
-      "expected_seconds": 180.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/mykrobe": {
-      "expected_seconds": 163.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ncbigenomedownload": {
-      "expected_seconds": 109.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ngmaster": {
-      "expected_seconds": 153.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/nohuman": {
-      "expected_seconds": 267.0,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/panaroo": {
-      "expected_seconds": 224.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/pangenome": {
-      "expected_seconds": 217.6,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/pasty": {
-      "expected_seconds": 171.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/pbptyper": {
-      "expected_seconds": 178.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/phispy": {
-      "expected_seconds": 247.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/pirate": {
-      "expected_seconds": 245.6,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/plasmidfinder": {
-      "expected_seconds": 171.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/pneumocat": {
-      "expected_seconds": 113.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/prokka": {
-      "expected_seconds": 118.6,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/quast": {
-      "expected_seconds": 156.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/rgi": {
-      "expected_seconds": 184.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/roary": {
-      "expected_seconds": 206.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/sccmec": {
-      "expected_seconds": 146.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/scoary": {
-      "expected_seconds": 143.2,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/scrubber": {
-      "expected_seconds": 345.7,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/seqsero2": {
-      "expected_seconds": 165.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/seroba": {
-      "expected_seconds": 175.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/shigapass": {
-      "expected_seconds": 161.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/shigatyper": {
-      "expected_seconds": 151.4,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/shigeifinder": {
-      "expected_seconds": 170.2,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/sistr": {
-      "expected_seconds": 166.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/snippy_core": {
-      "expected_seconds": 169.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/snippy_run": {
-      "expected_seconds": 173.9,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/snpdists": {
-      "expected_seconds": 74.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/spatyper": {
-      "expected_seconds": 149.8,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/srahumanscrubber": {
-      "expected_seconds": 191.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ssuissero": {
-      "expected_seconds": 176.2,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/staphopiasccmec": {
-      "expected_seconds": 168.3,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/staphtyper": {
-      "expected_seconds": 172.1,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/stecfinder": {
       "expected_seconds": 171.0,
       "tolerance_factor": 2.0
     },
+    "subworkflows/checkm2": {
+      "expected_seconds": 310.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/clermontyping": {
+      "expected_seconds": 54.4,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/clonalframeml": {
+      "expected_seconds": 105.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/defensefinder": {
+      "expected_seconds": 92.0,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/ectyper": {
+      "expected_seconds": 56.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/eggnog": {
+      "expected_seconds": 775.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/emmtyper": {
+      "expected_seconds": 31.8,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/fastani": {
+      "expected_seconds": 31.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/gamma": {
+      "expected_seconds": 29.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/genotyphi": {
+      "expected_seconds": 37.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/gtdb": {
+      "expected_seconds": 1567.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/gubbins": {
+      "expected_seconds": 49.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/hicap": {
+      "expected_seconds": 56.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/hpsuissero": {
+      "expected_seconds": 29.8,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/iqtree": {
+      "expected_seconds": 33.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/ismapper": {
+      "expected_seconds": 104.0,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/kleborate": {
+      "expected_seconds": 61.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/kraken2": {
+      "expected_seconds": 57.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/legsta": {
+      "expected_seconds": 31.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/lissero": {
+      "expected_seconds": 31.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mashdist": {
+      "expected_seconds": 25.8,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mashtree": {
+      "expected_seconds": 25.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mcroni": {
+      "expected_seconds": 26.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/meningotype": {
+      "expected_seconds": 26.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/merlin": {
+      "expected_seconds": 120.4,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/merlindist": {
+      "expected_seconds": 95.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/midas": {
+      "expected_seconds": 387.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mlst": {
+      "expected_seconds": 31.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mobsuite": {
+      "expected_seconds": 112.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/mykrobe": {
+      "expected_seconds": 30.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/ncbigenomedownload": {
+      "expected_seconds": 41.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/ngmaster": {
+      "expected_seconds": 43.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/nohuman": {
+      "expected_seconds": 287.3,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/panaroo": {
+      "expected_seconds": 131.0,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/pangenome": {
+      "expected_seconds": 133.0,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/pasty": {
+      "expected_seconds": 33.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/pbptyper": {
+      "expected_seconds": 62.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/phispy": {
+      "expected_seconds": 186.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/pirate": {
+      "expected_seconds": 196.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/plasmidfinder": {
+      "expected_seconds": 33.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/pneumocat": {
+      "expected_seconds": 56.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/prokka": {
+      "expected_seconds": 44.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/quast": {
+      "expected_seconds": 38.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/rgi": {
+      "expected_seconds": 106.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/roary": {
+      "expected_seconds": 116.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/sccmec": {
+      "expected_seconds": 34.8,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/scoary": {
+      "expected_seconds": 28.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/scrubber": {
+      "expected_seconds": 283.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/seqsero2": {
+      "expected_seconds": 28.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/seroba": {
+      "expected_seconds": 87.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/shigapass": {
+      "expected_seconds": 37.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/shigatyper": {
+      "expected_seconds": 30.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/shigeifinder": {
+      "expected_seconds": 24.2,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/sistr": {
+      "expected_seconds": 49.4,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/snippy_core": {
+      "expected_seconds": 23.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/snippy_run": {
+      "expected_seconds": 49.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/snpdists": {
+      "expected_seconds": 18.1,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/spatyper": {
+      "expected_seconds": 26.9,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/srahumanscrubber": {
+      "expected_seconds": 78.0,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/ssuissero": {
+      "expected_seconds": 20.5,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/staphopiasccmec": {
+      "expected_seconds": 21.6,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/staphtyper": {
+      "expected_seconds": 28.7,
+      "tolerance_factor": 2.0
+    },
+    "subworkflows/stecfinder": {
+      "expected_seconds": 20.4,
+      "tolerance_factor": 2.0
+    },
     "subworkflows/sylph": {
-      "expected_seconds": 167.6,
+      "expected_seconds": 91.5,
       "tolerance_factor": 2.0
     },
     "subworkflows/tblastn": {
-      "expected_seconds": 145.2,
+      "expected_seconds": 19.2,
       "tolerance_factor": 2.0
     },
     "subworkflows/tblastx": {
-      "expected_seconds": 165.6,
+      "expected_seconds": 20.7,
       "tolerance_factor": 2.0
     },
     "subworkflows/tbprofiler": {
-      "expected_seconds": 184.8,
+      "expected_seconds": 76.5,
       "tolerance_factor": 2.0
     },
     "subworkflows/teton": {
-      "expected_seconds": 529.7,
+      "expected_seconds": 534.8,
       "tolerance_factor": 2.0
     },
     "workflows/abricate": {
-      "expected_seconds": 62.5,
+      "expected_seconds": 33.7,
       "tolerance_factor": 2.0
     },
     "workflows/abritamr": {
-      "expected_seconds": 65.3,
+      "expected_seconds": 140.0,
       "tolerance_factor": 2.0
     },
     "workflows/agrvate": {
-      "expected_seconds": 72.0,
+      "expected_seconds": 60.7,
       "tolerance_factor": 2.0
     },
     "workflows/amrfinderplus": {
-      "expected_seconds": 58.4,
+      "expected_seconds": 76.4,
       "tolerance_factor": 2.0
     },
     "workflows/ariba": {
-      "expected_seconds": 62.7,
-      "tolerance_factor": 2.0
-    },
-    "workflows/bakta": {
-      "expected_seconds": 74.6,
-      "tolerance_factor": 2.0
-    },
-    "workflows/blastn": {
-      "expected_seconds": 87.9,
-      "tolerance_factor": 2.0
-    },
-    "workflows/blastp": {
-      "expected_seconds": 86.7,
-      "tolerance_factor": 2.0
-    },
-    "workflows/blastx": {
-      "expected_seconds": 87.3,
-      "tolerance_factor": 2.0
-    },
-    "workflows/bracken": {
-      "expected_seconds": 75.1,
-      "tolerance_factor": 2.0
-    },
-    "workflows/btyper3": {
-      "expected_seconds": 65.7,
-      "tolerance_factor": 2.0
-    },
-    "workflows/busco": {
-      "expected_seconds": 56.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/checkm": {
-      "expected_seconds": 67.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/checkm2": {
-      "expected_seconds": 62.8,
-      "tolerance_factor": 2.0
-    },
-    "workflows/cleanyerreads": {
-      "expected_seconds": 49.8,
-      "tolerance_factor": 2.0
-    },
-    "workflows/clermontyping": {
-      "expected_seconds": 64.1,
-      "tolerance_factor": 2.0
-    },
-    "workflows/defensefinder": {
-      "expected_seconds": 61.5,
-      "tolerance_factor": 2.0
-    },
-    "workflows/ectyper": {
-      "expected_seconds": 64.2,
-      "tolerance_factor": 2.0
-    },
-    "workflows/eggnog": {
-      "expected_seconds": 60.4,
-      "tolerance_factor": 2.0
-    },
-    "workflows/emmtyper": {
-      "expected_seconds": 73.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/fastani": {
-      "expected_seconds": 87.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/gamma": {
-      "expected_seconds": 62.6,
-      "tolerance_factor": 2.0
-    },
-    "workflows/genotyphi": {
-      "expected_seconds": 63.9,
-      "tolerance_factor": 2.0
-    },
-    "workflows/gtdb": {
-      "expected_seconds": 62.3,
-      "tolerance_factor": 2.0
-    },
-    "workflows/hicap": {
-      "expected_seconds": 55.5,
-      "tolerance_factor": 2.0
-    },
-    "workflows/hpsuissero": {
-      "expected_seconds": 57.9,
-      "tolerance_factor": 2.0
-    },
-    "workflows/ismapper": {
-      "expected_seconds": 61.8,
-      "tolerance_factor": 2.0
-    },
-    "workflows/kleborate": {
-      "expected_seconds": 62.7,
-      "tolerance_factor": 2.0
-    },
-    "workflows/kraken2": {
-      "expected_seconds": 74.8,
-      "tolerance_factor": 2.0
-    },
-    "workflows/legsta": {
-      "expected_seconds": 61.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/lissero": {
-      "expected_seconds": 67.2,
-      "tolerance_factor": 2.0
-    },
-    "workflows/mashdist": {
-      "expected_seconds": 62.0,
-      "tolerance_factor": 2.0
-    },
-    "workflows/mashtree": {
       "expected_seconds": 62.5,
       "tolerance_factor": 2.0
     },
-    "workflows/mcroni": {
-      "expected_seconds": 65.3,
+    "workflows/bactopia": {
+      "expected_seconds": 1517.4,
       "tolerance_factor": 2.0
     },
-    "workflows/meningotype": {
-      "expected_seconds": 61.7,
+    "workflows/bakta": {
+      "expected_seconds": 349.3,
       "tolerance_factor": 2.0
     },
-    "workflows/merlin": {
-      "expected_seconds": 80.8,
+    "workflows/blastn": {
+      "expected_seconds": 86.4,
       "tolerance_factor": 2.0
     },
-    "workflows/midas": {
-      "expected_seconds": 72.6,
+    "workflows/blastp": {
+      "expected_seconds": 86.4,
       "tolerance_factor": 2.0
     },
-    "workflows/mlst": {
-      "expected_seconds": 63.8,
+    "workflows/blastx": {
+      "expected_seconds": 85.8,
       "tolerance_factor": 2.0
     },
-    "workflows/mobsuite": {
-      "expected_seconds": 60.0,
+    "workflows/bracken": {
+      "expected_seconds": 672.5,
       "tolerance_factor": 2.0
     },
-    "workflows/mykrobe": {
-      "expected_seconds": 62.2,
+    "workflows/btyper3": {
+      "expected_seconds": 137.8,
       "tolerance_factor": 2.0
     },
-    "workflows/ngmaster": {
-      "expected_seconds": 63.8,
+    "workflows/busco": {
+      "expected_seconds": 72.5,
       "tolerance_factor": 2.0
     },
-    "workflows/pangenome": {
-      "expected_seconds": 127.5,
+    "workflows/checkm": {
+      "expected_seconds": 155.7,
       "tolerance_factor": 2.0
     },
-    "workflows/pasty": {
-      "expected_seconds": 62.3,
+    "workflows/checkm2": {
+      "expected_seconds": 262.1,
       "tolerance_factor": 2.0
     },
-    "workflows/pbptyper": {
-      "expected_seconds": 62.2,
+    "workflows/cleanyerreads": {
+      "expected_seconds": 107.5,
       "tolerance_factor": 2.0
     },
-    "workflows/phispy": {
-      "expected_seconds": 64.8,
-      "tolerance_factor": 2.0
-    },
-    "workflows/plasmidfinder": {
-      "expected_seconds": 57.4,
-      "tolerance_factor": 2.0
-    },
-    "workflows/pneumocat": {
-      "expected_seconds": 66.5,
-      "tolerance_factor": 2.0
-    },
-    "workflows/prokka": {
-      "expected_seconds": 37.3,
-      "tolerance_factor": 2.0
-    },
-    "workflows/quast": {
-      "expected_seconds": 64.9,
-      "tolerance_factor": 2.0
-    },
-    "workflows/rgi": {
-      "expected_seconds": 63.7,
-      "tolerance_factor": 2.0
-    },
-    "workflows/sccmec": {
-      "expected_seconds": 74.2,
-      "tolerance_factor": 2.0
-    },
-    "workflows/scrubber": {
-      "expected_seconds": 58.4,
-      "tolerance_factor": 2.0
-    },
-    "workflows/seqsero2": {
+    "workflows/clermontyping": {
       "expected_seconds": 63.5,
       "tolerance_factor": 2.0
     },
+    "workflows/defensefinder": {
+      "expected_seconds": 62.7,
+      "tolerance_factor": 2.0
+    },
+    "workflows/ectyper": {
+      "expected_seconds": 60.4,
+      "tolerance_factor": 2.0
+    },
+    "workflows/eggnog": {
+      "expected_seconds": 359.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/emmtyper": {
+      "expected_seconds": 63.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/fastani": {
+      "expected_seconds": 103.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/gamma": {
+      "expected_seconds": 36.7,
+      "tolerance_factor": 2.0
+    },
+    "workflows/genotyphi": {
+      "expected_seconds": 42.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/gtdb": {
+      "expected_seconds": 751.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/hicap": {
+      "expected_seconds": 52.3,
+      "tolerance_factor": 2.0
+    },
+    "workflows/hpsuissero": {
+      "expected_seconds": 34.2,
+      "tolerance_factor": 2.0
+    },
+    "workflows/ismapper": {
+      "expected_seconds": 76.9,
+      "tolerance_factor": 2.0
+    },
+    "workflows/kleborate": {
+      "expected_seconds": 58.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/kraken2": {
+      "expected_seconds": 314.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/legsta": {
+      "expected_seconds": 29.9,
+      "tolerance_factor": 2.0
+    },
+    "workflows/lissero": {
+      "expected_seconds": 29.3,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mashdist": {
+      "expected_seconds": 27.7,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mashtree": {
+      "expected_seconds": 27.4,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mcroni": {
+      "expected_seconds": 27.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/meningotype": {
+      "expected_seconds": 27.2,
+      "tolerance_factor": 2.0
+    },
+    "workflows/merlin": {
+      "expected_seconds": 221.9,
+      "tolerance_factor": 2.0
+    },
+    "workflows/midas": {
+      "expected_seconds": 118.9,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mlst": {
+      "expected_seconds": 32.2,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mobsuite": {
+      "expected_seconds": 77.3,
+      "tolerance_factor": 2.0
+    },
+    "workflows/mykrobe": {
+      "expected_seconds": 29.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/ngmaster": {
+      "expected_seconds": 40.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/pangenome": {
+      "expected_seconds": 454.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/pasty": {
+      "expected_seconds": 30.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/pbptyper": {
+      "expected_seconds": 59.4,
+      "tolerance_factor": 2.0
+    },
+    "workflows/phispy": {
+      "expected_seconds": 103.7,
+      "tolerance_factor": 2.0
+    },
+    "workflows/plasmidfinder": {
+      "expected_seconds": 33.2,
+      "tolerance_factor": 2.0
+    },
+    "workflows/pneumocat": {
+      "expected_seconds": 31.5,
+      "tolerance_factor": 2.0
+    },
+    "workflows/prokka": {
+      "expected_seconds": 39.0,
+      "tolerance_factor": 2.0
+    },
+    "workflows/quast": {
+      "expected_seconds": 36.8,
+      "tolerance_factor": 2.0
+    },
+    "workflows/rgi": {
+      "expected_seconds": 81.6,
+      "tolerance_factor": 2.0
+    },
+    "workflows/sccmec": {
+      "expected_seconds": 61.2,
+      "tolerance_factor": 2.0
+    },
+    "workflows/scrubber": {
+      "expected_seconds": 282.7,
+      "tolerance_factor": 2.0
+    },
+    "workflows/seqsero2": {
+      "expected_seconds": 28.4,
+      "tolerance_factor": 2.0
+    },
     "workflows/seroba": {
-      "expected_seconds": 64.4,
+      "expected_seconds": 58.2,
       "tolerance_factor": 2.0
     },
     "workflows/shigapass": {
-      "expected_seconds": 62.8,
+      "expected_seconds": 36.5,
       "tolerance_factor": 2.0
     },
     "workflows/shigatyper": {
-      "expected_seconds": 63.6,
+      "expected_seconds": 33.0,
       "tolerance_factor": 2.0
     },
     "workflows/shigeifinder": {
-      "expected_seconds": 55.1,
+      "expected_seconds": 28.6,
       "tolerance_factor": 2.0
     },
     "workflows/sistr": {
-      "expected_seconds": 57.9,
+      "expected_seconds": 54.0,
       "tolerance_factor": 2.0
     },
     "workflows/snippy": {
-      "expected_seconds": 72.6,
+      "expected_seconds": 288.0,
       "tolerance_factor": 2.0
     },
     "workflows/spatyper": {
-      "expected_seconds": 74.2,
+      "expected_seconds": 60.3,
       "tolerance_factor": 2.0
     },
     "workflows/ssuissero": {
-      "expected_seconds": 63.4,
+      "expected_seconds": 29.0,
+      "tolerance_factor": 2.0
+    },
+    "workflows/staphopia": {
+      "expected_seconds": 296.1,
       "tolerance_factor": 2.0
     },
     "workflows/staphtyper": {
-      "expected_seconds": 55.5,
+      "expected_seconds": 34.3,
       "tolerance_factor": 2.0
     },
     "workflows/stecfinder": {
-      "expected_seconds": 62.2,
+      "expected_seconds": 29.9,
       "tolerance_factor": 2.0
     },
     "workflows/sylph": {
-      "expected_seconds": 65.0,
+      "expected_seconds": 79.4,
       "tolerance_factor": 2.0
     },
     "workflows/tblastn": {
-      "expected_seconds": 71.8,
+      "expected_seconds": 49.4,
       "tolerance_factor": 2.0
     },
     "workflows/tblastx": {
-      "expected_seconds": 84.6,
+      "expected_seconds": 68.0,
       "tolerance_factor": 2.0
     },
     "workflows/tbprofiler": {
-      "expected_seconds": 64.3,
+      "expected_seconds": 63.3,
       "tolerance_factor": 2.0
     },
     "workflows/teton": {
-      "expected_seconds": 27.8,
+      "expected_seconds": 497.9,
       "tolerance_factor": 2.0
     }
   }

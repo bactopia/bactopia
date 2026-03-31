@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "scoary"],
+                        meta: [name: "scoary"],
                         csv: file("${params.test_data_dir}/datasets/generic/genome/gene_presence_absence.csv")
                     )
                 )

@@ -16,7 +16,7 @@ nextflow_workflow {
                 // PE reads QC test
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "SRR2838702", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
                         se: null,

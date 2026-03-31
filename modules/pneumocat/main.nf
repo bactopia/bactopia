@@ -35,7 +35,7 @@ process PNEUMOCAT {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path, r2: Path): Record
+    (meta: Map, r1: Path, r2: Path): Record
 
     output:
     record(
@@ -54,6 +54,7 @@ process PNEUMOCAT {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

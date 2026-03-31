@@ -65,7 +65,7 @@ workflow TETON {
     BRACKEN(SCRUBBER.out.scrubbed, db)
 
     // Determine genome size and create sample sheet
-    ch_classification = BRACKEN.out.sample_outputs.map { r -> record(_meta: r.meta, classification: r.classification) }
+    ch_classification = BRACKEN.out.sample_outputs.map { r -> record(meta: r.meta, classification: r.classification) }
     BACTOPIA_SAMPLESHEET(ch_classification)
 
     // Join Scrubber and Bracken results

@@ -14,7 +14,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "portiera"],
+                        meta: [name: "portiera"],
                         aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
                     )
                 )

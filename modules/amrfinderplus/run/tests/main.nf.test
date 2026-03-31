@@ -15,7 +15,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702"],
+                        meta: [name: "SRR2838702"],
                         fna: file("${params.test_data_dir}/species/portiera/uncompressed/SRR2838702/main/annotator/prokka/SRR2838702.fna"),
                         faa: file("${params.test_data_dir}/species/portiera/uncompressed/SRR2838702/main/annotator/prokka/SRR2838702.faa"),
                         gff: file("${params.test_data_dir}/species/portiera/uncompressed/SRR2838702/main/annotator/prokka/SRR2838702.gff")
@@ -48,7 +48,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702"],
+                        meta: [name: "SRR2838702"],
                         fna: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702.fna.gz"),
                         faa: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702.faa.gz"),
                         gff: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702.gff.gz")

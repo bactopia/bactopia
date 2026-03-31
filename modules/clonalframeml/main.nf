@@ -35,7 +35,7 @@ process CLONALFRAMEML {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, aln: Path, nwk: Path): Record
+    (meta: Map, aln: Path, nwk: Path): Record
 
     output:
     record(
@@ -64,6 +64,7 @@ process CLONALFRAMEML {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

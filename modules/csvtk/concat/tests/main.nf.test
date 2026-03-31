@@ -28,7 +28,7 @@ nextflow_process {
 
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "concat-test", subdir: null, args: null],
+                        meta: [name: "concat-test", subdir: null, args: null],
                         csv: [tsv1, tsv2]
                     )
                 )
@@ -71,7 +71,7 @@ nextflow_process {
 
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "csv-to-tsv-test", subdir: null, args: null],
+                        meta: [name: "csv-to-tsv-test", subdir: null, args: null],
                         csv: [csv1, csv2]
                     )
                 )

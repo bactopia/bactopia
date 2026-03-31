@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_006364235"],
+                        meta: [name: "GCF_006364235"],
                         fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/uncompressed/GCF_006364235/main/assembler/GCF_006364235.fna")
                     )
                 )
@@ -45,7 +45,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_006364235"],
+                        meta: [name: "GCF_006364235"],
                         fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
                     )
                 )
@@ -76,7 +76,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_006364235"],
+                        meta: [name: "GCF_006364235"],
                         fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
                     )
                 )

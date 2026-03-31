@@ -26,7 +26,7 @@ process ABRICATE_SUMMARY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, reports: Set<Path>): Record
+    (meta: Map, reports: Set<Path>): Record
 
     output:
     record(
@@ -43,6 +43,7 @@ process ABRICATE_SUMMARY {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

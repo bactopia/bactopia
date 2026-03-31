@@ -3,3 +3,4 @@
 bactopia-runs/**/nf-reports/*.{dot,html}
 
 **/phispy.tsv
+**/tools/phispy/*.tsv

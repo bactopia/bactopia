@@ -47,7 +47,7 @@ workflow NCBIGENOMEDOWNLOAD {
     main:
     NCBIGENOMEDOWNLOAD_MODULE(accessions)
     ch_assemblies = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path ->
-        record(_meta: [id: file(path).getSimpleName()], fna: path)
+        record(meta: [id: file(path).getSimpleName()], fna: path)
     }
     ch_reference = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().first()
 

@@ -65,15 +65,15 @@ workflow PANGENOME {
     // SNP distances (panaroo uses filtered_aln, others use aln)
     SNPDISTS(ch_run_outputs.map { r ->
         def core_aln = use_pirate || use_roary ? r.aln : r.filtered_aln
-        record(_meta: [name: 'core-genome.distance', process_name: 'snpdists'], aln: core_aln)
+        record(meta: [name: 'core-genome.distance', process_name: 'snpdists'], aln: core_aln)
     })
 
     emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
     alignment = ch_run_outputs.map { r ->
-        record(_meta: r.meta, aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+        record(meta: r.meta, aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
     }
-    csv = ch_run_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
+    csv = ch_run_outputs.map { r -> record(meta: r.meta, csv: r.csv) }
     // Published outputs
     sample_outputs = channel.empty()
     run_outputs = ch_run_outputs.mix(SNPDISTS.out.run_outputs)

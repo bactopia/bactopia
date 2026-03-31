@@ -41,7 +41,7 @@ process ISMAPPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path, r2: Path): Record
+    (meta: Map, r1: Path, r2: Path): Record
     reference: Path
     query    : Path
 
@@ -59,6 +59,7 @@ process ISMAPPER {
     )
 
     script:
+    def _meta = meta
     def query_name = query.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"
 

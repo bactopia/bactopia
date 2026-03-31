@@ -27,7 +27,7 @@ process GENOTYPHI_PARSE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, json: Path): Record
+    (meta: Map, json: Path): Record
 
     output:
     record(
@@ -44,6 +44,7 @@ process GENOTYPHI_PARSE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

@@ -44,7 +44,7 @@ process PROKKA {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path): Record
+    (meta: Map, fna: Path): Record
     proteins   : Path?
     prodigal_tf: Path?
 
@@ -86,6 +86,7 @@ process PROKKA {
     )
 
     script:
+    def _meta = meta
     def proteins_opt = proteins != null && proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
     def prodigal_opt = prodigal_tf != null && prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : ""
     def is_compressed = fna.getName().endsWith(".gz") ? true : false

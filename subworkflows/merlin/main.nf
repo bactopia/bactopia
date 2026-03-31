@@ -87,9 +87,9 @@ workflow MERLIN {
     MERLINDIST(assembly, mash_db)
 
     // Helper closures to build records from MERLINDIST output
-    def forAssembly = { r -> record(_meta: r.meta, fna: r.fna) }
-    def forReads = { r -> record(_meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
-    def forSeqs = { r -> record(_meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+    def forAssembly = { r -> record(meta: r.meta, fna: r.fna) }
+    def forReads = { r -> record(meta: r.meta, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+    def forSeqs = { r -> record(meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
 
     // Escherichia/Shigella
     ch_escherichia = MERLINDIST.out.sample_outputs.filter { r -> r.escherichia != null }

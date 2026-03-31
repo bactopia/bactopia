@@ -44,7 +44,7 @@ process KRAKEN2 {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     db: Path
 
     output:
@@ -69,6 +69,7 @@ process KRAKEN2 {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
     output_folder = task.ext.wf == "scrubber" || task.ext.wf == "teton" ? "scrubber" : "${task.ext.process_name}"
 

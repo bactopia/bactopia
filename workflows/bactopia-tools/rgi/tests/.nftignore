@@ -3,3 +3,4 @@
 bactopia-runs/**/nf-reports/*.{dot,html}
 
 **/*.{eps,png}
+**/rgi-2.csv

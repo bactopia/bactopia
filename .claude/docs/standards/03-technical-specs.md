@@ -40,16 +40,16 @@ ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
 The codebase uses Record-typed inputs with explicit named parameters:
 
-- **Single assemblies**: `(_meta: Map, assembly: Path): Record` - For modules processing a single assembly file
-- **Multi-read inputs**: `(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
+- **Single assemblies**: `(meta: Map, assembly: Path): Record` - For modules processing a single assembly file
+- **Multi-read inputs**: `(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
     - `r1`: Illumina paired-end forward
     - `r2`: Illumina paired-end reverse
     - `se`: Single-end Illumina reads
     - `lr`: Long reads (ONT/PacBio)
-- **Multiple distinct inputs**: `(_meta: Map, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
+- **Multiple distinct inputs**: `(meta: Map, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
 - **Additional inputs** are declared on separate lines: `db: Path`, `proteins: Path?`, etc.
 
-**Note**: The codebase uses `Record` return types with named parameters (e.g., `_meta: Map`) rather than `Tuple<>` type annotations.
+**Note**: The codebase uses `Record` return types with named parameters (e.g., `meta: Map`) rather than `Tuple<>` type annotations. In module script blocks, `def _meta = meta` aliases the input before `meta = [:]` creates a new output meta map.
 
 ## Path? Optional Parameters (Workarounds)
 
@@ -177,6 +177,7 @@ Some modules add additional properties:
 
 ```groovy
 script:
+def _meta = meta
 def prefix = task.ext.prefix ?: "${_meta.name}"
 def meta = [:]
 meta.id = "${prefix}-${task.process}"
@@ -273,7 +274,7 @@ alignment: Channel<Record>  // contains records with field `aln`
 Subworkflow emits use human-readable names:
 ```nextflow
 emit:
-alignment = MODULE.out.map { r -> record(_meta: ..., aln: r.masked_aln) }
+alignment = MODULE.out.map { r -> record(meta: ..., aln: r.masked_aln) }
 ```
 
 GroovyDoc `@input`/`@output` documents the record field names (format abbreviation):
@@ -295,7 +296,7 @@ Modules that process sequencing reads use a 5-slot positional tuple pattern to h
 ```groovy
 // Input signature
 input:
-(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 ```
 
 | Slot | Variable | Description |

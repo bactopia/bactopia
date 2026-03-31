@@ -179,6 +179,7 @@ def extra_args = task.ext.args2 ?: ''
 
 ```groovy
 script:
+def _meta = meta
 def prefix = task.ext.prefix ?: "${_meta.name}"
 def meta = [:]
 meta.id = "${prefix}-${task.process}"
@@ -248,6 +249,7 @@ In `main.nf`:
 
 ```groovy
 script:
+def _meta = meta
 def prefix = task.ext.prefix ?: "${_meta.name}"
 def meta = [:]
 

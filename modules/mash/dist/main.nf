@@ -30,7 +30,7 @@ process MASH_DIST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path): Record
+    (meta: Map, fna: Path): Record
     reference: Path
 
     output:
@@ -48,6 +48,7 @@ process MASH_DIST {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

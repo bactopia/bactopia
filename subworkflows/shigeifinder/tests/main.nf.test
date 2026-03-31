@@ -14,7 +14,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_016726285"],
+                        meta: [name: "GCF_016726285"],
                         fna: file("${params.test_data_dir}/species/shigella_boydii/compressed/GCF_016726285/main/assembler/GCF_016726285.fna.gz")
                     )
                 )

@@ -32,7 +32,7 @@ process SCOARY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, csv: Path): Record
+    (meta: Map, csv: Path): Record
     traits: Path
 
     output:
@@ -49,6 +49,7 @@ process SCOARY {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

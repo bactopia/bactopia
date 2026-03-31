@@ -14,7 +14,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_001047255"],
+                        meta: [name: "GCF_001047255"],
                         fna: file("${params.test_data_dir}/species/neisseria_gonorrhoeae/uncompressed/GCF_001047255/main/assembler/GCF_001047255.fna")
                     )
                 )
@@ -44,7 +44,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_001047255"],
+                        meta: [name: "GCF_001047255"],
                         fna: file("${params.test_data_dir}/species/neisseria_gonorrhoeae/compressed/GCF_001047255/main/assembler/GCF_001047255.fna.gz")
                     )
                 )

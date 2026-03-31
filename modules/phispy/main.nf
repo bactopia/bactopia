@@ -34,7 +34,7 @@ process PHISPY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, gbff: Path): Record
+    (meta: Map, gbff: Path): Record
 
     output:
     record(
@@ -52,6 +52,7 @@ process PHISPY {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

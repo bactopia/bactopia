@@ -51,7 +51,7 @@ workflow BACTOPIA_INIT {
 
     collectedInputs.samples.each { sample ->
         ch_samples << record(
-            _meta:     sample.meta,
+            meta:      sample.meta,
             r1_files:  (sample.r1 ?: []).collect { fastq -> file(fastq) }.toSet(),
             r2_files:  (sample.r2 ?: []).collect { fastq -> file(fastq) }.toSet(),
             se_files:  (sample.se ?: []).collect { fastq -> file(fastq) }.toSet(),

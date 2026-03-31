@@ -33,7 +33,7 @@ process PIRATE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, gff: Set<Path>): Record
+    (meta: Map, gff: Set<Path>): Record
 
     stage:
     stageAs 'gff-tmp/*', gff
@@ -56,6 +56,7 @@ process PIRATE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

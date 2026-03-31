@@ -125,7 +125,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000017085"],
+                        meta: [name: "GCF_000017085"],
                         assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
                     )
                 )
@@ -175,7 +175,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000017085"],
+                        meta: [name: "GCF_000017085"],
                         assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
                     )
                 )

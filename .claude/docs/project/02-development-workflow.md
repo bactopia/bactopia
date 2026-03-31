@@ -21,7 +21,7 @@ The module is the basic building block that executes a specific tool.
 
 3. **Key requirements**:
    - Include `nextflow.preview.types = true` at the top
-   - Define inputs using Record syntax (e.g., `(_meta: Map, assembly: Path): Record`)
+   - Define inputs using Record syntax (e.g., `(meta: Map, assembly: Path): Record`)
    - Emit a single `record()` with named fields, `results`, `logs`, `nf_logs`, and `versions`
    - Include version tracking in `versions.yml`
 
@@ -102,7 +102,7 @@ The entry workflow is what users interact with directly.
                    """
                    input[0] = Channel.of(
                        record(
-                           _meta: [name: "sample_id"],
+                           meta: [name: "sample_id"],
                            assembly: file("${params.test_data_dir}/data/species/.../genome/sample.fna")
                        )
                    )

@@ -27,7 +27,7 @@ process RGI_HEATMAP {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, json: Set<Path>): Record
+    (meta: Map, json: Set<Path>): Record
 
     stage:
     stageAs 'json/*', json
@@ -47,6 +47,7 @@ process RGI_HEATMAP {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

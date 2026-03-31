@@ -26,7 +26,7 @@ process SNPDISTS {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, aln: Path): Record
+    (meta: Map, aln: Path): Record
 
     output:
     record(
@@ -43,6 +43,7 @@ process SNPDISTS {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
     process_name = _meta.process_name ?: task.ext.process_name
 

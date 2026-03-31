@@ -62,15 +62,15 @@ workflow BACTOPIATOOL_INIT {
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->
-        ch_reads                 << record(_meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly              << record(_meta: sample.meta, fna: sample.fna)
-        ch_assembly_reads        << record(_meta: sample.meta, fna: sample.fna, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly_meta         << record(_meta: sample.meta, fna: sample.fna, tsv_meta: sample.tsv_meta)
-        ch_assembly_proteins_gff << record(_meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
-        ch_blastdb               << record(_meta: sample.meta, blastdb: sample.blastdb)
-        ch_proteins              << record(_meta: sample.meta, faa: sample.faa)
-        ch_gff                   << record(_meta: sample.meta, gff: sample.gff)
-        ch_gbff                  << record(_meta: sample.meta, gbff: sample.gbk)
+        ch_reads                 << record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly              << record(meta: sample.meta, fna: sample.fna)
+        ch_assembly_reads        << record(meta: sample.meta, fna: sample.fna, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        ch_assembly_meta         << record(meta: sample.meta, fna: sample.fna, tsv_meta: sample.tsv_meta)
+        ch_assembly_proteins_gff << record(meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
+        ch_blastdb               << record(meta: sample.meta, blastdb: sample.blastdb)
+        ch_proteins              << record(meta: sample.meta, faa: sample.faa)
+        ch_gff                   << record(meta: sample.meta, gff: sample.gff)
+        ch_gbff                  << record(meta: sample.meta, gbff: sample.gbk)
     }
 
     emit:

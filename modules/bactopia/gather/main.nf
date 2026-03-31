@@ -47,7 +47,7 @@ process GATHER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
+    (meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
 
     stage:
     stageAs '*???-r1', r1_files
@@ -77,6 +77,7 @@ process GATHER {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Handler variables

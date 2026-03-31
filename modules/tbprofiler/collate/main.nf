@@ -29,7 +29,7 @@ process TBPROFILER_COLLATE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, json: Set<Path>): Record
+    (meta: Map, json: Set<Path>): Record
 
     stage:
     stageAs 'results-tmp/*', json
@@ -55,6 +55,7 @@ process TBPROFILER_COLLATE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

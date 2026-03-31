@@ -9,12 +9,11 @@
                 "process_name": "phispy",
                 "scope": "sample"
             },
-            "GCF_900478275.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960",
             [
                 "versions.yml:md5,e44ffe4286617fc7cd2260011c245452"
             ]
         ],
-        "timestamp": "2026-03-31T17:43:37.222803861",
+        "timestamp": "2026-03-31T22:16:07.649316145",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

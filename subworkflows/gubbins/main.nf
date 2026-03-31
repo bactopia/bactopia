@@ -48,13 +48,13 @@ workflow GUBBINS {
     main:
     GUBBINS_MODULE(alignment)
     SNPDISTS(GUBBINS_MODULE.out.map { r ->
-        record(_meta: [name: 'core-snp.masked.distance', process_name: 'snpdists-masked'], aln: r.masked_aln)
+        record(meta: [name: 'core-snp.masked.distance', process_name: 'snpdists-masked'], aln: r.masked_aln)
     })
 
     emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
     alignment = GUBBINS_MODULE.out.map { r ->
-        record(_meta: [name: "core-snp", process_name: "iqtree"], aln: r.masked_aln)
+        record(meta: [name: "core-snp", process_name: "iqtree"], aln: r.masked_aln)
     }
     // Published outputs
     sample_outputs = channel.empty()

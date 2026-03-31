@@ -31,7 +31,7 @@ process FASTANI {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, query: Set<Path>): Record
+    (meta: Map, query: Set<Path>): Record
     reference: Path
 
     stage:
@@ -52,6 +52,7 @@ process FASTANI {
     )
 
     script:
+    def _meta = meta
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")

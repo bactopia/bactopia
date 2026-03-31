@@ -38,7 +38,7 @@ process GUBBINS {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, aln: Path): Record
+    (meta: Map, aln: Path): Record
 
     output:
     record(
@@ -56,6 +56,7 @@ process GUBBINS {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

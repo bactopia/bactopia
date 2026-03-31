@@ -72,7 +72,7 @@ workflow {
     ch_reference = channel.empty() as Channel<Record>
     if (params.fastani_reference) {
         ch_reference = ch_reference.mix(channel.of(record(
-            _meta: [id: params.fastani_reference.getSimpleName()],
+            meta: [id: params.fastani_reference.getSimpleName()],
             fna: params.fastani_reference
         )))
     }

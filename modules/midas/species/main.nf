@@ -41,7 +41,7 @@ process MIDAS_SPECIES {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?): Record
+    (meta: Map, r1: Path?, r2: Path?, se: Path?): Record
     db: Path
 
     output:
@@ -61,6 +61,7 @@ process MIDAS_SPECIES {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

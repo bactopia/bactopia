@@ -38,7 +38,7 @@ process DEFENSEFINDER_RUN {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, faa: Path): Record
+    (meta: Map, faa: Path): Record
     db: Path
 
     stage:
@@ -69,6 +69,7 @@ process DEFENSEFINDER_RUN {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

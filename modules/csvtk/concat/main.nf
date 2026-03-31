@@ -34,7 +34,7 @@ process CSVTK_CONCAT {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, csv: Set<Path>): Record
+    (meta: Map, csv: Set<Path>): Record
     in_format : String
     out_format: String
 
@@ -56,6 +56,7 @@ process CSVTK_CONCAT {
     )
 
     script:
+    def _meta = meta
     out_extension = out_format == "tsv" ? 'tsv' : 'csv'
     subdir = _meta.subdir ? "${_meta.subdir}/" : ''
     prefix = _meta.name

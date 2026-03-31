@@ -33,7 +33,7 @@ process IQTREE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, aln: Path): Record
+    (meta: Map, aln: Path): Record
 
     output:
     record(
@@ -52,6 +52,7 @@ process IQTREE {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
     process_name = _meta.process_name == "iqtree-fast" ? "iqtree-fast" : task.ext.process_name
     args = process_name == "iqtree-fast" ? task.ext.fast_args : task.ext.args

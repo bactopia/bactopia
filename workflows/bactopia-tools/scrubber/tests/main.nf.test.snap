@@ -44,7 +44,7 @@
                 "scrubber.tsv:md5,e957775ff85716621f5fdd536de5b417"
             ]
         ],
-        "timestamp": "2026-03-31T14:31:58.005764785",
+        "timestamp": "2026-03-31T20:27:24.382996997",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -95,7 +95,7 @@
                 "scrubber.tsv:md5,9554a4a6929bbfd485e28acd4a716772"
             ]
         ],
-        "timestamp": "2026-03-31T14:32:22.295051886",
+        "timestamp": "2026-03-31T20:27:48.879759286",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

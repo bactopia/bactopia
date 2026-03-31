@@ -14,7 +14,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702"],
+                        meta: [name: "SRR2838702"],
                         faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
                     )
                 )

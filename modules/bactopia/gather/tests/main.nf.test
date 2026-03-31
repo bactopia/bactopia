@@ -15,7 +15,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
                         r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
                         se_files: [] as Set,
@@ -52,7 +52,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "single-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "single-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [] as Set,
                         r2_files: [] as Set,
                         se_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz")] as Set,
@@ -88,7 +88,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "ont", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "ont", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [] as Set,
                         r2_files: [] as Set,
                         se_files: [] as Set,
@@ -124,7 +124,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "hybrid", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "hybrid", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
                         r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
                         se_files: [] as Set,
@@ -162,7 +162,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702", runtype: "assembly", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "SRR2838702", runtype: "assembly", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [] as Set,
                         r2_files: [] as Set,
                         se_files: [] as Set,
@@ -200,7 +200,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "merge-pe", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "merge-pe", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
                         r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
                         se_files: [] as Set,
@@ -238,7 +238,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
                         r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
                         se_files: [] as Set,
@@ -274,7 +274,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1_files: [file("${params.test_data_dir}/empty/EMPTY.fastq.gz")] as Set,
                         r2_files: [file("${params.test_data_dir}/empty/EMPTY.fastq.gz")] as Set,
                         se_files: [] as Set,

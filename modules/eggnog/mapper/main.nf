@@ -41,7 +41,7 @@ process EGGNOG_MAPPER {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, faa: Path): Record
+    (meta: Map, faa: Path): Record
     db: Path
 
     output:
@@ -75,6 +75,7 @@ process EGGNOG_MAPPER {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable

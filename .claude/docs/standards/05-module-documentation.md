@@ -8,7 +8,7 @@ This guide provides a comprehensive methodology for creating consistent and accu
 ### 1.1 Module Structure
 Bactopia modules are individual process definitions that execute specific bioinformatics tools. Each module:
 - Wraps a single tool or closely related functionality
-- Accepts standardized inputs using Record syntax (e.g., `(_meta: Map, assembly: Path): Record`)
+- Accepts standardized inputs using Record syntax (e.g., `(meta: Map, assembly: Path): Record`)
 - Emits standardized outputs (including `logs`, `nf_logs`, `versions`)
 - Uses static typing throughout
 - Handles optional parameters via Path? workarounds
@@ -93,13 +93,13 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
-- **Pattern**: `(_meta: Map, assembly: Path): Record` for assemblies
-- **Pattern**: `(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
+- **Pattern**: `(meta: Map, assembly: Path): Record` for assemblies
+- **Pattern**: `(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
 - **Examples**: Most modules that process a single data type
 
 #### Multiple Inputs
 - **Definition**: Multiple data channels or complex multi-element records
-- **Pattern**: `(_meta: Map, assembly: Path, meta_file: Path): Record` for multiple required files
+- **Pattern**: `(meta: Map, assembly: Path, meta_file: Path): Record` for multiple required files
 - **Examples**: quast (assembly + meta_file)
 
 ### 3.3 Output-Type Classification
@@ -855,7 +855,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "{sample_id}"],
+                        meta: [name: "{sample_id}"],
                         assembly: file("${params.test_data_dir}/data/species/{species}/genome/{sample_id}.fna.gz")
                     )
                 )

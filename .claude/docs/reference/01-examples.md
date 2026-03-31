@@ -212,14 +212,14 @@ The codebase uses Record-typed inputs with explicit named parameters:
 ```groovy
 // Single assembly file
 input:
-(_meta: Map, assembly: Path): Record
+(meta: Map, assembly: Path): Record
 ```
 
 **Read-based modules** (multi-read input with explicit slots):
 ```groovy
 // Explicit positional slots for different read types
 input:
-(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 ```
 
 Where each parameter represents:
@@ -232,13 +232,13 @@ Where each parameter represents:
 ```groovy
 // Two required files
 input:
-(_meta: Map, assembly: Path, meta_file: Path): Record
+(meta: Map, assembly: Path, meta_file: Path): Record
 ```
 
 **Additional inputs** are declared on separate lines:
 ```groovy
 input:
-(_meta: Map, assembly: Path): Record
+(meta: Map, assembly: Path): Record
 db         : Path
 proteins   : Path?
 prodigal_tf: Path?
@@ -306,7 +306,7 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000017085"],
+                        meta: [name: "GCF_000017085"],
                         assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
                     )
                 )

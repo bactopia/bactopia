@@ -54,7 +54,7 @@ process MERLIN_DIST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    (meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
     reference: Path
 
     stage:
@@ -96,6 +96,7 @@ process MERLIN_DIST {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
