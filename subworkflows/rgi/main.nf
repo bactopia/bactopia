@@ -23,12 +23,14 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
+// bactopia-lint: ignore S015
 nextflow.preview.types = true
 
 include { RGI_MAIN     } from '../../modules/rgi/main/main'
 include { RGI_HEATMAP  } from '../../modules/rgi/heatmap/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk       } from 'plugin/nf-bactopia'
+include { gather       } from 'plugin/nf-bactopia'
+include { gatherCsvtk  } from 'plugin/nf-bactopia'
 
 workflow RGI {
     take:
@@ -36,11 +38,11 @@ workflow RGI {
 
     main:
     RGI_MAIN(assembly)
+    RGI_HEATMAP(gather(RGI_MAIN.out, 'json', [name: 'rgi']))
     CSVTK_CONCAT(gatherCsvtk(RGI_MAIN.out, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
-    RGI_HEATMAP(gatherCsvtk(RGI_MAIN.out, 'json', [name: 'rgi']))
 
     emit:
     // Published outputs
     sample_outputs = RGI_MAIN.out
-    run_outputs = CSVTK_CONCAT.out
+    run_outputs = RGI_HEATMAP.out.mix(CSVTK_CONCAT.out)
 }

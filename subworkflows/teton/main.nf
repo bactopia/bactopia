@@ -31,30 +31,11 @@
  * @input use_srascrubber
  * Boolean flag to use SRA scrubber for host read removal
  *
- * @output scrubber_outputs
- * Per-sample scrubbing records from SCRUBBER
+ * @output sample_outputs
  *
- * @output bracken_outputs
- * Per-sample classification records from BRACKEN
- *
- * @output samplesheet_outputs
- * Per-sample genome size estimation and routing records
- *
- * @output report_outputs
- * Joined scrubber + classification report record from CSVTK_JOIN
- *
- * @output merged_report
- * Merged reports across all samples from CSVTK_CONCAT
- *
- * @output merged_bacteria
- * Merged bacterial sample sheets from CSVTK_CONCAT
- *
- * @output merged_nonbacteria
- * Merged non-bacterial sample sheets from CSVTK_CONCAT
- *
- * @output merged_sizemeup
- * Merged genome size estimates from CSVTK_CONCAT
+ * @output run_outputs
  */
+// bactopia-lint: ignore S013,S015
 nextflow.preview.types = true
 
 include { SCRUBBER                                 } from '../scrubber/main'
@@ -65,7 +46,7 @@ include { CSVTK_CONCAT                             } from '../../modules/csvtk/c
 include { CSVTK_CONCAT as CSVTK_CONCAT_BACTERIA    } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_NONBACTERIA } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SIZEMEUP    } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                                   } from 'plugin/nf-bactopia'
+include { gatherCsvtk                              } from 'plugin/nf-bactopia'
 
 workflow TETON {
     take:
@@ -106,12 +87,16 @@ workflow TETON {
 
     emit:
     // Published outputs
-    scrubber_outputs = SCRUBBER.out.sample_outputs
-    bracken_outputs = BRACKEN.out.sample_outputs
-    samplesheet_outputs = BACTOPIA_SAMPLESHEET.out
-    report_outputs = CSVTK_JOIN.out
-    merged_report = CSVTK_CONCAT.out
-    merged_bacteria = CSVTK_CONCAT_BACTERIA.out
-    merged_nonbacteria = CSVTK_CONCAT_NONBACTERIA.out
-    merged_sizemeup = CSVTK_CONCAT_SIZEMEUP.out
+    sample_outputs = SCRUBBER.out.sample_outputs.mix(
+        BRACKEN.out.sample_outputs,
+        BACTOPIA_SAMPLESHEET.out,
+        CSVTK_JOIN.out
+    )
+    run_outputs = SCRUBBER.out.run_outputs.mix(
+        BRACKEN.out.run_outputs,
+        CSVTK_CONCAT.out,
+        CSVTK_CONCAT_BACTERIA.out,
+        CSVTK_CONCAT_NONBACTERIA.out,
+        CSVTK_CONCAT_SIZEMEUP.out
+    )
 }

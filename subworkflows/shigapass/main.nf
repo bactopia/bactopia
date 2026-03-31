@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { SHIGAPASS as SHIGAPASS_MODULE } from '../../modules/shigapass/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                        } from 'plugin/nf-bactopia'
+include { gatherCsvtk                   } from 'plugin/nf-bactopia'
 
 workflow SHIGAPASS {
     take:

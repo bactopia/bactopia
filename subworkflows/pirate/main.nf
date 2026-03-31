@@ -37,6 +37,6 @@ workflow PIRATE {
 
     emit:
     // Published outputs
-    sample_outputs = PIRATE_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = PIRATE_MODULE.out
 }

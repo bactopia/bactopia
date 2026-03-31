@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { PASTY as PASTY_MODULE } from '../../modules/pasty/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow PASTY {
     take:

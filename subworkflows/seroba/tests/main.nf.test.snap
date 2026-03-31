@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/seroba-concat/",
                 "name": "seroba",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "seroba-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,4fd4f724e2f19016eff39a2b524a9007"
             ]
         ],
-        "timestamp": "2026-03-28T14:13:19.253285114",
+        "timestamp": "2026-03-31T14:26:25.977536263",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

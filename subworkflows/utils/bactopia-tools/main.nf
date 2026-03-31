@@ -19,8 +19,8 @@
  * @output assembly_meta          Assembly + meta file: record(meta, fna, tsv_meta)
  * @output assembly_proteins_gff  Assembly + proteins + GFF: record(meta, fna, faa, gff)
  * @output proteins               Protein sequences: record(meta, proteins)
- * @output gffs                   Annotation file: record(meta, gff)
- * @output gbks                   GenBank file: record(meta, gbk)
+ * @output gff                    Annotation file: record(meta, gff)
+ * @output gbff                   GenBank file: record(meta, gbff)
  */
 nextflow.preview.types = true
 
@@ -49,8 +49,8 @@ workflow BACTOPIATOOL_INIT {
     def ch_assembly_proteins_gff = channel.empty() as Channel<Record>
     def ch_blastdb               = channel.empty() as Channel<Record>
     def ch_proteins              = channel.empty() as Channel<Record>
-    def ch_gffs                  = channel.empty() as Channel<Record>
-    def ch_gbks                  = channel.empty() as Channel<Record>
+    def ch_gff                   = channel.empty() as Channel<Record>
+    def ch_gbff                  = channel.empty() as Channel<Record>
 
     // Process inputs
     def collectedInputs = bactopiaToolInputs()
@@ -69,8 +69,8 @@ workflow BACTOPIATOOL_INIT {
         ch_assembly_proteins_gff << record(_meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
         ch_blastdb               << record(_meta: sample.meta, blastdb: sample.blastdb)
         ch_proteins              << record(_meta: sample.meta, faa: sample.faa)
-        ch_gffs                  << record(_meta: sample.meta, gff: sample.gff)
-        ch_gbks                  << record(_meta: sample.meta, gbk: sample.gbk)
+        ch_gff                   << record(_meta: sample.meta, gff: sample.gff)
+        ch_gbff                  << record(_meta: sample.meta, gbff: sample.gbk)
     }
 
     emit:
@@ -81,6 +81,6 @@ workflow BACTOPIATOOL_INIT {
     assembly_proteins_gff: Channel<Record> = ch_assembly_proteins_gff
     blastdb: Channel<Record>               = ch_blastdb
     proteins: Channel<Record>              = ch_proteins
-    gffs: Channel<Record>                  = ch_gffs
-    gbks: Channel<Record>                  = ch_gbks
+    gff: Channel<Record>                   = ch_gff
+    gbff: Channel<Record>                  = ch_gbff
 }

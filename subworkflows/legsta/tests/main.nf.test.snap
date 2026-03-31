@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/legsta-concat/",
                 "name": "legsta",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "legsta-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f5386e7ff032be488d34b8bb980ba73b"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:55.597215009",
+        "timestamp": "2026-03-31T14:23:59.371392462",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

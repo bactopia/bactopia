@@ -41,7 +41,7 @@ nextflow.preview.types = true
 
 include { TBPROFILER_PROFILE } from '../../modules/tbprofiler/profile/main'
 include { TBPROFILER_COLLATE } from '../../modules/tbprofiler/collate/main'
-include { gatherCsvtk             } from 'plugin/nf-bactopia'
+include { gather             } from 'plugin/nf-bactopia'
 
 workflow TBPROFILER {
     take:
@@ -49,7 +49,7 @@ workflow TBPROFILER {
 
     main:
     TBPROFILER_PROFILE(reads)
-    TBPROFILER_COLLATE(gatherCsvtk(TBPROFILER_PROFILE.out, 'json', [name: 'tbprofiler']))
+    TBPROFILER_COLLATE(gather(TBPROFILER_PROFILE.out, 'json', [name: 'tbprofiler']))
 
     emit:
     // Published outputs

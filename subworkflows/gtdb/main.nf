@@ -40,7 +40,7 @@ nextflow.preview.types = true
 include { GTDBTK_DOWNLOAD   } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF } from '../../modules/gtdbtk/classifywf/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk            } from 'plugin/nf-bactopia'
+include { gatherCsvtk       } from 'plugin/nf-bactopia'
 
 workflow GTDB {
     take:

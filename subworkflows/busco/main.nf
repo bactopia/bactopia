@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { BUSCO as BUSCO_MODULE } from '../../modules/busco/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow BUSCO {
     take:

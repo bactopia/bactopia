@@ -24,7 +24,7 @@
  * Path to HMM model file for improved detection (optional)
  *
  * @output sample_outputs
- * - `gbk`: GenBank file containing the annotated capsule locus region (optional)
+ * - `gbff`: GenBank file containing the annotated capsule locus region (optional)
  * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
  * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
  *
@@ -35,7 +35,7 @@ nextflow.preview.types = true
 
 include { HICAP as HICAP_MODULE } from '../../modules/hicap/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow HICAP {
     take:

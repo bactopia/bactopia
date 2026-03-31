@@ -32,7 +32,7 @@ nextflow.preview.types = true
 include { SEROBA_RUN     } from '../../modules/seroba/run/main'
 include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
 include { filterWithData } from 'plugin/nf-bactopia'
-include { gatherCsvtk         } from 'plugin/nf-bactopia'
+include { gatherCsvtk    } from 'plugin/nf-bactopia'
 
 workflow SEROBA {
     take:

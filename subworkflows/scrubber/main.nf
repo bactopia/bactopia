@@ -44,7 +44,7 @@ nextflow.preview.types = true
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { NOHUMAN          } from '../nohuman/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk           } from 'plugin/nf-bactopia'
+include { gatherCsvtk      } from 'plugin/nf-bactopia'
 include { filterWithData   } from 'plugin/nf-bactopia'
 
 workflow SCRUBBER {

@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { ABRITAMR_RUN } from '../../modules/abritamr/run/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk       } from 'plugin/nf-bactopia'
+include { gatherCsvtk  } from 'plugin/nf-bactopia'
 
 workflow ABRITAMR {
     take:

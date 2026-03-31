@@ -27,12 +27,14 @@
  *   - `scrubbed`: Scrubbed FASTQ files with human reads removed
  *   - `scrubbed_extra`: Placeholder files for pipeline compatibility
  *   - `scrub_report`: Report of scrubbing statistics
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
 include { SRAHUMANSCRUBBER_INITDB } from '../../modules/srahumanscrubber/initdb/main'
 include { SRAHUMANSCRUBBER_SCRUB  } from '../../modules/srahumanscrubber/scrub/main'
-include { gatherCsvtk                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk             } from 'plugin/nf-bactopia'
 
 workflow SRAHUMANSCRUBBER {
     take:
@@ -45,4 +47,5 @@ workflow SRAHUMANSCRUBBER {
     emit:
     // Published outputs
     sample_outputs = SRAHUMANSCRUBBER_SCRUB.out
+    run_outputs = channel.empty()
 }

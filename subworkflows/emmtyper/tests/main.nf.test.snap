@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/emmtyper-concat/",
                 "name": "emmtyper",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "emmtyper-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:10.584215208",
+        "timestamp": "2026-03-31T14:23:30.731182108",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

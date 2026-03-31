@@ -31,12 +31,13 @@ nextflow_workflow {
         }
 
         then {
-            def scrubber = workflow.out.scrubber_outputs[0]
-            def bracken = workflow.out.bracken_outputs[0]
+            def samples = workflow.out.sample_outputs
+            def scrubber = samples.find { it.meta.process_name == 'nohuman' }
+            def bracken = samples.find { it.meta.process_name == 'bracken' }
             assertAll(
                 { assert workflow.success },
-                { assert workflow.out.scrubber_outputs != null },
-                { assert workflow.out.bracken_outputs != null },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
                 { assert snapshot(
                     scrubber.meta,
                     scrubber.versions,

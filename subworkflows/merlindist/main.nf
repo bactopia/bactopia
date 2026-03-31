@@ -44,11 +44,13 @@
  * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
  * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
  * - `genus`: A marker file indicating the detected genus (for debugging)
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
 include { MERLIN_DIST } from '../../modules/merlin/dist/main'
-include { gatherCsvtk      } from 'plugin/nf-bactopia'
+include { gatherCsvtk } from 'plugin/nf-bactopia'
 
 workflow MERLINDIST {
     take:
@@ -61,4 +63,5 @@ workflow MERLINDIST {
     emit:
     // Published outputs
     sample_outputs = MERLIN_DIST.out
+    run_outputs = channel.empty()
 }

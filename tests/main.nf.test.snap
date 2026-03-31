@@ -67,6 +67,15 @@
                 "SRR2838702/main/qc/logs/nf.command.sh",
                 "SRR2838702/main/qc/logs/nf.command.trace",
                 "SRR2838702/main/qc/logs/versions.yml",
+                "SRR2838702/main/qc/supplemental",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_SE-original_fastqc.zip",
                 "SRR2838702/main/sketcher",
                 "SRR2838702/main/sketcher/SRR2838702-k21.msh",
                 "SRR2838702/main/sketcher/SRR2838702-k31.msh",
@@ -168,7 +177,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T07:04:55.416046794",
+        "timestamp": "2026-03-31T14:35:41.620833674",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -245,6 +254,27 @@
                 "SRR2838702/main/qc/logs/nf.command.sh",
                 "SRR2838702/main/qc/logs/nf.command.trace",
                 "SRR2838702/main/qc/logs/versions.yml",
+                "SRR2838702/main/qc/supplemental",
+                "SRR2838702/main/qc/supplemental/SRR2838702-final_NanoPlot-report.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702-final_NanoPlot.tar.gz",
+                "SRR2838702/main/qc/supplemental/SRR2838702-original_NanoPlot-report.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702-original_NanoPlot.tar.gz",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_ONT-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_ONT-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.zip",
                 "SRR2838702/main/sketcher",
                 "SRR2838702/main/sketcher/SRR2838702-k21.msh",
                 "SRR2838702/main/sketcher/SRR2838702-k31.msh",
@@ -346,7 +376,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T07:17:48.139885713",
+        "timestamp": "2026-03-31T14:48:20.519385145",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -424,6 +454,27 @@
                 "ERR3772599/main/qc/logs/nf.command.sh",
                 "ERR3772599/main/qc/logs/nf.command.trace",
                 "ERR3772599/main/qc/logs/versions.yml",
+                "ERR3772599/main/qc/supplemental",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599.fastp.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599.fastp.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-final.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-original.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-final.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-final_fastqc.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-final_fastqc.zip",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-original.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-original_fastqc.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R1-original_fastqc.zip",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-final.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-final_fastqc.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-final_fastqc.zip",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-original.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-original_fastqc.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599_R2-original_fastqc.zip",
                 "ERR3772599/main/sketcher",
                 "ERR3772599/main/sketcher/ERR3772599-k21.msh",
                 "ERR3772599/main/sketcher/ERR3772599-k31.msh",
@@ -525,7 +576,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T07:22:27.683391212",
+        "timestamp": "2026-03-31T14:53:45.108814287",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -573,7 +624,7 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-03-28T07:22:45.392553421",
+        "timestamp": "2026-03-31T14:54:02.949442844",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -597,6 +648,7 @@
                 "ERR3772599/main/gather/logs/nf.command.trace",
                 "ERR3772599/main/gather/logs/versions.yml",
                 "ERR3772599/main/qc",
+                "ERR3772599/main/qc/ERR3772599-low-sequence-coverage-error.txt",
                 "ERR3772599/main/qc/logs",
                 "ERR3772599/main/qc/logs/nf.command.begin",
                 "ERR3772599/main/qc/logs/nf.command.err",
@@ -606,6 +658,14 @@
                 "ERR3772599/main/qc/logs/nf.command.sh",
                 "ERR3772599/main/qc/logs/nf.command.trace",
                 "ERR3772599/main/qc/logs/versions.yml",
+                "ERR3772599/main/qc/supplemental",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-final.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-original.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT.error-fastq.gz",
                 "bactopia-runs",
                 "bactopia-runs/bactopia",
                 "bactopia-runs/bactopia/merged-results",
@@ -631,7 +691,7 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-03-28T07:23:29.412871178",
+        "timestamp": "2026-03-31T14:54:45.596560664",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -706,6 +766,13 @@
                 "ERR3772599/main/qc/logs/nf.command.sh",
                 "ERR3772599/main/qc/logs/nf.command.trace",
                 "ERR3772599/main/qc/logs/versions.yml",
+                "ERR3772599/main/qc/supplemental",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-final_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot-report.html",
+                "ERR3772599/main/qc/supplemental/ERR3772599-original_NanoPlot.tar.gz",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-final.json",
+                "ERR3772599/main/qc/supplemental/ERR3772599_ONT-original.json",
                 "ERR3772599/main/sketcher",
                 "ERR3772599/main/sketcher/ERR3772599-k21.msh",
                 "ERR3772599/main/sketcher/ERR3772599-k31.msh",
@@ -807,7 +874,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T07:09:45.284110452",
+        "timestamp": "2026-03-31T14:40:23.973843048",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -884,6 +951,21 @@
                 "SRR2838702/main/qc/logs/nf.command.sh",
                 "SRR2838702/main/qc/logs/nf.command.trace",
                 "SRR2838702/main/qc/logs/versions.yml",
+                "SRR2838702/main/qc/supplemental",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.zip",
                 "SRR2838702/main/sketcher",
                 "SRR2838702/main/sketcher/SRR2838702-k21.msh",
                 "SRR2838702/main/sketcher/SRR2838702-k31.msh",
@@ -985,7 +1067,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T07:01:40.467528015",
+        "timestamp": "2026-03-31T14:32:25.541122345",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

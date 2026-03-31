@@ -18,7 +18,7 @@
                 "logs_dir": "merged-results/logs/agrvate-concat/",
                 "name": "agrvate",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "agrvate-concat",
                 "scope": "run"
             },
             "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
@@ -31,7 +31,7 @@
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:11.159885626",
+        "timestamp": "2026-03-31T14:22:40.479718972",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

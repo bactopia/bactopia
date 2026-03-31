@@ -6,6 +6,7 @@
                 "id": "ncbigenomedownload",
                 "limit": null,
                 "logs_dir": "ncbigenomedownload/logs",
+                "name": "ncbigenomedownload",
                 "output_dir": "ncbigenomedownload",
                 "process_name": "ncbigenomedownload",
                 "scope": "run",
@@ -15,7 +16,7 @@
                 "versions.yml:md5,6ecc191283714fbb0fbc752c9911bf44"
             ]
         ],
-        "timestamp": "2026-03-28T06:52:59.210655007",
+        "timestamp": "2026-03-31T14:25:00.686253145",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

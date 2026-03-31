@@ -28,8 +28,8 @@
 nextflow.preview.types = true
 
 include { BLAST_BLASTP as BLASTP_MODULE } from '../../modules/blast/blastp/main'
-include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                        } from 'plugin/nf-bactopia'
+include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk                   } from 'plugin/nf-bactopia'
 
 workflow BLASTP {
     take:

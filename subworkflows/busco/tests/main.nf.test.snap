@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/busco-bacteria_odb10-concat/",
                 "name": "busco-bacteria_odb10",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "busco-bacteria_odb10-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:55.19548543",
+        "timestamp": "2026-03-31T14:23:45.434045766",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -18,6 +18,10 @@
                 "SRR2838702/tools/tbprofiler/logs/nf.command.sh",
                 "SRR2838702/tools/tbprofiler/logs/nf.command.trace",
                 "SRR2838702/tools/tbprofiler/logs/versions.yml",
+                "SRR2838702/tools/tbprofiler/supplemental",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.bam",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.bam.bai",
+                "SRR2838702/tools/tbprofiler/supplemental/SRR2838702.targets.vcf.gz",
                 "bactopia-runs",
                 "bactopia-runs/tbprofiler",
                 "bactopia-runs/tbprofiler/merged-results",
@@ -41,10 +45,11 @@
             ],
             [
                 "versions.yml:md5,2d87e4df08df0f8c93f13d385d3a25f0",
+                "SRR2838702.bam.bai:md5,0d76977b2e36046cc176112776c5fa4e",
                 "versions.yml:md5,0a6c2ee40d0bbc1c31e66a46cc130523"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:32.784186571",
+        "timestamp": "2026-03-31T14:30:41.261966436",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

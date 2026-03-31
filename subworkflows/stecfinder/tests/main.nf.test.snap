@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/stecfinder-concat/",
                 "name": "stecfinder",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "stecfinder-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,a4e0bfe59670d712011a3dc00f3abeb5"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:13.881328935",
+        "timestamp": "2026-03-31T14:26:19.739743471",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

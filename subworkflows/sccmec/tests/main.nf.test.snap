@@ -22,14 +22,14 @@
                 "logs_dir": "merged-results/logs/sccmec-concat/",
                 "name": "sccmec",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "sccmec-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,c6ede7b0533855a33c127cafa29de747"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:08.954382966",
+        "timestamp": "2026-03-31T14:25:18.763880785",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

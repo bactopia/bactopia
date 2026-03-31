@@ -13,7 +13,7 @@
  *
  * @modules csvtk_concat, phispy
  *
- * @input gbk
+ * @input gbff
  * Annotated bacterial genomes in GenBank format for prophage prediction
  *
  * @output sample_outputs
@@ -27,14 +27,14 @@ nextflow.preview.types = true
 
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk             } from 'plugin/nf-bactopia'
 
 workflow PHISPY {
     take:
-    gbk: Channel<Record>
+    gbff: Channel<Record>
 
     main:
-    PHISPY_MODULE(gbk)
+    PHISPY_MODULE(gbff)
     CSVTK_CONCAT(gatherCsvtk(PHISPY_MODULE.out, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
 
     emit:

@@ -20,8 +20,8 @@
  * @input model_fp
  * Optional path to a custom Prodigal training model file
  *
- * @output record(meta, gbk, svg, tsv, results, logs, nf_logs, versions)
- * - `gbk`: GenBank file containing the annotated capsule locus region (optional)
+ * @output record(meta, gbff, svg, tsv, results, logs, nf_logs, versions)
+ * - `gbff`: GenBank file containing the annotated capsule locus region (optional)
  * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
  * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
  */
@@ -43,7 +43,7 @@ process HICAP {
     record(
         // Named fields (used downstream)
         meta: meta,
-        gbk: file("${prefix}.gbk", optional: true),
+        gbff: file("${prefix}.gbk", optional: true),
         svg: file("${prefix}.svg", optional: true),
         tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)

@@ -6,7 +6,9 @@
                 "GCA_000027305",
                 "GCA_000027305/tools",
                 "GCA_000027305/tools/phispy",
+                "GCA_000027305/tools/phispy/GCA_000027305.tsv",
                 "GCA_000027305/tools/phispy/logs",
+                "GCA_000027305/tools/phispy/logs/GCA_000027305.log",
                 "GCA_000027305/tools/phispy/logs/nf.command.begin",
                 "GCA_000027305/tools/phispy/logs/nf.command.err",
                 "GCA_000027305/tools/phispy/logs/nf.command.log",
@@ -14,10 +16,15 @@
                 "GCA_000027305/tools/phispy/logs/nf.command.run",
                 "GCA_000027305/tools/phispy/logs/nf.command.sh",
                 "GCA_000027305/tools/phispy/logs/nf.command.trace",
+                "GCA_000027305/tools/phispy/logs/versions.yml",
+                "GCA_000027305/tools/phispy/supplemental",
+                "GCA_000027305/tools/phispy/supplemental/GCA_000027305_GCA_000027305.gbk.gz",
                 "GCF_900478275",
                 "GCF_900478275/tools",
                 "GCF_900478275/tools/phispy",
+                "GCF_900478275/tools/phispy/GCF_900478275.tsv",
                 "GCF_900478275/tools/phispy/logs",
+                "GCF_900478275/tools/phispy/logs/GCF_900478275.log",
                 "GCF_900478275/tools/phispy/logs/nf.command.begin",
                 "GCF_900478275/tools/phispy/logs/nf.command.err",
                 "GCF_900478275/tools/phispy/logs/nf.command.log",
@@ -25,6 +32,9 @@
                 "GCF_900478275/tools/phispy/logs/nf.command.run",
                 "GCF_900478275/tools/phispy/logs/nf.command.sh",
                 "GCF_900478275/tools/phispy/logs/nf.command.trace",
+                "GCF_900478275/tools/phispy/logs/versions.yml",
+                "GCF_900478275/tools/phispy/supplemental",
+                "GCF_900478275/tools/phispy/supplemental/GCF_900478275_GCF_900478275.gbk.gz",
                 "bactopia-runs",
                 "bactopia-runs/phispy",
                 "bactopia-runs/phispy/merged-results",
@@ -45,10 +55,14 @@
                 "bactopia-runs/phispy/nf-reports/phispy-timeline.html"
             ],
             [
+                "GCA_000027305.tsv:md5,80dab03860e9a91c53b6c3248b7980fa",
+                "versions.yml:md5,d31e898a7479339255b07cdc3613c6d7",
+                "GCF_900478275.tsv:md5,7d63fb49ac9013d1e59a1c7f9ccf7960",
+                "versions.yml:md5,d31e898a7479339255b07cdc3613c6d7",
                 "versions.yml:md5,07d57bb6615d099e188c1aad39da5c83"
             ]
         ],
-        "timestamp": "2026-03-28T06:56:05.905828932",
+        "timestamp": "2026-03-31T17:43:01.413340628",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

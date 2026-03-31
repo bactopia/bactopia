@@ -32,10 +32,13 @@
  * - `tsv`: TSV file with profiling results
  *
  * @output run_outputs
+ * - `csv`: Aggregated profiling results in CSV format
  */
 nextflow.preview.types = true
 
 include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
+include { CSVTK_CONCAT  } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk   } from 'plugin/nf-bactopia'
 
 workflow SYLPH {
     take:
@@ -44,9 +47,10 @@ workflow SYLPH {
 
     main:
     SYLPH_PROFILE(reads, database)
+    CSVTK_CONCAT(gatherCsvtk(SYLPH_PROFILE.out, 'tsv', [name: 'sylph']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
     sample_outputs = SYLPH_PROFILE.out
-    run_outputs = channel.empty()
+    run_outputs = CSVTK_CONCAT.out
 }

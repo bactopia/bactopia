@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/ectyper-concat/",
                 "name": "ectyper",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "ectyper-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,c8ed62b01b9e766b6ba10622c55a02e1"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:50.911671779",
+        "timestamp": "2026-03-31T14:23:50.100276877",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

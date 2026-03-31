@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/genotyphi-concat/",
                 "name": "genotyphi",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "genotyphi-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,1e61ab9091b0ddd88b14c86fa3488bea"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:40.071641133",
+        "timestamp": "2026-03-31T14:23:48.107964097",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

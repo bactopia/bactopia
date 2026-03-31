@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/lissero-concat/",
                 "name": "lissero",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "lissero-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f3f10093536274480dfa04035ebfbca2"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:11.135587137",
+        "timestamp": "2026-03-31T14:24:03.112430617",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

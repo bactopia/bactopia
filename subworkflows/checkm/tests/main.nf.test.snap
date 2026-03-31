@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/checkm-concat/",
                 "name": "checkm",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "checkm-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,9f9cdf7e89a396b859a6aec91820283a"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:52.956474882",
+        "timestamp": "2026-03-31T14:25:28.176679745",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

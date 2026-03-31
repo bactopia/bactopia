@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/clermontyping-concat/",
                 "name": "clermontyping",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "clermontyping-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,867a114cb8d26e2302391ce5a5a0a959"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:35.401169589",
+        "timestamp": "2026-03-31T14:23:39.82556194",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

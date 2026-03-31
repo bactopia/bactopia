@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/mcroni-concat/",
                 "name": "mcroni",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "mcroni-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,6eecf339ecef6511e62beca33a4b3fc6"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:16.482659049",
+        "timestamp": "2026-03-31T14:24:12.798134285",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

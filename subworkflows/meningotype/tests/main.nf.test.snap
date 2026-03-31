@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/meningotype-concat/",
                 "name": "meningotype",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "meningotype-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,2210210917992673f792050a55c95b2e"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:11.687613647",
+        "timestamp": "2026-03-31T14:24:18.810574176",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/shigapass-concat/",
                 "name": "shigapass",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "shigapass-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f481607e2b7526fd798b2375bb3cc9c4"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:24.006171111",
+        "timestamp": "2026-03-31T14:25:47.245271883",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

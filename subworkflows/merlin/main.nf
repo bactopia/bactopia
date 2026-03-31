@@ -42,27 +42,9 @@
  * @input staphtyper_repeat_order
  * Staphylococcus aureus repeat order file for spa typing (optional)
  *
- * @output dist_outputs
- * - `dist`: The raw Mash distance results
- * - `fna`: Passthrough of assembled contigs
- * - `r1`: Passthrough of Illumina R1 reads
- * - `r2`: Passthrough of Illumina R2 reads
- * - `se`: Passthrough of single-end reads
- * - `lr`: Passthrough of long reads
- * - `escherichia`: Conditional marker file triggering Escherichia analysis tools
- * - `haemophilus`: Conditional marker file triggering Haemophilus analysis tools
- * - `klebsiella`: Conditional marker file triggering Klebsiella analysis tools
- * - `legionella`: Conditional marker file triggering Legionella analysis tools
- * - `listeria`: Conditional marker file triggering Listeria analysis tools
- * - `mycobacterium`: Conditional marker file triggering Mycobacterium analysis tools
- * - `neisseria`: Conditional marker file triggering Neisseria analysis tools
- * - `pseudomonas`: Conditional marker file triggering Pseudomonas analysis tools
- * - `salmonella`: Conditional marker file triggering Salmonella analysis tools
- * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
- * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
- * - `genus`: A marker file indicating the detected genus (for debugging)
- *
  * @output sample_outputs
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -190,7 +172,8 @@ workflow MERLIN {
         STAPHTYPER.out.sample_outputs,
         TBPROFILER.out.sample_outputs
     )
-    run_outputs = CLERMONTYPING.out.run_outputs.mix(
+    run_outputs = MERLINDIST.out.run_outputs.mix(
+        CLERMONTYPING.out.run_outputs,
         ECTYPER.out.run_outputs,
         EMMTYPER.out.run_outputs,
         GENOTYPHI.out.run_outputs,

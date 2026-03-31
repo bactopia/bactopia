@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/pbptyper-concat/",
                 "name": "pbptyper",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "pbptyper-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f52169fdc42464f8ece8fcb1e5591a18"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:01.123009861",
+        "timestamp": "2026-03-31T14:25:29.519769948",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

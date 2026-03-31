@@ -101,7 +101,7 @@ include { gather              } from 'plugin/nf-bactopia'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    ch_samples = BACTOPIATOOL_INIT.out.gffs
+    ch_samples = BACTOPIATOOL_INIT.out.gff
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
@@ -130,7 +130,10 @@ workflow {
 
     // (optional) Create core-genome phylogeny
     if (!params.skip_phylogeny) {
-        IQTREE(params.skip_recombination ? PANGENOME.out.msa : CLONALFRAMEML.out.msa)
+        def ch_iqtree = PANGENOME.out.alignment.map { r ->
+            record(_meta: [name: "core-genome", process_name: "iqtree"], aln: r.aln)
+        }
+        IQTREE(params.skip_recombination ? ch_iqtree : CLONALFRAMEML.out.alignment)
         ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
     }

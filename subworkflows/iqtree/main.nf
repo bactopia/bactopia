@@ -15,13 +15,13 @@
  *
  * @modules iqtree
  *
- * @input record(meta, alignment)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Multiple sequence alignment in FASTA format
+ * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs
- * - `msa`: Input multiple sequence alignment (passed through)
- * - `phylogeny`: Maximum-likelihood phylogenetic tree in Newick format
+ * - `aln`: Input multiple sequence alignment (passed through)
+ * - `nwk`: Maximum-likelihood phylogenetic tree in Newick format
  * - `supplemental`: Detailed report, distance matrix, and model parameters
  *
  * @output run_outputs
@@ -32,13 +32,13 @@ include { IQTREE as IQTREE_MODULE } from '../../modules/iqtree/main'
 
 workflow IQTREE {
     take:
-    aln: Channel<Record>
+    alignment: Channel<Record>
 
     main:
-    IQTREE_MODULE(aln)
+    IQTREE_MODULE(alignment)
 
     emit:
     // Published outputs
-    sample_outputs = IQTREE_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = IQTREE_MODULE.out
 }

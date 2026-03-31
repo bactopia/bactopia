@@ -52,7 +52,7 @@ workflow {
     publish:
     // Per-sample
     sample_outputs = SEQSERO2.out.sample_outputs
-    sample_nf_logs = ch_collectNextflowLogs(SEQSERO2.out.sample_outputs)sample_nf_logs
+    sample_nf_logs = collectNextflowLogs(SEQSERO2.out.sample_outputs)
     // Run-level
     run_outputs = SEQSERO2.out.run_outputs
     run_nf_logs = collectNextflowLogs(SEQSERO2.out.run_outputs)

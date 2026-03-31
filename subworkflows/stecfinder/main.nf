@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { STECFINDER as STECFINDER_MODULE } from '../../modules/stecfinder/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                          } from 'plugin/nf-bactopia'
+include { gatherCsvtk                     } from 'plugin/nf-bactopia'
 
 workflow STECFINDER {
     take:

@@ -30,12 +30,13 @@
  * @output run_outputs
  * - `csv`: Aggregated metadata from all samples
  */
+// bactopia-lint: ignore S013
 nextflow.preview.types = true
 
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT            } from '../../../modules/csvtk/concat/main'
 include { filterWithData          } from 'plugin/nf-bactopia'
-include { gatherCsvtk                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk             } from 'plugin/nf-bactopia'
 
 workflow GATHER {
     take:

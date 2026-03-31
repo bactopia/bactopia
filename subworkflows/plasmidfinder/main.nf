@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { PLASMIDFINDER as PLASMIDFINDER_MODULE } from '../../modules/plasmidfinder/main'
 include { CSVTK_CONCAT                          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                           } from 'plugin/nf-bactopia'
 
 workflow PLASMIDFINDER {
     take:

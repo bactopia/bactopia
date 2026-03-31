@@ -22,6 +22,8 @@
  * Trait file containing binary phenotypic characteristics for each isolate (optional)
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -37,5 +39,6 @@ workflow SCOARY {
 
     emit:
     // Published outputs
-    sample_outputs = SCOARY_MODULE.out
+    sample_outputs = channel.empty()
+    run_outputs = SCOARY_MODULE.out
 }

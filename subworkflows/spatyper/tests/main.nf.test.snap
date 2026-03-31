@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/spatyper-concat/",
                 "name": "spatyper",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "spatyper-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,2be001b7db8743258dd915dfe57337f4"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:00.813106657",
+        "timestamp": "2026-03-31T14:26:07.565496767",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

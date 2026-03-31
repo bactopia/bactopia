@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/staphopiasccmec-concat/",
                 "name": "staphopiasccmec",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "staphopiasccmec-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,f59d6534316ffe1998c60f98b212d80f"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:39.958191361",
+        "timestamp": "2026-03-31T14:26:14.128413",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

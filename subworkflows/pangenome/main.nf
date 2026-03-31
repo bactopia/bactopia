@@ -27,11 +27,11 @@
  * Boolean flag to use Roary for pangenome analysis
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `aln`: Core-genome alignment in FASTA format
  * - `csv`: Gene presence/absence matrix
  * - `supplemental`: Intermediate files and detailed outputs
- *
- * @output snpdists_outputs
  * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
  */
 nextflow.preview.types = true
@@ -41,7 +41,6 @@ include { ROARY    } from '../roary/main'
 include { PANAROO  } from '../panaroo/main'
 include { SNPDISTS } from '../snpdists/main'
 
-
 workflow PANGENOME {
     take:
     gff        : Channel<Record>
@@ -49,36 +48,33 @@ workflow PANGENOME {
     use_roary  : Boolean
 
     main:
-    ch_sample_outputs = channel.empty()
+    ch_run_outputs = channel.empty()
 
     // Choose pangenome tool based on params
     if (use_pirate) {
         PIRATE(gff)
-        ch_sample_outputs = PIRATE.out.sample_outputs
+        ch_run_outputs = PIRATE.out.run_outputs
     } else if (use_roary) {
         ROARY(gff)
-        ch_sample_outputs = ROARY.out.sample_outputs
+        ch_run_outputs = ROARY.out.run_outputs
     } else {
         PANAROO(gff)
-        ch_sample_outputs = PANAROO.out.sample_outputs
+        ch_run_outputs = PANAROO.out.run_outputs
     }
 
-    // Per-sample SNP distances (panaroo uses filtered_aln, others use aln)
-    SNPDISTS(ch_sample_outputs.map { r ->
-        def msa = use_pirate || use_roary ? r.aln : r.filtered_aln
-        record(_meta: [name: 'core-genome.distance', process_name: 'snpdists'], msa: msa)
+    // SNP distances (panaroo uses filtered_aln, others use aln)
+    SNPDISTS(ch_run_outputs.map { r ->
+        def core_aln = use_pirate || use_roary ? r.aln : r.filtered_aln
+        record(_meta: [name: 'core-genome.distance', process_name: 'snpdists'], aln: core_aln)
     })
 
-    emit:
+    emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
-    alignment = ch_sample_outputs.map { r ->
-        record(_meta: r.meta, alignment: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+    alignment = ch_run_outputs.map { r ->
+        record(_meta: r.meta, aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
     }
-    csv = ch_sample_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
-    msa = ch_sample_outputs.map { r ->
-        record(_meta: [name: "core-genome", process_name: "iqtree"], msa: (use_pirate || use_roary ? r.aln : r.filtered_aln))
-    }
+    csv = ch_run_outputs.map { r -> record(_meta: r.meta, csv: r.csv) }
     // Published outputs
-    sample_outputs = ch_sample_outputs
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = ch_run_outputs.mix(SNPDISTS.out.run_outputs)
 }

@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/gamma-concat/",
                 "name": "gamma",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "gamma-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:47.598472141",
+        "timestamp": "2026-03-31T14:23:30.827745431",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        alignment: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
                     )
                 )
                 """
@@ -23,28 +23,27 @@ nextflow_workflow {
         }
 
         then {
-            def sample = workflow.out.sample_outputs[0]
-            def iqtree = workflow.out.iqtree_outputs[0]
-            def snpdists = workflow.out.snpdists_outputs[0]
+            def runs = workflow.out.run_outputs
+            def cfml = runs.find { it.meta.process_name == 'clonalframeml' }
+            def iqtree = runs.find { it.meta.process_name == 'iqtree-fast' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists-masked' }
             assertAll(
                 { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
-                { assert workflow.out.iqtree_outputs != null },
-                { assert workflow.out.snpdists_outputs != null },
+                { assert workflow.out.run_outputs != null },
                 { assert snapshot(
-                    sample.meta,
-                    sample.em,
-                    sample.status,
-                    sample.newick,
-                    sample.masked_aln,
-                    sample.versions,
+                    cfml.meta,
+                    cfml.em,
+                    cfml.status,
+                    cfml.nwk,
+                    cfml.masked_aln,
+                    cfml.versions,
                     iqtree.meta,
                     iqtree.versions,
                     snpdists.meta,
                     snpdists.tsv,
                     snpdists.versions
                 ).match() },
-                { assert sample.results != null },
+                { assert cfml.results != null },
                 { assert iqtree.results != null },
                 { assert snpdists.results != null }
             )

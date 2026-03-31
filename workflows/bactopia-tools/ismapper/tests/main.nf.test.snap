@@ -1,22 +1,8 @@
 {
     "ISMapper - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            1,
+            0,
             [
-                "SRR2838702",
-                "SRR2838702/tools",
-                "SRR2838702/tools/ismapper",
-                "SRR2838702/tools/ismapper/is1016.fasta",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/SRR2838702.log",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.begin",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.err",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.log",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.out",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.run",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.sh",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/nf.command.trace",
-                "SRR2838702/tools/ismapper/is1016.fasta/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/ismapper",
                 "bactopia-runs/ismapper/nf-reports",
@@ -25,10 +11,10 @@
                 "bactopia-runs/ismapper/nf-reports/ismapper-timeline.html"
             ],
             [
-                "versions.yml:md5,5c8653f3402a5a6792c554eea616f71c"
+                
             ]
         ],
-        "timestamp": "2026-03-28T06:54:03.189908686",
+        "timestamp": "2026-03-31T14:27:53.298359547",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

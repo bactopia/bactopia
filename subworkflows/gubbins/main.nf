@@ -16,11 +16,13 @@
  * @subworkflows snpdists
  * @modules gubbins
  *
- * @input record(meta, alignment)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Multiple sequence alignment in FASTA format
+ * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `masked_aln`: Recombination-masked alignment in FASTA format
  * - `fasta`: Concatenated alignment before masking in FASTA format
  * - `gff`: GFF file containing recombination region coordinates
@@ -32,15 +34,12 @@
  * - `tree`: Maximum likelihood tree from filtered SNPs in Newick format
  * - `tree_labelled`: Annotated tree with node labels in Newick format
  * - `bootstrap_tree`: Bootstrapped phylogenetic tree in Newick format
- *
- * @output snpdists_outputs
  * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
  */
 nextflow.preview.types = true
 
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
 include { SNPDISTS                  } from '../snpdists/main'
-
 
 workflow GUBBINS {
     take:
@@ -49,15 +48,15 @@ workflow GUBBINS {
     main:
     GUBBINS_MODULE(alignment)
     SNPDISTS(GUBBINS_MODULE.out.map { r ->
-        record(_meta: [name: 'core-snp.masked.distance', process_name: 'snpdists-masked'], msa: r.masked_aln)
+        record(_meta: [name: 'core-snp.masked.distance', process_name: 'snpdists-masked'], aln: r.masked_aln)
     })
 
-    emit:
+    emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
-    msa = GUBBINS_MODULE.out.map { r ->
-        record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.masked_aln)
+    alignment = GUBBINS_MODULE.out.map { r ->
+        record(_meta: [name: "core-snp", process_name: "iqtree"], aln: r.masked_aln)
     }
     // Published outputs
-    sample_outputs = GUBBINS_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = GUBBINS_MODULE.out.mix(SNPDISTS.out.run_outputs)
 }

@@ -17,14 +17,14 @@
                 "logs_dir": "merged-results/logs/phispy-concat/",
                 "name": "phispy",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "phispy-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,07d57bb6615d099e188c1aad39da5c83"
             ]
         ],
-        "timestamp": "2026-03-28T06:56:42.208782356",
+        "timestamp": "2026-03-31T17:43:36.833590681",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

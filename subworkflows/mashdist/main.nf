@@ -30,15 +30,15 @@ nextflow.preview.types = true
 
 include { MASH_DIST    } from '../../modules/mash/dist/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk       } from 'plugin/nf-bactopia'
+include { gatherCsvtk  } from 'plugin/nf-bactopia'
 
 workflow MASHDIST {
     take:
-    seqs: Channel<Record>
+    assembly: Channel<Record>
     reference: Path
 
     main:
-    MASH_DIST(seqs, reference)
+    MASH_DIST(assembly, reference)
     CSVTK_CONCAT(gatherCsvtk(MASH_DIST.out, 'dist', [name: 'mashdist']), 'tsv', 'tsv')
 
     emit:

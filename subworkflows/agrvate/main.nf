@@ -26,7 +26,7 @@ nextflow.preview.types = true
 
 include { AGRVATE as AGRVATE_MODULE } from '../../modules/agrvate/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk               } from 'plugin/nf-bactopia'
 
 workflow AGRVATE {
     take:

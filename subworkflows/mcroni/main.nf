@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { MCRONI as MCRONI_MODULE } from '../../modules/mcroni/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk             } from 'plugin/nf-bactopia'
 
 workflow MCRONI {
     take:

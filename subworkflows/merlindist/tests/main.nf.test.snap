@@ -3,11 +3,12 @@
         "content": [
             {
                 "id": "GCF_000017085-MERLINDIST:MERLIN_DIST",
-                "logs_dir": "GCF_000017085/tools/mashdist/null/logs/",
+                "logs_dir": "GCF_000017085/tools/merlindist/null/logs/",
                 "name": "GCF_000017085",
-                "output_dir": "GCF_000017085/tools/mashdist/null",
-                "process_name": "mashdist",
+                "output_dir": "GCF_000017085/tools/merlindist/null",
+                "process_name": "merlindist",
                 "runtype": "paired-end",
+                "scope": "sample",
                 "single_end": false
             },
             "GCF_000017085-dist.txt:md5,48f9f7e56b6cdb832aa1ccc5943c2b05",
@@ -15,7 +16,7 @@
                 "versions.yml:md5,a714676ea5e603813de6640079a3f847"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:53.942115803",
+        "timestamp": "2026-03-31T14:25:34.098298928",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

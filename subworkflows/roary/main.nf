@@ -18,11 +18,11 @@
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  *   - `aln`: Core genome alignment in FASTA format (optional)
  *   - `csv`: Gene presence/absence table
  *   - `supplemental`: Supplemental files including accessory binary genes and graphs
- *
- * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -37,6 +37,6 @@ workflow ROARY {
 
     emit:
     // Published outputs
-    sample_outputs = ROARY_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = ROARY_MODULE.out
 }

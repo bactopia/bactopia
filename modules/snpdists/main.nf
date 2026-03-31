@@ -9,9 +9,9 @@
  * @tags complexity:simple input-type:single output-type:single features:conditional-logic
  * @citation snpdists
  *
- * @input record(meta, msa)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment in FASTA format
+ * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Pairwise SNP distance matrix in TSV format
@@ -26,7 +26,7 @@ process SNPDISTS {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, msa: Path): Record
+    (_meta: Map, aln: Path): Record
 
     output:
     record(
@@ -57,7 +57,7 @@ process SNPDISTS {
     """
     snp-dists \\
         ${task.ext.args} \\
-        ${msa} > ${prefix}.tsv
+        ${aln} > ${prefix}.tsv
 
     # Cleanup
 

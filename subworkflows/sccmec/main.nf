@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { SCCMEC as SCCMEC_MODULE } from '../../modules/sccmec/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                  } from 'plugin/nf-bactopia'
+include { gatherCsvtk             } from 'plugin/nf-bactopia'
 
 workflow SCCMEC {
     take:

@@ -16,7 +16,7 @@ nextflow_process {
                     record(
                         _meta: [name: "SRR2838702"],
                         fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna"),
-                        meta_file: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
+                        tsv_meta: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
                     )
                 )
                 """
@@ -47,7 +47,7 @@ nextflow_process {
                     record(
                         _meta: [name: "SRR2838702"],
                         fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz"),
-                        meta_file: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
+                        tsv_meta: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
                     )
                 )
                 """
@@ -78,7 +78,7 @@ nextflow_process {
                     record(
                         _meta: [name: "SRR2838702"],
                         fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna"),
-                        meta_file: file("${params.test_data_dir}/datasets/generic/genome/GCF_000292685-meta-noref.tsv")
+                        tsv_meta: file("${params.test_data_dir}/datasets/generic/genome/GCF_000292685-meta-noref.tsv")
                     )
                 )
                 """

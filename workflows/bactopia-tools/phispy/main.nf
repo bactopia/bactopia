@@ -41,7 +41,7 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 workflow {
     main:
     BACTOPIATOOL_INIT()
-    PHISPY(BACTOPIATOOL_INIT.out.gbks)
+    PHISPY(BACTOPIATOOL_INIT.out.gbff)
 
     publish:
     // Per-sample

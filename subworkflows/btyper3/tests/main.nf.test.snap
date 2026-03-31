@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/btyper3-concat/",
                 "name": "btyper3",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "btyper3-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,40ee298a3f689113440883cada3337aa"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:13.389089622",
+        "timestamp": "2026-03-31T14:24:58.251081305",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

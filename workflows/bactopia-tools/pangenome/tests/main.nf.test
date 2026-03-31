@@ -26,7 +26,8 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // Ignore aligned_gene_sequences (panaroo gene naming is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/aligned_gene_sequences/**'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
             assertAll(
@@ -64,7 +65,8 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // Ignore aligned_gene_sequences (panaroo gene naming is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/aligned_gene_sequences/**'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
             assertAll(
@@ -100,7 +102,8 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // Ignore feature_sequences (pirate gene cluster numbering is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/feature_sequences/**'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
             assertAll(

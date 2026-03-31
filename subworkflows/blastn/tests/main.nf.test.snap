@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/blastn-concat/",
                 "name": "blastn",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "blastn-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,83da7e0cc2656aa0959a8b41dc452417"
             ]
         ],
-        "timestamp": "2026-03-28T06:52:56.012008725",
+        "timestamp": "2026-03-31T14:23:00.581083073",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

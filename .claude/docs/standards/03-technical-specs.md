@@ -226,9 +226,61 @@ meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ex
 
 ## Variable Naming Conventions
 
-### Standard Renames
-- `fasta` → **`assembly`**: "Assembled contigs in FASTA format"
-- `fastq`/`reads` → **`reads`**: "FASTQ reads (Illumina or Nanopore)"
+### Two-Level Naming Convention
+
+Record field names and channel names follow a dual convention:
+- **Record fields** = bioinformatics format abbreviation (short, technical)
+- **Channel names** (subworkflow takes/emits, workflow variables) = human-readable concept
+
+**Singular vs plural**:
+- Singular = per-sample (one record per sample)
+- Plural = aggregated / collection intended for multi-sample analysis
+
+#### Canonical Name Table
+
+| Concept | Record field | Channel (singular) | Channel (plural) |
+|---|---|---|---|
+| Assembly | `fna` | `assembly` | `assemblies` |
+| Proteins | `faa` | `proteins` | `proteins` |
+| Feature nt FASTA | `ffn` | (rarely channeled) | |
+| GFF annotation | `gff` | `gff` | `gffs` |
+| GenBank annotation | `gbff` | `gbff` | `gbffs` |
+| MSA / alignment | `aln` | `alignment` | `alignments` |
+| Filtered alignment | `filtered_aln` | | |
+| Masked alignment | `masked_aln` | | |
+| Full alignment | `full_aln` | | |
+| Clean full alignment | `clean_full_aln` | | |
+| Phylogenetic tree | `nwk` | `tree` | `trees` |
+| Per-sample ref-aligned FA | `aligned_fa` | (keep as-is) | |
+| Variant calls | `vcf` | `vcf` | `vcfs` |
+| Distance matrix | `dist` | `dist` | |
+| Results (tab) | `tsv` | `tsv` | |
+| Results (comma) | `csv` | `csv` | |
+
+#### Examples
+
+Module output uses format abbreviation for record fields:
+```nextflow
+record(meta: meta, aln: file("${prefix}.aln.gz"), nwk: file("${prefix}.treefile"), ...)
+```
+
+Subworkflow takes use human-readable channel names:
+```nextflow
+take:
+alignment: Channel<Record>  // contains records with field `aln`
+```
+
+Subworkflow emits use human-readable names:
+```nextflow
+emit:
+alignment = MODULE.out.map { r -> record(_meta: ..., aln: r.masked_aln) }
+```
+
+GroovyDoc `@input`/`@output` documents the record field names (format abbreviation):
+```
+@input record(meta, aln)
+@output record(meta, aln, nwk, results, logs, nf_logs, versions)
+```
 
 ### Channel Naming
 - Use descriptive names: `ch_results`, `ch_logs`, `ch_nf_logs`, `ch_versions`

@@ -36,7 +36,7 @@ process QUAST {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, fna: Path, meta_file: Path): Record
+    (_meta: Map, fna: Path, tsv_meta: Path): Record
 
     output:
     record(
@@ -74,7 +74,7 @@ process QUAST {
 
     est_ref_size=""
     # Use rev to get the last column easily, then re-reverse it
-    ref_size=\$(tail -n 1 ${meta_file} | rev | cut -f 1 | rev)
+    ref_size=\$(tail -n 1 ${tsv_meta} | rev | cut -f 1 | rev)
     if [ "\${ref_size}" != "0" ]; then
         est_ref_size="--est-ref-size \${ref_size}"
     fi

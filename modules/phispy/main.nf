@@ -10,9 +10,9 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation phispy
  *
- * @input record(meta, gbk)
+ * @input record(meta, gbff)
  * - `meta`: Groovy Map containing sample information
- * - `gbk`: Annotated genome file in GenBank (*.gbk or *.gbff) format
+ * - `gbff`: Annotated genome file in GenBank format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Coordinates (start/end) of each predicted prophage region in the genome
@@ -34,7 +34,7 @@ process PHISPY {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, gbk: Path): Record
+    (_meta: Map, gbff: Path): Record
 
     output:
     record(
@@ -69,7 +69,7 @@ process PHISPY {
         --threads ${task.cpus} \\
         -p ${prefix} \\
         -o supplemental \\
-        ${gbk}
+        ${gbff}
 
     # Cleanup
     mv supplemental/${prefix}_prophage_coordinates.tsv ${prefix}.tsv

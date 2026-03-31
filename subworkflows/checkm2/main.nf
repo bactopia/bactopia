@@ -39,7 +39,7 @@ nextflow.preview.types = true
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'
 include { CHECKM2_PREDICT  } from '../../modules/checkm2/predict/main'
 include { CSVTK_CONCAT     } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk           } from 'plugin/nf-bactopia'
+include { gatherCsvtk      } from 'plugin/nf-bactopia'
 
 workflow CHECKM2 {
     take:

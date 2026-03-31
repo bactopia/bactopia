@@ -14,25 +14,27 @@
  *
  * @modules csvtk_concat, fastani
  *
- * @input record(meta, query)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `query`: Query genomes in FASTA format for ANI calculation
+ * - `fna`: Query genomes in FASTA format for ANI calculation
  *
- * @input record(meta, reference)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `reference`: Reference genomes in FASTA format for ANI calculation
+ * - `fna`: Reference genomes in FASTA format for ANI calculation
  *
  * @output sample_outputs
- * - `tsv`: A tab-delimited summary of the ANI scores, matched fragments, and total fragments
  *
  * @output run_outputs
+ * - `tsv`: A tab-delimited summary of the ANI scores, matched fragments, and total fragments
  * - `csv`: Aggregated results in CSV format
  */
+// bactopia-lint: ignore S015
 nextflow.preview.types = true
 
 include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                    } from 'plugin/nf-bactopia'
+include { gatherFields              } from 'plugin/nf-bactopia'
+include { gatherCsvtk               } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
     take:
@@ -41,11 +43,11 @@ workflow FASTANI {
 
     main:
     ch_ref = reference.map { r -> r.fna }
-    FASTANI_MODULE(gatherCsvtk(query, 'fna', [name: 'query']), ch_ref)
+    FASTANI_MODULE(gatherFields(query, [fna: 'query'], [name: 'fastani']), ch_ref)
     CSVTK_CONCAT(gatherCsvtk(FASTANI_MODULE.out, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = FASTANI_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = channel.empty()
+    run_outputs = FASTANI_MODULE.out.mix(CSVTK_CONCAT.out)
 }

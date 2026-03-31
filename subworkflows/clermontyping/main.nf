@@ -26,7 +26,7 @@ nextflow.preview.types = true
 
 include { CLERMONTYPING as CLERMONTYPING_MODULE } from '../../modules/clermontyping/main'
 include { CSVTK_CONCAT                          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                           } from 'plugin/nf-bactopia'
 
 workflow CLERMONTYPING {
     take:

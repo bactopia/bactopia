@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { ECTYPER as ECTYPER_MODULE } from '../../modules/ectyper/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk               } from 'plugin/nf-bactopia'
 
 workflow ECTYPER {
     take:

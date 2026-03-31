@@ -13,12 +13,12 @@
  *
  * @modules mashtree
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Pre-gathered assembled contigs in FASTA format (multiple genomes)
  *
  * @output sample_outputs
- * - `tree`: Phylogenetic tree in Newick format
+ * - `nwk`: Phylogenetic tree in Newick format
  * - `tsv`: Pairwise distance matrix
  * - `sketches`: Individual Mash sketch files
  *
@@ -27,17 +27,16 @@
 nextflow.preview.types = true
 
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
-include { gatherCsvtk                      } from 'plugin/nf-bactopia'
 
 workflow MASHTREE {
     take:
-    assembly: Channel<Record>
+    assemblies: Channel<Record>
 
     main:
-    MASHTREE_MODULE(gatherCsvtk(assembly, 'assembly', [name: 'mashtree']))
+    MASHTREE_MODULE(assemblies)
 
     emit:
     // Published outputs
-    sample_outputs = MASHTREE_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = MASHTREE_MODULE.out
 }

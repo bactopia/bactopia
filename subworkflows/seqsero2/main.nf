@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { SEQSERO2 as SEQSERO2_MODULE } from '../../modules/seqsero2/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                 } from 'plugin/nf-bactopia'
 
 workflow SEQSERO2 {
     take:

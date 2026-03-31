@@ -6,7 +6,6 @@
                 "ERR6005894",
                 "ERR6005894/tools",
                 "ERR6005894/tools/shigatyper",
-                "ERR6005894/tools/shigatyper/ERR6005894-hits.tsv",
                 "ERR6005894/tools/shigatyper/ERR6005894.tsv",
                 "ERR6005894/tools/shigatyper/logs",
                 "ERR6005894/tools/shigatyper/logs/nf.command.begin",
@@ -63,18 +62,17 @@
                 "bactopia-runs/shigatyper/nf-reports/shigatyper-timeline.html"
             ],
             [
-                "ERR6005894-hits.tsv:md5,86324f1cdc686eb68b85bd27776a8dc7",
-                "ERR6005894.tsv:md5,84bc68331bf503ea23da27207e418383",
+                "ERR6005894.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
                 "ERR6005894SE.tsv:md5,91445ec102402e56b530134e4b8d48f9",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
                 "SRR13039589.tsv:md5,0392d9fbdd3e5911352bdf380ad217a0",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
                 "versions.yml:md5,c4954fe5c276fcd3b66857bacafa932e",
-                "shigatyper.tsv:md5,e79d30d6378fc9988ec6565d2ae052ec"
+                "shigatyper.tsv:md5,eef512c9a467edf271fea8a22683439c"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:31.850288181",
+        "timestamp": "2026-03-31T14:29:48.339458111",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

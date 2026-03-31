@@ -33,7 +33,7 @@ nextflow.preview.types = true
 
 include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow GAMMA {
     take:

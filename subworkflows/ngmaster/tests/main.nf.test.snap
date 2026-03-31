@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/ngmaster-concat/",
                 "name": "ngmaster",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "ngmaster-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,9dbc0e8b7902e955ec10c94c11074f06"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:24.380631615",
+        "timestamp": "2026-03-31T14:25:03.983869054",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

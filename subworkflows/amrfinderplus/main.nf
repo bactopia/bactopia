@@ -31,7 +31,7 @@ nextflow.preview.types = true
 
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk            } from 'plugin/nf-bactopia'
+include { gatherCsvtk       } from 'plugin/nf-bactopia'
 
 workflow AMRFINDERPLUS {
     take:

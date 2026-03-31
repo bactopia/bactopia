@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { BTYPER3 as BTYPER3_MODULE } from '../../modules/btyper3/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk               } from 'plugin/nf-bactopia'
 
 workflow BTYPER3 {
     take:

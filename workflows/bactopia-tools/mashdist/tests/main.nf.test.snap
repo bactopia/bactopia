@@ -43,7 +43,7 @@
                 "mashdist.tsv:md5,630500729ddf987a8f487cd409d0afce"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:27.323598052",
+        "timestamp": "2026-03-31T14:28:32.401586806",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

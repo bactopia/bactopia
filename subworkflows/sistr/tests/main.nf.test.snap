@@ -17,14 +17,14 @@
                 "logs_dir": "merged-results/logs/sistr-concat/",
                 "name": "sistr",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "sistr-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,683c9c1a0fff623520a6d84e3a7d0210"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:52.09737876",
+        "timestamp": "2026-03-31T14:26:12.707440894",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

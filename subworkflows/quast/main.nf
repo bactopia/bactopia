@@ -30,7 +30,7 @@ nextflow.preview.types = true
 
 include { QUAST as QUAST_MODULE } from '../../modules/quast/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                } from 'plugin/nf-bactopia'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
 
 workflow QUAST {
     take:

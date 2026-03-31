@@ -14,11 +14,13 @@
  *
  * @modules snpdists
  *
- * @input record(meta, alignment)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Multiple sequence alignment in FASTA format
+ * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `tsv`: Pairwise SNP distance matrix in TSV format
  */
 nextflow.preview.types = true
@@ -34,5 +36,6 @@ workflow SNPDISTS {
 
     emit:
     // Published outputs
-    sample_outputs = SNPDISTS_MODULE.out
+    sample_outputs = channel.empty()
+    run_outputs = SNPDISTS_MODULE.out
 }

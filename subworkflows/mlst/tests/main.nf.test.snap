@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/mlst-concat/",
                 "name": "mlst",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "mlst-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:31.2655914",
+        "timestamp": "2026-03-31T14:24:41.787396084",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { NGMASTER as NGMASTER_MODULE } from '../../modules/ngmaster/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                 } from 'plugin/nf-bactopia'
 
 workflow NGMASTER {
     take:

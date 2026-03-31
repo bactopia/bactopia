@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/mobsuite-concat/",
                 "name": "mobsuite",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "mobsuite-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,e586a98fe29a48792ce661d2649ada18"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:33.425848578",
+        "timestamp": "2026-03-31T14:26:01.076888427",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

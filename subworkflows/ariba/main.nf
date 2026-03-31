@@ -33,6 +33,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
+// bactopia-lint: ignore S015
 nextflow.preview.types = true
 
 include { ARIBA_GETREF                         } from '../../modules/ariba/getref/main'
@@ -40,7 +41,7 @@ include { ARIBA_RUN                            } from '../../modules/ariba/run/m
 include { CSVTK_CONCAT as CSVTK_CONCAT_REPORT  } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_SUMMARY } from '../../modules/csvtk/concat/main'
 include { filterWithData                       } from 'plugin/nf-bactopia'
-include { gatherCsvtk                               } from 'plugin/nf-bactopia'
+include { gatherCsvtk                          } from 'plugin/nf-bactopia'
 
 workflow ARIBA {
     take:

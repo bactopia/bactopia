@@ -37,7 +37,7 @@
 nextflow.preview.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
-include { filterWithData             } from 'plugin/nf-bactopia'
+include { filterWithData              } from 'plugin/nf-bactopia'
 
 workflow ISMAPPER {
     take:

@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/tblastn-concat/",
                 "name": "tblastn",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "tblastn-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,413650f494aaf14a524501ce6dc5c959"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:38.620036647",
+        "timestamp": "2026-03-31T14:26:24.980189182",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

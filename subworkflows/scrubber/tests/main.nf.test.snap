@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/scrubber-concat/",
                 "name": "scrubber",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "scrubber-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
             ]
         ],
-        "timestamp": "2026-03-28T06:57:38.89227101",
+        "timestamp": "2026-03-31T14:30:22.45605767",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

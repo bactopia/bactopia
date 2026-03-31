@@ -25,6 +25,8 @@
  * Optional BED file of regions to mask from the core alignment (e.g., recombinant regions, repeat regions)
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `aln`: Core SNP alignment in FASTA format (polymorphic sites only)
  * - `full_aln`: Full core alignment including monomorphic sites
  * - `clean_full_aln`: Cleaned full alignment with constant sites for phylogenetic inference
@@ -33,15 +35,12 @@
  * - `txt`: Core summary statistics (number of SNPs, core genome size)
  * - `samples`: List of samples included in the core alignment
  * - `supplemental`: Individual sample alignments and intermediate files
- *
- * @output snpdists_outputs
  * - `tsv`: Pairwise SNP distance matrix from snp-dists
  */
 nextflow.preview.types = true
 
-include { SNIPPY_CORE as SNIPPY_CORE_MODULE  } from '../../../modules/snippy/core/main'
-include { SNPDISTS                           } from '../../snpdists/main'
-
+include { SNIPPY_CORE as SNIPPY_CORE_MODULE } from '../../../modules/snippy/core/main'
+include { SNPDISTS                          } from '../../snpdists/main'
 
 workflow SNIPPY_CORE {
     take:
@@ -54,15 +53,15 @@ workflow SNIPPY_CORE {
 
     // Per-sample SNP distances
     SNPDISTS(SNIPPY_CORE_MODULE.out.map { r ->
-        record(_meta: [name: 'core-snp.distance', process_name: 'snpdists'], msa: r.clean_full_aln)
+        record(_meta: [name: 'core-snp.distance', process_name: 'snpdists'], aln: r.clean_full_aln)
     })
 
-    emit:
+    emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
-    msa = SNIPPY_CORE_MODULE.out.map { r ->
-        record(_meta: [name: "core-snp", process_name: "iqtree"], msa: r.clean_full_aln)
+    alignment = SNIPPY_CORE_MODULE.out.map { r ->
+        record(_meta: [name: "core-snp", process_name: "iqtree"], aln: r.clean_full_aln)
     }
     // Published outputs
-    sample_outputs = SNIPPY_CORE_MODULE.out
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = SNIPPY_CORE_MODULE.out.mix(SNPDISTS.out.run_outputs)
 }

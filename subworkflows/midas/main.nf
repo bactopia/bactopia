@@ -46,7 +46,7 @@ include { MIDAS_DOWNLOAD } from '../../modules/midas/download/main'
 include { MIDAS_SPECIES  } from '../../modules/midas/species/main'
 include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
 include { filterWithData } from 'plugin/nf-bactopia'
-include { gatherCsvtk         } from 'plugin/nf-bactopia'
+include { gatherCsvtk    } from 'plugin/nf-bactopia'
 
 workflow MIDAS {
     take:

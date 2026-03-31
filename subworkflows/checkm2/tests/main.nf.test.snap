@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/checkm2-concat/",
                 "name": "checkm2",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "checkm2-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,b7cf6dd33e2fefeb729064b0d46f2081"
             ]
         ],
-        "timestamp": "2026-03-28T06:57:50.678016217",
+        "timestamp": "2026-03-31T14:27:59.76987248",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

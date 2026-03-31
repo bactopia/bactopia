@@ -44,6 +44,18 @@
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.sh",
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.trace",
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/versions.yml",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.begin",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.err",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.log",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.out",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.run",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.sh",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.trace",
+                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/versions.yml",
+                "bactopia-runs/rgi/merged-results/rgi-2.csv",
+                "bactopia-runs/rgi/merged-results/rgi-2.eps",
+                "bactopia-runs/rgi/merged-results/rgi-2.png",
                 "bactopia-runs/rgi/merged-results/rgi.tsv",
                 "bactopia-runs/rgi/nf-reports",
                 "bactopia-runs/rgi/nf-reports/rgi-dag.dot",
@@ -58,10 +70,12 @@
                 "GCF_900478275.tsv:md5,9d7754551163e020beed52a8bc14ce83",
                 "versions.yml:md5,4a19310417d04abb9e1eeec05629f944",
                 "versions.yml:md5,c1294552ba205b057bd368875a4eac93",
+                "versions.yml:md5,84fa922dc8ecb987b4ee03caffd09c32",
+                "rgi-2.csv:md5,1b9fe3fe98225aa59891d4450619f9a4",
                 "rgi.tsv:md5,6dabb1f8c3cab56929ecab6236f6fa67"
             ]
         ],
-        "timestamp": "2026-03-28T06:55:37.758899635",
+        "timestamp": "2026-03-31T16:34:50.420263904",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -29,7 +29,7 @@ nextflow.preview.types = true
 
 include { PBPTYPER as PBPTYPER_MODULE } from '../../modules/pbptyper/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                      } from 'plugin/nf-bactopia'
+include { gatherCsvtk                 } from 'plugin/nf-bactopia'
 
 workflow PBPTYPER {
     take:

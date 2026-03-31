@@ -10,13 +10,13 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic
  * @citation iqtree
  *
- * @input record(meta, msa)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
+ * - `aln`: Multiple sequence alignment in FASTA, PHYLIP, or NEXUS format
  *
- * @output record(meta, msa, phylogeny, results, logs, nf_logs, versions)
- * - `msa`: The input alignment (passed through)
- * - `phylogeny`: The final maximum-likelihood phylogenetic tree (Newick format)
+ * @output record(meta, aln, nwk, results, logs, nf_logs, versions)
+ * - `aln`: The input alignment (passed through)
+ * - `nwk`: The final maximum-likelihood phylogenetic tree (Newick format)
  *
  * @results iqtree (or iqtree-fast)
  * - `${prefix}.*`: IQ-TREE output files (model info, bootstrap trees, log, alninfo, etc.)
@@ -33,14 +33,14 @@ process IQTREE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, msa: Path): Record
+    (_meta: Map, aln: Path): Record
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        msa: file(msa),
-        phylogeny: file(treefile),
+        aln: file(aln),
+        nwk: file(treefile),
         // Generic fields (used for publishing)
         results: [
             files(treefile),
@@ -68,7 +68,7 @@ process IQTREE {
     """
     iqtree \\
         ${args} \\
-        -s ${msa} \\
+        -s ${aln} \\
         -nt ${task.cpus} \\
         -ntmax ${task.cpus} \\
         -pre ${prefix}
@@ -79,7 +79,7 @@ process IQTREE {
     fi
 
     mkdir ${process_name}/
-    find . -maxdepth 1 -name "${prefix}*" -not -name "${msa}" -not -type d -exec mv {} ${process_name}/ \\;
+    find . -maxdepth 1 -name "${prefix}*" -not -name "${aln}" -not -type d -exec mv {} ${process_name}/ \\;
 
     if [ "${process_name}" == "iqtree" ]; then
         # We don't want the fast-tree to be on the same level as the main tree in the outputs

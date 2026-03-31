@@ -25,7 +25,7 @@
  *
  * @output sample_outputs
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
- * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `gbff`: Annotation in GenBank format, containing both sequences and annotations
  * - `fna`: Nucleotide FASTA file of the input contig sequences
  * - `faa`: Protein FASTA file of the translated CDS sequences
  * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)

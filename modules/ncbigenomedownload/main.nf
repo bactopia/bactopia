@@ -13,8 +13,8 @@
  * @input accessions
  * A path to a text file containing a list of NCBI Assembly accession numbers (one per line)
  *
- * @output record(meta, gbk, fna, rm, features, gff, faa, gpff, wgs_gbk, cds, rna, rna_fna, report, stats, accessions, results, logs, nf_logs, versions)
- * - `gbk`: GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
+ * @output record(meta, gbff, fna, rm, features, gff, faa, gpff, wgs_gbk, cds, rna, rna_fna, report, stats, accessions, results, logs, nf_logs, versions)
+ * - `gbff`: GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
  * - `fna`: FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
  * - `rm`: RepeatMasker output for eukaryotes (optional)
  * - `features`: Tab-delimited text file reporting locations and attributes for a subset of features
@@ -45,7 +45,7 @@ process NCBIGENOMEDOWNLOAD {
     record(
         // Named fields (used downstream)
         meta: meta,
-        gbk: files("*_genomic.gbff.gz", optional: true),
+        gbff: files("*_genomic.gbff.gz", optional: true),
         fna: files("*_genomic.fna.gz", optional: true),
         rm: files("*_rm.out.gz", optional: true),
         features: files("*_feature_table.txt.gz", optional: true),

@@ -10,9 +10,9 @@
  * @tags complexity:complex input-type:single output-type:multiple features:compression
  * @citation gubbins
  *
- * @input record(meta, msa)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment in FASTA format
+ * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output record(meta, masked_aln, results, logs, nf_logs, versions)
  * - `masked_aln`: The input alignment with recombinant regions masked (*.masked.aln.gz)
@@ -38,7 +38,7 @@ process GUBBINS {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, msa: Path): Record
+    (_meta: Map, aln: Path): Record
 
     output:
     record(
@@ -67,28 +67,28 @@ process GUBBINS {
     meta.output_dir = ""
     meta.logs_dir = "${meta.process_name}/logs/"
 
-    def is_compressed = msa.getName().endsWith(".gz") ? true : false
-    def msa_name = msa.getName().replace(".gz", "")
+    def is_compressed = aln.getName().endsWith(".gz") ? true : false
+    def aln_name = aln.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${msa} > ${msa_name}
+        gzip -c -d ${aln} > ${aln_name}
     fi
 
     run_gubbins.py \\
         --threads ${task.cpus} \\
         --prefix ${prefix} \\
         ${task.ext.args} \\
-        ${msa_name}
+        ${aln_name}
 
     # Create masked alignment
     mask_gubbins_aln.py \\
-        --aln ${msa_name} \\
+        --aln ${aln_name} \\
         --gff ${prefix}.recombination_predictions.gff \\
         --out ${prefix}.masked.aln
 
     # Cleanup
     if [ "${is_compressed}" == "true" ]; then
-        rm -rf ${msa_name}
+        rm -rf ${aln_name}
     fi
     gzip *.masked.aln *.embl *.fasta *.gff *.vcf
 

@@ -15,7 +15,7 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        msa: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
                     )
                 )
                 """
@@ -23,21 +23,21 @@ nextflow_workflow {
         }
 
         then {
-            def sample = workflow.out.sample_outputs[0]
-            def snpdists = workflow.out.snpdists_outputs[0]
+            def runs = workflow.out.run_outputs
+            def gubbins = runs.find { it.meta.process_name == 'gubbins' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists-masked' }
             assertAll(
                 { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
-                { assert workflow.out.snpdists_outputs != null },
+                { assert workflow.out.run_outputs != null },
                 { assert snapshot(
-                    sample.meta,
-                    sample.masked_aln,
-                    sample.versions,
+                    gubbins.meta,
+                    gubbins.masked_aln,
+                    gubbins.versions,
                     snpdists.meta,
                     snpdists.tsv,
                     snpdists.versions
                 ).match() },
-                { assert sample.results != null },
+                { assert gubbins.results != null },
                 { assert snpdists.results != null }
             )
         }

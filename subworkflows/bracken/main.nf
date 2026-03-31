@@ -41,12 +41,13 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
+// bactopia-lint: ignore S015
 nextflow.preview.types = true
 
 include { BRACKEN as BRACKEN_MODULE             } from '../../modules/bracken/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_TSV      } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_ADJUSTED } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                                } from 'plugin/nf-bactopia'
+include { gatherCsvtk                           } from 'plugin/nf-bactopia'
 
 workflow BRACKEN {
     take:
@@ -55,11 +56,7 @@ workflow BRACKEN {
 
     main:
     BRACKEN_MODULE(reads, database)
-
-    // Merge Bracken Primary/Secondary Species abundance
     CSVTK_CONCAT_TSV(gatherCsvtk(BRACKEN_MODULE.out, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
-
-    // Merge Bracken adjusted abundance
     CSVTK_CONCAT_ADJUSTED(gatherCsvtk(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
 
     emit:

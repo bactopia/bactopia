@@ -15,8 +15,8 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        msa: file("${params.test_data_dir}/datasets/generic/genome/genome.aln"),
-                        newick: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.nwk")
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln"),
+                        nwk: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.nwk")
                     )
                 )
                 """
@@ -31,7 +31,7 @@ nextflow_process {
                     record.meta,
                     record.em,
                     record.status,
-                    record.newick,
+                    record.nwk,
                     record.versions
                 ).match() }
             )
@@ -48,8 +48,8 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         _meta: [name: "portiera"],
-                        msa: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz"),
-                        newick: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.nwk")
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz"),
+                        nwk: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.nwk")
                     )
                 )
                 """
@@ -64,7 +64,7 @@ nextflow_process {
                     record.meta,
                     record.em,
                     record.status,
-                    record.newick,
+                    record.nwk,
                     record.versions
                 ).match() }
             )

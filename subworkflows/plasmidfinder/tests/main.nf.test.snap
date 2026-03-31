@@ -17,14 +17,14 @@
                 "logs_dir": "merged-results/logs/plasmidfinder-concat/",
                 "name": "plasmidfinder",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "plasmidfinder-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,4f95221cf6912e60932c0c0c6982fba5"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:27.698411691",
+        "timestamp": "2026-03-31T14:25:11.308548294",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

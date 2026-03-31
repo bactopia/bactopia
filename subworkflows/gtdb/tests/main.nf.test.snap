@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/gtdb-concat/",
                 "name": "gtdb",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "gtdb-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,ec94f157437c25058fdce9d4346342a2"
             ]
         ],
-        "timestamp": "2026-03-28T07:21:25.177148504",
+        "timestamp": "2026-03-31T14:52:18.801100949",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

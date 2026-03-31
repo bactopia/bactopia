@@ -70,6 +70,21 @@
                 "SRR2838702/main/qc/logs/nf.command.sh",
                 "SRR2838702/main/qc/logs/nf.command.trace",
                 "SRR2838702/main/qc/logs/versions.yml",
+                "SRR2838702/main/qc/supplemental",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.zip",
                 "SRR2838702/main/sketcher",
                 "SRR2838702/main/sketcher/SRR2838702-k21.msh",
                 "SRR2838702/main/sketcher/SRR2838702-k31.msh",
@@ -249,7 +264,7 @@
                 "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793"
             ]
         ],
-        "timestamp": "2026-03-28T07:01:46.592287182",
+        "timestamp": "2026-03-31T14:34:55.308635598",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

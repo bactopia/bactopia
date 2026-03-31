@@ -17,14 +17,14 @@
                 "logs_dir": "merged-results/logs/kleborate-concat/",
                 "name": "kleborate",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "kleborate-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,2351aac91e4aee5e9cfa2bd7a6a1bda0"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:14.725965148",
+        "timestamp": "2026-03-31T14:24:23.357606924",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

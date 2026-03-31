@@ -19,14 +19,14 @@
                 "logs_dir": "merged-results/logs/shigatyper-concat/",
                 "name": "shigatyper",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "shigatyper-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,c4954fe5c276fcd3b66857bacafa932e"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:47.110122583",
+        "timestamp": "2026-03-31T14:25:44.386509587",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

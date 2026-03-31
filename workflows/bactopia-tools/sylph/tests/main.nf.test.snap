@@ -1,7 +1,7 @@
 {
     "Sylph - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            1,
+            2,
             [
                 "SRR2838702",
                 "SRR2838702/tools",
@@ -18,6 +18,18 @@
                 "SRR2838702/tools/sylph/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/sylph",
+                "bactopia-runs/sylph/merged-results",
+                "bactopia-runs/sylph/merged-results/logs",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.begin",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.err",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.log",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.out",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.run",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.sh",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/nf.command.trace",
+                "bactopia-runs/sylph/merged-results/logs/sylph-concat/versions.yml",
+                "bactopia-runs/sylph/merged-results/sylph.tsv",
                 "bactopia-runs/sylph/nf-reports",
                 "bactopia-runs/sylph/nf-reports/sylph-dag.dot",
                 "bactopia-runs/sylph/nf-reports/sylph-report.html",
@@ -25,10 +37,12 @@
             ],
             [
                 "SRR2838702.tsv:md5,beb99cbcea3c9c0a90329ae09ee957f3",
-                "versions.yml:md5,2a85d1cd25d2a88c77d90030e05e17cf"
+                "versions.yml:md5,2a85d1cd25d2a88c77d90030e05e17cf",
+                "versions.yml:md5,ae98fd5dcfcfb10ba70f444494fce85e",
+                "sylph.tsv:md5,beb99cbcea3c9c0a90329ae09ee957f3"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:04.306769952",
+        "timestamp": "2026-03-31T17:33:07.331934191",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

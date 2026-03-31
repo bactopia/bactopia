@@ -17,7 +17,7 @@
  * A file containing NCBI accession numbers, one per line. If empty, will download all genomes matching the specified criteria.
  *
  * @output sample_outputs
- *   - `gbk`: GenBank format genome sequences
+ *   - `gbff`: GenBank format genome sequences
  *   - `fna`: Genomic nucleotide sequences in FASTA format
  *   - `gff`: Genome annotations in GFF3 format
  *   - `faa`: Protein sequences in FASTA format
@@ -32,6 +32,8 @@
  *   - `stats`: Assembly statistics
  *   - `accessions`: Generated accession list files
  * @output bactopia_tools  Downloaded files formatted for Bactopia Tools workflows
+ *
+ * @output run_outputs
  */
 nextflow.preview.types = true
 
@@ -49,10 +51,11 @@ workflow NCBIGENOMEDOWNLOAD {
     }
     ch_reference = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().first()
 
-    emit:
+    emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
     assemblies = ch_assemblies
     reference = ch_reference
     // Published outputs
     sample_outputs = NCBIGENOMEDOWNLOAD_MODULE.out
+    run_outputs = channel.empty()
 }

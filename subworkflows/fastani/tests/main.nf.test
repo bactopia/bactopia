@@ -29,22 +29,22 @@ nextflow_workflow {
         }
 
         then {
-            def sample = workflow.out.sample_outputs[0]
-            def run = workflow.out.run_outputs[0]
+            def runs = workflow.out.run_outputs
+            def fastani = runs.find { it.meta.process_name == 'fastani' }
+            def concat = runs.find { it.meta.process_name == 'fastani-concat' }
             assertAll(
                 { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
                 { assert workflow.out.run_outputs != null },
                 { assert snapshot(
-                    sample.meta,
-                    sample.tsv,
-                    sample.versions,
-                    run.meta,
-                    run.versions
+                    fastani.meta,
+                    fastani.tsv,
+                    fastani.versions,
+                    concat.meta,
+                    concat.versions
                 ).match() },
-                { assert sample.results != null },
-                { assert run.csv != null },
-                { assert run.results != null }
+                { assert fastani.results != null },
+                { assert concat.csv != null },
+                { assert concat.results != null }
             )
         }
     }

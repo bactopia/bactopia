@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/ssuissero-concat/",
                 "name": "ssuissero",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "ssuissero-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,b273046b082dd70970b8f4e189aa5498"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:18.666607213",
+        "timestamp": "2026-03-31T14:26:06.635471872",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

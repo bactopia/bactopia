@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/rgi-concat/",
                 "name": "rgi",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "rgi-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,c1294552ba205b057bd368875a4eac93"
             ]
         ],
-        "timestamp": "2026-03-28T06:54:49.090740414",
+        "timestamp": "2026-03-31T16:34:51.912237827",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

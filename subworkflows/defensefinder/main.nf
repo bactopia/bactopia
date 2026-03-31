@@ -27,6 +27,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
+// bactopia-lint: ignore S015
 nextflow.preview.types = true
 
 include { DEFENSEFINDER_UPDATE           } from '../../modules/defensefinder/update/main'
@@ -34,7 +35,7 @@ include { DEFENSEFINDER_RUN              } from '../../modules/defensefinder/run
 include { CSVTK_CONCAT as GENES_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as HMMER_CONCAT   } from '../../modules/csvtk/concat/main'
 include { CSVTK_CONCAT as SYSTEMS_CONCAT } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                         } from 'plugin/nf-bactopia'
+include { gatherCsvtk                    } from 'plugin/nf-bactopia'
 
 workflow DEFENSEFINDER {
     take:

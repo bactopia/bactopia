@@ -30,20 +30,20 @@ nextflow_workflow {
         }
 
         then {
-            def sample = workflow.out.sample_outputs[0]
-            def snpdists = workflow.out.snpdists_outputs[0]
+            def runs = workflow.out.run_outputs
+            def panaroo = runs.find { it.meta.process_name == 'panaroo_run' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists' }
             assertAll(
                 { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
-                { assert workflow.out.snpdists_outputs != null },
+                { assert workflow.out.run_outputs != null },
                 { assert snapshot(
-                    sample.meta,
-                    sample.versions,
+                    panaroo.meta,
+                    panaroo.versions,
                     snpdists.meta,
                     snpdists.versions
                 ).match() },
                 { assert snpdists.tsv != null },
-                { assert sample.results != null },
+                { assert panaroo.results != null },
                 { assert snpdists.results != null }
             )
         }

@@ -32,7 +32,7 @@
 nextflow.preview.types = true
 
 include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
-include { filterWithData               } from 'plugin/nf-bactopia'
+include { filterWithData                } from 'plugin/nf-bactopia'
 
 workflow PNEUMOCAT {
     take:

@@ -68,7 +68,7 @@ params {
     // Tool-specific parameters
     reference          : Path
     accession          : String
-    snippy_core_mask   : Path
+    snippy_core_mask   : Path?
     skip_recombination : Boolean
     skip_phylogeny     : Boolean
 }
@@ -108,20 +108,20 @@ workflow {
     )
 
     // Identify core SNPs
-    SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask ? [params.snippy_core_mask] : [])
+    SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask)
     ch_sample_outputs = ch_sample_outputs.mix(SNIPPY_CORE.out.sample_outputs)
     ch_run_outputs = ch_run_outputs.mix(SNIPPY_CORE.out.run_outputs)
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        GUBBINS(SNIPPY_CORE.out.msa)
+        GUBBINS(SNIPPY_CORE.out.alignment)
         ch_sample_outputs = ch_sample_outputs.mix(GUBBINS.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(GUBBINS.out.run_outputs)
     }
 
     // Create core-snp phylogeny
     if (!params.skip_phylogeny) {
-        IQTREE(params.skip_recombination ? SNIPPY_CORE.out.msa : GUBBINS.out.msa)
+        IQTREE(params.skip_recombination ? SNIPPY_CORE.out.alignment : GUBBINS.out.alignment)
         ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
     }

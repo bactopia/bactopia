@@ -20,14 +20,14 @@
                 "logs_dir": "merged-results/logs/midas-concat/",
                 "name": "midas",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "midas-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1"
             ]
         ],
-        "timestamp": "2026-03-28T07:01:01.91148751",
+        "timestamp": "2026-03-31T14:31:45.738523472",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

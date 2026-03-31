@@ -27,7 +27,7 @@ nextflow.preview.types = true
 
 include { MENINGOTYPE as MENINGOTYPE_MODULE } from '../../modules/meningotype/main'
 include { CSVTK_CONCAT                      } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                            } from 'plugin/nf-bactopia'
+include { gatherCsvtk                       } from 'plugin/nf-bactopia'
 
 workflow MENINGOTYPE {
     take:

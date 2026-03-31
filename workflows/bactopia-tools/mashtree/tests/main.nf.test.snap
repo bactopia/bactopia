@@ -1,20 +1,32 @@
 {
     "Mashtree - multiple|haemophilus_influenzae|compressed_fasta": {
         "content": [
-            0,
+            1,
             [
                 "bactopia-runs",
                 "bactopia-runs/mashtree",
+                "bactopia-runs/mashtree/logs",
+                "bactopia-runs/mashtree/logs/nf.command.begin",
+                "bactopia-runs/mashtree/logs/nf.command.err",
+                "bactopia-runs/mashtree/logs/nf.command.log",
+                "bactopia-runs/mashtree/logs/nf.command.out",
+                "bactopia-runs/mashtree/logs/nf.command.run",
+                "bactopia-runs/mashtree/logs/nf.command.sh",
+                "bactopia-runs/mashtree/logs/nf.command.trace",
+                "bactopia-runs/mashtree/logs/versions.yml",
+                "bactopia-runs/mashtree/mashtree.dnd",
+                "bactopia-runs/mashtree/mashtree.tsv",
                 "bactopia-runs/mashtree/nf-reports",
                 "bactopia-runs/mashtree/nf-reports/mashtree-dag.dot",
                 "bactopia-runs/mashtree/nf-reports/mashtree-report.html",
                 "bactopia-runs/mashtree/nf-reports/mashtree-timeline.html"
             ],
             [
-                
+                "versions.yml:md5,d8cd0c9b6f670d5ae21fda6592e85d32",
+                "mashtree.dnd:md5,2b2d08b0bf16e25717f5db0eca6eba6b"
             ]
         ],
-        "timestamp": "2026-03-28T06:51:27.064933396",
+        "timestamp": "2026-03-31T14:28:32.188396137",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

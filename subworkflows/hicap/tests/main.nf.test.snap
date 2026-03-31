@@ -18,14 +18,14 @@
                 "logs_dir": "merged-results/logs/hicap-concat/",
                 "name": "hicap",
                 "output_dir": "merged-results",
-                "process_name": null,
+                "process_name": "hicap-concat",
                 "scope": "run"
             },
             [
                 "versions.yml:md5,0c84033bcf201f320a96434ff2545e4a"
             ]
         ],
-        "timestamp": "2026-03-28T06:53:58.954024588",
+        "timestamp": "2026-03-31T14:24:10.969057677",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

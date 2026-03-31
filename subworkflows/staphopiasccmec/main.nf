@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { STAPHOPIASCCMEC as STAPHOPIASCCMEC_MODULE } from '../../modules/staphopiasccmec/main'
 include { CSVTK_CONCAT                              } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                                    } from 'plugin/nf-bactopia'
+include { gatherCsvtk                               } from 'plugin/nf-bactopia'
 
 workflow STAPHOPIASCCMEC {
     take:

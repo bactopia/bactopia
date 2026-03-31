@@ -48,6 +48,7 @@ params {
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
 include { MASHTREE            } from '../../../subworkflows/mashtree/main'
 include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { gather              } from 'plugin/nf-bactopia'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
@@ -60,7 +61,7 @@ workflow {
         NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
         ch_samples = ch_samples.mix(NCBIGENOMEDOWNLOAD.out.assemblies)
     }
-    MASHTREE(ch_samples)
+    MASHTREE(gather(ch_samples, 'fna', [name: 'mashtree']))
 
     publish:
     // Per-sample

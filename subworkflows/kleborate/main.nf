@@ -28,7 +28,7 @@ nextflow.preview.types = true
 
 include { KLEBORATE as KLEBORATE_MODULE } from '../../modules/kleborate/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk                        } from 'plugin/nf-bactopia'
+include { gatherCsvtk                   } from 'plugin/nf-bactopia'
 
 workflow KLEBORATE {
     take:

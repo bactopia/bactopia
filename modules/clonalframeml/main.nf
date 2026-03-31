@@ -11,16 +11,16 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,compression
  * @citation clonalframeml
  *
- * @input record(meta, msa, newick)
+ * @input record(meta, aln, nwk)
  * - `meta`: Groovy Map containing sample information
- * - `msa`: Multiple sequence alignment in FASTA format
- * - `newick`: Initial phylogenetic tree in Newick format
+ * - `aln`: Multiple sequence alignment in FASTA format
+ * - `nwk`: Initial phylogenetic tree in Newick format
  *
- * @output record(meta, emsim, em, status, newick, fasta, pos_ref, masked_aln, results, logs, nf_logs, versions)
+ * @output record(meta, emsim, em, status, nwk, fasta, pos_ref, masked_aln, results, logs, nf_logs, versions)
  * - `emsim`: Uncertainty estimation results (if requested)
  * - `em`: Final parameter estimates from the EM algorithm
  * - `status`: Tab-delimited list of predicted recombination events (importations)
- * - `newick`: The input tree with internal nodes labelled
+ * - `nwk`: The input tree with internal nodes labelled
  * - `fasta`: Reconstructed ancestral sequences (*.fasta.gz)
  * - `pos_ref`: Position cross-reference table (*.txt.gz)
  * - `masked_aln`: The input alignment with recombinant regions masked (*.aln.gz)
@@ -35,7 +35,7 @@ process CLONALFRAMEML {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, msa: Path, newick: Path): Record
+    (_meta: Map, aln: Path, nwk: Path): Record
 
     output:
     record(
@@ -44,7 +44,7 @@ process CLONALFRAMEML {
         emsim: file("${task.ext.process_name}/${prefix}.emsim.txt", optional: true),
         em: file("${task.ext.process_name}/${prefix}.em.txt"),
         status: file("${task.ext.process_name}/${prefix}.importation_status.txt"),
-        newick: file("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
+        nwk: file("${task.ext.process_name}/${prefix}.labelled_tree.newick"),
         fasta: file("${task.ext.process_name}/${prefix}.ML_sequence.fasta.gz"),
         pos_ref: file("${task.ext.process_name}/${prefix}.position_cross_reference.txt.gz"),
         masked_aln: file("${prefix}.masked.aln.gz"),
@@ -75,25 +75,25 @@ process CLONALFRAMEML {
     meta.logs_dir = "${task.ext.process_name}/logs/"
     meta.process_name = task.ext.process_name
 
-    def is_compressed = msa.getName().endsWith(".gz") ? true : false
-    def msa_name = msa.getName().replace(".gz", "")
+    def is_compressed = aln.getName().endsWith(".gz") ? true : false
+    def aln_name = aln.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${msa} > ${msa_name}
+        gzip -c -d ${aln} > ${aln_name}
     fi
 
     ClonalFrameML \\
-        ${newick} \\
-        ${msa_name} \\
+        ${nwk} \\
+        ${aln_name} \\
         ${prefix} \\
         ${task.ext.args}
 
-    maskrc-svg.py ${prefix} --aln ${msa_name} --symbol '-' --out ${prefix}.masked.aln
+    maskrc-svg.py ${prefix} --aln ${aln_name} --symbol '-' --out ${prefix}.masked.aln
     gzip ${prefix}.masked.aln
 
     # Cleanup
     if [ "${is_compressed}" == "true" ]; then
-        rm ${msa_name}
+        rm ${aln_name}
     fi
     gzip *.ML_sequence.fasta
     gzip *.position_cross_reference.txt

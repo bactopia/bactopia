@@ -36,8 +36,8 @@
 nextflow.preview.types = true
 
 include { MYKROBE_PREDICT } from '../../modules/mykrobe/predict/main'
-include { CSVTK_CONCAT   } from '../../modules/csvtk/concat/main'
-include { gatherCsvtk         } from 'plugin/nf-bactopia'
+include { CSVTK_CONCAT    } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk     } from 'plugin/nf-bactopia'
 
 workflow MYKROBE {
     take:

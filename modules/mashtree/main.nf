@@ -11,12 +11,12 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation mashtree
  *
- * @input record(meta, seqs)
+ * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
- * - `seqs`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tree, tsv, sketches, results, logs, nf_logs, versions)
- * - `tree`: The final phylogenetic tree in Newick format (*.dnd)
+ * @output record(meta, nwk, tsv, sketches, results, logs, nf_logs, versions)
+ * - `nwk`: The final phylogenetic tree in Newick format (*.dnd)
  * - `tsv`: The pairwise distance matrix used to build the tree (*.tsv)
  * - `sketches`: Directory containing the individual Mash sketches (optional)
  */
@@ -30,13 +30,13 @@ process MASHTREE {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, seqs: Set<Path>): Record
+    (_meta: Map, fna: Set<Path>): Record
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        tree: file("${prefix}.dnd"),
+        nwk: file("${prefix}.dnd"),
         tsv: file("${prefix}.tsv"),
         sketches: files("sketches/*", optional: true),
         // Generic fields (used for publishing)
@@ -70,7 +70,7 @@ process MASHTREE {
         --outmatrix ${prefix}.tsv \\
         --outtree ${prefix}.dnd \\
         --tempdir mashtree-tmp/ \\
-        ${seqs.join(' ')}
+        ${fna.join(' ')}
 
     # Cleanup
     rm -rf mashtree-tmp/

@@ -15,24 +15,22 @@
  * @subworkflows iqtree, snpdists
  * @modules clonalframeml
  *
- * @input record(meta, alignment)
+ * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information
- * - `alignment`: Core-genome alignment in FASTA format
+ * - `aln`: Core-genome alignment in FASTA format
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `masked_aln`: Recombination-masked alignment with detected recombination regions removed
  * - `emsim`: Uncertainty estimation results
  * - `em`: Final parameter estimates from the EM algorithm
  * - `status`: Predicted recombination events (importations)
- * - `newick`: Input tree with internal nodes labelled
+ * - `nwk`: Input tree with internal nodes labelled
  * - `fasta`: Reconstructed ancestral sequences
  * - `pos_ref`: Position cross-reference table
- *
- * @output iqtree_outputs
- * - `msa`: Input multiple sequence alignment (passed through)
- * - `phylogeny`: Quick-start maximum-likelihood phylogenetic tree
- *
- * @output snpdists_outputs
+ * - `aln`: Input multiple sequence alignment (passed through from IQ-TREE)
+ * - `nwk`: Quick-start maximum-likelihood phylogenetic tree from IQ-TREE
  * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
  */
 nextflow.preview.types = true
@@ -41,7 +39,6 @@ include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalfram
 include { IQTREE                                } from '../iqtree/main'
 include { SNPDISTS                              } from '../snpdists/main'
 
-
 workflow CLONALFRAMEML {
     take:
     alignment: Channel<Record>
@@ -49,26 +46,25 @@ workflow CLONALFRAMEML {
     main:
     // Create a quick start tree
     IQTREE(alignment.map { r ->
-        record(_meta: [name: r._meta.name, process_name: 'iqtree-fast'], msa: r.alignment)
+        record(_meta: [name: r._meta.name, process_name: 'iqtree-fast'], aln: r.aln)
     })
 
     // Run ClonalFrameML
-    CLONALFRAMEML_MODULE(IQTREE.out.sample_outputs.map { r ->
-        record(_meta: [name: "core-genome", process_name: "clonalframeml"], msa: r.msa, newick: r.phylogeny)
+    CLONALFRAMEML_MODULE(IQTREE.out.run_outputs.map { r ->
+        record(_meta: [name: "core-genome", process_name: "clonalframeml"], aln: r.aln, nwk: r.nwk)
     })
 
     // Per-sample SNP distances
     SNPDISTS(CLONALFRAMEML_MODULE.out.map { r ->
-        record(_meta: [name: 'core-genome.masked.distance', process_name: 'snpdists-masked'], msa: r.masked_aln)
+        record(_meta: [name: 'core-genome.masked.distance', process_name: 'snpdists-masked'], aln: r.masked_aln)
     })
 
-    emit:
+    emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
-    msa = CLONALFRAMEML_MODULE.out.map { r ->
-        record(_meta: [name: "core-genome", process_name: "iqtree"], msa: r.masked_aln)
+    alignment = CLONALFRAMEML_MODULE.out.map { r ->
+        record(_meta: [name: "core-genome", process_name: "iqtree"], aln: r.masked_aln)
     }
     // Published outputs
-    sample_outputs = CLONALFRAMEML_MODULE.out
-    run_outputs = channel.empty()
-    snpdists_outputs = SNPDISTS.out.sample_outputs
+    sample_outputs = channel.empty()
+    run_outputs = CLONALFRAMEML_MODULE.out.mix(IQTREE.out.run_outputs).mix(SNPDISTS.out.run_outputs)
 }
