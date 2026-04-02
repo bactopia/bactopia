@@ -3,8 +3,8 @@
  * Removal of human and contaminant sequences from metagenomic reads.
  *
  * This Bactopia Tool removes human and other contaminant sequences from metagenomic reads using
- * either [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or a Kraken2-based approach
- * (k2scrubber) with the HPRC human database. The tool provides flexible contamination removal
+ * either [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or
+ * [nohuman](https://github.com/mbhall88/nohuman) with the HPRC human database. The tool provides flexible contamination removal
  * with detailed reporting of read classification and filtering statistics. It processes paired-end
  * or single-end reads, producing cleaned FASTQ files with human sequences removed and comprehensive
  * reports documenting the decontamination process.
@@ -20,7 +20,7 @@
  * Directory containing results from a completed Bactopia analysis run
  *
  * @input use_srascrubber
- * Boolean flag to choose between SRA Human Scrubber (true) or k2scrubber (false) for decontamination
+ * Boolean flag to choose between SRA Human Scrubber (true) or nohuman (false) for decontamination
  *
  * @section Per-Sample Results
  * @publish *.scrubbed.fastq.gz          Cleaned reads after human sequence removal

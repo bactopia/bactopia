@@ -4,7 +4,7 @@
  *
  * This workflow performs comprehensive read quality control including trimming,
  * adapter removal, quality filtering, and optionally removes host contamination
- * using [Kraken2](https://github.com/DerrickWood/kraken2) or SRA Scrubber.
+ * using [nohuman](https://github.com/mbhall88/nohuman) or [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber).
  * It processes raw sequencing reads to produce high-quality clean reads ready
  * for downstream analysis.
  *
@@ -17,11 +17,11 @@
  * @input rundir
  * Directory containing raw sequencing reads
  *
- * @input use_k2scrubber
- * Remove host reads using Kraken2 scrubber
+ * @input use_nohuman
+ * Remove host reads using nohuman with HPRC human database
  *
  * @input use_srascrubber
- * Remove host reads using SRA scrubber
+ * Remove host reads using SRA Human Scrubber
  *
  * @input adapters
  * Path to adapter sequences file for removal
@@ -58,7 +58,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    use_k2scrubber  : Boolean
+    use_nohuman     : Boolean
     use_srascrubber : Boolean
     adapters        : Path?
     phix            : Path?
@@ -84,7 +84,7 @@ workflow {
     ch_sample_outputs = GATHER.out.sample_outputs
     ch_run_outputs = GATHER.out.run_outputs
 
-    if (params.use_k2scrubber || params.use_srascrubber) {
+    if (params.use_nohuman || params.use_srascrubber) {
         // Remove host reads
         SCRUBBER(
             GATHER.out.reads,

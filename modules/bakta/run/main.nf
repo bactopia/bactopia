@@ -43,6 +43,10 @@
  *
  * @results additional
  * - `${prefix}.embl`: Annotations and sequences in EMBL format
+ * - `${prefix}.inference.tsv`: Detailed annotation evidence and database hit information
+ * - `${prefix}.json`: Machine-readable annotations and metadata in JSON format
+ * - `${prefix}.png`: Circular genome plot as PNG image
+ * - `${prefix}.svg`: Circular genome plot as SVG image
  */
 nextflow.preview.types = true
 
@@ -60,33 +64,44 @@ process BAKTA_RUN {
     prodigal_tf: Path?
     replicons  : Path?
 
+    stage:
+    stageAs 'input/*', fna
+
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        faa: file("bakta/${prefix}.{faa,faa.gz}"),
-        ffn: file("bakta/${prefix}.{ffn,ffn.gz}"),
-        fna: file("bakta/${prefix}.{fna,fna.gz}"),
-        gbff: file("bakta/${prefix}.{gbff,gbff.gz}"),
-        gff: file("bakta/${prefix}.{gff3,gff3.gz}"),
-        hypotheticals_tsv: file("bakta/${prefix}.hypotheticals.tsv"),
-        hypotheticals_faa: file("bakta/${prefix}.hypotheticals.{faa,faa.gz}"),
-        tsv: file("bakta/${prefix}.tsv"),
-        txt: file("bakta/${prefix}.txt"),
-        blastdb: file("bakta/${prefix}-blastdb.tar.gz"),
+        blastdb: file("${prefix}-blastdb.tar.gz"),
+        faa: file("${prefix}.{faa,faa.gz}"),
+        ffn: file("${prefix}.{ffn,ffn.gz}"),
+        fna: file("${prefix}.{fna,fna.gz}"),
+        gbff: file("${prefix}.{gbff,gbff.gz}"),
+        gff: file("${prefix}.{gff3,gff3.gz}"),
+        hypotheticals_tsv: file("${prefix}.hypotheticals.tsv"),
+        hypotheticals_faa: file("${prefix}.hypotheticals.{faa,faa.gz}"),
+        inference_tsv: file("${prefix}.inference.tsv"),
+        json: file("${prefix}.{json,json.gz}"),
+        png: file("${prefix}.png"),
+        svg: file("${prefix}.{svg,svg.gz}"),
+        tsv: file("${prefix}.tsv"),
+        txt: file("${prefix}.txt"),
         // Generic fields (used for publishing)
         results: [
-            files("bakta/${prefix}.tsv"),
-            files("bakta/${prefix}.txt"),
-            files("bakta/${prefix}.{embl,embl.gz}"),
-            files("bakta/${prefix}.{faa,faa.gz}"),
-            files("bakta/${prefix}.{ffn,ffn.gz}"),
-            files("bakta/${prefix}.{fna,fna.gz}"),
-            files("bakta/${prefix}.{gbff,gbff.gz}"),
-            files("bakta/${prefix}.{gff3,gff3.gz}"),
-            files("bakta/${prefix}.hypotheticals.tsv"),
-            files("bakta/${prefix}.hypotheticals.{faa,faa.gz}"),
-            files("bakta/${prefix}-blastdb.tar.gz")
+            files("${prefix}-blastdb.tar.gz"),
+            files("${prefix}.{embl,embl.gz}"),
+            files("${prefix}.{faa,faa.gz}"),
+            files("${prefix}.{ffn,ffn.gz}"),
+            files("${prefix}.{fna,fna.gz}"),
+            files("${prefix}.{gbff,gbff.gz}"),
+            files("${prefix}.{gff3,gff3.gz}"),
+            files("${prefix}.hypotheticals.tsv"),
+            files("${prefix}.hypotheticals.{faa,faa.gz}"),
+            files("${prefix}.inference.tsv"),
+            files("${prefix}.{json,json.gz}"),
+            files("${prefix}.png"),
+            files("${prefix}.{svg,svg.gz}"),
+            files("${prefix}.tsv"),
+            files("${prefix}.txt")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -145,6 +160,8 @@ process BAKTA_RUN {
         gzip --best bakta/${prefix}.gbff
         gzip --best bakta/${prefix}.gff3
         gzip --best bakta/${prefix}.hypotheticals.faa
+        gzip --best bakta/${prefix}.json
+        gzip --best bakta/${prefix}.svg
     fi
 
     # Cleanup
@@ -153,6 +170,8 @@ process BAKTA_RUN {
     fi
     rm -rf blastdb/
     mv bakta/*.log ./
+    mv bakta/* ./
+    rmdir bakta/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

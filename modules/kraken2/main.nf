@@ -137,7 +137,7 @@ process KRAKEN2 {
         # Quick stats on reads
         zcat ${read_inputs} | fastq-scan > original.json
         cat *.scrubbed.fastq | fastq-scan > scrubbed.json
-        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+        bactopia-scrubber-summary ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
         # Remove host reads and temp json files
         rm ${prefix}.host*.fastq original.json scrubbed.json

@@ -159,7 +159,7 @@ process GATHER {
         gzip -cd "\${fq}" | fastq-scan > r1.json
 
         if [[ -s r1.json ]]; then
-            check-fastqs.py --fq1 r1.json \${OPTS} || { rm -f r1.json; return 1; }
+            bactopia-check-fastqs --fq1 r1.json \${OPTS} || { rm -f r1.json; return 1; }
         else
             check_gzip_or_empty "\${fq}"
             rm -f r1.json
@@ -242,7 +242,7 @@ process GATHER {
                 fi
 
                 # Verify Assembly accession
-                check-assembly-accession.py ${prefix} > accession.txt 2> check-assembly-accession.txt
+                bactopia-check-assembly-accession ${prefix} > accession.txt 2> check-assembly-accession.txt
 
                 if [ ! -s "accession.txt" ]; then
                     mv check-assembly-accession.txt ${prefix}-assembly-accession-error.txt
@@ -307,7 +307,7 @@ process GATHER {
             fi
 
             if [[ -s r1.json ]] && [[ -s r2.json ]]; then
-                check-fastqs.py --fq1 r1.json --fq2 r2.json \${OPTS} || ERROR=1
+                bactopia-check-fastqs --fq1 r1.json --fq2 r2.json \${OPTS} || ERROR=1
             else
                 check_gzip_or_empty "fastqs/${prefix}_R1.fastq.gz" || ERROR=1
                 check_gzip_or_empty "fastqs/${prefix}_R2.fastq.gz" || ERROR=1

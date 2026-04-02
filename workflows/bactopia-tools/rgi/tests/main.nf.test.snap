@@ -44,23 +44,25 @@
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.sh",
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/nf.command.trace",
                 "bactopia-runs/rgi/merged-results/logs/rgi-concat/versions.yml",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.begin",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.err",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.log",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.out",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.run",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.sh",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/nf.command.trace",
-                "bactopia-runs/rgi/merged-results/logs/rgi-heatmap/versions.yml",
-                "bactopia-runs/rgi/merged-results/rgi-2.csv",
-                "bactopia-runs/rgi/merged-results/rgi-2.eps",
-                "bactopia-runs/rgi/merged-results/rgi-2.png",
                 "bactopia-runs/rgi/merged-results/rgi.tsv",
                 "bactopia-runs/rgi/nf-reports",
                 "bactopia-runs/rgi/nf-reports/rgi-dag.dot",
                 "bactopia-runs/rgi/nf-reports/rgi-report.html",
-                "bactopia-runs/rgi/nf-reports/rgi-timeline.html"
+                "bactopia-runs/rgi/nf-reports/rgi-timeline.html",
+                "bactopia-runs/rgi/rgi-heatmap",
+                "bactopia-runs/rgi/rgi-heatmap/logs",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.begin",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.err",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.log",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.out",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.run",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.sh",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/nf.command.trace",
+                "bactopia-runs/rgi/rgi-heatmap/logs/rgi-heatmap/versions.yml",
+                "bactopia-runs/rgi/rgi-heatmap/rgi-2.csv",
+                "bactopia-runs/rgi/rgi-heatmap/rgi-2.eps",
+                "bactopia-runs/rgi/rgi-heatmap/rgi-2.png"
             ],
             [
                 "GCA_000027305.json:md5,e50aca7b17a080c5be68b1322809a968",
@@ -70,11 +72,11 @@
                 "GCF_900478275.tsv:md5,9d7754551163e020beed52a8bc14ce83",
                 "versions.yml:md5,4a19310417d04abb9e1eeec05629f944",
                 "versions.yml:md5,c1294552ba205b057bd368875a4eac93",
-                "versions.yml:md5,84fa922dc8ecb987b4ee03caffd09c32",
-                "rgi.tsv:md5,6dabb1f8c3cab56929ecab6236f6fa67"
+                "rgi.tsv:md5,6dabb1f8c3cab56929ecab6236f6fa67",
+                "versions.yml:md5,84fa922dc8ecb987b4ee03caffd09c32"
             ]
         ],
-        "timestamp": "2026-03-31T21:33:52.691065251",
+        "timestamp": "2026-04-01T03:44:34.962620725",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

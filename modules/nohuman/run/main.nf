@@ -115,7 +115,7 @@ process NOHUMAN_RUN {
         # Quick stats on reads
         zcat ${single_reads} | fastq-scan > original.json
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
-        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+        bactopia-scrubber-summary ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
         # Cleanup
         if [ "${is_tarball}" == "true" ]; then
@@ -152,7 +152,7 @@ process NOHUMAN_RUN {
         # Quick stats on reads
         zcat ${r1} ${r2} | fastq-scan > original.json
         zcat *.scrubbed.fastq.gz | fastq-scan > scrubbed.json
-        scrubber-summary.py ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
+        bactopia-scrubber-summary ${prefix} original.json scrubbed.json > ${prefix}.scrub.report.tsv
 
         # Cleanup
         if [ "${is_tarball}" == "true" ]; then

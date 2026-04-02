@@ -17,10 +17,10 @@ nextflow_process {
                         meta: [name: "fastani-test"],
                         query: [
                             file("${params.test_data_dir}/species/haemophilus_influenzae/uncompressed/GCF_900478275/main/assembler/GCF_900478275.fna")
-                        ]
+                        ],
+                        reference: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
                 """
             }
         }
@@ -50,10 +50,10 @@ nextflow_process {
                         meta: [name: "fastani-test"],
                         query: [
                             file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/assembler/GCF_900478275.fna.gz")
-                        ]
+                        ],
+                        reference: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
                 """
             }
         }

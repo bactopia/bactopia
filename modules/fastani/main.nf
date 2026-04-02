@@ -31,8 +31,7 @@ process FASTANI {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, query: Set<Path>): Record
-    reference: Path
+    (meta: Map, query: Set<Path>, reference: Path): Record
 
     stage:
     stageAs 'query-tmp/*', query
@@ -64,8 +63,8 @@ process FASTANI {
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
     meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/logs/${prefix}"
+    meta.output_dir = "${prefix}"
+    meta.logs_dir = "${prefix}/logs"
     meta.process_name = task.ext.process_name
     """
     if [ "${is_compressed}" == "true" ]; then

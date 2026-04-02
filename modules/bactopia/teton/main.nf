@@ -71,7 +71,7 @@ process BACTOPIA_SAMPLESHEET {
 
     # create sample sheet
     if [ ${meta.run_type} != "ci" ]; then
-        teton-prepare.py \\
+        bactopia-teton-prepare \\
             ${prefix} \\
             ${prefix}-sizemeup.txt \\
             ${meta.runtype} \\

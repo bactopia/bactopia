@@ -66,6 +66,51 @@ CSVTK_CONCAT(
 
 ---
 
+### combineWith
+
+Creates a cartesian product by combining a gathered channel (typically single-item, from `gatherFields`) with a multi-item channel, merging each item into the gathered map under a specified field name. Replaces the deprecated Nextflow `each` input qualifier.
+
+#### Signature
+
+```groovy
+combineWith(gathered, items, field: 'fieldName')
+```
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `gathered` | Channel or List | Yes | A gathered channel (e.g. from `gatherFields`) |
+| `items` | Channel or List | Yes | Multi-item channel (e.g. individual reference paths) |
+| `field` | String | Yes | Field name to assign each item in the output map |
+
+#### Returns
+
+Channel or List of maps, one per item, with the item merged into the gathered map under the field name.
+
+#### Usage Example
+
+```groovy
+// Replace deprecated `each` qualifier for FastANI pairwise mode
+ch_ref = reference.map { r -> r.fna }
+FASTANI_MODULE(
+    combineWith(
+        gatherFields(query, [fna: 'query'], [name: 'fastani']),
+        ch_ref,
+        'reference'
+    )
+)
+```
+
+#### How It Works
+
+1. Takes a gathered channel (e.g. `[meta:[name:fastani], query:[a.fna, b.fna]]`) and a multi-item channel (e.g. `ref1.fna`, `ref2.fna`)
+2. Uses `combine` to create the cartesian product: `[[meta:..., query:...], ref1.fna]`, `[[meta:..., query:...], ref2.fna]`
+3. Merges each item into the gathered map under the field name: `[meta:..., query:..., reference:ref1.fna]`, `[meta:..., query:..., reference:ref2.fna]`
+4. The resulting maps match process Record inputs with named fields
+
+---
+
 ### flattenPaths (deprecated)
 
 `flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` channels to `Tuple<Map, Path>` for the old 4-channel output pattern. It is **no longer used** in subworkflows.

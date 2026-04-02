@@ -102,7 +102,7 @@ process MIDAS_SPECIES {
         -t ${task.cpus}
 
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
-    midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
+    bactopia-midas-summary ${prefix} ${prefix}.midas.abundances.txt
 
     # Cleanup
     rm -rf results/

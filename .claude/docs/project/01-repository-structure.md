@@ -92,11 +92,11 @@ bactopia/
     - Image assets (logos, banners)
 
 ### `/bin/`
-- **Purpose**: Utility scripts and helper tools
-- **Examples**:
-  - `bactopia` - Main CLI tool
-  - `check-fastqs.py` - FASTQ validation
-  - `kraken-bracken-summary.py` - Result aggregation
+- **Purpose**: CLI wrapper scripts for the bioconda `bactopia` package
+- **Contents**:
+  - `bactopia` - Main CLI wrapper (routes subcommands, runs Nextflow)
+  - `clean-yer-reads`, `cyr`, `staphopia`, `teton` - Workflow alias wrappers
+- **Note**: Pipeline utility scripts (FASTQ validation, coverage processing, etc.) have been migrated to bactopia-py as `bactopia-*` CLI entry points
 
 ## Three-Tier Architecture
 

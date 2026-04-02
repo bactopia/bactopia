@@ -184,7 +184,7 @@ process BRACKEN {
     grep -v "fraction_total_reads\$" bracken.temp | sort -k 7 -rn -t \$'\t' >> ${prefix}.bracken.abundances.txt
 
     # Adjust bracken to include unclassified and produce summary
-    kraken-bracken-summary.py \\
+    bactopia-kraken-bracken-summary \\
         ${prefix} \\
         ${prefix}.kraken2.report.txt \\
         ${prefix}.bracken.report.txt \\

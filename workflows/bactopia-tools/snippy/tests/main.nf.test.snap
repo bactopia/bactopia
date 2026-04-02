@@ -236,6 +236,15 @@
                 "bactopia-runs/snippy/core-snp.masked.aln.gz",
                 "bactopia-runs/snippy/core-snp.masked.distance.tsv",
                 "bactopia-runs/snippy/gubbins",
+                "bactopia-runs/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip",
+                "bactopia-runs/snippy/gubbins/core-snp.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.node_labelled.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.per_branch_statistics.csv",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.gff.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz",
                 "bactopia-runs/snippy/gubbins/logs",
                 "bactopia-runs/snippy/gubbins/logs/core-snp.log",
                 "bactopia-runs/snippy/gubbins/logs/nf.command.begin",
@@ -283,18 +292,7 @@
                 "bactopia-runs/snippy/snpdists/logs/nf.command.run",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.sh",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.trace",
-                "bactopia-runs/snippy/snpdists/logs/versions.yml",
-                "bactopia-runs/snippy/supplemental",
-                "bactopia-runs/snippy/supplemental/core-snp-clean.full.aln.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.branch_base_reconstruction.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.fasta.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.phylip",
-                "bactopia-runs/snippy/supplemental/core-snp.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.node_labelled.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.per_branch_statistics.csv",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.gff.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.summary_of_snp_distribution.vcf.gz"
+                "bactopia-runs/snippy/snpdists/logs/versions.yml"
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
@@ -318,7 +316,7 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-03-31T20:25:39.884016356",
+        "timestamp": "2026-04-01T03:44:33.874055165",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -561,6 +559,15 @@
                 "bactopia-runs/snippy/core-snp.masked.aln.gz",
                 "bactopia-runs/snippy/core-snp.masked.distance.tsv",
                 "bactopia-runs/snippy/gubbins",
+                "bactopia-runs/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip",
+                "bactopia-runs/snippy/gubbins/core-snp.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.node_labelled.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.per_branch_statistics.csv",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.gff.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz",
                 "bactopia-runs/snippy/gubbins/logs",
                 "bactopia-runs/snippy/gubbins/logs/core-snp.log",
                 "bactopia-runs/snippy/gubbins/logs/nf.command.begin",
@@ -608,18 +615,7 @@
                 "bactopia-runs/snippy/snpdists/logs/nf.command.run",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.sh",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.trace",
-                "bactopia-runs/snippy/snpdists/logs/versions.yml",
-                "bactopia-runs/snippy/supplemental",
-                "bactopia-runs/snippy/supplemental/core-snp-clean.full.aln.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.branch_base_reconstruction.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.fasta.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.phylip",
-                "bactopia-runs/snippy/supplemental/core-snp.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.node_labelled.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.per_branch_statistics.csv",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.gff.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.summary_of_snp_distribution.vcf.gz"
+                "bactopia-runs/snippy/snpdists/logs/versions.yml"
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
@@ -643,7 +639,7 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-03-31T20:26:41.829539371",
+        "timestamp": "2026-04-01T03:45:18.381428811",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -953,7 +949,7 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-03-31T20:27:36.517431058",
+        "timestamp": "2026-04-01T03:46:02.61719022",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -1242,7 +1238,7 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-03-31T20:29:14.969917571",
+        "timestamp": "2026-04-01T03:47:24.011443969",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -1485,6 +1481,15 @@
                 "bactopia-runs/snippy/core-snp.masked.aln.gz",
                 "bactopia-runs/snippy/core-snp.masked.distance.tsv",
                 "bactopia-runs/snippy/gubbins",
+                "bactopia-runs/snippy/gubbins/core-snp.branch_base_reconstruction.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.fasta.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.filtered_polymorphic_sites.phylip",
+                "bactopia-runs/snippy/gubbins/core-snp.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.node_labelled.final_tree.tre",
+                "bactopia-runs/snippy/gubbins/core-snp.per_branch_statistics.csv",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.embl.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.recombination_predictions.gff.gz",
+                "bactopia-runs/snippy/gubbins/core-snp.summary_of_snp_distribution.vcf.gz",
                 "bactopia-runs/snippy/gubbins/logs",
                 "bactopia-runs/snippy/gubbins/logs/core-snp.log",
                 "bactopia-runs/snippy/gubbins/logs/nf.command.begin",
@@ -1532,18 +1537,7 @@
                 "bactopia-runs/snippy/snpdists/logs/nf.command.run",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.sh",
                 "bactopia-runs/snippy/snpdists/logs/nf.command.trace",
-                "bactopia-runs/snippy/snpdists/logs/versions.yml",
-                "bactopia-runs/snippy/supplemental",
-                "bactopia-runs/snippy/supplemental/core-snp-clean.full.aln.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.branch_base_reconstruction.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.fasta.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.filtered_polymorphic_sites.phylip",
-                "bactopia-runs/snippy/supplemental/core-snp.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.node_labelled.final_tree.tre",
-                "bactopia-runs/snippy/supplemental/core-snp.per_branch_statistics.csv",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.embl.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.recombination_predictions.gff.gz",
-                "bactopia-runs/snippy/supplemental/core-snp.summary_of_snp_distribution.vcf.gz"
+                "bactopia-runs/snippy/snpdists/logs/versions.yml"
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
@@ -1567,7 +1561,7 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-03-31T20:28:27.715117918",
+        "timestamp": "2026-04-01T03:46:46.490257256",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

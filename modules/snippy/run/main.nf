@@ -163,11 +163,11 @@ process SNIPPY_RUN {
     # Get per-base coverage
     grep "^##contig" ${prefix}/${prefix}.vcf > ${prefix}/${prefix}.full-coverage.txt
     genomeCoverageBed -ibam ${prefix}/${prefix}.bam -d >> ${prefix}/${prefix}.full-coverage.txt
-    cleanup-coverage.py ${prefix}/${prefix}.full-coverage.txt > ${prefix}/${prefix}.coverage.txt
+    bactopia-cleanup-coverage ${prefix}/${prefix}.full-coverage.txt > ${prefix}/${prefix}.coverage.txt
     rm ${prefix}/${prefix}.full-coverage.txt
 
     # Mask low coverage regions
-    mask-consensus.py \\
+    bactopia-mask-consensus \\
         ${prefix} \\
         ${reference_name} \\
         ${prefix}/${prefix}.consensus.subs.fa \\

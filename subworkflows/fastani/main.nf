@@ -35,6 +35,7 @@ include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
 include { gatherFields              } from 'plugin/nf-bactopia'
 include { gatherCsvtk               } from 'plugin/nf-bactopia'
+include { combineWith               } from 'plugin/nf-bactopia'
 
 workflow FASTANI {
     take:
@@ -43,7 +44,7 @@ workflow FASTANI {
 
     main:
     ch_ref = reference.map { r -> r.fna }
-    FASTANI_MODULE(gatherFields(query, [fna: 'query'], [name: 'fastani']), ch_ref)
+    FASTANI_MODULE(combineWith(gatherFields(query, [fna: 'query'], [name: 'fastani']), ch_ref, 'reference'))
     CSVTK_CONCAT(gatherCsvtk(FASTANI_MODULE.out, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
 
     emit:

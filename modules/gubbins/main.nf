@@ -17,7 +17,7 @@
  * @output record(meta, masked_aln, results, logs, nf_logs, versions)
  * - `masked_aln`: The input alignment with recombinant regions masked (*.masked.aln.gz)
  *
- * @results supplemental
+ * @results gubbins
  * - `*.branch_base_reconstruction.embl.gz`: Per-branch base reconstruction in EMBL format
  * - `*.recombination_predictions.embl.gz`: Predicted recombination events in EMBL format
  * - `*.recombination_predictions.gff.gz`: Predicted recombination regions in GFF format
@@ -48,7 +48,7 @@ process GUBBINS {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.masked.aln.gz"),
-            files("supplemental/*"),
+            files("gubbins/*"),
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -93,11 +93,18 @@ process GUBBINS {
     fi
     gzip *.masked.aln *.embl *.fasta *.gff *.vcf
 
-    # Move outputs to tool specific folder
-    mkdir supplemental
-    mv ${prefix}* supplemental/
-    mv supplemental/${prefix}.masked.aln.gz ./
-    mv supplemental/*.log ./
+    # Move supplemental outputs to gubbins folder
+    mkdir gubbins
+    mv ${prefix}.branch_base_reconstruction.embl.gz \
+       ${prefix}.recombination_predictions.embl.gz \
+       ${prefix}.recombination_predictions.gff.gz \
+       ${prefix}.per_branch_statistics.csv \
+       ${prefix}.filtered_polymorphic_sites.fasta.gz \
+       ${prefix}.filtered_polymorphic_sites.phylip \
+       ${prefix}.final_tree.tre \
+       ${prefix}.node_labelled.final_tree.tre \
+       ${prefix}.summary_of_snp_distribution.vcf.gz \
+       gubbins/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

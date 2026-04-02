@@ -55,8 +55,8 @@ process RGI_HEATMAP {
     meta.id = "${prefix}-${task.process}"
     meta.name = prefix
     meta.scope = task.ext.scope
-    meta.output_dir = "merged-results/"
-    meta.logs_dir = "merged-results/logs/${task.ext.logs_subdir}"
+    meta.output_dir = "rgi-heatmap"
+    meta.logs_dir = "rgi-heatmap/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
     NUM_SAMPLES=\$(ls json/ | wc -l)

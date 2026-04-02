@@ -3,9 +3,9 @@
         "content": [
             {
                 "id": "rgi-heatmap-RGI_HEATMAP",
-                "logs_dir": "merged-results/logs/rgi-heatmap",
+                "logs_dir": "rgi-heatmap/logs/rgi-heatmap",
                 "name": "rgi-heatmap",
-                "output_dir": "merged-results/",
+                "output_dir": "rgi-heatmap",
                 "process_name": "rgi_heatmap",
                 "scope": "run"
             },
@@ -13,7 +13,7 @@
                 "versions.yml:md5,632aee3b4ff52c9313a58f423eeed956"
             ]
         ],
-        "timestamp": "2026-03-31T20:16:33.489665984",
+        "timestamp": "2026-04-01T01:55:56.963967719",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

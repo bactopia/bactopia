@@ -479,7 +479,7 @@ process QC {
             fi
             rm temp.json
 
-            # Final QC checks using check-fastqs.py
+            # Final QC checks
             OPTS="--sample ${prefix} --min_basepairs ${task.ext.min_basepairs} --min_reads ${task.ext.min_reads} --min_proportion ${task.ext.min_proportion} --runtype ${meta.runtype}"
             if is_paired; then
                 # Check paired-end reads have same read counts
@@ -491,15 +491,15 @@ process QC {
                 else
                     rm -f ${prefix}-paired-end-error.txt
                 fi
-                check-fastqs.py --fq1 supplemental/${prefix}_R1-final.json  --fq2 supplemental/${prefix}_R2-final.json \${OPTS}
+                bactopia-check-fastqs --fq1 supplemental/${prefix}_R1-final.json  --fq2 supplemental/${prefix}_R2-final.json \${OPTS}
             fi
 
             if has_ont_reads; then
-                check-fastqs.py --fq1 supplemental/${prefix}_ONT-final.json \${OPTS}
+                bactopia-check-fastqs --fq1 supplemental/${prefix}_ONT-final.json \${OPTS}
             fi
 
             if is_illumina_se; then
-                check-fastqs.py --fq1 supplemental/${prefix}_SE-final.json \${OPTS}
+                bactopia-check-fastqs --fq1 supplemental/${prefix}_SE-final.json \${OPTS}
             fi
 
             if ls *-error.txt 1>/dev/null 2>&1; then
