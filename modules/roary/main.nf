@@ -35,7 +35,7 @@ process ROARY {
     (meta: Map, gff: Set<Path>): Record
 
     stage:
-    stageAs 'gff-tmp/*', gff
+    stageAs 'staging/gff/*', gff
 
     output:
     record(
@@ -68,7 +68,7 @@ process ROARY {
     meta.logs_dir = "${meta.process_name}/logs"
     """
     mkdir gff
-    cp -L gff-tmp/* gff/
+    cp -L staging/gff/* gff/
     find gff/ -name "*.gff.gz" | xargs -r gunzip
 
     # Roary only supports .gff extension, will need to adjust for gff3 (Bakta) files

@@ -31,10 +31,10 @@ nextflow_workflow {
                 { assert workflow.out.run_outputs != null },
                 { assert snapshot(
                     sample.meta,
-                    sample.report,
+                    sample.tsv,
                     sample.versions,
                     run.meta,
-                    run.report,
+                    run.tsv,
                     run.results,
                     run.versions
                 ).match() },

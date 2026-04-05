@@ -13,8 +13,8 @@
  * - `meta`: Groovy Map containing aggregation information
  * - `reports`: A collection of Abricate report files from multiple samples
  *
- * @output record(meta, report, results, logs, nf_logs, versions)
- * - `report`: Aggregated tab-delimited summary of Abricate results from all samples
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Aggregated tab-delimited summary of Abricate results from all samples
  */
 nextflow.preview.types = true
 
@@ -32,7 +32,7 @@ process ABRICATE_SUMMARY {
     record(
         // Named fields (used downstream)
         meta: meta,
-        report: file("${prefix}.tsv"),
+        tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.tsv")

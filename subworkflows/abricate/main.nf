@@ -34,7 +34,7 @@ workflow ABRICATE {
 
     main:
     ABRICATE_RUN(assembly)
-    ABRICATE_SUMMARY(gatherFields(ABRICATE_RUN.out, [report: 'reports'], [name: 'abricate']))
+    ABRICATE_SUMMARY(gatherFields(ABRICATE_RUN.out, [tsv: 'reports'], [name: 'abricate']))
 
     emit:
     // Published outputs

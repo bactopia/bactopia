@@ -67,7 +67,10 @@
                 "ERR6005894/tools/shigapass/logs/nf.command.sh",
                 "ERR6005894/tools/shigapass/logs/nf.command.trace",
                 "ERR6005894/tools/shigapass/logs/versions.yml",
+                "ERR6005894/tools/shigapass/supplemental",
+                "ERR6005894/tools/shigapass/supplemental/ShigaPass_summary.csv",
                 "ERR6005894/tools/shigatyper",
+                "ERR6005894/tools/shigatyper/ERR6005894-hits.tsv",
                 "ERR6005894/tools/shigatyper/ERR6005894.tsv",
                 "ERR6005894/tools/shigatyper/logs",
                 "ERR6005894/tools/shigatyper/logs/nf.command.begin",
@@ -164,7 +167,10 @@
                 "ERR6005894SE/tools/shigapass/logs/nf.command.sh",
                 "ERR6005894SE/tools/shigapass/logs/nf.command.trace",
                 "ERR6005894SE/tools/shigapass/logs/versions.yml",
+                "ERR6005894SE/tools/shigapass/supplemental",
+                "ERR6005894SE/tools/shigapass/supplemental/ShigaPass_summary.csv",
                 "ERR6005894SE/tools/shigatyper",
+                "ERR6005894SE/tools/shigatyper/ERR6005894SE-hits.tsv",
                 "ERR6005894SE/tools/shigatyper/ERR6005894SE.tsv",
                 "ERR6005894SE/tools/shigatyper/logs",
                 "ERR6005894SE/tools/shigatyper/logs/nf.command.begin",
@@ -261,7 +267,10 @@
                 "SRR13039589/tools/shigapass/logs/nf.command.sh",
                 "SRR13039589/tools/shigapass/logs/nf.command.trace",
                 "SRR13039589/tools/shigapass/logs/versions.yml",
+                "SRR13039589/tools/shigapass/supplemental",
+                "SRR13039589/tools/shigapass/supplemental/ShigaPass_summary.csv",
                 "SRR13039589/tools/shigatyper",
+                "SRR13039589/tools/shigatyper/SRR13039589-hits.tsv",
                 "SRR13039589/tools/shigatyper/SRR13039589.tsv",
                 "SRR13039589/tools/shigatyper/logs",
                 "SRR13039589/tools/shigatyper/logs/nf.command.begin",
@@ -377,7 +386,7 @@
                 
             ]
         ],
-        "timestamp": "2026-03-31T20:25:38.555934161",
+        "timestamp": "2026-04-05T10:00:31.610239448",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -405,6 +414,7 @@
                 "SRR2838702/tools/agrvate/supplemental/SRR2838702-blastn_log.txt",
                 "SRR2838702/tools/agrvate/supplemental/SRR2838702-hmm-log.txt",
                 "SRR2838702/tools/agrvate/supplemental/SRR2838702-hmm.tab",
+                "SRR2838702/tools/agrvate/supplemental/SRR2838702.fna-error-report.tab",
                 "SRR2838702/tools/clermontyping",
                 "SRR2838702/tools/clermontyping/SRR2838702.tsv",
                 "SRR2838702/tools/clermontyping/logs",
@@ -609,6 +619,8 @@
                 "SRR2838702/tools/shigapass/logs/nf.command.sh",
                 "SRR2838702/tools/shigapass/logs/nf.command.trace",
                 "SRR2838702/tools/shigapass/logs/versions.yml",
+                "SRR2838702/tools/shigapass/supplemental",
+                "SRR2838702/tools/shigapass/supplemental/ShigaPass_summary.csv",
                 "SRR2838702/tools/shigatyper",
                 "SRR2838702/tools/shigatyper/SRR2838702.tsv",
                 "SRR2838702/tools/shigatyper/logs",
@@ -940,7 +952,7 @@
                 
             ]
         ],
-        "timestamp": "2026-03-31T20:27:28.405221732",
+        "timestamp": "2026-04-05T10:02:15.662459462",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

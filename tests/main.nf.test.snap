@@ -165,10 +165,10 @@
             ],
             [
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -177,7 +177,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:18:38.565218444",
+        "timestamp": "2026-04-05T10:08:04.58906736",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -191,6 +191,8 @@
                 "SRR2838702/main",
                 "SRR2838702/main/assembler",
                 "SRR2838702/main/assembler/SRR2838702-assembly-error.txt",
+                "SRR2838702/main/assembler/SRR2838702-error.fna.gz",
+                "SRR2838702/main/assembler/SRR2838702-error.tsv",
                 "SRR2838702/main/assembler/logs",
                 "SRR2838702/main/assembler/logs/nf.command.begin",
                 "SRR2838702/main/assembler/logs/nf.command.err",
@@ -264,13 +266,13 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-01T19:37:25.208717624",
+        "timestamp": "2026-04-05T10:27:04.300753333",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -457,10 +459,10 @@
             ],
             [
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -469,7 +471,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:30:47.747337106",
+        "timestamp": "2026-04-05T10:19:11.570263489",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -657,10 +659,10 @@
             ],
             [
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -669,7 +671,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:35:33.700739933",
+        "timestamp": "2026-04-05T10:24:28.70460159",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -677,7 +679,7 @@
     },
     "Bactopia (low proportion) - SRR2838702|portiera|illumina": {
         "content": [
-            2,
+            3,
             [
                 "SRR2838702",
                 "SRR2838702/main",
@@ -693,6 +695,35 @@
                 "SRR2838702/main/gather/logs/nf.command.sh",
                 "SRR2838702/main/gather/logs/nf.command.trace",
                 "SRR2838702/main/gather/logs/versions.yml",
+                "SRR2838702/main/qc",
+                "SRR2838702/main/qc/SRR2838702-low-basepair-proportion-error.txt",
+                "SRR2838702/main/qc/logs",
+                "SRR2838702/main/qc/logs/SRR2838702-fastp.log",
+                "SRR2838702/main/qc/logs/nf.command.begin",
+                "SRR2838702/main/qc/logs/nf.command.err",
+                "SRR2838702/main/qc/logs/nf.command.log",
+                "SRR2838702/main/qc/logs/nf.command.out",
+                "SRR2838702/main/qc/logs/nf.command.run",
+                "SRR2838702/main/qc/logs/nf.command.sh",
+                "SRR2838702/main/qc/logs/nf.command.trace",
+                "SRR2838702/main/qc/logs/versions.yml",
+                "SRR2838702/main/qc/supplemental",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702.fastp.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1-original_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R1.error-fastq.gz",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-final_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original.json",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.html",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2-original_fastqc.zip",
+                "SRR2838702/main/qc/supplemental/SRR2838702_R2.error-fastq.gz",
                 "bactopia-runs",
                 "bactopia-runs/bactopia",
                 "bactopia-runs/bactopia/merged-results",
@@ -713,11 +744,12 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-01T19:35:49.211747823",
+        "timestamp": "2026-04-05T10:25:11.24528471",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -902,10 +934,10 @@
             [
                 "SRR2838702.png:md5,90cfbd53df590d7542498269d4dda97a",
                 "versions.yml:md5,e8bb3b82f221298fc735072f579e992b",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -914,7 +946,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:16:13.59395599",
+        "timestamp": "2026-04-05T10:04:54.898008696",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -976,12 +1008,12 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-01T19:38:06.140396831",
+        "timestamp": "2026-04-05T10:27:35.544183408",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -1152,10 +1184,10 @@
             ],
             [
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -1164,7 +1196,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:23:42.607755981",
+        "timestamp": "2026-04-05T10:12:12.049699211",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -1345,10 +1377,10 @@
             ],
             [
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,e89989853b08a92615e9ab3b763625f8",
-                "versions.yml:md5,09f1b1c8c445a2851ee26b7c8dad7d9e",
-                "versions.yml:md5,e068878553357158eae51b6557a27184",
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd",
+                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
+                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
+                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
                 "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
                 "versions.yml:md5,e3fadafff6ad11514140cf0b8519018a",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
@@ -1357,7 +1389,7 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-01T19:12:57.158763015",
+        "timestamp": "2026-04-05T10:00:09.680405626",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -39,7 +39,8 @@ process SHIGAPASS {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.tsv"),
-            files("${prefix}_Flex_summary.tsv", optional: true)
+            files("${prefix}_Flex_summary.tsv", optional: true),
+            files("supplemental/*", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -88,10 +89,15 @@ process SHIGAPASS {
     rm ${fna_name}_tmp.txt
 
     # Convert to tab delimited and move to the pwd
+    mkdir -p supplemental
     sed 's/;/\t/g' ${prefix}/ShigaPass_summary.csv > ${prefix}.tsv
+    mv ${prefix}/ShigaPass_summary.csv supplemental/
 
     # Convert to tab delimited and move to the pwd
-    [ ! -f ${prefix}/ShigaPass_Flex_summary.csv ] || sed 's/;/\t/g' ${prefix}/ShigaPass_Flex_summary.csv > ${prefix}_Flex_summary.tsv
+    if [ -f ${prefix}/ShigaPass_Flex_summary.csv ]; then
+        sed 's/;/\t/g' ${prefix}/ShigaPass_Flex_summary.csv > ${prefix}_Flex_summary.tsv
+        mv ${prefix}/ShigaPass_Flex_summary.csv supplemental/
+    fi
 
     # Cleanup
 

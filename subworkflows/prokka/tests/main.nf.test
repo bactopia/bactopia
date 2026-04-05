@@ -18,8 +18,8 @@ nextflow_workflow {
                         fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
+                input[1] = null
+                input[2] = null
                 """
             }
         }

@@ -44,8 +44,8 @@ process GTDBTK_CLASSIFYWF {
     db: Path
 
     stage:
-    stageAs 'fna-tmp/*', fna
-    stageAs 'gtdb/*', db
+    stageAs 'staging/fna/*', fna
+    stageAs 'staging/gtdb/*', db
 
     output:
     record(
@@ -87,7 +87,7 @@ process GTDBTK_CLASSIFYWF {
         export GTDBTK_DATA_PATH="\$(readlink ${db})"
     fi
     mkdir fna
-    cp -L fna-tmp/* fna/
+    cp -L staging/fna/* fna/
     find fna/ -name "*.fna.gz" | xargs gunzip
 
     gtdbtk classify_wf \\

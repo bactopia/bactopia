@@ -32,7 +32,7 @@ process TBPROFILER_COLLATE {
     (meta: Map, json: Set<Path>): Record
 
     stage:
-    stageAs 'results-tmp/*', json
+    stageAs 'staging/json/*', json
 
     output:
     record(
@@ -73,7 +73,7 @@ process TBPROFILER_COLLATE {
 
     # Uncompress the JSON files
     mkdir results
-    cp -L results-tmp/* results/
+    cp -L staging/json/* results/
     find results/ -name "*.json.gz" | xargs gunzip
 
     tb-profiler \\
@@ -83,6 +83,7 @@ process TBPROFILER_COLLATE {
         --format csv
 
     # Cleanup
+    rm -rf results database
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

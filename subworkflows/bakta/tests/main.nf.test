@@ -21,9 +21,9 @@ nextflow_workflow {
                 input[1] = file("${params.test_data_dir}/datasets/bakta/light/bakta-light.tar.gz")
                 input[2] = false
                 input[3] = false
-                input[4] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
-                input[5] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
-                input[6] = file("${params.test_data_dir}/empty/EMPTY_REPLICONS")
+                input[4] = null
+                input[5] = null
+                input[6] = null
                 """
             }
         }

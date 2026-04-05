@@ -34,16 +34,16 @@ process AGRVATE {
     (meta: Map, fna: Path): Record
 
     stage:
-    stageAs "fna/*", fna
+    stageAs "staging/fna/*", fna
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
-        summary: file("${prefix}.tsv"),
+        tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
         results: [
-            files("${prefix}.tsv"),
+            files("${prefix}.{tab,tsv}"),
             files("supplemental/*")
         ],
         logs: files("*.{log,err}", optional: true),
@@ -79,6 +79,7 @@ process AGRVATE {
         -i ${fna_name}
 
     mv ${prefix}-results/ supplemental/
+    mv *.tab supplemental/
     mv supplemental/${prefix}-summary.tab ./${prefix}.tsv
 
     # Cleanup

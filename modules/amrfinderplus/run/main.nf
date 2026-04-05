@@ -40,9 +40,9 @@ process AMRFINDERPLUS_RUN {
     db: Path
 
     stage:
-    stageAs 'genes/*', fna
-    stageAs 'proteins/*', faa
-    stageAs 'gff/*', gff
+    stageAs 'staging/fna/*', fna
+    stageAs 'staging/faa/*', faa
+    stageAs 'staging/gff/*', gff
 
     output:
     record(

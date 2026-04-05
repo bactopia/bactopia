@@ -8,13 +8,13 @@
                 "output_dir": "SRR2838702SE/tools/snippy/SRR2838702",
                 "process_name": "snippy",
                 "scope": "sample",
-                "single_end": false
+                "single_end": true
             },
             [
-                "versions.yml:md5,1909a5137c9acc1ce9803b6d476aa7dd"
+                "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
             ]
         ],
-        "timestamp": "2026-03-31T20:17:41.864045127",
+        "timestamp": "2026-04-05T09:48:38.05931304",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -32,10 +32,10 @@
                 "single_end": false
             },
             [
-                "versions.yml:md5,1909a5137c9acc1ce9803b6d476aa7dd"
+                "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
             ]
         ],
-        "timestamp": "2026-03-31T20:17:08.495476136",
+        "timestamp": "2026-04-05T09:48:15.439849589",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -12,10 +12,10 @@
             "GCF_000292685-mash-refseq88-k21.txt:md5,eadba75db1ea0466bd3aeabed58c6c70",
             "GCF_000292685-sourmash-gtdb-rs207-k31.txt:md5,f4e72ff1d841db357443f3b586ad70b9",
             [
-                "versions.yml:md5,8c3d67b6de4177f3489fd4aa58626cdd"
+                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c"
             ]
         ],
-        "timestamp": "2026-03-31T20:18:44.478442704",
+        "timestamp": "2026-04-05T09:50:15.756387668",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

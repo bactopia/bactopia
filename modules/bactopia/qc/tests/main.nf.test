@@ -23,8 +23,8 @@ nextflow_process {
                         assembly: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                input[1] = null
+                input[2] = null
                 """
             }
         }
@@ -60,8 +60,8 @@ nextflow_process {
                         assembly: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                input[1] = null
+                input[2] = null
                 """
             }
         }
@@ -96,8 +96,8 @@ nextflow_process {
                         assembly: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                input[1] = null
+                input[2] = null
                 """
             }
         }
@@ -134,8 +134,8 @@ nextflow_process {
                         assembly: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                input[1] = null
+                input[2] = null
                 """
             }
         }
@@ -173,8 +173,8 @@ nextflow_process {
                         assembly: null
                     )
                 )
-                input[1] = file("${params.test_data_dir}/empty/EMPTY_ADAPTERS")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PHIX")
+                input[1] = null
+                input[2] = null
                 """
             }
         }

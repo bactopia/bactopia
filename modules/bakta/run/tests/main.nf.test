@@ -20,9 +20,9 @@ nextflow_process {
                     )
                 )
                 input[1] = file("${params.test_data_dir}/datasets/bakta/light/bakta-light.tar.gz")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
-                input[3] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
-                input[4] = file("${params.test_data_dir}/empty/EMPTY_REPLICONS")
+                input[2] = null
+                input[3] = null
+                input[4] = null
                 """
             }
         }
@@ -55,9 +55,9 @@ nextflow_process {
                     )
                 )
                 input[1] = file("${params.test_data_dir}/datasets/bakta/light/db-light")
-                input[2] = file("${params.test_data_dir}/empty/EMPTY_PROTEINS")
-                input[3] = file("${params.test_data_dir}/empty/EMPTY_PRODIGAL_TF")
-                input[4] = file("${params.test_data_dir}/empty/EMPTY_REPLICONS")
+                input[2] = null
+                input[3] = null
+                input[4] = null
                 """
             }
         }

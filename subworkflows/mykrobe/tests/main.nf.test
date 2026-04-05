@@ -17,8 +17,8 @@ nextflow_workflow {
                         meta: [name: "SRR2838702"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz")
+                        se: null,
+                        lr: null
                     )
                 )
                 input[1] = "staph"

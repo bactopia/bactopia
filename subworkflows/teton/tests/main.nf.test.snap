@@ -25,10 +25,10 @@
                 "teton_reads": "SRR2838702_R1.scrubbed.fastq.gz,SRR2838702_R2.scrubbed.fastq.gz"
             },
             [
-                "versions.yml:md5,d49ddd31234e6ce5433484a08809785e"
+                "versions.yml:md5,8dc4d8979e0dba7fc7b975f9953a3161"
             ]
         ],
-        "timestamp": "2026-03-31T20:30:44.457334476",
+        "timestamp": "2026-04-05T10:04:05.389667345",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

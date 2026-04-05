@@ -34,7 +34,7 @@ workflow AGRVATE {
 
     main:
     AGRVATE_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(AGRVATE_MODULE.out, 'summary', [name: 'agrvate']), 'tsv', 'tsv')
+    CSVTK_CONCAT(gatherCsvtk(AGRVATE_MODULE.out, 'tsv', [name: 'agrvate']), 'tsv', 'tsv')
 
     emit:
     // Published outputs

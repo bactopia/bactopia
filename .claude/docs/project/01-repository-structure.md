@@ -87,7 +87,7 @@ bactopia/
     - `empty/` - Placeholder files for Path? workarounds (EMPTY_*)
     - `conda/` - Development environment specifications
     - `citations.yml` - Tool citations and references
-    - `workflows.yml` - Workflow metadata and definitions
+    - `catalog.json` - Component catalog (modules, subworkflows, workflows)
     - `proteins.faa` - Protein reference file
     - Image assets (logos, banners)
 

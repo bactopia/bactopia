@@ -12,10 +12,10 @@
             "SRR2838702-mash-refseq88-k21.txt:md5,aadbd6ff4ce327f009ce511badceb040",
             "SRR2838702-sourmash-gtdb-rs207-k31.txt:md5,70d7a4c2b99b7930e9b70c033f881e03",
             [
-                "versions.yml:md5,c63c0ddcd15eca5455c5ea96366d383b"
+                "versions.yml:md5,559fcd38f7410952b8da3f25f165d6fd"
             ]
         ],
-        "timestamp": "2026-03-31T20:19:22.958239316",
+        "timestamp": "2026-04-05T09:46:31.476922469",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

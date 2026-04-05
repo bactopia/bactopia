@@ -50,10 +50,12 @@ process MIDAS_SPECIES {
         meta: meta,
         tsv: file("${prefix}.midas.tsv"),
         abundances: file("${prefix}.midas.abundances.txt"),
+        adjusted_abundances: file("${prefix}.midas.adjusted.abundances.txt"),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.midas.tsv"),
-            files("${prefix}.midas.abundances.txt")
+            files("${prefix}.midas.abundances.txt"),
+            files("${prefix}.midas.adjusted.abundances.txt")
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -102,7 +104,7 @@ process MIDAS_SPECIES {
         -t ${task.cpus}
 
     mv results/species/species_profile.txt ${prefix}.midas.abundances.txt
-    bactopia-midas-summary ${prefix} ${prefix}.midas.abundances.txt
+    midas-summary.py ${prefix} ${prefix}.midas.abundances.txt
 
     # Cleanup
     rm -rf results/

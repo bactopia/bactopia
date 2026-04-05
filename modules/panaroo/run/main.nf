@@ -38,7 +38,7 @@ process PANAROO_RUN {
     (meta: Map, gff: Set<Path>): Record
 
     stage:
-    stageAs 'gff-tmp/*', gff
+    stageAs 'staging/gff/*', gff
 
     output:
     record(
@@ -75,7 +75,7 @@ process PANAROO_RUN {
     meta.process_name = task.ext.process_name
     """
     mkdir gff
-    cp -L gff-tmp/* gff/
+    cp -L staging/gff/* gff/
     find gff/ -name "*.gz" | xargs gunzip
 
     # Make FOFN of gff (Prokka) and gff3 (Bakta) files
@@ -107,6 +107,7 @@ process PANAROO_RUN {
     fi
 
     mv supplemental/ panaroo/
+    rm -rf gff/ gff-fofn.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

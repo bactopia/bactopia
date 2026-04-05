@@ -42,7 +42,7 @@ process DEFENSEFINDER_RUN {
     db: Path
 
     stage:
-    stageAs 'proteins/*', faa
+    stageAs 'staging/faa/*', faa
 
     output:
     record(

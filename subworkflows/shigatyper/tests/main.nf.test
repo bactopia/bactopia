@@ -17,8 +17,8 @@ nextflow_workflow {
                         meta: [name: "ERR6005894"],
                         r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz")
+                        se: null,
+                        lr: null
                     )
                 )
                 """

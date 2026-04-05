@@ -16,6 +16,8 @@
                 "GCF_016726285/tools/shigapass/logs/nf.command.sh",
                 "GCF_016726285/tools/shigapass/logs/nf.command.trace",
                 "GCF_016726285/tools/shigapass/logs/versions.yml",
+                "GCF_016726285/tools/shigapass/supplemental",
+                "GCF_016726285/tools/shigapass/supplemental/ShigaPass_summary.csv",
                 "bactopia-runs",
                 "bactopia-runs/shigapass",
                 "bactopia-runs/shigapass/merged-results",
@@ -38,11 +40,12 @@
             [
                 "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
                 "versions.yml:md5,048657b953eef617c2b64ccb02cd1155",
+                "ShigaPass_summary.csv:md5,dae8bed71ba1289b6fa5e8c080c13c3d",
                 "versions.yml:md5,f481607e2b7526fd798b2375bb3cc9c4",
                 "shigapass.tsv:md5,9982dbc252423a0507b7c397f66164f2"
             ]
         ],
-        "timestamp": "2026-03-31T20:24:39.213329956",
+        "timestamp": "2026-04-05T10:00:48.091220883",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

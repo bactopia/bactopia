@@ -52,24 +52,24 @@ process ASSEMBLER {
     (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
 
     stage:
-    stageAs 'input-assembly/*', fna
+    stageAs 'staging/fna/*', fna
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
         fna: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: file(r1 ?: 'EMPTY_R1', optional: true),
-        r2: file(r2 ?: 'EMPTY_R2', optional: true),
-        se: file(se ?: 'EMPTY_SE', optional: true),
-        lr: file(lr ?: 'EMPTY_LR', optional: true),
+        r1: r1 != null ? file(r1, optional: true) : null,
+        r2: r2 != null ? file(r2, optional: true) : null,
+        se: se != null ? file(se, optional: true) : null,
+        lr: lr != null ? file(lr, optional: true) : null,
         tsv: file("${prefix}.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.{fna,fna.gz}", optional: true),
             files("${prefix}.tsv", optional: true),
             files("supplemental/*"),
-            files("${prefix}-*-error.*", optional: true),
+            files("${prefix}*-error.*", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

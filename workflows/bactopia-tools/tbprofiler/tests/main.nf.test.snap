@@ -45,11 +45,10 @@
             ],
             [
                 "versions.yml:md5,2d87e4df08df0f8c93f13d385d3a25f0",
-                "SRR2838702.bam.bai:md5,0d76977b2e36046cc176112776c5fa4e",
                 "versions.yml:md5,0a6c2ee40d0bbc1c31e66a46cc130523"
             ]
         ],
-        "timestamp": "2026-03-31T20:25:53.092510668",
+        "timestamp": "2026-04-05T10:02:40.705371481",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

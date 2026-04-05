@@ -19,6 +19,7 @@
                 "GCF_000017085/tools/agrvate/supplemental",
                 "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-agr_gp.tab",
                 "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-blastn_log.txt",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085.fna-error-report.tab",
                 "bactopia-runs",
                 "bactopia-runs/agrvate",
                 "bactopia-runs/agrvate/merged-results",
@@ -43,11 +44,12 @@
                 "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035",
                 "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
                 "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "GCF_000017085.fna-error-report.tab:md5,44907dcabe3ed848aa68e87c0c6d00b2",
                 "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-03-31T20:21:44.75010727",
+        "timestamp": "2026-04-05T09:56:09.340109412",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -73,6 +75,7 @@
                 "GCF_000017085/tools/agrvate/supplemental",
                 "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-agr_gp.tab",
                 "GCF_000017085/tools/agrvate/supplemental/GCF_000017085-blastn_log.txt",
+                "GCF_000017085/tools/agrvate/supplemental/GCF_000017085.fna-error-report.tab",
                 "bactopia-runs",
                 "bactopia-runs/agrvate",
                 "bactopia-runs/agrvate/merged-results",
@@ -97,11 +100,12 @@
                 "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035",
                 "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
                 "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "GCF_000017085.fna-error-report.tab:md5,44907dcabe3ed848aa68e87c0c6d00b2",
                 "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-03-31T20:22:07.670248179",
+        "timestamp": "2026-04-05T09:56:25.557038492",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

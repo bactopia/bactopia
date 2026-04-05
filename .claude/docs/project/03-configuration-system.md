@@ -38,7 +38,7 @@ Configuration values are inherited in the following order (highest to lowest pri
 
 ### Parameter Configuration
 - **`conf/params.config`** - Global parameter defaults
-- **`data/workflows.yml`** - Workflow metadata and definitions
+- **`data/catalog.json`** - Component catalog (modules, subworkflows, workflows)
 - **`conf/params/{workflow}.config`** - Workflow-specific parameters
 - **`conf/schema/`** - Auto-generated JSON schemas for parameter validation
 

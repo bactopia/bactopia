@@ -19,8 +19,6 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,compression,path-workarounds
  * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
- * @note Uses EMPTY_* placeholder files for optional parameters (adapters, phix)
- *
  * @input record(meta, r1, r2, se, lr, fna)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1`: Illumina R1 reads (paired-end forward)
@@ -71,11 +69,11 @@ process QC {
     phix    : Path?
 
     stage:
-    stageAs 'input-r1/*', r1
-    stageAs 'input-r2/*', r2
-    stageAs 'input-se/*', se
-    stageAs 'input-lr/*', lr
-    stageAs 'input-assembly/*', fna
+    stageAs 'staging/r1/*', r1
+    stageAs 'staging/r2/*', r2
+    stageAs 'staging/se/*', se
+    stageAs 'staging/lr/*', lr
+    stageAs 'staging/fna/*', fna
 
     output:
     record(
@@ -88,11 +86,13 @@ process QC {
         fna: file("assembly/${prefix}.fna.gz", optional: true),
         reads_grouped: files("${prefix}*.fastq.gz", optional: true),
         error: files("*-error.txt", optional: true),
+        skipped: file("${prefix}-qc-skipped.txt", optional: true),
         // Generic fields (used for publishing)
         results: [
             files("${prefix}*.fastq.gz", optional: true),
             files("supplemental/*", optional: true),
             files("*-error.txt", optional: true),
+            files("${prefix}-qc-skipped.txt", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
@@ -125,8 +125,8 @@ process QC {
     def Boolean is_assembly = meta.runtype.startsWith('assembly') ? true : false
     def Boolean single_end = r1 && r2 ? false : true
     def String qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
-    def String adapter_file = adapters.getName() == 'EMPTY_ADAPTERS' ? 'adapters' : adapters.getName()
-    def String phix_file = phix.getName() == 'EMPTY_PHIX' ? 'phix' : phix.getName()
+    def String adapter_file = adapters != null ? adapters.getName() : 'adapters'
+    def String phix_file = phix != null ? phix.getName() : 'phix'
     def String adapter_opts = single_end ? "" : "in2=repair-r2.fq out2=adapter-r2.fq"
     def String phix_opts = single_end ? "" : "in2=adapter-r2.fq out2=phix-r2.fq"
     def String lighter_opts = single_end ? "" : "-r phix-r2.fq"
@@ -184,8 +184,6 @@ process QC {
     if is_assembly; then
         # Copy the assembly over to assembly
         cp ${fna} assembly/${prefix}.fna.gz
-    else
-        touch assembly/EMPTY_ASSEMBLY
     fi
 
     #==========================================================================================

@@ -7,6 +7,7 @@
                 "SRR2838702/tools",
                 "SRR2838702/tools/midas",
                 "SRR2838702/tools/midas/SRR2838702.midas.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt",
                 "SRR2838702/tools/midas/SRR2838702.midas.tsv",
                 "SRR2838702/tools/midas/logs",
                 "SRR2838702/tools/midas/logs/nf.command.begin",
@@ -38,13 +39,14 @@
             ],
             [
                 "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+                "SRR2838702.midas.adjusted.abundances.txt:md5,3658eb6a56f27a066c88eccd22490808",
                 "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
                 "versions.yml:md5,21b80d2d408cef2b3b2690914032a5e5",
                 "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1",
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-03-31T20:24:34.689142737",
+        "timestamp": "2026-04-05T09:59:50.162415701",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"
@@ -58,6 +60,7 @@
                 "SRR2838702/tools",
                 "SRR2838702/tools/midas",
                 "SRR2838702/tools/midas/SRR2838702.midas.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt",
                 "SRR2838702/tools/midas/SRR2838702.midas.tsv",
                 "SRR2838702/tools/midas/logs",
                 "SRR2838702/tools/midas/logs/nf.command.begin",
@@ -89,13 +92,14 @@
             ],
             [
                 "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+                "SRR2838702.midas.adjusted.abundances.txt:md5,3658eb6a56f27a066c88eccd22490808",
                 "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
                 "versions.yml:md5,21b80d2d408cef2b3b2690914032a5e5",
                 "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1",
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-03-31T20:25:40.007253497",
+        "timestamp": "2026-04-05T10:00:37.217182027",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

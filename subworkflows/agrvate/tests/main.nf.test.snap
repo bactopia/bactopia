@@ -9,7 +9,7 @@
                 "process_name": "agrvate",
                 "scope": "sample"
             },
-            "GCF_000017085.tsv:md5,b483a3d6ca1908ab813427b06751e51a",
+            null,
             [
                 "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035"
             ],
@@ -31,7 +31,7 @@
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-03-31T20:17:09.972424131",
+        "timestamp": "2026-04-05T09:48:54.514581121",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

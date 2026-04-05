@@ -30,7 +30,7 @@ process RGI_HEATMAP {
     (meta: Map, json: Set<Path>): Record
 
     stage:
-    stageAs 'json/*', json
+    stageAs 'staging/json/*', json
 
     output:
     record(
@@ -59,13 +59,13 @@ process RGI_HEATMAP {
     meta.logs_dir = "rgi-heatmap/logs/${task.ext.logs_subdir}"
     meta.process_name = task.ext.process_name
     """
-    NUM_SAMPLES=\$(ls json/ | wc -l)
+    NUM_SAMPLES=\$(ls staging/json/ | wc -l)
     if [[ "\${NUM_SAMPLES}" -gt 1 ]]; then
         rgi \\
             heatmap \\
             ${task.ext.args} \\
             --output ${prefix} \\
-            --input json/
+            --input staging/json/
     fi
 
     # Cleanup

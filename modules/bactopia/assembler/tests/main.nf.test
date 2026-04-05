@@ -18,8 +18,8 @@ nextflow_process {
                         meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
+                        se: null,
+                        lr: null,
                         fna: null
                     )
                 )
@@ -51,10 +51,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "output", runtype: "single-end", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
-                        r1: file("${params.test_data_dir}/empty/EMPTY_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/empty/EMPTY_R2.fastq.gz"),
+                        r1: null,
+                        r2: null,
                         se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
+                        lr: null,
                         fna: null
                     )
                 )
@@ -86,9 +86,9 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "output", runtype: "ont", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
-                        r1: file("${params.test_data_dir}/empty/EMPTY_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/empty/EMPTY_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        r1: null,
+                        r2: null,
+                        se: null,
                         lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
                         fna: null
                     )
@@ -124,7 +124,7 @@ nextflow_process {
                         meta: [name: "output", runtype: "hybrid", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        se: null,
                         lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
                         fna: null
                     )
@@ -159,7 +159,7 @@ nextflow_process {
                         meta: [name: "output", runtype: "short_polish", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        se: null,
                         lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
                         fna: null
                     )
@@ -197,8 +197,8 @@ nextflow_process {
                         meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
+                        se: null,
+                        lr: null,
                         fna: null
                     )
                 )
@@ -233,8 +233,8 @@ nextflow_process {
                         meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
                         r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
-                        lr: file("${params.test_data_dir}/empty/EMPTY.fastq.gz"),
+                        se: null,
+                        lr: null,
                         fna: null
                     )
                 )
@@ -267,9 +267,9 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "output", runtype: "ont", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
-                        r1: file("${params.test_data_dir}/empty/EMPTY_R1.fastq.gz"),
-                        r2: file("${params.test_data_dir}/empty/EMPTY_R2.fastq.gz"),
-                        se: file("${params.test_data_dir}/empty/EMPTYSE.fastq.gz"),
+                        r1: null,
+                        r2: null,
+                        se: null,
                         lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
                         fna: null
                     )

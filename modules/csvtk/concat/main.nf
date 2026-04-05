@@ -39,7 +39,7 @@ process CSVTK_CONCAT {
     out_format: String
 
     stage:
-    stageAs 'inputs/*', csv
+    stageAs 'staging/csv/*', csv
 
     output:
     record(
@@ -75,7 +75,7 @@ process CSVTK_CONCAT {
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
     """
     # Create a file of files for csvtk
-    ls inputs/ | awk '{ print "inputs/"\$1 }' > fofn.txt
+    ls staging/csv/* | awk '{ print \$1 }' > fofn.txt
 
     csvtk \\
         concat \\

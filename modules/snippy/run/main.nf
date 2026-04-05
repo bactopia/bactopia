@@ -202,7 +202,7 @@ process SNIPPY_RUN {
         mv ${prefix}.aligned.fa.gz ${prefix}.error.aligned.fa.gz
         mv ${prefix}.vcf.gz ${prefix}.error.vcf.gz
         echo "No SNPs found using reference ${final_reference}, downstream analysis is discontinued for ${prefix}" | \
-        sed 's/^\\s*//' > ${prefix}-error.txt
+        sed 's/^\\s*//' > ${prefix}.error.txt
     fi
 
     cat <<-END_VERSIONS > versions.yml

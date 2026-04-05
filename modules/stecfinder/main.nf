@@ -32,11 +32,11 @@ process STECFINDER {
     (meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 
     stage:
-    stageAs 'fna/*', fna
-    stageAs 'reads/r1/*', r1
-    stageAs 'reads/r2/*', r2
-    stageAs 'reads/se/*', se
-    stageAs 'reads/lr/*', lr
+    stageAs 'staging/fna/*', fna
+    stageAs 'staging/r1/*', r1
+    stageAs 'staging/r2/*', r2
+    stageAs 'staging/se/*', se
+    stageAs 'staging/lr/*', lr
 
     output:
     record(

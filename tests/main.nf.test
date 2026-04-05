@@ -6,6 +6,7 @@ nextflow_pipeline {
     tag "bactopia"
 
     test("Bactopia (pe) - SRR2838702|portiera|illumina") {
+        tag "bactopia_pe"
         when {
             params {
                 bactopia_test = ""
@@ -44,6 +45,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (pe+bakta) - SRR2838702|portiera|illumina") {
+        tag "bactopia_pe_bakta"
         when {
             params {
                 bactopia_test = ""
@@ -83,6 +85,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (se) - SRR2838702|portiera|illumina") {
+        tag "bactopia_se"
         when {
             params {
                 bactopia_test = ""
@@ -121,6 +124,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (ont) - ERR3772599|portiera|nanopore") {
+        tag "bactopia_ont"
         when {
             params {
                 bactopia_test = ""
@@ -160,6 +164,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (hybrid) - SRR2838702|portiera|illumina+nanopore") {
+        tag "bactopia_hybrid"
         when {
             params {
                 bactopia_test = ""
@@ -200,6 +205,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (short polish) - ERR3772599|portiera|illumina+nanopore") {
+        tag "bactopia_short_polish"
         when {
             params {
                 bactopia_test = ""
@@ -241,6 +247,7 @@ nextflow_pipeline {
 
     // Fail gracefully
     test("Bactopia (low proportion) - SRR2838702|portiera|illumina") {
+        tag "bactopia_low_proportion"
         when {
             params {
                 bactopia_test = ""
@@ -279,6 +286,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (assembly error) - SRR2838702|portiera|illumina") {
+        tag "bactopia_assembly_error"
         when {
             params {
                 bactopia_test = ""
@@ -318,6 +326,7 @@ nextflow_pipeline {
     }
 
     test("Bactopia (low coverage) - ERR3772599|portiera|nanopore") {
+        tag "bactopia_low_coverage"
         when {
             params {
                 bactopia_test = ""
@@ -354,5 +363,4 @@ nextflow_pipeline {
             )
         }
     }
-
 }

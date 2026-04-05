@@ -49,7 +49,6 @@
                 "adapters": {
                     "type": "string",
                     "description": "A FASTA file containing adapters to remove",
-                    "default": "/home/robert_petit/bactopia/data/EMPTY_ADAPTERS",
                     "help": "By default, Bactopia will use the adapters provided by BBmap",
                     "fa_icon": "fas fa-font",
                     "hidden": true
@@ -65,7 +64,6 @@
                 "phix": {
                     "type": "string",
                     "description": "phiX174 reference genome to remove",
-                    "default": "/home/robert_petit/bactopia/data/EMPTY_PHIX",
                     "help": "By default, use the phiX genome provided by BBmap",
                     "fa_icon": "fas fa-font",
                     "hidden": true

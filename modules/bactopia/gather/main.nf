@@ -50,11 +50,11 @@ process GATHER {
     (meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
 
     stage:
-    stageAs '*???-r1', r1_files
-    stageAs '*???-r2', r2_files
-    stageAs '*???-se', se_files
-    stageAs '*???-lr', lr_files
-    stageAs '*???-assembly', fna_files
+    stageAs 'staging/r1/*???-r1', r1_files
+    stageAs 'staging/r2/*???-r2', r2_files
+    stageAs 'staging/se/*???-se', se_files
+    stageAs 'staging/lr/*???-lr', lr_files
+    stageAs 'staging/fna/*???-assembly', fna_files
 
     output:
     record(
@@ -69,7 +69,8 @@ process GATHER {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}-meta.tsv"),
-            files("*-{error,merged}.txt", optional: true)
+            files("*-{error,merged}.txt", optional: true),
+            files("failed-tests-fastqs/*", optional: true)
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),

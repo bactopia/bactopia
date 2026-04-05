@@ -6,6 +6,7 @@
                 "ERR6005894",
                 "ERR6005894/tools",
                 "ERR6005894/tools/shigatyper",
+                "ERR6005894/tools/shigatyper/ERR6005894-hits.tsv",
                 "ERR6005894/tools/shigatyper/ERR6005894.tsv",
                 "ERR6005894/tools/shigatyper/logs",
                 "ERR6005894/tools/shigatyper/logs/nf.command.begin",
@@ -19,6 +20,7 @@
                 "ERR6005894SE",
                 "ERR6005894SE/tools",
                 "ERR6005894SE/tools/shigatyper",
+                "ERR6005894SE/tools/shigatyper/ERR6005894SE-hits.tsv",
                 "ERR6005894SE/tools/shigatyper/ERR6005894SE.tsv",
                 "ERR6005894SE/tools/shigatyper/logs",
                 "ERR6005894SE/tools/shigatyper/logs/nf.command.begin",
@@ -32,6 +34,7 @@
                 "SRR13039589",
                 "SRR13039589/tools",
                 "SRR13039589/tools/shigatyper",
+                "SRR13039589/tools/shigatyper/SRR13039589-hits.tsv",
                 "SRR13039589/tools/shigatyper/SRR13039589.tsv",
                 "SRR13039589/tools/shigatyper/logs",
                 "SRR13039589/tools/shigatyper/logs/nf.command.begin",
@@ -62,17 +65,20 @@
                 "bactopia-runs/shigatyper/nf-reports/shigatyper-timeline.html"
             ],
             [
-                "ERR6005894.tsv:md5,fbfc6e86c2e9196c8ffeaf4ceb10cbd2",
+                "ERR6005894-hits.tsv:md5,86324f1cdc686eb68b85bd27776a8dc7",
+                "ERR6005894.tsv:md5,84bc68331bf503ea23da27207e418383",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
-                "ERR6005894SE.tsv:md5,91445ec102402e56b530134e4b8d48f9",
+                "ERR6005894SE-hits.tsv:md5,3a2660886597dbb4e9d6f3990a36785f",
+                "ERR6005894SE.tsv:md5,56b194ae479ed5118a2f1560d0365386",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
-                "SRR13039589.tsv:md5,0392d9fbdd3e5911352bdf380ad217a0",
+                "SRR13039589-hits.tsv:md5,4ac60befc62506a7c7fce9b6e0204ac5",
+                "SRR13039589.tsv:md5,fe6566b6f5ea873c71b8cb31e788894b",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
                 "versions.yml:md5,c4954fe5c276fcd3b66857bacafa932e",
-                "shigatyper.tsv:md5,eef512c9a467edf271fea8a22683439c"
+                "shigatyper.tsv:md5,eb390412945b4c27c7fe40de634ede88"
             ]
         ],
-        "timestamp": "2026-03-31T20:24:35.680817954",
+        "timestamp": "2026-04-05T10:00:56.857075597",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

@@ -84,6 +84,12 @@ process PNEUMOCAT {
         mv ${prefix}_R2.results.xml ${prefix}.xml
     fi
     mv logs/* ./
+    if [ -f pneumo_capsular_typing.stderr ]; then
+        mv pneumo_capsular_typing.stderr pneumo_capsular_typing.stderr.log
+    fi
+    if [ -f pneumo_capsular_typing.stdout ]; then
+        mv pneumo_capsular_typing.stdout pneumo_capsular_typing.stdout.log
+    fi
     mv coverage_summary.txt ${prefix}.coverage_summary.txt
 
     cat <<-END_VERSIONS > versions.yml

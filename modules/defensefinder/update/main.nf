@@ -57,6 +57,7 @@ process DEFENSEFINDER_UPDATE {
     cp .command.trace defense-finder/logs/nf.command.trace
 
     # Cleanup
+    rm -rf models/
 
     cat <<-END_VERSIONS > defense-finder/logs/versions.yml
     "${task.process}":

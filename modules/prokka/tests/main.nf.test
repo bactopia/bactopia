@@ -18,8 +18,8 @@ nextflow_process {
                         fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna")
                     )
                 )
-                input[1] = file("${baseDir}/../../../data/empty/EMPTY_PROTEINS")
-                input[2] = file("${baseDir}/../../../data/empty/EMPTY_PRODIGAL_TF")
+                input[1] = null
+                input[2] = null
                 """
             }
         }
@@ -51,8 +51,8 @@ nextflow_process {
                         fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
                     )
                 )
-                input[1] = file("${baseDir}/../../../data/empty/EMPTY_PROTEINS")
-                input[2] = file("${baseDir}/../../../data/empty/EMPTY_PRODIGAL_TF")
+                input[1] = null
+                input[2] = null
                 """
             }
         }

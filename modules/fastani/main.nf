@@ -34,7 +34,7 @@ process FASTANI {
     (meta: Map, query: Set<Path>, reference: Path): Record
 
     stage:
-    stageAs 'query-tmp/*', query
+    stageAs 'staging/query/*', query
 
     output:
     record(
@@ -72,7 +72,7 @@ process FASTANI {
     fi
 
     mkdir query
-    cp -L query-tmp/* query/
+    cp -L staging/query/* query/
     find query/ -name '*.gz' -exec gunzip {} +
     find query/ -name "*" -type f > query-list.txt
 

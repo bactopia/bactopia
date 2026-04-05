@@ -140,27 +140,27 @@ params {
 
     // Tool-specific parameters
     // QC
-    adapters              : Path? = "${projectDir}/data/empty/EMPTY_ADAPTERS"    // TODO: Remove when Path? is fixed
-    phix                  : Path? = "${projectDir}/data/empty/EMPTY_PHIX"        // TODO: Remove when Path? is fixed
+    adapters              : Path?
+    phix                  : Path?
 
     // Annotation
     use_bakta             : Boolean
-    bakta_db              : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
+    bakta_db              : Path?
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
-    bakta_prodigal_tf     : Path? = "${projectDir}/data/empty/EMPTY_PRODIGAL_TF" // TODO: Remove when Path? is fixed
-    bakta_replicons       : Path? = "${projectDir}/data/empty/EMPTY_REPLICONS"   // TODO: Remove when Path? is fixed
-    prokka_proteins       : Path
-    prokka_prodigal_tf    : Path? = "${projectDir}/data/empty/EMPTY_PRODIGAL_TF" // TODO: Remove when Path? is fixed
+    bakta_proteins        : Path?
+    bakta_prodigal_tf     : Path?
+    bakta_replicons       : Path?
+    prokka_proteins       : Path?
+    prokka_prodigal_tf    : Path?
 
     // Merlin
-    emmtyper_blastdb      : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
-    hicap_database_dir    : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
-    hicap_model_fp        : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
+    emmtyper_blastdb      : Path?
+    hicap_database_dir    : Path?
+    hicap_model_fp        : Path?
     ask_merlin            : Boolean
-    spatyper_repeats      : Path? = "${projectDir}/data/empty/EMPTY_DB"          // TODO: Remove when Path? is fixed
-    spatyper_repeat_order : Path? = "${projectDir}/data/empty/EMPTY_PROTEINS"    // TODO: Remove when Path? is fixed
+    spatyper_repeats      : Path?
+    spatyper_repeat_order : Path?
 }
 
 // Core

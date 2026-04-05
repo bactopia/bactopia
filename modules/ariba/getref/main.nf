@@ -69,6 +69,18 @@ process ARIBA_GETREF {
     cp .command.sh ariba/logs/${db_name}/nf.command.sh
     cp .command.trace ariba/logs/${db_name}/nf.command.trace
 
+    if [ -f ${db_name}.log ]; then
+        mv ${db_name}.log ariba/logs/${db_name}.log
+    fi
+
+    if [ -f ${db_name}.fa ]; then
+        rm ${db_name}.fa
+    fi
+
+    if [ -f ${db_name}.tsv ]; then
+        rm ${db_name}.tsv
+    fi
+
     cat <<-END_VERSIONS > ariba/logs/${db_name}/versions.yml
     "${task.process}":
         ariba:  \$(echo \$(ariba version 2>&1) | sed 's/^.*ARIBA version: //;s/ .*\$//')

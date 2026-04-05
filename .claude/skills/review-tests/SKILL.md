@@ -30,6 +30,20 @@ Run the review-tests CLI and present the results to the user.
        investigation, NOT snapshot regeneration.
      - If `generate` was **false** (or not shown): snapshots may be stale.
        Note these likely need snapshot regeneration or investigation.
+   - For **undeclared_outputs** results: these are files the tool produced in its
+     work directory that are NOT declared in the module's `results`, `logs`,
+     `versions`, or `nf_logs` output fields. Present each affected module with
+     its undeclared file list (from the `.outputs.txt` log file). For each file,
+     help the user decide:
+     - **Add to `results`**: if the file is a real tool output users would want
+       (e.g., a report, summary, or data file)
+     - **Add to `logs`**: if the file is stderr/stdout from the tool itself
+     - **Add to `.outputs-ignore`**: if the file is a staging artifact,
+       intermediate, version-info side effect, or database file that should
+       not be published
+     The `.outputs-ignore` file lives at `modules/{name}/tests/.outputs-ignore`
+     with one glob pattern per line (`#` comments, blank lines allowed).
+     The `staging/**` directory is already ignored by default.
    - For **suspiciously fast tests**: note these likely exited early without running.
    - Summarize actionable items and suggested next steps.
 
@@ -43,6 +57,10 @@ The initial summary should be compact and scannable. When the user asks for deep
 
 - **Specific component**: Read its stdout file at
   `logs/{timestamp}/{tier}/{component}.stdout.txt` using the Read tool
+- **Undeclared outputs**: Read the component's `.outputs.txt` file at
+  `logs/{timestamp}/{tier}/{component}.outputs.txt` for the full file list.
+  Then read the module's `main.nf` to see the current `results` and `logs`
+  fields and advise where each undeclared file should go.
 - **Abort errors**: Read the nextflow.log for the component
   (focus on ERROR/WARN lines and last 50 lines).
   To find the log path, re-run with `--json` and check the `nextflow_log` field,
@@ -63,7 +81,7 @@ Do NOT read nextflow.log or stdout files during the initial summary.
 - The `logs/{timestamp}/` directory contains tier subdirectories based on what
   was tested -- not all tiers are present in every run
 - The `.nf-test/` work directories under component test dirs only exist for
-  failed tests
+  failed tests (including `undeclared_outputs` failures -- preserved for review)
 - If the user asks about a specific component, offer to read its stdout file
   in full and check for nextflow.log
 

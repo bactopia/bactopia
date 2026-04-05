@@ -38,7 +38,7 @@ process GAMMA {
     db: Path
 
     stage:
-    stageAs 'input/*', fna
+    stageAs 'staging/fna/*', fna
 
     output:
     record(

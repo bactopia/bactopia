@@ -42,7 +42,7 @@
                 "ngmaster.tsv:md5,b7ffc37ec26e8981653a9224f6442e3b"
             ]
         ],
-        "timestamp": "2026-03-31T20:24:12.318789411",
+        "timestamp": "2026-04-05T09:59:37.835738456",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.01.0"

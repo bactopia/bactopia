@@ -9,8 +9,6 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
  * @citation prokka
  *
- * @note Uses EMPTY_* placeholder files for optional parameters
- *
  * @input record(meta, fna)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
@@ -35,6 +33,7 @@
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
 nextflow.preview.types = true
+nextflow.enable.moduleBinaries = true
 
 process PROKKA {
     tag "${prefix}"
@@ -49,7 +48,7 @@ process PROKKA {
     prodigal_tf: Path?
 
     stage:
-    stageAs "input/*", fna
+    stageAs "staging/fna/*", fna
 
     output:
     record(
@@ -87,8 +86,8 @@ process PROKKA {
 
     script:
     def _meta = meta
-    def proteins_opt = proteins != null && proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
-    def prodigal_opt = prodigal_tf != null && prodigal_tf.getName() != "EMPTY_PRODIGAL_TF" ? "--prodigaltf ${prodigal_tf.getName()}" : ""
+    def proteins_opt = proteins != null ? "--proteins ${proteins.getName()}" : ""
+    def prodigal_opt = prodigal_tf != null ? "--prodigaltf ${prodigal_tf.getName()}" : ""
     def is_compressed = fna.getName().endsWith(".gz") ? true : false
     def fna_name = fna.getName().replace(".gz", "")
     prefix = task.ext.prefix ?: "${_meta.name}"
