@@ -57,17 +57,15 @@ This section provides detailed examples of different component types in Bactopia
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
  * @citation prokka
  *
- * @note Uses EMPTY_* placeholder files for optional parameters
- *
  * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @input proteins
- * FASTA file of trusted proteins to first annotate from (Optional)
+ * @input proteins?
+ * FASTA file of trusted proteins to first annotate from
  *
- * @input prodigal_tf
- * Training file to use for gene prediction (Optional)
+ * @input prodigal_tf?
+ * Training file to use for gene prediction
  *
  * @output record(meta, annotations, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
@@ -88,7 +86,7 @@ This section provides detailed examples of different component types in Bactopia
 - **Complex complexity**: Multiple conditional logic paths, many options
 - **Multiple inputs**: Assembly plus optional proteins and training files
 - **Multiple outputs**: Many output files in different formats
-- **Path-workarounds**: Uses EMPTY_* files for optional inputs
+- **Conditional-input**: Uses `Path?` types for optional inputs
 - **Compression**: Handles compressed outputs
 - **Archive-output**: Creates compressed BLAST database archives
 

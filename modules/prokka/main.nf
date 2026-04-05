@@ -13,11 +13,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @input proteins
- * FASTA file of trusted proteins to first annotate from (Optional)
+ * @input proteins?
+ * FASTA file of trusted proteins to first annotate from
  *
- * @input prodigal_tf
- * Training file to use for gene prediction (Optional)
+ * @input prodigal_tf?
+ * Training file to use for gene prediction
  *
  * @output record(meta, gff, gbff, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations

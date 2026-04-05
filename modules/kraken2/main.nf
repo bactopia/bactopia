@@ -17,22 +17,22 @@
  * @note Database Required
  * Requires a standard Kraken2 database (directory or tarball). Memory usage depends on database size (Standard ~50GB).
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) - not typically used by Kraken2
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio) - not typically used by Kraken2
  *
  * @input db
  * Kraken2 database (Directory or compressed tarball)
  *
- * @output record(meta, special_meta, kraken2_report, scrub_report, classified, unclassified, results, logs, nf_logs, versions)
+ * @output record(meta, special_meta, kraken2_report, scrub_report?, classified?, unclassified?, results, logs, nf_logs, versions)
  * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
- * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
+ * - `scrub_report?`: Summary report of reads removed during host scrubbing
  * - `special_meta`: A simplified metadata map for internal use
- * - `classified`: Reads assigned to a taxon in the database (FASTQ)
- * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
+ * - `classified?`: Reads assigned to a taxon in the database (FASTQ)
+ * - `unclassified?`: Reads NOT assigned to any taxon (FASTQ)
  */
 nextflow.preview.types = true
 

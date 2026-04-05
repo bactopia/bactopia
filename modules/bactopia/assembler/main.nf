@@ -19,21 +19,21 @@
  * @note When runtype is 'assembly' or 'assembly_accession' and --reassemble is not set,
  * the original assembly is used without re-assembly.
  *
- * @input record(meta, r1, r2, se, lr, fna)
+ * @input record(meta, r1?, r2?, se?, lr?, fna?)
  * - `meta`    : Groovy Map containing sample information
- * - `r1`      : Illumina R1 reads (paired-end)
- * - `r2`      : Illumina R2 reads (paired-end)
- * - `se`      : Single-end Illumina reads
- * - `lr`      : Long reads (ONT/PacBio) for long-read or hybrid assembly
- * - `fna`     : Assembly file (FASTA) for assembly-based runtypes
+ * - `r1?`     : Illumina R1 reads (paired-end)
+ * - `r2?`     : Illumina R2 reads (paired-end)
+ * - `se?`     : Single-end Illumina reads
+ * - `lr?`     : Long reads (ONT/PacBio) for long-read or hybrid assembly
+ * - `fna?`    : Assembly file (FASTA) for assembly-based runtypes
  *
- * @output record(meta, fna, r1, r2, se, lr, tsv, results, logs, nf_logs, versions)
- * - `fna`: Assembled contigs in FASTA format
- * - `r1`: Passthrough Illumina R1 reads
- * - `r2`: Passthrough Illumina R2 reads
- * - `se`: Passthrough single-end reads
- * - `lr`: Passthrough long reads
- * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
+ * @output record(meta, fna?, r1?, r2?, se?, lr?, tsv?, results, logs, nf_logs, versions)
+ * - `fna?`: Assembled contigs in FASTA format
+ * - `r1?`: Passthrough Illumina R1 reads
+ * - `r2?`: Passthrough Illumina R2 reads
+ * - `se?`: Passthrough single-end reads
+ * - `lr?`: Passthrough long reads
+ * - `tsv?`: Tab-delimited report of assembly statistics (N50, length, coverage)
  *
  * @results supplemental/
  * - `supplemental/*`: Assembler-specific intermediate files (graphs, logs, polishing info)

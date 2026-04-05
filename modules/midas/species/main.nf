@@ -17,11 +17,11 @@
  * @note Database Required
  * Requires a compatible MIDAS database (containing marker gene sequences and taxonomy).
  *
- * @input record(meta, r1, r2, se)
+ * @input record(meta, r1?, r2?, se?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
  *
  * @input db
  * Directory containing the MIDAS database

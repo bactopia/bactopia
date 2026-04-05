@@ -11,36 +11,36 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic
  * @citation mash
  *
- * @input record(meta, fna, r1, r2, se, lr)
+ * @input record(meta, fna, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
- * - `r1`: Illumina R1 reads (paired-end) or null
- * - `r2`: Illumina R2 reads (paired-end) or null
- * - `se`: Single-end Illumina reads or null
- * - `lr`: Long reads (ONT/PacBio) or null
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input reference
  * The reference Mash database to screen against
  *
- * @output record(meta, fna, r1, r2, se, lr, escherichia, haemophilus, klebsiella, legionella, listeria, mycobacterium, neisseria, pseudomonas, salmonella, staphylococcus, streptococcus, genus, dist, results, logs, nf_logs, versions)
+ * @output record(meta, fna, r1?, r2?, se?, lr?, escherichia?, haemophilus?, klebsiella?, legionella?, listeria?, mycobacterium?, neisseria?, pseudomonas?, salmonella?, staphylococcus?, streptococcus?, genus?, dist, results, logs, nf_logs, versions)
  * - `dist`: Raw Mash distance results
  * - `fna`: Passthrough of assembled contigs
- * - `r1`: Passthrough of Illumina R1 reads
- * - `r2`: Passthrough of Illumina R2 reads
- * - `se`: Passthrough of single-end reads
- * - `lr`: Passthrough of long reads
- * - `escherichia`: Conditional marker file triggering Escherichia analysis tools
- * - `haemophilus`: Conditional marker file triggering Haemophilus analysis tools
- * - `klebsiella`: Conditional marker file triggering Klebsiella analysis tools
- * - `legionella`: Conditional marker file triggering Legionella analysis tools
- * - `listeria`: Conditional marker file triggering Listeria analysis tools
- * - `mycobacterium`: Conditional marker file triggering Mycobacterium analysis tools
- * - `neisseria`: Conditional marker file triggering Neisseria analysis tools
- * - `pseudomonas`: Conditional marker file triggering Pseudomonas analysis tools
- * - `salmonella`: Conditional marker file triggering Salmonella analysis tools
- * - `staphylococcus`: Conditional marker file triggering Staphylococcus analysis tools
- * - `streptococcus`: Conditional marker file triggering Streptococcus analysis tools
- * - `genus`: Marker file indicating the detected genus
+ * - `r1?`: Passthrough of Illumina R1 reads
+ * - `r2?`: Passthrough of Illumina R2 reads
+ * - `se?`: Passthrough of single-end reads
+ * - `lr?`: Passthrough of long reads
+ * - `escherichia?`: Conditional marker file triggering Escherichia analysis tools
+ * - `haemophilus?`: Conditional marker file triggering Haemophilus analysis tools
+ * - `klebsiella?`: Conditional marker file triggering Klebsiella analysis tools
+ * - `legionella?`: Conditional marker file triggering Legionella analysis tools
+ * - `listeria?`: Conditional marker file triggering Listeria analysis tools
+ * - `mycobacterium?`: Conditional marker file triggering Mycobacterium analysis tools
+ * - `neisseria?`: Conditional marker file triggering Neisseria analysis tools
+ * - `pseudomonas?`: Conditional marker file triggering Pseudomonas analysis tools
+ * - `salmonella?`: Conditional marker file triggering Salmonella analysis tools
+ * - `staphylococcus?`: Conditional marker file triggering Staphylococcus analysis tools
+ * - `streptococcus?`: Conditional marker file triggering Streptococcus analysis tools
+ * - `genus?`: Marker file indicating the detected genus
  */
 nextflow.preview.types = true
 

@@ -13,12 +13,12 @@
  * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation sylph
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input db
  * Path to the Sylph database file (*.syldb)

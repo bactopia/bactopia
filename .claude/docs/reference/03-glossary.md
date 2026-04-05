@@ -25,26 +25,10 @@
 - One of the execution profiles available in Bactopia
 
 ## E
-**EMPTY_* Files**
-- Placeholder files used as temporary workaround for Nextflow Path? limitations
-- Stored in `/data/empty/`
-- Available files:
-    - `EMPTY_ADAPTERS` - For adapter files
-    - `EMPTY_ASSEMBLY` - For assembly files
-    - `EMPTY_BLASTDB` - For BLAST database files
-    - `EMPTY_DB` - For database files
-    - `EMPTY_EXTRA` - For extra files
-    - `EMPTY_GBK` - For GenBank files
-    - `EMPTY_META` - For metadata files
-    - `EMPTY_ONT` - For Oxford Nanopore long reads
-    - `EMPTY_PHIX` - For PhiX files
-    - `EMPTY_PRODIGAL_TF` - For Prodigal training files
-    - `EMPTY_PROTEINS` - For protein files
-    - `EMPTY_R1` - For paired-end forward reads
-    - `EMPTY_R2` - For paired-end reverse reads
-    - `EMPTY_REPLICONS` - For replicon files
-    - `EMPTY_SE` - For single-end Illumina reads
-    - `EMPTY_TF` - For training files
+**EMPTY_* Files (removed)**
+- Previously used as placeholder files to work around Nextflow `Path?` limitations
+- Replaced with native `Path?` types and null checks in Nextflow 26.04+
+- Optional parameters now use `Path?` in take blocks and null guards in scripts
 
 ## F
 **file() vs files()**
@@ -104,8 +88,8 @@
 ## P
 **Path?**
 - Optional Path parameter type in Nextflow
-- Currently has incomplete support, requiring EMPTY_* workarounds
-- Expected to be fixed in Nextflow v26.04+
+- Natively supported in Nextflow 26.04+ with null checks
+- Used in take blocks for optional file inputs (e.g., `proteins: Path?`)
 
 **Process**
 - Nextflow's abstraction for executing commands or scripts
@@ -167,7 +151,7 @@
 
 ### Common Patterns
 - **4-channel pattern**: Standard for subworkflows
-- **Path? workarounds**: Use EMPTY_* files
+- **Path?**: Native null support for optional inputs
 - **flattenPaths**: Convert Set<Path> to Path
 - **gather**: Merge channels for aggregation
 

@@ -16,12 +16,12 @@
  *
  * @modules pneumocat
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads (not supported by PneumoCaT)
- * - `lr`: Long reads (not supported by PneumoCaT)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads (not supported by PneumoCaT)
+ * - `lr?`: Long reads (not supported by PneumoCaT)
  *
  * @output sample_outputs
  * - `xml`: The PneumoCaT result files in XML format

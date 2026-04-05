@@ -17,12 +17,12 @@
  *
  * @modules snippy_run
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input reference
  * Reference genome in GenBank format (preferred, for annotation) or FASTA format

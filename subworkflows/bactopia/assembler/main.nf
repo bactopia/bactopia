@@ -18,12 +18,12 @@
  *
  * @modules bactopia/assembler, csvtk/concat
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`  : Illumina R1 reads (paired-end forward)
- * - `r2`  : Illumina R2 reads (paired-end reverse)
- * - `se`  : Single-end Illumina reads
- * - `lr`  : Long reads (ONT/PacBio) for long-read or hybrid assembly
+ * - `r1?` : Illumina R1 reads (paired-end forward)
+ * - `r2?` : Illumina R2 reads (paired-end reverse)
+ * - `se?` : Single-end Illumina reads
+ * - `lr?` : Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
  * @output sample_outputs
  * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)

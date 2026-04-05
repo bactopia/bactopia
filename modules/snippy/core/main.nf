@@ -19,8 +19,8 @@
  * - `meta`: Groovy Map containing reference information
  * - `reference`: Reference genome (FASTA or GenBank format)
  *
- * @input mask
- * Optional BED file of regions to mask in the alignment
+ * @input mask?
+ * BED file of regions to mask in the alignment
  *
  * @output record(meta, supplemental, aln, full_aln, clean_full_aln, tab, vcf, txt, samples, results, logs, nf_logs, versions)
  * - `supplemental`: Supplemental files including individual sample alignments

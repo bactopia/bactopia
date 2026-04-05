@@ -51,12 +51,12 @@ For individual processes/modules that execute tools:
  * - `meta`: Groovy Map containing sample information
  * - `<input_name>`: <Description of the input file>
  *
- * @input <param_name>
- * <Description of a simple input parameter>.
+ * @input <param_name>?
+ * <Description of an optional input parameter>.
  *
- * @output record(meta, <field1>, <field2>, results, logs, nf_logs, versions)
+ * @output record(meta, <field1>, <field2>?, results, logs, nf_logs, versions)
  * - `<field1>`: <Description of tool-specific output field>
- * - `<field2>`: <Description of tool-specific output field>
+ * - `<field2>?`: <Description of optional tool-specific output field>
  */
 ```
 
@@ -66,8 +66,7 @@ For individual processes/modules that execute tools:
 - **output-type**: `single` or `multiple`
 - **features**: Comma-separated list (NO SPACES after commas) of applicable features:
   - `database-dependent`: Requires external database
-  - `path-workarounds`: Uses EMPTY_* files for optional parameters
-  - `conditional-input`: Accepts optional inputs
+  - `conditional-input`: Accepts optional `Path?` inputs
   - `conditional-logic`: Contains if/else statements
   - `compression`: Handles file compression/decompression
   - `archive-output`: Creates compressed archives

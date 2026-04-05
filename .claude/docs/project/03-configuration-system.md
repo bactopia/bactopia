@@ -63,7 +63,7 @@ Common parameter types used across the pipeline:
 - `Integer` - Whole numbers
 - `Boolean` - True/false flags
 - `Path` - File paths (required)
-- `Path?` - Optional file paths (uses EMPTY_* workaround)
+- `Path?` - Optional file paths (null when not provided)
 - `List<String>` - Multiple string values
 
 ## Module Configuration
@@ -162,7 +162,7 @@ includeConfig '../modules/{tool}/module.config'
 
 ### Default Values
 - Provide sensible defaults
-- Use EMPTY_* files for optional Path? parameters
+- Optional `Path?` parameters default to null when not provided
 
 ### Resource Allocation
 Use standard process labels:
@@ -183,8 +183,7 @@ Use standard process labels:
 params {
     // Conditional parameter with default
     use_optional_tool = false
-    optional_tool_db = params.use_optional_tool ?
-        params.optional_tool_db : "${projectDir}/data/empty/EMPTY_DB"
+    optional_tool_db = null
 }
 ```
 
@@ -206,4 +205,4 @@ profiles {
 
 ## See Also
 - [Development Workflow](../project/02-development-workflow.md) - For adding configuration to new tools
-- [Technical Specifications](../standards/03-technical-specs.md) - For Path? parameter workarounds
+- [Technical Specifications](../standards/03-technical-specs.md) - For Path? parameter conventions

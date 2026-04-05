@@ -33,16 +33,9 @@ This guide provides solutions to common issues, error messages, and debugging ti
 #### "No such file or directory"
 **Cause**: File path doesn't exist or is incorrect
 **Solution**:
-- Check if EMPTY_* files are being used correctly for optional inputs
 - Verify relative vs absolute paths
 - Ensure input files are properly staged
-
-#### "EMPTY_PROTEINS" in output
-**Cause**: Optional parameter not provided, workaround file name showing
-**Solution**:
-- This is expected behavior for optional inputs
-- Check parameter name and provide file if needed
-- See [Technical Specifications](../standards/03-technical-specs.md) for Path? workarounds
+- For optional inputs, confirm `Path?` parameters are null when not provided
 
 ### Configuration Issues
 

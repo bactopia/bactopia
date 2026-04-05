@@ -17,18 +17,18 @@
  *
  * @status stable
  * @keywords quality control, adapters, error correction, subsampling, fastq, illumina, nanopore, fastp, bbduk, nanoq
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation,conditional-logic,path-workarounds
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,conditional-input,conditional-logic
  * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
  * @modules qc
  *
- * @input record(meta, r1, r2, se, lr, assembly)
+ * @input record(meta, r1?, r2?, se?, lr?, assembly?)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
- * - `r1`: Illumina R1 reads (paired-end forward)
- * - `r2`: Illumina R2 reads (paired-end reverse)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT)
- * - `assembly`: Assembly file (FASTA) for assembly-based simulations
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT)
+ * - `assembly?`: Assembly file (FASTA) for assembly-based simulations
  *
  * @input adapters
  * Optional adapter sequences in FASTA format for removal from Illumina reads

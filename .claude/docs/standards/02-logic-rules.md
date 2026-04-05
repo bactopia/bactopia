@@ -92,16 +92,11 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 - Examples: abricate, kraken2, mlst
 - **Key indicators**: Database download/selection parameters
 
-#### path-workarounds
-- Uses EMPTY_* files for optional Path? parameters
-- Temporary workaround for Nextflow Path? limitations
-- **Key indicators**: Parameters with default EMPTY_* values
-- Examples: prokka, bakta
-
 #### conditional-input
-- Accepts optional inputs that modify behavior
-- **Key indicators**: Optional parameters that change processing
-- Examples: Optional protein files, training data
+- Accepts optional `Path?` inputs that modify behavior
+- **Key indicators**: `Path?` types in take block, null checks in script
+- GroovyDoc uses `?` suffix on optional fields (e.g., `@input proteins?`)
+- Examples: prokka (proteins?, prodigal_tf?), bakta (proteins?, replicons?)
 
 #### conditional-logic
 - Contains if/else statements in script

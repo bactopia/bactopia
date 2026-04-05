@@ -51,47 +51,62 @@ The codebase uses Record-typed inputs with explicit named parameters:
 
 **Note**: The codebase uses `Record` return types with named parameters (e.g., `meta: Map`) rather than `Tuple<>` type annotations. In module script blocks, `def _meta = meta` aliases the input before `meta = [:]` creates a new output meta map.
 
-## Path? Optional Parameters (Workarounds)
+## Path? Optional Parameters
 
-### The Problem
-Nextflow has incomplete support for optional Path parameters (`Path?`). This is a known bug being worked on by the Nextflow team.
+### Declaration
 
-### The Workaround: EMPTY_* Files
-Bactopia uses placeholder files to indicate the absence of optional files:
+Optional file parameters use Nextflow's native `Path?` type:
 
 ```groovy
-// Default parameter pattern
-bakta_db : Path? = "${projectDir}/data/empty/EMPTY_DB"
+// In module take block
+input:
+(meta: Map, fna: Path): Record
+proteins   : Path?
+prodigal_tf: Path?
 ```
+
+When a `Path?` parameter has no value, it is `null`.
 
 ### Detection in Scripts
 
+Use null checks to conditionally build command-line arguments:
+
 ```groovy
-def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ? "--proteins ${proteins.getName()}" : ""
+def proteins_opt = proteins != null ? "--proteins ${proteins.getName()}" : ""
 ```
 
-**Note**: Use `.getName()` directly on `Path?` parameters. The older `.toList()[0].getName()` pattern is deprecated.
+### GroovyDoc Convention
 
-### Available EMPTY_* Files
-Located in `/data/empty/`:
-- `EMPTY_ADAPTERS` - For adapter files
-- `EMPTY_ASSEMBLY` - For assembly files
-- `EMPTY_BLASTDB` - For BLAST database files
-- `EMPTY_DB` - For database files
-- `EMPTY_EXTRA` - For extra files
-- `EMPTY_GBK` - For GenBank files
-- `EMPTY_META` - For metadata files
-- `EMPTY_ONT` - For Oxford Nanopore long reads
-- `EMPTY_PHIX` - For PhiX files
-- `EMPTY_PRODIGAL_TF` - For Prodigal training files
-- `EMPTY_PROTEINS` - For protein files
-- `EMPTY_R1` - For read 1 files (paired-end forward)
-- `EMPTY_R2` - For read 2 files (paired-end reverse)
-- `EMPTY_REPLICONS` - For replicon files
-- `EMPTY_SE` - For single-end Illumina reads
-- `EMPTY_TF` - For training files
+Optional fields are marked with a `?` suffix in GroovyDoc to mirror the `Path?` type:
 
-**Important**: These are TEMPORARY workarounds. Do NOT attempt to "fix" them. They will be removed when Nextflow properly supports Path?.
+```groovy
+ * @input record(meta, r1?, r2?, se?)
+ * - `meta`: Groovy Map containing sample information
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ *
+ * @input proteins?
+ * FASTA file of trusted proteins to first annotate from
+```
+
+Rules:
+- Add `?` to any field backed by `Path?` in the take block
+- Add `?` to output record fields that use `optional: true` in `file()`
+- **Never** add `?` to standard fields: `meta`, `results`, `logs`, `nf_logs`, `versions`
+
+### Output with Optional Fields
+
+```groovy
+output:
+record(
+    meta: meta,
+    r1: r1 != null ? file("fastqs/${prefix}_R1.fastq.gz", optional: true) : null,
+    fna: file("assembly/${prefix}.fna.gz"),
+)
+```
+
+Fields using `optional: true` or conditional null passthrough get `?` in the `@output record(...)` line.
 
 ## Channel Output Patterns
 

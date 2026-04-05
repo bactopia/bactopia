@@ -16,31 +16,31 @@
  *
  * @status stable
  * @keywords fastq, qc, adapter removal, error correction, subsampling, fastp, bbduk, lighter, porechop, nanoq, fastqc, nanoplot
- * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic,compression,path-workarounds
+ * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-input,conditional-logic,compression
  * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
- * @input record(meta, r1, r2, se, lr, fna)
+ * @input record(meta, r1?, r2?, se?, lr?, fna?)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
- * - `r1`: Illumina R1 reads (paired-end forward)
- * - `r2`: Illumina R2 reads (paired-end reverse)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT)
- * - `fna`: Assembly file (FASTA) for assembly-based simulations
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT)
+ * - `fna?`: Assembly file (FASTA) for assembly-based simulations
  *
- * @input adapters
- * Optional filepath for custom adapter sequences (FASTA)
+ * @input adapters?
+ * Filepath for custom adapter sequences (FASTA)
  *
- * @input phix
- * Optional filepath for custom PhiX sequences (FASTA)
+ * @input phix?
+ * Filepath for custom PhiX sequences (FASTA)
  *
- * @output record(meta, r1, r2, se, lr, fna, reads_grouped, error, results, logs, nf_logs, versions)
- * - `r1`: QC'd Illumina R1 reads (paired-end forward)
- * - `r2`: QC'd Illumina R2 reads (paired-end reverse)
- * - `se`: QC'd single-end Illumina reads
- * - `lr`: QC'd long reads (ONT)
- * - `fna`: Assembly file (FASTA)
- * - `reads_grouped`: All output FASTQs for publishing
- * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
+ * @output record(meta, r1?, r2?, se?, lr?, fna?, reads_grouped?, error?, results, logs, nf_logs, versions)
+ * - `r1?`: QC'd Illumina R1 reads (paired-end forward)
+ * - `r2?`: QC'd Illumina R2 reads (paired-end reverse)
+ * - `se?`: QC'd single-end Illumina reads
+ * - `lr?`: QC'd long reads (ONT)
+ * - `fna?`: Assembly file (FASTA)
+ * - `reads_grouped?`: All output FASTQs for publishing
+ * - `error?`: Captured error messages if QC failed (e.g., reads empty after trimming)
  *
  * @results supplemental
  * - `*-original.json`: Pre-QC read statistics from fastq-scan

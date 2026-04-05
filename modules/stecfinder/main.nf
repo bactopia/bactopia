@@ -9,13 +9,13 @@
  * @tags complexity:moderate input-type:single output-type:single features:conditional-logic
  * @citation stecfinder
  *
- * @input record(meta, fna, r1, r2, se, lr)
+ * @input record(meta, fna, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
- * - `r1`: Illumina R1 reads (paired-end) or null
- * - `r2`: Illumina R2 reads (paired-end) or null
- * - `se`: Single-end Illumina reads or null
- * - `lr`: Long reads (ONT/PacBio) or null
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: TSV file with STEC gene markers results

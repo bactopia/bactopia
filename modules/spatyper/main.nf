@@ -14,11 +14,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @input repeats
- * Custom repeat sequences file (Optional)
+ * @input repeats?
+ * Custom repeat sequences file
  *
- * @input repeat_order
- * Custom repeat order file (Optional)
+ * @input repeat_order?
+ * Custom repeat order file
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: spa typing results in TSV format

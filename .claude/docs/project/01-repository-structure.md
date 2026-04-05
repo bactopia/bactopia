@@ -13,7 +13,6 @@ bactopia/
 ├── bin/                       # Helper scripts and utilities
 ├── conf/                      # Configuration files
 ├── data/                      # Static data and resources
-│   └── empty/                 # Empty placeholder files
 ├── modules/                   # Individual process implementations
 │   └── bactopia/              # Core pipeline processes
 ├── subworkflows/              # Reusable workflow components
@@ -84,7 +83,6 @@ bactopia/
 ### `/data/`
 - **Purpose**: Static data and resources
 - **Contents**:
-    - `empty/` - Placeholder files for Path? workarounds (EMPTY_*)
     - `conda/` - Development environment specifications
     - `citations.yml` - Tool citations and references
     - `catalog.json` - Component catalog (modules, subworkflows, workflows)

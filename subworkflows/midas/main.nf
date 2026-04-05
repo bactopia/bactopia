@@ -17,12 +17,12 @@
  *
  * @modules csvtk_concat, midas_species, midas_download
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (not supported by MIDAS)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (not supported by MIDAS)
  *
  * @input database
  * MIDAS reference database for species identification and quantification

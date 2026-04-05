@@ -123,7 +123,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
 - **conditional-logic**: Contains if/else statements or complex conditional processing
 - **archive-output**: Creates compressed archives (tar/zip)
 - **compression**: Handles file compression/decompression
-- **path-workarounds**: Uses EMPTY_* files for optional parameters
+- **conditional-input**: Accepts optional `Path?` inputs
 - **internet-access**: Requires internet connection for downloads
 - **alternative-execution**: Multiple tool options (e.g., assembler can use shovill, dragonflye, unicycler)
 - **resource-download**: Downloads external databases, datasets, or files
@@ -148,9 +148,6 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 - **Internal Utility**: Module used for internal pipeline operations
 - **Internal Maintenance**: Module used for dataset building/updating
 
-#### Technical Notes
-- **Uses EMPTY_* placeholder files for optional parameters**: Documents Path? workarounds
-
 **Example usage**:
 ```groovy
 * @note Database Bundled
@@ -170,18 +167,18 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 
 ### 4.2 Read Inputs (Explicit Positional Slots)
 
-For modules accepting reads, use explicit positional slots:
+For modules accepting reads, use explicit positional slots with `?` suffix on optional fields:
 
 ```groovy
-@input record(meta, r1, r2, se, lr)
+@input record(meta, r1?, r2?, se?, lr?)
 - `meta`: Groovy Map containing sample information
-- `r1`: Illumina R1 reads (paired-end forward)
-- `r2`: Illumina R2 reads (paired-end reverse)
-- `se`: Single-end Illumina reads
-- `lr`: Long reads (ONT/PacBio)
+- `r1?`: Illumina R1 reads (paired-end forward)
+- `r2?`: Illumina R2 reads (paired-end reverse)
+- `se?`: Single-end Illumina reads
+- `lr?`: Long reads (ONT/PacBio)
 ```
 
-This pattern provides clear documentation of which read types are supported and uses `Path?` types for optional slots.
+The `?` suffix mirrors the `Path?` type in the take block, indicating these fields may be null.
 
 ### 4.3 Database Parameters
 ```groovy
@@ -190,12 +187,15 @@ Directory or compressed tarball containing the <tool> database
 ```
 
 ### 4.4 Optional Parameters
-```groovy
-@input proteins
-FASTA file of trusted proteins to first annotate from (Optional)
 
-@input prodigal_tf
-Training file to use for gene prediction (Optional)
+Use `?` suffix on the parameter name instead of "(Optional)" in the description:
+
+```groovy
+@input proteins?
+FASTA file of trusted proteins to first annotate from
+
+@input prodigal_tf?
+Training file to use for gene prediction
 ```
 
 ## 5. Output Documentation Standards
@@ -217,6 +217,8 @@ Modules use `@output record(...)` to document their outputs. The record line lis
 4. **Skip convenience bundles** -- e.g., `annotations` (fna+faa+gff bundle) is listed in the record but not described since individual fields already cover it
 5. **Single line per field** -- each description must fit on one line, no wrapping
 6. **Field names must match** the actual `record()` output block exactly
+7. **Optional output fields** -- add `?` to fields that use `optional: true` in their `file()` call or conditional null passthrough
+8. **Standard fields never get `?`** -- even if `logs` uses `optional: true` for file matching, it is not semantically optional
 
 ### 5.3 Standard Fields (Never Described)
 
@@ -296,16 +298,11 @@ Some modules publish additional files via the `results` list that are NOT named 
 
 ### 6.1 Path? Parameter Handling
 
-Two main approaches for optional parameters:
-
-#### EMPTY_* File Detection (Preferred)
+Optional `Path?` parameters are `null` when absent. Use null checks:
 
 ```groovy
-def proteins_opt = proteins.getName() != "EMPTY_PROTEINS" ?
-    "--proteins ${proteins.getName()}" : ""
+def proteins_opt = proteins != null ? "--proteins ${proteins.getName()}" : ""
 ```
-
-**Note**: Use `.getName()` directly on `Path?` parameters. The older `.toList()[0].getName()` pattern is deprecated.
 
 #### Conditional Database Handling
 ```groovy
@@ -470,17 +467,15 @@ These fields are computed at runtime based on which inputs are provided.
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
  * @citation prokka
  *
- * @note Uses EMPTY_* placeholder files for optional parameters
- *
  * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
- * @input proteins
- * FASTA file of trusted proteins to first annotate from (Optional)
+ * @input proteins?
+ * FASTA file of trusted proteins to first annotate from
  *
- * @input prodigal_tf
- * Training file to use for gene prediction (Optional)
+ * @input prodigal_tf?
+ * Training file to use for gene prediction
  *
  * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, annotations, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations

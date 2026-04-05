@@ -20,14 +20,14 @@
  * @input db
  * Path to the Bakta database (Directory or compressed tarball)
  *
- * @input proteins
- * Optional FASTA file of trusted proteins to use for first-pass annotation
+ * @input proteins?
+ * FASTA file of trusted proteins to use for first-pass annotation
  *
- * @input prodigal_tf
- * Optional Prodigal training file for CDS prediction
+ * @input prodigal_tf?
+ * Prodigal training file for CDS prediction
  *
- * @input replicons
- * Optional table (TSV/CSV) of replicon information for origin detection
+ * @input replicons?
+ * Table (TSV/CSV) of replicon information for origin detection
  *
  * @output record(meta, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, tsv, txt, blastdb, results, logs, nf_logs, versions)
  * - `faa`: CDS/sORF amino acid sequences as FASTA

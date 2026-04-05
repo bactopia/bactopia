@@ -14,8 +14,8 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @input blastdb
- * Optional path to a custom *emm* cluster BLAST database
+ * @input blastdb?
+ * Path to a custom *emm* cluster BLAST database
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited summary of the assigned emm type and cluster

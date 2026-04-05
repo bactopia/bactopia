@@ -1,8 +1,8 @@
 {
   "version": "1.0",
-  "generated": "2026-03-29T22:09:46Z",
+  "generated": "2026-04-05T18:02:13Z",
   "bactopia_version": "4.0.0",
-  "bactopia_py_version": "1.7.0",
+  "bactopia_py_version": "2.0.0",
   "nf_bactopia_version": "1.1.0",
   "modules": {
     "abricate_run": {
@@ -18,7 +18,7 @@
         "fna"
       ],
       "emits": [
-        "report"
+        "tsv"
       ],
       "tags": {
         "complexity": "simple",
@@ -42,7 +42,7 @@
         "reports"
       ],
       "emits": [
-        "report"
+        "tsv"
       ],
       "tags": {
         "complexity": "simple",
@@ -219,7 +219,7 @@
       "process_name": "assembler",
       "tool": {
         "name": "bactopia-assembler",
-        "version": "1.0.4"
+        "version": "1.0.5"
       },
       "takes": [
         "r1",
@@ -278,7 +278,7 @@
       "process_name": "gather",
       "tool": {
         "name": "bactopia-gather",
-        "version": "1.0.4"
+        "version": "1.0.5"
       },
       "takes": [
         "r1_files",
@@ -313,7 +313,7 @@
       "process_name": "qc",
       "tool": {
         "name": "bactopia-qc",
-        "version": "1.0.3"
+        "version": "1.0.4"
       },
       "takes": [
         "r1",
@@ -336,9 +336,9 @@
         "input_type": "multiple",
         "output_type": "multiple",
         "features": [
+          "conditional-input",
           "conditional-logic",
-          "compression",
-          "path-workarounds"
+          "compression"
         ]
       }
     },
@@ -349,7 +349,7 @@
       "process_name": "sketcher",
       "tool": {
         "name": "bactopia-sketcher",
-        "version": "1.0.2"
+        "version": "1.0.3"
       },
       "takes": [
         "fna"
@@ -377,7 +377,7 @@
       "process_name": "teton-prepare",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.1"
+        "version": "1.1.3"
       },
       "takes": [
         "classification"
@@ -584,7 +584,7 @@
       "process_name": "bracken",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.2"
+        "version": "1.1.3"
       },
       "takes": [
         "r1",
@@ -771,14 +771,14 @@
         "version": "1.12"
       },
       "takes": [
-        "msa",
-        "newick"
+        "aln",
+        "nwk"
       ],
       "emits": [
         "emsim",
         "em",
         "status",
-        "newick",
+        "nwk",
         "fasta",
         "pos_ref",
         "masked_aln"
@@ -1138,7 +1138,7 @@
         "version": "3.4.3"
       },
       "takes": [
-        "msa"
+        "aln"
       ],
       "emits": [
         "masked_aln"
@@ -1165,7 +1165,7 @@
         "fna"
       ],
       "emits": [
-        "gbk",
+        "gbff",
         "svg",
         "tsv"
       ],
@@ -1214,11 +1214,11 @@
         "version": "3.0.1"
       },
       "takes": [
-        "msa"
+        "aln"
       ],
       "emits": [
-        "msa",
-        "phylogeny"
+        "aln",
+        "nwk"
       ],
       "tags": {
         "complexity": "complex",
@@ -1283,7 +1283,7 @@
       "process_name": "kraken2",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.2"
+        "version": "1.1.3"
       },
       "takes": [
         "r1",
@@ -1391,10 +1391,10 @@
         "version": "1.4.6"
       },
       "takes": [
-        "seqs"
+        "fna"
       ],
       "emits": [
-        "tree",
+        "nwk",
         "tsv",
         "sketches"
       ],
@@ -1644,7 +1644,7 @@
         "version": "0.3.3"
       },
       "emits": [
-        "gbk",
+        "gbff",
         "fna",
         "rm",
         "features",
@@ -1702,7 +1702,7 @@
       "process_name": "nohuman_download",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.2"
+        "version": "1.1.3"
       },
       "emits": [
         "db",
@@ -1728,7 +1728,7 @@
       "process_name": "nohuman",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.2"
+        "version": "1.1.3"
       },
       "takes": [
         "r1",
@@ -1842,7 +1842,7 @@
         "version": "4.2.21"
       },
       "takes": [
-        "gbk"
+        "gbff"
       ],
       "emits": [
         "tsv"
@@ -1950,7 +1950,7 @@
       ],
       "emits": [
         "gff",
-        "gbk",
+        "gbff",
         "fna",
         "faa",
         "ffn",
@@ -2283,7 +2283,7 @@
       "process_name": "snippy-core",
       "tool": {
         "name": "bactopia-variants",
-        "version": "1.0.2"
+        "version": "1.0.4"
       },
       "takes": [
         "vcf",
@@ -2315,7 +2315,7 @@
       "process_name": "snippy",
       "tool": {
         "name": "bactopia-variants",
-        "version": "1.0.2"
+        "version": "1.0.4"
       },
       "takes": [
         "r1",
@@ -2364,7 +2364,7 @@
         "version": "1.2.0"
       },
       "takes": [
-        "msa"
+        "aln"
       ],
       "emits": [
         "tsv"
@@ -2433,7 +2433,7 @@
       "process_name": "srahumanscrubber",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.2"
+        "version": "1.1.3"
       },
       "takes": [
         "r1",
@@ -2919,8 +2919,8 @@
         "output_type": "multiple",
         "features": [
           "aggregation",
-          "conditional-logic",
-          "path-workarounds"
+          "conditional-input",
+          "conditional-logic"
         ]
       }
     },
@@ -3313,23 +3313,20 @@
       "description": "Detect and mask recombination events in bacterial phylogenies.",
       "path": "bactopia/subworkflows/clonalframeml/",
       "takes": [
-        "alignment"
+        "aln"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "masked_aln",
           "emsim",
           "em",
           "status",
-          "newick",
+          "nwk",
           "fasta",
-          "pos_ref"
-        ],
-        "iqtree_outputs": [
-          "msa",
-          "phylogeny"
-        ],
-        "snpdists_outputs": [
+          "pos_ref",
+          "aln",
+          "nwk",
           "tsv"
         ]
       },
@@ -3497,13 +3494,12 @@
       "description": "Calculate Average Nucleotide Identity (ANI) between genomes.",
       "path": "bactopia/subworkflows/fastani/",
       "takes": [
-        "query"
+        "fna"
       ],
       "emits": {
-        "sample_outputs": [
-          "tsv"
-        ],
+        "sample_outputs": [],
         "run_outputs": [
+          "tsv",
           "csv"
         ]
       },
@@ -3635,10 +3631,11 @@
       "description": "Detect and filter recombination regions in bacterial alignments.",
       "path": "bactopia/subworkflows/gubbins/",
       "takes": [
-        "alignment"
+        "aln"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "masked_aln",
           "fasta",
           "gff",
@@ -3649,9 +3646,7 @@
           "embl_branch",
           "tree",
           "tree_labelled",
-          "bootstrap_tree"
-        ],
-        "snpdists_outputs": [
+          "bootstrap_tree",
           "tsv"
         ]
       },
@@ -3685,7 +3680,7 @@
       ],
       "emits": {
         "sample_outputs": [
-          "gbk",
+          "gbff",
           "svg",
           "tsv"
         ],
@@ -3743,12 +3738,12 @@
       "description": "Construct maximum likelihood phylogenetic trees from alignments.",
       "path": "bactopia/subworkflows/iqtree/",
       "takes": [
-        "alignment"
+        "aln"
       ],
       "emits": {
         "sample_outputs": [
-          "msa",
-          "phylogeny",
+          "aln",
+          "nwk",
           "supplemental"
         ],
         "run_outputs": []
@@ -3960,11 +3955,11 @@
       "description": "Create phylogenetic trees using Mash distances.",
       "path": "bactopia/subworkflows/mashtree/",
       "takes": [
-        "assembly"
+        "fna"
       ],
       "emits": {
         "sample_outputs": [
-          "tree",
+          "nwk",
           "tsv",
           "sketches"
         ],
@@ -4065,27 +4060,8 @@
         "staphtyper_repeat_order"
       ],
       "emits": {
-        "dist_outputs": [
-          "dist",
-          "fna",
-          "r1",
-          "r2",
-          "se",
-          "lr",
-          "escherichia",
-          "haemophilus",
-          "klebsiella",
-          "legionella",
-          "listeria",
-          "mycobacterium",
-          "neisseria",
-          "pseudomonas",
-          "salmonella",
-          "staphylococcus",
-          "streptococcus",
-          "genus"
-        ],
-        "sample_outputs": []
+        "sample_outputs": [],
+        "run_outputs": []
       },
       "scope": "sample",
       "calls": {
@@ -4157,7 +4133,8 @@
           "staphylococcus",
           "streptococcus",
           "genus"
-        ]
+        ],
+        "run_outputs": []
       },
       "scope": "sample",
       "calls": {
@@ -4325,7 +4302,7 @@
       ],
       "emits": {
         "sample_outputs": [
-          "gbk",
+          "gbff",
           "fna",
           "gff",
           "faa",
@@ -4340,7 +4317,8 @@
           "stats",
           "accessions"
         ],
-        "bactopia_tools": []
+        "bactopia_tools": [],
+        "run_outputs": []
       },
       "scope": "sample",
       "calls": {
@@ -4468,12 +4446,11 @@
         "use_roary"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "csv",
-          "supplemental"
-        ],
-        "snpdists_outputs": [
+          "supplemental",
           "tsv"
         ]
       },
@@ -4563,7 +4540,7 @@
       "description": "Prediction of prophages from bacterial genomes.",
       "path": "bactopia/subworkflows/phispy/",
       "takes_params": [
-        "gbk"
+        "gbff"
       ],
       "emits": {
         "sample_outputs": [
@@ -4697,7 +4674,7 @@
       "emits": {
         "sample_outputs": [
           "gff",
-          "gbk",
+          "gbff",
           "fna",
           "faa",
           "ffn",
@@ -4796,12 +4773,12 @@
         "gff"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "csv",
           "supplemental"
-        ],
-        "run_outputs": []
+        ]
       },
       "scope": "sample",
       "calls": {
@@ -4862,7 +4839,8 @@
         "traits"
       ],
       "emits": {
-        "sample_outputs": []
+        "sample_outputs": [],
+        "run_outputs": []
       },
       "scope": "sample",
       "calls": {
@@ -5123,7 +5101,8 @@
         "mask"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "full_aln",
           "clean_full_aln",
@@ -5131,9 +5110,7 @@
           "vcf",
           "txt",
           "samples",
-          "supplemental"
-        ],
-        "snpdists_outputs": [
+          "supplemental",
           "tsv"
         ]
       },
@@ -5207,10 +5184,11 @@
       "description": "Calculate pairwise SNP distances from sequence alignments.",
       "path": "bactopia/subworkflows/snpdists/",
       "takes": [
-        "alignment"
+        "aln"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "tsv"
         ]
       },
@@ -5275,7 +5253,8 @@
           "scrubbed",
           "scrubbed_extra",
           "scrub_report"
-        ]
+        ],
+        "run_outputs": []
       },
       "scope": "sample",
       "calls": {
@@ -5436,12 +5415,15 @@
         "sample_outputs": [
           "tsv"
         ],
-        "run_outputs": []
+        "run_outputs": [
+          "csv"
+        ]
       },
       "scope": "sample",
       "calls": {
         "modules": [
-          "sylph_profile"
+          "sylph_profile",
+          "csvtk_concat"
         ]
       },
       "tags": {
@@ -5573,16 +5555,10 @@
         "use_srascrubber"
       ],
       "emits": {
-        "scrubber_outputs": [],
-        "bracken_outputs": [],
-        "samplesheet_outputs": [],
-        "report_outputs": [],
-        "merged_report": [],
-        "merged_bacteria": [],
-        "merged_nonbacteria": [],
-        "merged_sizemeup": []
+        "sample_outputs": [],
+        "run_outputs": []
       },
-      "scope": "custom",
+      "scope": "sample",
       "calls": {
         "modules": [
           "bactopia_teton",

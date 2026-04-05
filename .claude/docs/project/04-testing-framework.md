@@ -277,26 +277,15 @@ $BACTOPIA_TESTS/data/
 │   ├── amrfinderplus/
 │   │   └── amrfinderplus.tar.gz
 │   └── {other tool databases}
-└── empty/
-    ├── EMPTY_ADAPTERS
-    ├── EMPTY_ASSEMBLY
-    ├── EMPTY_BLASTDB
-    ├── EMPTY_DB
-    ├── EMPTY_PROTEINS
-    ├── EMPTY_PRODIGAL_TF
-    ├── EMPTY_R1, EMPTY_R2, EMPTY_SE
-    └── {etc.}
 ```
 
-### EMPTY_* Files
+### Optional Inputs
 
-Zero-byte placeholder files used when optional inputs aren't needed for a test:
+Optional inputs use `Path?` types and are passed as `null` when not needed in a test:
 
 ```groovy
-input[2] = file("${params.test_data_dir}/data/empty/EMPTY_PROTEINS")
+input[2] = null
 ```
-
-Also available locally in the repo at `data/empty/`.
 
 ## Snapshot Files
 
@@ -403,7 +392,7 @@ Tests run via GitHub Actions on a self-hosted runner:
 ## Best Practices
 
 1. **Test both compressed and uncompressed inputs** when a module supports both
-2. **Use EMPTY_* files** for optional inputs that aren't needed in a test case
+2. **Use null** for optional `Path?` inputs that aren't needed in a test case
 3. **Snapshot tool-specific fields** -- always include `record.meta`, tool outputs, and `record.versions`
 4. **Keep test data small** -- use minimal genome assemblies and datasets
 5. **Tag tests** with component type (`modules`, `subworkflows`, `workflows`) and tool name

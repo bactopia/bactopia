@@ -12,12 +12,12 @@
  *
  * @modules nohuman_download, nohuman_run
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end forward)
- * - `r2`: Illumina R2 reads (paired-end reverse)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio)
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input database
  * Path to nohuman database directory or tarball (ignored if download_nohuman is true)

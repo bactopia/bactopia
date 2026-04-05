@@ -42,8 +42,6 @@ Run the status script and interpret the output for the user.
 - `tiers` — per-tier detail, each with `total`, `doc_count`, `issues[]`, `tag_coverage`
   - `tag_coverage` — map of tag name to count of components that have it
 - `nftest` — `total` (workflow count), `tested`, `root_test`
-- `placeholders` — list of EMPTY_* file names
-
 ### GroovyDoc Fields
 All components use these required tags:
 - `@status` — `stable`, `beta`, or `deprecated`

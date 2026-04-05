@@ -18,25 +18,25 @@
  * @note Database Required
  * Requires a compatible Kraken2/Bracken database (tarball).
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio) - not typically used
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio) - not typically used
  *
  * @input db
  * A compressed tarball containing the Kraken2/Bracken database
  *
- * @output record(meta, tsv, special_meta, classified, unclassified, kraken2_report, kraken2_output, bracken_report, krona, abundances, classification, adjusted_abundances, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, special_meta, classified?, unclassified?, kraken2_report, kraken2_output?, bracken_report, krona?, abundances, classification, adjusted_abundances, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited summary of Bracken primary and secondary species abundances
  * - `special_meta`: A simplified metadata map for internal use
- * - `classified`: Reads classified to belong to any of the taxa on the Kraken2 database
- * - `unclassified`: Reads not classified to belong to any of the taxa on the Kraken2 database
+ * - `classified?`: Reads classified to belong to any of the taxa on the Kraken2 database
+ * - `unclassified?`: Reads not classified to belong to any of the taxa on the Kraken2 database
  * - `kraken2_report`: Kraken2 report containing stats about classified and not classified reads
- * - `kraken2_output`: Kraken2 output file containing the taxonomic classification of each read
+ * - `kraken2_output?`: Kraken2 output file containing the taxonomic classification of each read
  * - `bracken_report`: Bracken report containing stats about classified and not classified reads
- * - `krona`: Interactive Krona HTML visualization
+ * - `krona?`: Interactive Krona HTML visualization
  * - `abundances`: Bracken abundance estimates for each taxon
  * - `classification`: Bracken per-read classification details
  * - `adjusted_abundances`: Bracken abundance estimates adjusted for unclassified reads

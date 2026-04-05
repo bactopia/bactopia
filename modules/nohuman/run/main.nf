@@ -14,22 +14,22 @@
  * Requires the nohuman Kraken2 database. Use the nohuman/download module or
  * provide a pre-existing database via --nohuman_db.
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end forward)
- * - `r2`: Illumina R2 reads (paired-end reverse)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio)
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input db
  * Directory or compressed tarball containing the nohuman Kraken2 database
  *
- * @output record(meta, special_meta, r1, r2, se, lr, scrub_report, results, logs, nf_logs, versions)
+ * @output record(meta, special_meta, r1?, r2?, se?, lr?, scrub_report, results, logs, nf_logs, versions)
  * - `special_meta`: A simplified metadata map for downstream report joining
- * - `r1`: Scrubbed paired-end forward reads (optional)
- * - `r2`: Scrubbed paired-end reverse reads (optional)
- * - `se`: Scrubbed single-end reads (optional)
- * - `lr`: Scrubbed long reads (optional)
+ * - `r1?`: Scrubbed paired-end forward reads
+ * - `r2?`: Scrubbed paired-end reverse reads
+ * - `se?`: Scrubbed single-end reads
+ * - `lr?`: Scrubbed long reads
  * - `scrub_report`: Summary report of reads removed during scrubbing
  */
 nextflow.preview.types = true

@@ -14,15 +14,15 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @input database_dir
- * Optional path to a custom hicap reference database directory
+ * @input database_dir?
+ * Path to a custom hicap reference database directory
  *
- * @input model_fp
- * Optional path to a custom Prodigal training model file
+ * @input model_fp?
+ * Path to a custom Prodigal training model file
  *
- * @output record(meta, gbff, svg, tsv, results, logs, nf_logs, versions)
- * - `gbff`: GenBank file containing the annotated capsule locus region (optional)
- * - `svg`: SVG visualization of the capsule locus gene arrangement (optional)
+ * @output record(meta, gbff?, svg?, tsv, results, logs, nf_logs, versions)
+ * - `gbff?`: GenBank file containing the annotated capsule locus region
+ * - `svg?`: SVG visualization of the capsule locus gene arrangement
  * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
  */
 nextflow.preview.types = true

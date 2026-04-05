@@ -16,20 +16,20 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @input record(meta, r1_files, r2_files, se_files, lr_files, fna_files)
+ * @input record(meta, r1_files?, r2_files?, se_files?, lr_files?, fna_files?)
  * - `meta`: Groovy Map containing sample information
- * - `r1_files`: Illumina R1 read files (Set, for merging multiple runs)
- * - `r2_files`: Illumina R2 read files (Set, for merging multiple runs)
- * - `se_files`: Single-end read files (Set, for merging multiple runs)
- * - `lr_files`: Long read files (ONT) or assembly for simulation
- * - `fna_files`: Input or downloaded assembly file
+ * - `r1_files?`: Illumina R1 read files (Set, for merging multiple runs)
+ * - `r2_files?`: Illumina R2 read files (Set, for merging multiple runs)
+ * - `se_files?`: Single-end read files (Set, for merging multiple runs)
+ * - `lr_files?`: Long read files (ONT) or assembly for simulation
+ * - `fna_files?`: Input or downloaded assembly file
  *
- * @output record(meta, r1, r2, se, lr, fna, tsv, results, logs, nf_logs, versions)
- * - `r1`: Merged Illumina R1 read file (Path?, optional)
- * - `r2`: Merged Illumina R2 read file (Path?, optional)
- * - `se`: Merged single-end read file (Path?, optional)
- * - `lr`: Merged long read file (ONT) (Path?, optional)
- * - `fna`: Assembly file (Path?, optional)
+ * @output record(meta, r1?, r2?, se?, lr?, fna?, tsv, results, logs, nf_logs, versions)
+ * - `r1?`: Merged Illumina R1 read file
+ * - `r2?`: Merged Illumina R2 read file
+ * - `se?`: Merged single-end read file
+ * - `lr?`: Merged long read file (ONT)
+ * - `fna?`: Assembly file
  * - `tsv`: A tab-delimited metadata file describing the valid samples
  *
  * @results additional

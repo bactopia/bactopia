@@ -10,24 +10,24 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation ncbigenomedownload
  *
- * @input accessions
+ * @input accessions?
  * A path to a text file containing a list of NCBI Assembly accession numbers (one per line)
  *
- * @output record(meta, gbff, fna, rm, features, gff, faa, gpff, wgs_gbk, cds, rna, rna_fna, report, stats, accessions, results, logs, nf_logs, versions)
- * - `gbff`: GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
- * - `fna`: FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
- * - `rm`: RepeatMasker output for eukaryotes (optional)
- * - `features`: Tab-delimited text file reporting locations and attributes for a subset of features
- * - `gff`: Annotation of the genomic sequence(s) in GFF3 format (*_genomic.gff.gz)
- * - `faa`: FASTA format of the accessioned protein products (*_protein.faa.gz)
- * - `gpff`: GenPept format of the accessioned protein products
- * - `wgs_gbk`: GenBank flat file format of the WGS master
- * - `cds`: FASTA format of the nucleotide sequences corresponding to all CDS features
- * - `rna`: FASTA format of accessioned RNA products
- * - `rna_fna`: FASTA format of the nucleotide sequences corresponding to all RNA features
- * - `report`: Tab-delimited text file reporting assembly unit names, roles, and relationships
- * - `stats`: Tab-delimited text file reporting assembly statistics
- * - `accessions`: The generated accession list files
+ * @output record(meta, gbff?, fna?, rm?, features?, gff?, faa?, gpff?, wgs_gbk?, cds?, rna?, rna_fna?, report?, stats?, accessions?, results, logs, nf_logs, versions)
+ * - `gbff?`: GenBank format of the genomic sequence(s) (*_genomic.gbff.gz)
+ * - `fna?`: FASTA format of the genomic nucleotide sequence(s) (*_genomic.fna.gz)
+ * - `rm?`: RepeatMasker output for eukaryotes
+ * - `features?`: Tab-delimited text file reporting locations and attributes for a subset of features
+ * - `gff?`: Annotation of the genomic sequence(s) in GFF3 format (*_genomic.gff.gz)
+ * - `faa?`: FASTA format of the accessioned protein products (*_protein.faa.gz)
+ * - `gpff?`: GenPept format of the accessioned protein products
+ * - `wgs_gbk?`: GenBank flat file format of the WGS master
+ * - `cds?`: FASTA format of the nucleotide sequences corresponding to all CDS features
+ * - `rna?`: FASTA format of accessioned RNA products
+ * - `rna_fna?`: FASTA format of the nucleotide sequences corresponding to all RNA features
+ * - `report?`: Tab-delimited text file reporting assembly unit names, roles, and relationships
+ * - `stats?`: Tab-delimited text file reporting assembly statistics
+ * - `accessions?`: The generated accession list files
  */
 nextflow.preview.types = true
 

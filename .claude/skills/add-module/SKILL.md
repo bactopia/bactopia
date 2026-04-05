@@ -86,7 +86,7 @@ Follow these phases in order. When unsure about ANYTHING, ask the user rather th
 
    **b. Additional inputs** -- "Does this tool require a database or other additional files?"
    - Database: add `db: Path` as a separate input line
-   - Optional files: add `optional_file: Path?` with EMPTY_* handling
+   - Optional files: add `optional_file: Path?` (null when not provided, use `!= null` checks in script block)
 
    **c. Output files** -- "What output files does this tool produce?"
    - Ask for file extensions, descriptions, and whether they're single files or multiple

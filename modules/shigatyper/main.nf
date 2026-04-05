@@ -13,16 +13,16 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation shigatyper
  *
- * @input record(meta, r1, r2, se, lr)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
- * - `lr`: Long reads (ONT/PacBio)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
- * @output record(meta, tsv, hits, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, hits?, results, logs, nf_logs, versions)
  * - `tsv`: ShigaTyper serotype prediction results in TSV format
- * - `hits`: Detailed gene hits from ShigaTyper analysis
+ * - `hits?`: Detailed gene hits from ShigaTyper analysis
  */
 nextflow.preview.types = true
 

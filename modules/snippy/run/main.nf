@@ -13,25 +13,25 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation snippy
  *
- * @input record(meta, r1, r2, se)
+ * @input record(meta, r1?, r2?, se?)
  * - `meta`: Groovy Map containing sample information
- * - `r1`: Illumina R1 reads (paired-end)
- * - `r2`: Illumina R2 reads (paired-end)
- * - `se`: Single-end Illumina reads
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
  *
  * @input record(meta, reference)
  * - `meta`: Groovy Map containing reference information
  * - `reference`: Reference genome (FASTA or GenBank format)
  *
- * @output record(meta, aligned_fa, vcf, aligned_fa_error, vcf_error, error, annotated_vcf, bam, bai, bed, consensus_fa, consensus_subs_fa, consensus_subs_masked_fa, coverage, csv, filt_vcf, gff, html, raw_vcf, subs_vcf, tab, txt, results, logs, nf_logs, versions)
- * - `aligned_fa`: A version of the reference with - at zero coverage positions
- * - `vcf`: The final annotated variants in VCF format
- * - `aligned_fa_error`: Aligned FASTA file generated during error state
- * - `vcf_error`: VCF file generated during error state
- * - `error`: Error log text file
+ * @output record(meta, aligned_fa?, vcf?, aligned_fa_error?, vcf_error?, error?, annotated_vcf, bam?, bai?, bed, consensus_fa, consensus_subs_fa, consensus_subs_masked_fa, coverage, csv, filt_vcf, gff, html, raw_vcf, subs_vcf, tab, txt, results, logs, nf_logs, versions)
+ * - `aligned_fa?`: A version of the reference with - at zero coverage positions
+ * - `vcf?`: The final annotated variants in VCF format
+ * - `aligned_fa_error?`: Aligned FASTA file generated during error state
+ * - `vcf_error?`: VCF file generated during error state
+ * - `error?`: Error log text file
  * - `annotated_vcf`: Annotated VCF file
- * - `bam`: The alignments in BAM format (includes unmapped/multimapping)
- * - `bai`: Index for the BAM file
+ * - `bam?`: The alignments in BAM format (includes unmapped/multimapping)
+ * - `bai?`: Index for the BAM file
  * - `bed`: The variants in BED format
  * - `consensus_fa`: Reference genome with all variants instantiated
  * - `consensus_subs_fa`: Reference genome with only substitution variants instantiated

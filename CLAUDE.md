@@ -23,8 +23,8 @@ The pipeline uses standardized GroovyDoc documentation and static typing through
     - Decision-making logic for component classification
 
 - **[Technical Specifications](.claude/docs/standards/03-technical-specs.md)**
-    - *Read this for*: Variable naming, type conventions, Path? workarounds
-    - Implementation details and "gotchas"
+    - *Read this for*: Variable naming, type conventions, Path? optional inputs
+    - Implementation details and conventions
 
 - **[Subworkflow Documentation](.claude/docs/standards/04-subworkflow-documentation.md)**
     - *Read this for*: Complete methodology for documenting subworkflows
@@ -102,7 +102,7 @@ When working with this codebase:
 **Debugging type errors**:
 1. Check [Technical Specifications](.claude/docs/standards/03-technical-specs.md)
 2. Review [Troubleshooting](.claude/docs/reference/02-troubleshooting.md)
-3. Look for Path? workarounds
+3. Look for Path? optional input patterns
 
 **Understanding architecture**:
 1. Start with [Repository Structure](.claude/docs/project/01-repository-structure.md)
@@ -114,10 +114,9 @@ When working with this codebase:
 **Module inputs**: Record-typed with named parameters (e.g., `(_meta: Map, assembly: Path): Record`)
 **Module outputs**: Single `record()` with named fields (downstream) + generic fields (publishing)
 **Subworkflow outputs**: Emit `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
-**Optional parameters**: Use EMPTY_* files (temporary workaround)
+**Optional parameters**: Use `Path?` types with `?` suffix in GroovyDoc
 
 ### Important Reminders
-- **Don't "fix" Path? workarounds** - They're intentional
 - **Use `file()` for single files, `files()` for multiple**
 - **Follow existing patterns** - Don't reinvent unless necessary
 - **Always use 4 spaces for indentation** in all code blocks and lists, with the exception of YAML files which use 2 spaces

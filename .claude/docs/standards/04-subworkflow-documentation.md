@@ -65,15 +65,15 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
 For subworkflows accepting reads, use explicit positional slots for clarity:
 
 ```groovy
-@input record(meta, r1, r2, se, lr)
+@input record(meta, r1?, r2?, se?, lr?)
 - `meta`: Groovy Map containing sample information
-- `r1`: Illumina R1 reads (paired-end forward)
-- `r2`: Illumina R2 reads (paired-end reverse)
-- `se`: Single-end Illumina reads
-- `lr`: Long reads (ONT/PacBio)
+- `r1?`: Illumina R1 reads (paired-end forward)
+- `r2?`: Illumina R2 reads (paired-end reverse)
+- `se?`: Single-end Illumina reads
+- `lr?`: Long reads (ONT/PacBio)
 ```
 
-This pattern uses `Tuple<Map, Path?, Path?, Path?, Path?>` where each slot is optional, allowing the subworkflow to handle different read configurations.
+The `?` suffix mirrors the `Path?` types, indicating each read slot may be null.
 
 **Subworkflows using this pattern**: ariba, kraken2, bracken, scrubber, teton
 
