@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords bacteria, antimicrobial resistance, amr, amrfinderplus, classification
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation abritamr
  *
  * @modules abritamr_run, csvtk_concat

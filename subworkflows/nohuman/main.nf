@@ -8,7 +8,7 @@
  * @status stable
  * @keywords human, contamination, decontamination, scrubbing, reads, nohuman, kraken2
  * @tags complexity:moderate input-type:single output-type:single features:database-dependent,conditional-logic,resource-download
- * @citation nohuman
+ * @citation kraken2
  *
  * @modules nohuman_download, nohuman_run
  *

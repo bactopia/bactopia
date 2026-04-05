@@ -9,6 +9,7 @@
  * @status stable
  * @keywords fasta, blast, alignment, protein, similarity, bactopia-tool
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
+ * @citation blast
  *
  * @subworkflows bactopiatool_init, blastp
  *

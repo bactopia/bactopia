@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, assembly, antimicrobial resistance, resistome, homology
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation rgi
  *
  * @modules rgi_main, rgi_heatmap, csvtk_concat

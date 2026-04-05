@@ -9,10 +9,10 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation quast
  *
- * @input record(meta, fna, meta_file)
+ * @input record(meta, fna, tsv_meta)
  * - `meta`: Groovy Map containing sample information
- * - `fna`: Assembled contigs in FASTA format (Path)
- * - `meta_file`: Meta file containing reference size information (Path)
+ * - `fna`: Assembled contigs in FASTA format
+ * - `tsv_meta`: Meta file containing reference size information
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Transposed report in TSV format

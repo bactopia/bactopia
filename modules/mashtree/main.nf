@@ -15,10 +15,10 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, nwk, tsv, sketches, results, logs, nf_logs, versions)
+ * @output record(meta, nwk, tsv, sketches?, results, logs, nf_logs, versions)
  * - `nwk`: The final phylogenetic tree in Newick format (*.dnd)
  * - `tsv`: The pairwise distance matrix used to build the tree (*.tsv)
- * - `sketches`: Directory containing the individual Mash sketches (optional)
+ * - `sketches?`: Directory containing the individual Mash sketches
  */
 nextflow.preview.types = true
 

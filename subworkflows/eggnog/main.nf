@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords functional, annotation, orthology, eggNOG, protein domains
- * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, resource-download
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic,resource-download
  * @citation eggnog_mapper
  *
  * @modules eggnog_download, eggnog_mapper

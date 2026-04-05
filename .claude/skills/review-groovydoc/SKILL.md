@@ -1,6 +1,6 @@
 ---
 name: review-groovydoc
-description: Review GroovyDoc accuracy across all modules using bactopia-lint. Checks @output/@input field matching, citation keys, tag ordering, and formatting. Use when asked to review GroovyDoc, check documentation accuracy, validate module docs, or audit GroovyDoc.
+description: Review GroovyDoc accuracy across modules and subworkflows using bactopia-lint. Checks @output/@input field matching, @modules/@subworkflows lists, citation keys, tag ordering, and formatting. Use when asked to review GroovyDoc, check documentation accuracy, validate module/subworkflow docs, or audit GroovyDoc.
 ---
 
 # Review GroovyDoc
@@ -9,13 +9,17 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
 
 ## Steps
 
-1. Run `bactopia-lint` via the wrapper script with `--modules --quiet --json --silent`:
+1. Run `bactopia-lint` via the wrapper script. By default, lint both modules and subworkflows:
    ```
-   bash .claude/skills/review-groovydoc/scripts/run-bactopia-lint.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --modules --no-subworkflows --no-workflows --quiet --json --silent
+   bash .claude/skills/review-groovydoc/scripts/run-bactopia-lint.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --quiet --json --silent
    ```
-   If the user specified a module name, add `--module <name>` to the command.
+   - For modules only: add `--no-subworkflows --no-workflows`
+   - For subworkflows only: add `--no-modules --no-workflows`
+   - For a specific module: add `--module <name>`
 
 2. Parse the JSON output. Filter results to **GroovyDoc-related rules only**:
+
+   **Module rules (M-series):**
    - M006: GroovyDoc block present
    - M007: Required GroovyDoc tags
    - M008: @status value valid
@@ -30,14 +34,29 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - M036: GroovyDoc tag ordering
    - M037: Blank lines between GroovyDoc sections
 
+   **Subworkflow rules (S-series):**
+   - S003: GroovyDoc with required tags
+   - S004: Features comma-separated without spaces
+   - S006: Links use HTTPS
+   - S017: @modules match actual module includes
+   - S018: @subworkflows match actual subworkflow includes
+   - S019: @citation keys exist in citations.yml
+   - S020: @tags complexity value is valid
+   - S021: @tags input-type value is valid
+   - S022: @tags output-type value is valid
+   - S023: @tags features values are valid
+   - S024: GroovyDoc tag ordering
+
 3. Present results as a clean summary:
-   - **If all pass**: Report "All X modules have clean GroovyDoc" and stop
+   - **If all pass**: Report "All X modules/subworkflows have clean GroovyDoc" and stop
    - **If issues found**: Group by rule ID for easy batch fixing
-     - Show count of affected modules per rule
-     - For each rule, list the affected modules and specific messages
+     - Show count of affected components per rule
+     - For each rule, list the affected components and specific messages
      - Prioritize FAIL over WARN
 
 4. If the user asks to fix issues, apply fixes:
+
+   **Module fixes:**
    - **M031 (FAIL)**: Read the actual `record()` output block, update `@output record(...)` to match
    - **M032 (FAIL)**: Read the actual input declaration, update `@input record(...)` to match
    - **M033 (WARN)**: Convert `@input (_meta: Map, ...)` to `@input record(meta, ...)`
@@ -45,6 +64,13 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - **M035 (FAIL)**: Check `data/citations.yml` for the correct key and update `@citation`
    - **M036 (WARN)**: Reorder tags to match: @status -> @keywords -> @tags -> @citation -> @note -> @input -> @output
    - **M037 (WARN)**: Add blank `*` lines between sections
+
+   **Subworkflow fixes:**
+   - **S017 (FAIL)**: Update `@modules` to match actual include statements (use underscore-delimited keys: `blast_blastn` not `blastn`)
+   - **S018 (FAIL)**: Update `@subworkflows` to match actual include statements
+   - **S019 (FAIL)**: Check `data/citations.yml` for the correct key and update `@citation`
+   - **S023 (FAIL)**: Fix invalid feature values or add missing commas
+   - **S024 (WARN)**: Reorder tags: @status -> @keywords -> @tags -> @citation -> @modules -> @subworkflows -> @note -> @input -> @output
 
 5. After fixes, re-run the lint to confirm all issues are resolved.
 
@@ -58,13 +84,24 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
 
 ## GroovyDoc Quick Reference
 
-### Required Tags (in order)
+### Required Tags
+
+**Module order:** @status -> @keywords -> @tags -> @citation -> @note -> @input -> @output
+**Subworkflow order:** @status -> @keywords -> @tags -> @citation -> @modules -> @subworkflows -> @note -> @input -> @output
+
 ```
 @status stable|beta|deprecated
 @keywords comma, separated, keywords
 @tags complexity:<level> input-type:<type> output-type:<type> features:<list>
 @citation comma, separated, bibtex_keys
 ```
+
+### Subworkflow-Specific Tags
+```
+@modules bactopia_gather, csvtk_concat
+@subworkflows scrubber, nohuman
+```
+Module names use underscore-delimited keys matching directory structure: `blast_blastn` (not `blastn`), `bactopia_qc` (not `qc`).
 
 ### Optional Tags
 ```
@@ -87,4 +124,8 @@ Description of non-record parameter
 - Standard fields (meta, results, logs, nf_logs, versions) must NOT have description lines
 - @output field list must exactly match the actual `record()` output block
 - @input record fields must match the actual input declaration
+- @modules/@subworkflows must match actual include statements
 - Citation keys must exist in `data/citations.yml`
+- Valid complexity: simple, moderate, complex
+- Valid input-type: none, single, multiple, parameter
+- Valid output-type: single, multiple

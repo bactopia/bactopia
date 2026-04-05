@@ -22,9 +22,9 @@
  * @input db
  * A compressed tarball of the AMRFinderPlus database to query
  *
- * @output record(meta, report, mutation_report, results, logs, nf_logs, versions)
+ * @output record(meta, report, mutation_report?, results, logs, nf_logs, versions)
  * - `report`: A tab-delimited report of identified AMR genes and virulence factors
- * - `mutation_report`: Organism-specific point mutations associated with antimicrobial resistance
+ * - `mutation_report?`: Organism-specific point mutations associated with antimicrobial resistance
  */
 nextflow.preview.types = true
 

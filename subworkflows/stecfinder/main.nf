@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords escherichia coli, stec, serotype, virulence genes, shiga toxin
- * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation stecfinder
  *
  * @modules stecfinder, csvtk_concat

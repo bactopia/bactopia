@@ -16,8 +16,8 @@
  * - `aln`: Multiple sequence alignment in FASTA format
  * - `nwk`: Initial phylogenetic tree in Newick format
  *
- * @output record(meta, emsim, em, status, nwk, fasta, pos_ref, masked_aln, results, logs, nf_logs, versions)
- * - `emsim`: Uncertainty estimation results (if requested)
+ * @output record(meta, emsim?, em, status, nwk, fasta, pos_ref, masked_aln, results, logs, nf_logs, versions)
+ * - `emsim?`: Uncertainty estimation results (if requested)
  * - `em`: Final parameter estimates from the EM algorithm
  * - `status`: Tab-delimited list of predicted recombination events (importations)
  * - `nwk`: The input tree with internal nodes labelled

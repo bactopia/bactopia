@@ -14,8 +14,8 @@
  * - `meta`: Groovy Map containing sample information
  * - `json`: List of RGI results in JSON format
  *
- * @output record(meta, heatmap, results, logs, nf_logs, versions)
- * - `heatmap`: Heatmap files in various formats (CSV, EPS, PNG)
+ * @output record(meta, heatmap?, results, logs, nf_logs, versions)
+ * - `heatmap?`: Heatmap files in various formats (CSV, EPS, PNG)
  */
 nextflow.preview.types = true
 

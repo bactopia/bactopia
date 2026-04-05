@@ -14,9 +14,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `gff`: List of GFF3 files to be analyzed (typically from Prokka)
  *
- * @output record(meta, aln, csv, results, logs, nf_logs, versions)
- * - `aln`: Core genome alignment in FASTA format
- * - `csv`: Gene presence/absence table
+ * @output record(meta, aln?, csv?, results, logs, nf_logs, versions)
+ * - `aln?`: Core genome alignment in FASTA format
+ * - `csv?`: Gene presence/absence table
  *
  * @results roary/
  * - `roary/*`: Full Roary output directory (cluster files, alignments, Rtab, etc.)

@@ -10,10 +10,10 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
  * @citation snippy
  *
- * @input record(meta, vcf, aligned_fa)
+ * @input record(meta, _vcf, _aligned_fa)
  * - `meta`: Groovy Map containing sample information
- * - `vcf`: List of VCF files from Snippy
- * - `aligned_fa`: List of aligned FASTA files from Snippy
+ * - `_vcf`: List of VCF files from Snippy
+ * - `_aligned_fa`: List of aligned FASTA files from Snippy
  *
  * @input record(meta, reference)
  * - `meta`: Groovy Map containing reference information

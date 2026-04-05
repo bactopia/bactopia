@@ -12,11 +12,11 @@
  *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent, conditional-logic
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,database-dependent,conditional-logic
  * @citation kraken2, bracken
  *
+ * @modules bactopia_teton, csvtk_join, csvtk_concat
  * @subworkflows scrubber, bracken
- * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information

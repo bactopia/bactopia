@@ -10,7 +10,7 @@
  *
  * @status stable
  * @keywords shigella, serotype, typing, prediction, antigen genes
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation shigatyper
  *
  * @modules shigatyper, csvtk_concat

@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords mlst, sequence typing, pubmlst, bacteria
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation mlst
  *
  * @modules csvtk_concat, mlst

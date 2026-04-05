@@ -8,10 +8,10 @@
  *
  * @status stable
  * @keywords taxonomy, classification, minhash, sketch, mash, sourmash, refseq, gtdb
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, compression
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
  * @citation mash, sourmash
  *
- * @modules sketcher
+ * @modules bactopia_sketcher
  *
  * @input record(meta, assembly)
  * - `meta`: Groovy Map containing sample information

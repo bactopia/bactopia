@@ -12,17 +12,17 @@
  *
  * @status stable
  * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, resource-download, conditional-logic, no-test
- * @citation art, fastq-dl, fastq-scan, ncbi-genome-download, pigz
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,resource-download,conditional-logic,no-test
+ * @citation art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @modules gather, csvtk_concat
+ * @modules bactopia_gather, csvtk_concat
  *
- * @input record(meta, r1_files?, r2_files?, se_files?, lr_files?)
+ * @input record(meta, r1_files, r2_files, se_files, lr_files)
  * - `meta`: Groovy Map containing sample information
- * - `r1_files?`: Illumina R1 read files (Set, for merging multiple runs)
- * - `r2_files?`: Illumina R2 read files (Set, for merging multiple runs)
- * - `se_files?`: Single-end read files (Set, for merging multiple runs)
- * - `lr_files?`: Long read files (ONT/PacBio) or assembly for simulation
+ * - `r1_files`: Illumina R1 read files (Set, elements may be null)
+ * - `r2_files`: Illumina R2 read files (Set, elements may be null)
+ * - `se_files`: Single-end read files (Set, elements may be null)
+ * - `lr_files`: Long read files (ONT/PacBio) or assembly for simulation (Set, elements may be null)
  *
  * @output sample_outputs
  * - `tsv`: A tab-delimited metadata file describing the valid samples

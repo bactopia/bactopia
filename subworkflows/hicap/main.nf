@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords Haemophilus, influenzae, serotype, capsule, cap locus
- * @tags complexity:simple input-type:single output-type:multiple features:conditional-input, aggregation
+ * @tags complexity:simple input-type:single output-type:multiple features:conditional-input,aggregation
  * @citation hicap
  *
  * @modules csvtk_concat, hicap

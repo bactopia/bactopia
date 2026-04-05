@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords streptococcus pneumoniae, pbp typing, penicillin, antimicrobial resistance
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation pbptyper
  *
  * @modules pbptyper, csvtk_concat

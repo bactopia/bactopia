@@ -13,8 +13,8 @@
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation
  * @citation gubbins, snpdists
  *
- * @subworkflows snpdists
  * @modules gubbins
+ * @subworkflows snpdists
  *
  * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information

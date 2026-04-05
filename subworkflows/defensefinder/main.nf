@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords bacteria, assembly, anti-phage, defense systems, immunity
- * @tags complexity:complex input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:complex input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation defensefinder
  *
  * @modules defensefinder_run, defensefinder_update, csvtk_concat

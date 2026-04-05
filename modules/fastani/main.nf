@@ -10,12 +10,10 @@
  * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
  * @citation fastani
  *
- * @input record(meta, query)
+ * @input record(meta, query, reference)
  * - `meta`: Groovy Map containing sample information
  * - `query`: One or more assembled contigs in FASTA format (Query genomes)
- *
- * @input reference
- * The reference genome assembly in FASTA format to compare against
+ * - `reference`: The reference genome assembly in FASTA format to compare against
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited summary of ANI scores, matched fragments, and total fragments

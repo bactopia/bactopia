@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords shigella, eiec, serotype, typing, cluster analysis
- * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation shigeifinder
  *
  * @modules shigeifinder, csvtk_concat

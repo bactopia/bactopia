@@ -20,9 +20,9 @@
  * @input db
  * Path (or Set of paths) to the GTDB-Tk reference database
  *
- * @output record(meta, bac_tsv, ar_tsv, results, logs, nf_logs, versions)
- * - `bac_tsv`: The bacterial classification summary file containing the taxonomic assignment
- * - `ar_tsv`: The archaeal classification summary file containing the taxonomic assignment
+ * @output record(meta, bac_tsv?, ar_tsv?, results, logs, nf_logs, versions)
+ * - `bac_tsv?`: The bacterial classification summary file containing the taxonomic assignment
+ * - `ar_tsv?`: The archaeal classification summary file containing the taxonomic assignment
  *
  * @results supplemental
  * - `align/`: Multiple sequence alignments of identified marker genes

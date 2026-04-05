@@ -14,9 +14,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tsv, flex_tsv, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, flex_tsv?, results, logs, nf_logs, versions)
  * - `tsv`: ShigaPass summary results in TSV format
- * - `flex_tsv`: ShigaPass Flex summary results in TSV format
+ * - `flex_tsv?`: ShigaPass Flex summary results in TSV format
  */
 nextflow.preview.types = true
 

@@ -10,6 +10,7 @@
  * @status stable
  * @keywords metagenomics, classification, kraken2, bracken, abundance, profiling
  * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
+ * @citation bracken, kraken2, srahumanscrubber
  *
  * @subworkflows bactopia_init, gather, teton
  *

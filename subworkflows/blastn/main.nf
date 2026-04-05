@@ -8,10 +8,10 @@
  *
  * @status stable
  * @keywords blast, alignment, nucleotide, search, fasta, database
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation blast
  *
- * @modules blastn, csvtk_concat
+ * @modules blast_blastn, csvtk_concat
  *
  * @input record(meta, assembly)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes

@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords taxonomy, classification, GTDB, phylogeny, marker genes
- * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic, resource-download
+ * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic,resource-download
  * @citation gtdb_tk
  *
  * @modules csvtk_concat, gtdbtk_classifywf, gtdbtk_download

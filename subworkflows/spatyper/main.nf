@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords staphylococcus aureus, spa typing, protein a, mrsa
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation spatyper
  *
  * @modules csvtk_concat, spatyper

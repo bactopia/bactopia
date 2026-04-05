@@ -12,8 +12,8 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
  * @citation clonalframeml, iqtree, snpdists
  *
- * @subworkflows iqtree, snpdists
  * @modules clonalframeml
+ * @subworkflows iqtree, snpdists
  *
  * @input record(meta, aln)
  * - `meta`: Groovy Map containing sample information

@@ -33,7 +33,7 @@
  * @input phix?
  * Filepath for custom PhiX sequences (FASTA)
  *
- * @output record(meta, r1?, r2?, se?, lr?, fna?, reads_grouped?, error?, results, logs, nf_logs, versions)
+ * @output record(meta, r1?, r2?, se?, lr?, fna?, reads_grouped?, error?, skipped?, results, logs, nf_logs, versions)
  * - `r1?`: QC'd Illumina R1 reads (paired-end forward)
  * - `r2?`: QC'd Illumina R2 reads (paired-end reverse)
  * - `se?`: QC'd single-end Illumina reads
@@ -41,6 +41,7 @@
  * - `fna?`: Assembly file (FASTA)
  * - `reads_grouped?`: All output FASTQs for publishing
  * - `error?`: Captured error messages if QC failed (e.g., reads empty after trimming)
+ * - `skipped?`: Marker file indicating QC was skipped for this sample
  *
  * @results supplemental
  * - `*-original.json`: Pre-QC read statistics from fastq-scan

@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords staphylococcus aureus, agr typing, spa typing, sccmec, strain characterization
- * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation,database-dependent
  * @citation agrvate, spatyper, sccmec
  *
  * @subworkflows agrvate, spatyper, sccmec

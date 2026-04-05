@@ -26,9 +26,10 @@
  * @input db
  * Directory containing the MIDAS database
  *
- * @output record(meta, tsv, abundances, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, abundances, adjusted_abundances, results, logs, nf_logs, versions)
  * - `tsv`: A tab-delimited summary of species abundance and coverage
  * - `abundances`: Detailed species abundance profile (*.abundances.txt)
+ * - `adjusted_abundances`: Relative abundance estimates adjusted for genome size (*.adjusted.abundances.txt)
  */
 nextflow.preview.types = true
 nextflow.enable.moduleBinaries = true

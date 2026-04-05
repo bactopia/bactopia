@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords bacteria, annotation, genome, functional annotation, taxonomy
- * @tags complexity:complex input-type:single output-type:multiple features:database-dependent, conditional-logic, archive-output, resource-download
+ * @tags complexity:complex input-type:single output-type:multiple features:database-dependent,conditional-logic,archive-output,resource-download
  * @citation bakta
  *
  * @modules bakta_download, bakta_run

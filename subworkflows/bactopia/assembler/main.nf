@@ -16,7 +16,7 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,alternative-execution
  * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
  *
- * @modules bactopia/assembler, csvtk/concat
+ * @modules bactopia_assembler, csvtk_concat
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information

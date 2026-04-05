@@ -15,7 +15,7 @@
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
  * @citation sylph
  *
- * @modules sylph_profile
+ * @modules sylph_profile, csvtk_concat
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information

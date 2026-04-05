@@ -11,7 +11,7 @@
  *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, virulence, local assembly
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent, resource-download
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent,resource-download
  * @citation ariba
  *
  * @modules ariba_getref, ariba_run, csvtk_concat

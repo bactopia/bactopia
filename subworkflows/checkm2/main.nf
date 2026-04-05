@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords metagenome, bin, completeness, contamination, mag, quality, machine-learning
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, database-dependent
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,conditional-logic,database-dependent
  * @citation checkm2
  *
  * @modules csvtk_concat, checkm2_predict, checkm2_download

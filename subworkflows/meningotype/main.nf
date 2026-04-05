@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords neisseria meningitidis, serotype, finetype, bexsero, meningococcal
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation meningotype
  *
  * @modules csvtk_concat, meningotype

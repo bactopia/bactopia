@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords species, identification, typing, serotype, virulence
- * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic, components
+ * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,components
  * @citation mash
  *
  * @subworkflows merlindist, clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,

@@ -20,7 +20,7 @@
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation,conditional-input,conditional-logic
  * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
- * @modules qc
+ * @modules bactopia_qc
  *
  * @input record(meta, r1?, r2?, se?, lr?, assembly?)
  * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)

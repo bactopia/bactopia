@@ -10,7 +10,7 @@
  *
  * @status stable
  * @keywords bacteria, reads, antimicrobial resistance, genotype prediction
- * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent,aggregation
  * @citation mykrobe
  *
  * @modules mykrobe_predict, csvtk_concat

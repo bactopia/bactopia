@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords gene, allele, mutation, variant, antimicrobial resistance
- * @tags complexity:simple input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation gamma
  *
  * @modules csvtk_concat, gamma

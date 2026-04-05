@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords plasmid, replicon, typing, antimicrobial resistance, mobilome
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation plasmidfinder
  *
  * @modules plasmidfinder, csvtk_concat

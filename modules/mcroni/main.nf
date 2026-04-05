@@ -15,9 +15,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tsv, fa, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, fa?, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited mcr-1 gene variation results
- * - `fa`: Extracted mcr-1 gene sequence in FASTA format (optional)
+ * - `fa?`: Extracted mcr-1 gene sequence in FASTA format
  */
 nextflow.preview.types = true
 

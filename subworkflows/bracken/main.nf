@@ -10,7 +10,7 @@
  *
  * @status stable
  * @keywords metagenomics, taxonomic classification, abundance estimation, kraken2, bracken
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, conditional-logic, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,conditional-logic,aggregation
  * @citation kraken2, bracken
  *
  * @modules bracken, csvtk_concat as csvtk_concat_tsv, csvtk_concat as csvtk_concat_adjusted

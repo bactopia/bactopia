@@ -11,7 +11,7 @@
  *
  * @status stable
  * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, conditional-logic
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,conditional-logic
  * @citation pirate, panaroo, roary, snpdists
  *
  * @subworkflows pirate, roary, panaroo, snpdists
@@ -33,6 +33,15 @@
  * - `csv`: Gene presence/absence matrix
  * - `supplemental`: Intermediate files and detailed outputs
  * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
+ *
+ * @output alignment
+ * - `aln`: Core-genome alignment for downstream analysis (e.g., recombination detection)
+ *
+ * @output phylogeny_input
+ * - `aln`: Core-genome alignment with iqtree-ready meta for phylogeny construction
+ *
+ * @output csv
+ * - `csv`: Gene presence/absence matrix for downstream analysis (e.g., pan-GWAS)
  */
 nextflow.preview.types = true
 
@@ -72,6 +81,9 @@ workflow PANGENOME {
     // Downstream inputs
     alignment = ch_run_outputs.map { r ->
         record(meta: r.meta, aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+    }
+    phylogeny_input = ch_run_outputs.map { r ->
+        record(meta: [name: "core-genome", process_name: "iqtree"], aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
     }
     csv = ch_run_outputs.map { r -> record(meta: r.meta, csv: r.csv) }
     // Published outputs

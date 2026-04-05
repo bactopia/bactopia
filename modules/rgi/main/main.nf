@@ -14,9 +14,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, tsv, json, results, logs, nf_logs, versions)
+ * @output record(meta, tsv, json?, results, logs, nf_logs, versions)
  * - `tsv`: RGI results in tab-separated format
- * - `json`: RGI results in JSON format (optional)
+ * - `json?`: RGI results in JSON format
  */
 nextflow.preview.types = true
 

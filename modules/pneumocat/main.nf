@@ -21,9 +21,9 @@
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  *
- * @output record(meta, xml, txt, results, logs, nf_logs, versions)
- * - `xml`: The PneumoCaT result files in XML format
- * - `txt`: A file containing the coverage information across the genes
+ * @output record(meta, xml?, txt?, results, logs, nf_logs, versions)
+ * - `xml?`: The PneumoCaT result files in XML format
+ * - `txt?`: A file containing the coverage information across the genes
  */
 nextflow.preview.types = true
 

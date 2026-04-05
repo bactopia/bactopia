@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords escherichia coli, phylogroup, typing, clermont
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation clermontyping
  *
  * @modules csvtk_concat, clermontyping

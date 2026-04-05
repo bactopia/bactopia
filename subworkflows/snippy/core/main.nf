@@ -12,8 +12,8 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple
  * @citation snippy, snpdists
  *
- * @subworkflows snpdists
  * @modules snippy_core
+ * @subworkflows snpdists
  *
  * @input alignments
  * Channel containing per-sample aligned FASTA files and VCFs from Snippy runs

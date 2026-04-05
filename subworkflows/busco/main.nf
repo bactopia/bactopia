@@ -9,7 +9,7 @@
  *
  * @status stable
  * @keywords assembly, completeness, quality, assessment, orthologs, evaluation
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation busco
  *
  * @modules csvtk_concat, busco

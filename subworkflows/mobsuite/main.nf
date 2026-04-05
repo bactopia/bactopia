@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords plasmid, reconstruction, typing, mobilome, bacterial genome
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation mobsuite
  *
  * @modules mobsuite_recon, csvtk_concat

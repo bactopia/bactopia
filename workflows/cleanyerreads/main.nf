@@ -11,6 +11,7 @@
  * @status stable
  * @keywords reads, quality control, trimming, filtering, host removal, preprocessing
  * @tags complexity:moderate input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
+ * @citation bbtools, fastp, fastqc, fastq_scan, kraken2, lighter, nanoplot, nanoq, porechop, rasusa, srahumanscrubber
  *
  * @subworkflows bactopia_init, gather, qc, scrubber
  *

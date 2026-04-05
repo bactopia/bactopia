@@ -13,8 +13,8 @@
  * - `meta`: Groovy Map containing sample information
  * - `fna`: Assembled Staphylococcus aureus contigs in FASTA format
  *
- * @output record(meta, summary, results, logs, nf_logs, versions)
- * - `summary`: Tab-delimited summary of agr locus type and operon variants
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited summary of agr locus type and operon variants
  *
  * @results supplemental
  * - `*-agr_gp.tab`: agr group allele BLAST results
@@ -43,7 +43,8 @@ process AGRVATE {
         tsv: file("${prefix}.tsv"),
         // Generic fields (used for publishing)
         results: [
-            files("${prefix}.{tab,tsv}"),
+            files("${prefix}.tsv"),
+            files("${prefix}.tab"),
             files("supplemental/*")
         ],
         logs: files("*.{log,err}", optional: true),

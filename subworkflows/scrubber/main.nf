@@ -9,10 +9,10 @@
  * @status stable
  * @keywords metagenomics, decontamination, human removal, read filtering
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic,aggregation
- * @citation nohuman, srahumanscrubber
+ * @citation kraken2, srahumanscrubber
  *
- * @subworkflows srahumanscrubber, nohuman
  * @modules csvtk_concat
+ * @subworkflows srahumanscrubber, nohuman
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Map containing sample information

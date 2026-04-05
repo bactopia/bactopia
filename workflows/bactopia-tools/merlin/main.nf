@@ -9,6 +9,7 @@
  * @status stable
  * @keywords species-specific, automated, mash, minmer, typing, bactopia-tool
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,conditional-logic,automation
+ * @citation mash
  *
  * @subworkflows bactopiatool_init, merlin
  *

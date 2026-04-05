@@ -7,10 +7,10 @@
  *
  * @status stable
  * @keywords blast, protein, alignment, database
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation blast
  *
- * @modules blastp, csvtk_concat
+ * @modules blast_blastp, csvtk_concat
  *
  * @input record(meta, blastdb)
  * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes

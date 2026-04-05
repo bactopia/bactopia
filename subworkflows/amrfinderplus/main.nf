@@ -6,7 +6,7 @@
  *
  * @status stable
  * @keywords bacteria, assembly, antimicrobial resistance, gene prediction
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation amrfinderplus
  *
  * @modules csvtk_concat, amrfinderplus_run

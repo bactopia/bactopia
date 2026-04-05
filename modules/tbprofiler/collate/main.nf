@@ -13,11 +13,11 @@
  * - `meta`: Groovy Map containing sample information
  * - `json`: List of TB-Profiler JSON output files
  *
- * @output record(meta, csv, variants_csv, variants_txt, itol, results, logs, nf_logs, versions)
+ * @output record(meta, csv, variants_csv, variants_txt, itol?, results, logs, nf_logs, versions)
  * - `csv`: Main collated results in CSV format
  * - `variants_csv`: Collated variants in CSV format
  * - `variants_txt`: Collated variants in text format
- * - `itol`: iTOL formatted files for visualization
+ * - `itol?`: iTOL formatted files for visualization
  */
 nextflow.preview.types = true
 

@@ -130,10 +130,7 @@ workflow {
 
     // (optional) Create core-genome phylogeny
     if (!params.skip_phylogeny) {
-        def ch_iqtree = PANGENOME.out.alignment.map { r ->
-            record(meta: [name: "core-genome", process_name: "iqtree"], aln: r.aln)
-        }
-        IQTREE(params.skip_recombination ? ch_iqtree : CLONALFRAMEML.out.alignment)
+        IQTREE(params.skip_recombination ? PANGENOME.out.phylogeny_input : CLONALFRAMEML.out.alignment)
         ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
     }

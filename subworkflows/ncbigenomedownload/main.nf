@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords download, ncbi, refseq, genome, assembly, database
- * @tags complexity:moderate input-type:single output-type:multiple features:resource-download database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:resource-download,database-dependent
  * @citation ncbigenomedownload
  *
  * @modules ncbigenomedownload as ncbigenomedownload_module

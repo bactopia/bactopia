@@ -15,9 +15,9 @@
  * - `meta`: Groovy Map containing sample information
  * - `gff`: A list of annotated genome files in GFF3 format
  *
- * @output record(meta, aln, csv, results, logs, nf_logs, versions)
- * - `aln`: The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
- * - `csv`: Gene presence/absence matrix in CSV format, compatible with Scoary
+ * @output record(meta, aln?, csv?, results, logs, nf_logs, versions)
+ * - `aln?`: The core-genome alignment (*core-genome.aln.gz), suitable for phylogenetic tree building
+ * - `csv?`: Gene presence/absence matrix in CSV format, compatible with Scoary
  *
  * @results pirate/
  * - `pirate/*`: Full PIRATE output directory (co-ords, modified GFFs, allele files, etc.)

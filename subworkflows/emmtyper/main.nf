@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords streptococcus pyogenes, emm typing, gas, m protein
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation emmtyper
  *
  * @modules emmtyper, csvtk_concat

@@ -7,7 +7,7 @@
  *
  * @status stable
  * @keywords salmonella, serotype, prediction, foodborne, enteric
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation seqsero2
  *
  * @modules csvtk_concat, seqsero2

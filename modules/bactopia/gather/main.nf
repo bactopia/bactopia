@@ -16,13 +16,13 @@
  * @tags complexity:complex input-type:multiple output-type:multiple features:internet-access,resource-download,conditional-logic
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
- * @input record(meta, r1_files?, r2_files?, se_files?, lr_files?, fna_files?)
+ * @input record(meta, r1_files, r2_files, se_files, lr_files, fna_files)
  * - `meta`: Groovy Map containing sample information
- * - `r1_files?`: Illumina R1 read files (Set, for merging multiple runs)
- * - `r2_files?`: Illumina R2 read files (Set, for merging multiple runs)
- * - `se_files?`: Single-end read files (Set, for merging multiple runs)
- * - `lr_files?`: Long read files (ONT) or assembly for simulation
- * - `fna_files?`: Input or downloaded assembly file
+ * - `r1_files`: Illumina R1 read files (Set, elements may be null)
+ * - `r2_files`: Illumina R2 read files (Set, elements may be null)
+ * - `se_files`: Single-end read files (Set, elements may be null)
+ * - `lr_files`: Long read files (ONT) or assembly for simulation (Set, elements may be null)
+ * - `fna_files`: Input or downloaded assembly file (Set, elements may be null)
  *
  * @output record(meta, r1?, r2?, se?, lr?, fna?, tsv, results, logs, nf_logs, versions)
  * - `r1?`: Merged Illumina R1 read file

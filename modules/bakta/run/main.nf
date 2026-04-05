@@ -29,7 +29,8 @@
  * @input replicons?
  * Table (TSV/CSV) of replicon information for origin detection
  *
- * @output record(meta, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, tsv, txt, blastdb, results, logs, nf_logs, versions)
+ * @output record(meta, blastdb, faa, ffn, fna, gbff, gff, hypotheticals_tsv, hypotheticals_faa, inference_tsv, json, png, svg, tsv, txt, results, logs, nf_logs, versions)
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  * - `faa`: CDS/sORF amino acid sequences as FASTA
  * - `ffn`: Feature nucleotide sequences as FASTA
  * - `fna`: Replicon/contig DNA sequences as FASTA
@@ -37,9 +38,12 @@
  * - `gff`: Annotations and sequences in GFF3 format
  * - `hypotheticals_tsv`: Further information on hypothetical protein CDS as tab-separated values
  * - `hypotheticals_faa`: Hypothetical protein CDS amino acid sequences as FASTA
+ * - `inference_tsv`: Detailed annotation evidence and database hit information
+ * - `json`: Machine-readable annotations and metadata in JSON format
+ * - `png`: Circular genome plot as PNG image
+ * - `svg`: Circular genome plot as SVG image
  * - `tsv`: Annotations as simple human readable tab-separated values
  * - `txt`: Broad summary of Bakta annotations
- * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  *
  * @results additional
  * - `${prefix}.embl`: Annotations and sequences in EMBL format

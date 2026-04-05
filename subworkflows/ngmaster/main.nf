@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords neisseria gonorrhoeae, ng-mast, typing, gonococcal, antigen
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation ngmaster
  *
  * @modules csvtk_concat, ngmaster

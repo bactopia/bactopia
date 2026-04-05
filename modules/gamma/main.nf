@@ -18,11 +18,11 @@
  * @input db
  * The reference gene database in FASTA format
  *
- * @output record(meta, gamma, psl, gff, fasta, results, logs, nf_logs, versions)
+ * @output record(meta, gamma, psl, gff?, fasta?, results, logs, nf_logs, versions)
  * - `gamma`: Main GAMMA output file containing annotated gene matches
  * - `psl`: Raw alignment details in PSL format
- * - `gff`: Gene matches in GFF3 format
- * - `fasta`: Extracted nucleotide sequences of the matched genes
+ * - `gff?`: Gene matches in GFF3 format
+ * - `fasta?`: Extracted nucleotide sequences of the matched genes
  */
 nextflow.preview.types = true
 

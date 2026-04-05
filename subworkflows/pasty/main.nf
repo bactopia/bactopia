@@ -8,7 +8,7 @@
  *
  * @status stable
  * @keywords pseudomonas aeruginosa, serogroup, typing, o-antigen, prediction
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation pasty
  *
  * @modules pasty, csvtk_concat

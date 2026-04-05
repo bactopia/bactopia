@@ -11,6 +11,7 @@
  * @status stable
  * @keywords Staphylococcus aureus, assembly, annotation, AMR, MLST, spa typing, agr typing, sccmec
  * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
+ * @citation staphopia
  *
  * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
  * @subworkflows mlst, qc, bakta, prokka, staphtyper

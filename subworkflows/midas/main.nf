@@ -12,7 +12,7 @@
  *
  * @status stable
  * @keywords metagenomics, species, profiling, abundance, strain
- * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent, aggregation
+ * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,aggregation
  * @citation midas
  *
  * @modules csvtk_concat, midas_species, midas_download
