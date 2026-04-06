@@ -46,8 +46,8 @@ include { filterWithData          } from 'plugin/nf-bactopia'
 workflow PROKKA {
     take:
     assembly: Channel<Record>
-    proteins: Path?
-    prodigal_tf: Path?
+    proteins: Value<Path?>
+    prodigal_tf: Value<Path?>
 
     main:
     PROKKA_MODULE(assembly, proteins, prodigal_tf)

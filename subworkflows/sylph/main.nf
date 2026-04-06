@@ -43,7 +43,7 @@ include { gatherCsvtk   } from 'plugin/nf-bactopia'
 workflow SYLPH {
     take:
     reads: Channel<Record>
-    database: Path
+    database: Value<Path>
 
     main:
     SYLPH_PROFILE(reads, database)

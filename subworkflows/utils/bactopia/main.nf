@@ -33,20 +33,20 @@ workflow BACTOPIA_INIT {
     // Handle parameters
     def validation = validateParameters(false)
     if (validation.hasErrors) {
-        log.info validation.error
+        log.info(validation.error)
         error(" ")
     } else {
-        log.info validation.logs
+        log.info(validation.logs)
     }
 
     // Initialize samples channel
     def ch_samples = channel.empty() as Channel<Record>
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
-        log.info collectedInputs.error
+        log.info(collectedInputs.error)
         error(" ")
     } else {
-        log.info collectedInputs.logs
+        log.info(collectedInputs.logs)
     }
 
     collectedInputs.samples.each { sample ->

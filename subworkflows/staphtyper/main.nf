@@ -38,8 +38,8 @@ include { SCCMEC   } from '../sccmec/main'
 workflow STAPHTYPER {
     take:
     assembly: Channel<Record>
-    repeats: Path?
-    repeat_order: Path?
+    repeats: Value<Path?>
+    repeat_order: Value<Path?>
 
     main:
     // agrvate - agr locus type and agr operon variants

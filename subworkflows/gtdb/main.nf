@@ -45,7 +45,7 @@ include { gatherCsvtk       } from 'plugin/nf-bactopia'
 workflow GTDB {
     take:
     assembly: Channel<Record>
-    database: Path
+    database: Value<Path>
     download_gtdb: Boolean
     save_as_tarball: Boolean
 

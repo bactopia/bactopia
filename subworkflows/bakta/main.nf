@@ -63,12 +63,12 @@ include { gatherCsvtk    } from 'plugin/nf-bactopia'
 workflow BAKTA {
     take:
     assembly: Channel<Record>
-    database: Path?
+    database: Value<Path?>
     download_bakta: Boolean
     save_as_tarball: Boolean
-    proteins: Path?
-    prodigal_tf: Path?
-    replicons: Path?
+    proteins: Value<Path?>
+    prodigal_tf: Value<Path?>
+    replicons: Value<Path?>
 
     main:
     if (download_bakta) {

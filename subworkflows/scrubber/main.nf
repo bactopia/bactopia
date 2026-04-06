@@ -51,7 +51,7 @@ workflow SCRUBBER {
     take:
     reads: Channel<Record>
     use_srascrubber: Boolean
-    nohuman_db: Path?
+    nohuman_db: Value<Path?>
     download_nohuman: Boolean
     nohuman_save_as_tarball: Boolean
 

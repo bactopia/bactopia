@@ -31,14 +31,14 @@ workflow BACTOPIATOOL_INIT {
 
     main:
     // Handle parameters
-    println "Validating parameters for Bactopia Tools..."
+    println("Validating parameters for Bactopia Tools...")
     def validation = validateParameters(true)
-    println "Validation complete."
+    println("Validation complete.")
     if (validation.hasErrors) {
-        log.info validation.error
+        log.info(validation.error)
         error(" ")
     } else {
-        log.info validation.logs
+        log.info(validation.logs)
     }
 
     // Initialize channels for various output types
@@ -55,10 +55,10 @@ workflow BACTOPIATOOL_INIT {
     // Process inputs
     def collectedInputs = bactopiaToolInputs()
     if (collectedInputs.hasErrors) {
-        log.info collectedInputs.error
+        log.info(collectedInputs.error)
         error(" ")
     } else {
-        log.info collectedInputs.logs
+        log.info(collectedInputs.logs)
         sleep(5000)
     }
     collectedInputs.samples.each { sample ->

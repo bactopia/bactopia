@@ -35,7 +35,7 @@ include { gatherCsvtk  } from 'plugin/nf-bactopia'
 workflow MASHDIST {
     take:
     assembly: Channel<Record>
-    reference: Path
+    reference: Value<Path>
 
     main:
     MASH_DIST(assembly, reference)

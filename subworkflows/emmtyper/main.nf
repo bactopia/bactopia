@@ -34,7 +34,7 @@ include { gatherCsvtk                 } from 'plugin/nf-bactopia'
 workflow EMMTYPER {
     take:
     assembly: Channel<Record>
-    blastdb: Path?
+    blastdb: Value<Path?>
 
     main:
     EMMTYPER_MODULE(assembly, blastdb)

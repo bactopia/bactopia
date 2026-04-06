@@ -75,12 +75,12 @@ include { TBPROFILER    } from '../tbprofiler/main';
 workflow MERLIN {
     take:
     assembly: Channel<Record>
-    mash_db: Path
-    emmtyper_blastdb: Path?
-    hicap_database_dir: Path?
-    hicap_model_fp: Path?
-    staphtyper_repeats: Path?
-    staphtyper_repeat_order: Path?
+    mash_db: Value<Path>
+    emmtyper_blastdb: Value<Path?>
+    hicap_database_dir: Value<Path?>
+    hicap_model_fp: Value<Path?>
+    staphtyper_repeats: Value<Path?>
+    staphtyper_repeat_order: Value<Path?>
 
     main:
     // ID potential species

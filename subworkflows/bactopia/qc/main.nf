@@ -51,8 +51,8 @@ include { filterWithData  } from 'plugin/nf-bactopia'
 workflow QC {
     take:
     samples: Channel<Record>
-    adapters: Path?
-    phix: Path?
+    adapters: Value<Path?>
+    phix: Value<Path?>
 
     main:
     QC_MODULE(samples, adapters, phix)

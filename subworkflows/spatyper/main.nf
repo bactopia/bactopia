@@ -38,8 +38,8 @@ include { gatherCsvtk                 } from 'plugin/nf-bactopia'
 workflow SPATYPER {
     take:
     assembly: Channel<Record>
-    repeats: Path?
-    repeat_order: Path?
+    repeats: Value<Path?>
+    repeat_order: Value<Path?>
 
     main:
     SPATYPER_MODULE(assembly, repeats, repeat_order)
