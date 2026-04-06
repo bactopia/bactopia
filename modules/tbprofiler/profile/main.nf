@@ -40,7 +40,13 @@ process TBPROFILER_PROFILE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    record (
+        meta: Map,
+        r1: Path?,
+        r2: Path?,
+        se: Path?,
+        lr: Path?
+    )
 
     output:
     record(

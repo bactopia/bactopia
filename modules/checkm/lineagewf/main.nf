@@ -38,7 +38,10 @@ process CHECKM_LINEAGEWF {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
 
     output:
     record(

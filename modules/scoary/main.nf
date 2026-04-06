@@ -32,7 +32,10 @@ process SCOARY {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, csv: Path): Record
+    record (
+        meta: Map,
+        csv: Path
+    )
     traits: Path
 
     output:

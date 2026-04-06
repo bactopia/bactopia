@@ -65,16 +65,23 @@ process QC {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
+    record (
+        meta: Map,
+        r1: Path?,
+        r2: Path?,
+        se: Path?,
+        lr: Path?,
+        fna: Path?
+    )
     adapters: Path?
     phix    : Path?
 
     stage:
-    stageAs 'staging/r1/*', r1
-    stageAs 'staging/r2/*', r2
-    stageAs 'staging/se/*', se
-    stageAs 'staging/lr/*', lr
-    stageAs 'staging/fna/*', fna
+    stageAs r1, "staging/r1/*"
+    stageAs r2, "staging/r2/*"
+    stageAs se, "staging/se/*"
+    stageAs lr, "staging/lr/*"
+    stageAs fna, "staging/fna/*"
 
     output:
     record(

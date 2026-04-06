@@ -33,7 +33,11 @@ process SEROBA_RUN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path, r2: Path): Record
+    record (
+        meta: Map,
+        r1: Path,
+        r2: Path
+    )
 
     output:
     record(

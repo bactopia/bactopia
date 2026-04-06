@@ -36,7 +36,11 @@ process QUAST {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path, tsv_meta: Path): Record
+    record (
+        meta: Map,
+        fna: Path,
+        tsv_meta: Path
+    )
 
     output:
     record(

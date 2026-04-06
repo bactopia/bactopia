@@ -31,10 +31,13 @@ process AGRVATE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
 
     stage:
-    stageAs "staging/fna/*", fna
+    stageAs fna, "staging/fna/*"
 
     output:
     record(

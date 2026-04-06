@@ -29,10 +29,13 @@ process TBPROFILER_COLLATE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, json: Set<Path>): Record
+    record (
+        meta: Map,
+        json: Set<Path>
+    )
 
     stage:
-    stageAs 'staging/json/*', json
+    stageAs json, 'staging/json/*'
 
     output:
     record(

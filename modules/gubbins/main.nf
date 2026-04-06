@@ -38,7 +38,10 @@ process GUBBINS {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, aln: Path): Record
+    record (
+        meta: Map,
+        aln: Path
+    )
 
     output:
     record(

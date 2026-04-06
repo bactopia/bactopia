@@ -38,7 +38,10 @@ process CHECKM2_PREDICT {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     db: Path
 
     output:

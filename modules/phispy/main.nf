@@ -34,7 +34,10 @@ process PHISPY {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, gbff: Path): Record
+    record (
+        meta: Map,
+        gbff: Path
+    )
 
     output:
     record(

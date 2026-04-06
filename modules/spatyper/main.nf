@@ -33,7 +33,10 @@ process SPATYPER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     repeats     : Path?
     repeat_order: Path?
 

@@ -34,12 +34,15 @@ process CSVTK_CONCAT {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, csv: Set<Path>): Record
+    record (
+        meta: Map,
+        csv: Set<Path>
+    )
     in_format : String
     out_format: String
 
     stage:
-    stageAs 'staging/csv/*', csv
+    stageAs csv, 'staging/csv/*'
 
     output:
     record(

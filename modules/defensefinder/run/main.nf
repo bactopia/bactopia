@@ -38,11 +38,14 @@ process DEFENSEFINDER_RUN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, faa: Path): Record
+    record (
+        meta: Map,
+        faa: Path
+    )
     db: Path
 
     stage:
-    stageAs 'staging/faa/*', faa
+    stageAs faa, 'staging/faa/*'
 
     output:
     record(

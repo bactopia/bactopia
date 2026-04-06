@@ -49,20 +49,27 @@ process ASSEMBLER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?, fna: Path?): Record
+    record (
+        meta: Map,
+        r1: Path?,
+        r2: Path?,
+        se: Path?,
+        lr: Path?,
+        fna: Path?
+    )
 
     stage:
-    stageAs 'staging/fna/*', fna
+    stageAs fna, "staging/fna/*"
 
     output:
     record(
         // Named fields (used downstream)
         meta: meta,
         fna: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: r1 != null ? file(r1, optional: true) : null,
-        r2: r2 != null ? file(r2, optional: true) : null,
-        se: se != null ? file(se, optional: true) : null,
-        lr: lr != null ? file(lr, optional: true) : null,
+        r1: r1,
+        r2: r2,
+        se: se,
+        lr: lr,
         tsv: file("${prefix}.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [

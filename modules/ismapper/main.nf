@@ -41,7 +41,11 @@ process ISMAPPER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path, r2: Path): Record
+    record (
+        meta: Map,
+        r1: Path,
+        r2: Path
+    )
     reference: Path
     query    : Path
 

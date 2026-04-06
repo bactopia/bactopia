@@ -145,6 +145,7 @@
         "celerybeat",
         "Cepas",
         "Cerdeira",
+        "cereulide",
         "cgmlst",
         "Chatzou",
         "Chaumeil",
@@ -246,6 +247,7 @@
         "envtype",
         "Epping",
         "Ermolaeva",
+        "esac",
         "evalue",
         "Evol",
         "Ewels",
@@ -639,6 +641,7 @@
         "orthology",
         "OSTYPE",
         "outcols",
+        "outfir",
         "outfmt",
         "outmatrix",
         "outtree",
@@ -892,6 +895,7 @@
         "stutzeri",
         "Stutzerimonas",
         "subdir",
+        "subsampling",
         "Subtyping",
         "Subworkflow",
         "SUBWORKFLOWS",
@@ -900,6 +904,7 @@
         "svgz",
         "syldb",
         "syntenic",
+        "synthetase",
         "Szklarczyk",
         "tabix",
         "Taboada",
@@ -1035,5 +1040,6 @@
     "nextflow.errorReportingMode": "paranoid",
     "nextflow.completion.extended": true,
     "nextflow.debug": true,
-    "nextflow.formatting.harshilAlignment": true
+    "nextflow.formatting.harshilAlignment": true,
+    "nextflow.languageVersion": "26.04 (preview)"
 }

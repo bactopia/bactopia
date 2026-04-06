@@ -37,7 +37,11 @@ process CSVTK_JOIN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, csv1: Path, csv2: Path): Record
+    record (
+        meta: Map,
+        csv1: Path,
+        csv2: Path
+    )
     in_format : String
     out_format: String
     key       : String

@@ -36,13 +36,18 @@ process AMRFINDERPLUS_RUN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path, faa: Path, gff: Path): Record
+    record (
+        meta: Map,
+        fna: Path,
+        faa: Path,
+        gff: Path
+    )
     db: Path
 
     stage:
-    stageAs 'staging/fna/*', fna
-    stageAs 'staging/faa/*', faa
-    stageAs 'staging/gff/*', gff
+    stageAs fna, "staging/fna/*"
+    stageAs faa, "staging/faa/*"
+    stageAs gff, "staging/gff/*"
 
     output:
     record(

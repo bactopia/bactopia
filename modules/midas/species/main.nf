@@ -42,7 +42,12 @@ process MIDAS_SPECIES {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1: Path?, r2: Path?, se: Path?): Record
+    record (
+        meta: Map,
+        r1: Path?,
+        r2: Path?,
+        se: Path?
+    )
     db: Path
 
     output:

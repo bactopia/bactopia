@@ -30,7 +30,10 @@ process MASHTREE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Set<Path>): Record
+    record (
+        meta: Map,
+        fna: Set<Path>
+    )
 
     output:
     record(

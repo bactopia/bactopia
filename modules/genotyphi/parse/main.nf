@@ -27,7 +27,10 @@ process GENOTYPHI_PARSE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, json: Path): Record
+    record (
+        meta: Map,
+        json: Path
+    )
 
     output:
     record(

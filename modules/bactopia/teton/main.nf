@@ -29,7 +29,10 @@ process BACTOPIA_SAMPLESHEET {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, classification: Path): Record
+    record (
+        meta: Map,
+        classification: Path
+    )
 
     output:
     record(
@@ -78,7 +81,7 @@ process BACTOPIA_SAMPLESHEET {
             ${meta.teton_reads} \\
             ${task.ext.outdir}
     else
-        # This is a CI run, outfir path is not available
+        # This is a CI run, outdir path is not available
         touch ${prefix}.bacteria.tsv
         touch ${prefix}.nonbacteria.tsv
     fi

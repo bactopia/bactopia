@@ -32,10 +32,13 @@ process ROARY {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, gff: Set<Path>): Record
+    record (
+        meta: Map,
+        gff: Set<Path>
+    )
 
     stage:
-    stageAs 'staging/gff/*', gff
+    stageAs gff, 'staging/gff/*'
 
     output:
     record(

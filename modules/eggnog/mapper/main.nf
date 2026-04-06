@@ -41,7 +41,10 @@ process EGGNOG_MAPPER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, faa: Path): Record
+    record (
+        meta: Map,
+        faa: Path
+    )
     db: Path
 
     output:

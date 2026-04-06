@@ -43,12 +43,15 @@ process PROKKA {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     proteins   : Path?
     prodigal_tf: Path?
 
     stage:
-    stageAs "staging/fna/*", fna
+    stageAs fna, "staging/fna/*"
 
     output:
     record(

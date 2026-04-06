@@ -47,14 +47,21 @@ process GATHER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>): Record
+    record (
+        meta: Map,
+        r1_files: Set<Path?>,
+        r2_files: Set<Path?>,
+        se_files: Set<Path?>,
+        lr_files: Set<Path?>,
+        fna_files: Set<Path?>
+    )
 
     stage:
-    stageAs 'staging/r1/*???-r1', r1_files
-    stageAs 'staging/r2/*???-r2', r2_files
-    stageAs 'staging/se/*???-se', se_files
-    stageAs 'staging/lr/*???-lr', lr_files
-    stageAs 'staging/fna/*???-assembly', fna_files
+    stageAs r1_files, "staging/r1/*???-r1"
+    stageAs r2_files, "staging/r2/*???-r2"
+    stageAs se_files, "staging/se/*???-se"
+    stageAs lr_files, "staging/lr/*???-lr"
+    stageAs fna_files, "staging/fna/*???-assembly"
 
     output:
     record(

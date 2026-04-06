@@ -26,7 +26,10 @@ process ABRICATE_SUMMARY {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, reports: Set<Path>): Record
+    record (
+        meta: Map,
+        reports: Set<Path>
+    )
 
     output:
     record(

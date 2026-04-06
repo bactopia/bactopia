@@ -40,12 +40,15 @@ process GTDBTK_CLASSIFYWF {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Set<Path>): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     db: Path
 
     stage:
-    stageAs 'staging/fna/*', fna
-    stageAs 'staging/gtdb/*', db
+    stageAs fna, 'staging/fna/*'
+    stageAs db, 'staging/gtdb/*'
 
     output:
     record(

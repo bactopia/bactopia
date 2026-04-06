@@ -62,14 +62,17 @@ process BAKTA_RUN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     db         : Path
     proteins   : Path?
     prodigal_tf: Path?
     replicons  : Path?
 
     stage:
-    stageAs 'staging/fna/*', fna
+    stageAs fna, 'staging/fna/*'
 
     output:
     record(

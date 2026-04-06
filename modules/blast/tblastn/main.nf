@@ -30,7 +30,10 @@ process BLAST_TBLASTN {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, blastdb: Path): Record
+    record (
+        meta: Map,
+        blastdb: Path
+    )
     query: Path
 
     output:

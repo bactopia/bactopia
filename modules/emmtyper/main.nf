@@ -30,7 +30,10 @@ process EMMTYPER {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path): Record
+    record (
+        meta: Map,
+        fna: Path
+    )
     blastdb: Path?
 
     output:

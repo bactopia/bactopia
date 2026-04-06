@@ -54,15 +54,22 @@ process MERLIN_DIST {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, fna: Path, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    record (
+        meta: Map,
+        fna: Path,
+        r1: Path?,
+        r2: Path?,
+        se: Path?,
+        lr: Path?
+    )
     reference: Path
 
     stage:
-    stageAs 'staging/fna/*', fna
-    stageAs 'staging/r1/*', r1
-    stageAs 'staging/r2/*', r2
-    stageAs 'staging/se/*', se
-    stageAs 'staging/lr/*', lr
+    stageAs fna, 'staging/fna/*'
+    stageAs r1, 'staging/r1/*'
+    stageAs r2, 'staging/r2/*'
+    stageAs se, 'staging/se/*'
+    stageAs lr, 'staging/lr/*'
 
     output:
     record(

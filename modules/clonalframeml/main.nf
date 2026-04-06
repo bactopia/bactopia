@@ -35,7 +35,11 @@ process CLONALFRAMEML {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, aln: Path, nwk: Path): Record
+    record (
+        meta: Map,
+        aln: Path,
+        nwk: Path
+    )
 
     output:
     record(

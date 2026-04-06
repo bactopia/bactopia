@@ -42,7 +42,11 @@ process SNIPPY_CORE {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, _vcf: Set<Path>, _aligned_fa: Set<Path>): Record
+    record (
+        meta: Map,
+        _vcf: Set<Path>,
+        _aligned_fa: Set<Path>
+    )
     reference: Path
     mask: Path?
 

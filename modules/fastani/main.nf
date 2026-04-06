@@ -29,10 +29,14 @@ process FASTANI {
     container "${task.ext.container}"
 
     input:
-    (meta: Map, query: Set<Path>, reference: Path): Record
+    record (
+        meta: Map,
+        query: Set<Path>,
+        reference: Path
+    )
 
     stage:
-    stageAs 'staging/query/*', query
+    stageAs query, 'staging/query/*'
 
     output:
     record(
