@@ -75,11 +75,11 @@ process MERLIN_DIST {
     record(
         // Named fields (used downstream)
         meta: meta,
-        fna: file(fna),
-        r1: r1 != null ? file(r1, optional: true) : null,
-        r2: r2 != null ? file(r2, optional: true) : null,
-        se: se != null ? file(se, optional: true) : null,
-        lr: lr != null ? file(lr, optional: true) : null,
+        fna: fna,
+        r1: r1,
+        r2: r2,
+        se: se,
+        lr: lr,
         escherichia: file("escherichia.genus", optional: true),
         haemophilus: file("haemophilus.genus", optional: true),
         klebsiella: file("klebsiella.genus", optional: true),
