@@ -8,7 +8,7 @@ source:
   url: https://github.com/bactopia/bactopia/archive/refs/heads/dev.zip
 
 build:
-  noarch: python
+  noarch: generic
   number: 0
 
 requirements:
@@ -21,7 +21,6 @@ requirements:
     - conda >=25
     - coreutils
     - mamba >=2
-    - nextflow >=25
     - nf-test
     - python >3.9,<3.14
     - sed
