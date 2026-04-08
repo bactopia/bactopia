@@ -36,7 +36,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    mlst_db : Path?
+    mlst_db : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

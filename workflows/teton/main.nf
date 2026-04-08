@@ -47,8 +47,11 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    kraken2_db      : Path
-    use_srascrubber : Boolean
+    kraken2_db              : Value<Path>
+    use_srascrubber         : Boolean
+    nohuman_db              : Value<Path?>
+    download_nohuman        : Boolean
+    nohuman_save_as_tarball : Boolean
 }
 
 include { BACTOPIA_INIT       } from '../../subworkflows/utils/bactopia'
@@ -58,17 +61,17 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    ch_bactopia = BACTOPIA_INIT()
+    ch_samples = BACTOPIA_INIT()
 
     // Gather samples in one place
-    ch_gather = GATHER(ch_bactopia.samples)
+    ch_gather = GATHER(ch_samples)
 
     // Run Teton
     ch_teton = TETON(
         ch_gather.reads,
         params.kraken2_db,
         params.use_srascrubber,
-        params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+        params.nohuman_db,
         params.download_nohuman,
         params.nohuman_save_as_tarball
     )

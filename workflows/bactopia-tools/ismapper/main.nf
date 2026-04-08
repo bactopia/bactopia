@@ -41,8 +41,8 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    reference  : Path
-    insertions : Path
+    reference  : Value<Path>
+    insertions : Value<Path>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

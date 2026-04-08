@@ -59,10 +59,13 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    use_nohuman     : Boolean
-    use_srascrubber : Boolean
-    adapters        : Path?
-    phix            : Path?
+    use_nohuman             : Boolean
+    use_srascrubber         : Boolean
+    adapters                : Value<Path?>
+    phix                    : Value<Path?>
+    nohuman_db              : Value<Path?>
+    download_nohuman        : Boolean
+    nohuman_save_as_tarball : Boolean
 }
 
 // Core
@@ -76,10 +79,10 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    ch_bactopia = BACTOPIA_INIT()
+    ch_samples = BACTOPIA_INIT()
 
     // Gather samples in one place
-    ch_gather = GATHER(ch_bactopia.samples)
+    ch_gather = GATHER(ch_samples)
 
     // Collect outputs
     ch_sample_outputs = ch_gather.sample_outputs
@@ -90,7 +93,7 @@ workflow {
         ch_scrubber = SCRUBBER(
             ch_gather.reads,
             params.use_srascrubber,
-            params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+            params.nohuman_db,
             params.download_nohuman,
             params.nohuman_save_as_tarball
         )
