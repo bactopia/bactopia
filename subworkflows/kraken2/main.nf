@@ -43,10 +43,10 @@ workflow KRAKEN2 {
     database: Value<Path>
 
     main:
-    KRAKEN2_MODULE(reads, database)
+    ch_kraken2 = KRAKEN2_MODULE(reads, database)
 
     emit:
     // Published outputs
-    sample_outputs = KRAKEN2_MODULE.out
+    sample_outputs = ch_kraken2
     run_outputs = channel.empty()
 }

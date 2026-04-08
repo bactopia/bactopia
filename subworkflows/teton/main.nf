@@ -59,44 +59,44 @@ workflow TETON {
 
     main:
     // Remove host reads
-    SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman, nohuman_save_as_tarball)
+    ch_scrubber = SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman, nohuman_save_as_tarball)
 
     // Taxon Classification & Abundance
-    BRACKEN(SCRUBBER.out.scrubbed, db)
+    ch_bracken = BRACKEN(ch_scrubber.scrubbed, db)
 
     // Determine genome size and create sample sheet
-    ch_classification = BRACKEN.out.sample_outputs.map { r -> record(meta: r.meta, classification: r.classification) }
-    BACTOPIA_SAMPLESHEET(ch_classification)
+    ch_classification = ch_bracken.sample_outputs.map { r -> record(meta: r.meta, classification: r.classification) }
+    ch_bactopia_samplesheet = BACTOPIA_SAMPLESHEET(ch_classification)
 
     // Join Scrubber and Bracken results
-    ch_bracken_special = BRACKEN.out.sample_outputs.map { r -> record(special_meta: r.special_meta, tsv: r.tsv) }
-    ch_join_teton = SCRUBBER.out.special_tsv.join(ch_bracken_special, by:[0]).map { meta, csv1, csv2 -> record(meta: meta, csv1: csv1, csv2: csv2) }
-    CSVTK_JOIN(ch_join_teton, 'tsv', 'tsv', 'sample')
+    ch_bracken_special = ch_bracken.sample_outputs.map { r -> record(special_meta: r.special_meta, tsv: r.tsv) }
+    ch_join_teton = ch_scrubber.special_tsv.join(ch_bracken_special, by: 'special_meta').map { r -> record(meta: r.special_meta, csv1: r.scrub_report, csv2: r.tsv) }
+    ch_csvtk_join = CSVTK_JOIN(ch_join_teton, 'tsv', 'tsv', 'sample')
 
     // Merge reports
-    CSVTK_CONCAT(gatherCsvtk(CSVTK_JOIN.out, 'csv', [name: 'teton']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_csvtk_join, 'csv', [name: 'teton']), 'tsv', 'tsv')
 
     // Merge Teton prepare (bacteria)
-    CSVTK_CONCAT_BACTERIA(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'bacteria_tsv', [name: 'teton-prepare']), 'tsv', 'tsv')
+    ch_csvtk_concat_bacteria = CSVTK_CONCAT_BACTERIA(gatherCsvtk(ch_bactopia_samplesheet, 'bacteria_tsv', [name: 'teton-prepare']), 'tsv', 'tsv')
 
     // Merge Teton prepare (non-bacteria)
-    CSVTK_CONCAT_NONBACTERIA(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'nonbacteria_tsv', [name: 'teton-prepare-nonbacteria']), 'tsv', 'tsv')
+    ch_csvtk_concat_nonbacteria = CSVTK_CONCAT_NONBACTERIA(gatherCsvtk(ch_bactopia_samplesheet, 'nonbacteria_tsv', [name: 'teton-prepare-nonbacteria']), 'tsv', 'tsv')
 
     // Merge sizemeup results
-    CSVTK_CONCAT_SIZEMEUP(gatherCsvtk(BACTOPIA_SAMPLESHEET.out, 'sizemeup', [name: 'sizemeup']), 'tsv', 'tsv')
+    ch_csvtk_concat_sizemeup = CSVTK_CONCAT_SIZEMEUP(gatherCsvtk(ch_bactopia_samplesheet, 'sizemeup', [name: 'sizemeup']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SCRUBBER.out.sample_outputs.mix(
-        BRACKEN.out.sample_outputs,
-        BACTOPIA_SAMPLESHEET.out,
-        CSVTK_JOIN.out
+    sample_outputs = ch_scrubber.sample_outputs.mix(
+        ch_bracken.sample_outputs,
+        ch_bactopia_samplesheet,
+        ch_csvtk_join
     )
-    run_outputs = SCRUBBER.out.run_outputs.mix(
-        BRACKEN.out.run_outputs,
-        CSVTK_CONCAT.out,
-        CSVTK_CONCAT_BACTERIA.out,
-        CSVTK_CONCAT_NONBACTERIA.out,
-        CSVTK_CONCAT_SIZEMEUP.out
+    run_outputs = ch_scrubber.run_outputs.mix(
+        ch_bracken.run_outputs,
+        ch_csvtk_concat,
+        ch_csvtk_concat_bacteria,
+        ch_csvtk_concat_nonbacteria,
+        ch_csvtk_concat_sizemeup
     )
 }

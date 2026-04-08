@@ -39,11 +39,11 @@ workflow SEROBA {
     reads: Channel<Record>
 
     main:
-    SEROBA_RUN(filterWithData(reads, ['r1', 'r2']))
-    CSVTK_CONCAT(gatherCsvtk(SEROBA_RUN.out, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
+    ch_seroba_run = SEROBA_RUN(filterWithData(reads, ['r1', 'r2']))
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_seroba_run, 'tsv', [name: 'seroba']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SEROBA_RUN.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_seroba_run
+    run_outputs = ch_csvtk_concat
 }

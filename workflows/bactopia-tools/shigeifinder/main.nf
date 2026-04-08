@@ -42,16 +42,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SHIGEIFINDER(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_shigeifinder = SHIGEIFINDER(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = SHIGEIFINDER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SHIGEIFINDER.out.sample_outputs)
+    sample_outputs = ch_shigeifinder.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_shigeifinder.sample_outputs)
     // Run-level
-    run_outputs = SHIGEIFINDER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SHIGEIFINDER.out.run_outputs)
+    run_outputs = ch_shigeifinder.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_shigeifinder.run_outputs)
 }
 
 output {

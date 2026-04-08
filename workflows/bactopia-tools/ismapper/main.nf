@@ -51,20 +51,20 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ISMAPPER(
-        BACTOPIATOOL_INIT.out.reads,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_ismapper = ISMAPPER(
+        ch_bactopiatool.reads,
         params.reference,
         params.insertions
     )
 
     publish:
     // Per-sample
-    sample_outputs = ISMAPPER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(ISMAPPER.out.sample_outputs)
+    sample_outputs = ch_ismapper.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_ismapper.sample_outputs)
     // Run-level
-    run_outputs = ISMAPPER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(ISMAPPER.out.run_outputs)
+    run_outputs = ch_ismapper.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_ismapper.run_outputs)
 }
 
 output {

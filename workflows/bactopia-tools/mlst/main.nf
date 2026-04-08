@@ -45,16 +45,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    MLST(BACTOPIATOOL_INIT.out.assembly, params.mlst_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_mlst = MLST(ch_bactopiatool.assembly, params.mlst_db)
 
     publish:
     // Per-sample
-    sample_outputs = MLST.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MLST.out.sample_outputs)
+    sample_outputs = ch_mlst.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_mlst.sample_outputs)
     // Run-level
-    run_outputs = MLST.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MLST.out.run_outputs)
+    run_outputs = ch_mlst.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_mlst.run_outputs)
 }
 
 output {

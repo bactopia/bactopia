@@ -43,16 +43,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ABRICATE(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_abricate = ABRICATE(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = ABRICATE.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(ABRICATE.out.sample_outputs)
+    sample_outputs = ch_abricate.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_abricate.sample_outputs)
     // Run-level
-    run_outputs = ABRICATE.out.run_outputs
-    run_nf_logs = collectNextflowLogs(ABRICATE.out.run_outputs)
+    run_outputs = ch_abricate.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_abricate.run_outputs)
 }
 
 output {

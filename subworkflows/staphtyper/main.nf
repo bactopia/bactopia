@@ -43,16 +43,16 @@ workflow STAPHTYPER {
 
     main:
     // agrvate - agr locus type and agr operon variants
-    AGRVATE(assembly)
+    ch_agrvate = AGRVATE(assembly)
 
     // spatyper - spa typing
-    SPATYPER(assembly, repeats, repeat_order)
+    ch_spatyper = SPATYPER(assembly, repeats, repeat_order)
 
     // sccmec - SCCmec type based on targets and full cassettes
-    SCCMEC(assembly)
+    ch_sccmec = SCCMEC(assembly)
 
     emit:
     // Published outputs
-    sample_outputs = AGRVATE.out.sample_outputs.mix(SPATYPER.out.sample_outputs, SCCMEC.out.sample_outputs)
-    run_outputs = AGRVATE.out.run_outputs.mix(SPATYPER.out.run_outputs, SCCMEC.out.run_outputs)
+    sample_outputs = ch_agrvate.sample_outputs.mix(ch_spatyper.sample_outputs, ch_sccmec.sample_outputs)
+    run_outputs = ch_agrvate.run_outputs.mix(ch_spatyper.run_outputs, ch_sccmec.run_outputs)
 }

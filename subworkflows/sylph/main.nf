@@ -46,11 +46,11 @@ workflow SYLPH {
     database: Value<Path>
 
     main:
-    SYLPH_PROFILE(reads, database)
-    CSVTK_CONCAT(gatherCsvtk(SYLPH_PROFILE.out, 'tsv', [name: 'sylph']), 'tsv', 'tsv')
+    ch_sylph_profile = SYLPH_PROFILE(reads, database)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_sylph_profile, 'tsv', [name: 'sylph']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SYLPH_PROFILE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_sylph_profile
+    run_outputs = ch_csvtk_concat
 }

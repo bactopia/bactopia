@@ -33,11 +33,11 @@ workflow ABRICATE {
     assembly: Channel<Record>
 
     main:
-    ABRICATE_RUN(assembly)
-    ABRICATE_SUMMARY(gatherFields(ABRICATE_RUN.out, [tsv: 'reports'], [name: 'abricate']))
+    ch_abricate_run = ABRICATE_RUN(assembly)
+    ch_abricate_summary = ABRICATE_SUMMARY(gatherFields(ch_abricate_run, [tsv: 'reports'], [name: 'abricate']))
 
     emit:
     // Published outputs
-    sample_outputs = ABRICATE_RUN.out
-    run_outputs = ABRICATE_SUMMARY.out
+    sample_outputs = ch_abricate_run
+    run_outputs = ch_abricate_summary
 }

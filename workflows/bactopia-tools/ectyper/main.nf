@@ -42,16 +42,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ECTYPER(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_ectyper = ECTYPER(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = ECTYPER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(ECTYPER.out.sample_outputs)
+    sample_outputs = ch_ectyper.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_ectyper.sample_outputs)
     // Run-level
-    run_outputs = ECTYPER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(ECTYPER.out.run_outputs)
+    run_outputs = ch_ectyper.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_ectyper.run_outputs)
 }
 
 output {

@@ -33,10 +33,10 @@ workflow ROARY {
     gff: Channel<Record>
 
     main:
-    ROARY_MODULE(gff)
+    ch_roary = ROARY_MODULE(gff)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = ROARY_MODULE.out
+    run_outputs = ch_roary
 }

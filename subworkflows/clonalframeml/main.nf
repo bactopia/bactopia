@@ -45,26 +45,26 @@ workflow CLONALFRAMEML {
 
     main:
     // Create a quick start tree
-    IQTREE(alignment.map { r ->
+    ch_iqtree = IQTREE(alignment.map { r ->
         record(meta: [name: r.meta.name, process_name: 'iqtree-fast'], aln: r.aln)
     })
 
     // Run ClonalFrameML
-    CLONALFRAMEML_MODULE(IQTREE.out.run_outputs.map { r ->
+    ch_clonalframeml = CLONALFRAMEML_MODULE(ch_iqtree.run_outputs.map { r ->
         record(meta: [name: "core-genome", process_name: "clonalframeml"], aln: r.aln, nwk: r.nwk)
     })
 
     // Per-sample SNP distances
-    SNPDISTS(CLONALFRAMEML_MODULE.out.map { r ->
+    ch_snpdists = SNPDISTS(ch_clonalframeml.map { r ->
         record(meta: [name: 'core-genome.masked.distance', process_name: 'snpdists-masked'], aln: r.masked_aln)
     })
 
     emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
-    alignment = CLONALFRAMEML_MODULE.out.map { r ->
+    alignment = ch_clonalframeml.map { r ->
         record(meta: [name: "core-genome", process_name: "iqtree"], aln: r.masked_aln)
     }
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = CLONALFRAMEML_MODULE.out.mix(IQTREE.out.run_outputs).mix(SNPDISTS.out.run_outputs)
+    run_outputs = ch_clonalframeml.mix(ch_iqtree.run_outputs).mix(ch_snpdists.run_outputs)
 }

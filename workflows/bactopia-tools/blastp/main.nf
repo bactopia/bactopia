@@ -51,16 +51,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    BLASTP(BACTOPIATOOL_INIT.out.blastdb, params.blastp_query)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_blastp = BLASTP(ch_bactopiatool.blastdb, params.blastp_query)
 
     publish:
     // Per-sample
-    sample_outputs = BLASTP.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(BLASTP.out.sample_outputs)
+    sample_outputs = ch_blastp.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_blastp.sample_outputs)
     // Run-level
-    run_outputs = BLASTP.out.run_outputs
-    run_nf_logs = collectNextflowLogs(BLASTP.out.run_outputs)
+    run_outputs = ch_blastp.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_blastp.run_outputs)
 }
 
 output {

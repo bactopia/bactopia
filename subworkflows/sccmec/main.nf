@@ -38,11 +38,11 @@ workflow SCCMEC {
     assembly: Channel<Record>
 
     main:
-    SCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(SCCMEC_MODULE.out, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
+    ch_sccmec = SCCMEC_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_sccmec, 'tsv', [name: 'sccmec']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SCCMEC_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_sccmec
+    run_outputs = ch_csvtk_concat
 }

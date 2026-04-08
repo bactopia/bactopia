@@ -46,15 +46,15 @@ workflow ASSEMBLER {
     samples: Channel<Record>
 
     main:
-    ASSEMBLER_MODULE(samples)
-    CSVTK_CONCAT(gatherCsvtk(ASSEMBLER_MODULE.out, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
+    ch_assembler = ASSEMBLER_MODULE(samples)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_assembler, 'tsv', [name: 'assembly-scan']), 'tsv', 'tsv')
 
     emit:
     // Downstream inputs
-    assembly = filterWithData(ASSEMBLER_MODULE.out, ['fna'])
-    assembly_reads = filterWithData(ASSEMBLER_MODULE.out, ['fna', 'r1', 'r2', 'se', 'lr'])
+    assembly = filterWithData(ch_assembler, ['fna'])
+    assembly_reads = filterWithData(ch_assembler, ['fna', 'r1', 'r2', 'se', 'lr'])
 
     // Published outputs
-    sample_outputs = ASSEMBLER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_assembler
+    run_outputs = ch_csvtk_concat
 }

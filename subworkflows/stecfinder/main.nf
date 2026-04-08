@@ -38,11 +38,11 @@ workflow STECFINDER {
     seqs: Channel<Record>
 
     main:
-    STECFINDER_MODULE(seqs)
-    CSVTK_CONCAT(gatherCsvtk(STECFINDER_MODULE.out, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
+    ch_stecfinder = STECFINDER_MODULE(seqs)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_stecfinder, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = STECFINDER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_stecfinder
+    run_outputs = ch_csvtk_concat
 }

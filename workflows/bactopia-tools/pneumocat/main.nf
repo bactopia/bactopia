@@ -37,16 +37,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    PNEUMOCAT(BACTOPIATOOL_INIT.out.reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_pneumocat = PNEUMOCAT(ch_bactopiatool.reads)
 
     publish:
     // Per-sample
-    sample_outputs = PNEUMOCAT.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(PNEUMOCAT.out.sample_outputs)
+    sample_outputs = ch_pneumocat.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_pneumocat.sample_outputs)
     // Run-level
-    run_outputs = PNEUMOCAT.out.run_outputs
-    run_nf_logs = collectNextflowLogs(PNEUMOCAT.out.run_outputs)
+    run_outputs = ch_pneumocat.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_pneumocat.run_outputs)
 }
 
 output {

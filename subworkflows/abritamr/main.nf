@@ -38,11 +38,11 @@ workflow ABRITAMR {
     assembly: Channel<Record>
 
     main:
-    ABRITAMR_RUN(assembly)
-    CSVTK_CONCAT(gatherCsvtk(ABRITAMR_RUN.out, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
+    ch_abritamr_run = ABRITAMR_RUN(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_abritamr_run, 'summary', [name: 'abritamr']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = ABRITAMR_RUN.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_abritamr_run
+    run_outputs = ch_csvtk_concat
 }

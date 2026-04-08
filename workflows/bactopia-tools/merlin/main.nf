@@ -59,11 +59,11 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    DATASETS()
-    MERLIN(
-        BACTOPIATOOL_INIT.out.assembly_reads,
-        DATASETS.out.mash_db,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_datasets = DATASETS()
+    ch_merlin = MERLIN(
+        ch_bactopiatool.assembly_reads,
+        ch_datasets.mash_db,
         // emmtyper
         params.emmtyper_blastdb,
         // hicap
@@ -76,11 +76,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = MERLIN.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MERLIN.out.sample_outputs)
+    sample_outputs = ch_merlin.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_merlin.sample_outputs)
     // Run-level
-    run_outputs = MERLIN.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MERLIN.out.run_outputs)
+    run_outputs = ch_merlin.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_merlin.run_outputs)
 }
 
 output {

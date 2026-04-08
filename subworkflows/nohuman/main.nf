@@ -47,20 +47,21 @@ workflow NOHUMAN {
     save_as_tarball: Boolean
 
     main:
+    ch_nohuman = channel.empty()
     if (download_nohuman) {
-        NOHUMAN_DOWNLOAD()
+        ch_nohuman_download = NOHUMAN_DOWNLOAD()
 
         if (save_as_tarball) {
-            NOHUMAN_MODULE(reads, NOHUMAN_DOWNLOAD.out.map { r -> r.db_tarball })
+            ch_nohuman = NOHUMAN_MODULE(reads, ch_nohuman_download.map { r -> r.db_tarball })
         } else {
-            NOHUMAN_MODULE(reads, NOHUMAN_DOWNLOAD.out.map { r -> r.db })
+            ch_nohuman = NOHUMAN_MODULE(reads, ch_nohuman_download.map { r -> r.db })
         }
     } else {
-        NOHUMAN_MODULE(reads, database)
+        ch_nohuman = NOHUMAN_MODULE(reads, database)
     }
 
     emit:
     // Published outputs
-    sample_outputs = NOHUMAN_MODULE.out
+    sample_outputs = ch_nohuman
     run_outputs = channel.empty()
 }

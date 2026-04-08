@@ -44,16 +44,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    GENOTYPHI(BACTOPIATOOL_INIT.out.reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_genotyphi = GENOTYPHI(ch_bactopiatool.reads)
 
     publish:
     // Per-sample
-    sample_outputs = GENOTYPHI.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(GENOTYPHI.out.sample_outputs)
+    sample_outputs = ch_genotyphi.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_genotyphi.sample_outputs)
     // Run-level
-    run_outputs = GENOTYPHI.out.run_outputs
-    run_nf_logs = collectNextflowLogs(GENOTYPHI.out.run_outputs)
+    run_outputs = ch_genotyphi.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_genotyphi.run_outputs)
 }
 
 output {

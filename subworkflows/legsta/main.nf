@@ -35,11 +35,11 @@ workflow LEGSTA {
     assembly: Channel<Record>
 
     main:
-    LEGSTA_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(LEGSTA_MODULE.out, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
+    ch_legsta = LEGSTA_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_legsta, 'tsv', [name: 'legsta']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = LEGSTA_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_legsta
+    run_outputs = ch_csvtk_concat
 }

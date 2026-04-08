@@ -34,11 +34,11 @@ workflow BTYPER3 {
     assembly: Channel<Record>
 
     main:
-    BTYPER3_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(BTYPER3_MODULE.out, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
+    ch_btyper3 = BTYPER3_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_btyper3, 'tsv', [name: 'btyper3']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = BTYPER3_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_btyper3
+    run_outputs = ch_csvtk_concat
 }

@@ -40,11 +40,11 @@ workflow SHIGATYPER {
     reads: Channel<Record>
 
     main:
-    SHIGATYPER_MODULE(reads)
-    CSVTK_CONCAT(gatherCsvtk(SHIGATYPER_MODULE.out, 'tsv', [name: 'shigatyper']), 'tsv', 'tsv')
+    ch_shigatyper = SHIGATYPER_MODULE(reads)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_shigatyper, 'tsv', [name: 'shigatyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SHIGATYPER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_shigatyper
+    run_outputs = ch_csvtk_concat
 }

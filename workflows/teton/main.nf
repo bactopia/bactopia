@@ -58,14 +58,14 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIA_INIT()
+    ch_bactopia = BACTOPIA_INIT()
 
     // Gather samples in one place
-    GATHER(BACTOPIA_INIT.out.samples)
+    ch_gather = GATHER(ch_bactopia.samples)
 
     // Run Teton
-    TETON(
-        GATHER.out.reads,
+    ch_teton = TETON(
+        ch_gather.reads,
         params.kraken2_db,
         params.use_srascrubber,
         params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
@@ -74,8 +74,8 @@ workflow {
     )
 
     // Collect all outputs
-    ch_sample_outputs = GATHER.out.sample_outputs.mix(TETON.out.sample_outputs)
-    ch_run_outputs = GATHER.out.run_outputs.mix(TETON.out.run_outputs)
+    ch_sample_outputs = ch_gather.sample_outputs.mix(ch_teton.sample_outputs)
+    ch_run_outputs = ch_gather.run_outputs.mix(ch_teton.run_outputs)
 
     publish:
     // Per-sample

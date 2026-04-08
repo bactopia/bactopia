@@ -44,11 +44,11 @@ workflow FASTANI {
 
     main:
     ch_ref = reference.map { r -> r.fna }
-    FASTANI_MODULE(combineWith(gatherFields(query, [fna: 'query'], [name: 'fastani']), ch_ref, 'reference'))
-    CSVTK_CONCAT(gatherCsvtk(FASTANI_MODULE.out, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
+    ch_fastani = FASTANI_MODULE(combineWith(gatherFields(query, [fna: 'query'], [name: 'fastani']), ch_ref, 'reference'))
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_fastani, 'tsv', [name: 'fastani']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = FASTANI_MODULE.out.mix(CSVTK_CONCAT.out)
+    run_outputs = ch_fastani.mix(ch_csvtk_concat)
 }

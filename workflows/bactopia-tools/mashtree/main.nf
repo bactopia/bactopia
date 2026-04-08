@@ -53,23 +53,23 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ch_samples = BACTOPIATOOL_INIT.out.assembly
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_samples = ch_bactopiatool.assembly
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
-        ch_samples = ch_samples.mix(NCBIGENOMEDOWNLOAD.out.assemblies)
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
+        ch_samples = ch_samples.mix(ch_ncbigenomedownload.assemblies)
     }
-    MASHTREE(gather(ch_samples, 'fna', [name: 'mashtree']))
+    ch_mashtree = MASHTREE(gather(ch_samples, 'fna', [name: 'mashtree']))
 
     publish:
     // Per-sample
-    sample_outputs = MASHTREE.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MASHTREE.out.sample_outputs)
+    sample_outputs = ch_mashtree.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_mashtree.sample_outputs)
     // Run-level
-    run_outputs = MASHTREE.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MASHTREE.out.run_outputs)
+    run_outputs = ch_mashtree.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_mashtree.run_outputs)
 }
 
 output {

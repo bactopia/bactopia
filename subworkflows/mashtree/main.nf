@@ -33,10 +33,10 @@ workflow MASHTREE {
     assemblies: Channel<Record>
 
     main:
-    MASHTREE_MODULE(assemblies)
+    ch_mashtree = MASHTREE_MODULE(assemblies)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = MASHTREE_MODULE.out
+    run_outputs = ch_mashtree
 }

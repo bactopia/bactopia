@@ -43,14 +43,14 @@ workflow GENOTYPHI {
     reads: Channel<Record>
 
     main:
-    MYKROBE_PREDICT(reads, "typhi")
-    GENOTYPHI_PARSE(MYKROBE_PREDICT.out.map { r ->
+    ch_mykrobe_predict = MYKROBE_PREDICT(reads, "typhi")
+    ch_genotyphi_parse = GENOTYPHI_PARSE(ch_mykrobe_predict.map { r ->
         record(meta: r.meta, json: r.json)
     })
-    CSVTK_CONCAT(gatherCsvtk(GENOTYPHI_PARSE.out, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_genotyphi_parse, 'tsv', [name: 'genotyphi']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MYKROBE_PREDICT.out.mix(GENOTYPHI_PARSE.out)
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mykrobe_predict.mix(ch_genotyphi_parse)
+    run_outputs = ch_csvtk_concat
 }

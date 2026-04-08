@@ -40,16 +40,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    NGMASTER(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_ngmaster = NGMASTER(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = NGMASTER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(NGMASTER.out.sample_outputs)
+    sample_outputs = ch_ngmaster.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_ngmaster.sample_outputs)
     // Run-level
-    run_outputs = NGMASTER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(NGMASTER.out.run_outputs)
+    run_outputs = ch_ngmaster.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_ngmaster.run_outputs)
 }
 
 output {

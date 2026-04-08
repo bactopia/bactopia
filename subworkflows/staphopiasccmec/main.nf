@@ -35,11 +35,11 @@ workflow STAPHOPIASCCMEC {
     assembly: Channel<Record>
 
     main:
-    STAPHOPIASCCMEC_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(STAPHOPIASCCMEC_MODULE.out, 'tsv', [name: 'staphopiasccmec']), 'tsv', 'tsv')
+    ch_staphopiasccmec = STAPHOPIASCCMEC_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_staphopiasccmec, 'tsv', [name: 'staphopiasccmec']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = STAPHOPIASCCMEC_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_staphopiasccmec
+    run_outputs = ch_csvtk_concat
 }

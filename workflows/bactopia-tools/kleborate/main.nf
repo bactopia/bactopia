@@ -44,16 +44,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    KLEBORATE(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_kleborate = KLEBORATE(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = KLEBORATE.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(KLEBORATE.out.sample_outputs)
+    sample_outputs = ch_kleborate.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_kleborate.sample_outputs)
     // Run-level
-    run_outputs = KLEBORATE.out.run_outputs
-    run_nf_logs = collectNextflowLogs(KLEBORATE.out.run_outputs)
+    run_outputs = ch_kleborate.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_kleborate.run_outputs)
 }
 
 output {

@@ -46,16 +46,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SEROBA(BACTOPIATOOL_INIT.out.reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_seroba = SEROBA(ch_bactopiatool.reads)
 
     publish:
     // Per-sample
-    sample_outputs = SEROBA.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SEROBA.out.sample_outputs)
+    sample_outputs = ch_seroba.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_seroba.sample_outputs)
     // Run-level
-    run_outputs = SEROBA.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SEROBA.out.run_outputs)
+    run_outputs = ch_seroba.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_seroba.run_outputs)
 }
 
 output {

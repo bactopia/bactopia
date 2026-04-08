@@ -42,16 +42,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    MCRONI(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_mcroni = MCRONI(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = MCRONI.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MCRONI.out.sample_outputs)
+    sample_outputs = ch_mcroni.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_mcroni.sample_outputs)
     // Run-level
-    run_outputs = MCRONI.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MCRONI.out.run_outputs)
+    run_outputs = ch_mcroni.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_mcroni.run_outputs)
 }
 
 output {

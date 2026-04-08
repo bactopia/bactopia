@@ -58,10 +58,10 @@ workflow MERLINDIST {
     ch_mash_db: Value<Path>
 
     main:
-    MERLIN_DIST(ch_seqs, ch_mash_db)
+    ch_merlin_dist = MERLIN_DIST(ch_seqs, ch_mash_db)
 
     emit:
     // Published outputs
-    sample_outputs = MERLIN_DIST.out
+    sample_outputs = ch_merlin_dist
     run_outputs = channel.empty()
 }

@@ -51,9 +51,9 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SCRUBBER(
-        BACTOPIATOOL_INIT.out.reads,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_scrubber = SCRUBBER(
+        ch_bactopiatool.reads,
         params.use_srascrubber,
         params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
         params.download_nohuman,
@@ -62,11 +62,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = SCRUBBER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SCRUBBER.out.sample_outputs)
+    sample_outputs = ch_scrubber.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_scrubber.sample_outputs)
     // Run-level
-    run_outputs = SCRUBBER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SCRUBBER.out.run_outputs)
+    run_outputs = ch_scrubber.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_scrubber.run_outputs)
 }
 
 output {

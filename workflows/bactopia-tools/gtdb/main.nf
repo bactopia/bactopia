@@ -56,9 +56,9 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    GTDB(
-        BACTOPIATOOL_INIT.out.assembly,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_gtdb = GTDB(
+        ch_bactopiatool.assembly,
         params.gtdb,
         params.download_gtdb,
         params.gtdb_save_as_tarball
@@ -66,11 +66,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = GTDB.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(GTDB.out.sample_outputs)
+    sample_outputs = ch_gtdb.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_gtdb.sample_outputs)
     // Run-level
-    run_outputs = GTDB.out.run_outputs
-    run_nf_logs = collectNextflowLogs(GTDB.out.run_outputs)
+    run_outputs = ch_gtdb.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_gtdb.run_outputs)
 }
 
 output {

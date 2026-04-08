@@ -34,11 +34,11 @@ workflow SHIGAPASS {
     assembly: Channel<Record>
 
     main:
-    SHIGAPASS_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(SHIGAPASS_MODULE.out, 'tsv', [name: 'shigapass']), 'tsv', 'tsv')
+    ch_shigapass = SHIGAPASS_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_shigapass, 'tsv', [name: 'shigapass']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SHIGAPASS_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_shigapass
+    run_outputs = ch_csvtk_concat
 }

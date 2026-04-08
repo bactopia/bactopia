@@ -41,16 +41,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    STECFINDER(BACTOPIATOOL_INIT.out.assembly_reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_stecfinder = STECFINDER(ch_bactopiatool.assembly_reads)
 
     publish:
     // Per-sample
-    sample_outputs = STECFINDER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(STECFINDER.out.sample_outputs)
+    sample_outputs = ch_stecfinder.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_stecfinder.sample_outputs)
     // Run-level
-    run_outputs = STECFINDER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(STECFINDER.out.run_outputs)
+    run_outputs = ch_stecfinder.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_stecfinder.run_outputs)
 }
 
 output {

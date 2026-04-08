@@ -55,16 +55,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ARIBA(BACTOPIATOOL_INIT.out.reads, params.ariba_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_ariba = ARIBA(ch_bactopiatool.reads, params.ariba_db)
 
     publish:
     // Per-sample
-    sample_outputs = ARIBA.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(ARIBA.out.sample_outputs)
+    sample_outputs = ch_ariba.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_ariba.sample_outputs)
     // Run-level
-    run_outputs = ARIBA.out.run_outputs
-    run_nf_logs = collectNextflowLogs(ARIBA.out.run_outputs)
+    run_outputs = ch_ariba.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_ariba.run_outputs)
 }
 
 output {

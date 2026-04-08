@@ -55,12 +55,12 @@ workflow BRACKEN {
     database: Value<Path>
 
     main:
-    BRACKEN_MODULE(reads, database)
-    CSVTK_CONCAT_TSV(gatherCsvtk(BRACKEN_MODULE.out, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
-    CSVTK_CONCAT_ADJUSTED(gatherCsvtk(BRACKEN_MODULE.out, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
+    ch_bracken = BRACKEN_MODULE(reads, database)
+    ch_csvtk_concat_tsv = CSVTK_CONCAT_TSV(gatherCsvtk(ch_bracken, 'tsv', [name: 'bracken-species-abundance']), 'tsv', 'tsv')
+    ch_csvtk_concat_adjusted = CSVTK_CONCAT_ADJUSTED(gatherCsvtk(ch_bracken, 'adjusted_abundances', [name: 'bracken-adjusted']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = BRACKEN_MODULE.out
-    run_outputs = CSVTK_CONCAT_TSV.out.mix(CSVTK_CONCAT_ADJUSTED.out)
+    sample_outputs = ch_bracken
+    run_outputs = ch_csvtk_concat_tsv.mix(ch_csvtk_concat_adjusted)
 }

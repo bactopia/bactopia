@@ -42,11 +42,11 @@ workflow SPATYPER {
     repeat_order: Value<Path?>
 
     main:
-    SPATYPER_MODULE(assembly, repeats, repeat_order)
-    CSVTK_CONCAT(gatherCsvtk(SPATYPER_MODULE.out, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
+    ch_spatyper = SPATYPER_MODULE(assembly, repeats, repeat_order)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_spatyper, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SPATYPER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_spatyper
+    run_outputs = ch_csvtk_concat
 }

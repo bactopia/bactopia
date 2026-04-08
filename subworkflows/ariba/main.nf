@@ -49,13 +49,13 @@ workflow ARIBA {
     db: String
 
     main:
-    ARIBA_GETREF(db)
-    ARIBA_RUN(filterWithData(reads, ['r1', 'r2']), ARIBA_GETREF.out.map { r -> r.db })
-    CSVTK_CONCAT_REPORT(gatherCsvtk(ARIBA_RUN.out, 'report', [name: "${db}-report", args: '-C "$" --lazy-quotes']), 'tsv', 'tsv')
-    CSVTK_CONCAT_SUMMARY(gatherCsvtk(ARIBA_RUN.out, 'summary', [name: "${db}-summary", args: '--lazy-quotes']), 'csv', 'csv')
+    ch_ariba_getref = ARIBA_GETREF(db)
+    ch_ariba_run = ARIBA_RUN(filterWithData(reads, ['r1', 'r2']), ch_ariba_getref.map { r -> r.db })
+    ch_csvtk_concat_report = CSVTK_CONCAT_REPORT(gatherCsvtk(ch_ariba_run, 'report', [name: "${db}-report", args: '-C "$" --lazy-quotes']), 'tsv', 'tsv')
+    ch_csvtk_concat_summary = CSVTK_CONCAT_SUMMARY(gatherCsvtk(ch_ariba_run, 'summary', [name: "${db}-summary", args: '--lazy-quotes']), 'csv', 'csv')
 
     emit:
     // Published outputs
-    sample_outputs = ARIBA_RUN.out
-    run_outputs = CSVTK_CONCAT_REPORT.out.mix(CSVTK_CONCAT_SUMMARY.out)
+    sample_outputs = ch_ariba_run
+    run_outputs = ch_csvtk_concat_report.mix(ch_csvtk_concat_summary)
 }

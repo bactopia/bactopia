@@ -50,16 +50,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    BRACKEN(BACTOPIATOOL_INIT.out.reads, params.kraken2_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_bracken = BRACKEN(ch_bactopiatool.reads, params.kraken2_db)
 
     publish:
     // Per-sample
-    sample_outputs = BRACKEN.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(BRACKEN.out.sample_outputs)
+    sample_outputs = ch_bracken.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_bracken.sample_outputs)
     // Run-level
-    run_outputs = BRACKEN.out.run_outputs
-    run_nf_logs = collectNextflowLogs(BRACKEN.out.run_outputs)
+    run_outputs = ch_bracken.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_bracken.run_outputs)
 }
 
 output {

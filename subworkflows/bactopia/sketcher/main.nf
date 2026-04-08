@@ -42,10 +42,10 @@ workflow SKETCHER {
     sourmash_db: Value<Path>
 
     main:
-    SKETCHER_MODULE(assembly, mash_db, sourmash_db)
+    ch_sketcher = SKETCHER_MODULE(assembly, mash_db, sourmash_db)
 
     emit:
     // Published outputs
-    sample_outputs = SKETCHER_MODULE.out
+    sample_outputs = ch_sketcher
     run_outputs = channel.empty()
 }

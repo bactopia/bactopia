@@ -36,11 +36,11 @@ workflow CHECKM {
     assembly: Channel<Record>
 
     main:
-    CHECKM_LINEAGEWF(assembly)
-    CSVTK_CONCAT(gatherCsvtk(CHECKM_LINEAGEWF.out, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
+    ch_checkm_lineagewf = CHECKM_LINEAGEWF(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_checkm_lineagewf, 'tsv', [name: 'checkm']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = CHECKM_LINEAGEWF.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_checkm_lineagewf
+    run_outputs = ch_csvtk_concat
 }

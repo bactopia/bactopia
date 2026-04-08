@@ -100,46 +100,46 @@ include { gather              } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    ch_samples = BACTOPIATOOL_INIT.out.gff
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_samples = ch_bactopiatool.gff
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
-        PROKKA(
-            NCBIGENOMEDOWNLOAD.out.assemblies,
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
+        ch_prokka = PROKKA(
+            ch_ncbigenomedownload.assemblies,
             params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
             params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
         )
-        ch_samples = ch_samples.mix(PROKKA.out.gffs)
+        ch_samples = ch_samples.mix(ch_prokka.gffs)
     }
 
     // Create the pangenome
     def String pangenome_tool = params.use_pirate ? 'pirate' : (params.use_roary ? 'roary' : 'panaroo')
     ch_merge_gff = gather(ch_samples, 'gff', [name: pangenome_tool])
-    PANGENOME(ch_merge_gff, params.use_pirate, params.use_roary)
-    ch_sample_outputs = PANGENOME.out.sample_outputs
-    ch_run_outputs = PANGENOME.out.run_outputs
+    ch_pangenome = PANGENOME(ch_merge_gff, params.use_pirate, params.use_roary)
+    ch_sample_outputs = ch_pangenome.sample_outputs
+    ch_run_outputs = ch_pangenome.run_outputs
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        CLONALFRAMEML(PANGENOME.out.alignment)
-        ch_sample_outputs = ch_sample_outputs.mix(CLONALFRAMEML.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(CLONALFRAMEML.out.run_outputs)
+        ch_clonalframeml = CLONALFRAMEML(ch_pangenome.alignment)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_clonalframeml.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_clonalframeml.run_outputs)
     }
 
     // (optional) Create core-genome phylogeny
     if (!params.skip_phylogeny) {
-        IQTREE(params.skip_recombination ? PANGENOME.out.phylogeny_input : CLONALFRAMEML.out.alignment)
-        ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
+        ch_iqtree = IQTREE(params.skip_recombination ? ch_pangenome.phylogeny_input : ch_clonalframeml.alignment)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_iqtree.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_iqtree.run_outputs)
     }
 
     // Pan-genome GWAS
     if (params.scoary_traits) {
-        SCOARY(PANGENOME.out.csv, params.scoary_traits)
-        ch_sample_outputs = ch_sample_outputs.mix(SCOARY.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(SCOARY.out.run_outputs)
+        ch_scoary = SCOARY(ch_pangenome.csv, params.scoary_traits)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_scoary.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_scoary.run_outputs)
     }
 
     publish:

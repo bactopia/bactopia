@@ -50,22 +50,23 @@ workflow GTDB {
     save_as_tarball: Boolean
 
     main:
+    ch_gtdbtk_classifywf = channel.empty()
     if (download_gtdb) {
         // Force CLASSIFY to wait
-        GTDBTK_DOWNLOAD()
+        ch_gtdbtk_download = GTDBTK_DOWNLOAD()
 
         if (save_as_tarball) {
-            GTDBTK_CLASSIFYWF(assembly, GTDBTK_DOWNLOAD.out.map { r -> r.db_tarball })
+            ch_gtdbtk_classifywf = GTDBTK_CLASSIFYWF(assembly, ch_gtdbtk_download.map { r -> r.db_tarball })
         } else {
-            GTDBTK_CLASSIFYWF(assembly, GTDBTK_DOWNLOAD.out.map { r -> r.db })
+            ch_gtdbtk_classifywf = GTDBTK_CLASSIFYWF(assembly, ch_gtdbtk_download.map { r -> r.db })
         }
     } else {
-        GTDBTK_CLASSIFYWF(assembly, database)
+        ch_gtdbtk_classifywf = GTDBTK_CLASSIFYWF(assembly, database)
     }
-    CSVTK_CONCAT(gatherCsvtk(GTDBTK_CLASSIFYWF.out, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_gtdbtk_classifywf, 'bac_tsv', [name: 'gtdb']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = GTDBTK_CLASSIFYWF.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_gtdbtk_classifywf
+    run_outputs = ch_csvtk_concat
 }

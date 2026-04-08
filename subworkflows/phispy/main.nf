@@ -34,11 +34,11 @@ workflow PHISPY {
     gbff: Channel<Record>
 
     main:
-    PHISPY_MODULE(gbff)
-    CSVTK_CONCAT(gatherCsvtk(PHISPY_MODULE.out, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
+    ch_phispy = PHISPY_MODULE(gbff)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_phispy, 'tsv', [name: 'phispy']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = PHISPY_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_phispy
+    run_outputs = ch_csvtk_concat
 }

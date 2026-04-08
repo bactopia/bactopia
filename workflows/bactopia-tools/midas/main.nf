@@ -53,9 +53,9 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    MIDAS(
-        BACTOPIATOOL_INIT.out.reads,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_midas = MIDAS(
+        ch_bactopiatool.reads,
         params.midas_db,
         params.download_midas,
         params.midas_save_as_tarball
@@ -63,11 +63,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = MIDAS.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MIDAS.out.sample_outputs)
+    sample_outputs = ch_midas.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_midas.sample_outputs)
     // Run-level
-    run_outputs = MIDAS.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MIDAS.out.run_outputs)
+    run_outputs = ch_midas.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_midas.run_outputs)
 }
 
 output {

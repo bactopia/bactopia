@@ -38,11 +38,11 @@ workflow PLASMIDFINDER {
     assembly: Channel<Record>
 
     main:
-    PLASMIDFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(PLASMIDFINDER_MODULE.out, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
+    ch_plasmidfinder = PLASMIDFINDER_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_plasmidfinder, 'tsv', [name: 'plasmidfinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = PLASMIDFINDER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_plasmidfinder
+    run_outputs = ch_csvtk_concat
 }

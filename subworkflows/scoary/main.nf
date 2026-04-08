@@ -35,10 +35,10 @@ workflow SCOARY {
     traits: Value<Path?>
 
     main:
-    SCOARY_MODULE(csv, traits)
+    ch_scoary = SCOARY_MODULE(csv, traits)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = SCOARY_MODULE.out
+    run_outputs = ch_scoary
 }

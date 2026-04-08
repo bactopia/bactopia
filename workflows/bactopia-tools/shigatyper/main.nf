@@ -46,16 +46,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SHIGATYPER(BACTOPIATOOL_INIT.out.reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_shigatyper = SHIGATYPER(ch_bactopiatool.reads)
 
     publish:
     // Per-sample
-    sample_outputs = SHIGATYPER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SHIGATYPER.out.sample_outputs)
+    sample_outputs = ch_shigatyper.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_shigatyper.sample_outputs)
     // Run-level
-    run_outputs = SHIGATYPER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SHIGATYPER.out.run_outputs)
+    run_outputs = ch_shigatyper.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_shigatyper.run_outputs)
 }
 
 output {

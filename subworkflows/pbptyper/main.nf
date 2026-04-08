@@ -36,11 +36,11 @@ workflow PBPTYPER {
     assembly: Channel<Record>
 
     main:
-    PBPTYPER_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(PBPTYPER_MODULE.out, 'tsv', [name: 'pbptyper']), 'tsv', 'tsv')
+    ch_pbptyper = PBPTYPER_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_pbptyper, 'tsv', [name: 'pbptyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = PBPTYPER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_pbptyper
+    run_outputs = ch_csvtk_concat
 }

@@ -45,17 +45,17 @@ workflow NCBIGENOMEDOWNLOAD {
     accessions: Value<Path?>
 
     main:
-    NCBIGENOMEDOWNLOAD_MODULE(accessions)
-    ch_assemblies = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().map { path ->
+    ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD_MODULE(accessions)
+    ch_assemblies = ch_ncbigenomedownload.map { r -> r.results }.flatten().map { path ->
         record(meta: [id: file(path).getSimpleName()], fna: path)
     }
-    ch_reference = NCBIGENOMEDOWNLOAD_MODULE.out.map { r -> r.results }.flatten().first()
+    ch_reference = ch_ncbigenomedownload.map { r -> r.results }.flatten().first()
 
     emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
     assemblies = ch_assemblies
     reference = ch_reference
     // Published outputs
-    sample_outputs = NCBIGENOMEDOWNLOAD_MODULE.out
+    sample_outputs = ch_ncbigenomedownload
     run_outputs = channel.empty()
 }

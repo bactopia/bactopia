@@ -38,11 +38,11 @@ workflow SISTR {
     assembly: Channel<Record>
 
     main:
-    SISTR_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(SISTR_MODULE.out, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
+    ch_sistr = SISTR_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_sistr, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SISTR_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_sistr
+    run_outputs = ch_csvtk_concat
 }

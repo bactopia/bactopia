@@ -46,16 +46,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    TBPROFILER(BACTOPIATOOL_INIT.out.reads)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_tbprofiler = TBPROFILER(ch_bactopiatool.reads)
 
     publish:
     // Per-sample
-    sample_outputs = TBPROFILER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(TBPROFILER.out.sample_outputs)
+    sample_outputs = ch_tbprofiler.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_tbprofiler.sample_outputs)
     // Run-level
-    run_outputs = TBPROFILER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(TBPROFILER.out.run_outputs)
+    run_outputs = ch_tbprofiler.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_tbprofiler.run_outputs)
 }
 
 output {

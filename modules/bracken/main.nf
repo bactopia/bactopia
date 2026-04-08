@@ -105,8 +105,7 @@ process BRACKEN {
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    }
-    else {
+    } else {
         meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
         meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
     }

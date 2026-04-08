@@ -50,16 +50,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    QUAST(BACTOPIATOOL_INIT.out.assembly_meta)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_quast = QUAST(ch_bactopiatool.assembly_meta)
 
     publish:
     // Per-sample
-    sample_outputs = QUAST.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(QUAST.out.sample_outputs)
+    sample_outputs = ch_quast.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_quast.sample_outputs)
     // Run-level
-    run_outputs = QUAST.out.run_outputs
-    run_nf_logs = collectNextflowLogs(QUAST.out.run_outputs)
+    run_outputs = ch_quast.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_quast.run_outputs)
 }
 
 output {

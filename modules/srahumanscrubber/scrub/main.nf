@@ -118,8 +118,7 @@ process SRAHUMANSCRUBBER_SCRUB {
             sra-human-scrubber: ${VERSION}
         END_VERSIONS
         """
-    }
-    else {
+    } else {
         """
         # Scrub human reads
         zcat ${r1} | \

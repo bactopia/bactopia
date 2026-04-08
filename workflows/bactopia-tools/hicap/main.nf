@@ -51,20 +51,20 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    HICAP(
-        BACTOPIATOOL_INIT.out.assembly,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_hicap = HICAP(
+        ch_bactopiatool.assembly,
         params.hicap_database_dir,
         params.hicap_model_fp
     )
 
     publish:
     // Per-sample
-    sample_outputs = HICAP.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(HICAP.out.sample_outputs)
+    sample_outputs = ch_hicap.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_hicap.sample_outputs)
     // Run-level
-    run_outputs = HICAP.out.run_outputs
-    run_nf_logs = collectNextflowLogs(HICAP.out.run_outputs)
+    run_outputs = ch_hicap.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_hicap.run_outputs)
 }
 
 output {

@@ -35,11 +35,11 @@ workflow KLEBORATE {
     assembly: Channel<Record>
 
     main:
-    KLEBORATE_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(KLEBORATE_MODULE.out, 'tsv', [name: 'kleborate']), 'tsv', 'tsv')
+    ch_kleborate = KLEBORATE_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_kleborate, 'tsv', [name: 'kleborate']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = KLEBORATE_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_kleborate
+    run_outputs = ch_csvtk_concat
 }

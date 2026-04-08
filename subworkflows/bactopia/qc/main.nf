@@ -55,13 +55,13 @@ workflow QC {
     phix: Value<Path?>
 
     main:
-    QC_MODULE(samples, adapters, phix)
+    ch_qc = QC_MODULE(samples, adapters, phix)
 
     emit:
     // Downstream inputs
-    reads = filterWithData(QC_MODULE.out, ['r1', 'r2', 'se', 'lr', 'fna'])
+    reads = filterWithData(ch_qc, ['r1', 'r2', 'se', 'lr', 'fna'])
 
     // Published outputs
-    sample_outputs = QC_MODULE.out
+    sample_outputs = ch_qc
     run_outputs = channel.empty()
 }

@@ -35,11 +35,11 @@ workflow ECTYPER {
     assembly: Channel<Record>
 
     main:
-    ECTYPER_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(ECTYPER_MODULE.out, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
+    ch_ectyper = ECTYPER_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_ectyper, 'tsv', [name: 'ectyper']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = ECTYPER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_ectyper
+    run_outputs = ch_csvtk_concat
 }

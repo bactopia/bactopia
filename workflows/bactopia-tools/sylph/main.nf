@@ -48,16 +48,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SYLPH(BACTOPIATOOL_INIT.out.reads, params.sylph_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_sylph = SYLPH(ch_bactopiatool.reads, params.sylph_db)
 
     publish:
     // Per-sample
-    sample_outputs = SYLPH.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SYLPH.out.sample_outputs)
+    sample_outputs = ch_sylph.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_sylph.sample_outputs)
     // Run-level
-    run_outputs = SYLPH.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SYLPH.out.run_outputs)
+    run_outputs = ch_sylph.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_sylph.run_outputs)
 }
 
 output {

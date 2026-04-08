@@ -33,11 +33,11 @@ workflow CLERMONTYPING {
     assembly: Channel<Record>
 
     main:
-    CLERMONTYPING_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(CLERMONTYPING_MODULE.out, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
+    ch_clermontyping = CLERMONTYPING_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_clermontyping, 'tsv', [name: 'clermontyping']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = CLERMONTYPING_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_clermontyping
+    run_outputs = ch_csvtk_concat
 }

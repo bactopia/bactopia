@@ -42,7 +42,7 @@ process IQTREE {
     record(
         // Named fields (used downstream)
         meta: meta,
-        aln: aln,
+        aln: file("${aln}"),
         nwk: file(treefile),
         // Generic fields (used for publishing)
         results: [

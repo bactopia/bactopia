@@ -47,7 +47,7 @@ process AGRVATE {
         // Generic fields (used for publishing)
         results: [
             files("${prefix}.tsv"),
-            files("${prefix}.tab"),
+            files("${prefix}*.tab", optional: true),
             files("supplemental/*")
         ],
         logs: files("*.{log,err}", optional: true),

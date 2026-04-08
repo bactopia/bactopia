@@ -49,16 +49,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    KRAKEN2(BACTOPIATOOL_INIT.out.reads, params.kraken2_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_kraken2 = KRAKEN2(ch_bactopiatool.reads, params.kraken2_db)
 
     publish:
     // Per-sample
-    sample_outputs = KRAKEN2.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(KRAKEN2.out.sample_outputs)
+    sample_outputs = ch_kraken2.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_kraken2.sample_outputs)
     // Run-level
-    run_outputs = KRAKEN2.out.run_outputs
-    run_nf_logs = collectNextflowLogs(KRAKEN2.out.run_outputs)
+    run_outputs = ch_kraken2.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_kraken2.run_outputs)
 }
 
 output {

@@ -40,16 +40,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    PLASMIDFINDER(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_plasmidfinder = PLASMIDFINDER(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = PLASMIDFINDER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(PLASMIDFINDER.out.sample_outputs)
+    sample_outputs = ch_plasmidfinder.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_plasmidfinder.sample_outputs)
     // Run-level
-    run_outputs = PLASMIDFINDER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(PLASMIDFINDER.out.run_outputs)
+    run_outputs = ch_plasmidfinder.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_plasmidfinder.run_outputs)
 }
 
 output {

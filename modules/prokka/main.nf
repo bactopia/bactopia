@@ -104,8 +104,7 @@ process PROKKA {
         meta.scope = "run"
         meta.output_dir = "prokka/${prefix}"
         meta.logs_dir = "prokka/${prefix}/logs"
-    }
-    else {
+    } else {
         meta.output_dir = "${prefix}/main/annotator/prokka/"
         meta.logs_dir = "${prefix}/main/annotator/prokka/logs/"
     }

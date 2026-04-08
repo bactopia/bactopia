@@ -48,16 +48,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    MYKROBE(BACTOPIATOOL_INIT.out.reads, params.mykrobe_species)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_mykrobe = MYKROBE(ch_bactopiatool.reads, params.mykrobe_species)
 
     publish:
     // Per-sample
-    sample_outputs = MYKROBE.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MYKROBE.out.sample_outputs)
+    sample_outputs = ch_mykrobe.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_mykrobe.sample_outputs)
     // Run-level
-    run_outputs = MYKROBE.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MYKROBE.out.run_outputs)
+    run_outputs = ch_mykrobe.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_mykrobe.run_outputs)
 }
 
 output {

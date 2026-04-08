@@ -48,11 +48,11 @@ workflow TBPROFILER {
     reads: Channel<Record>
 
     main:
-    TBPROFILER_PROFILE(reads)
-    TBPROFILER_COLLATE(gather(TBPROFILER_PROFILE.out, 'json', [name: 'tbprofiler']))
+    ch_tbprofiler_profile = TBPROFILER_PROFILE(reads)
+    ch_tbprofiler_collate = TBPROFILER_COLLATE(gather(ch_tbprofiler_profile, 'json', [name: 'tbprofiler']))
 
     emit:
     // Published outputs
-    sample_outputs = TBPROFILER_PROFILE.out
-    run_outputs = TBPROFILER_COLLATE.out
+    sample_outputs = ch_tbprofiler_profile
+    run_outputs = ch_tbprofiler_collate
 }

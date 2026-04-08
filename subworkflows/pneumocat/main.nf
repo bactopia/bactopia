@@ -39,10 +39,10 @@ workflow PNEUMOCAT {
     reads: Channel<Record>
 
     main:
-    PNEUMOCAT_MODULE(filterWithData(reads, ['r1', 'r2']))
+    ch_pneumocat = PNEUMOCAT_MODULE(filterWithData(reads, ['r1', 'r2']))
 
     emit:
     // Published outputs
-    sample_outputs = PNEUMOCAT_MODULE.out
+    sample_outputs = ch_pneumocat
     run_outputs = channel.empty()
 }

@@ -41,16 +41,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SISTR(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_sistr = SISTR(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = SISTR.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SISTR.out.sample_outputs)
+    sample_outputs = ch_sistr.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_sistr.sample_outputs)
     // Run-level
-    run_outputs = SISTR.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SISTR.out.run_outputs)
+    run_outputs = ch_sistr.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_sistr.run_outputs)
 }
 
 output {

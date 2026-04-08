@@ -58,22 +58,23 @@ workflow MIDAS {
     main:
     def filtered_reads = filterWithData(reads, ['r1', 'r2', 'se'])
 
+    ch_midas_species = channel.empty()
     if (download_midas) {
-        MIDAS_DOWNLOAD()
+        ch_midas_download = MIDAS_DOWNLOAD()
 
         if (save_as_tarball) {
-            MIDAS_SPECIES(filtered_reads, MIDAS_DOWNLOAD.out.map { r -> r.db_tarball })
+            ch_midas_species = MIDAS_SPECIES(filtered_reads, ch_midas_download.map { r -> r.db_tarball })
         } else {
-            MIDAS_SPECIES(filtered_reads, MIDAS_DOWNLOAD.out.map { r -> r.db })
+            ch_midas_species = MIDAS_SPECIES(filtered_reads, ch_midas_download.map { r -> r.db })
         }
     } else {
-        MIDAS_SPECIES(filtered_reads, database)
+        ch_midas_species = MIDAS_SPECIES(filtered_reads, database)
     }
 
-    CSVTK_CONCAT(gatherCsvtk(MIDAS_SPECIES.out, 'tsv', [name: 'midas']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_midas_species, 'tsv', [name: 'midas']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MIDAS_SPECIES.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_midas_species
+    run_outputs = ch_csvtk_concat
 }

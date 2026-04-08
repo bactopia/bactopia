@@ -84,46 +84,46 @@ include { gatherFields        } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
+    ch_bactopiatool = BACTOPIATOOL_INIT()
 
     // Download if applicable
     ch_reference = channel.empty()
     if (params.reference) {
         ch_reference = params.reference
     } else if (params.accession) {
-        NCBIGENOMEDOWNLOAD([])
-        ch_reference = NCBIGENOMEDOWNLOAD.out.reference
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD([])
+        ch_reference = ch_ncbigenomedownload.reference
     }
 
     // Run Snippy per-sample
-    SNIPPY(BACTOPIATOOL_INIT.out.reads, ch_reference)
-    ch_sample_outputs = SNIPPY.out.sample_outputs
-    ch_run_outputs = SNIPPY.out.run_outputs
+    ch_snippy = SNIPPY(ch_bactopiatool.reads, ch_reference)
+    ch_sample_outputs = ch_snippy.sample_outputs
+    ch_run_outputs = ch_snippy.run_outputs
 
     // Collect per-sample VCFs and aligned FAs for core-SNP analysis
     ch_core_input = gatherFields(
-        SNIPPY.out.variants,
+        ch_snippy.variants,
         [vcf: '_vcf', aligned_fa: '_aligned_fa'],
         [name: 'core-snp']
     )
 
     // Identify core SNPs
-    SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask)
-    ch_sample_outputs = ch_sample_outputs.mix(SNIPPY_CORE.out.sample_outputs)
-    ch_run_outputs = ch_run_outputs.mix(SNIPPY_CORE.out.run_outputs)
+    ch_snippy_core = SNIPPY_CORE(ch_core_input, ch_reference, params.snippy_core_mask)
+    ch_sample_outputs = ch_sample_outputs.mix(ch_snippy_core.sample_outputs)
+    ch_run_outputs = ch_run_outputs.mix(ch_snippy_core.run_outputs)
 
     // (optional) Identify Recombination
     if (!params.skip_recombination) {
-        GUBBINS(SNIPPY_CORE.out.alignment)
-        ch_sample_outputs = ch_sample_outputs.mix(GUBBINS.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(GUBBINS.out.run_outputs)
+        ch_gubbins = GUBBINS(ch_snippy_core.alignment)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_gubbins.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_gubbins.run_outputs)
     }
 
     // Create core-snp phylogeny
     if (!params.skip_phylogeny) {
-        IQTREE(params.skip_recombination ? SNIPPY_CORE.out.alignment : GUBBINS.out.alignment)
-        ch_sample_outputs = ch_sample_outputs.mix(IQTREE.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(IQTREE.out.run_outputs)
+        ch_iqtree = IQTREE(params.skip_recombination ? ch_snippy_core.alignment : ch_gubbins.alignment)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_iqtree.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_iqtree.run_outputs)
     }
 
     publish:

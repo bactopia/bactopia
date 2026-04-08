@@ -49,16 +49,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    DEFENSEFINDER(BACTOPIATOOL_INIT.out.proteins)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_defensefinder = DEFENSEFINDER(ch_bactopiatool.proteins)
 
     publish:
     // Per-sample
-    sample_outputs = DEFENSEFINDER.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(DEFENSEFINDER.out.sample_outputs)
+    sample_outputs = ch_defensefinder.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_defensefinder.sample_outputs)
     // Run-level
-    run_outputs = DEFENSEFINDER.out.run_outputs
-    run_nf_logs = collectNextflowLogs(DEFENSEFINDER.out.run_outputs)
+    run_outputs = ch_defensefinder.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_defensefinder.run_outputs)
 }
 
 output {

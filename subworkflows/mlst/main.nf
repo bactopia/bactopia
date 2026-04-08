@@ -37,11 +37,11 @@ workflow MLST {
     db: Value<Path>
 
     main:
-    MLST_MODULE(assembly, db)
-    CSVTK_CONCAT(gatherCsvtk(MLST_MODULE.out, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
+    ch_mlst = MLST_MODULE(assembly, db)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mlst, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MLST_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mlst
+    run_outputs = ch_csvtk_concat
 }

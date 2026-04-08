@@ -67,13 +67,13 @@ workflow SNIPPY {
     reference : Value<Path>
 
     main:
-    SNIPPY_RUN(reads, reference)
+    ch_snippy_run = SNIPPY_RUN(reads, reference)
 
     emit:
     // Downstream inputs
-    variants = filterWithData(SNIPPY_RUN.out, ['vcf', 'aligned_fa'])
+    variants = filterWithData(ch_snippy_run, ['vcf', 'aligned_fa'])
 
     // Published outputs
-    sample_outputs = SNIPPY_RUN.out
+    sample_outputs = ch_snippy_run
     run_outputs = channel.empty()
 }

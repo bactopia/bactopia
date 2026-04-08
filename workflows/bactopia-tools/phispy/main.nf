@@ -40,16 +40,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    PHISPY(BACTOPIATOOL_INIT.out.gbff)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_phispy = PHISPY(ch_bactopiatool.gbff)
 
     publish:
     // Per-sample
-    sample_outputs = PHISPY.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(PHISPY.out.sample_outputs)
+    sample_outputs = ch_phispy.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_phispy.sample_outputs)
     // Run-level
-    run_outputs = PHISPY.out.run_outputs
-    run_nf_logs = collectNextflowLogs(PHISPY.out.run_outputs)
+    run_outputs = ch_phispy.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_phispy.run_outputs)
 }
 
 output {

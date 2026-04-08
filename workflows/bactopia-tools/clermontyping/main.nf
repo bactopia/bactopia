@@ -45,16 +45,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    CLERMONTYPING(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_clermontyping = CLERMONTYPING(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = CLERMONTYPING.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(CLERMONTYPING.out.sample_outputs)
+    sample_outputs = ch_clermontyping.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_clermontyping.sample_outputs)
     // Run-level
-    run_outputs = CLERMONTYPING.out.run_outputs
-    run_nf_logs = collectNextflowLogs(CLERMONTYPING.out.run_outputs)
+    run_outputs = ch_clermontyping.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_clermontyping.run_outputs)
 }
 
 output {

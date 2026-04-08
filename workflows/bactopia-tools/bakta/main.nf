@@ -74,9 +74,9 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    BAKTA(
-        BACTOPIATOOL_INIT.out.assembly,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_bakta = BAKTA(
+        ch_bactopiatool.assembly,
         params.bakta_db,
         params.download_bakta,
         params.bakta_save_as_tarball,
@@ -87,11 +87,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = BAKTA.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(BAKTA.out.sample_outputs)
+    sample_outputs = ch_bakta.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_bakta.sample_outputs)
     // Run-level
-    run_outputs = BAKTA.out.run_outputs
-    run_nf_logs = collectNextflowLogs(BAKTA.out.run_outputs)
+    run_outputs = ch_bakta.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_bakta.run_outputs)
 }
 
 output {

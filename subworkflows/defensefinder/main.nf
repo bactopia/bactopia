@@ -42,16 +42,16 @@ workflow DEFENSEFINDER {
     assembly: Channel<Record>
 
     main:
-    DEFENSEFINDER_UPDATE()
-    DEFENSEFINDER_RUN(assembly, DEFENSEFINDER_UPDATE.out.map { r -> r.db })
+    ch_defensefinder_update = DEFENSEFINDER_UPDATE()
+    ch_defensefinder_run = DEFENSEFINDER_RUN(assembly, ch_defensefinder_update.map { r -> r.db })
 
     // Merge results
-    GENES_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
-    HMMER_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'hmmer_tsv', [name: 'defensefinder-hmmer']), 'tsv', 'tsv')
-    SYSTEMS_CONCAT(gatherCsvtk(DEFENSEFINDER_RUN.out, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
+    ch_genes_concat = GENES_CONCAT(gatherCsvtk(ch_defensefinder_run, 'genes_tsv', [name: 'defensefinder-genes']), 'tsv', 'tsv')
+    ch_hmmer_concat = HMMER_CONCAT(gatherCsvtk(ch_defensefinder_run, 'hmmer_tsv', [name: 'defensefinder-hmmer']), 'tsv', 'tsv')
+    ch_systems_concat = SYSTEMS_CONCAT(gatherCsvtk(ch_defensefinder_run, 'systems_tsv', [name: 'defensefinder-systems']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = DEFENSEFINDER_RUN.out
-    run_outputs = GENES_CONCAT.out.mix(HMMER_CONCAT.out, SYSTEMS_CONCAT.out)
+    sample_outputs = ch_defensefinder_run
+    run_outputs = ch_genes_concat.mix(ch_hmmer_concat, ch_systems_concat)
 }

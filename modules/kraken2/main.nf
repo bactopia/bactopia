@@ -88,8 +88,7 @@ process KRAKEN2 {
     if (task.ext.wf == "teton") {
         meta.output_dir = "${prefix}/teton/tools/${output_folder}"
         meta.logs_dir = "${prefix}/teton/tools/${output_folder}/logs/${task.ext.logs_subdir}"
-    }
-    else {
+    } else {
         meta.output_dir = "${prefix}/tools/${output_folder}"
         meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
     }

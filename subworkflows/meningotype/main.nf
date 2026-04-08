@@ -34,11 +34,11 @@ workflow MENINGOTYPE {
     assembly: Channel<Record>
 
     main:
-    MENINGOTYPE_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(MENINGOTYPE_MODULE.out, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
+    ch_meningotype = MENINGOTYPE_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_meningotype, 'tsv', [name: 'meningotype']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MENINGOTYPE_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_meningotype
+    run_outputs = ch_csvtk_concat
 }

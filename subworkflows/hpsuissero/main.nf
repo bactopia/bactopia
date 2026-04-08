@@ -35,11 +35,11 @@ workflow HPSUISSERO {
     assembly: Channel<Record>
 
     main:
-    HPSUISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(HPSUISSERO_MODULE.out, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
+    ch_hpsuissero = HPSUISSERO_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_hpsuissero, 'tsv', [name: 'hpsuissero']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = HPSUISSERO_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_hpsuissero
+    run_outputs = ch_csvtk_concat
 }

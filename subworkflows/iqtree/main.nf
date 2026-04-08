@@ -35,10 +35,10 @@ workflow IQTREE {
     alignment: Channel<Record>
 
     main:
-    IQTREE_MODULE(alignment)
+    ch_iqtree = IQTREE_MODULE(alignment)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = IQTREE_MODULE.out
+    run_outputs = ch_iqtree
 }

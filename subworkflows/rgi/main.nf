@@ -37,12 +37,12 @@ workflow RGI {
     assembly: Channel<Record>
 
     main:
-    RGI_MAIN(assembly)
-    RGI_HEATMAP(gather(RGI_MAIN.out, 'json', [name: 'rgi']))
-    CSVTK_CONCAT(gatherCsvtk(RGI_MAIN.out, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
+    ch_rgi_main = RGI_MAIN(assembly)
+    ch_rgi_heatmap = RGI_HEATMAP(gather(ch_rgi_main, 'json', [name: 'rgi']))
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_rgi_main, 'tsv', [name: 'rgi']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = RGI_MAIN.out
-    run_outputs = RGI_HEATMAP.out.mix(CSVTK_CONCAT.out)
+    sample_outputs = ch_rgi_main
+    run_outputs = ch_rgi_heatmap.mix(ch_csvtk_concat)
 }

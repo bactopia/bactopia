@@ -108,8 +108,7 @@ process SHIGATYPER {
             shigatyper: \$(echo \$(shigatyper --version 2>&1) | sed 's/^.*ShigaTyper //' )
         END_VERSIONS
         """
-    }
-    else {
+    } else {
         """
         shigatyper \\
             ${task.ext.args}  \\

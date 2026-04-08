@@ -66,7 +66,7 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
+    ch_bactopiatool = BACTOPIATOOL_INIT()
 
     // Reference if applicable
     ch_reference = channel.empty() as Channel<Record>
@@ -79,27 +79,27 @@ workflow {
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        NCBIGENOMEDOWNLOAD(params.accessions)
-        ch_reference = ch_reference.mix(NCBIGENOMEDOWNLOAD.out.assemblies)
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
+        ch_reference = ch_reference.mix(ch_ncbigenomedownload.assemblies)
     }
 
     // Add query if pairwise
-    ch_query = BACTOPIATOOL_INIT.out.assembly
+    ch_query = ch_bactopiatool.assembly
     if (params.fastani_pairwise) {
         ch_reference = ch_reference.mix(ch_query)
         ch_query = ch_reference
     }
 
     // Run FastANI
-    FASTANI(ch_query, ch_reference)
+    ch_fastani = FASTANI(ch_query, ch_reference)
 
     publish:
     // Per-sample
-    sample_outputs = FASTANI.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(FASTANI.out.sample_outputs)
+    sample_outputs = ch_fastani.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_fastani.sample_outputs)
     // Run-level
-    run_outputs = FASTANI.out.run_outputs
-    run_nf_logs = collectNextflowLogs(FASTANI.out.run_outputs)
+    run_outputs = ch_fastani.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_fastani.run_outputs)
 }
 
 output {

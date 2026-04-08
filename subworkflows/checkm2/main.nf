@@ -48,18 +48,19 @@ workflow CHECKM2 {
     download_checkm2: Boolean
 
     main:
+    ch_checkm2_predict = channel.empty()
     if (download_checkm2) {
-        CHECKM2_DOWNLOAD()
-        CHECKM2_PREDICT(assembly, CHECKM2_DOWNLOAD.out.map { r -> r.db })
+        ch_checkm2_download = CHECKM2_DOWNLOAD()
+        ch_checkm2_predict = CHECKM2_PREDICT(assembly, ch_checkm2_download.map { r -> r.db })
     } else {
-        CHECKM2_PREDICT(assembly, database)
+        ch_checkm2_predict = CHECKM2_PREDICT(assembly, database)
     }
 
     // Merge results
-    CSVTK_CONCAT(gatherCsvtk(CHECKM2_PREDICT.out, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_checkm2_predict, 'tsv', [name: 'checkm2']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = CHECKM2_PREDICT.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_checkm2_predict
+    run_outputs = ch_csvtk_concat
 }

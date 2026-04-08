@@ -38,11 +38,11 @@ workflow BLASTN {
     query: Value<Path>
 
     main:
-    BLASTN_MODULE(blastdb, query)
-    CSVTK_CONCAT(gatherCsvtk(BLASTN_MODULE.out, 'tsv', [name: 'blastn']), 'tsv', 'tsv')
+    ch_blastn = BLASTN_MODULE(blastdb, query)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_blastn, 'tsv', [name: 'blastn']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = BLASTN_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_blastn
+    run_outputs = ch_csvtk_concat
 }

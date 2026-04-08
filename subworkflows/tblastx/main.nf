@@ -38,11 +38,11 @@ workflow TBLASTX {
     query: Value<Path>
 
     main:
-    TBLASTX_MODULE(blastdb, query)
-    CSVTK_CONCAT(gatherCsvtk(TBLASTX_MODULE.out, 'tsv', [name: 'tblastx']), 'tsv', 'tsv')
+    ch_tblastx = TBLASTX_MODULE(blastdb, query)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_tblastx, 'tsv', [name: 'tblastx']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = TBLASTX_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_tblastx
+    run_outputs = ch_csvtk_concat
 }

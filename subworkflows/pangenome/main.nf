@@ -61,18 +61,18 @@ workflow PANGENOME {
 
     // Choose pangenome tool based on params
     if (use_pirate) {
-        PIRATE(gff)
-        ch_run_outputs = PIRATE.out.run_outputs
+        ch_pangenome = PIRATE(gff)
+        ch_run_outputs = ch_pangenome.run_outputs
     } else if (use_roary) {
-        ROARY(gff)
-        ch_run_outputs = ROARY.out.run_outputs
+        ch_pangenome = ROARY(gff)
+        ch_run_outputs = ch_pangenome.run_outputs
     } else {
-        PANAROO(gff)
-        ch_run_outputs = PANAROO.out.run_outputs
+        ch_pangenome = PANAROO(gff)
+        ch_run_outputs = ch_pangenome.run_outputs
     }
 
     // SNP distances (panaroo uses filtered_aln, others use aln)
-    SNPDISTS(ch_run_outputs.map { r ->
+    ch_snpdists = SNPDISTS(ch_run_outputs.map { r ->
         def core_aln = use_pirate || use_roary ? r.aln : r.filtered_aln
         record(meta: [name: 'core-genome.distance', process_name: 'snpdists'], aln: core_aln)
     })
@@ -88,5 +88,5 @@ workflow PANGENOME {
     csv = ch_run_outputs.map { r -> record(meta: r.meta, csv: r.csv) }
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = ch_run_outputs.mix(SNPDISTS.out.run_outputs)
+    run_outputs = ch_run_outputs.mix(ch_snpdists.run_outputs)
 }

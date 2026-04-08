@@ -14,15 +14,16 @@ build:
 requirements:
   host:
     - pip
-    - python >3.9
+    - python >3.9,<3.14
+    - wget
   run:
-    - bactopia-py >=1.7.0
+    - bactopia-py >=2.0.0
     - conda >=25
     - coreutils
     - mamba >=2
     - nextflow >=25
     - nf-test
-    - python >=3.9
+    - python >3.9,<3.14
     - sed
     - wget
     - importlib-metadata <5
@@ -34,6 +35,7 @@ test:
     - "bactopia prepare"
     - "bactopia search"
     - "bactopia summary --help"
+    - "nextflow -version"
 
 about:
   home: https://bactopia.github.io/

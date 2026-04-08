@@ -53,20 +53,21 @@ workflow EGGNOG {
     save_as_tarball: Boolean
 
     main:
+    ch_eggnog_mapper = channel.empty()
     if (download_eggnog) {
-        EGGNOG_DOWNLOAD()
+        ch_eggnog_download = EGGNOG_DOWNLOAD()
 
         if (save_as_tarball) {
-            EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.map { r -> r.db_tarball })
+            ch_eggnog_mapper = EGGNOG_MAPPER(proteins, ch_eggnog_download.map { r -> r.db_tarball })
         } else {
-            EGGNOG_MAPPER(proteins, EGGNOG_DOWNLOAD.out.map { r -> r.db })
+            ch_eggnog_mapper = EGGNOG_MAPPER(proteins, ch_eggnog_download.map { r -> r.db })
         }
     } else {
-        EGGNOG_MAPPER(proteins, database)
+        ch_eggnog_mapper = EGGNOG_MAPPER(proteins, database)
     }
 
     emit:
     // Published outputs
-    sample_outputs = EGGNOG_MAPPER.out
+    sample_outputs = ch_eggnog_mapper
     run_outputs = channel.empty()
 }

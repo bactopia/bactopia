@@ -36,11 +36,11 @@ workflow PASTY {
     assembly: Channel<Record>
 
     main:
-    PASTY_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(PASTY_MODULE.out, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
+    ch_pasty = PASTY_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_pasty, 'tsv', [name: 'pasty']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = PASTY_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_pasty
+    run_outputs = ch_csvtk_concat
 }

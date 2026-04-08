@@ -46,16 +46,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    GAMMA(BACTOPIATOOL_INIT.out.assembly, params.gamma_db)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_gamma = GAMMA(ch_bactopiatool.assembly, params.gamma_db)
 
     publish:
     // Per-sample
-    sample_outputs = GAMMA.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(GAMMA.out.sample_outputs)
+    sample_outputs = ch_gamma.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_gamma.sample_outputs)
     // Run-level
-    run_outputs = GAMMA.out.run_outputs
-    run_nf_logs = collectNextflowLogs(GAMMA.out.run_outputs)
+    run_outputs = ch_gamma.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_gamma.run_outputs)
 }
 
 output {

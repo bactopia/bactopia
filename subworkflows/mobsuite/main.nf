@@ -37,11 +37,11 @@ workflow MOBSUITE {
     assembly: Channel<Record>
 
     main:
-    MOBSUITE_RECON(assembly)
-    CSVTK_CONCAT(gatherCsvtk(MOBSUITE_RECON.out, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
+    ch_mobsuite_recon = MOBSUITE_RECON(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mobsuite_recon, 'txt', [name: 'mobsuite']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MOBSUITE_RECON.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mobsuite_recon
+    run_outputs = ch_csvtk_concat
 }

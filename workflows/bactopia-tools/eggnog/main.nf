@@ -56,9 +56,9 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    EGGNOG(
-        BACTOPIATOOL_INIT.out.proteins,
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_eggnog = EGGNOG(
+        ch_bactopiatool.proteins,
         params.eggnog_db,
         params.download_eggnog,
         params.eggnog_save_as_tarball
@@ -66,11 +66,11 @@ workflow {
 
     publish:
     // Per-sample
-    sample_outputs = EGGNOG.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(EGGNOG.out.sample_outputs)
+    sample_outputs = ch_eggnog.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_eggnog.sample_outputs)
     // Run-level
-    run_outputs = EGGNOG.out.run_outputs
-    run_nf_logs = collectNextflowLogs(EGGNOG.out.run_outputs)
+    run_outputs = ch_eggnog.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_eggnog.run_outputs)
 }
 
 output {

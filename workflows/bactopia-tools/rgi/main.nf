@@ -47,16 +47,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    RGI(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_rgi = RGI(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = RGI.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(RGI.out.sample_outputs)
+    sample_outputs = ch_rgi.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_rgi.sample_outputs)
     // Run-level
-    run_outputs = RGI.out.run_outputs
-    run_nf_logs = collectNextflowLogs(RGI.out.run_outputs)
+    run_outputs = ch_rgi.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_rgi.run_outputs)
 }
 
 output {

@@ -43,14 +43,14 @@ workflow GATHER {
     samples: Channel<Record>
 
     main:
-    GATHER_MODULE(samples)
-    CSVTK_CONCAT(gatherCsvtk(GATHER_MODULE.out, 'tsv', [name: 'meta']), 'tsv', 'tsv')
+    ch_gather = GATHER_MODULE(samples)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_gather, 'tsv', [name: 'meta']), 'tsv', 'tsv')
 
     emit:
     // Downstream inputs
-    reads = filterWithData(GATHER_MODULE.out, ['r1', 'r2', 'se', 'lr', 'fna'])
+    reads = filterWithData(ch_gather, ['r1', 'r2', 'se', 'lr', 'fna'])
 
     // Published outputs
-    sample_outputs = GATHER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_gather
+    run_outputs = ch_csvtk_concat
 }

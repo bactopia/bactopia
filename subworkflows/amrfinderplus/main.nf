@@ -39,11 +39,11 @@ workflow AMRFINDERPLUS {
     db: Value<Path>
 
     main:
-    AMRFINDERPLUS_RUN(fasta, db)
-    CSVTK_CONCAT(gatherCsvtk(AMRFINDERPLUS_RUN.out, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
+    ch_amrfinderplus_run = AMRFINDERPLUS_RUN(fasta, db)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_amrfinderplus_run, 'report', [name: 'amrfinderplus']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = AMRFINDERPLUS_RUN.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_amrfinderplus_run
+    run_outputs = ch_csvtk_concat
 }

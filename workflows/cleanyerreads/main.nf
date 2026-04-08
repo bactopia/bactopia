@@ -76,35 +76,35 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIA_INIT()
+    ch_bactopia = BACTOPIA_INIT()
 
     // Gather samples in one place
-    GATHER(BACTOPIA_INIT.out.samples)
+    ch_gather = GATHER(ch_bactopia.samples)
 
     // Collect outputs
-    ch_sample_outputs = GATHER.out.sample_outputs
-    ch_run_outputs = GATHER.out.run_outputs
+    ch_sample_outputs = ch_gather.sample_outputs
+    ch_run_outputs = ch_gather.run_outputs
 
     if (params.use_nohuman || params.use_srascrubber) {
         // Remove host reads
-        SCRUBBER(
-            GATHER.out.reads,
+        ch_scrubber = SCRUBBER(
+            ch_gather.reads,
             params.use_srascrubber,
             params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
             params.download_nohuman,
             params.nohuman_save_as_tarball
         )
-        ch_sample_outputs = ch_sample_outputs.mix(SCRUBBER.out.sample_outputs)
-        ch_run_outputs = ch_run_outputs.mix(SCRUBBER.out.run_outputs)
+        ch_sample_outputs = ch_sample_outputs.mix(ch_scrubber.sample_outputs)
+        ch_run_outputs = ch_run_outputs.mix(ch_scrubber.run_outputs)
 
         // Clean up scrubbed reads
-        QC(SCRUBBER.out.scrubbed_extra, params.adapters, params.phix)
+        ch_qc = QC(ch_scrubber.scrubbed_extra, params.adapters, params.phix)
     } else {
         // Clean up raw reads
-        QC(GATHER.out.reads, params.adapters, params.phix)
+        ch_qc = QC(ch_gather.reads, params.adapters, params.phix)
     }
-    ch_sample_outputs = ch_sample_outputs.mix(QC.out.sample_outputs)
-    ch_run_outputs = ch_run_outputs.mix(QC.out.run_outputs)
+    ch_sample_outputs = ch_sample_outputs.mix(ch_qc.sample_outputs)
+    ch_run_outputs = ch_run_outputs.mix(ch_qc.run_outputs)
 
     publish:
     // Per-sample

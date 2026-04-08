@@ -33,11 +33,11 @@ workflow AGRVATE {
     assembly: Channel<Record>
 
     main:
-    AGRVATE_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(AGRVATE_MODULE.out, 'tsv', [name: 'agrvate']), 'tsv', 'tsv')
+    ch_agrvate = AGRVATE_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_agrvate, 'tsv', [name: 'agrvate']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = AGRVATE_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_agrvate
+    run_outputs = ch_csvtk_concat
 }

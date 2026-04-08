@@ -47,16 +47,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    BLASTX(BACTOPIATOOL_INIT.out.blastdb, params.blastx_query)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_blastx = BLASTX(ch_bactopiatool.blastdb, params.blastx_query)
 
     publish:
     // Per-sample
-    sample_outputs = BLASTX.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(BLASTX.out.sample_outputs)
+    sample_outputs = ch_blastx.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_blastx.sample_outputs)
     // Run-level
-    run_outputs = BLASTX.out.run_outputs
-    run_nf_logs = collectNextflowLogs(BLASTX.out.run_outputs)
+    run_outputs = ch_blastx.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_blastx.run_outputs)
 }
 
 output {

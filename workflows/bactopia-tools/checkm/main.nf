@@ -45,16 +45,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    CHECKM(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_checkm = CHECKM(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = CHECKM.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(CHECKM.out.sample_outputs)
+    sample_outputs = ch_checkm.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_checkm.sample_outputs)
     // Run-level
-    run_outputs = CHECKM.out.run_outputs
-    run_nf_logs = collectNextflowLogs(CHECKM.out.run_outputs)
+    run_outputs = ch_checkm.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_checkm.run_outputs)
 }
 
 output {

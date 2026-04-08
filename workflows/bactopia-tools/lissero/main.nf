@@ -40,16 +40,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    LISSERO(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_lissero = LISSERO(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = LISSERO.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(LISSERO.out.sample_outputs)
+    sample_outputs = ch_lissero.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_lissero.sample_outputs)
     // Run-level
-    run_outputs = LISSERO.out.run_outputs
-    run_nf_logs = collectNextflowLogs(LISSERO.out.run_outputs)
+    run_outputs = ch_lissero.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_lissero.run_outputs)
 }
 
 output {

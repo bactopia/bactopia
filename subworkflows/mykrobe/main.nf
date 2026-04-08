@@ -45,11 +45,11 @@ workflow MYKROBE {
     mykrobe_species: String
 
     main:
-    MYKROBE_PREDICT(reads, mykrobe_species)
-    CSVTK_CONCAT(gatherCsvtk(MYKROBE_PREDICT.out, 'csv', [name: 'mykrobe']), 'csv', 'csv')
+    ch_mykrobe_predict = MYKROBE_PREDICT(reads, mykrobe_species)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mykrobe_predict, 'csv', [name: 'mykrobe']), 'csv', 'csv')
 
     emit:
     // Published outputs
-    sample_outputs = MYKROBE_PREDICT.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mykrobe_predict
+    run_outputs = ch_csvtk_concat
 }

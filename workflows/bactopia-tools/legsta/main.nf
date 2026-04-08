@@ -40,16 +40,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    LEGSTA(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_legsta = LEGSTA(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = LEGSTA.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(LEGSTA.out.sample_outputs)
+    sample_outputs = ch_legsta.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_legsta.sample_outputs)
     // Run-level
-    run_outputs = LEGSTA.out.run_outputs
-    run_nf_logs = collectNextflowLogs(LEGSTA.out.run_outputs)
+    run_outputs = ch_legsta.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_legsta.run_outputs)
 }
 
 output {

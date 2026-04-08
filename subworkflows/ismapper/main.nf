@@ -46,10 +46,10 @@ workflow ISMAPPER {
     insertions: Value<Path>
 
     main:
-    ISMAPPER_MODULE(filterWithData(reads, ['r1', 'r2']), reference, insertions)
+    ch_ismapper = ISMAPPER_MODULE(filterWithData(reads, ['r1', 'r2']), reference, insertions)
 
     emit:
     // Published outputs
-    sample_outputs = ISMAPPER_MODULE.out
+    sample_outputs = ch_ismapper
     run_outputs = channel.empty()
 }

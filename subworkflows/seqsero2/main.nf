@@ -34,11 +34,11 @@ workflow SEQSERO2 {
     seqs: Channel<Record>
 
     main:
-    SEQSERO2_MODULE(seqs)
-    CSVTK_CONCAT(gatherCsvtk(SEQSERO2_MODULE.out, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
+    ch_seqsero2 = SEQSERO2_MODULE(seqs)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_seqsero2, 'tsv', [name: 'seqsero2']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SEQSERO2_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_seqsero2
+    run_outputs = ch_csvtk_concat
 }

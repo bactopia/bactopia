@@ -84,7 +84,7 @@ workflow MERLIN {
 
     main:
     // ID potential species
-    MERLINDIST(assembly, mash_db)
+    ch_merlindist = MERLINDIST(assembly, mash_db)
 
     // Helper closures to build records from MERLINDIST output
     def forAssembly = { r -> record(meta: r.meta, fna: r.fna) }
@@ -92,108 +92,108 @@ workflow MERLIN {
     def forSeqs = { r -> record(meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
 
     // Escherichia/Shigella
-    ch_escherichia = MERLINDIST.out.sample_outputs.filter { r -> r.escherichia != null }
-    CLERMONTYPING(ch_escherichia.map(forAssembly))
-    ECTYPER(ch_escherichia.map(forAssembly))
-    SHIGAPASS(ch_escherichia.map(forAssembly))
-    SHIGATYPER(ch_escherichia.map(forReads))
-    SHIGEIFINDER(ch_escherichia.map(forAssembly))
-    STECFINDER(ch_escherichia.map(forSeqs))
+    ch_escherichia = ch_merlindist.sample_outputs.filter { r -> r.escherichia != null }
+    ch_clermontyping = CLERMONTYPING(ch_escherichia.map(forAssembly))
+    ch_ectyper = ECTYPER(ch_escherichia.map(forAssembly))
+    ch_shigapass = SHIGAPASS(ch_escherichia.map(forAssembly))
+    ch_shigatyper = SHIGATYPER(ch_escherichia.map(forReads))
+    ch_shigeifinder = SHIGEIFINDER(ch_escherichia.map(forAssembly))
+    ch_stecfinder = STECFINDER(ch_escherichia.map(forSeqs))
 
     // Haemophilus
-    ch_haemophilus = MERLINDIST.out.sample_outputs.filter { r -> r.haemophilus != null }
-    HICAP(ch_haemophilus.map(forAssembly), hicap_database_dir, hicap_model_fp)
-    HPSUISSERO(ch_haemophilus.map(forAssembly))
+    ch_haemophilus = ch_merlindist.sample_outputs.filter { r -> r.haemophilus != null }
+    ch_hicap = HICAP(ch_haemophilus.map(forAssembly), hicap_database_dir, hicap_model_fp)
+    ch_hpsuissero = HPSUISSERO(ch_haemophilus.map(forAssembly))
 
     // Klebsiella
-    ch_klebsiella = MERLINDIST.out.sample_outputs.filter { r -> r.klebsiella != null }
-    KLEBORATE(ch_klebsiella.map(forAssembly))
+    ch_klebsiella = ch_merlindist.sample_outputs.filter { r -> r.klebsiella != null }
+    ch_kleborate = KLEBORATE(ch_klebsiella.map(forAssembly))
 
     // Legionella
-    ch_legionella = MERLINDIST.out.sample_outputs.filter { r -> r.legionella != null }
-    LEGSTA(ch_legionella.map(forAssembly))
+    ch_legionella = ch_merlindist.sample_outputs.filter { r -> r.legionella != null }
+    ch_legsta = LEGSTA(ch_legionella.map(forAssembly))
 
     // Listeria
-    ch_listeria = MERLINDIST.out.sample_outputs.filter { r -> r.listeria != null }
-    LISSERO(ch_listeria.map(forAssembly))
+    ch_listeria = ch_merlindist.sample_outputs.filter { r -> r.listeria != null }
+    ch_lissero = LISSERO(ch_listeria.map(forAssembly))
 
     // Mycobacterium
-    ch_mycobacterium = MERLINDIST.out.sample_outputs.filter { r -> r.mycobacterium != null }
-    TBPROFILER(ch_mycobacterium.map(forReads))
+    ch_mycobacterium = ch_merlindist.sample_outputs.filter { r -> r.mycobacterium != null }
+    ch_tbprofiler = TBPROFILER(ch_mycobacterium.map(forReads))
 
     // Neisseria
-    ch_neisseria = MERLINDIST.out.sample_outputs.filter { r -> r.neisseria != null }
-    NGMASTER(ch_neisseria.map(forAssembly))
+    ch_neisseria = ch_merlindist.sample_outputs.filter { r -> r.neisseria != null }
+    ch_ngmaster = NGMASTER(ch_neisseria.map(forAssembly))
 
     // Pseudomonas
-    ch_pseudomonas = MERLINDIST.out.sample_outputs.filter { r -> r.pseudomonas != null }
-    PASTY(ch_pseudomonas.map(forAssembly))
+    ch_pseudomonas = ch_merlindist.sample_outputs.filter { r -> r.pseudomonas != null }
+    ch_pasty = PASTY(ch_pseudomonas.map(forAssembly))
 
     // Salmonella
-    ch_salmonella = MERLINDIST.out.sample_outputs.filter { r -> r.salmonella != null }
-    GENOTYPHI(ch_salmonella.map(forReads))
-    SEQSERO2(ch_salmonella.map(forAssembly))
-    SISTR(ch_salmonella.map(forAssembly))
+    ch_salmonella = ch_merlindist.sample_outputs.filter { r -> r.salmonella != null }
+    ch_genotyphi = GENOTYPHI(ch_salmonella.map(forReads))
+    ch_seqsero2 = SEQSERO2(ch_salmonella.map(forAssembly))
+    ch_sistr = SISTR(ch_salmonella.map(forAssembly))
 
     // Staphylococcus
-    ch_staphylococcus = MERLINDIST.out.sample_outputs.filter { r -> r.staphylococcus != null }
-    STAPHTYPER(ch_staphylococcus.map(forAssembly), staphtyper_repeats, staphtyper_repeat_order)
+    ch_staphylococcus = ch_merlindist.sample_outputs.filter { r -> r.staphylococcus != null }
+    ch_staphtyper = STAPHTYPER(ch_staphylococcus.map(forAssembly), staphtyper_repeats, staphtyper_repeat_order)
 
     // Streptococcus
-    ch_streptococcus = MERLINDIST.out.sample_outputs.filter { r -> r.streptococcus != null }
-    EMMTYPER(ch_streptococcus.map(forAssembly), emmtyper_blastdb)
-    PBPTYPER(ch_streptococcus.map(forAssembly))
-    SEROBA(ch_streptococcus.map(forReads))
-    SSUISSERO(ch_streptococcus.map(forAssembly))
+    ch_streptococcus = ch_merlindist.sample_outputs.filter { r -> r.streptococcus != null }
+    ch_emmtyper = EMMTYPER(ch_streptococcus.map(forAssembly), emmtyper_blastdb)
+    ch_pbptyper = PBPTYPER(ch_streptococcus.map(forAssembly))
+    ch_seroba = SEROBA(ch_streptococcus.map(forReads))
+    ch_ssuissero = SSUISSERO(ch_streptococcus.map(forAssembly))
 
     emit:
     // Published outputs
-    sample_outputs = MERLINDIST.out.sample_outputs.mix(
-        CLERMONTYPING.out.sample_outputs,
-        ECTYPER.out.sample_outputs,
-        EMMTYPER.out.sample_outputs,
-        GENOTYPHI.out.sample_outputs,
-        HICAP.out.sample_outputs,
-        HPSUISSERO.out.sample_outputs,
-        KLEBORATE.out.sample_outputs,
-        LEGSTA.out.sample_outputs,
-        LISSERO.out.sample_outputs,
-        NGMASTER.out.sample_outputs,
-        PASTY.out.sample_outputs,
-        PBPTYPER.out.sample_outputs,
-        SEQSERO2.out.sample_outputs,
-        SEROBA.out.sample_outputs,
-        SHIGAPASS.out.sample_outputs,
-        SHIGATYPER.out.sample_outputs,
-        SHIGEIFINDER.out.sample_outputs,
-        STECFINDER.out.sample_outputs,
-        SISTR.out.sample_outputs,
-        SSUISSERO.out.sample_outputs,
-        STAPHTYPER.out.sample_outputs,
-        TBPROFILER.out.sample_outputs
+    sample_outputs = ch_merlindist.sample_outputs.mix(
+        ch_clermontyping.sample_outputs,
+        ch_ectyper.sample_outputs,
+        ch_emmtyper.sample_outputs,
+        ch_genotyphi.sample_outputs,
+        ch_hicap.sample_outputs,
+        ch_hpsuissero.sample_outputs,
+        ch_kleborate.sample_outputs,
+        ch_legsta.sample_outputs,
+        ch_lissero.sample_outputs,
+        ch_ngmaster.sample_outputs,
+        ch_pasty.sample_outputs,
+        ch_pbptyper.sample_outputs,
+        ch_seqsero2.sample_outputs,
+        ch_seroba.sample_outputs,
+        ch_shigapass.sample_outputs,
+        ch_shigatyper.sample_outputs,
+        ch_shigeifinder.sample_outputs,
+        ch_stecfinder.sample_outputs,
+        ch_sistr.sample_outputs,
+        ch_ssuissero.sample_outputs,
+        ch_staphtyper.sample_outputs,
+        ch_tbprofiler.sample_outputs
     )
-    run_outputs = MERLINDIST.out.run_outputs.mix(
-        CLERMONTYPING.out.run_outputs,
-        ECTYPER.out.run_outputs,
-        EMMTYPER.out.run_outputs,
-        GENOTYPHI.out.run_outputs,
-        HICAP.out.run_outputs,
-        HPSUISSERO.out.run_outputs,
-        KLEBORATE.out.run_outputs,
-        LEGSTA.out.run_outputs,
-        LISSERO.out.run_outputs,
-        NGMASTER.out.run_outputs,
-        PASTY.out.run_outputs,
-        PBPTYPER.out.run_outputs,
-        SEQSERO2.out.run_outputs,
-        SEROBA.out.run_outputs,
-        SHIGAPASS.out.run_outputs,
-        SHIGATYPER.out.run_outputs,
-        SHIGEIFINDER.out.run_outputs,
-        STECFINDER.out.run_outputs,
-        SISTR.out.run_outputs,
-        SSUISSERO.out.run_outputs,
-        STAPHTYPER.out.run_outputs,
-        TBPROFILER.out.run_outputs
+    run_outputs = ch_merlindist.run_outputs.mix(
+        ch_clermontyping.run_outputs,
+        ch_ectyper.run_outputs,
+        ch_emmtyper.run_outputs,
+        ch_genotyphi.run_outputs,
+        ch_hicap.run_outputs,
+        ch_hpsuissero.run_outputs,
+        ch_kleborate.run_outputs,
+        ch_legsta.run_outputs,
+        ch_lissero.run_outputs,
+        ch_ngmaster.run_outputs,
+        ch_pasty.run_outputs,
+        ch_pbptyper.run_outputs,
+        ch_seqsero2.run_outputs,
+        ch_seroba.run_outputs,
+        ch_shigapass.run_outputs,
+        ch_shigatyper.run_outputs,
+        ch_shigeifinder.run_outputs,
+        ch_stecfinder.run_outputs,
+        ch_sistr.run_outputs,
+        ch_ssuissero.run_outputs,
+        ch_staphtyper.run_outputs,
+        ch_tbprofiler.run_outputs
     )
 }

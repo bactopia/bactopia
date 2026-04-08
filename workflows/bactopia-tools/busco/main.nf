@@ -53,16 +53,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    BUSCO(BACTOPIATOOL_INIT.out.assembly, params.busco_lineage)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_busco = BUSCO(ch_bactopiatool.assembly, params.busco_lineage)
 
     publish:
     // Per-sample
-    sample_outputs = BUSCO.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(BUSCO.out.sample_outputs)
+    sample_outputs = ch_busco.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_busco.sample_outputs)
     // Run-level
-    run_outputs = BUSCO.out.run_outputs
-    run_nf_logs = collectNextflowLogs(BUSCO.out.run_outputs)
+    run_outputs = ch_busco.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_busco.run_outputs)
 }
 
 output {

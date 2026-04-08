@@ -41,11 +41,11 @@ workflow SRAHUMANSCRUBBER {
     reads: Channel<Record>
 
     main:
-    SRAHUMANSCRUBBER_INITDB()
-    SRAHUMANSCRUBBER_SCRUB(reads, SRAHUMANSCRUBBER_INITDB.out.map{ r -> r.db })
+    ch_srahumanscrubber_initdb = SRAHUMANSCRUBBER_INITDB()
+    ch_srahumanscrubber_scrub = SRAHUMANSCRUBBER_SCRUB(reads, ch_srahumanscrubber_initdb.map{ r -> r.db })
 
     emit:
     // Published outputs
-    sample_outputs = SRAHUMANSCRUBBER_SCRUB.out
+    sample_outputs = ch_srahumanscrubber_scrub
     run_outputs = channel.empty()
 }

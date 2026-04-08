@@ -41,17 +41,6 @@ workflow BACTOPIATOOL_INIT {
         log.info(validation.logs)
     }
 
-    // Initialize channels for various output types
-    def ch_reads                 = channel.empty() as Channel<Record>
-    def ch_assembly              = channel.empty() as Channel<Record>
-    def ch_assembly_reads        = channel.empty() as Channel<Record>
-    def ch_assembly_meta         = channel.empty() as Channel<Record>
-    def ch_assembly_proteins_gff = channel.empty() as Channel<Record>
-    def ch_blastdb               = channel.empty() as Channel<Record>
-    def ch_proteins              = channel.empty() as Channel<Record>
-    def ch_gff                   = channel.empty() as Channel<Record>
-    def ch_gbff                  = channel.empty() as Channel<Record>
-
     // Process inputs
     def collectedInputs = bactopiaToolInputs()
     if (collectedInputs.hasErrors) {
@@ -61,26 +50,57 @@ workflow BACTOPIATOOL_INIT {
         log.info(collectedInputs.logs)
         sleep(5000)
     }
-    collectedInputs.samples.each { sample ->
-        ch_reads                 << record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly              << record(meta: sample.meta, fna: sample.fna)
-        ch_assembly_reads        << record(meta: sample.meta, fna: sample.fna, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
-        ch_assembly_meta         << record(meta: sample.meta, fna: sample.fna, tsv_meta: sample.tsv_meta)
-        ch_assembly_proteins_gff << record(meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
-        ch_blastdb               << record(meta: sample.meta, blastdb: sample.blastdb)
-        ch_proteins              << record(meta: sample.meta, faa: sample.faa)
-        ch_gff                   << record(meta: sample.meta, gff: sample.gff)
-        ch_gbff                  << record(meta: sample.meta, gbff: sample.gbk)
+
+    // Build lists in a single pass (O(n) for 10k+ samples)
+    def samples                    = collectedInputs.samples
+    def reads_list                 = []
+    def assembly_list              = []
+    def assembly_reads_list        = []
+    def assembly_meta_list         = []
+    def assembly_proteins_gff_list = []
+    def blastdb_list               = []
+    def proteins_list              = []
+    def gff_list                   = []
+    def gbff_list                  = []
+
+    samples.each { sample ->
+        reads_list.add(
+            record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        )
+        assembly_list.add(
+            record(meta: sample.meta, fna: sample.fna)
+        )
+        assembly_reads_list.add(
+            record(meta: sample.meta, fna: sample.fna, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
+        )
+        assembly_meta_list.add(
+            record(meta: sample.meta, fna: sample.fna, tsv_meta: sample.tsv_meta)
+        )
+        assembly_proteins_gff_list.add(
+            record(meta: sample.meta, fna: sample.fna_anno, faa: sample.faa, gff: sample.gff)
+        )
+        blastdb_list.add(
+            record(meta: sample.meta, blastdb: sample.blastdb)
+        )
+        proteins_list.add(
+            record(meta: sample.meta, faa: sample.faa)
+        )
+        gff_list.add(
+            record(meta: sample.meta, gff: sample.gff)
+        )
+        gbff_list.add(
+            record(meta: sample.meta, gbff: sample.gbk)
+        )
     }
 
     emit:
-    reads: Channel<Record>                 = ch_reads
-    assembly: Channel<Record>              = ch_assembly
-    assembly_reads: Channel<Record>        = ch_assembly_reads
-    assembly_meta: Channel<Record>         = ch_assembly_meta
-    assembly_proteins_gff: Channel<Record> = ch_assembly_proteins_gff
-    blastdb: Channel<Record>               = ch_blastdb
-    proteins: Channel<Record>              = ch_proteins
-    gff: Channel<Record>                   = ch_gff
-    gbff: Channel<Record>                  = ch_gbff
+    reads: Channel<Record>                 = channel.fromList(reads_list)
+    assembly: Channel<Record>              = channel.fromList(assembly_list)
+    assembly_reads: Channel<Record>        = channel.fromList(assembly_reads_list)
+    assembly_meta: Channel<Record>         = channel.fromList(assembly_meta_list)
+    assembly_proteins_gff: Channel<Record> = channel.fromList(assembly_proteins_gff_list)
+    blastdb: Channel<Record>               = channel.fromList(blastdb_list)
+    proteins: Channel<Record>              = channel.fromList(proteins_list)
+    gff: Channel<Record>                   = channel.fromList(gff_list)
+    gbff: Channel<Record>                  = channel.fromList(gbff_list)
 }

@@ -37,11 +37,11 @@ workflow QUAST {
     fasta: Channel<Record>
 
     main:
-    QUAST_MODULE(fasta)
-    CSVTK_CONCAT(gatherCsvtk(QUAST_MODULE.out, 'tsv', [name: 'quast']), 'tsv', 'tsv')
+    ch_quast = QUAST_MODULE(fasta)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_quast, 'tsv', [name: 'quast']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = QUAST_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_quast
+    run_outputs = ch_csvtk_concat
 }

@@ -36,11 +36,11 @@ workflow MCRONI {
     assembly: Channel<Record>
 
     main:
-    MCRONI_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(MCRONI_MODULE.out, 'tsv', [name: 'mcroni']), 'tsv', 'tsv')
+    ch_mcroni = MCRONI_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mcroni, 'tsv', [name: 'mcroni']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MCRONI_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mcroni
+    run_outputs = ch_csvtk_concat
 }

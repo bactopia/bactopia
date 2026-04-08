@@ -34,11 +34,11 @@ workflow SSUISSERO {
     assembly: Channel<Record>
 
     main:
-    SSUISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(SSUISSERO_MODULE.out, 'tsv', [name: 'ssuissero']), 'tsv', 'tsv')
+    ch_ssuissero = SSUISSERO_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_ssuissero, 'tsv', [name: 'ssuissero']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SSUISSERO_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_ssuissero
+    run_outputs = ch_csvtk_concat
 }

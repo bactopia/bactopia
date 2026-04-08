@@ -35,10 +35,10 @@ workflow PANAROO {
     gff: Channel<Record>
 
     main:
-    PANAROO_RUN(gff)
+    ch_panaroo_run = PANAROO_RUN(gff)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = PANAROO_RUN.out
+    run_outputs = ch_panaroo_run
 }

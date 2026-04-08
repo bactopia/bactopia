@@ -24,11 +24,11 @@ include { DATASETS as DATASETS_MODULE } from '../../../modules/bactopia/datasets
 workflow DATASETS {
 
     main:
-    DATASETS_MODULE()
+    ch_datasets = DATASETS_MODULE()
 
     emit:
-    amrfinderplus_db = DATASETS_MODULE.out.map { r -> r.amrfinderplus_db }
-    mlst_db          = DATASETS_MODULE.out.map { r -> r.mlst_db }
-    mash_db          = DATASETS_MODULE.out.map { r -> r.mash_db }
-    sourmash_db      = DATASETS_MODULE.out.map { r -> r.sourmash_db }
+    amrfinderplus_db = ch_datasets.map { r -> r.amrfinderplus_db }
+    mlst_db          = ch_datasets.map { r -> r.mlst_db }
+    mash_db          = ch_datasets.map { r -> r.mash_db }
+    sourmash_db      = ch_datasets.map { r -> r.sourmash_db }
 }

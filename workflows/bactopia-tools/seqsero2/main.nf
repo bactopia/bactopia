@@ -46,16 +46,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    SEQSERO2(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_seqsero2 = SEQSERO2(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = SEQSERO2.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(SEQSERO2.out.sample_outputs)
+    sample_outputs = ch_seqsero2.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_seqsero2.sample_outputs)
     // Run-level
-    run_outputs = SEQSERO2.out.run_outputs
-    run_nf_logs = collectNextflowLogs(SEQSERO2.out.run_outputs)
+    run_outputs = ch_seqsero2.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_seqsero2.run_outputs)
 }
 
 output {

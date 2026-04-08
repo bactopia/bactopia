@@ -38,11 +38,11 @@ workflow MASHDIST {
     reference: Value<Path>
 
     main:
-    MASH_DIST(assembly, reference)
-    CSVTK_CONCAT(gatherCsvtk(MASH_DIST.out, 'dist', [name: 'mashdist']), 'tsv', 'tsv')
+    ch_mash_dist = MASH_DIST(assembly, reference)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mash_dist, 'dist', [name: 'mashdist']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MASH_DIST.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mash_dist
+    run_outputs = ch_csvtk_concat
 }

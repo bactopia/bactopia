@@ -33,10 +33,10 @@ workflow PIRATE {
     gff: Channel<Record>
 
     main:
-    PIRATE_MODULE(gff)
+    ch_pirate = PIRATE_MODULE(gff)
 
     emit:
     // Published outputs
     sample_outputs = channel.empty()
-    run_outputs = PIRATE_MODULE.out
+    run_outputs = ch_pirate
 }

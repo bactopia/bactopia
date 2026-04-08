@@ -50,13 +50,13 @@ workflow PROKKA {
     prodigal_tf: Value<Path?>
 
     main:
-    PROKKA_MODULE(assembly, proteins, prodigal_tf)
+    ch_prokka = PROKKA_MODULE(assembly, proteins, prodigal_tf)
 
     emit:
     // Downstream inputs
-    annotations = filterWithData(PROKKA_MODULE.out, ['fna', 'faa', 'gff'])
-    gffs = PROKKA_MODULE.out.map { r -> record(meta: r.meta, gff: r.gff) }
+    annotations = filterWithData(ch_prokka, ['fna', 'faa', 'gff'])
+    gffs = ch_prokka.map { r -> record(meta: r.meta, gff: r.gff) }
     // Published outputs
-    sample_outputs = PROKKA_MODULE.out
+    sample_outputs = ch_prokka
     run_outputs = channel.empty()
 }

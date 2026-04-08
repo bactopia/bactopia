@@ -34,11 +34,11 @@ workflow SHIGEIFINDER {
     assembly: Channel<Record>
 
     main:
-    SHIGEIFINDER_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(SHIGEIFINDER_MODULE.out, 'tsv', [name: 'shigeifinder']), 'tsv', 'tsv')
+    ch_shigeifinder = SHIGEIFINDER_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_shigeifinder, 'tsv', [name: 'shigeifinder']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = SHIGEIFINDER_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_shigeifinder
+    run_outputs = ch_csvtk_concat
 }

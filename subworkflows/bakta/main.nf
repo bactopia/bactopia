@@ -71,24 +71,25 @@ workflow BAKTA {
     replicons: Value<Path?>
 
     main:
+    ch_bakta_run = channel.empty()
     if (download_bakta) {
         // Force BAKTA_DOWNLOAD to wait
-        BAKTA_DOWNLOAD()
+        ch_bakta_download = BAKTA_DOWNLOAD()
 
         if (save_as_tarball) {
-            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.map { r -> r.db_tarball }, proteins, prodigal_tf, replicons)
+            ch_bakta_run = BAKTA_RUN(assembly, ch_bakta_download.map { r -> r.db_tarball }, proteins, prodigal_tf, replicons)
         } else {
-            BAKTA_RUN(assembly, BAKTA_DOWNLOAD.out.map { r -> r.db }, proteins, prodigal_tf, replicons)
+            ch_bakta_run = BAKTA_RUN(assembly, ch_bakta_download.map { r -> r.db }, proteins, prodigal_tf, replicons)
         }
     } else {
-        BAKTA_RUN(assembly, database, proteins, prodigal_tf, replicons)
+        ch_bakta_run = BAKTA_RUN(assembly, database, proteins, prodigal_tf, replicons)
     }
 
     emit:
     // Downstream inputs
-    annotations = filterWithData(BAKTA_RUN.out, ['fna', 'faa', 'gff'])
+    annotations = filterWithData(ch_bakta_run, ['fna', 'faa', 'gff'])
 
     // Published outputs
-    sample_outputs = BAKTA_RUN.out
+    sample_outputs = ch_bakta_run
     run_outputs = channel.empty()
 }

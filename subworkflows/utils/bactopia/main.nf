@@ -39,8 +39,7 @@ workflow BACTOPIA_INIT {
         log.info(validation.logs)
     }
 
-    // Initialize samples channel
-    def ch_samples = channel.empty() as Channel<Record>
+    // Process inputs
     def collectedInputs = bactopiaInputs(validation.data)
     if (collectedInputs.hasErrors) {
         log.info(collectedInputs.error)
@@ -49,8 +48,8 @@ workflow BACTOPIA_INIT {
         log.info(collectedInputs.logs)
     }
 
-    collectedInputs.samples.each { sample ->
-        ch_samples << record(
+    def ch_samples = channel.fromList(collectedInputs.samples.collect { sample ->
+        record(
             meta:      sample.meta,
             r1_files:  sample.r1.collect { fastq -> file(fastq) }.toSet(),
             r2_files:  sample.r2.collect { fastq -> file(fastq) }.toSet(),
@@ -58,7 +57,7 @@ workflow BACTOPIA_INIT {
             lr_files:  sample.lr.collect { fastq -> file(fastq) }.toSet(),
             fna_files: sample.assembly.collect { fna -> file(fna) }.toSet()
         )
-    }
+    }) as Channel<Record>
 
     emit:
     // Full 6-slot structure for GATHER (pre-merge with Set<Path> for multiple files)

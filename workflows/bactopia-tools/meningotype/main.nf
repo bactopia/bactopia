@@ -44,16 +44,16 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
-    MENINGOTYPE(BACTOPIATOOL_INIT.out.assembly)
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_meningotype = MENINGOTYPE(ch_bactopiatool.assembly)
 
     publish:
     // Per-sample
-    sample_outputs = MENINGOTYPE.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(MENINGOTYPE.out.sample_outputs)
+    sample_outputs = ch_meningotype.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_meningotype.sample_outputs)
     // Run-level
-    run_outputs = MENINGOTYPE.out.run_outputs
-    run_nf_logs = collectNextflowLogs(MENINGOTYPE.out.run_outputs)
+    run_outputs = ch_meningotype.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_meningotype.run_outputs)
 }
 
 output {

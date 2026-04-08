@@ -50,28 +50,28 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIATOOL_INIT()
+    ch_bactopiatool = BACTOPIATOOL_INIT()
 
     if (params.amrfinderplus_db) {
-        AMRFINDERPLUS(
-            BACTOPIATOOL_INIT.out.assembly_proteins_gff,
+        ch_amrfinderplus = AMRFINDERPLUS(
+            ch_bactopiatool.assembly_proteins_gff,
             params.amrfinderplus_db
         )
     } else {
-        DATASETS()
-        AMRFINDERPLUS(
-            BACTOPIATOOL_INIT.out.assembly_proteins_gff,
-            DATASETS.out.amrfinderplus_db
+        ch_datasets = DATASETS()
+        ch_amrfinderplus = AMRFINDERPLUS(
+            ch_bactopiatool.assembly_proteins_gff,
+            ch_datasets.amrfinderplus_db
         )
     }
 
     publish:
     // Per-sample
-    sample_outputs = AMRFINDERPLUS.out.sample_outputs
-    sample_nf_logs = collectNextflowLogs(AMRFINDERPLUS.out.sample_outputs)
+    sample_outputs = ch_amrfinderplus.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_amrfinderplus.sample_outputs)
     // Run-level
-    run_outputs = AMRFINDERPLUS.out.run_outputs
-    run_nf_logs = collectNextflowLogs(AMRFINDERPLUS.out.run_outputs)
+    run_outputs = ch_amrfinderplus.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_amrfinderplus.run_outputs)
 }
 
 output {

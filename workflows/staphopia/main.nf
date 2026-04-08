@@ -146,29 +146,29 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
-    BACTOPIA_INIT()
+    ch_bactopia = BACTOPIA_INIT()
 
     // Core steps
-    DATASETS()
+    ch_datasets = DATASETS()
 
     // Gather samples in one place
-    GATHER(BACTOPIA_INIT.out.samples)
+    ch_gather = GATHER(ch_bactopia.samples)
 
     // QC samples
-    QC(GATHER.out.reads, params.adapters, params.phix)
+    ch_qc = QC(ch_gather.reads, params.adapters, params.phix)
 
     // Assemble genomes
-    ASSEMBLER(QC.out.reads)
+    ch_assembler = ASSEMBLER(ch_qc.reads)
 
     // Sketch and query
-    SKETCHER(ASSEMBLER.out.assembly, DATASETS.out.mash_db, DATASETS.out.sourmash_db)
+    ch_sketcher = SKETCHER(ch_assembler.assembly, ch_datasets.mash_db, ch_datasets.sourmash_db)
 
     // Annotate samples
     ch_annotations = channel.empty()
     ch_annotation_outputs = channel.empty()
     if (params.use_bakta) {
-        BAKTA(
-            ASSEMBLER.out.assembly,
+        ch_bakta = BAKTA(
+            ch_assembler.assembly,
             params.bakta_db,
             params.download_bakta,
             params.bakta_save_as_tarball,
@@ -176,49 +176,49 @@ workflow {
             params.bakta_prodigal_tf,
             params.bakta_replicons
         )
-        ch_annotation_outputs = BAKTA.out
-        ch_annotations = BAKTA.out.annotations
+        ch_annotation_outputs = ch_bakta
+        ch_annotations = ch_bakta.annotations
     } else {
-        PROKKA(
-            ASSEMBLER.out.assembly,
+        ch_prokka = PROKKA(
+            ch_assembler.assembly,
             params.prokka_proteins,
             params.prokka_prodigal_tf
         )
-        ch_annotation_outputs = PROKKA.out
-        ch_annotations = PROKKA.out.annotations
+        ch_annotation_outputs = ch_prokka
+        ch_annotations = ch_prokka.annotations
     }
 
     // AMR
-    AMRFINDERPLUS(ch_annotations, DATASETS.out.amrfinderplus_db)
+    ch_amrfinderplus = AMRFINDERPLUS(ch_annotations, ch_datasets.amrfinderplus_db)
 
     // MLST
-    MLST(ASSEMBLER.out.assembly, DATASETS.out.mlst_db)
+    ch_mlst = MLST(ch_assembler.assembly, ch_datasets.mlst_db)
 
     // Staphtyper
-    STAPHTYPER(
-        ASSEMBLER.out.assembly,
+    ch_staphtyper = STAPHTYPER(
+        ch_assembler.assembly,
         params.spatyper_repeats,
         params.spatyper_repeat_order
     )
 
     // Collect all outputs
-    ch_sample_outputs = GATHER.out.sample_outputs
-        .mix(QC.out.sample_outputs)
-        .mix(ASSEMBLER.out.sample_outputs)
-        .mix(SKETCHER.out.sample_outputs)
+    ch_sample_outputs = ch_gather.sample_outputs
+        .mix(ch_qc.sample_outputs)
+        .mix(ch_assembler.sample_outputs)
+        .mix(ch_sketcher.sample_outputs)
         .mix(ch_annotation_outputs.sample_outputs)
-        .mix(AMRFINDERPLUS.out.sample_outputs)
-        .mix(MLST.out.sample_outputs)
-        .mix(STAPHTYPER.out.sample_outputs)
+        .mix(ch_amrfinderplus.sample_outputs)
+        .mix(ch_mlst.sample_outputs)
+        .mix(ch_staphtyper.sample_outputs)
 
-    ch_run_outputs = GATHER.out.run_outputs
-        .mix(QC.out.run_outputs)
-        .mix(ASSEMBLER.out.run_outputs)
-        .mix(SKETCHER.out.run_outputs)
+    ch_run_outputs = ch_gather.run_outputs
+        .mix(ch_qc.run_outputs)
+        .mix(ch_assembler.run_outputs)
+        .mix(ch_sketcher.run_outputs)
         .mix(ch_annotation_outputs.run_outputs)
-        .mix(AMRFINDERPLUS.out.run_outputs)
-        .mix(MLST.out.run_outputs)
-        .mix(STAPHTYPER.out.run_outputs)
+        .mix(ch_amrfinderplus.run_outputs)
+        .mix(ch_mlst.run_outputs)
+        .mix(ch_staphtyper.run_outputs)
 
     publish:
     // Per-sample

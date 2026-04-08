@@ -135,8 +135,7 @@ process NOHUMAN_RUN {
             nohuman: \$( nohuman --version 2>&1 | sed 's/nohuman //' )
         END_VERSIONS
         """
-    }
-    else {
+    } else {
         """
         if [ "${is_tarball}" == "true" ]; then
             mkdir database

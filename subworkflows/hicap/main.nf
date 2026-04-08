@@ -44,11 +44,11 @@ workflow HICAP {
     model_fp: Value<Path?>
 
     main:
-    HICAP_MODULE(assembly, database_dir, model_fp)
-    CSVTK_CONCAT(gatherCsvtk(HICAP_MODULE.out, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
+    ch_hicap = HICAP_MODULE(assembly, database_dir, model_fp)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_hicap, 'tsv', [name: 'hicap']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = HICAP_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_hicap
+    run_outputs = ch_csvtk_concat
 }

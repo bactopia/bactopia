@@ -35,11 +35,11 @@ workflow LISSERO {
     assembly: Channel<Record>
 
     main:
-    LISSERO_MODULE(assembly)
-    CSVTK_CONCAT(gatherCsvtk(LISSERO_MODULE.out, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
+    ch_lissero = LISSERO_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_lissero, 'tsv', [name: 'lissero']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = LISSERO_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_lissero
+    run_outputs = ch_csvtk_concat
 }
