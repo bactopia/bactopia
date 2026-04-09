@@ -8,6 +8,11 @@ cp bin/* ${PREFIX}/bin
 # Move bactopia nextflow
 mv bin/ conf/ data/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config nextflow_schema.json ${BACTOPIA}
 
-# Nextflow edge release
-wget https://github.com/nextflow-io/nextflow/releases/download/v26.03.2-edge/nextflow-26.03.2-edge-dist -O ${PREFIX}/bin/nextflow
-chmod +x ${PREFIX}/bin/nextflow
+# Setup the Bactopia env variables
+mkdir -p ${PREFIX}/etc/conda/activate.d ${PREFIX}/etc/conda/deactivate.d
+echo "export NXF_VER=26.03.2-edge" > ${PREFIX}/etc/conda/activate.d/bactopia.sh
+chmod a+x ${PREFIX}/etc/conda/activate.d/bactopia.sh
+
+# Unset them
+echo "unset NXF_VER" > ${PREFIX}/etc/conda/deactivate.d/bactopia.sh
+chmod a+x ${PREFIX}/etc/conda/deactivate.d/bactopia.sh
