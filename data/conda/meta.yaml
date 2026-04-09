@@ -21,6 +21,7 @@ requirements:
     - conda >=25
     - coreutils
     - mamba >=2
+    - nextflow >=25
     - nf-test
     - python >3.9,<3.14
     - sed
