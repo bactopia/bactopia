@@ -13,10 +13,10 @@
                 "versions.yml:md5,2de62652dc2eb6c95f17225e88da8d70"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:25.338032089",
+        "timestamp": "2026-04-08T20:04:14.69351791",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "plasmidfinder - module - GCF_000017085 - compressed": {
@@ -33,10 +33,10 @@
                 "versions.yml:md5,2de62652dc2eb6c95f17225e88da8d70"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:37.024900596",
+        "timestamp": "2026-04-08T20:04:26.034358084",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -66,10 +66,10 @@
                 "versions.yml:md5,eac83c8fd922f581ce913311a557ad9d"
             ]
         ],
-        "timestamp": "2026-04-05T10:07:30.933198482",
+        "timestamp": "2026-04-08T20:25:28.456022655",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bracken - SRR2838702|portiera|compressed_fastq": {
@@ -139,10 +139,10 @@
                 "versions.yml:md5,eac83c8fd922f581ce913311a557ad9d"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:50.685549989",
+        "timestamp": "2026-04-08T20:18:46.843008193",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

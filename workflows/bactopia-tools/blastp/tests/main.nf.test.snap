@@ -42,10 +42,10 @@
                 "versions.yml:md5,f96b9474386d395c01c2be97c4c63fea"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:17.601911815",
+        "timestamp": "2026-04-08T20:14:10.093155382",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "blastp (single-protein.faa.gz|--blastp_use_genes) - SRR2838702|portiera|blastdb": {
@@ -91,10 +91,10 @@
                 "versions.yml:md5,f96b9474386d395c01c2be97c4c63fea"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:34.081380231",
+        "timestamp": "2026-04-08T20:14:27.068910811",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "blastp (single-protein.faa) - SRR2838702|portiera|blastdb": {
@@ -140,10 +140,10 @@
                 "versions.yml:md5,f96b9474386d395c01c2be97c4c63fea"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:50.453637389",
+        "timestamp": "2026-04-08T20:14:47.140875213",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

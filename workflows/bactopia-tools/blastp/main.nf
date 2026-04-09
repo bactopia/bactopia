@@ -42,7 +42,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    blastp_query : Value<Path>
+    blastp_query : Path
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

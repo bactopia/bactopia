@@ -78,10 +78,10 @@
                 "shigatyper.tsv:md5,eb390412945b4c27c7fe40de634ede88"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:56.857075597",
+        "timestamp": "2026-04-08T20:18:48.829496039",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -18,10 +18,10 @@
                 "versions.yml:md5,be2d2b5a56d601fba136df419d536c4a"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:02.248269737",
+        "timestamp": "2026-04-08T20:04:52.368090011",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "sccmec - module - GCF_000017085 - compressed": {
@@ -43,10 +43,10 @@
                 "versions.yml:md5,be2d2b5a56d601fba136df419d536c4a"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:13.986013998",
+        "timestamp": "2026-04-08T20:05:03.741503303",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

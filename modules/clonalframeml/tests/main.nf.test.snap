@@ -16,10 +16,10 @@
                 "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:30.616275978",
+        "timestamp": "2026-04-08T20:03:15.437065674",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "clonalframeml - module - portiera - compressed": {
@@ -39,10 +39,10 @@
                 "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:28.906802285",
+        "timestamp": "2026-04-08T20:04:14.76356693",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

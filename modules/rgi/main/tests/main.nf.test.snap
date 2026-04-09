@@ -14,10 +14,10 @@
                 "versions.yml:md5,238ddd7a4b55d8797a1d5bfc111ebbfd"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:34.695422643",
+        "timestamp": "2026-04-08T20:05:21.597733649",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "rgi - module - GCA_000027305": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,238ddd7a4b55d8797a1d5bfc111ebbfd"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:22.794930113",
+        "timestamp": "2026-04-08T20:06:10.408589305",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

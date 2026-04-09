@@ -13,10 +13,10 @@
                 "versions.yml:md5,9cd2b041e26756435a56098355b5a2ca"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:07.854955488",
+        "timestamp": "2026-04-08T20:05:57.806051456",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "sistr - module - GCF_016028495 - compressed": {
@@ -33,10 +33,10 @@
                 "versions.yml:md5,9cd2b041e26756435a56098355b5a2ca"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:30.966294232",
+        "timestamp": "2026-04-08T20:06:21.807014862",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

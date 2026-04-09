@@ -14,10 +14,10 @@
                 "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:44.948690886",
+        "timestamp": "2026-04-08T20:03:32.691119799",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "hicap - module - GCF_900478275 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:19.351713454",
+        "timestamp": "2026-04-08T20:03:06.815810786",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "hicap - module - GCA_000027305 - nthi - compressed": {
@@ -56,10 +56,10 @@
                 "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:33.870899593",
+        "timestamp": "2026-04-08T20:04:21.570603327",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "hicap - module - GCA_000027305 - nthi - uncompressed": {
@@ -77,10 +77,10 @@
                 "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:09.003522257",
+        "timestamp": "2026-04-08T20:03:56.851707862",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -15,10 +15,10 @@
                 "versions.yml:md5,0db3954c37fd7f15463e1ca4736a5910"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:44.887480888",
+        "timestamp": "2026-04-08T20:03:33.40688378",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "mcroni - module - GCF_001682305 - uncompressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,0db3954c37fd7f15463e1ca4736a5910"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:37.055209337",
+        "timestamp": "2026-04-08T20:03:25.635926555",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

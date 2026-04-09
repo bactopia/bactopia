@@ -60,12 +60,12 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    bakta_db              : Value<Path>
+    bakta_db              : Path
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Value<Path?>
-    bakta_prodigal_tf     : Value<Path?>
-    replicons             : Value<Path?>
+    bakta_proteins        : Path?
+    bakta_prodigal_tf     : Path?
+    replicons             : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

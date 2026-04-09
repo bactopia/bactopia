@@ -46,10 +46,10 @@
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-04-05T09:59:50.162415701",
+        "timestamp": "2026-04-08T20:17:38.679642642",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "MIDAS (tarball)- SRR2838702|portiera|compressed_fastq": {
@@ -99,10 +99,10 @@
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:37.217182027",
+        "timestamp": "2026-04-08T20:18:26.287358502",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -48,10 +48,10 @@
                 "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:43.173317759",
+        "timestamp": "2026-04-08T20:18:37.030394196",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bakta - SRR2838702|portiera|compressed_fasta": {
@@ -103,10 +103,10 @@
                 "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
             ]
         ],
-        "timestamp": "2026-04-05T09:57:53.136853251",
+        "timestamp": "2026-04-08T20:15:46.652933792",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

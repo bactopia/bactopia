@@ -15,10 +15,10 @@
                 "versions.yml:md5,dc87229b4755a3bb75942178c557e81f"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:35.504272114",
+        "timestamp": "2026-04-08T20:05:24.82947254",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "shigapass - module - GCF_016726285 - compressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,dc87229b4755a3bb75942178c557e81f"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:50.66142159",
+        "timestamp": "2026-04-08T20:05:39.736358634",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

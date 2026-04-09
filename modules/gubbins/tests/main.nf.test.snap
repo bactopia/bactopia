@@ -14,10 +14,10 @@
                 "versions.yml:md5,623c400503380dab143c222d825e55f6"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:14.64983592",
+        "timestamp": "2026-04-08T20:03:02.031562947",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gubbins - module - test - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,623c400503380dab143c222d825e55f6"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:36.246460847",
+        "timestamp": "2026-04-08T20:03:24.802341883",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

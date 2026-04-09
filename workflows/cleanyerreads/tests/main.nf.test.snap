@@ -87,10 +87,10 @@
                 "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
             ]
         ],
-        "timestamp": "2026-04-05T10:04:08.366978026",
+        "timestamp": "2026-04-08T20:22:02.388547502",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "clean-yer-reads (pe) - SRR2838702|portiera|compressed_fastq": {
@@ -163,10 +163,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-05T10:03:02.044326232",
+        "timestamp": "2026-04-08T20:20:59.897553884",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

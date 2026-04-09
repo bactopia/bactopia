@@ -14,10 +14,10 @@
                 "versions.yml:md5,f9292e3762a8b98912643f1c044b07f2"
             ]
         ],
-        "timestamp": "2026-04-05T09:50:17.877744968",
+        "timestamp": "2026-04-08T20:08:05.881618432",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "kraken2 - module - SRR2838702 - tarball": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f9292e3762a8b98912643f1c044b07f2"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:31.213310328",
+        "timestamp": "2026-04-08T20:03:18.271136197",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

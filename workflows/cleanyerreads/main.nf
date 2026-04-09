@@ -61,9 +61,9 @@ params {
     // Tool-specific parameters
     use_nohuman             : Boolean
     use_srascrubber         : Boolean
-    adapters                : Value<Path?>
-    phix                    : Value<Path?>
-    nohuman_db              : Value<Path?>
+    adapters                : Path?
+    phix                    : Path?
+    nohuman_db              : Path?
     download_nohuman        : Boolean
     nohuman_save_as_tarball : Boolean
 }

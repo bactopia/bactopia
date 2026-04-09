@@ -1,7 +1,7 @@
 {
     "teton (pe) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            11,
+            13,
             [
                 "SRR2838702",
                 "SRR2838702/teton",
@@ -114,6 +114,15 @@
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/nf.command.sh",
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/nf.command.trace",
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/versions.yml",
+                "bactopia-runs/teton/merged-results/logs/teton-concat",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.begin",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.err",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.log",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.out",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.run",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.sh",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.trace",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/versions.yml",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat/nf.command.begin",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat/nf.command.err",
@@ -137,10 +146,23 @@
                 "bactopia-runs/teton/merged-results/sizemeup.tsv",
                 "bactopia-runs/teton/merged-results/teton-prepare-nonbacteria.tsv",
                 "bactopia-runs/teton/merged-results/teton-prepare.tsv",
+                "bactopia-runs/teton/merged-results/teton.tsv",
                 "bactopia-runs/teton/nf-reports",
                 "bactopia-runs/teton/nf-reports/teton-dag.dot",
                 "bactopia-runs/teton/nf-reports/teton-report.html",
-                "bactopia-runs/teton/nf-reports/teton-timeline.html"
+                "bactopia-runs/teton/nf-reports/teton-timeline.html",
+                "merged-results",
+                "merged-results/SRR2838702.tsv",
+                "merged-results/logs",
+                "merged-results/logs/SRR2838702-join",
+                "merged-results/logs/SRR2838702-join/nf.command.begin",
+                "merged-results/logs/SRR2838702-join/nf.command.err",
+                "merged-results/logs/SRR2838702-join/nf.command.log",
+                "merged-results/logs/SRR2838702-join/nf.command.out",
+                "merged-results/logs/SRR2838702-join/nf.command.run",
+                "merged-results/logs/SRR2838702-join/nf.command.sh",
+                "merged-results/logs/SRR2838702-join/nf.command.trace",
+                "merged-results/logs/SRR2838702-join/versions.yml"
             ],
             [
                 "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
@@ -152,19 +174,21 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7",
                 "versions.yml:md5,b529c3993efa987da9a980fe7c8061f8",
                 "versions.yml:md5,7365b17a2c11eb3d256b0facd20a197a",
+                "versions.yml:md5,340e424aa721674cf14433027027114a",
                 "versions.yml:md5,f27b3200ffeb3e669ad225b87cedf06c",
-                "versions.yml:md5,fcfb282f67fc93a18b7d921d22e70628"
+                "versions.yml:md5,fcfb282f67fc93a18b7d921d22e70628",
+                "versions.yml:md5,e99779aecd8dce47f4bef01bc23da898"
             ]
         ],
-        "timestamp": "2026-04-05T10:08:19.467376245",
+        "timestamp": "2026-04-08T20:26:15.814058702",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "teton (pe+srascrubber) - SRR2838702|portiera|compressed_fastq": {
         "content": [
-            11,
+            13,
             [
                 "SRR2838702",
                 "SRR2838702/teton",
@@ -277,6 +301,15 @@
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/nf.command.sh",
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/nf.command.trace",
                 "bactopia-runs/teton/merged-results/logs/sizemeup-concat/versions.yml",
+                "bactopia-runs/teton/merged-results/logs/teton-concat",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.begin",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.err",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.log",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.out",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.run",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.sh",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/nf.command.trace",
+                "bactopia-runs/teton/merged-results/logs/teton-concat/versions.yml",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat/nf.command.begin",
                 "bactopia-runs/teton/merged-results/logs/teton-prepare-concat/nf.command.err",
@@ -300,10 +333,23 @@
                 "bactopia-runs/teton/merged-results/sizemeup.tsv",
                 "bactopia-runs/teton/merged-results/teton-prepare-nonbacteria.tsv",
                 "bactopia-runs/teton/merged-results/teton-prepare.tsv",
+                "bactopia-runs/teton/merged-results/teton.tsv",
                 "bactopia-runs/teton/nf-reports",
                 "bactopia-runs/teton/nf-reports/teton-dag.dot",
                 "bactopia-runs/teton/nf-reports/teton-report.html",
-                "bactopia-runs/teton/nf-reports/teton-timeline.html"
+                "bactopia-runs/teton/nf-reports/teton-timeline.html",
+                "merged-results",
+                "merged-results/SRR2838702.tsv",
+                "merged-results/logs",
+                "merged-results/logs/SRR2838702-join",
+                "merged-results/logs/SRR2838702-join/nf.command.begin",
+                "merged-results/logs/SRR2838702-join/nf.command.err",
+                "merged-results/logs/SRR2838702-join/nf.command.log",
+                "merged-results/logs/SRR2838702-join/nf.command.out",
+                "merged-results/logs/SRR2838702-join/nf.command.run",
+                "merged-results/logs/SRR2838702-join/nf.command.sh",
+                "merged-results/logs/SRR2838702-join/nf.command.trace",
+                "merged-results/logs/SRR2838702-join/versions.yml"
             ],
             [
                 "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
@@ -315,14 +361,16 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7",
                 "versions.yml:md5,b529c3993efa987da9a980fe7c8061f8",
                 "versions.yml:md5,7365b17a2c11eb3d256b0facd20a197a",
+                "versions.yml:md5,340e424aa721674cf14433027027114a",
                 "versions.yml:md5,f27b3200ffeb3e669ad225b87cedf06c",
-                "versions.yml:md5,fcfb282f67fc93a18b7d921d22e70628"
+                "versions.yml:md5,fcfb282f67fc93a18b7d921d22e70628",
+                "versions.yml:md5,e99779aecd8dce47f4bef01bc23da898"
             ]
         ],
-        "timestamp": "2026-04-05T10:11:14.78250013",
+        "timestamp": "2026-04-08T20:29:09.091409261",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

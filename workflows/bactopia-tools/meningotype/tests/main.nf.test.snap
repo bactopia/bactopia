@@ -42,10 +42,10 @@
                 "meningotype.tsv:md5,cdf1cbd9f28a9ce2138f072c6d0ab391"
             ]
         ],
-        "timestamp": "2026-04-05T09:59:03.478408106",
+        "timestamp": "2026-04-08T20:17:03.242451471",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

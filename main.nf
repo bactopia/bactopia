@@ -140,27 +140,27 @@ params {
 
     // Tool-specific parameters
     // QC
-    adapters              : Value<Path?>
-    phix                  : Value<Path?>
+    adapters              : Path?
+    phix                  : Path?
 
     // Annotation
     use_bakta             : Boolean
-    bakta_db              : Value<Path?>
+    bakta_db              : Path?
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Value<Path?>
-    bakta_prodigal_tf     : Value<Path?>
-    bakta_replicons       : Value<Path?>
-    prokka_proteins       : Value<Path?>
-    prokka_prodigal_tf    : Value<Path?>
+    bakta_proteins        : Path?
+    bakta_prodigal_tf     : Path?
+    bakta_replicons       : Path?
+    prokka_proteins       : Path?
+    prokka_prodigal_tf    : Path?
 
     // Merlin
-    emmtyper_blastdb      : Value<Path?>
-    hicap_database_dir    : Value<Path?>
-    hicap_model_fp        : Value<Path?>
+    emmtyper_blastdb      : Path?
+    hicap_database_dir    : Path?
+    hicap_model_fp        : Path?
     ask_merlin            : Boolean
-    spatyper_repeats      : Value<Path?>
-    spatyper_repeat_order : Value<Path?>
+    spatyper_repeats      : Path?
+    spatyper_repeat_order : Path?
 }
 
 // Core

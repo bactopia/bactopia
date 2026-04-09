@@ -14,10 +14,10 @@
                 "versions.yml:md5,8d3bfe53cfc5fc586e9dd9fba13d374e"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:46.248614903",
+        "timestamp": "2026-04-08T20:03:34.763629666",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "meningotype - module - GCF_003355215 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,8d3bfe53cfc5fc586e9dd9fba13d374e"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:38.409094076",
+        "timestamp": "2026-04-08T20:03:26.286783698",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

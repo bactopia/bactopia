@@ -140,10 +140,10 @@
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-05T10:06:41.11892043",
+        "timestamp": "2026-04-08T20:24:39.807983635",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "pangenome (pirate) - multiple|portiera|compressed_gff": {
@@ -313,10 +313,10 @@
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-05T10:03:45.942898691",
+        "timestamp": "2026-04-08T20:21:42.866381064",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "pangenome (roary) - multiple|portiera|compressed_gff": {
@@ -446,10 +446,10 @@
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-05T10:05:14.931019971",
+        "timestamp": "2026-04-08T20:23:14.668258698",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "pangenome (panaroo) - multiple|portiera|compressed_gff": {
@@ -577,10 +577,10 @@
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:53.770284755",
+        "timestamp": "2026-04-08T20:18:47.981104131",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "pangenome (panaroo --skip_recombination) - multiple|portiera|compressed_gff": {
@@ -660,10 +660,10 @@
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:02.707799786",
+        "timestamp": "2026-04-08T20:19:55.865535925",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

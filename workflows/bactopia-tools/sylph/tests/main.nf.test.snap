@@ -42,10 +42,10 @@
                 "sylph.tsv:md5,beb99cbcea3c9c0a90329ae09ee957f3"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:33.926508699",
+        "timestamp": "2026-04-08T20:20:27.793996142",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

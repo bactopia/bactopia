@@ -14,10 +14,10 @@
                 "versions.yml:md5,f13e02312d6a08ca746e6de2659d8195"
             ]
         ],
-        "timestamp": "2026-04-05T09:52:09.316292193",
+        "timestamp": "2026-04-08T20:10:02.683498722",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "checkm2_predict - module - SRR2838702 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f13e02312d6a08ca746e6de2659d8195"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:22.541059384",
+        "timestamp": "2026-04-08T20:06:13.105850333",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

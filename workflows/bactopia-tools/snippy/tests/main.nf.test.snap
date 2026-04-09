@@ -316,10 +316,10 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:02.88395514",
+        "timestamp": "2026-04-08T20:19:57.434215824",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Snippy (mask,skip_phylogeny) - Mixed|compressed_fastq": {
@@ -639,10 +639,10 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:59.844664408",
+        "timestamp": "2026-04-08T20:20:54.533142536",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Snippy (skip_recombination) - Mixed|compressed_fastq": {
@@ -949,10 +949,10 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-04-05T10:03:53.939557745",
+        "timestamp": "2026-04-08T20:21:50.566111231",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Snippy (skip both) - Mixed|compressed_fastq": {
@@ -1238,10 +1238,10 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-04-05T10:05:37.915495557",
+        "timestamp": "2026-04-08T20:23:31.858229063",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Snippy (skip_phylogeny) - Mixed|compressed_fastq": {
@@ -1561,10 +1561,10 @@
                 "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
             ]
         ],
-        "timestamp": "2026-04-05T10:04:46.951328989",
+        "timestamp": "2026-04-08T20:22:42.894414446",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -50,10 +50,10 @@
                 "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:37.130645378",
+        "timestamp": "2026-04-08T20:18:33.272632038",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "sccmec - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
@@ -107,10 +107,10 @@
                 "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:15.869688576",
+        "timestamp": "2026-04-08T20:18:12.954691831",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

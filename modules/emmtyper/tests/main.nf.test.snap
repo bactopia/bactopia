@@ -14,10 +14,10 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:45.375136094",
+        "timestamp": "2026-04-08T20:02:35.347864349",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "emmtyper - module - GCF_006364235 - with db": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:53.660872705",
+        "timestamp": "2026-04-08T20:02:44.67941975",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "emmtyper - module - GCF_006364235 - uncompressed": {
@@ -56,10 +56,10 @@
                 "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:37.123496822",
+        "timestamp": "2026-04-08T20:02:26.853383977",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

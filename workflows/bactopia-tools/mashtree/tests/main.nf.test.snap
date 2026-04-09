@@ -26,10 +26,10 @@
                 "mashtree.dnd:md5,2b2d08b0bf16e25717f5db0eca6eba6b"
             ]
         ],
-        "timestamp": "2026-04-05T09:58:42.029328951",
+        "timestamp": "2026-04-08T20:16:36.584922871",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

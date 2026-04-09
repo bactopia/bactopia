@@ -14,10 +14,10 @@
                 "versions.yml:md5,f7c9711e1678a7d48dd1e378c14b3cfc"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:05.595606894",
+        "timestamp": "2026-04-08T20:03:55.918310716",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "ngmaster - module - GCF_001047255 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f7c9711e1678a7d48dd1e378c14b3cfc"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:23.125169296",
+        "timestamp": "2026-04-08T20:04:13.464080905",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

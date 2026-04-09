@@ -38,10 +38,10 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-05T09:58:26.185454236",
+        "timestamp": "2026-04-08T20:16:21.360602021",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "FastANI (pairwise) - haemophilus_influenzae|compressed_fasta": {
@@ -95,10 +95,10 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-05T09:57:54.107878169",
+        "timestamp": "2026-04-08T20:15:49.675119087",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "FastANI - haemophilus_influenzae|compressed_fasta": {
@@ -140,10 +140,10 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-05T09:57:37.70856638",
+        "timestamp": "2026-04-08T20:15:31.288984073",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

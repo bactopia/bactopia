@@ -18,10 +18,10 @@
                 "versions.yml:md5,841bd82ed7ec489d37d2999552593e4d"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:14.187065683",
+        "timestamp": "2026-04-08T20:05:03.788433942",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "abritamr - module - GCF_001682305 - compressed": {
@@ -43,10 +43,10 @@
                 "versions.yml:md5,841bd82ed7ec489d37d2999552593e4d"
             ]
         ],
-        "timestamp": "2026-04-05T09:49:52.282936285",
+        "timestamp": "2026-04-08T20:07:43.996733569",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

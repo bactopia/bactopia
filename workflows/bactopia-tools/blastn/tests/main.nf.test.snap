@@ -42,10 +42,10 @@
                 "versions.yml:md5,83da7e0cc2656aa0959a8b41dc452417"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:30.429497102",
+        "timestamp": "2026-04-08T20:14:27.595696594",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "blastn (single-gene.ffn.gz) - SRR2838702|portiera|blastdb": {
@@ -91,10 +91,10 @@
                 "versions.yml:md5,83da7e0cc2656aa0959a8b41dc452417"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:15.239517026",
+        "timestamp": "2026-04-08T20:14:11.10128035",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "blastn (single-gene.ffn) - SRR2838702|portiera|blastdb": {
@@ -140,10 +140,10 @@
                 "versions.yml:md5,83da7e0cc2656aa0959a8b41dc452417"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:48.633022324",
+        "timestamp": "2026-04-08T20:14:44.217692698",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

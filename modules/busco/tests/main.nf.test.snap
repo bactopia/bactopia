@@ -14,10 +14,10 @@
                 "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:37.982609175",
+        "timestamp": "2026-04-08T20:03:26.794631754",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "busco - module - SRR2838702 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:06.082651647",
+        "timestamp": "2026-04-08T20:02:53.269062548",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

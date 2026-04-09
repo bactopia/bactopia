@@ -14,10 +14,10 @@
                 "versions.yml:md5,f091db71715241a5f46beacaf97dc08b"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:35.734678168",
+        "timestamp": "2026-04-08T20:03:24.996453117",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "lissero - module - GCF_002285835 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f091db71715241a5f46beacaf97dc08b"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:26.030868197",
+        "timestamp": "2026-04-08T20:03:14.61863981",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

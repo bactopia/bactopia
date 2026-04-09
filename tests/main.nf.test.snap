@@ -177,10 +177,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:08:04.58906736",
+        "timestamp": "2026-04-08T20:26:12.271390011",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (assembly error) - SRR2838702|portiera|illumina": {
@@ -272,10 +272,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-05T10:27:04.300753333",
+        "timestamp": "2026-04-08T20:45:02.125882428",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (hybrid) - SRR2838702|portiera|illumina+nanopore": {
@@ -471,10 +471,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:19:11.570263489",
+        "timestamp": "2026-04-08T20:37:17.914262678",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (short polish) - ERR3772599|portiera|illumina+nanopore": {
@@ -671,10 +671,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:24:28.70460159",
+        "timestamp": "2026-04-08T20:42:27.749298869",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (low proportion) - SRR2838702|portiera|illumina": {
@@ -749,10 +749,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-05T10:25:11.24528471",
+        "timestamp": "2026-04-08T20:43:09.857951305",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (pe+bakta) - SRR2838702|portiera|illumina": {
@@ -946,10 +946,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:04:54.898008696",
+        "timestamp": "2026-04-08T20:23:15.323605478",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (low coverage) - ERR3772599|portiera|nanopore": {
@@ -1013,10 +1013,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-05T10:27:35.544183408",
+        "timestamp": "2026-04-08T20:45:31.920671767",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (ont) - ERR3772599|portiera|nanopore": {
@@ -1196,10 +1196,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:12:12.049699211",
+        "timestamp": "2026-04-08T20:30:30.537108802",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "Bactopia (pe) - SRR2838702|portiera|illumina": {
@@ -1389,10 +1389,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:09.680405626",
+        "timestamp": "2026-04-08T20:18:17.869998194",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

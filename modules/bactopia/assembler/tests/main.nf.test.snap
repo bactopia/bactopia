@@ -17,10 +17,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:55:51.22924543",
+        "timestamp": "2026-04-08T20:13:34.956734456",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - long-read - raven": {
@@ -41,10 +41,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T10:00:23.858659447",
+        "timestamp": "2026-04-08T20:18:05.531303205",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - paired-end - spades": {
@@ -65,10 +65,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:59:53.437310473",
+        "timestamp": "2026-04-08T20:17:34.576457863",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - short_polish": {
@@ -89,10 +89,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:58:18.5727893",
+        "timestamp": "2026-04-08T20:16:01.839172469",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - paired-end - megahit": {
@@ -113,10 +113,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:58:49.304179288",
+        "timestamp": "2026-04-08T20:16:32.704160357",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - paired-end": {
@@ -137,10 +137,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:12.111603663",
+        "timestamp": "2026-04-08T20:03:57.674748137",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - single-end": {
@@ -161,10 +161,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:39.218127483",
+        "timestamp": "2026-04-08T20:04:25.525468649",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "assembler - module - long-read": {
@@ -185,10 +185,10 @@
                 "versions.yml:md5,278ebf6d69552124610809b2ea1520fa"
             ]
         ],
-        "timestamp": "2026-04-05T09:49:04.008616025",
+        "timestamp": "2026-04-08T20:06:48.573848215",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

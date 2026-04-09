@@ -15,10 +15,10 @@
                 "versions.yml:md5,ff6f105fca429e7482ac358949a11f93"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:48.137916028",
+        "timestamp": "2026-04-08T20:05:39.414487981",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "mobsuite_recon - module - GCF_000017085 - uncompressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,ff6f105fca429e7482ac358949a11f93"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:45.561956009",
+        "timestamp": "2026-04-08T20:04:35.931515831",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

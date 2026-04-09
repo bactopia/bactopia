@@ -42,10 +42,10 @@
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:37.389252905",
+        "timestamp": "2026-04-08T20:14:29.175651524",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "AMRFinder+ - SRR2838702|portiera|compressed_fasta": {
@@ -91,10 +91,10 @@
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6"
             ]
         ],
-        "timestamp": "2026-04-05T09:56:14.052831612",
+        "timestamp": "2026-04-08T20:14:09.071027701",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

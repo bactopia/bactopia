@@ -14,10 +14,10 @@
                 "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:38.05931304",
+        "timestamp": "2026-04-08T20:06:26.701136191",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "snippy_run - module - paired-end - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
             ]
         ],
-        "timestamp": "2026-04-05T09:48:15.439849589",
+        "timestamp": "2026-04-08T20:06:03.909584357",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

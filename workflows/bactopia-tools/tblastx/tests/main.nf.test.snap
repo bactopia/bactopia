@@ -42,10 +42,10 @@
                 "tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:07.930938469",
+        "timestamp": "2026-04-08T20:20:03.969158018",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "tblastx (single-gene.ffn) - SRR2838702|portiera|blastdb": {
@@ -91,10 +91,10 @@
                 "tblastx.tsv:md5,d3b6312d358a7fdb489d347094710033"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:40.943741211",
+        "timestamp": "2026-04-08T20:20:37.799209248",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "tblastx (single-gene.ffn.gz|--tblastx_use_genes) - SRR2838702|portiera|blastdb": {
@@ -140,10 +140,10 @@
                 "tblastx.tsv:md5,4efa1d2d8633246603e06df64e559c4c"
             ]
         ],
-        "timestamp": "2026-04-05T10:02:24.698269724",
+        "timestamp": "2026-04-08T20:20:21.386254546",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

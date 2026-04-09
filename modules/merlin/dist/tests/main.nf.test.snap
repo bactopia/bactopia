@@ -16,10 +16,10 @@
                 "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:30.022538959",
+        "timestamp": "2026-04-08T20:04:17.834043885",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "merlin_dist - module - GCF_000017085 - compressed": {
@@ -39,10 +39,10 @@
                 "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:29.163441587",
+        "timestamp": "2026-04-08T20:05:17.949552812",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

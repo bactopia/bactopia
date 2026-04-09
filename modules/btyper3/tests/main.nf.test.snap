@@ -14,10 +14,10 @@
                 "versions.yml:md5,d417e0067e48969f3cc66f12727471ba"
             ]
         ],
-        "timestamp": "2026-04-05T09:47:22.159163715",
+        "timestamp": "2026-04-08T20:05:12.406299264",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "btyper3 - module - GCF_000008445 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,d417e0067e48969f3cc66f12727471ba"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:56.25744659",
+        "timestamp": "2026-04-08T20:03:46.569937727",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

@@ -15,10 +15,10 @@
                 "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:58.491499179",
+        "timestamp": "2026-04-08T20:02:44.572392785",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gamma - module - SRR2838702 - compressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:06.214272099",
+        "timestamp": "2026-04-08T20:02:52.667877842",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }

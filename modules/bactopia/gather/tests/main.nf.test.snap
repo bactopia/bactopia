@@ -19,10 +19,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:06.889192915",
+        "timestamp": "2026-04-08T20:02:54.030490755",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - hybrid": {
@@ -45,10 +45,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:20.256057082",
+        "timestamp": "2026-04-08T20:03:07.90385888",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - error - empty input": {
@@ -70,10 +70,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:20.452164643",
+        "timestamp": "2026-04-08T20:04:09.414023392",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - error - low read count": {
@@ -95,10 +95,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:46:08.541867841",
+        "timestamp": "2026-04-08T20:03:57.013530012",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - assembly": {
@@ -121,10 +121,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:42.403472603",
+        "timestamp": "2026-04-08T20:03:30.488797842",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - merge paired-end": {
@@ -147,10 +147,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:45:55.538860317",
+        "timestamp": "2026-04-08T20:03:44.196136733",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - paired-end": {
@@ -173,10 +173,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:42.887295571",
+        "timestamp": "2026-04-08T20:02:29.18242176",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     },
     "gather - module - single-end": {
@@ -199,10 +199,10 @@
                 "versions.yml:md5,837f65a9cb0c03f876b433e027c58725"
             ]
         ],
-        "timestamp": "2026-04-05T09:44:54.366767905",
+        "timestamp": "2026-04-08T20:02:40.810884548",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.01.0"
+            "nextflow": "26.03.1"
         }
     }
 }
