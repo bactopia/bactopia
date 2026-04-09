@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "lissero",
-    "description": "Serogroup typing prediction for Listeria monocytogenes",
+    "description": "Serogroup typing prediction for Listeria monocytogenes.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,13 +53,13 @@
                     "type": "number",
                     "default": 95.0,
                     "description": "Minimum percent identity to accept a match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "lissero_min_cov": {
                     "type": "number",
                     "default": 95.0,
                     "description": "Minimum coverage of the gene to accept a match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         },
@@ -74,7 +74,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

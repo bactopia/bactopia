@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "bakta",
-    "description": "Rapid annotation of bacterial genomes & plasmids",
+    "description": "Rapid annotation of bacterial genomes and plasmids.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,14 +52,14 @@
                 "bakta_db": {
                     "type": "string",
                     "description": "Tarball or path to the Bakta database",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "bakta_db_type": {
                     "type": "string",
                     "default": "full",
                     "description": "Which Bakta DB to download 'full' (~30GB) or 'light' (~2GB)",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "full",
                         "light"
@@ -69,13 +69,13 @@
                     "type": "boolean",
                     "description": "Save the Bakta database as a tarball",
                     "default": false,
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "download_bakta": {
                     "type": "boolean",
                     "description": "Download the Bakta database to the path given by --bakta_db",
                     "default": false,
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -89,17 +89,17 @@
                 "bakta_proteins": {
                     "type": "string",
                     "description": "FASTA file of trusted proteins to first annotate from",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "bakta_prodigal_tf": {
                     "type": "string",
                     "description": "Training file to use for Prodigal",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "bakta_replicons": {
                     "type": "string",
                     "description": "Replicon information table (tsv/csv)",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "bakta_min_contig_length": {
                     "type": "integer",
@@ -112,84 +112,84 @@
                     "type": "boolean",
                     "description": "Keep original contig headers",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_compliant": {
                     "type": "boolean",
                     "description": "Force Genbank/ENA/DDJB compliance",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_trna": {
                     "type": "boolean",
                     "description": "Skip tRNA detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_tmrna": {
                     "type": "boolean",
                     "description": "Skip tmRNA detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_rrna": {
                     "type": "boolean",
                     "description": "Skip rRNA detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_ncrna": {
                     "type": "boolean",
                     "description": "Skip ncRNA detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_ncrna_region": {
                     "type": "boolean",
                     "description": "Skip ncRNA region detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_crispr": {
                     "type": "boolean",
                     "description": "Skip CRISPR array detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_cds": {
                     "type": "boolean",
                     "description": "Skip CDS detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_sorf": {
                     "type": "boolean",
                     "description": "Skip sORF detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_gap": {
                     "type": "boolean",
                     "description": "Skip gap detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_skip_ori": {
                     "type": "boolean",
                     "description": "Skip oriC/oriT detection & annotation",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "bakta_opts": {
@@ -197,7 +197,7 @@
                     "description": "Extra Bakta options in quotes. Example: '--gram +'",
                     "help": "Useful if you would like to fine tune your Bakta analysis.",
                     "default": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

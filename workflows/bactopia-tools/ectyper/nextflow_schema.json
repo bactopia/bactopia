@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "ectyper",
-    "description": "In-silico prediction of Escherichia coli serotype",
+    "description": "In silico prediction of Escherichia coli serotype.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,38 +53,38 @@
                     "type": "integer",
                     "default": 90,
                     "description": "Percent identity required for an O antigen allele match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ectyper_opcov": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Minumum percent coverage required for an O antigen allele match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Minimum percent coverage required for an O antigen allele match",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ectyper_hpid": {
                     "type": "integer",
                     "default": 95,
                     "description": "Percent identity required for an H antigen allele match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ectyper_hpcov": {
                     "type": "integer",
                     "default": 50,
-                    "description": "Minumum percent coverage required for an H antigen allele match",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Minimum percent coverage required for an H antigen allele match",
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "ectyper_verify": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable E. coli species verification",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "ectyper_print_alleles": {
                     "type": "boolean",
                     "default": false,
                     "description": "Prints the allele sequences if enabled as the final column",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -100,7 +100,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

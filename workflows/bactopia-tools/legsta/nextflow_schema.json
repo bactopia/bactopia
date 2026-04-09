@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "legsta",
-    "description": "Typing of Legionella pneumophila assemblies",
+    "description": "Sequence Based Typing (SBT) of Legionella pneumophila.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,7 +53,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Don't print header row",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

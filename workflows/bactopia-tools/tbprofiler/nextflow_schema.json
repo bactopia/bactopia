@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "tbprofiler",
-    "description": "Resistance and lineages of Mycobacterium tuberculosis genomes",
+    "description": "Detection of antimicrobial resistance and lineage typing of Mycobacterium tuberculosis.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,13 +53,13 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Call whole genome",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_mapper": {
                     "type": "string",
                     "default": "bwa",
                     "description": "Mapping tool to use. If you are using nanopore data it will default to minimap2",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "bwa",
                         "minimap2",
@@ -71,7 +71,7 @@
                     "type": "string",
                     "default": "freebayes",
                     "description": "Variant calling tool to use",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "bcftools",
                         "gatk",
@@ -82,34 +82,34 @@
                     "type": "string",
                     "description": "Extra variant caller options in quotes",
                     "help": "Useful if you would like to fine tune your variant calling analysis.",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "tbprofiler_suspect": {
                     "type": "boolean",
                     "default": false,
                     "description": "Use the suspect suite of tools to add ML predictions",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "tbprofiler_no_flagstat": {
                     "type": "boolean",
                     "default": false,
                     "description": "Don't collect flagstats",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "tbprofiler_no_delly": {
                     "type": "boolean",
                     "default": false,
                     "description": "Don't run delly",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "tbprofiler_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for TBProfiler",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": false
                 }
             }
@@ -125,25 +125,25 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Generate itol config files",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_full": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output mutations in main result file",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_all_variants": {
                     "type": "boolean",
                     "default": false,
                     "description": "Output all variants in variant matrix",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "tbprofiler_mark_missing": {
                     "type": "boolean",
                     "default": false,
-                    "description": "An asteriks will be use to mark predictions which are affected by missing data at a drug resistance position",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "An asterisk will be used to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },

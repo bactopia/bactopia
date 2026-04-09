@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "seroba",
-    "description": "Serotyping of Streptococcus pneumoniae from sequence reads",
+    "description": "Serotyping of Streptococcus pneumoniae from Illumina paired-end reads.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,14 +53,14 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Do not clean up intermediate files",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "seroba_coverage": {
                     "type": "integer",
                     "default": 20,
                     "description": "Threshold for k-mer coverage of the reference sequence",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },
@@ -75,7 +75,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

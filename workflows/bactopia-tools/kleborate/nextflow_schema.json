@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "kleborate",
-    "description": "Screen Klebsiella for MLST, sub-species, and genes of interest",
+    "description": "Comprehensive screening of Klebsiella genomes for virulence and resistance determinants.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,7 +53,7 @@
                     "type": "string",
                     "default": "kpsc",
                     "description": "Preset module to use for Kleborate",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": false,
                     "enum": [
                         "kpsc",
@@ -64,7 +64,7 @@
                 "kleborate_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for Kleborate",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": false
                 }
             }
@@ -80,7 +80,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "checkm",
-    "description": "Assess the assembly quality of your microbial samples",
+    "description": "Assessment of microbial genome assembly quality.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,78 +53,78 @@
                     "type": "integer",
                     "description": "Minimum number of unique phylogenetic markers required to use lineage-specific marker set.",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "checkm_multi": {
                     "type": "integer",
                     "description": "Maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set.",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-up"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "checkm_aai_strain": {
                     "type": "number",
                     "description": "AAI threshold used to identify strain heterogeneity",
                     "default": 0.9,
-                    "fa_icon": "fas fa-hashtag"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "checkm_length": {
                     "type": "number",
                     "description": "Percent overlap between target and query",
                     "default": 0.7,
-                    "fa_icon": "fas fa-hashtag"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "checkm_full_tree": {
                     "type": "boolean",
                     "description": "Use the full tree (requires ~40GB of memory) for determining lineage of each bin.",
-                    "fa_icon": "fas fa-tree",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_ignore_thresholds": {
                     "type": "boolean",
                     "description": "Ignore model-specific score thresholds",
-                    "fa_icon": "fas fa-eye-slash",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_ali": {
                     "type": "boolean",
                     "description": "Generate HMMER alignment file for each bin",
-                    "fa_icon": "fas fa-hard-hat",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_nt": {
                     "type": "boolean",
                     "description": "Generate nucleotide gene sequences for each bin",
-                    "fa_icon": "fas fa-hard-hat",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_force_domain": {
                     "type": "boolean",
                     "description": "Use domain-level sets for all bins",
-                    "fa_icon": "fas fa-hammer",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_no_refinement": {
                     "type": "boolean",
                     "description": "Do not perform lineage-specific marker set refinement",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_individual_markers": {
                     "type": "boolean",
                     "description": "Treat marker as independent",
-                    "fa_icon": "fas fa-check",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_skip_adj_correction": {
                     "type": "boolean",
                     "description": "Do not exclude adjacent marker genes when estimating contamination",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "checkm_skip_pseudogene_correction": {
                     "type": "boolean",
                     "description": "Skip identification and filtering of pseudogene",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -140,7 +140,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

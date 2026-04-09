@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "plasmidfinder",
-    "description": "Plasmid identification from assemblies",
+    "description": "Bactopia Tool: Plasmidfinder.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,13 +53,13 @@
                     "type": "number",
                     "description": "Minimum percent coverage to be considered a hit",
                     "default": 0.6,
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "plasmidfinder_threshold": {
                     "type": "number",
                     "description": "Minimum threshold for identity",
                     "default": 0.9,
-                    "fa_icon": "fas fa-hashtag"
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         },
@@ -74,7 +74,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "pasty",
-    "description": "Serogrouping of Pseudomonas aeruginosa isolates",
+    "description": "In silico serogrouping of Pseudomonas aeruginosa isolates.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,13 +53,13 @@
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum percent identity to count a hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "pasty_min_coverage": {
                     "type": "integer",
                     "default": 95,
                     "description": "Minimum percent coverage to count a hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },
@@ -74,7 +74,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

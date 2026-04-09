@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "snippy",
-    "description": "Variant calling from Illumina reads with core-SNP phylogeny",
+    "description": "Rapid haplotype variant calling and core genome alignment.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,56 +52,56 @@
                 "species": {
                     "type": "string",
                     "description": "Name of the species to download assemblies",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "accession": {
                     "type": "string",
                     "description": "An NCBI Assembly accession to be downloaded",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "accessions": {
                     "type": "string",
                     "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "format": {
                     "type": "string",
                     "default": "fasta",
                     "description": "Comma separated list of formats to download",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "section": {
                     "type": "string",
                     "default": "refseq",
                     "description": "NCBI section to download",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "assembly_level": {
                     "type": "string",
                     "default": "complete",
                     "description": "Comma separated list of assembly levels to download",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "kingdom": {
                     "type": "string",
                     "default": "bacteria",
                     "description": "Comma separated list of formats to download",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "limit": {
                     "type": "string",
                     "description": "Limit the number of assemblies to download",
                     "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "keep_downloads": {
                     "type": "boolean",
                     "default": false,
                     "description": "Save downloaded files into the bactopia-runs folder",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -115,70 +115,70 @@
                 "reference": {
                     "type": "string",
                     "description": "Reference genome in GenBank format",
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "snippy_mapqual": {
                     "type": "integer",
                     "description": "Minimum read mapping quality to consider",
                     "default": 60,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_basequal": {
                     "type": "integer",
                     "description": "Minimum base quality to consider",
                     "default": 13,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_mincov": {
                     "type": "integer",
                     "description": "Minimum site depth to for calling alleles",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_minfrac": {
                     "type": "integer",
                     "description": "Minimum proportion for variant evidence (0=AUTO)",
                     "default": 0,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_minqual": {
                     "type": "integer",
                     "description": "Minimum QUALITY in VCF column 6",
                     "default": 100,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_maxsoft": {
                     "type": "integer",
                     "description": "Maximum soft clipping to allow",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "snippy_bwaopt": {
                     "type": "string",
                     "description": "Extra BWA MEM options, eg. -x pacbio",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_fbopt": {
                     "type": "string",
                     "description": "Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_remove_bam": {
                     "type": "boolean",
                     "default": false,
                     "description": "Delete BAM files after variant calling",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "snippy_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for Snippy",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": false
                 }
             }
@@ -194,23 +194,59 @@
                     "type": "integer",
                     "description": "Largest haplotype to decompose",
                     "default": 100,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "snippy_core_mask": {
                     "type": "string",
                     "description": "BED file of sites to mask",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_core_mask_char": {
                     "type": "string",
                     "description": "Masking character",
                     "default": "X",
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-font"
                 },
                 "snippy_core_opts": {
                     "type": "string",
                     "description": "Extra options in quotes for snippy-core",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
+                }
+            }
+        },
+        "snpdists_parameters": {
+            "title": "SNP-Dists Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "snpdists_a": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Count all differences not just [AGTC]",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "snpdists_b": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep top left corner cell",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "snpdists_csv": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output CSV instead of TSV",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "snpdists_k": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep case, don't uppercase all letters",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
                 }
             }
         },
@@ -252,27 +288,27 @@
                     "type": "number",
                     "description": "Filter out taxa with more than this percentage of gaps",
                     "default": 25.0,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "gubbins_remove_identical_sequences": {
                     "type": "boolean",
                     "description": "Remove identical sequences",
                     "default": false,
-                    "fa_icon": "fas fa-hashtag",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "gubbins_opts": {
                     "type": "string",
                     "description": "Extra Gubbins options in quotes",
                     "help": "Useful if you would like to fine tune your Gubbins analysis. Example: '--bootstrap 100'",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "skip_recombination": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip Gubbins execution in subworkflows",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -287,7 +323,7 @@
                     "type": "string",
                     "description": "Substitution model name",
                     "default": "HKY",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "iqtree_bb": {
                     "type": "integer",
@@ -305,56 +341,20 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Ancestral state reconstruction by empirical Bayes",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "iqtree_opts": {
                     "type": "string",
                     "description": "Extra IQ-TREE options in quotes.",
                     "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "skip_phylogeny": {
                     "type": "boolean",
                     "default": false,
                     "description": "Skip IQ-TREE execution in subworkflows",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                }
-            }
-        },
-        "snpdists_parameters": {
-            "title": "SNP-Dists Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "snpdists_a": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Count all differences not just [AGTC]",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "snpdists_b": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep top left corner cell",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "snpdists_csv": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Output CSV instead of TSV",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "snpdists_k": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep case, don't uppercase all letters",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -717,13 +717,13 @@
             "$ref": "#/$defs/snippy_core_parameters"
         },
         {
+            "$ref": "#/$defs/snpdists_parameters"
+        },
+        {
             "$ref": "#/$defs/gubbins_parameters"
         },
         {
             "$ref": "#/$defs/iqtree_parameters"
-        },
-        {
-            "$ref": "#/$defs/snpdists_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

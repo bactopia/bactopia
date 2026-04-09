@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "ngmaster",
-    "description": "Multi-antigen sequence typing for Neisseria gonorrhoeae",
+    "description": "Multi-antigen sequence typing of Neisseria gonorrhoeae.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,7 +53,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "output comma-separated format (CSV) rather than tab-separated",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

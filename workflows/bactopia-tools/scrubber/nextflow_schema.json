@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "scrubber",
-    "description": "Scrub human reads from FASTQ files",
+    "description": "Removal of human and contaminant sequences from metagenomic reads.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -42,69 +42,19 @@
                 }
             }
         },
-        "nohuman_download_parameters": {
-            "title": "Nohuman Download Parameters",
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "nohuman_db": {
+                "csvtk_concat_opts": {
                     "type": "string",
-                    "description": "Path to the nohuman database or directory to download it to",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true
-                },
-                "nohuman_db_version": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Database version to download (default: latest HPRC release)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "nohuman_save_as_tarball": {
-                    "type": "boolean",
-                    "description": "Save the nohuman database as a tarball",
-                    "default": false,
-                    "fa_icon": "fas fa-file-alt"
-                },
-                "download_nohuman": {
-                    "type": "boolean",
-                    "description": "Download the nohuman database to the path given by --nohuman_db",
-                    "default": false,
-                    "fa_icon": "fas fa-italic"
-                }
-            }
-        },
-        "nohuman_run_parameters": {
-            "title": "Nohuman Run Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "nohuman_db": {
-                    "type": "string",
-                    "description": "Path to the nohuman database directory or tarball",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true
-                },
-                "nohuman_confidence": {
-                    "type": "number",
-                    "default": 0.0,
-                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "nohuman_human": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Invert output to keep only human reads instead of removing them",
-                    "fa_icon": "fas fa-expand-arrows-alt"
-                },
-                "nohuman_save_report": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Save the Kraken2 classification report",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
                 }
             }
         },
@@ -119,23 +69,73 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Use SRAHumanScrubber for scrubbing human reads",
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
-        "csvtk_concat_parameters": {
-            "title": "csvtk concat Parameters",
+        "nohuman_download_parameters": {
+            "title": "Nohuman Download Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "csvtk_concat_opts": {
+                "nohuman_db": {
                     "type": "string",
-                    "description": "Extra csvtk concat options in quotes",
-                    "help": "",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
+                    "description": "Path to the nohuman database or directory to download it to",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "nohuman_db_version": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Database version to download (default: latest HPRC release)",
+                    "fa_icon": "fas fa-font"
+                },
+                "nohuman_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the nohuman database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "download_nohuman": {
+                    "type": "boolean",
+                    "description": "Download the nohuman database to the path given by --nohuman_db",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        },
+        "nohuman_run_parameters": {
+            "title": "Nohuman Run Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nohuman_db": {
+                    "type": "string",
+                    "description": "Path to the nohuman database directory or tarball",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "nohuman_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
+                    "fa_icon": "fas fa-percentage"
+                },
+                "nohuman_human": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Invert output to keep only human reads instead of removing them",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "nohuman_save_report": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save the Kraken2 classification report",
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -489,16 +489,16 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/nohuman_download_parameters"
-        },
-        {
-            "$ref": "#/$defs/nohuman_run_parameters"
+            "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
             "$ref": "#/$defs/srahumanscrubber_parameters"
         },
         {
-            "$ref": "#/$defs/csvtk_concat_parameters"
+            "$ref": "#/$defs/nohuman_download_parameters"
+        },
+        {
+            "$ref": "#/$defs/nohuman_run_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

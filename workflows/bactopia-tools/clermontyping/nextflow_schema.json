@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "clermontyping",
-    "description": "in silico phylotyping of Escherichia genus",
+    "description": "In silico phylotyping of Escherichia genus.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -50,10 +50,10 @@
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
                 "clermontyping_threshold": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Do not use contigs under this size",
                     "default": 0,
-                    "fa_icon": "fas fa-file-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },
@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

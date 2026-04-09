@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "staphtyper",
-    "description": "Includes AgrVATE, SpaTyper and sccmec for S. aureus",
+    "description": "Comprehensive typing of Staphylococcus aureus genomes.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,7 +53,7 @@
                     "type": "boolean",
                     "default": false,
                     "description": "agr typing only. Skips agr operon extraction and frameshift detection",
-                    "fa_icon": "fa-solid fa-toggle-on"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -68,7 +68,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }
@@ -83,20 +83,20 @@
                 "spatyper_repeats": {
                     "type": "string",
                     "description": "List of spa repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_repeat_order": {
                     "type": "string",
                     "description": "List spa types and order of repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do PCR product enrichment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -111,25 +111,25 @@
                     "type": "integer",
                     "default": 90,
                     "description": "Minimum percent identity to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_targets_coverage": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum percent coverage to count a target hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_regions_pident": {
                     "type": "integer",
                     "default": 85,
                     "description": "Minimum percent identity to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "sccmec_min_regions_coverage": {
                     "type": "integer",
                     "default": 93,
                     "description": "Minimum percent coverage to count a region hit",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },

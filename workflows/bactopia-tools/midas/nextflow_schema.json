@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "midas",
-    "description": "Estimate species abundances from FASTQ files",
+    "description": "Estimate species abundances from metagenomic samples.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -42,6 +42,33 @@
                 }
             }
         },
+        "midas_download_parameters": {
+            "title": "MIDAS Database Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "midas_db": {
+                    "type": "string",
+                    "description": "A single tarball or path to a MIDAS formatted database",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "midas_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the MIDAS database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "download_midas": {
+                    "type": "boolean",
+                    "description": "Download the MIDAS database to the path given by --midas_db",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        },
         "midas_species_parameters": {
             "title": "MIDAS Species Parameters",
             "type": "object",
@@ -53,24 +80,24 @@
                     "type": "integer",
                     "description": "Word size for BLAST search",
                     "default": 28,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "midas_aln_cov": {
                     "type": "number",
                     "description": "Discard reads with alignment coverage < ALN_COV",
                     "default": 0.75,
-                    "fa_icon": "fas fa-angle-double-down"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "midas_opts": {
                     "type": "string",
                     "description": "Extra MIDAS options",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-font"
                 },
                 "midas_debug": {
                     "type": "boolean",
                     "default": false,
                     "description": "Keep all temporary files created by MIDAS",
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -85,7 +112,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }
@@ -438,6 +465,9 @@
         },
         {
             "$ref": "#/$defs/filter_parameters"
+        },
+        {
+            "$ref": "#/$defs/midas_download_parameters"
         },
         {
             "$ref": "#/$defs/midas_species_parameters"

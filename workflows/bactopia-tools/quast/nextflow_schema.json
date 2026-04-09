@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "quast",
-    "description": "Assess the quality of assembled contigs",
+    "description": "Quality assessment of assembled contigs using QUAST.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,13 +53,13 @@
                     "type": "string",
                     "default": "0,1000,10000,100000,250000,1000000",
                     "description": "Comma-separated list of contig length thresholds",
-                    "fa_icon": "fas fa-align-justify"
+                    "fa_icon": "fas fa-font"
                 },
                 "quast_plots_format": {
                     "type": "string",
                     "default": "pdf",
                     "description": "Save plots in specified format",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "emf",
@@ -86,7 +86,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

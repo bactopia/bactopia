@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "blastn",
-    "description": "Search nucleotide databases using nucleotide queries",
+    "description": "Search against nucleotide BLAST databases using nucleotide queries.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,19 +52,19 @@
                 "blastn_query": {
                     "type": "string",
                     "description": "A fasta file containing the query sequences to BLAST against the database",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "blastn_outfmt": {
                     "type": "string",
                     "description": "The columns to include with -outfmt 6",
                     "default": "sseqid qseqid pident qlen slen length nident positive mismatch gapopen gaps qstart qend sstart send evalue bitscore",
-                    "fa_icon": "fas fa-hashtag"
+                    "fa_icon": "fas fa-font"
                 },
                 "blastn_opts": {
                     "type": "string",
                     "description": "Additional options to pass to BLASTN",
-                    "fa_icon": "fas fa-hashtag"
+                    "fa_icon": "fas fa-font"
                 },
                 "blastn_perc_identity": {
                     "type": "integer",
@@ -82,13 +82,13 @@
                     "type": "integer",
                     "description": "Maximum number of aligned sequences to keep",
                     "default": 2000,
-                    "fa_icon": "fas fa-angle-double-up"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "blastn_use_genes": {
                     "type": "boolean",
                     "description": "Blast against genes sequences instead of contigs",
                     "default": false,
-                    "fa_icon": "fas fa-angle-double-up",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -104,7 +104,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

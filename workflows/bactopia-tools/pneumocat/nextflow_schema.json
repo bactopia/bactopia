@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "pneumocat",
-    "description": "Assign capsular type to Streptococcus pneumoniae from reads",
+    "description": "Capsular type assignment to Streptococcus pneumoniae from sequence reads.",
     "type": "object",
     "$defs": {
         "input_parameters": {

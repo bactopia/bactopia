@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/cleanyerreads.json",
     "title": "cleanyerreads",
-    "description": "Use Bactopia's read QC steps to Clean-Yer-Reads",
+    "description": "Quality control and optional host read removal from raw sequencing reads.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -69,92 +69,80 @@
                 }
             }
         },
-        "nohuman_download_parameters": {
-            "title": "Nohuman Download Parameters",
+        "gather_parameters": {
+            "title": "Gather Parameters",
             "type": "object",
             "description": "",
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "nohuman_db": {
-                    "type": "string",
-                    "description": "Path to the nohuman database or directory to download it to",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true,
-                    "hidden": true
-                },
-                "nohuman_db_version": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Database version to download (default: latest HPRC release)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
-                    "hidden": true
-                },
-                "nohuman_save_as_tarball": {
+                "skip_fastq_check": {
                     "type": "boolean",
-                    "description": "Save the nohuman database as a tarball",
-                    "default": false,
-                    "fa_icon": "fas fa-file-alt",
+                    "description": "Skip minimum requirement checks for input FASTQs",
+                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
-                "download_nohuman": {
-                    "type": "boolean",
-                    "description": "Download the nohuman database to the path given by --nohuman_db",
-                    "default": false,
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                }
-            }
-        },
-        "nohuman_run_parameters": {
-            "title": "Nohuman Run Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "nohuman_db": {
-                    "type": "string",
-                    "description": "Path to the nohuman database directory or tarball",
-                    "fa_icon": "fas fa-file-alt",
-                    "is_required": true,
+                "min_basepairs": {
+                    "type": "integer",
+                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
+                    "default": 2241820,
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "nohuman_confidence": {
+                "min_reads": {
+                    "type": "integer",
+                    "description": "The minimum amount of reads required to continue downstream analyses.",
+                    "default": 7472,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "min_coverage": {
+                    "type": "integer",
+                    "description": "The minimum amount of coverage required to continue downstream analyses.",
+                    "default": 10,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "min_proportion": {
                     "type": "number",
-                    "default": 0.0,
-                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
+                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
-                "nohuman_human": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Invert output to keep only human reads instead of removing them",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                "min_genome_size": {
+                    "type": "integer",
+                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 100000,
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
-                "nohuman_save_report": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Save the Kraken2 classification report",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                "max_genome_size": {
+                    "type": "integer",
+                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
+                    "default": 18040666,
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
-                }
-            }
-        },
-        "srahumanscrubber_parameters": {
-            "title": "SRA Human Scrubber Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "use_srascrubber": {
+                },
+                "attempts": {
+                    "type": "integer",
+                    "description": "Maximum times to attempt downloads",
+                    "default": 3,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "use_ena": {
                     "type": "boolean",
-                    "default": false,
-                    "description": "Use SRAHumanScrubber for scrubbing human reads",
-                    "fa_icon": "fas fa-file-alt",
+                    "description": "Download FASTQs from ENA",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "no_cache": {
+                    "type": "boolean",
+                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -170,85 +158,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
-                    "hidden": true
-                }
-            }
-        },
-        "gather_parameters": {
-            "title": "Gather Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "skip_fastq_check": {
-                    "type": "boolean",
-                    "description": "Skip minimum requirement checks for input FASTQs",
-                    "help": "This parameter is useful if you are confident your sequences will pass the minimum requirements.",
-                    "fa_icon": "fas fa-fast-forward",
-                    "hidden": true
-                },
-                "min_basepairs": {
-                    "type": "integer",
-                    "description": "The minimum amount of basepairs required to continue downstream analyses.",
-                    "default": 2241820,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_reads": {
-                    "type": "integer",
-                    "description": "The minimum amount of reads required to continue downstream analyses.",
-                    "default": 7472,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_coverage": {
-                    "type": "integer",
-                    "description": "The minimum amount of coverage required to continue downstream analyses.",
-                    "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "min_proportion": {
-                    "type": "number",
-                    "description": "The minimum proportion of basepairs for paired-end reads to continue downstream analyses.",
-                    "help": "Example: If set to 0.75 the R1 and R2 must have > 75% proportion of reads (e.g. R1 100bp, R2 75bp, not R1 100bp, R2 50bp)",
-                    "default": 0.5,
-                    "fa_icon": "fas fa-balance-scale-left",
-                    "hidden": true
-                },
-                "min_genome_size": {
-                    "type": "integer",
-                    "description": "The minimum estimated genome size allowed for the input sequence to continue downstream analyses.",
-                    "default": 100000,
-                    "fa_icon": "fas fa-angle-double-down",
-                    "hidden": true
-                },
-                "max_genome_size": {
-                    "type": "integer",
-                    "description": "The maximum estimated genome size allowed for the input sequence to continue downstream analyses.",
-                    "default": 18040666,
-                    "fa_icon": "fas fa-angle-double-up",
-                    "hidden": true
-                },
-                "attempts": {
-                    "type": "integer",
-                    "description": "Maximum times to attempt downloads",
-                    "default": 3,
-                    "fa_icon": "fas fa-redo",
-                    "hidden": true
-                },
-                "use_ena": {
-                    "type": "boolean",
-                    "description": "Download FASTQs from ENA",
-                    "fa_icon": "fas fa-globe-europe",
-                    "hidden": true
-                },
-                "no_cache": {
-                    "type": "boolean",
-                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
-                    "fa_icon": "fas fa-save",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }
@@ -264,7 +174,7 @@
                     "type": "boolean",
                     "description": "Illumina reads will be QC'd using BBMap",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "use_porechop": {
@@ -272,33 +182,33 @@
                     "default": false,
                     "description": "Use Porechop to remove adapters from ONT reads",
                     "help": "",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "skip_qc": {
                     "type": "boolean",
                     "description": "The QC step will be skipped and it will be assumed the inputs sequences have already been QCed.",
                     "help": "This is really only useful if you have already QC'd your reads, or have a specific need",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "skip_qc_plots": {
                     "type": "boolean",
                     "description": "QC Plot creation by FastQC or Nanoplot will be skipped",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "skip_error_correction": {
                     "type": "boolean",
                     "description": "FLASH error correction of reads will be skipped.",
-                    "fa_icon": "fas fa-fast-forward",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "adapters": {
                     "type": "string",
                     "description": "A FASTA file containing adapters to remove",
                     "help": "By default, Bactopia will use the adapters provided by BBmap",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "adapter_k": {
@@ -313,7 +223,7 @@
                     "type": "string",
                     "description": "phiX174 reference genome to remove",
                     "help": "By default, use the phiX genome provided by BBmap",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "phix_k": {
@@ -329,7 +239,7 @@
                     "default": "r",
                     "description": "Trim reads to remove bases matching reference kmers",
                     "help": "Choices are: 'f' - do not trim, 'r' - trim ot the right, 'l' - trim to the left",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "f",
@@ -342,7 +252,7 @@
                     "description": "Look for shorter kmers at read tips down to this length, when k-trimming or masking.",
                     "help": "0 means disabled. Enabling this will disable maskmiddle",
                     "default": 11,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "hdist": {
@@ -358,7 +268,7 @@
                     "default": "t",
                     "description": "When kmer right-trimming, trim both reads to the minimum length of either",
                     "help": "Choices are: 'f' - do not equally trim, 't' - equally trim ot the right",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "f",
@@ -370,7 +280,7 @@
                     "default": "t",
                     "description": "Trim adapters based on where paired reads overlap",
                     "help": "Choices are: 'f' - do not trim by overlap, 't' - trim by overlap",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "f",
@@ -382,7 +292,7 @@
                     "default": "rl",
                     "description": "Trim read ends to remove bases with quality below trimq.",
                     "help": "Performed AFTER looking for kmers. Choices are: \n\n\t'rl' (trim both ends, Default)\n\t'f' (neither end)\n\t'r' (right end only)\n\t'l' (left end only)\n\t'w' (sliding window)",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "rl",
@@ -403,7 +313,7 @@
                     "type": "integer",
                     "description": "Reads with average quality (after trimming) below this will be discarded",
                     "default": 10,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "minlength": {
@@ -411,7 +321,7 @@
                     "description": "Reads shorter than this after trimming will be discarded",
                     "help": "Pairs will be discarded if both are shorter",
                     "default": 35,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "ftm": {
@@ -426,7 +336,7 @@
                     "default": "t",
                     "description": "Discard reads with invalid characters as bases",
                     "help": "Choices are: 'f' - keep all reads, 't' - toss reads with ambiguous bases",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "f",
@@ -438,7 +348,7 @@
                     "default": "f",
                     "description": "When detecting pair names, allow identical names",
                     "help": "Choices are: 'f' - requires /1 and /2 or 1: and 2:",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "f",
@@ -449,7 +359,7 @@
                     "type": "string",
                     "default": "33",
                     "description": "PHRED offset to use for output FASTQs",
-                    "fa_icon": "fas fa-boxes",
+                    "fa_icon": "fas fa-font",
                     "hidden": true,
                     "enum": [
                         "33",
@@ -474,42 +384,132 @@
                     "type": "integer",
                     "description": "ONT Reads shorter than this will be discarded",
                     "default": 1000,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "ont_minqual": {
                     "type": "integer",
                     "description": "Minimum average read quality filter of ONT reads",
                     "default": 0,
-                    "fa_icon": "fas fa-angle-double-down",
+                    "fa_icon": "fas fa-hashtag",
                     "hidden": true
                 },
                 "porechop_opts": {
                     "type": "string",
                     "description": "Extra Porechop options in quotes",
                     "help": "Example would be: '--adapter_threshold 50'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "nanoplot_opts": {
                     "type": "string",
                     "description": "Extra NanoPlot options in quotes",
                     "help": "Example would be: '--maxlength 10000'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "bbduk_opts": {
                     "type": "string",
                     "description": "Extra BBDuk options in quotes",
                     "help": "Example would be: 'tossbrokenreads=t nullifybrokenquality=t'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "fastp_opts": {
                     "type": "string",
                     "description": "Extra fastp options in quotes",
                     "help": "Example would be: '--disable_length_filtering'",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                }
+            }
+        },
+        "srahumanscrubber_parameters": {
+            "title": "SRA Human Scrubber Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_srascrubber": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use SRAHumanScrubber for scrubbing human reads",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        },
+        "nohuman_download_parameters": {
+            "title": "Nohuman Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nohuman_db": {
+                    "type": "string",
+                    "description": "Path to the nohuman database or directory to download it to",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true,
+                    "hidden": true
+                },
+                "nohuman_db_version": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Database version to download (default: latest HPRC release)",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "nohuman_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the nohuman database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "download_nohuman": {
+                    "type": "boolean",
+                    "description": "Download the nohuman database to the path given by --nohuman_db",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        },
+        "nohuman_run_parameters": {
+            "title": "Nohuman Run Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "nohuman_db": {
+                    "type": "string",
+                    "description": "Path to the nohuman database directory or tarball",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true,
+                    "hidden": true
+                },
+                "nohuman_confidence": {
+                    "type": "number",
+                    "default": 0.0,
+                    "description": "Kraken2 minimum confidence score for classification (0.0-1.0)",
+                    "fa_icon": "fas fa-percentage",
+                    "hidden": true
+                },
+                "nohuman_human": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Invert output to keep only human reads instead of removing them",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "nohuman_save_report": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save the Kraken2 classification report",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -861,22 +861,22 @@
             "$ref": "#/$defs/input_parameters"
         },
         {
-            "$ref": "#/$defs/nohuman_download_parameters"
-        },
-        {
-            "$ref": "#/$defs/nohuman_run_parameters"
-        },
-        {
-            "$ref": "#/$defs/srahumanscrubber_parameters"
+            "$ref": "#/$defs/gather_parameters"
         },
         {
             "$ref": "#/$defs/csvtk_concat_parameters"
         },
         {
-            "$ref": "#/$defs/gather_parameters"
+            "$ref": "#/$defs/qc_parameters"
         },
         {
-            "$ref": "#/$defs/qc_parameters"
+            "$ref": "#/$defs/srahumanscrubber_parameters"
+        },
+        {
+            "$ref": "#/$defs/nohuman_download_parameters"
+        },
+        {
+            "$ref": "#/$defs/nohuman_run_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

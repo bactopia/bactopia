@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "seqsero2",
-    "description": "Salmonella serotype prediction from reads or assemblies",
+    "description": "Salmonella serotype prediction from sequencing reads or assemblies.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -57,7 +57,7 @@
                         "a",
                         "k"
                     ],
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "seqsero2_input_type": {
                     "type": "string",
@@ -67,7 +67,7 @@
                         "assembly",
                         "fastq"
                     ],
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "seqsero2_bwa_mode": {
                     "type": "string",
@@ -77,7 +77,7 @@
                         "mem",
                         "sam"
                     ],
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }
@@ -93,7 +93,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

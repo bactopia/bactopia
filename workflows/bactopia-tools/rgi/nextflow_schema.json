@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "rgi",
-    "description": "Predict antibiotic resistance from assemblies",
+    "description": "Prediction of antibiotic resistance genes using RGI.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,34 +53,34 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Use DIAMOND for alignments instead of BLAST",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "rgi_include_loose": {
                     "type": "boolean",
                     "default": false,
                     "description": "Include loose hits in addition to strict and perfect hits",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "rgi_exclude_nudge": {
                     "type": "boolean",
                     "default": false,
                     "description": "Exclude hits nudged from loose to strict hits",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "rgi_frequency": {
                     "type": "boolean",
                     "default": false,
                     "description": "Represent samples based on resistance profile",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "rgi_category": {
                     "type": "string",
                     "default": "",
                     "description": "Organize resistance genes based on a category",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "drug_class",
                         "resistance_mechanism",
@@ -91,8 +91,8 @@
                 "rgi_cluster": {
                     "type": "string",
                     "default": "",
-                    "description": "Use SciPy's hiearchical clustering algorithm to cluster rows (AMR genes) or columns (samples)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "description": "Use SciPy's hierarchical clustering algorithm to cluster rows (AMR genes) or columns (samples)",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "samples",
                         "genes",
@@ -104,7 +104,7 @@
                     "type": "string",
                     "default": "plain",
                     "description": "Specify display options for categories",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "enum": [
                         "plain",
                         "fill",
@@ -125,7 +125,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "spatyper",
-    "description": "Method for finding spa types in Staphylococcus aureus",
+    "description": "spa typing of Staphylococcus aureus assemblies.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,20 +52,20 @@
                 "spatyper_repeats": {
                     "type": "string",
                     "description": "List of spa repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_repeat_order": {
                     "type": "string",
                     "description": "List spa types and order of repeats",
-                    "fa_icon": "fas fa-file-archive",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "spatyper_do_enrich": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do PCR product enrichment",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -80,7 +80,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

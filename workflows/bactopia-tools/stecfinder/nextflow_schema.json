@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "stecfinder",
-    "description": "Serotyping Shigella toxin producing Escherichia coli genomes",
+    "description": "Serotype identification of Shiga toxin-producing E. coli.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,80 +53,80 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Paired-end Illumina reads will be used instead of assemblies",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "stecfinder_hits": {
                     "type": "boolean",
                     "default": false,
                     "description": "Show detailed gene search results",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "stecfinder_cutoff": {
                     "type": "number",
                     "default": 10.0,
                     "description": "Minimum read coverage for gene to be called",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "stecfinder_length": {
                     "type": "number",
                     "default": 50.0,
                     "description": "Percentage of gene length needed for positive call",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-percentage"
                 },
                 "stecfinder_ipah_length": {
                     "type": "number",
                     "default": 10.0,
                     "description": "Percentage of ipaH gene length needed for positive gene call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_ipah_depth": {
                     "type": "number",
                     "default": 1.0,
                     "description": "Minimum depth for positive ipaH gene call (requires --stecfinder_use_reads)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_stx_length": {
                     "type": "number",
                     "default": 10.0,
                     "description": "Percentage of stx gene length needed for positive gene call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_stx_depth": {
                     "type": "number",
                     "default": 10.0,
                     "description": "Minimum depth for positive stx gene call (requires --stecfinder_use_reads)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_o_length": {
                     "type": "number",
                     "default": 60.0,
                     "description": "Percentage of wz_ gene length needed for positive call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_o_depth": {
                     "type": "number",
                     "default": 1.0,
                     "description": "Minimum depth for positive qz_ gene call (requires --stecfinder_use_reads)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_h_length": {
                     "type": "number",
                     "default": 60.0,
                     "description": "Percentage of fliC gene length needed for positive call",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 },
                 "stecfinder_h_depth": {
                     "type": "number",
                     "default": 1.0,
                     "description": "Minimum depth for positive fliC gene call (requires --stecfinder_use_reads)",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-percentage",
                     "hidden": true
                 }
             }
@@ -142,7 +142,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

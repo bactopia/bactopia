@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "abricate",
-    "description": "Mass screening of contigs for antimicrobial and virulence genes",
+    "description": "Mass screening of contigs for antimicrobial resistance and virulence genes.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,19 +53,19 @@
                     "type": "string",
                     "default": "ncbi",
                     "description": "Database to use",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 },
                 "abricate_minid": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum DNA percent identity",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "abricate_mincov": {
                     "type": "integer",
                     "default": 80,
                     "description": "Minimum DNA percent coverage",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 }
             }
         },

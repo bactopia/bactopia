@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "gamma",
-    "description": "Identification, classification, and annotation of gene matches",
+    "description": "Identification, classification, and annotation of translated gene matches.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,41 +52,41 @@
                 "gamma_db": {
                     "type": "string",
                     "description": "A gene database (FASTA) for GAMMA",
-                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "gamma_percent_identity": {
                     "type": "integer",
                     "default": 90,
                     "description": "The minimum nucleotide sequence identiy % used by the Blat search",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-hashtag"
                 },
                 "gamma_all_matches": {
                     "type": "boolean",
                     "description": "Include all gene matches, even overlaps",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "gamma_extended": {
                     "type": "boolean",
                     "description": "Writes out all protein mutations",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "gamma_write_fasta": {
                     "type": "boolean",
                     "description": "Write FASTA of gene matches",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "gamma_write_gff": {
                     "type": "boolean",
                     "description": "Write gene matches as GFF file",
                     "default": false,
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 }
             }
@@ -102,7 +102,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

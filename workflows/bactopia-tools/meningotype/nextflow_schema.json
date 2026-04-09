@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "meningotype",
-    "description": "Serotyping of Neisseria meningitidis",
+    "description": "Comprehensive typing of Neisseria meningitidis.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -53,31 +53,31 @@
                     "type": "boolean",
                     "default": false,
                     "description": "perform porA and fetA fine typing",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "meningotype_porB": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform porB sequence typing (NEIS2020)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "meningotype_bast": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform Bexsero antigen sequence typing (BAST)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "meningotype_mlst": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform MLST",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "meningotype_all": {
                     "type": "boolean",
                     "default": false,
                     "description": "perform MLST, porA, fetA, porB, BAST typing",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -92,7 +92,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }

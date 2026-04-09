@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
     "title": "checkm2",
-    "description": "Rapid assessment of genome bin quality using machine learning",
+    "description": "Machine learning-based assessment of microbial genome assembly quality.",
     "type": "object",
     "$defs": {
         "input_parameters": {
@@ -52,14 +52,14 @@
                 "checkm2_db": {
                     "type": "string",
                     "description": "Path to a folder containing CheckM2 database (or where it should be downloaded to).",
-                    "fa_icon": "fas fa-file-alt",
+                    "fa_icon": "fas fa-font",
                     "is_required": true
                 },
                 "download_checkm2": {
                     "type": "boolean",
                     "description": "Download the CheckM2 database to the path given by --checkm2_db",
                     "default": false,
-                    "fa_icon": "fas fa-italic"
+                    "fa_icon": "fas fa-toggle-on"
                 }
             }
         },
@@ -73,32 +73,32 @@
                 "checkm2_lowmem": {
                     "type": "boolean",
                     "description": "Low memory mode. Reduces DIAMOND blocksize to significantly reduce RAM usage at the expense of longer runtime",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_general": {
                     "type": "boolean",
                     "description": "Force the use of the general quality prediction model (gradient boost)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_specific": {
                     "type": "boolean",
                     "description": "Force the use of the specific quality prediction model (neural network)",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_allmodels": {
                     "type": "boolean",
                     "description": "Output quality prediction for both models for each genome.",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_genes": {
                     "type": "boolean",
                     "description": "Treat input files as protein files. [Default: False]",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "checkm2_opts": {
                     "type": "string",
                     "description": "Additional options to pass to CheckM2",
-                    "fa_icon": "fas fa-expand-arrows-alt"
+                    "fa_icon": "fas fa-font"
                 }
             }
         },
@@ -113,7 +113,7 @@
                     "type": "string",
                     "description": "Extra csvtk concat options in quotes",
                     "help": "",
-                    "fa_icon": "fas fa-italic",
+                    "fa_icon": "fas fa-font",
                     "hidden": true
                 }
             }
