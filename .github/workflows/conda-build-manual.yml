@@ -11,16 +11,16 @@ jobs:
         shell: bash -l {0}
     steps:
       - name: Checkout bactopia/bactopia
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: dev
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-variant: Miniforge3
-          miniforge-version: latest
           activate-environment: anaconda-client-env
+          conda-remove-defaults: "true"
+          channels: conda-forge,bioconda
 
       - name: Build and Push 
         run: |
