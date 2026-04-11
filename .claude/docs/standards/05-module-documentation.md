@@ -315,26 +315,38 @@ fi
 ```
 
 ### 6.2 Meta Variable Construction
+
+Bind `_meta = meta` at the top of the script block to preserve the upstream record, then rebuild `meta` as a new `Record` using the `record(...)` constructor. Records are immutable, so all fields must be set in a single expression (no post-construction mutation).
+
 ```groovy
-meta = [:]
-meta.id = "${prefix}-${task.process}"
-meta.name = prefix
-meta.scope = task.ext.scope
-meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-meta.process_name = task.ext.process_name
+script:
+def _meta = meta
+prefix = task.ext.prefix ?: "${_meta.name}"
+
+// Create a new meta variable
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.scope,
+    output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+    logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+    process_name: task.ext.process_name
+)
 ```
 
 ### 6.3 Workflow-Dependent Behavior
+
+Because `Record` fields cannot be mutated after construction, workflow-dependent values are expressed as inline ternaries inside the `record(...)` call rather than via conditional re-assignment.
+
 ```groovy
-if (task.ext.wf == "pangenome") {
-    meta.scope = "run"
-    meta.output_dir = "prokka/${prefix}"
-}
-else {
-    meta.scope = "sample"
-    meta.output_dir = "${prefix}/main/annotator/prokka/"
-}
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.wf == "pangenome" ? "run" : task.ext.scope,
+    output_dir: task.ext.wf == "pangenome" ? "prokka/${prefix}" : "${prefix}/main/annotator/prokka/",
+    logs_dir: task.ext.wf == "pangenome" ? "prokka/${prefix}/logs" : "${prefix}/main/annotator/prokka/logs/",
+    process_name: task.ext.process_name
+)
 ```
 
 ### 6.4 Version Information

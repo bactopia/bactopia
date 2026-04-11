@@ -24,7 +24,7 @@
  * SRA Human Scrubber database directory
  *
  * @output record(meta, special_meta, r1?, r2?, se?, lr?, scrub_report?, results, logs, nf_logs, versions)
- * - `special_meta`: A simplified metadata map for downstream report joining
+ * - `special_meta`: A simplified metadata record for downstream report joining
  * - `r1?`: Scrubbed paired-end forward reads
  * - `r2?`: Scrubbed paired-end reverse reads
  * - `se?`: Scrubbed single-end reads

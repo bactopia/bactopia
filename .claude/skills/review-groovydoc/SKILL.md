@@ -28,11 +28,12 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - M014: Links use HTTPS
    - M031: @output fields match actual record() output
    - M032: @input record fields match actual input
-   - M033: @input uses record() syntax
+   - M033: Optionality markers (?) match between GroovyDoc and code
    - M034: Standard fields not described in @output
    - M035: @citation keys exist in citations.yml
    - M036: GroovyDoc tag ordering
    - M037: Blank lines between GroovyDoc sections
+   - M038: No `*/` inside GroovyDoc block
 
    **Subworkflow rules (S-series):**
    - S003: GroovyDoc with required tags
@@ -62,11 +63,12 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    **Module fixes:**
    - **M031 (FAIL)**: Read the actual `record()` output block, update `@output record(...)` to match
    - **M032 (FAIL)**: Read the actual input declaration, update `@input record(...)` to match
-   - **M033 (WARN)**: Convert `@input (_meta: Map, ...)` to `@input record(meta, ...)`
+   - **M033 (FAIL)**: Reconcile optionality markers (`?`) between GroovyDoc and code. If the doc field has `?` but the code doesn't, either add `optional: true` / `Path?` to the code or drop the `?` from the doc. If the code is optional but the doc isn't, add the `?`.
    - **M034 (WARN)**: Remove description lines for standard fields (meta, results, logs, nf_logs, versions)
    - **M035 (FAIL)**: Check `data/citations.yml` for the correct key and update `@citation`
    - **M036 (WARN)**: Reorder tags to match: @status -> @keywords -> @tags -> @citation -> @note -> @input -> @output
    - **M037 (WARN)**: Add blank `*` lines between sections
+   - **M038 (FAIL)**: Escape or reword any `*/` sequence inside the GroovyDoc block (e.g. replace glob patterns like `dir/*/file` with an alternative wording) so the comment doesn't close prematurely
 
    **Subworkflow fixes:**
    - **S017 (FAIL)**: Update `@modules` to match actual include statements (use underscore-delimited keys: `blast_blastn` not `blastn`)

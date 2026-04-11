@@ -15,7 +15,7 @@
  * @modules eggnog_download, eggnog_mapper
  *
  * @input record(meta, proteins)
- * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `meta`: Groovy Record containing sample information
  * - `proteins`: Protein sequences in FASTA format for functional annotation
  *
  * @input database

@@ -21,7 +21,7 @@ The module is the basic building block that executes a specific tool.
 
 3. **Key requirements**:
    - Include `nextflow.preview.types = true` at the top
-   - Define inputs using Record syntax (e.g., `(meta: Map, assembly: Path): Record`)
+   - Define inputs using Record syntax (e.g., `(meta: Record, assembly: Path): Record`)
    - Emit a single `record()` with named fields, `results`, `logs`, `nf_logs`, and `versions`
    - Include version tracking in `versions.yml`
 

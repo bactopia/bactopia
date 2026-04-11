@@ -325,7 +325,7 @@ input:
 
 | Slot | Variable | Description |
 |------|----------|-------------|
-| 1 | `meta` | Sample metadata map |
+| 1 | `meta` | Sample metadata record |
 | 2 | `r1` | Illumina R1 (paired-end forward) |
 | 3 | `r2` | Illumina R2 (paired-end reverse) |
 | 4 | `se` | Single-end Illumina reads |
@@ -333,12 +333,12 @@ input:
 
 ### Pre-GATHER vs Post-GATHER
 
-The GATHER module transforms read channels:
+The GATHER module transforms read channels. In both stages the channel element is a `Record` containing a `meta: Record` and per-slot read fields — what changes is how many files each slot holds:
 
-| Stage | Type | Purpose |
-|-------|------|---------|
-| Pre-GATHER | `Tuple<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>` | Multiple files per slot (multi-lane/run) |
-| Post-GATHER | `Tuple<Map, Path?, Path?, Path?, Path?>` | Single consolidated file per slot |
+| Stage | Channel element | Purpose |
+|-------|-----------------|---------|
+| Pre-GATHER | `Channel<Record>` with `record(meta, r1_files: Set<Path?>, r2_files: Set<Path?>, se_files: Set<Path?>, lr_files: Set<Path?>, fna_files: Set<Path?>)` | Multiple files per slot (multi-lane/run, pre-merge) |
+| Post-GATHER | `Channel<Record>` with `record(meta, r1?, r2?, se?, lr?, fna?)` where each read slot is `Path?` | Single consolidated file per slot (post-merge) |
 
 ### Detecting Read Type in Scripts
 

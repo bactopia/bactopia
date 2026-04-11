@@ -14,7 +14,7 @@
  * @modules roary as roary_module
  *
  * @input record(meta, gff)
- * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `meta`: Groovy Record containing sample information
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
  * @output sample_outputs

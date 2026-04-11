@@ -66,10 +66,10 @@ process ASSEMBLER {
         // Named fields (used downstream)
         meta: meta,
         fna: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: r1 != null ? file("${r1}") : null,
-        r2: r2 != null ? file("${r2}") : null,
-        se: se != null ? file("${se}") : null,
-        lr: lr != null ? file("${lr}") : null,
+        r1: r1 != null ? file("${r1}", optional: true) : null,
+        r2: r2 != null ? file("${r2}", optional: true) : null,
+        se: se != null ? file("${se}", optional: true) : null,
+        lr: lr != null ? file("${lr}", optional: true) : null,
         tsv: file("${prefix}.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [

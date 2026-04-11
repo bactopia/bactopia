@@ -14,7 +14,7 @@
  * @modules blast_blastn, csvtk_concat
  *
  * @input record(meta, assembly)
- * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Set of assembled contigs in FASTA format to be searched against the database
  *
  * @input query

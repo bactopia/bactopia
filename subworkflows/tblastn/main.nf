@@ -14,7 +14,7 @@
  * @modules blast_tblastn, csvtk_concat
  *
  * @input record(meta, blastdb)
- * - `meta`: Metadata map containing sample information including sample ID, name, and other attributes
+ * - `meta`: Groovy Record containing sample information
  * - `blastdb`: A compressed tarball containing the nucleotide BLAST database
  *
  * @input query

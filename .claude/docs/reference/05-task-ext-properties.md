@@ -177,24 +177,26 @@ def extra_args = task.ext.args2 ?: ''
 
 ### Meta Construction Pattern
 
+Bind `_meta = meta` to preserve the upstream record, then rebuild `meta` as a new `Record` via `record(...)`. Records are immutable — workflow-dependent values must be expressed as inline ternaries inside the constructor, not as post-construction assignments.
+
 ```groovy
 script:
 def _meta = meta
-def prefix = task.ext.prefix ?: "${_meta.name}"
-def meta = [:]
-meta.id = "${prefix}-${task.process}"
-meta.name = prefix
-meta.scope = task.ext.scope
-meta.process_name = task.ext.process_name
+prefix = task.ext.prefix ?: "${_meta.name}"
 
-// Workflow-specific output paths
-if (task.ext.wf == "teton") {
-    meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-} else {
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-}
+// Create a new meta variable (workflow-specific output paths via inline ternaries)
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.scope,
+    output_dir: task.ext.wf == "teton"
+        ? "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
+        : "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+    logs_dir: task.ext.wf == "teton"
+        ? "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+        : "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+    process_name: task.ext.process_name
+)
 ```
 
 ## Workflow Routing (task.ext.wf)
@@ -212,7 +214,7 @@ The `task.ext.wf` property controls output directory organization based on which
 
 1. **Configuration**: Set `ext.wf = params.wf` in module.config
 2. **Module access**: Check `task.ext.wf` in the script section
-3. **Path construction**: Conditionally build `meta.output_dir` based on workflow
+3. **Path construction**: Build the workflow-specific `output_dir` value via an inline ternary inside the `record(...)` constructor
 
 ### Output Path Examples
 
@@ -250,15 +252,18 @@ In `main.nf`:
 ```groovy
 script:
 def _meta = meta
-def prefix = task.ext.prefix ?: "${_meta.name}"
-def meta = [:]
+prefix = task.ext.prefix ?: "${_meta.name}"
 
 // Construct output path based on workflow
-if (task.ext.wf == "teton") {
-    meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
-} else {
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-}
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.scope,
+    output_dir: task.ext.wf == "teton"
+        ? "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
+        : "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+    process_name: task.ext.process_name
+)
 ```
 
 ### Why This Pattern Exists

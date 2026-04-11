@@ -27,7 +27,7 @@
  *
  * @output sample_outputs
  * - `tsv`: Tab-delimited summary of Bracken primary and secondary species abundances
- * - `special_meta`: A simplified metadata map for internal use
+ * - `special_meta`: A simplified metadata record for internal use
  * - `classified`: Reads classified to belong to any of the taxa on the Kraken2 database
  * - `unclassified`: Reads not classified to belong to any of the taxa on the Kraken2 database
  * - `kraken2_report`: Kraken2 report containing stats about classified and not classified reads

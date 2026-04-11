@@ -30,7 +30,7 @@
  * @output record(meta, special_meta, kraken2_report, scrub_report?, classified?, unclassified?, results, logs, nf_logs, versions)
  * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
  * - `scrub_report?`: Summary report of reads removed during host scrubbing
- * - `special_meta`: A simplified metadata map for internal use
+ * - `special_meta`: A simplified metadata record for internal use
  * - `classified?`: Reads assigned to a taxon in the database (FASTQ)
  * - `unclassified?`: Reads NOT assigned to any taxon (FASTQ)
  */
