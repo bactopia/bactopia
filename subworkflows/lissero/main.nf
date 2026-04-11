@@ -15,7 +15,7 @@
  * @modules csvtk_concat, lissero
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for L. monocytogenes serotype prediction
  *
  * @output sample_outputs

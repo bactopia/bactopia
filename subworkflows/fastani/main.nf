@@ -15,11 +15,11 @@
  * @modules csvtk_concat, fastani
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Query genomes in FASTA format for ANI calculation
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Reference genomes in FASTA format for ANI calculation
  *
  * @output sample_outputs

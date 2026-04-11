@@ -17,7 +17,7 @@
  * @note Database can be automatically downloaded or provided as pre-existing tarball
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @input database

@@ -104,7 +104,7 @@ For workflow components that orchestrate modules/subworkflows:
  * @note <Optional: Additional notes about workflow behavior>
  *
  * @input record(meta, <input_name>)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `<input_name>`: <Description of the input>
  *
  * @input <param_name>

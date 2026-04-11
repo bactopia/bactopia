@@ -58,7 +58,7 @@ To ensure accuracy and consistency, follow this step-by-step process for each su
 - **Standard Renaming Rules:**
     - `fasta` → **`assembly`**: "Assembled contigs in FASTA format"
     - `fastq`/`reads` → **`reads`**: "FASTQ reads (Illumina or Nanopore)"
-    - `meta` → "Groovy Map containing sample information"
+    - `meta` → "Groovy Record containing sample information"
 
 #### Explicit Positional Read Slots
 
@@ -66,7 +66,7 @@ For subworkflows accepting reads, use explicit positional slots for clarity:
 
 ```groovy
 @input record(meta, r1?, r2?, se?, lr?)
-- `meta`: Groovy Map containing sample information
+- `meta`: Groovy Record containing sample information
 - `r1?`: Illumina R1 reads (paired-end forward)
 - `r2?`: Illumina R2 reads (paired-end reverse)
 - `se?`: Single-end Illumina reads
@@ -261,7 +261,7 @@ Common uses:
  * @subworkflows pirate, roary, panaroo, snpdists
  *
  * @input record(meta, gff)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `gff`: Set of GFF3 annotation files from assembled genomes
  *
  * @input use_pirate
@@ -302,7 +302,7 @@ Common uses:
  * @modules ariba_getref, ariba_run, csvtk_concat
  *
  * @input record(meta, reads)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `reads`: Paired-end reads in FASTQ format
  *
  * @input db
@@ -341,7 +341,7 @@ Common uses:
  * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
  * @input record(meta, reads)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `reads`: FASTQ reads (Illumina or Nanopore)
  *
  * @input db
@@ -395,7 +395,7 @@ Common uses:
  * @modules ssuissero, csvtk_concat
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output sample_outputs
@@ -428,7 +428,7 @@ Common uses:
  * @modules sccmec, csvtk_concat
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output sample_outputs
@@ -469,7 +469,7 @@ Common uses:
  * @modules bactopia_assembler, csvtk_concat
  *
  * @input record(meta, fq, extra)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fq`: Primary reads (Illumina paired-end or Nanopore)
  * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
  *

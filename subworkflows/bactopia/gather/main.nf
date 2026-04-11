@@ -18,7 +18,7 @@
  * @modules bactopia_gather, csvtk_concat
  *
  * @input record(meta, r1_files, r2_files, se_files, lr_files)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1_files`: Illumina R1 read files (Set, elements may be null)
  * - `r2_files`: Illumina R2 read files (Set, elements may be null)
  * - `se_files`: Single-end read files (Set, elements may be null)

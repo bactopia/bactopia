@@ -14,7 +14,7 @@
  * @modules mashtree
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Pre-gathered assembled contigs in FASTA format (multiple genomes)
  *
  * @output sample_outputs

@@ -16,7 +16,7 @@
  * @modules iqtree
  *
  * @input record(meta, aln)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs

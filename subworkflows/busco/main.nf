@@ -15,7 +15,7 @@
  * @modules csvtk_concat, busco
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Genome assemblies to evaluate for completeness. Each record contains metadata
  *   about the sample and a set of assembled contigs in FASTA format.
  *

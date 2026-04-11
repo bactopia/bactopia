@@ -14,7 +14,7 @@
  * @modules csvtk_concat, hicap
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for H. influenzae serotype prediction
  *
  * @input database_dir

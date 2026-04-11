@@ -15,7 +15,7 @@
  * @modules merlin_dist
  *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Assembled contigs in FASTA format for species identification
  * - `r1?`: Illumina R1 reads (paired-end) or null
  * - `r2?`: Illumina R2 reads (paired-end) or null

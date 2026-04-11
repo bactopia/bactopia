@@ -12,7 +12,7 @@
  * @modules csvtk_concat, amrfinderplus_run
  *
  * @input record(meta, genes, proteins, gff)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `genes`: Nucleotide sequences of genes in FASTA format
  * - `proteins`: Optional amino acid sequences of proteins in FASTA format (Path?)
  * - `gff`: Optional GFF3 annotation file (Path?)

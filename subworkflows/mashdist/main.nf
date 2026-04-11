@@ -14,7 +14,7 @@
  * @modules csvtk_concat, mash_dist
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Sequences in FASTA format to compare against reference
  *
  * @input reference

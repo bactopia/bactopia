@@ -15,7 +15,7 @@
  * @modules csvtk_concat, kleborate
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for Klebsiella genotyping
  *
  * @output sample_outputs

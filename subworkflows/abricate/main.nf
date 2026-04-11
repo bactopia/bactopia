@@ -13,7 +13,7 @@
  * @modules abricate_run, abricate_summary
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output sample_outputs

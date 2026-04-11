@@ -15,7 +15,7 @@
  * @subworkflows agrvate, spatyper, sccmec
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @input repeats

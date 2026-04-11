@@ -14,7 +14,7 @@
  * @modules csvtk_concat, ectyper
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for E. coli serotype prediction
  *
  * @output sample_outputs

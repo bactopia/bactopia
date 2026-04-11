@@ -16,7 +16,7 @@
  * @modules mykrobe_predict, csvtk_concat
  *
  * @input record(meta, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end)
  * - `r2?`: Illumina R2 reads (paired-end)
  * - `se?`: Single-end Illumina reads

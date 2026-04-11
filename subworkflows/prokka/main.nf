@@ -14,7 +14,7 @@
  * @modules prokka as prokka_module
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Bacterial assembly files in FASTA format to be annotated
  *
  * @input proteins

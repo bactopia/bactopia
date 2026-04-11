@@ -77,7 +77,7 @@ Use when: one module, one aggregation step.
  * @modules csvtk_concat, {tool_module}
  *
  * @input record(meta, {input_field})
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `{input_field}`: {Description}
  *
  * @input {additional_input}

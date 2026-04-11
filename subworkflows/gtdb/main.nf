@@ -15,7 +15,7 @@
  * @modules csvtk_concat, gtdbtk_classifywf, gtdbtk_download
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for taxonomic classification
  *
  * @input database

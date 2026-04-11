@@ -17,7 +17,7 @@
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Assembly file for species identification and typing
  * - `r1?`: Illumina R1 reads (paired-end) or null
  * - `r2?`: Illumina R2 reads (paired-end) or null

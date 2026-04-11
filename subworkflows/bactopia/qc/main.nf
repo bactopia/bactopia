@@ -23,7 +23,7 @@
  * @modules bactopia_qc
  *
  * @input record(meta, r1?, r2?, se?, lr?, assembly?)
- * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
+ * - `meta`: Groovy Record containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1?`: Illumina R1 reads (paired-end forward)
  * - `r2?`: Illumina R2 reads (paired-end reverse)
  * - `se?`: Single-end Illumina reads

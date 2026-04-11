@@ -15,7 +15,7 @@
  * @modules csvtk_concat, mcroni
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembly files in FASTA format for mcr-1 promoter analysis
  *
  * @output sample_outputs

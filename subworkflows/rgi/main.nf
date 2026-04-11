@@ -13,7 +13,7 @@
  * @modules rgi_main, rgi_heatmap, csvtk_concat
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format for resistome prediction
  *
  * @output sample_outputs
