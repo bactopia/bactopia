@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,comparative
  * @citation mash
  *
- * @subworkflows bactopiatool_init, mashdist
+ * @subworkflows utils_bactopia-tools, mashdist
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

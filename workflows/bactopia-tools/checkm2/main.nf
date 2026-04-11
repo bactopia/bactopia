@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,assembly-qa,machine-learning
  * @citation checkm2
  *
- * @subworkflows bactopiatool_init, checkm2
+ * @subworkflows utils_bactopia-tools, checkm2
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

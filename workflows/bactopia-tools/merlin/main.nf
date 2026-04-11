@@ -11,19 +11,25 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,conditional-logic,automation
  * @citation mash
  *
- * @subworkflows bactopiatool_init, merlin
+ * @subworkflows utils_bactopia-tools, merlin, bactopia_datasets
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
  *
- * @input minmer_db
- * Path to Minmer database for species identification
+ * @input emmtyper_blastdb
+ * Path to a custom emmtyper BLAST database for Streptococcus pyogenes typing
  *
- * @input ask_merlin
- * Interactive mode for species-specific tool selection
+ * @input hicap_database_dir
+ * Path to a custom HiCap database directory for Haemophilus influenzae capsular typing
  *
- * @input full_merlin
- * Execute all species-specific tools regardless of species match
+ * @input hicap_model_fp
+ * Path to a custom HiCap model file
+ *
+ * @input spatyper_repeats
+ * Path to a custom spaTyper repeats file for Staphylococcus aureus typing
+ *
+ * @input spatyper_repeat_order
+ * Path to a custom spaTyper repeat order file
  *
  * @section Species-Specific Analysis
  * @note Tools executed depend on detected species

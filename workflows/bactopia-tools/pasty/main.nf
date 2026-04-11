@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation pasty
  *
- * @subworkflows bactopiatool_init, pasty
+ * @subworkflows utils_bactopia-tools, pasty
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

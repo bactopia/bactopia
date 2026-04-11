@@ -12,7 +12,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation tbprofiler
  *
- * @subworkflows bactopiatool_init, tbprofiler
+ * @subworkflows utils_bactopia-tools, tbprofiler
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

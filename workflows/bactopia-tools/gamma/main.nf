@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,annotation
  * @citation gamma
  *
- * @subworkflows bactopiatool_init, gamma
+ * @subworkflows utils_bactopia-tools, gamma
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

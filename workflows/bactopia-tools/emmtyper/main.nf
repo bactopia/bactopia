@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation emmtyper
  *
- * @subworkflows bactopiatool_init, emmtyper
+ * @subworkflows utils_bactopia-tools, emmtyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

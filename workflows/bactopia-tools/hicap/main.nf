@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation hicap
  *
- * @subworkflows bactopiatool_init, hicap
+ * @subworkflows utils_bactopia-tools, hicap
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

@@ -11,7 +11,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,resistance
  * @citation mcroni
  *
- * @subworkflows bactopiatool_init, mcroni
+ * @subworkflows utils_bactopia-tools, mcroni
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

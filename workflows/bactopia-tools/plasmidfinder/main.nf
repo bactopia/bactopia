@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation plasmidfinder
  *
- * @subworkflows bactopiatool_init, plasmidfinder
+ * @subworkflows utils_bactopia-tools, plasmidfinder
  *
  * @input rundir
  * Run directory containing Bactopia results

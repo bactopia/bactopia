@@ -13,7 +13,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation abricate, arg_annot, card, csvtk, ecoh, megares2, ncbi_reference_gene_catalog, plasmidfinder, resfinder, vfdb
  *
- * @subworkflows bactopiatool_init, abricate
+ * @subworkflows utils_bactopia-tools, abricate
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

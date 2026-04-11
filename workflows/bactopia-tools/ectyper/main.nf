@@ -11,7 +11,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation ectyper
  *
- * @subworkflows bactopiatool_init, ectyper
+ * @subworkflows utils_bactopia-tools, ectyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

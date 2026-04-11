@@ -9,9 +9,9 @@
  * @status stable
  * @keywords functional annotation, orthology, proteins, eggnog, bactopia-tool
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,functional-annotation,orthology,database-dependent
- * @citation eggnog
+ * @citation eggnog_mapper, eggnog_db
  *
- * @subworkflows bactopiatool_init, eggnog
+ * @subworkflows utils_bactopia-tools, eggnog
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

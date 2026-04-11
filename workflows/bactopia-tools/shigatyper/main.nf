@@ -15,7 +15,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, shigatyper
  *
- * @subworkflows bactopiatool_init, shigatyper
+ * @subworkflows utils_bactopia-tools, shigatyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

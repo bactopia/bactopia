@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,classification
  * @citation btyper3
  *
- * @subworkflows bactopiatool_init, btyper3
+ * @subworkflows utils_bactopia-tools, btyper3
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

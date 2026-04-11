@@ -47,6 +47,9 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - S023: @tags features values are valid
    - S024: GroovyDoc tag ordering
 
+   **Entry workflows (W-series):**
+   - No dedicated GroovyDoc-accuracy W-rules exist. Workflow GroovyDoc review is a manual pass — check the workflow main.nf against `.claude/docs/standards/06-workflow-documentation.md`, verify `@subworkflows` directory keys match actual `include { ... }` imports (e.g., `utils_bactopia-tools`, `bactopia_qc`), validate `@citation` keys against `data/citations.yml`, confirm `@input` names match declared `params { }`, and ensure each `@section` has ≥1 `@publish`. The one-off drift-check approach used on 2026-04-10 lived at `/tmp/workflow_drift_check.py` and reused `parse_groovydoc_full()` + `parse_includes()` from `bactopia-py/bactopia/nf.py`.
+
 3. Present results as a clean summary:
    - **If all pass**: Report "All X modules/subworkflows have clean GroovyDoc" and stop
    - **If issues found**: Group by rule ID for easy batch fixing

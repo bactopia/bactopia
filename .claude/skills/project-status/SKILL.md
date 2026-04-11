@@ -46,20 +46,20 @@ Run the status script and interpret the output for the user.
 All components use these required tags:
 - `@status` — `stable`, `beta`, or `deprecated`
 - `@keywords` — comma-separated search terms
+- `@tags` — `complexity:<simple|moderate|complex> input-type:<single|multiple|parameter> output-type:<single|multiple> features:<list>`
 - `@citation` — comma-separated bibtex keys
-
-Modules and subworkflows also use:
-- `@tags` — `complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<single|multiple> features:<list>`
-- `@input` — input channel descriptions (can be multi-line for records)
-- `@output` — output channel descriptions (single-line)
 - `@note` — optional caveats or requirements
 
+Modules and subworkflows also use:
+- `@input` — input channel descriptions (can be multi-line for records)
+- `@output` — output channel descriptions (single-line)
+
 Subworkflows additionally use:
-- `@subworkflows` — list of included subworkflows
-- `@modules` — list of included modules
+- `@subworkflows` — list of included subworkflows (directory keys)
+- `@modules` — list of included modules (directory keys)
 
 Entry workflows use:
-- `@subworkflows` / `@modules` — included components
+- `@subworkflows` — included subworkflows (directory keys); workflows never call modules directly, so `@modules` is not used
 - `@input` — parameter inputs (e.g., `rundir`)
 - `@section` — groups published outputs
 - `@publish` — file patterns with descriptions (within sections)

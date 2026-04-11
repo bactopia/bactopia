@@ -44,7 +44,7 @@ datasets_ariba:
     cite: |
       Doster E, Lakin SM, Dean CJ, Wolfe C, Young JG, Boucher C, Belk KE, Noyes NR, Morley PS [MEGARes 2.0: a database for classification of antimicrobial drug, biocide and metal resistance determinants in metagenomic sequence data.](https://doi.org/10.1093/nar/gkz1010) _Nucleic Acids Research_, 48(D1), D561-D569. (2020)
 
-  ncbi_reference_gene_catolog:
+  ncbi_reference_gene_catalog:
     name: NCBI Reference Gene Catalog
     link: https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047
     cite: |

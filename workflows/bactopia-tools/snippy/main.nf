@@ -12,7 +12,7 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,comparative,phylogeny
  * @citation snippy, gubbins, iqtree
  *
- * @subworkflows bactopiatool_init, ncbigenomedownload, snippy, snippy_core, gubbins, iqtree
+ * @subworkflows utils_bactopia-tools, ncbigenomedownload, snippy_run, snippy_core, gubbins, iqtree
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

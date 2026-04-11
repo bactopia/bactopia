@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation ngmaster
  *
- * @subworkflows bactopiatool_init, ngmaster
+ * @subworkflows utils_bactopia-tools, ngmaster
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation legsta
  *
- * @subworkflows bactopiatool_init, legsta
+ * @subworkflows utils_bactopia-tools, legsta
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

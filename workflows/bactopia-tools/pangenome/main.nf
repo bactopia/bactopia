@@ -18,10 +18,40 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
  * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
  *
- * @subworkflows bactopiatool_init, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
+ * @subworkflows utils_bactopia-tools, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input use_pirate
+ * Use PIRATE as the pangenome tool instead of Panaroo
+ *
+ * @input use_roary
+ * Use Roary as the pangenome tool instead of Panaroo
+ *
+ * @input species
+ * Species name used to supplement the pangenome with RefSeq assemblies
+ *
+ * @input accession
+ * Single NCBI Assembly RefSeq accession to supplement the pangenome
+ *
+ * @input accessions
+ * Path to a file listing NCBI Assembly accessions to supplement the pangenome
+ *
+ * @input prokka_proteins
+ * Path to trusted protein FASTA for Prokka homology-based annotation of downloaded genomes
+ *
+ * @input prokka_prodigal_tf
+ * Path to a Prodigal training file for Prokka gene prediction
+ *
+ * @input skip_phylogeny
+ * Skip core-genome phylogeny construction with IQ-Tree
+ *
+ * @input skip_recombination
+ * Skip recombination masking with ClonalFrameML
+ *
+ * @input scoary_traits
+ * Path to a Scoary trait file to run pan-GWAS against the pangenome
  *
  * @section Pangenome Results
  * @publish *.aln                 Core-genome alignment file containing genes present across all input genomes

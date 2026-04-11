@@ -11,10 +11,16 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool
  * @citation prokka
  *
- * @subworkflows bactopiatool_init, prokka
+ * @subworkflows utils_bactopia-tools, prokka
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input prokka_proteins
+ * Path to trusted protein FASTA file for additional homology-based annotation
+ *
+ * @input prokka_prodigal_tf
+ * Path to a Prodigal training file for gene prediction
  *
  * @section Per-Sample Results
  * @publish *.gff                 Genome annotation in GFF3 format containing sequences and annotations

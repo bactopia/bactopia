@@ -11,7 +11,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing,resistance
  * @citation pbptyper
  *
- * @subworkflows bactopiatool_init, pbptyper
+ * @subworkflows utils_bactopia-tools, pbptyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

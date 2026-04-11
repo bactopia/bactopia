@@ -12,7 +12,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation clermontyping
  *
- * @subworkflows bactopiatool_init, clermontyping
+ * @subworkflows utils_bactopia-tools, clermontyping
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

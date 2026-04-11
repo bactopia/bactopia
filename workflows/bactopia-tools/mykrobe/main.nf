@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,species-specific
  * @citation mykrobe
  *
- * @subworkflows bactopiatool_init, mykrobe
+ * @subworkflows utils_bactopia-tools, mykrobe
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

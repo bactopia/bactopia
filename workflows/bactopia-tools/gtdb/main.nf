@@ -11,7 +11,7 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,taxonomy,database-dependent
  * @citation gtdb
  *
- * @subworkflows bactopiatool_init, gtdb
+ * @subworkflows utils_bactopia-tools, gtdb
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

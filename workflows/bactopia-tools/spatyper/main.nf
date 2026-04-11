@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation spatyper
  *
- * @subworkflows bactopiatool_init, spatyper
+ * @subworkflows utils_bactopia-tools, spatyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

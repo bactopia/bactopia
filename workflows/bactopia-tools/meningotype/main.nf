@@ -12,7 +12,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing,mlst
  * @citation meningotype
  *
- * @subworkflows bactopiatool_init, meningotype
+ * @subworkflows utils_bactopia-tools, meningotype
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

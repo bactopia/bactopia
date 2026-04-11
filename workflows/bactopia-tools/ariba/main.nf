@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,database-dependent,gene-identification
  * @citation ariba
  *
- * @subworkflows bactopiatool_init, ariba
+ * @subworkflows utils_bactopia-tools, ariba
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

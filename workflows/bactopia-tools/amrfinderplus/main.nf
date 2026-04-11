@@ -12,7 +12,7 @@
  * @tags complexity:moderate input-type:directory output-type:multiple features:database-dependent,amr-detection
  * @citation amrfinderplus
  *
- * @subworkflows bactopiatool_init, amrfinderplus
+ * @subworkflows utils_bactopia-tools, amrfinderplus, bactopia_datasets
  *
  * @input rundir
  * Run directory containing Bactopia results

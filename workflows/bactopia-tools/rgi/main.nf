@@ -15,7 +15,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,visualization
  * @citation csvtk, rgi
  *
- * @subworkflows bactopiatool_init, rgi
+ * @subworkflows utils_bactopia-tools, rgi
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

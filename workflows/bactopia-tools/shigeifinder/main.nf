@@ -12,7 +12,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, shigeifinder
  *
- * @subworkflows bactopiatool_init, shigeifinder
+ * @subworkflows utils_bactopia-tools, shigeifinder
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

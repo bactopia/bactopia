@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,assembly-qa
  * @citation checkm
  *
- * @subworkflows bactopiatool_init, checkm
+ * @subworkflows utils_bactopia-tools, checkm
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation pneumocat
  *
- * @subworkflows bactopiatool_init, pneumocat
+ * @subworkflows utils_bactopia-tools, pneumocat
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

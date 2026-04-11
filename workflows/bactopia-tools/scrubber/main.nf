@@ -14,7 +14,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional
  * @citation kraken2, srahumanscrubber
  *
- * @subworkflows bactopiatool_init, scrubber
+ * @subworkflows utils_bactopia-tools, scrubber
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

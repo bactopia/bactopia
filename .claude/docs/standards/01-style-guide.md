@@ -9,10 +9,11 @@ This guide defines the standardized GroovyDoc templates and formatting conventio
 - **Entry Workflows**: Published results for end users with `@publish` files
 
 ## Standard Fields
-- **Required**: `@status`, `@keywords`, `@citation`
-- **Optional**: `@name` (workflows only), `@subworkflows`, `@modules`, `@note`
-- **Modules/Subworkflows**: `@tags` for classification
-- **Entry Workflows**: `@section` to group related outputs
+- **Required (all tiers)**: `@status`, `@keywords`, `@tags`
+- **Optional (all tiers)**: `@citation`, `@note`
+- **Modules**: `@input` and `@output` using `record(...)` syntax
+- **Subworkflows**: `@input` / `@output` + `@subworkflows` and/or `@modules` for included components
+- **Entry Workflows**: `@subworkflows` (never `@modules` — workflows call subworkflows only), `@input` as parameter names, `@section` to group related `@publish` files
 
 ### The @note Tag
 Use `@note` for special requirements, caveats, or important information:
@@ -127,18 +128,17 @@ For user-facing entry workflows (Bactopia Tools and Named Workflows):
 
 ```groovy
 /**
- * Bactopia Tool: <Tool Name>.
+ * <Concise description of what the workflow does>.
  *
- * <Short summary of the tool>.
- *
- * <Detailed description>. Uses [Tool Name](URL) to <task>.
+ * <Detailed description explaining the pipeline, tools used, and outputs>.
+ * Include [ToolName](URL) links with https protocol.
  *
  * @status <stable|beta|deprecated>
  * @keywords <comma, separated, keywords>
+ * @tags complexity:<simple|moderate|complex> input-type:parameter output-type:<single|multiple> features:<comma,separated,features>
  * @citation <comma, separated, bibtex_keys>
  *
- * @subworkflows <optional> <comma, separated, list_of_subworkflows>
- * @modules <optional> <comma, separated, list_of_modules>
+ * @subworkflows <comma, separated, directory-key list — no @modules; workflows call subworkflows only>
  *
  * @note <Optional: General tool notes/requirements>
  *

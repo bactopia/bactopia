@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,annotation,database-dependent
  * @citation bakta
  *
- * @subworkflows bactopiatool_init, bakta
+ * @subworkflows utils_bactopia-tools, bakta
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
@@ -43,9 +43,6 @@
  * @publish *.hypotheticals.tsv    List of hypothetical proteins
  * @publish *.tsv                  Annotation summary in TSV format
  * @publish *.txt                  Detailed annotation report
- *
- * @section Merged Results
- * @note Merged results are not created for Bakta annotations
  *
  * @section Execution Logs
  * @publish logs/**                Tool execution logs

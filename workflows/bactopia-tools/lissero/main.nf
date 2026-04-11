@@ -10,7 +10,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,typing
  * @citation lissero
  *
- * @subworkflows bactopiatool_init, lissero
+ * @subworkflows utils_bactopia-tools, lissero
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

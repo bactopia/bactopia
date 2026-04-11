@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
  * @citation fastani
  *
- * @subworkflows bactopiatool_init, fastani, ncbigenomedownload
+ * @subworkflows utils_bactopia-tools, fastani, ncbigenomedownload
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
@@ -43,9 +43,7 @@
  *
  * @section Versions
  * @publish versions.yml Software version information
- *
- * @citation Jain C, Rodriguez-R LM, Phillippy AM, Konstantinidis KT, Aluru S [High throughput ANI analysis of 90K prokaryotic genomes reveals clear species boundaries.](https://dx.doi.org/10.1038/s41467-018-07641-9) _Nat. Commun._ 9, 5114 (2018)
-   */
+ */
 nextflow.preview.types = true
 
 params {

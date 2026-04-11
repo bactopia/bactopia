@@ -13,7 +13,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation abritamr, amrfinderplus, csvtk
  *
- * @subworkflows bactopiatool_init, abritamr
+ * @subworkflows utils_bactopia-tools, abritamr
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

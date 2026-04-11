@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,database-dependent
  * @citation busco, csvtk
  *
- * @subworkflows bactopiatool_init, busco
+ * @subworkflows utils_bactopia-tools, busco
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

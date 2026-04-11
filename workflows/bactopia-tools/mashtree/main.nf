@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,phylogeny,comparative
  * @citation mashtree
  *
- * @subworkflows bactopiatool_init, mashtree, ncbigenomedownload
+ * @subworkflows utils_bactopia-tools, mashtree, ncbigenomedownload
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

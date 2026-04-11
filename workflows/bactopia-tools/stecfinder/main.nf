@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,serotyping
  * @citation stecfinder
  *
- * @subworkflows bactopiatool_init, stecfinder
+ * @subworkflows utils_bactopia-tools, stecfinder
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

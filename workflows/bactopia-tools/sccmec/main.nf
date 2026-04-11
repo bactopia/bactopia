@@ -14,7 +14,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, sccmec
  *
- * @subworkflows bactopiatool_init, sccmec
+ * @subworkflows utils_bactopia-tools, sccmec
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

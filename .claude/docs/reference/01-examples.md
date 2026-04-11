@@ -158,16 +158,17 @@ workflow MLST {
 
 ```groovy
 /**
- * Bactopia Tool: Pangenome Analysis.
+ * Pangenome analysis with optional core-genome phylogeny.
  *
  * Performs comprehensive pangenome analysis from bacterial genomes.
  * Creates gene presence/absence matrices and builds phylogenetic trees.
  *
  * @status stable
  * @keywords pangenome, comparative genomics, phylogeny
- * @citation pirate, panaroo, roary, iqtree, scoary, clonalframeml
+ * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
+ * @citation clonalframeml, iqtree, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
  *
- * @subworkflows ncbigenomedownload, prokka, pangenome, clonalframeml, iqtree, scoary
+ * @subworkflows utils_bactopia-tools, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
  *
  * @note Optional: Requires trait file for GWAS analysis with SCOARY
  *

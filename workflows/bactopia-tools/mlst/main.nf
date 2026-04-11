@@ -12,10 +12,13 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, mlst, pubmlst
  *
- * @subworkflows bactopiatool_init, mlst
+ * @subworkflows utils_bactopia-tools, mlst
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input mlst_db
+ * Path to a pre-built MLST database directory (optional — auto-detected otherwise)
  *
  * @section Per-Sample Results
  * @publish *.tsv                      Tab-delimited file with MLST results including scheme, ST, and allele profiles

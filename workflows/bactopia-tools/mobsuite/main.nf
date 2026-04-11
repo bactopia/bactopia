@@ -12,7 +12,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, mobsuite, mobsuite_db
  *
- * @subworkflows bactopiatool_init, mobsuite
+ * @subworkflows utils_bactopia-tools, mobsuite
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

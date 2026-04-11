@@ -13,10 +13,16 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing,workflow
  * @citation agrvate, spatyper, sccmec
  *
- * @subworkflows bactopiatool_init, staphtyper
+ * @subworkflows utils_bactopia-tools, staphtyper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input spatyper_repeats
+ * Path to a custom spaTyper repeats file
+ *
+ * @input spatyper_repeat_order
+ * Path to a custom spaTyper repeat order file
  *
  * @section Comprehensive Typing
  * @note Results from all included typing tools

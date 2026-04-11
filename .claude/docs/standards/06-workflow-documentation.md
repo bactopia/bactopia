@@ -12,7 +12,7 @@ Entry workflows are fundamentally different from modules and subworkflows:
 2. **@publish instead of @output**: Workflows publish files, don't emit channels
 3. **Parameter-Based Inputs**: Workflows accept params, not typed channels
 4. **Section Organization**: Results are organized into @section groups
-5. **No Complexity Tags**: Workflows don't use @tags like modules/subworkflows
+5. **Parameter-Typed Tags**: Workflows use `@tags` with `input-type:parameter` (since inputs are params, not channels)
 6. **Narrative Documentation**: More descriptive, user-focused explanations
 
 ### 1.2 Standard Workflow Components
@@ -260,7 +260,7 @@ Path to adapter sequences file for removal during QC
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation abricate, arg_annot, card, csvtk, ecoh, megares2, ncbi_reference_gene_catalog, plasmidfinder, resfinder, vfdb
  *
- * @subworkflows bactopiatool_init, abricate
+ * @subworkflows abricate, utils_bactopia-tools
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
@@ -292,9 +292,9 @@ Path to adapter sequences file for removal during QC
  *
  * @status stable
  * @keywords metagenomics, classification, kraken2, bracken, abundance, profiling
- * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation, conditional-logic, database-dependent
+ * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
- * @subworkflows bactopia_init, gather, teton
+ * @subworkflows bactopia_gather, teton, utils_bactopia
  *
  * @input rundir
  * Directory containing metagenomic sequencing reads
@@ -337,10 +337,10 @@ Path to adapter sequences file for removal during QC
  *
  * @status stable
  * @keywords bacteria, assembly, annotation, AMR, MLST, genomics, pipeline
- * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation, conditional-logic
+ * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic
  *
- * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
- * @subworkflows mlst, qc, bakta, prokka, merlin
+ * @subworkflows amrfinderplus, bactopia_assembler, bactopia_datasets, bactopia_gather,
+ *               bactopia_qc, bactopia_sketcher, bakta, merlin, mlst, prokka, utils_bactopia
  *
  * @input rundir
  * Directory containing raw sequencing reads

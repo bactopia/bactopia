@@ -24,6 +24,8 @@ bactopia/
 ├── main.nf                    # Main Bactopia workflow
 ├── nextflow.config            # Global configuration
 ├── nextflow_schema.json       # Parameter validation schema
+├── catalog.json               # Auto-generated component catalog
+├── llms.txt                   # llms.txt-standard AI discovery index
 ├── CLAUDE.md                  # AI Context Master Map
 └── README.md                  # Project documentation
 ```
@@ -85,9 +87,10 @@ bactopia/
 - **Contents**:
     - `conda/` - Development environment specifications
     - `citations.yml` - Tool citations and references
-    - `catalog.json` - Component catalog (modules, subworkflows, workflows)
     - `proteins.faa` - Protein reference file
     - Image assets (logos, banners)
+
+Note: `catalog.json` (auto-generated component catalog) and `llms.txt` (AI discovery index) live at the repo root, not under `data/`.
 
 ### `/bin/`
 - **Purpose**: CLI wrapper scripts for the bioconda `bactopia` package

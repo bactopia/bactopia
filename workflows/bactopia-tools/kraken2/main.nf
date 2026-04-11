@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,classification,visualization
  * @citation kraken2
  *
- * @subworkflows bactopiatool_init, kraken2
+ * @subworkflows utils_bactopia-tools, kraken2
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

@@ -5,7 +5,7 @@ description: Regenerate nextflow.config and nextflow_schema.json for Bactopia wo
 
 # Merge Schemas
 
-Regenerate the `nextflow.config` and `nextflow_schema.json` files for one or more Bactopia workflows by invoking `bactopia-merge-schemas`. Auto-discovers each workflow's output directory from `data/catalog.json` so the caller never hand-computes paths.
+Regenerate the `nextflow.config` and `nextflow_schema.json` files for one or more Bactopia workflows by invoking `bactopia-merge-schemas`. Auto-discovers each workflow's output directory from `catalog.json` so the caller never hand-computes paths.
 
 ## Steps
 
@@ -18,7 +18,7 @@ Regenerate the `nextflow.config` and `nextflow_schema.json` files for one or mor
 
     If the ask is ambiguous (e.g. "regenerate merlin" — merlin is a named Bactopia Tool entry but also a subworkflow tag), confirm with the user before running anything. Never run without some kind of filter.
 
-2. **Resolve each target to a path from the catalog.** Use the Read tool to read `/home/rpetit3/repos/bactopia/bactopia/data/catalog.json`. For each requested workflow `W`:
+2. **Resolve each target to a path from the catalog.** Use the Read tool to read `/home/rpetit3/repos/bactopia/bactopia/catalog.json`. For each requested workflow `W`:
     - Verify `catalog["workflows"][W]` exists. If not, stop and report the unknown name — do not invoke the CLI.
     - Pull `catalog["workflows"][W]["path"]` — this is the exact value to pass as `--outdir`. It is already relative to the repo root:
         - `.` → main `bactopia` workflow (outputs land in the repo root)
@@ -65,7 +65,7 @@ Regenerate the `nextflow.config` and `nextflow_schema.json` files for one or mor
 
 Required:
 - `--bactopia-path PATH` — repo root
-- `--wf NAME` — workflow key from `data/catalog.json`
+- `--wf NAME` — workflow key from `catalog.json`
 
 Output:
 - `--outdir PATH` — directory to write outputs (default `.`)

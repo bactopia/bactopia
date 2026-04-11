@@ -13,7 +13,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,genotyping,lineage
  * @citation genotyphi, mykrobe
  *
- * @subworkflows bactopiatool_init, genotyphi
+ * @subworkflows utils_bactopia-tools, genotyphi
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

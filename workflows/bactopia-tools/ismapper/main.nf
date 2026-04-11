@@ -10,7 +10,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
  * @citation ismapper
  *
- * @subworkflows bactopiatool_init, ismapper
+ * @subworkflows utils_bactopia-tools, ismapper
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

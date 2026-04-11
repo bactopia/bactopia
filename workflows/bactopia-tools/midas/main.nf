@@ -11,7 +11,7 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,profiling,database-dependent
  * @citation midas
  *
- * @subworkflows bactopiatool_init, midas
+ * @subworkflows utils_bactopia-tools, midas
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

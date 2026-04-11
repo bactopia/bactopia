@@ -10,7 +10,7 @@
  * @keywords anti-phage, defense systems, hmm, protein domains, bactopia-tool
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,hmm-search
  *
- * @subworkflows bactopiatool_init, defensefinder
+ * @subworkflows utils_bactopia-tools, defensefinder
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

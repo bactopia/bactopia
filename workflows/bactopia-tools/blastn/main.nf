@@ -11,7 +11,7 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
  * @citation blast
  *
- * @subworkflows bactopiatool_init, blastn
+ * @subworkflows utils_bactopia-tools, blastn
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

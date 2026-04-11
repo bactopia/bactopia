@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing,cgmlst
  * @citation sistr
  *
- * @subworkflows bactopiatool_init, sistr
+ * @subworkflows utils_bactopia-tools, sistr
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

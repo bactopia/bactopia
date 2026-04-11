@@ -11,8 +11,8 @@
  * @keywords bacteria, assembly, annotation, AMR, MLST, genomics, pipeline
  * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  *
- * @subworkflows bactopia_init, amrfinderplus, assembler, datasets, gather, sketcher,
- * @subworkflows mlst, qc, bakta, prokka, merlin
+ * @subworkflows utils_bactopia, amrfinderplus, bactopia_assembler, bactopia_datasets,
+ *               bactopia_gather, bactopia_qc, bactopia_sketcher, bakta, merlin, mlst, prokka
  *
  * @input rundir
  * Directory containing raw sequencing reads

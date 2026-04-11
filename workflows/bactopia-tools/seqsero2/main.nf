@@ -14,7 +14,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, seqsero2
  *
- * @subworkflows bactopiatool_init, seqsero2
+ * @subworkflows utils_bactopia-tools, seqsero2
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run

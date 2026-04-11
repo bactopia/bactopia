@@ -12,7 +12,7 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
  * @citation bracken, kraken2, srahumanscrubber
  *
- * @subworkflows bactopia_init, gather, teton
+ * @subworkflows utils_bactopia, bactopia_gather, teton
  *
  * @input rundir
  * Directory containing metagenomic sequencing reads
@@ -22,6 +22,15 @@
  *
  * @input use_srascrubber
  * Remove host reads using SRA scrubber before classification
+ *
+ * @input nohuman_db
+ * Path to a pre-built nohuman HPRC database for host read removal
+ *
+ * @input download_nohuman
+ * Download the nohuman HPRC database if not provided
+ *
+ * @input nohuman_save_as_tarball
+ * Save the downloaded nohuman database as a tarball for reuse
  *
  * @section Per-Sample Results
  * @publish bacteria.tsv               Per-sample TSV files containing bacterial organisms and their properties

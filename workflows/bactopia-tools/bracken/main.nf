@@ -11,7 +11,7 @@
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,abundance-profiling,database-dependent
  * @citation bracken, kraken2, krona
  *
- * @subworkflows bactopiatool_init, bracken
+ * @subworkflows utils_bactopia-tools, bracken
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
