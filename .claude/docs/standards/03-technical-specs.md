@@ -40,16 +40,16 @@ ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
 
 The codebase uses Record-typed inputs with explicit named parameters:
 
-- **Single assemblies**: `(meta: Map, assembly: Path): Record` - For modules processing a single assembly file
-- **Multi-read inputs**: `(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
+- **Single assemblies**: `(meta: Record, assembly: Path): Record` - For modules processing a single assembly file
+- **Multi-read inputs**: `(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
     - `r1`: Illumina paired-end forward
     - `r2`: Illumina paired-end reverse
     - `se`: Single-end Illumina reads
     - `lr`: Long reads (ONT/PacBio)
-- **Multiple distinct inputs**: `(meta: Map, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
+- **Multiple distinct inputs**: `(meta: Record, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
 - **Additional inputs** are declared on separate lines: `db: Path`, `proteins: Path?`, etc.
 
-**Note**: The codebase uses `Record` return types with named parameters (e.g., `meta: Map`) rather than `Tuple<>` type annotations. In module script blocks, `def _meta = meta` aliases the input before `meta = [:]` creates a new output meta map.
+**Note**: The codebase uses `Record` return types with named parameters (e.g., `meta: Record`) rather than `Tuple<>` type annotations. In module script blocks, `def _meta = meta` aliases the input before `meta = record(...)` constructs a new output meta record.
 
 ## Path? Optional Parameters
 
@@ -60,7 +60,7 @@ Optional file parameters use Nextflow's native `Path?` type:
 ```groovy
 // In module take block
 input:
-(meta: Map, fna: Path): Record
+(meta: Record, fna: Path): Record
 proteins   : Path?
 prodigal_tf: Path?
 ```
@@ -81,7 +81,7 @@ Optional fields are marked with a `?` suffix in GroovyDoc to mirror the `Path?` 
 
 ```groovy
  * @input record(meta, r1?, r2?, se?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end forward)
  * - `r2?`: Illumina R2 reads (paired-end reverse)
  * - `se?`: Single-end Illumina reads
@@ -146,9 +146,9 @@ Subworkflows emit two channels:
 - `sample_outputs`: The module's record output (passed through directly)
 - `run_outputs`: Aggregated results from CSVTK_CONCAT (or similar aggregation module)
 
-## Meta Map Structure
+## Meta Record Structure
 
-The meta map is a Map object that carries sample metadata through the pipeline. It is passed as the first element of input/output tuples and contains both input-derived and runtime-constructed properties.
+The meta record is a `Record` that carries sample metadata through the pipeline. It is passed as the first field of input/output records and contains both input-derived and runtime-constructed properties.
 
 ### Complete Schema
 
@@ -193,21 +193,30 @@ Some modules add additional properties:
 ```groovy
 script:
 def _meta = meta
-def prefix = task.ext.prefix ?: "${_meta.name}"
-def meta = [:]
-meta.id = "${prefix}-${task.process}"
-meta.name = prefix
-meta.scope = task.ext.scope
-meta.process_name = task.ext.process_name
+prefix = task.ext.prefix ?: "${_meta.name}"
 
-// Workflow-specific output paths
-if (task.ext.wf == "teton") {
-    meta.output_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/teton/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-} else {
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-}
+// Create a new meta record for this process
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.scope,
+    output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+    logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+    process_name: task.ext.process_name
+)
+```
+
+Modules that need to emit under a different workflow path (e.g. `teton`) introduce a `wfPath` helper and interpolate it into the `output_dir`/`logs_dir` fields:
+
+```groovy
+def String wfPath = task.ext.wf == "teton" ? "teton/main" : "main"
+
+meta = record(
+    // ... other fields ...
+    output_dir: "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}",
+    logs_dir: "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+    process_name: task.ext.process_name
+)
 ```
 
 ### Output Directory Patterns
@@ -311,7 +320,7 @@ Modules that process sequencing reads use a 5-slot positional tuple pattern to h
 ```groovy
 // Input signature
 input:
-(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 ```
 
 | Slot | Variable | Description |

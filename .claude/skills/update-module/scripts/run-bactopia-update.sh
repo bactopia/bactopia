@@ -4,16 +4,25 @@ set -euo pipefail
 # Wrapper script to locate and run bactopia-update.
 # Search order:
 #   1. bactopia-update on PATH
-#   2. conda env named "bactopia-py"
-#   3. conda env matching "bactopia-py*" (first match)
-#   4. Fail with helpful error
+#   2. conda env named "bactopia-dev" (preferred -- built from environment.yml at the bactopia repo root)
+#   3. conda env named "bactopia-py"
+#   4. conda env matching "bactopia-*" (first match)
+#   5. Fail with helpful error
 
 find_conda_env() {
     local envs
     envs=$(conda env list --json 2>/dev/null \
         | python3 -c "import sys,json; [print(p) for p in json.load(sys.stdin)['envs']]" 2>/dev/null) || return 1
 
-    # Prefer exact "bactopia-py" env
+    # Prefer exact "bactopia-dev" env (built from environment.yml at the bactopia repo root)
+    local dev_exact
+    dev_exact=$(echo "$envs" | grep '/bactopia-dev$' | head -1)
+    if [[ -n "$dev_exact" ]]; then
+        echo "$dev_exact"
+        return 0
+    fi
+
+    # Fall back to exact "bactopia-py" env
     local exact
     exact=$(echo "$envs" | grep '/bactopia-py$' | head -1)
     if [[ -n "$exact" ]]; then
@@ -21,9 +30,9 @@ find_conda_env() {
         return 0
     fi
 
-    # Fall back to any bactopia-py* env
+    # Fall back to any bactopia-* env (catches bactopia-py-dev, bactopia-dev-v4, etc.)
     local fuzzy
-    fuzzy=$(echo "$envs" | grep '/bactopia-py' | head -1)
+    fuzzy=$(echo "$envs" | grep '/bactopia-' | head -1)
     if [[ -n "$fuzzy" ]]; then
         echo "$fuzzy"
         return 0

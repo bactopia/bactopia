@@ -11,7 +11,7 @@
  * @citation scoary
  *
  * @input record(meta, csv)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `csv`: Gene presence/absence CSV file (typically from Roary)
  *
  * @input traits
@@ -33,7 +33,7 @@ process SCOARY {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         csv: Path
     )
     traits: Path
@@ -56,13 +56,14 @@ process SCOARY {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = "${meta.process_name}/"
-    meta.logs_dir = "${meta.process_name}/logs"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "${task.ext.process_name}/",
+        logs_dir: "${task.ext.process_name}/logs"
+    )
     """
     scoary \\
         ${task.ext.args} \\

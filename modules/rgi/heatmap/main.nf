@@ -11,7 +11,7 @@
  * @citation rgi
  *
  * @input record(meta, json)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `json`: List of RGI results in JSON format
  *
  * @output record(meta, heatmap?, results, logs, nf_logs, versions)
@@ -28,7 +28,7 @@ process RGI_HEATMAP {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         json: Set<Path>
     )
 
@@ -54,13 +54,14 @@ process RGI_HEATMAP {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "rgi-heatmap"
-    meta.logs_dir = "rgi-heatmap/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "rgi-heatmap",
+        logs_dir: "rgi-heatmap/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
     """
     NUM_SAMPLES=\$(ls staging/json/ | wc -l)
     if [[ "\${NUM_SAMPLES}" -gt 1 ]]; then

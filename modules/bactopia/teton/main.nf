@@ -11,7 +11,7 @@
  * @citation bactopia, bracken, sizemeup
  *
  * @input record(meta, classification)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `classification`: Bracken species abundance report
  *
  * @output record(meta, bacteria_tsv, nonbacteria_tsv, sizemeup, results, logs, nf_logs, versions)
@@ -30,7 +30,7 @@ process BACTOPIA_SAMPLESHEET {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         classification: Path
     )
 
@@ -57,15 +57,16 @@ process BACTOPIA_SAMPLESHEET {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-    meta.runtype = _meta.runtype
-    meta.teton_reads = _meta.teton_reads
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/teton/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        runtype: _meta.runtype,
+        teton_reads: _meta.teton_reads
+    )
     """
     # determine genome size and create sample sheet
     sizemeup \\
@@ -73,7 +74,7 @@ process BACTOPIA_SAMPLESHEET {
         --prefix ${prefix}
 
     # create sample sheet
-    if [ ${meta.run_type} != "ci" ]; then
+    if [ ${meta.runtype} != "ci" ]; then
         bactopia-teton-prepare \\
             ${prefix} \\
             ${prefix}-sizemeup.txt \\

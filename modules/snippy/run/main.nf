@@ -14,13 +14,13 @@
  * @citation snippy
  *
  * @input record(meta, r1?, r2?, se?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end)
  * - `r2?`: Illumina R2 reads (paired-end)
  * - `se?`: Single-end Illumina reads
  *
  * @input record(meta, reference)
- * - `meta`: Groovy Map containing reference information
+ * - `meta`: Groovy Record containing reference information
  * - `reference`: Reference genome (FASTA or GenBank format)
  *
  * @output record(meta, aligned_fa?, vcf?, aligned_fa_error?, vcf_error?, error?, annotated_vcf, bam?, bai?, bed, consensus_fa, consensus_subs_fa, consensus_subs_masked_fa, coverage, csv, filt_vcf, gff, html, raw_vcf, subs_vcf, tab, txt, results, logs, nf_logs, versions)
@@ -57,7 +57,7 @@ process SNIPPY_RUN {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?
@@ -123,20 +123,21 @@ process SNIPPY_RUN {
     reference_name = reference.getSimpleName()
     prefix = task.ext.prefix ?: "${_meta.name}"
 
-    // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs"
-    meta.process_name = task.ext.process_name
-
     // Determine read type from explicit slots
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
-    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${reference_name}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${reference_name}/logs",
+        process_name: task.ext.process_name,
+        single_end: has_se && !has_r1 && !has_r2
+    )
 
     // Build read inputs for snippy
     def read_inputs = meta.single_end ? "--se ${se}" : "--R1 ${r1} --R2 ${r2}"

@@ -12,7 +12,7 @@
  * @citation panaroo
  *
  * @input record(meta, gff)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `gff`: A list of annotated genome files in GFF3 format (required input)
  *
  * @output record(meta, aln?, filtered_aln?, csv?, panaroo_csv?, results, logs, nf_logs, versions)
@@ -36,7 +36,7 @@ process PANAROO_RUN {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         gff: Set<Path>
     )
 
@@ -69,13 +69,14 @@ process PANAROO_RUN {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = ""
-    meta.logs_dir = "panaroo/logs"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "",
+        logs_dir: "panaroo/logs",
+        process_name: task.ext.process_name
+    )
     """
     mkdir gff
     cp -L staging/gff/* gff/

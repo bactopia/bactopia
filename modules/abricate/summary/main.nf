@@ -10,7 +10,7 @@
  * @citation abricate
  *
  * @input record(meta, reports)
- * - `meta`: Groovy Map containing aggregation information
+ * - `meta`: Groovy Record containing aggregation information
  * - `reports`: A collection of Abricate report files from multiple samples
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
@@ -27,7 +27,7 @@ process ABRICATE_SUMMARY {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         reports: Set<Path>
     )
 
@@ -50,13 +50,14 @@ process ABRICATE_SUMMARY {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${task.ext.process_name}"
-    meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: task.ext.process_name,
+        logs_dir: "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}",
+        process_name: task.ext.process_name
+    )
     """
     abricate \\
         --summary \\

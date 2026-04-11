@@ -53,13 +53,13 @@ workflow SNIPPY_CORE {
 
     // Per-sample SNP distances
     ch_snpdists = SNPDISTS(ch_snippy_core.map { r ->
-        record(meta: [name: 'core-snp.distance', process_name: 'snpdists'], aln: r.clean_full_aln)
+        record(meta: record(name: 'core-snp.distance', process_name: 'snpdists'), aln: r.clean_full_aln)
     })
 
     emit: // bactopia-lint: ignore S005, S010
     // Downstream inputs
     alignment = ch_snippy_core.map { r ->
-        record(meta: [name: "core-snp", process_name: "iqtree"], aln: r.clean_full_aln)
+        record(meta: record(name: "core-snp", process_name: "iqtree"), aln: r.clean_full_aln)
     }
     // Published outputs
     sample_outputs = channel.empty()

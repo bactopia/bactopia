@@ -10,7 +10,7 @@
  * @citation prokka
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
  * @input proteins?
@@ -44,7 +44,7 @@ process PROKKA {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         fna: Path
     )
     proteins   : Path?
@@ -96,19 +96,14 @@ process PROKKA {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    if (task.ext.wf == "pangenome") {
-        meta.scope = "run"
-        meta.output_dir = "prokka/${prefix}"
-        meta.logs_dir = "prokka/${prefix}/logs"
-    } else {
-        meta.output_dir = "${prefix}/main/annotator/prokka/"
-        meta.logs_dir = "${prefix}/main/annotator/prokka/logs/"
-    }
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.wf == "pangenome" ? "run" : task.ext.scope,
+        output_dir: task.ext.wf == "pangenome" ? "prokka/${prefix}" : "${prefix}/main/annotator/prokka/",
+        logs_dir: task.ext.wf == "pangenome" ? "prokka/${prefix}/logs" : "${prefix}/main/annotator/prokka/logs/",
+        process_name: task.ext.process_name
+    )
 
     // Contig ID must <= 37 characters
     def compliant = task.ext.compliant ? "--compliant" : ""

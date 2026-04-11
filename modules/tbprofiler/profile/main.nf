@@ -14,7 +14,7 @@
  * @citation tbprofiler
  *
  * @input record(meta, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end)
  * - `r2?`: Illumina R2 reads (paired-end)
  * - `se?`: Single-end Illumina reads
@@ -41,7 +41,7 @@ process TBPROFILER_PROFILE {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?,
@@ -71,21 +71,22 @@ process TBPROFILER_PROFILE {
     def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
-    // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-
     // Determine read type from explicit slots
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
     has_lr = lr != null
-    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        single_end: has_se && !has_r1 && !has_r2
+    )
 
     // Build read inputs and platform for tb-profiler
     def input_reads = has_lr ? "--read1 ${lr}" : (meta.single_end ? "--read1 ${se}" : "--read1 ${r1} --read2 ${r2}")

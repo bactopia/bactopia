@@ -15,7 +15,7 @@
  * provide a pre-existing database via --nohuman_db.
  *
  * @input record(meta, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end forward)
  * - `r2?`: Illumina R2 reads (paired-end reverse)
  * - `se?`: Single-end Illumina reads
@@ -43,7 +43,7 @@ process NOHUMAN_RUN {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?,
@@ -75,26 +75,28 @@ process NOHUMAN_RUN {
     def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
-    // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-
-    // Simplified meta for downstream report joining
-    special_meta = [:]
-    special_meta.name = prefix
-
     // Determine read type from explicit slots
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
     has_lr = lr != null
-    meta.single_end = (has_se || has_lr) && !has_r1 && !has_r2
-    meta.runtype = _meta.containsKey('runtype') ? _meta.runtype : (has_r1 && has_r2 ? "paired-end" : (has_lr ? "lr" : "se"))
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        single_end: (has_se || has_lr) && !has_r1 && !has_r2,
+        runtype: _meta.runtype != null ? _meta.runtype : (has_r1 && has_r2 ? "paired-end" : (has_lr ? "lr" : "se"))
+    )
+
+    // Simplified meta for downstream report joining
+    special_meta = record(
+        name: prefix
+    )
 
     // Pick the single-file input (se or lr)
     def single_reads = has_se ? "${se}" : "${lr}"

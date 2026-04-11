@@ -11,7 +11,7 @@
  * @citation gubbins
  *
  * @input record(meta, aln)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output record(meta, masked_aln, results, logs, nf_logs, versions)
@@ -39,7 +39,7 @@ process GUBBINS {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         aln: Path
     )
 
@@ -63,13 +63,14 @@ process GUBBINS {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = ""
-    meta.logs_dir = "${meta.process_name}/logs/"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "",
+        logs_dir: "${task.ext.process_name}/logs/"
+    )
 
     def is_compressed = aln.getName().endsWith(".gz") ? true : false
     def aln_name = aln.getName().replace(".gz", "")

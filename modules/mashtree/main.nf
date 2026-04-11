@@ -12,7 +12,7 @@
  * @citation mashtree
  *
  * @input record(meta, fna)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, nwk, tsv, sketches?, results, logs, nf_logs, versions)
@@ -31,7 +31,7 @@ process MASHTREE {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         fna: Set<Path>
     )
 
@@ -58,13 +58,14 @@ process MASHTREE {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = ""
-    meta.logs_dir = "logs/"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "",
+        logs_dir: "logs/",
+        process_name: task.ext.process_name
+    )
     """
     mkdir mashtree-tmp
 

@@ -20,7 +20,7 @@
  * the original assembly is used without re-assembly.
  *
  * @input record(meta, r1?, r2?, se?, lr?, fna?)
- * - `meta`    : Groovy Map containing sample information
+ * - `meta`    : Groovy Record containing sample information
  * - `r1?`     : Illumina R1 reads (paired-end)
  * - `r2?`     : Illumina R2 reads (paired-end)
  * - `se?`     : Single-end Illumina reads
@@ -50,7 +50,7 @@ process ASSEMBLER {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?,
@@ -88,17 +88,18 @@ process ASSEMBLER {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-    meta.runtype = _meta.runtype
-    meta.genome_size = _meta.genome_size
-    meta.species = _meta.species
-    meta.single_end = _meta.single_end
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/main/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        runtype: _meta.runtype,
+        genome_size: _meta.genome_size,
+        species: _meta.species,
+        single_end: _meta.single_end
+    )
 
     // Unicycler (hybrid: PE + long reads)
     def String is_hybrid = meta.runtype == "hybrid" ? "-l ${lr}" : ""

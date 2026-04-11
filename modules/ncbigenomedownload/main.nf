@@ -70,16 +70,17 @@ process NCBIGENOMEDOWNLOAD {
     )
 
     script:
-    meta = [:]
-    meta.id = task.ext.meta_id
-    meta.name = task.ext.meta_id
-    meta.limit = task.ext.meta_limit
-    meta.accession = task.ext.meta_accession
-    meta.species = task.ext.meta_species
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = "${meta.process_name}"
-    meta.logs_dir = "${meta.process_name}/logs"
+    meta = record(
+        id: task.ext.meta_id,
+        name: task.ext.meta_id,
+        limit: task.ext.meta_limit,
+        accession: task.ext.meta_accession,
+        species: task.ext.meta_species,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: task.ext.process_name,
+        logs_dir: "${task.ext.process_name}/logs"
+    )
 
     def has_accessions = accessions ? true : false
     def opts = "${task.ext.args} --output-folder ./ --flat-output -p ${task.cpus} -r ${task.ext.max_retry}"

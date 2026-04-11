@@ -66,7 +66,7 @@ Key module categories:
 
 ## Key Patterns for Agents
 
-- Module inputs: Record-typed with named parameters (e.g., `(_meta: Map, fna: Path): Record`)
+- Module inputs: Record-typed with named parameters (e.g., `record(meta: Record, fna: Path)`)
 - Module outputs: Single `record()` with named downstream fields + generic publishing fields
 - Subworkflow outputs: emit `sample_outputs` and/or `run_outputs` with standardized record structure
 - Optional file inputs use `Path?` types with null checks (e.g., `r1: Path?` is null when not provided)

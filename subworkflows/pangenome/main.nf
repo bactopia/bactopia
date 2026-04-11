@@ -74,7 +74,7 @@ workflow PANGENOME {
     // SNP distances (panaroo uses filtered_aln, others use aln)
     ch_snpdists = SNPDISTS(ch_run_outputs.map { r ->
         def core_aln = use_pirate || use_roary ? r.aln : r.filtered_aln
-        record(meta: [name: 'core-genome.distance', process_name: 'snpdists'], aln: core_aln)
+        record(meta: record(name: 'core-genome.distance', process_name: 'snpdists'), aln: core_aln)
     })
 
     emit: // bactopia-lint: ignore S005, S010
@@ -83,7 +83,7 @@ workflow PANGENOME {
         record(meta: r.meta, aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
     }
     phylogeny_input = ch_run_outputs.map { r ->
-        record(meta: [name: "core-genome", process_name: "iqtree"], aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
+        record(meta: record(name: "core-genome", process_name: "iqtree"), aln: (use_pirate || use_roary ? r.aln : r.filtered_aln))
     }
     csv = ch_run_outputs.map { r -> record(meta: r.meta, csv: r.csv) }
     // Published outputs

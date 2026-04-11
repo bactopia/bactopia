@@ -17,7 +17,7 @@
  * @citation bactopia, art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
  *
  * @input record(meta, r1_files, r2_files, se_files, lr_files, fna_files)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1_files`: Illumina R1 read files (Set, elements may be null)
  * - `r2_files`: Illumina R2 read files (Set, elements may be null)
  * - `se_files`: Single-end read files (Set, elements may be null)
@@ -48,7 +48,7 @@ process GATHER {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1_files: Set<Path?>,
         r2_files: Set<Path?>,
         se_files: Set<Path?>,
@@ -100,18 +100,19 @@ process GATHER {
     ]
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-    meta.original_runtype = _meta.runtype
-    meta.genome_size = _meta.genome_size
-    meta.species = _meta.species
-    meta.is_compressed = task.ext.skip_compression ? false : true
-    meta.runtype = runtypes[runtype] ?: runtype
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/${wfPath}/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        original_runtype: _meta.runtype,
+        genome_size: _meta.genome_size,
+        species: _meta.species,
+        is_compressed: task.ext.skip_compression ? false : true,
+        runtype: runtypes[runtype] ?: runtype
+    )
 
     // WF specific parameters
     def String no_cache = task.ext.no_cache ? '-N' : ''

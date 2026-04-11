@@ -17,7 +17,7 @@
  * Negative results will cause non-0 exit codes from PneumoCaT
  *
  * @input record(meta, r1, r2)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1`: Illumina R1 reads (paired-end)
  * - `r2`: Illumina R2 reads (paired-end)
  *
@@ -36,7 +36,7 @@ process PNEUMOCAT {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path,
         r2: Path
     )
@@ -62,13 +62,14 @@ process PNEUMOCAT {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
 
     // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     def VERSION = '1.2.1'

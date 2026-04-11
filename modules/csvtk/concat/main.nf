@@ -11,7 +11,7 @@
  * @citation csvtk
  *
  * @input record(meta, csv)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `csv`: A list of CSV/TSV files to be concatenated
  *
  * @input in_format
@@ -35,7 +35,7 @@ process CSVTK_CONCAT {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         csv: Set<Path>
     )
     in_format : String
@@ -66,13 +66,14 @@ process CSVTK_CONCAT {
     extra_args = _meta.args ? "${_meta.args}" : ""
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "merged-results"
-    meta.logs_dir = "merged-results/logs/${prefix}-concat/${subdir}"
-    meta.process_name = "${prefix}-concat"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "merged-results",
+        logs_dir: "merged-results/logs/${prefix}-concat/${subdir}",
+        process_name: "${prefix}-concat"
+    )
 
     def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
     def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")

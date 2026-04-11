@@ -8,7 +8,7 @@ This guide provides a comprehensive methodology for creating consistent and accu
 ### 1.1 Module Structure
 Bactopia modules are individual process definitions that execute specific bioinformatics tools. Each module:
 - Wraps a single tool or closely related functionality
-- Accepts standardized inputs using Record syntax (e.g., `(meta: Map, assembly: Path): Record`)
+- Accepts standardized inputs using Record syntax (e.g., `(meta: Record, assembly: Path): Record`)
 - Emits standardized outputs (including `logs`, `nf_logs`, `versions`)
 - Uses static typing throughout
 - Handles optional parameters via Path? workarounds
@@ -42,7 +42,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
  * <Input description>
  *
  * @input record(meta, <input_name>)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `<input_name>`: <Description of the input files>
  *
  * @output record(meta, <field1>, <field2>, results, logs, nf_logs, versions)
@@ -93,13 +93,13 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
-- **Pattern**: `(meta: Map, assembly: Path): Record` for assemblies
-- **Pattern**: `(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
+- **Pattern**: `(meta: Record, assembly: Path): Record` for assemblies
+- **Pattern**: `(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
 - **Examples**: Most modules that process a single data type
 
 #### Multiple Inputs
 - **Definition**: Multiple data channels or complex multi-element records
-- **Pattern**: `(meta: Map, assembly: Path, meta_file: Path): Record` for multiple required files
+- **Pattern**: `(meta: Record, assembly: Path, meta_file: Path): Record` for multiple required files
 - **Examples**: quast (assembly + meta_file)
 
 ### 3.3 Output-Type Classification
@@ -161,7 +161,7 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 
 ```groovy
 @input record(meta, assembly)
-- `meta`: Groovy Map containing sample information
+- `meta`: Groovy Record containing sample information
 - `assembly`: Assembled contigs in FASTA format
 ```
 
@@ -171,7 +171,7 @@ For modules accepting reads, use explicit positional slots with `?` suffix on op
 
 ```groovy
 @input record(meta, r1?, r2?, se?, lr?)
-- `meta`: Groovy Map containing sample information
+- `meta`: Groovy Record containing sample information
 - `r1?`: Illumina R1 reads (paired-end forward)
 - `r2?`: Illumina R2 reads (paired-end reverse)
 - `se?`: Single-end Illumina reads
@@ -224,7 +224,7 @@ Modules use `@output record(...)` to document their outputs. The record line lis
 
 These fields appear in most `record()` outputs but are not documented with description lines:
 
-- `meta` -- Groovy Map containing sample information and output paths
+- `meta` -- Groovy Record containing sample information and output paths
 - `results` -- List of result files for publishing
 - `logs` -- Optional software execution logs
 - `nf_logs` -- Nextflow execution scripts and logs
@@ -414,7 +414,7 @@ These fields are computed at runtime based on which inputs are provided.
  * Requires the MLST database (derived from PubMLST) to be available.
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @input db
@@ -439,7 +439,7 @@ These fields are computed at runtime based on which inputs are provided.
  * @citation quast
  *
  * @input record(meta, assembly, meta_file)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  * - `meta_file`: Meta file containing reference size information
  *
@@ -468,7 +468,7 @@ These fields are computed at runtime based on which inputs are provided.
  * @citation prokka
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @input proteins?

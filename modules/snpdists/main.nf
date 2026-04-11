@@ -10,7 +10,7 @@
  * @citation snpdists
  *
  * @input record(meta, aln)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
@@ -27,7 +27,7 @@ process SNPDISTS {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         aln: Path
     )
 
@@ -51,13 +51,14 @@ process SNPDISTS {
     process_name = _meta.process_name ?: task.ext.process_name
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.ext.process_name}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = ""
-    meta.logs_dir = "${process_name}/logs/"
-    meta.process_name = process_name
+    meta = record(
+        id: "${prefix}-${task.ext.process_name}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "",
+        logs_dir: "${process_name}/logs/",
+        process_name: process_name
+    )
     """
     snp-dists \\
         ${task.ext.args} \\

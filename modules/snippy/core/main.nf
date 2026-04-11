@@ -11,12 +11,12 @@
  * @citation snippy
  *
  * @input record(meta, _vcf, _aligned_fa)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `_vcf`: List of VCF files from Snippy
  * - `_aligned_fa`: List of aligned FASTA files from Snippy
  *
  * @input record(meta, reference)
- * - `meta`: Groovy Map containing reference information
+ * - `meta`: Groovy Record containing reference information
  * - `reference`: Reference genome (FASTA or GenBank format)
  *
  * @input mask?
@@ -43,7 +43,7 @@ process SNIPPY_CORE {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         _vcf: Set<Path>,
         _aligned_fa: Set<Path>
     )
@@ -84,13 +84,16 @@ process SNIPPY_CORE {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = ""
-    meta.logs_dir = "${meta.process_name}/logs"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "",
+        logs_dir: "${task.ext.process_name}/logs"
+    )
+
+    // Tool specific variables
     def mask_opt = mask != null ? "--mask ${mask.getName()}" : ""
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     def final_reference = reference.getName().replace(".gz", "")

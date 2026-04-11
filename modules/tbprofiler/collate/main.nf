@@ -10,7 +10,7 @@
  * @citation tbprofiler
  *
  * @input record(meta, json)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `json`: List of TB-Profiler JSON output files
  *
  * @output record(meta, csv, variants_csv, variants_txt, itol?, results, logs, nf_logs, versions)
@@ -30,7 +30,7 @@ process TBPROFILER_COLLATE {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         json: Set<Path>
     )
 
@@ -62,13 +62,14 @@ process TBPROFILER_COLLATE {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = "merged-results"
-    meta.logs_dir = "merged-results/logs/${meta.process_name}"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "merged-results",
+        logs_dir: "merged-results/logs/${task.ext.process_name}"
+    )
     """
     # Copy database to working directory
     mkdir -p database

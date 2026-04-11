@@ -109,7 +109,7 @@ Module names use underscore-delimited keys matching directory structure: `blast_
 Description text
 
 @input record(meta, field1, field2)
-- `meta`: Groovy Map containing sample information
+- `meta`: Groovy Record containing sample information
 - `field1`: Description
 
 @input param_name

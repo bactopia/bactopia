@@ -14,7 +14,7 @@
  * @note Requires external database to be available
  *
  * @input record(meta, fna, faa, gff)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `fna`: Nucleotide sequences of genes in FASTA format
  * - `faa`: Optional amino acid sequences of proteins in FASTA format
  * - `gff`: Optional genome annotation in GFF3 format
@@ -29,7 +29,7 @@
 nextflow.preview.types = true
 
 process AMRFINDERPLUS_RUN {
-    tag "${prefix}"
+    tag prefix
     label 'process_medium'
 
     conda "${task.ext.condaDir}/${task.ext.toolName}"
@@ -37,7 +37,7 @@ process AMRFINDERPLUS_RUN {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         fna: Path,
         faa: Path,
         gff: Path
@@ -70,43 +70,27 @@ process AMRFINDERPLUS_RUN {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
-
-    // Check for optional inputs
-    def has_proteins = faa != null
-    def has_gff = gff != null
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
 
     // WF specific parameters
     def fna_cat = fna.getName().endsWith(".gz") ? "zcat" : "cat"
-    def faa_cat = has_proteins ? faa.getName().endsWith(".gz") ? "zcat" : "cat" : ""
-    def gff_cat = has_gff ? gff.getName().endsWith(".gz") ? "zcat" : "cat" : ""
-    organism_param = _meta.containsKey("organism") ? "--organism ${_meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
-    fna_name = "${prefix}.fna"
-    faa_name = has_proteins ? "${prefix}.faa" : ""
-    gff_name = has_gff ? "${prefix}.gff" : ""
-    annotation_format = has_gff && gff_name.endsWith(".gff") ? "prokka" : "bakta"
+    def faa_cat = faa.getName().endsWith(".gz") ? "zcat" : "cat"
+    def gff_cat = gff.getName().endsWith(".gz") ? "zcat" : "cat"
+    def organism_param = _meta.organism != null ? "--organism ${_meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
+    def annotation_format = gff.getName().endsWith(".gff.gz") || gff.getName().endsWith(".gff") ? "prokka" : "bakta"
     def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
-
-    // Build optional parameters
-    def protein_param = has_proteins ? "--protein ${faa_name}" : ""
-    def gff_param = has_proteins && has_gff ? "--gff ${gff_name} --annotation_format ${annotation_format}" : ""
     """
     # Prepare input files
-    ${fna_cat} ${fna} > ${fna_name}
-
-    if [ "${has_proteins}" == "true" ]; then
-        ${faa_cat} ${faa} > ${faa_name}
-    fi
-
-    if [ "${has_gff}" == "true" ]; then
-        ${gff_cat} ${gff} > ${gff_name}
-    fi
+    ${fna_cat} ${fna} > ${prefix}.fna
+    ${faa_cat} ${faa} > ${prefix}.faa
+    ${gff_cat} ${gff} > ${prefix}.gff
 
     # Extract database
     if [ "${is_tarball}" == "true" ]; then
@@ -121,9 +105,10 @@ process AMRFINDERPLUS_RUN {
 
     # AMRFinderPlus search (with optional protein/gff inputs)
     amrfinder \\
-        --nucleotide ${fna_name} \\
-        ${protein_param} \\
-        ${gff_param} \\
+        --nucleotide ${prefix}.fna \\
+        --protein ${prefix}.faa \\
+        --gff ${prefix}.gff \\
+        --annotation_format "${annotation_format}" \\
         ${organism_param} \\
         ${task.ext.args} \\
         --database \$AMRFINDER_DB \\
@@ -134,7 +119,7 @@ process AMRFINDERPLUS_RUN {
     if [ "${is_tarball}" == "true" ]; then
         rm -rf database/
     fi
-    rm -rf ${fna_name} ${faa_name} ${gff_name}
+    rm -rf ${prefix}.fna ${prefix}.faa ${prefix}.gff
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

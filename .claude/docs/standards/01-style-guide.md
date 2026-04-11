@@ -48,7 +48,7 @@ For individual processes/modules that execute tools:
  * @note <Optional: Additional note about behavior/requirements>
  *
  * @input record(meta, <input_name>)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `<input_name>`: <Description of the input file>
  *
  * @input <param_name>?

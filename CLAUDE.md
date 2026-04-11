@@ -111,7 +111,7 @@ When working with this codebase:
 
 ### Key Patterns
 
-**Module inputs**: Record-typed with named parameters (e.g., `(_meta: Map, assembly: Path): Record`)
+**Module inputs**: Record-typed with named parameters (e.g., `record(meta: Record, fna: Path)`)
 **Module outputs**: Single `record()` with named fields (downstream) + generic fields (publishing)
 **Subworkflow outputs**: Emit `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
 **Optional parameters**: Use `Path?` types with `?` suffix in GroovyDoc

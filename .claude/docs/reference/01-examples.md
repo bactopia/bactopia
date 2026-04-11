@@ -27,7 +27,7 @@ This section provides detailed examples of different component types in Bactopia
  * ARG-ANNOT, and VFDB.
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @output record(meta, report, results, logs, nf_logs, versions)
@@ -58,7 +58,7 @@ This section provides detailed examples of different component types in Bactopia
  * @citation prokka
  *
  * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `assembly`: Assembled contigs in FASTA format
  *
  * @input proteins?
@@ -210,14 +210,14 @@ The codebase uses Record-typed inputs with explicit named parameters:
 ```groovy
 // Single assembly file
 input:
-(meta: Map, assembly: Path): Record
+(meta: Record, assembly: Path): Record
 ```
 
 **Read-based modules** (multi-read input with explicit slots):
 ```groovy
 // Explicit positional slots for different read types
 input:
-(meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
 ```
 
 Where each parameter represents:
@@ -230,13 +230,13 @@ Where each parameter represents:
 ```groovy
 // Two required files
 input:
-(meta: Map, assembly: Path, meta_file: Path): Record
+(meta: Record, assembly: Path, meta_file: Path): Record
 ```
 
 **Additional inputs** are declared on separate lines:
 ```groovy
 input:
-(meta: Map, assembly: Path): Record
+(meta: Record, assembly: Path): Record
 db         : Path
 proteins   : Path?
 prodigal_tf: Path?
@@ -335,20 +335,30 @@ nextflow_process {
 - Assertions use `record.fieldName` to access specific fields
 - Snapshot matching with MD5 checksums for reproducibility
 
-## Meta Map Examples
+## Meta Record Examples
+
+These show the `scope`, `output_dir`, and `logs_dir` field values that get passed into `meta = record(...)` for each scope.
 
 ### Sample Scope
 ```groovy
-meta.scope = 'sample'
-meta.output_dir = "${prefix}/tools/tool-name/subdir"
-meta.logs_dir = "${prefix}/tools/tool-name/subdir/logs/logs_subdir"
+meta = record(
+    // ...
+    scope: 'sample',
+    output_dir: "${prefix}/tools/tool-name/subdir",
+    logs_dir: "${prefix}/tools/tool-name/subdir/logs/logs_subdir",
+    // ...
+)
 ```
 
 ### Run Scope
 ```groovy
-meta.scope = 'run'
-meta.output_dir = "tool-name"
-meta.logs_dir = "tool-name/logs/logs_subdir/subdir"
+meta = record(
+    // ...
+    scope: 'run',
+    output_dir: "tool-name",
+    logs_dir: "tool-name/logs/logs_subdir/subdir",
+    // ...
+)
 ```
 
 ## Version Tracking Example

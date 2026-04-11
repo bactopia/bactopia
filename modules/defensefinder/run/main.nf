@@ -14,7 +14,7 @@
  * Requires the DefenseFinder HMM database to be available.
  *
  * @input record(meta, faa)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `faa`: Protein sequences in FASTA format (amino acids)
  *
  * @input db
@@ -39,7 +39,7 @@ process DEFENSEFINDER_RUN {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         faa: Path
     )
     db: Path
@@ -76,13 +76,14 @@ process DEFENSEFINDER_RUN {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
 
     def which_cat = faa.getName().endsWith(".gz") ? "zcat" : "cat"
     """

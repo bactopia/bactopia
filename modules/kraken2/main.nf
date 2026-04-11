@@ -18,7 +18,7 @@
  * Requires a standard Kraken2 database (directory or tarball). Memory usage depends on database size (Standard ~50GB).
  *
  * @input record(meta, r1?, r2?, se?, lr?)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `r1?`: Illumina R1 reads (paired-end)
  * - `r2?`: Illumina R2 reads (paired-end)
  * - `se?`: Single-end Illumina reads
@@ -45,7 +45,7 @@ process KRAKEN2 {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?,
@@ -79,32 +79,28 @@ process KRAKEN2 {
     prefix = task.ext.prefix ?: "${_meta.name}"
     output_folder = task.ext.wf == "scrubber" || task.ext.wf == "teton" ? "scrubber" : "${task.ext.process_name}"
 
-    // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-
-    if (task.ext.wf == "teton") {
-        meta.output_dir = "${prefix}/teton/tools/${output_folder}"
-        meta.logs_dir = "${prefix}/teton/tools/${output_folder}/logs/${task.ext.logs_subdir}"
-    } else {
-        meta.output_dir = "${prefix}/tools/${output_folder}"
-        meta.logs_dir = "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}"
-    }
-    meta.process_name = task.ext.process_name
-
     // Determine read type from explicit slots
     has_r1 = r1 != null
     has_r2 = r2 != null
     has_se = se != null
-    meta.single_end = has_se && !has_r1 && !has_r2
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: task.ext.wf == "teton" ? "${prefix}/teton/tools/${output_folder}" : "${prefix}/tools/${output_folder}",
+        logs_dir: task.ext.wf == "teton" ? "${prefix}/teton/tools/${output_folder}/logs/${task.ext.logs_subdir}" : "${prefix}/tools/${output_folder}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name,
+        single_end: has_se && !has_r1 && !has_r2
+    )
 
     // Build read inputs for kraken2
     read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
 
-    special_meta = [:]
-    special_meta.name = prefix
+    special_meta = record(
+        name: prefix
+    )
     def paired = meta.single_end ? "" : "--paired"
     classified_naming = task.ext.wf != "kraken2" ? "host" : "classified"
     classified = meta.single_end ? "${prefix}.${classified_naming}.fastq" : "${prefix}.${classified_naming}#.fastq"

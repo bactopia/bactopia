@@ -76,13 +76,13 @@ Follow these phases in order. When unsure about ANYTHING, ask the user rather th
 2. **Ask the user to confirm or modify** the following (present what you found from docs):
 
    **a. Input type** -- "What does this tool take as input?"
-   | User says | Input signature |
-   |-----------|----------------|
-   | Assembly / contigs / FASTA | `(_meta: Map, assembly: Path): Record` |
-   | Reads / FASTQ | `(_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` |
+   | User says | Input record fields |
+   |-----------|---------------------|
+   | Assembly / contigs / FASTA | `record(meta: Record, fna: Path)` |
+   | Reads / FASTQ | `record(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?)` |
    | Assembly + reads | Assembly record + reads on separate lines |
    | Download / no input | No record input |
-   | Alignment | `(_meta: Map, aligned_fa: Path): Record` |
+   | Alignment | `record(meta: Record, aln: Path)` |
 
    **b. Additional inputs** -- "Does this tool require a database or other additional files?"
    - Database: add `db: Path` as a separate input line
@@ -155,9 +155,9 @@ Use the appropriate template based on input type.
  * @note {Optional: Database Required, Database Bundled, etc.}
  * {Optional: Additional context about requirements.}
  *
- * @input record(meta, assembly)
- * - `meta`: Groovy Map containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * @input record(meta, fna)
+ * - `meta`: Groovy Record containing sample information
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @output record(meta, {field1}, {field2}, results, logs, nf_logs, versions)
  * - `{field1}`: {Description of tool-specific output}
@@ -173,7 +173,10 @@ process {PROCESS_NAME} {
     container "${task.ext.container}"
 
     input:
-    (_meta: Map, assembly: Path): Record
+    record (
+        meta: Record,
+        fna: Path
+    )
 
     output:
     record(
@@ -190,27 +193,29 @@ process {PROCESS_NAME} {
     )
 
     script:
+    def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
 
-    // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-    meta.process_name = task.ext.process_name
+    // Create a new meta record
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
 
-    def is_compressed = assembly.getName().endsWith(".gz") ? true : false
-    def assembly_name = assembly.getName().replace(".gz", "")
+    def is_compressed = fna.getName().endsWith(".gz") ? true : false
+    def fna_name = fna.getName().replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${assembly} > ${assembly_name}
+        gzip -c -d ${fna} > ${fna_name}
     fi
 
     {tool_command} \\
         ${task.ext.args} \\
-        {input_flag} ${assembly_name} \\
+        {input_flag} ${fna_name} \\
         {output_flags}
 
     # Cleanup
@@ -225,10 +230,13 @@ process {PROCESS_NAME} {
 
 **Template B: Assembly + database input**
 
-Same as Template A but add database input:
+Same as Template A but add database input on a separate line after the record:
 ```groovy
     input:
-    (_meta: Map, assembly: Path): Record
+    record (
+        meta: Record,
+        fna: Path
+    )
     db: Path
 ```
 
@@ -255,15 +263,21 @@ And add database handling in the script block:
 
 ```groovy
     input:
-    (_meta: Map, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+    record (
+        meta: Record,
+        r1: Path?,
+        r2: Path?,
+        se: Path?,
+        lr: Path?
+    )
 
-    // ... in script block:
-    has_r1 = r1 != null
-    has_r2 = r2 != null
-    has_se = se != null
-    meta.single_end = has_se && !has_r1 && !has_r2
+    // ... in script block, after building the output meta record:
+    def has_r1 = r1 != null
+    def has_r2 = r2 != null
+    def has_se = se != null
+    def is_single_end = has_se && !has_r1 && !has_r2
 
-    read_inputs = meta.single_end ? "${se}" : "${r1} ${r2}"
+    def read_inputs = is_single_end ? "${se}" : "${r1} ${r2}"
 ```
 
 **Template D: Download module (no sample input)**
@@ -280,7 +294,7 @@ And add database handling in the script block:
 
 **Important rules for main.nf:**
 - ALWAYS include `nextflow.preview.types = true` before the process
-- ALWAYS construct a fresh `meta` map in the script block (never modify `_meta`)
+- ALWAYS construct a fresh `meta` record in the script block via `meta = record(...)` (never modify `_meta`)
 - ALWAYS emit `record()` with named fields + results/logs/nf_logs/versions
 - Use `file()` for single known files, `files()` for wildcards/multiple files
 - Use 4 spaces for indentation
@@ -417,8 +431,8 @@ nextflow_process {
                 """
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "GCF_000292685"],
-                        assembly: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
+                        meta: [name: "GCF_000292685"],
+                        fna: file("${params.test_data_dir}/data/species/portiera/genome/GCF_000292685.fna.gz")
                     )
                 )
                 """
@@ -449,7 +463,7 @@ If the tool has a database input, add it:
 ```groovy
                 input[0] = Channel.of(
                     record(
-                        _meta: [name: "SRR2838702"],
+                        meta: [name: "SRR2838702"],
                         r1: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R1.fastq.gz"),
                         r2: file("${params.test_data_dir}/data/species/portiera/illumina/SRR2838702_R2.fastq.gz"),
                         se: null,

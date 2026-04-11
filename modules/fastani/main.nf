@@ -11,7 +11,7 @@
  * @citation fastani
  *
  * @input record(meta, query, reference)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `query`: One or more assembled contigs in FASTA format (Query genomes)
  * - `reference`: The reference genome assembly in FASTA format to compare against
  *
@@ -30,7 +30,7 @@ process FASTANI {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         query: Set<Path>,
         reference: Path
     )
@@ -57,17 +57,17 @@ process FASTANI {
     def is_compressed = reference.getName().endsWith(".gz") ? true : false
     reference_fasta = reference.getName().replace(".gz", "")
     reference_name = reference_fasta.replace(".fna", "")
-
     prefix = task.ext.prefix ?: "${reference_name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}"
-    meta.logs_dir = "${prefix}/logs"
-    meta.process_name = task.ext.process_name
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}",
+        logs_dir: "${prefix}/logs",
+        process_name: task.ext.process_name
+    )
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${reference} > ${reference_fasta}

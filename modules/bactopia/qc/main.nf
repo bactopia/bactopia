@@ -20,7 +20,7 @@
  * @citation bbtools, fastp, fastqc, fastq_scan, lighter, nanoplot, nanoq, porechop, rasusa
  *
  * @input record(meta, r1?, r2?, se?, lr?, fna?)
- * - `meta`: Groovy Map containing sample information (must include `runtype`, `genome_size`, `species`)
+ * - `meta`: Groovy Record containing sample information (must include `runtype`, `genome_size`, `species`)
  * - `r1?`: Illumina R1 reads (paired-end forward)
  * - `r2?`: Illumina R2 reads (paired-end reverse)
  * - `se?`: Single-end Illumina reads
@@ -66,7 +66,7 @@ process QC {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         r1: Path?,
         r2: Path?,
         se: Path?,
@@ -110,18 +110,22 @@ process QC {
     script:
     def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
+    def Boolean single_end = r1 && r2 ? false : true
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.output_dir = "${prefix}/main/${task.ext.process_name}/"
-    meta.logs_dir = "${prefix}/main/${task.ext.process_name}/logs/"
-    meta.process_name = task.ext.process_name
-    meta.genome_size = _meta.genome_size ?: 0
-    meta.species = _meta.species ?: null
-    meta.runtype = _meta.runtype
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/main/${task.ext.process_name}/",
+        logs_dir: "${prefix}/main/${task.ext.process_name}/logs/",
+        process_name: task.ext.process_name,
+        genome_size: _meta.genome_size ?: 0,
+        species: _meta.species ?: null,
+        runtype: _meta.runtype,
+        // For short_polish, inform downstream processes that ONT is the primary (single-end) input
+        single_end: _meta.runtype == 'short_polish' ? true : single_end
+    )
 
     // Map explicit slots to legacy variable names for minimal shell script changes
     // PE: use r1 (fq1) and r2 (fq2), SE: use se (fq1), ONT: use lr (ont_fq)
@@ -131,7 +135,6 @@ process QC {
 
     // WF opts
     def Boolean is_assembly = meta.runtype.startsWith('assembly') ? true : false
-    def Boolean single_end = r1 && r2 ? false : true
     def String qin = meta.runtype.startsWith('assembly') ? 'qin=33' : 'qin=auto'
     def String adapter_file = adapters != null ? adapters.getName() : 'adapters'
     def String phix_file = phix != null ? phix.getName() : 'phix'
@@ -140,9 +143,6 @@ process QC {
     def String lighter_opts = single_end ? "" : "-r phix-r2.fq"
     def String rasusa_opts = single_end ? "-o subsample-r1.fq filt-r1.fq" : "-o subsample-r1.fq -o subsample-r2.fq filt-r1.fq filt-r2.fq"
     def String fastp_fqs = single_end ? "" : "--in2 ${fq2} --out2 filt-r2.fq --detect_adapter_for_pe"
-
-    // For short_polish, inform downstream processes that ONT is the primary (single-end) input
-    meta.single_end = meta.runtype == 'short_polish' ? true : single_end
 
     // set Xmx to 95% of what was allocated, to avoid going over
     xmx = Math.round(task.memory.toBytes() * 0.95)

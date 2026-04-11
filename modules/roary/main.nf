@@ -11,7 +11,7 @@
  * @citation roary
  *
  * @input record(meta, gff)
- * - `meta`: Groovy Map containing sample information
+ * - `meta`: Groovy Record containing sample information
  * - `gff`: List of GFF3 files to be analyzed (typically from Prokka)
  *
  * @output record(meta, aln?, csv?, results, logs, nf_logs, versions)
@@ -33,7 +33,7 @@ process ROARY {
 
     input:
     record (
-        meta: Map,
+        meta: Record,
         gff: Set<Path>
     )
 
@@ -62,13 +62,14 @@ process ROARY {
     prefix = task.ext.prefix ?: "${_meta.name}"
 
     // Create a new meta variable
-    meta = [:]
-    meta.id = "${prefix}-${task.process}"
-    meta.name = prefix
-    meta.scope = task.ext.scope
-    meta.process_name = task.ext.process_name
-    meta.output_dir = ""
-    meta.logs_dir = "${meta.process_name}/logs"
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "",
+        logs_dir: "${task.ext.process_name}/logs"
+    )
     """
     mkdir gff
     cp -L staging/gff/* gff/
