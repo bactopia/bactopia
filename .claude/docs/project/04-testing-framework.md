@@ -1,7 +1,7 @@
 # Testing Framework
 
 ## Overview
-Bactopia uses the [nf-test](https://www.nf-test.com/) framework (v0.9.4) with Nextflow 26.01.0 for comprehensive pipeline testing. Tests cover individual modules, subworkflows, and full pipeline runs using snapshot-based assertions.
+Bactopia uses the [nf-test](https://www.nf-test.com/) framework (≥0.9.5) with Nextflow (≥26) for comprehensive pipeline testing. Tests cover individual modules, subworkflows, and full pipeline runs using snapshot-based assertions. Day-to-day runs go through the [`bactopia-test`](#running-tests) CLI; the `/run-tests` skill wraps it for repeatable invocations and pairs with `/review-tests` for post-run triage.
 
 ## Test Organization
 
@@ -104,6 +104,9 @@ includeConfig "../../../conf/base.config"
 includeConfig "../../../conf/profiles.config"
 ```
 
+> `params.workflow.ext` is a **string** at module-test scope (a single extension for the module's primary output). Workflow-level configs (`workflows/{name}/nextflow.config`) use the **list** form — e.g. `ext = ['fna']` — because workflows aggregate publishing across multiple module outputs. Match the surrounding layer when editing.
+> `bactopia_version` is a placeholder — keep it in sync with the repo's `manifest.version` in [nextflow.config](../../../nextflow.config) when it drifts.
+
 ## Writing Tests
 
 ### Module Test (nextflow_process)
@@ -126,10 +129,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "GCF_000017085"],
-                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/mlst/mlst.tar.gz")
+                input[1] = file("${params.test_data_dir}/datasets/mlst/mlst.tar.gz")
                 """
             }
         }
@@ -176,24 +179,40 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "GCF_000017085"],
-                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/mlst/mlst.tar.gz")
+                input[1] = file("${params.test_data_dir}/datasets/mlst/mlst.tar.gz")
                 """
             }
         }
 
         then {
-            def outputs = workflow.out.sample_outputs[0]
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(...).match() }
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
             )
         }
     }
 }
 ```
+
+**Key patterns**:
+- Subworkflow tests access both `workflow.out.sample_outputs` (per-sample record passthrough) and `workflow.out.run_outputs` (aggregated run-level record)
+- Snapshot matching spans both emits; non-snapshotted assertions (`!= null`) verify the aggregated convenience fields like `results` and `csv`
 
 ### Pipeline Test (nextflow_pipeline)
 
@@ -213,7 +232,7 @@ nextflow_pipeline {
         }
 
         then {
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
             assertAll(
                 { assert workflow.success },
@@ -237,47 +256,47 @@ nextflow_pipeline {
 
 ### Location
 
-Test data is stored externally and referenced via the `BACTOPIA_TESTS` environment variable:
+Test data is stored externally and referenced via the `BACTOPIA_TESTS` environment variable, which points at the `data/` directory of the bactopia-tests repo. All in-tree paths shown below are relative to `${params.test_data_dir}` (i.e. `$BACTOPIA_TESTS`) — no leading `data/` prefix inside test files.
+
 - **CI/CD path**: `/data/storage/bactopia-ci/bactopia-tests/data`
 - **Repository**: [bactopia/bactopia-tests](https://github.com/bactopia/bactopia-tests)
 
 ### Directory Layout
 
+Assemblies sit under `uncompressed/` or `compressed/` subtrees keyed by accession; reads sit under `reads/`; tool databases sit under `datasets/`:
+
 ```text
-$BACTOPIA_TESTS/data/
+$BACTOPIA_TESTS/
 ├── species/
-│   ├── staphylococcus_aureus/
-│   │   └── genome/
-│   │       └── GCF_000017085.fna
-│   ├── neisseria_gonorrhoeae/
-│   │   └── genome/
-│   │       ├── GCF_001047255.fna
-│   │       └── GCF_001047255.fna.gz
-│   ├── haemophilus_influenzae/
-│   │   └── genome/
-│   │       ├── GCF_900478275.fna
-│   │       └── GCF_900478275.fna.gz
-│   └── portiera/
+│   └── <species_name>/
+│       ├── uncompressed/
+│       │   └── <accession>/main/assembler/
+│       │       └── <accession>.fna
 │       ├── compressed/
-│       │   └── SRR2838702/main/qc/
-│       │       ├── SRR2838702_R1.fastq.gz
-│       │       └── SRR2838702_R2.fastq.gz
-│       ├── genome/
-│       │   └── GCF_000292685.fna.gz
-│       └── illumina/
-│           ├── SRR2838702.fna
-│           ├── SRR2838702.faa
-│           └── SRR2838702.gff
-├── datasets/
-│   ├── mlst/
-│   │   └── mlst.tar.gz
-│   ├── bakta/
-│   │   └── light/
-│   │       └── bakta-light.tar.gz
-│   ├── amrfinderplus/
-│   │   └── amrfinderplus.tar.gz
-│   └── {other tool databases}
+│       │   └── <accession>/main/assembler/
+│       │       └── <accession>.fna.gz
+│       └── reads/
+│           ├── illumina/
+│           │   ├── <accession>_R1.fastq.gz
+│           │   └── <accession>_R2.fastq.gz
+│           └── <accession>/main/qc/
+│               ├── <accession>_R1.fastq.gz
+│               └── <accession>_R2.fastq.gz
+└── datasets/
+    ├── mlst/mlst.tar.gz
+    ├── bakta/light/bakta-light.tar.gz
+    ├── amrfinderplus/amrfinderplus.tar.gz
+    ├── kraken2/k2_viral_20251015.tar.gz
+    ├── generic/                    # shared reference assemblies & GFFs
+    └── {other tool databases}
 ```
+
+**Concrete examples** (from the live tests):
+- `species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna`
+- `species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz`
+- `species/portiera/reads/illumina/SRR2838702_R1.fastq.gz`
+- `species/streptococcus_pneumoniae/reads/ERR1438863/main/qc/ERR1438863_R1.fastq.gz`
+- `datasets/mlst/mlst.tar.gz`
 
 ### Optional Inputs
 
@@ -312,8 +331,8 @@ Snapshots are JSON files (`.nf.test.snap`) containing expected outputs with MD5 
         ],
         "timestamp": "2026-03-11T05:58:00.940736931",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.01.0"
+            "nf-test": "<nf-test-version>",
+            "nextflow": "<nextflow-version>"
         }
     }
 }
@@ -326,6 +345,18 @@ Snapshots are JSON files (`.nf.test.snap`) containing expected outputs with MD5 
 4. Metadata section tracks nf-test and Nextflow versions
 
 ### Updating Snapshots
+
+Use `bactopia-test --generate` (see [Running Tests](#running-tests)). Unlike `nf-test --update-snapshot`, which overwrites in-place, `--generate` deletes the existing snapshot then runs the test twice — the first pass writes a fresh snapshot, the second pass verifies it reproduces.
+
+```bash
+bactopia-test \
+    --bactopia-path /path/to/bactopia \
+    --test-data $BACTOPIA_TESTS \
+    --tier modules --include mlst \
+    --generate
+```
+
+Raw `nf-test --update-snapshot` still works for debugging a single file in isolation:
 
 ```bash
 nf-test run path/to/tests/ --update-snapshot
@@ -347,47 +378,91 @@ Files matching these patterns are excluded from `getAllFilesFromDir` content has
 
 ## Running Tests
 
-### Individual Module Test
+### Recommended: `bactopia-test`
+
+`bactopia-test` is the canonical entry point. It discovers `*.nf.test` files across the tier you select, runs them with consistent env/cache wiring, classifies outcomes into a summary table, and writes per-test logs into `logs/{timestamp}/` for `/review-tests` to interpret.
+
+```bash
+# Run a single module
+bactopia-test \
+    --bactopia-path /path/to/bactopia \
+    --test-data $BACTOPIA_TESTS \
+    --tier modules --include mlst \
+    --profile docker
+
+# Run every subworkflow except two
+bactopia-test \
+    --bactopia-path /path/to/bactopia \
+    --test-data $BACTOPIA_TESTS \
+    --tier subworkflows --exclude checkm,ismapper
+
+# Regenerate snapshots for a workflow
+bactopia-test \
+    --bactopia-path /path/to/bactopia \
+    --test-data $BACTOPIA_TESTS \
+    --tier workflows --include abricate \
+    --generate
+```
+
+The project-local `/run-tests` skill wraps these invocations (and enforces guardrails like never passing `--generate` without explicit opt-in). Prefer the skill for interactive sessions; call the CLI directly for scripting.
+
+### `bactopia-test` flag reference
+
+Sourced from `bactopia-test --help`:
+
+| Flag | Group | Purpose |
+|---|---|---|
+| `--bactopia-path PATH` | Required | Path to the bactopia repo |
+| `--test-data PATH` | Required | Test-data directory (sets `BACTOPIA_TESTS`); skip only with `--cleanup` |
+| `--tier {modules,subworkflows,workflows,all}` | Selection | Which tier to run |
+| `--include NAMES` | Selection | Comma-separated component names to run |
+| `--exclude NAMES` | Selection | Comma-separated component names to skip |
+| `--profile {docker,singularity,conda}` | Execution | Nextflow profile |
+| `--condadir PATH` | Execution | Conda env cache (`NXF_CONDA_CACHEDIR` takes precedence) |
+| `--singularity_cache PATH` | Execution | Singularity image cache (`NXF_SINGULARITY_CACHEDIR` takes precedence) |
+| `--generate` | Execution | Delete snapshots and run twice to verify reproducibility |
+| `--jobs N` | Execution | Parallel workers |
+| `--fail-fast` | Execution | Stop on first failure |
+| `--timeout MINUTES` | Execution | Per-test timeout (0 disables) |
+| `--outdir PATH` | Output | Where `logs/` is written |
+| `--json` | Output | Emit structured JSON summary |
+| `--keep` | Cleanup | Preserve `.nf-test/` dirs and logs on pass |
+| `--cleanup` | Cleanup | Remove all `.nf-test/` temp dirs and exit (no tests run) |
+
+### Raw `nf-test` (debugging)
+
+For ad-hoc debugging of a single file, `nf-test` can still be driven directly:
 
 ```bash
 cd modules/mlst/tests
-nf-test run main.nf.test
+nf-test run main.nf.test                    # single module test
+nf-test run main.nf.test --profile docker   # specific profile
+nf-test run main.nf.test --update-snapshot  # in-place snapshot refresh
+nf-test run main.nf.test --debug            # verbose debug output
 ```
 
-### With Specific Profile
-
-```bash
-nf-test run main.nf.test --profile docker
-```
-
-### Update Snapshots
-
-```bash
-nf-test run main.nf.test --update-snapshot
-```
-
-### Debug Mode
-
-```bash
-nf-test run main.nf.test --debug
-```
+Prefer `bactopia-test` for anything touching more than one file or heading for CI-style verification.
 
 ## CI/CD Integration
 
-Tests run via GitHub Actions on a self-hosted runner:
-
 - **Workflow**: `.github/workflows/all-bactopia-tests.yml`
-- **Trigger**: `workflow_dispatch` (manual)
+- **Trigger**: `workflow_dispatch` (manual) on a self-hosted runner
 - **Profiles tested**: Singularity, Docker, Conda
-- **Parallelism**: Up to 20 parallel test groups, each with 5 workers
+- **Parallelism**: Up to 20 parallel subworkflow groups, each with 5 workers
+
+> The current CI workflow still drives the legacy `pytest-workflow` suite (`pytest --wt 5 --git-aware --tag <subworkflow>`), not nf-test. Migrating CI to `bactopia-test` is in progress — until that lands, nf-test coverage is exercised locally (via `bactopia-test` / the `/run-tests` skill) rather than on every dispatch.
 
 ### Environment Variables
 
-| Variable | Value |
-|----------|-------|
-| `BACTOPIA_TESTS` | `/data/storage/bactopia-ci/bactopia-tests/data` |
-| `BACTOPIA_CONDA` | `/data/storage/bactopia-ci/envs/conda` |
-| `BACTOPIA_SINGULARITY` | `/data/storage/bactopia-ci/envs/singularity` |
+Nextflow consumes the `NXF_*` cache variables directly; these are what nf-test and `bactopia-test` expect:
+
+| Variable | CI value | Consumed by |
+|----------|----------|-------------|
+| `BACTOPIA_TESTS` | `/data/storage/bactopia-ci/bactopia-tests/data` | Test files via `params.test_data_dir` |
+| `NXF_CONDA_CACHEDIR` | `/data/storage/bactopia-ci/envs/conda` | Nextflow (Conda profile) |
+| `NXF_SINGULARITY_CACHEDIR` | `/data/storage/bactopia-ci/envs/singularity` | Nextflow (Singularity profile) |
+
+> The CI workflow also exports `BACTOPIA_CONDA` and `BACTOPIA_SINGULARITY` as script-internal shadows (passed into `bactopia-test` via `--condadir` / `--singularity_cache`), but these are workflow wiring — Nextflow itself reads the `NXF_*` forms. When setting caches outside CI, use the `NXF_*` variables.
 
 ## Best Practices
 
