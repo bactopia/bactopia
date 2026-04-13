@@ -60,14 +60,7 @@ This guide provides solutions to common issues, error messages, and debugging ti
 - Check that all required files exist
 - Ensure proper permissions on input/output directories
 
-### 2. Look for TODO Comments
-TODO comments in the code indicate known limitations or temporary workarounds
-
-```groovy
-// TODO: Remove when Path? is fixed
-```
-
-### 3. Verify Meta Map Fields
+### 2. Verify Meta Map Fields
 Ensure meta map contains required fields:
 
 ```groovy
@@ -79,13 +72,13 @@ meta.logs_dir
 meta.process_name
 ```
 
-### 4. Check Consistent Typing
+### 3. Check Consistent Typing
 Verify consistent typing across connected components:
 - `Tuple<Map, Set<Path>>` for module inputs
 - `Tuple<Map, Path>` for single file outputs
 - `Tuple<Map, Set<Path>>` for multiple file outputs
 
-### 5. Validate Channel Patterns
+### 4. Validate Channel Patterns
 Ensure proper channel patterns:
 - Modules: Use specific output channels
 - Subworkflows: Always emit 4 standard channels
