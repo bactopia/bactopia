@@ -38,7 +38,7 @@ workflow EMMTYPER {
 
     main:
     ch_emmtyper = EMMTYPER_MODULE(assembly, blastdb)
-    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_emmtyper, 'tsv', [name: 'emmtyper']), 'tsv', 'tsv')
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_emmtyper, 'tsv', [name: 'emmtyper', args: '--no-header-row']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
