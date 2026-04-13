@@ -89,46 +89,16 @@ process {
 }
 ```
 
-### Multi-Process Configuration
+### Multi-Process Tools
 
-When a tool has multiple processes (e.g., run + summary), use shared and process-specific blocks:
+When a tool has multiple processes (e.g., `run` + `summary`), each process lives in its own subdirectory under the module root and carries its own independent `module.config`. There is no shared config block — every `withName` targets a single process.
 
-```groovy
-process {
-    // Shared configuration for all ABRICATE processes
-    withName: 'ABRICATE_RUN|ABRICATE_SUMMARY' {
-        ext.args = [
-            "--db ${params.abricate_db}",
-            "--minid ${params.abricate_minid}",
-            "--mincov ${params.abricate_mincov}"
-        ].join(' ').replaceAll("\\s{2,}", " ").trim()
+For example, abricate splits into:
 
-        ext.toolName = "bioconda::abricate=1.0.1".replace("=", "-").replace(":", "-").replace(" ", "-")
-        ext.docker = "biocontainers/abricate:1.0.1--ha8f3691_1"
-        ext.image = "https://depot.galaxyproject.org/singularity/abricate:1.0.1--ha8f3691_1"
-        ext.condaDir = "${params.condadir}"
+- `modules/abricate/run/` — `ABRICATE_RUN` (sample-scope) with its own `module.config`
+- `modules/abricate/summary/` — `ABRICATE_SUMMARY` (run-scope) with its own `module.config`
 
-        ext.wf = params.wf
-        ext.scope = "sample"
-    }
-
-    // Process-specific: ABRICATE_RUN
-    withName: 'ABRICATE_RUN' {
-        ext.subdir = params.abricate_db
-        ext.logs_subdir = ""
-        ext.process_name = "abricate"
-    }
-
-    // Process-specific: ABRICATE_SUMMARY
-    withName: 'ABRICATE_SUMMARY' {
-        ext.logs_subdir = "abricate-concat"
-        ext.prefix = "abricate-${params.abricate_db}"
-        ext.process_name = params.merge_folder
-        ext.subdir = params.abricate_db
-        ext.scope = "run"  // Override to run scope
-    }
-}
-```
+Each config follows the same shape as [Basic Module Configuration](#basic-module-configuration). The run-scope summary config differs only in its routing values (`scope = "run"`, a `process_name` pointing at the merge folder, and a `prefix` override). Keeping the configs separate means per-process parameters, args, and container versions evolve independently.
 
 ### Multi-Argument Configuration
 
@@ -272,22 +242,6 @@ meta = record(
 - **Module reuse**: Same module code works for both workflows
 - **Configuration-driven**: Behavior controlled by config, not hardcoded
 - **Clear provenance**: Output path indicates which workflow produced the results
-
-### Scope-Based Output Paths
-
-```groovy
-// Sample scope (per-sample outputs)
-if (task.ext.scope == "sample") {
-    meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-    meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
-}
-
-// Run scope (aggregated outputs)
-if (task.ext.scope == "run") {
-    meta.output_dir = "${task.ext.process_name}"
-    meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
-}
-```
 
 ## Required vs Optional Properties
 

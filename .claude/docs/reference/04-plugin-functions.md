@@ -2,98 +2,212 @@
 
 ## Overview
 
-The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. The primary function is `gather`, which extracts fields from module record outputs and aggregates them for downstream processing.
+The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. The primary user surface is a set of channel-manipulation helpers — `gather`, `gatherCsvtk`, `gatherFields`, `filterWithData`, `combineWith`, and `collectNextflowLogs` — plus a handful of workflow-initialization helpers (`bactopiaInputs`, `bactopiaToolInputs`, `validateParameters`) that `utils_bactopia*` subworkflows wire in.
 
-## Import Statement
+All functions are exposed as Nextflow `@Function` extensions and are imported individually:
 
 ```groovy
-include { gather } from 'plugin/nf-bactopia'
+include { gather         } from 'plugin/nf-bactopia'
+include { gatherCsvtk    } from 'plugin/nf-bactopia'
+include { gatherFields   } from 'plugin/nf-bactopia'
+include { filterWithData } from 'plugin/nf-bactopia'
+include { combineWith    } from 'plugin/nf-bactopia'
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
 ```
 
-## Functions
+Implementations live in [nf-bactopia/src/main/groovy/bactopia/plugin/BactopiaExtension.groovy](https://github.com/bactopia/nf-bactopia/blob/main/src/main/groovy/bactopia/plugin/BactopiaExtension.groovy) and [ChannelUtils.groovy](https://github.com/bactopia/nf-bactopia/blob/main/src/main/groovy/bactopia/plugin/utils/ChannelUtils.groovy).
+
+## Channel Manipulation Functions
 
 ### gather
 
-Extracts a specific field from module record outputs and aggregates them into a single collection for downstream processing (e.g., concatenation with CSVTK_CONCAT).
+Extracts one field from each record in a channel and collects the values into a single `Set`, wrapped as a record-like map keyed by `meta`.
 
 #### Signature
 
 ```groovy
-gather(moduleOut, toolName, field: 'fieldName')
+gather(chResults, field, meta)
 ```
 
 #### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `moduleOut` | Channel | Yes | The module's full record output channel (e.g., `MODULE.out`) |
-| `toolName` | String | Yes | Tool identifier used as the `id` in output meta |
-| `field` | String (named) | Yes | The record field name to extract from each record |
+| `chResults` | Channel or List of records | Yes | Direct-assigned result from a module call (e.g., `ch_tool = TOOL_MODULE(...)`) |
+| `field` | String | Yes | Record field name to extract (positional, not named) |
+| `meta` | Map | Yes | Output meta map; must contain `name`. All other keys pass through |
 
 #### Returns
 
-Single tuple: `[[id: toolName], Set<extracted_field_values>]`
+A single-element channel (or List) emitting one record-like map:
 
-- Extracts the specified field from each record in the channel
-- The original meta maps are discarded
-- All extracted field values are collected into a `Set`
-- New meta contains only `id`
+```
+[meta: [name: 'tool', ...], <field>: Set<values>]
+```
+
+The original per-sample meta maps are discarded; only the supplied `meta` is retained. The output field name matches the input `field` (to rename for CSVTK_CONCAT, use `gatherCsvtk` instead).
 
 #### Usage Example
 
 ```groovy
-// Aggregate TSV outputs for concatenation
-CSVTK_CONCAT(
-    gather(MLST_MODULE.out, 'mlst', field: 'tsv'),
-    'tsv',
-    'tsv'
-)
+// Collect all per-sample JSON outputs for a downstream heatmap step
+ch_rgi_heatmap = RGI_HEATMAP(gather(ch_rgi_main, 'json', [name: 'rgi']))
+```
 
-// Aggregate report outputs
-CSVTK_CONCAT(
-    gather(ABRICATE_RUN.out, 'abricate', field: 'report'),
-    'tsv',
-    'tsv'
+Reference: [subworkflows/rgi/main.nf:41](../../../subworkflows/rgi/main.nf#L41)
+
+---
+
+### gatherCsvtk
+
+Identical to `gather`, but renames the extracted field to `csv` in the output record — matching the input field name that `CSVTK_CONCAT` expects. This is the dominant aggregation idiom across bacterial-typing subworkflows.
+
+#### Signature
+
+```groovy
+gatherCsvtk(chResults, field, meta)
+```
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `chResults` | Channel or List of records | Yes | Direct-assigned module result |
+| `field` | String | Yes | Record field name to extract (typically `'tsv'` or `'report'`) |
+| `meta` | Map | Yes | Output meta map; must contain `name` |
+
+#### Returns
+
+```
+[meta: [name: 'tool', ...], csv: Set<values>]
+```
+
+#### Usage Example
+
+```groovy
+ch_sistr = SISTR_MODULE(assembly)
+ch_concat = CSVTK_CONCAT(gatherCsvtk(ch_sistr, 'tsv', [name: 'sistr']), 'tsv', 'tsv')
+```
+
+Reference: [subworkflows/sistr/main.nf:41-42](../../../subworkflows/sistr/main.nf#L41)
+
+---
+
+### gatherFields
+
+Gathers multiple fields from records with an explicit input-to-output rename map. Used when a downstream process needs several aggregated fields in one record.
+
+#### Signature
+
+```groovy
+gatherFields(chResults, fieldMapping, meta)
+```
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `chResults` | Channel or List of records | Yes | Direct-assigned module result |
+| `fieldMapping` | `Map<String, String>` | Yes | `[inputField: outputField]` — extracts `inputField` from each record, emits as `outputField` |
+| `meta` | Map | Yes | Output meta map; must contain `name` |
+
+#### Returns
+
+```
+[meta: [name: 'tool', ...], <outputField1>: Set<values>, <outputField2>: Set<values>, ...]
+```
+
+#### Usage Examples
+
+Single-field rename (pairs a query channel for `combineWith`):
+
+```groovy
+gatherFields(query, [fna: 'query'], [name: 'fastani'])
+```
+
+Reference: [subworkflows/fastani/main.nf:47](../../../subworkflows/fastani/main.nf#L47)
+
+Multi-field rename (collects VCFs and aligned FASTAs for core-SNP analysis):
+
+```groovy
+ch_core_input = gatherFields(
+    ch_snippy.variants,
+    [vcf: '_vcf', aligned_fa: '_aligned_fa'],
+    [name: 'core-snp']
 )
 ```
 
-#### How It Works
+Reference: [workflows/bactopia-tools/snippy/main.nf:104-108](../../../workflows/bactopia-tools/snippy/main.nf#L104)
 
-1. Takes the full record output channel from a module
-2. Extracts the value of the named `field:` from each record
-3. Collects all extracted values into a set
-4. Wraps them with a new meta map containing only the tool name
+---
+
+### filterWithData
+
+Filters records where at least one of the specified fields is non-null (and non-empty for collections), then projects each surviving record down to just `meta` plus the requested fields. Prevents downstream processes from receiving records with extra fields that would trip type-checking.
+
+#### Signature
+
+```groovy
+filterWithData(input, fields)
+```
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `input` | Channel or List of records | Yes | Record channel to filter |
+| `fields` | `List<String>` | Yes | Field names to check for presence AND include in the output record |
+
+#### Returns
+
+A channel (or List) of projected records, each containing only `meta` plus the listed `fields`. Records where all listed fields are null are dropped.
+
+#### Usage Example
+
+Drop samples that have no reads, and project down to just the read fields:
+
+```groovy
+ch_ariba_run = ARIBA_RUN(filterWithData(reads, ['r1', 'r2']), ch_ariba_getref.map { r -> r.db })
+```
+
+Reference: [subworkflows/ariba/main.nf:53](../../../subworkflows/ariba/main.nf#L53)
 
 ---
 
 ### combineWith
 
-Creates a cartesian product by combining a gathered channel (typically single-item, from `gatherFields`) with a multi-item channel, merging each item into the gathered map under a specified field name. Replaces the deprecated Nextflow `each` input qualifier.
+Creates a cartesian product by combining a gathered channel (single-item, typically from `gatherFields`) with a multi-item channel, merging each item into the gathered map under a specified field name. Replaces the deprecated Nextflow `each` input qualifier.
 
 #### Signature
 
 ```groovy
-combineWith(gathered, items, field: 'fieldName')
+combineWith(gathered, items, field)
 ```
 
 #### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `gathered` | Channel or List | Yes | A gathered channel (e.g. from `gatherFields`) |
-| `items` | Channel or List | Yes | Multi-item channel (e.g. individual reference paths) |
-| `field` | String | Yes | Field name to assign each item in the output map |
+| `gathered` | Channel or List | Yes | Single-item gathered channel (e.g., from `gatherFields`) |
+| `items` | Channel or List | Yes | Multi-item channel (e.g., individual reference paths) |
+| `field` | String | Yes | Field name under which each item is merged into the gathered map |
 
 #### Returns
 
-Channel or List of maps, one per item, with the item merged into the gathered map under the field name.
+A channel (or List) of records, one per `item`, each with the item merged into the gathered map under `field`.
+
+If `gathered` emits `[meta: [name: 'fastani'], query: [a.fna, b.fna]]` and `items` emits `ref1.fna` and `ref2.fna`, the result emits:
+
+- `[meta: [name: 'fastani'], query: [a.fna, b.fna], reference: ref1.fna]`
+- `[meta: [name: 'fastani'], query: [a.fna, b.fna], reference: ref2.fna]`
 
 #### Usage Example
 
+Pairs a query channel with each reference for FastANI pairwise mode (replacing the deprecated `each` qualifier):
+
 ```groovy
-// Replace deprecated `each` qualifier for FastANI pairwise mode
 ch_ref = reference.map { r -> r.fna }
-FASTANI_MODULE(
+ch_fastani = FASTANI_MODULE(
     combineWith(
         gatherFields(query, [fna: 'query'], [name: 'fastani']),
         ch_ref,
@@ -102,70 +216,89 @@ FASTANI_MODULE(
 )
 ```
 
-#### How It Works
-
-1. Takes a gathered channel (e.g. `[meta:[name:fastani], query:[a.fna, b.fna]]`) and a multi-item channel (e.g. `ref1.fna`, `ref2.fna`)
-2. Uses `combine` to create the cartesian product: `[[meta:..., query:...], ref1.fna]`, `[[meta:..., query:...], ref2.fna]`
-3. Merges each item into the gathered map under the field name: `[meta:..., query:..., reference:ref1.fna]`, `[meta:..., query:..., reference:ref2.fna]`
-4. The resulting maps match process Record inputs with named fields
+Reference: [subworkflows/fastani/main.nf:47](../../../subworkflows/fastani/main.nf#L47)
 
 ---
 
-### flattenPaths (deprecated)
+### collectNextflowLogs
 
-`flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` channels to `Tuple<Map, Path>` for the old 4-channel output pattern. It is **no longer used** in subworkflows.
+Flat-maps each record's `nf_logs` field into individual `[meta, file]` tuples suitable for the workflow-tier `nf_logs` publishing pattern.
 
-Subworkflows now pass through module record outputs directly:
+#### Signature
 
 ```groovy
-emit:
-sample_outputs = MODULE.out
-run_outputs = CSVTK_CONCAT.out
+collectNextflowLogs(chResults)
 ```
 
-The function still exists in the plugin for backwards compatibility but should not be used in new code.
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `chResults` | Channel or List of records | Yes | Records containing `meta` and `nf_logs` fields |
+
+#### Returns
+
+A channel (or List) of `[meta, file]` tuples — one per log file per record.
+
+#### Usage Example
+
+```groovy
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
+// In workflow-tier main.nf, aggregate nf_logs for publishing
+ch_nf_logs = collectNextflowLogs(ch_sample_outputs)
+```
+
+References: [main.nf:182](../../../main.nf#L182), [workflows/teton/main.nf:69](../../../workflows/teton/main.nf#L69)
 
 ---
 
-### validateParameters
+## Workflow Initialization Functions
 
-Validates pipeline parameters before execution.
-
-#### Purpose
-
-- Checks that required inputs are present
-- Validates parameter dependencies (e.g., if using X, must provide Y)
-- Ensures specified files exist on the filesystem
-
-#### Usage
-
-Called automatically during workflow initialization. Not typically invoked directly in user code.
-
----
+These are wired into the `utils_bactopia` and `utils_bactopia-tools` subworkflows — user workflows generally don't call them directly.
 
 ### bactopiaInputs
 
-Initializes input channels from sample sheets and input specifications.
+```groovy
+bactopiaInputs(runType)
+```
 
-**Status**: Pending refactoring - documentation will be added after updates are complete.
+Collects sample inputs for standard Bactopia runs from the configured sample sheet. Returns a Map with `hasErrors`, `error`, `logs`, and `samples` keys.
+
+### bactopiaToolInputs
+
+```groovy
+bactopiaToolInputs()
+```
+
+Same as `bactopiaInputs` but for Bactopia Tools workflows. Returns the same Map shape.
+
+### validateParameters
+
+```groovy
+validateParameters(isBactopiaTool)
+```
+
+Validates pipeline parameters against the schema before the workflow body runs. Returns a Map of validation results and captured logs. Invoked during workflow initialization, not in user code.
 
 ---
 
 ## Channel Flow Diagram
 
 ```text
-Module Record Outputs              Subworkflow
-─────────────────────              ───────────
+Subworkflow
+───────────
 
-MODULE(input, db)
+ch_tool = TOOL_MODULE(assembly, db)
     │
-    ├─→ MODULE.out ──────────────→ emit: sample_outputs
-    │       (full record with meta, tsv, results, logs, etc.)
+    ├─→ emit: sample_outputs = ch_tool.sample_outputs
     │
-    └─→ gather(MODULE.out, 'tool', field: 'tsv')
+    └─→ ch_concat = CSVTK_CONCAT(
+            gatherCsvtk(ch_tool, 'tsv', [name: 'tool']),
+            'tsv', 'tsv'
+        )
             │
-            └─→ CSVTK_CONCAT ──→ emit: run_outputs
-                    (aggregated record)
+            └─→ emit: run_outputs = ch_concat.run_outputs
 ```
 
 ## Common Patterns
@@ -175,9 +308,9 @@ MODULE(input, db)
 ```groovy
 nextflow.preview.types = true
 
-include { TOOL_MODULE } from '../../modules/tool/main'
+include { TOOL_MODULE  } from '../../modules/tool/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'
-include { gather } from 'plugin/nf-bactopia'
+include { gatherCsvtk  } from 'plugin/nf-bactopia'
 
 workflow TOOL {
     take:
@@ -185,21 +318,21 @@ workflow TOOL {
     db: Path
 
     main:
-    TOOL_MODULE(assembly, db)
-    CSVTK_CONCAT(gather(TOOL_MODULE.out, 'tool', field: 'tsv'), 'tsv', 'tsv')
+    ch_tool = TOOL_MODULE(assembly, db)
+    ch_concat = CSVTK_CONCAT(gatherCsvtk(ch_tool, 'tsv', [name: 'tool']), 'tsv', 'tsv')
 
     emit:
-    sample_outputs = TOOL_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_tool.sample_outputs
+    run_outputs = ch_concat.run_outputs
 }
 ```
 
 ### Aggregation for Summary
 
 ```groovy
-// Collect all TSV outputs from the module and concatenate into single file
-CSVTK_CONCAT(
-    gather(MLST_MODULE.out, 'mlst', field: 'tsv'),
+// Collect per-sample TSVs from the module and concatenate into a single file
+ch_concat = CSVTK_CONCAT(
+    gatherCsvtk(ch_mlst, 'tsv', [name: 'mlst']),
     'tsv',
     'tsv'
 )
@@ -207,6 +340,6 @@ CSVTK_CONCAT(
 
 ## See Also
 
-- [Technical Specifications](../standards/03-technical-specs.md) - For channel type conventions
-- [Examples](./01-examples.md) - For usage in context
-- [Subworkflow Documentation](../standards/04-subworkflow-documentation.md) - For subworkflow patterns
+- [Technical Specifications](../standards/03-technical-specs.md) — channel type conventions
+- [Examples](./01-examples.md) — full subworkflow examples in context
+- [Subworkflow Documentation](../standards/04-subworkflow-documentation.md) — subworkflow patterns

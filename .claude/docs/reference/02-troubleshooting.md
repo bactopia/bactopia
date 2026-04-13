@@ -12,7 +12,7 @@ This guide provides solutions to common issues, error messages, and debugging ti
 **Solution**:
 - Check if you're returning multiple files when a single file is expected
 - Use `file()` for single known files, `files()` for multiple or wildcard patterns
-- Example fix: `tuple(meta, files("*.txt"))` instead of `tuple(meta, file("*.txt"))`
+- Example fix: `record(meta: meta, results: [ files("*.txt") ])` — use `files()` (plural) when the glob can match multiple files
 
 #### "Missing required parameter"
 **Cause**: Parameter not defined in configuration or schema
@@ -24,7 +24,7 @@ This guide provides solutions to common issues, error messages, and debugging ti
 #### "Channel not found"
 **Cause**: Workflow trying to access a channel that doesn't exist
 **Solution**:
-- Verify all 4 channels are emitted from subworkflows
+- Verify the subworkflow emits both `sample_outputs` (per-sample record passthrough) and `run_outputs` (aggregated run-scope record)
 - Check channel names match exactly
 - Ensure proper channel mixing/branching
 
@@ -56,12 +56,12 @@ This guide provides solutions to common issues, error messages, and debugging ti
 ## Debugging Tips
 
 ### 1. Check the Basics First
-- Verify Nextflow version meets requirements (v25.10.x+)
+- Verify Nextflow version meets requirements (v26+)
 - Check that all required files exist
 - Ensure proper permissions on input/output directories
 
-### 2. Verify Meta Map Fields
-Ensure meta map contains required fields:
+### 2. Verify Meta Record Fields
+Ensure the meta record contains required fields:
 
 ```groovy
 meta.id
@@ -74,15 +74,15 @@ meta.process_name
 
 ### 3. Check Consistent Typing
 Verify consistent typing across connected components:
-- `Tuple<Map, Set<Path>>` for module inputs
-- `Tuple<Map, Path>` for single file outputs
-- `Tuple<Map, Set<Path>>` for multiple file outputs
+- `Channel<Record>` for module and subworkflow take blocks
+- `record(meta: Record, ...)` for module inputs, with `Path?` for optional file slots
+- A single `record(...)` output per module; downstream fields (e.g., `tsv: Path`, `fna: Path`) plus the shared `results` / `logs` / `nf_logs` / `versions` fields
 
 ### 4. Validate Channel Patterns
 Ensure proper channel patterns:
-- Modules: Use specific output channels
-- Subworkflows: Always emit 4 standard channels
-- Workflows: Branch outputs by scope (run/sample)
+- Modules: emit a single `record(...)` output whose fields include the downstream payload plus `results`, `logs`, `nf_logs`, `versions`
+- Subworkflows: emit `sample_outputs` (per-sample record passthrough) and `run_outputs` (aggregated record); both are `Channel<Record>`
+- Workflows: branch outputs by scope (run/sample) before handing them to publishers
 
 ## Common Problems and Solutions
 
@@ -115,16 +115,16 @@ Ensure proper channel patterns:
 #### Missing Standard Channels
 **Symptoms**: Workflow fails with missing channel error
 **Solution**:
-- Ensure all 4 channels are emitted
-- Use `flattenPaths` for aggregate outputs
+- Ensure both `sample_outputs` and `run_outputs` are emitted
+- Use `gather()` / `gatherCsvtk()` / `gatherFields()` from the `nf-bactopia` plugin to aggregate per-sample records into run-scope inputs (see [Plugin Functions](04-plugin-functions.md) for the full menu)
 - Check channel names in emit block
 
 #### Type Mismatch in Aggregation
 **Symptoms**: Type error when mixing channels
 **Solution**:
-- Ensure consistent types across channels
-- Use proper type annotations
-- Check `flattenPaths` usage
+- Ensure consistent record types across channels being mixed
+- Use proper type annotations on take blocks (`Channel<Record>`)
+- Check that `gather()` / `gatherCsvtk()` projections name fields that actually exist on the source record
 
 ### Workflows
 

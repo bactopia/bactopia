@@ -13,7 +13,7 @@
 ## C
 **Channel**
 - Nextflow's primary data structure for connecting processes
-- Types: `Channel<Tuple<Map, Path>>`, `Channel<Tuple<Map, Set<Path>>>`
+- Types: `Channel<Record>` for typed module/subworkflow data; `Channel<Path>` / `Channel<Map>` for utility flows
 
 **Conda**
 - Package and environment management system
@@ -34,11 +34,6 @@
 **file() vs files()**
 - `file()`: Returns single `Path`, used for known individual files
 - `files()`: Returns `Set<Path>`, used for wildcards, optional files, or multiple files
-
-**flattenPaths**
-- Utility function from plugin/nf-bactopia
-- Converts `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>` for outputs
-- Essential for subworkflow aggregate outputs
 
 ## G
 **gather**
@@ -65,7 +60,7 @@
 - Individual process implementations that execute specific tools
 - Located in `/modules/`
 - The basic building blocks of the pipeline
-- Emit 3 standard channels: logs, nf_logs, versions
+- Emit a single `record(...)` with standard fields (`meta`, `results`, `logs`, `nf_logs`, `versions`) plus tool-specific outputs
 
 ## N
 **Named Workflows**
@@ -75,7 +70,7 @@
 
 **Nextflow**
 - Workflow management system for data-driven computational pipelines
-- Requires v25.10.x or later for Bactopia
+- Requires Nextflow v26 or later (per `nextflowVersion` in `nextflow.config`)
 
 **nf-test**
 - Testing framework used by Bactopia
@@ -96,9 +91,13 @@
 - All tool execution happens in processes
 
 ## R
+**Record**
+- Statically-typed value class introduced in Nextflow 26.04 preview
+- Primary container for module/subworkflow inputs and outputs (replaces the pre-typed tuple-of-map-and-paths pattern)
+- Constructed once and immutable; workflow-dependent fields use inline ternaries inside the constructor
+
 **results**
-- Standard output channel for analysis results
-- One of the 4 required channels for subworkflows
+- Standard field on every module record, carrying publishable analysis output paths
 
 ## S
 **Scope**
@@ -113,27 +112,11 @@
 **Subworkflows**
 - Reusable workflow components that combine modules
 - Located in `/subworkflows/`
-- Must emit exactly 4 standard channels
-
-## T
-**Tuple<Map, Path>**
-- Single file type used for module inputs (assemblies)
-- Also used for single file outputs
-
-**Tuple<Map, Path?, Path?, Path?, Path?>**
-- Explicit positional tuple for multi-read inputs
-- Positions: r1, r2, se, lr (each optional)
-- Used by read-based modules and subworkflows
-
-**Tuple<Map, Set<Path>>**
-- Multiple file output type
-- Used with `files()` output declaration
-- Standard for module outputs (logs, nf_logs, versions)
+- Emit two record channels: `sample_outputs` (per-sample record passthrough) and `run_outputs` (run-scoped aggregated record)
 
 ## V
 **versions**
-- Standard output channel for software version information
-- Contains `versions.yml` file with YAML-formatted version data
+- Standard field on every module record, holding the YAML-formatted `versions.yml` content
 - Required for all modules
 
 ## W
@@ -144,15 +127,14 @@
 
 ## Quick Reference
 
-### Required Channels
-- **Modules**: logs, nf_logs, versions (plus specific outputs)
-- **Subworkflows**: results, logs, nf_logs, versions (always)
-- **Workflows**: Various @publish files organized by @section
+### Required Emissions
+- **Modules**: single `record(...)` with `meta`, `results`, `logs`, `nf_logs`, `versions` plus tool-specific fields
+- **Subworkflows**: `sample_outputs` (per-sample record passthrough) + `run_outputs` (aggregated record)
+- **Workflows**: Various `@publish` files organized by `@section`
 
 ### Common Patterns
-- **4-channel pattern**: Standard for subworkflows
+- **Record**: Statically-typed, immutable container for module/subworkflow I/O
 - **Path?**: Native null support for optional inputs
-- **flattenPaths**: Convert Set<Path> to Path
 - **gather**: Merge channels for aggregation
 
 ### Component Types

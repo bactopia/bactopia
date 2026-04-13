@@ -26,12 +26,12 @@ This section provides detailed examples of different component types in Bactopia
  * Abricate bundles multiple databases including NCBI, CARD, ResFinder, PlasmidFinder,
  * ARG-ANNOT, and VFDB.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
- * @output record(meta, report, results, logs, nf_logs, versions)
- * - `report`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
  */
 ```
 
@@ -55,11 +55,11 @@ This section provides detailed examples of different component types in Bactopia
  * @status stable
  * @keywords prokka, annotation, prokaryotic, bacteria, genbank, gff
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
- * @citation prokka
+ * @citation prokka, aragorn, barrnap, cdhit, hmmer, infernal, minced, nhmmer, prodigal, rnammer, signalp
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input proteins?
  * FASTA file of trusted proteins to first annotate from
@@ -67,9 +67,9 @@ This section provides detailed examples of different component types in Bactopia
  * @input prodigal_tf?
  * Training file to use for gene prediction
  *
- * @output record(meta, annotations, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
+ * @output record(meta, gff, gbff, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
- * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `gbff`: Annotation in GenBank format, containing both sequences and annotations
  * - `fna`: Nucleotide FASTA file of the input contig sequences
  * - `faa`: Protein FASTA file of the translated CDS sequences
  * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
@@ -106,7 +106,7 @@ This section provides detailed examples of different component types in Bactopia
  *
  * @status stable
  * @keywords mlst, sequence typing, pubmlst, bacteria
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
  * @citation mlst
  *
  * @modules csvtk_concat, mlst
@@ -128,27 +128,27 @@ nextflow.preview.types = true
 
 include { MLST as MLST_MODULE } from '../../modules/mlst/main'
 include { CSVTK_CONCAT        } from '../../modules/csvtk/concat/main'
-include { gather              } from 'plugin/nf-bactopia'
+include { gatherCsvtk         } from 'plugin/nf-bactopia'
 
 workflow MLST {
     take:
     assembly: Channel<Record>
-    db: Path
+    db: Value<Path>
 
     main:
-    MLST_MODULE(assembly, db)
-    CSVTK_CONCAT(gather(MLST_MODULE.out, 'mlst', field: 'tsv'), 'tsv', 'tsv')
+    ch_mlst = MLST_MODULE(assembly, db)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_mlst, 'tsv', [name: 'mlst']), 'tsv', 'tsv')
 
     emit:
-    sample_outputs = MLST_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_mlst
+    run_outputs = ch_csvtk_concat
 }
 ```
 
 **Key Characteristics**:
 - **2-channel emit**: `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
-- **gather() with field**: Extracts `tsv` field from module records for aggregation
-- **Typed take block**: `assembly: Channel<Record>`, `db: Path`
+- **gatherCsvtk() for csvtk-friendly aggregation**: extracts the `tsv` field from each record into a single set keyed by `[name: 'mlst']`
+- **Typed take block**: `assembly: Channel<Record>`, `db: Value<Path>`
 
 ## Entry Workflow Example
 
@@ -160,45 +160,104 @@ workflow MLST {
 /**
  * Pangenome analysis with optional core-genome phylogeny.
  *
- * Performs comprehensive pangenome analysis from bacterial genomes.
- * Creates gene presence/absence matrices and builds phylogenetic trees.
+ * This Bactopia Tool creates a pangenome from GFF3 annotation files using one of three
+ * tools: [Panaroo](https://github.com/gtonkinhill/panaroo) (default),
+ * [PIRATE](https://github.com/SionBayliss/PIRATE), or
+ * [Roary](https://github.com/sanger-pathogens/roary). It generates core-genome alignments
+ * and gene presence/absence matrices, followed by SNP distance calculations.
+ * You can supplement your pangenome with completed genomes using the --species or
+ * --accessions parameters, which downloads genomes from RefSeq and annotates them with
+ * Prokka. A phylogeny based on the core-genome alignment is created by IQ-Tree, with
+ * optional recombination masking using ClonalFrameML. Finally, pan-genome wide
+ * association studies can be conducted using Scoary.
  *
  * @status stable
- * @keywords pangenome, comparative genomics, phylogeny
+ * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics, bactopia-tool
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
- * @citation clonalframeml, iqtree, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
+ * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
  *
  * @subworkflows utils_bactopia-tools, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
  *
- * @note Optional: Requires trait file for GWAS analysis with SCOARY
+ * @input rundir
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input use_pirate
+ * Use PIRATE as the pangenome tool instead of Panaroo
+ *
+ * @input use_roary
+ * Use Roary as the pangenome tool instead of Panaroo
+ *
+ * @input species
+ * Species name used to supplement the pangenome with RefSeq assemblies
+ *
+ * @input accession
+ * Single NCBI Assembly RefSeq accession to supplement the pangenome
+ *
+ * @input accessions
+ * Path to a file listing NCBI Assembly accessions to supplement the pangenome
+ *
+ * @input prokka_proteins
+ * Path to trusted protein FASTA for Prokka homology-based annotation of downloaded genomes
+ *
+ * @input prokka_prodigal_tf
+ * Path to a Prodigal training file for Prokka gene prediction
+ *
+ * @input skip_phylogeny
+ * Skip core-genome phylogeny construction with IQ-Tree
+ *
+ * @input skip_recombination
+ * Skip recombination masking with ClonalFrameML
  *
  * @input scoary_traits
- * Path to trait file for genome-wide association studies.
+ * Path to a Scoary trait file to run pan-GWAS against the pangenome
  *
- * @section Pangenome Analysis
- * @publish *.csv         Gene presence/absence matrix
- * @publish *.aln         Core-genome alignment
- * @publish *.tree        Phylogenetic tree file
+ * @section Pangenome Results
+ * @publish *.aln                 Core-genome alignment file containing genes present across all input genomes
+ * @publish *.csv                 Gene presence/absence matrix showing which genes are present in each genome
+ * @publish *.tsv                 SNP distance matrix between all samples
  *
- * @section GWAS Analysis
- * @note Only created if --scoary_traits is specified
- * @publish scoary/*.csv  Association results between genes and traits
- * @publish scoary/*.txt  Statistical summary of GWAS results
+ * @section Phylogeny Results
+ * @note Only created if --skip_phylogeny is not enabled
+ * @publish *.treefile            Maximum likelihood phylogenetic tree in Newick format
+ * @publish *.iqtree              IQ-Tree analysis report with model selection and support values
+ * @publish *.log                 IQ-Tree execution log
  *
  * @section Recombination Analysis
- * @note Only created if --skip_recombination is false
- * @publish *.masked.aln Recombination-masked alignment
- * @publish clonalframe/*.json ClonalFrameML analysis results
+ * @note Only created if --skip_recombination is not enabled
+ * @publish *.masked.aln          Core-genome alignment with recombination regions masked
+ *
+ * @section Association Analysis
+ * @note Only created if --scoary_traits is specified
+ * @publish scoary/*              Scoary association analysis results and plots
+ *
+ * @section Panaroo Results
+ * @note Only created when Panaroo is selected as the pangenome tool
+ * @publish panaroo/*             Panaroo-specific output files including graph and statistics
+ *
+ * @section PIRATE Results
+ * @note Only created when PIRATE is selected as the pangenome tool
+ * @publish pirate/*              PIRATE-specific output files including gene families and clusters
+ *
+ * @section Roary Results
+ * @note Only created when Roary is selected as the pangenome tool
+ * @publish roary/*               Roary-specific output files including gene presence/absence matrices
+ *
+ * @section Execution Logs
+ * @publish logs/pangenome/*      Pangenome tool execution logs (stdout/stderr)
+ * @publish logs/clonalframeml/*  ClonalFrameML execution logs (if executed)
+ * @publish logs/iqtree/*         IQ-Tree execution logs (if executed)
+ * @publish logs/scoary/*         Scoary execution logs (if executed)
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
  *
  * @section Versions
- * @publish versions.yml   Software version information
+ * @publish versions.yml          Software version information
  */
 ```
 
 **Key Characteristics**:
 - **User-facing**: Published results for end users
-- **Multiple sections**: Groups related outputs
-- **Conditional outputs**: Some files only created with specific parameters
+- **Multiple sections**: Pangenome / Phylogeny / Recombination / Association / per-tool (Panaroo, PIRATE, Roary) / Execution Logs / Versions
+- **Conditional outputs**: `@note` lines flag sections that only materialize under specific parameters (`--skip_phylogeny` off, `--skip_recombination` off, `--scoary_traits` set, tool selection)
 - **Uses @publish**: Not @output for user-facing files
 
 ## Common Patterns
@@ -211,14 +270,23 @@ The codebase uses Record-typed inputs with explicit named parameters:
 ```groovy
 // Single assembly file
 input:
-(meta: Record, assembly: Path): Record
+record (
+    meta: Record,
+    fna: Path
+)
 ```
 
 **Read-based modules** (multi-read input with explicit slots):
 ```groovy
 // Explicit positional slots for different read types
 input:
-(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+record (
+    meta: Record,
+    r1: Path?,
+    r2: Path?,
+    se: Path?,
+    lr: Path?
+)
 ```
 
 Where each parameter represents:
@@ -231,13 +299,20 @@ Where each parameter represents:
 ```groovy
 // Two required files
 input:
-(meta: Record, assembly: Path, meta_file: Path): Record
+record (
+    meta: Record,
+    fna: Path,
+    meta_file: Path
+)
 ```
 
 **Additional inputs** are declared on separate lines:
 ```groovy
 input:
-(meta: Record, assembly: Path): Record
+record (
+    meta: Record,
+    fna: Path
+)
 db         : Path
 proteins   : Path?
 prodigal_tf: Path?
@@ -267,21 +342,16 @@ record(
 
 ### Subworkflow Emit Pattern
 
-Subworkflows emit two channels -- module records pass through directly:
+Subworkflows emit two channels. Capture each process's output channel at the call site -- direct `.out` access is not used -- and pass the handles through the `emit:` block:
 
 ```groovy
+main:
+ch_module = MODULE(input)
+ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_module, 'tsv', [name: 'module']), 'tsv', 'tsv')
+
 emit:
-sample_outputs = MODULE.out
-run_outputs = CSVTK_CONCAT.out
-```
-
-### Workflow Branching Pattern
-
-```groovy
-ch_final_results = ch_results.branch{ meta, _file ->
-    run: meta.scope == 'run'
-    sample: meta.scope == 'sample'
-}
+sample_outputs = ch_module
+run_outputs = ch_csvtk_concat
 ```
 
 ## Test Patterns
@@ -306,10 +376,10 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "GCF_000017085"],
-                        assembly: file("${params.test_data_dir}/data/species/staphylococcus_aureus/genome/GCF_000017085.fna")
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna")
                     )
                 )
-                input[1] = file("${params.test_data_dir}/data/datasets/mlst/mlst.tar.gz")
+                input[1] = file("${params.test_data_dir}/datasets/mlst/mlst.tar.gz")
                 """
             }
         }
