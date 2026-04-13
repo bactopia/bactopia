@@ -127,7 +127,7 @@ Each pattern represents a migration that already landed; the doc is just out of 
 
 ### Fixing ground-truth violations (D1xx)
 
-- **D101/D102/D103 (counts)**: simple integer swap. The CLI's `actual` value is authoritative — re-run after editing to confirm.
+- **D101/D102/D103 (counts)**: simple integer swap. The CLI's `actual` value is authoritative — re-run after editing to confirm. **Gotcha**: the validator matches the *first* `N modules|subworkflows|workflows` phrase on each line, so a line that mentions a subset count (e.g. `66 workflows in bactopia-tools, 70 total`) will be flagged as `claim 66 → actual 70` even though the `66` is correct. Fix by rewording so subset counts don't use the same noun (e.g. `66 tools; 70 workflows total`), not by editing the subset number.
 - **D104 (Nextflow version)**: replace the claimed version with the actual `nextflowVersion` from `nextflow.config`. If the doc was making a forward-looking claim ("targeting Nextflow X"), reword to remove the version or add `+`/`x` so D104 treats it as informational.
 - **D105 (CLI references)**: either fix a typo (e.g. `bactopia-statuz` → `bactopia-status`) or remove the reference if the command genuinely doesn't exist. Don't invent commands.
 - **D106 (lint rule IDs)**: same — fix typo or remove. The valid set lives in [bactopia-py/bactopia/lint/rules/](../../../bactopia-py/bactopia/lint/rules/).

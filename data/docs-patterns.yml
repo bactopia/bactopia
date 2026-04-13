@@ -36,7 +36,7 @@ patterns:
       should be in nf-bactopia/CHANGELOG.md (which is out of scope here).
 
   - id: D002
-    pattern: '\b(?:4[- ]channel|three[- ]channel|3[- ]channel)\b'
+    pattern: '\b(?:4[- ]channels?|three[- ]channels?|3[- ]channels?)\b'
     severity: FAIL
     hint: "Modules emit a single record(); subworkflows emit sample_outputs + run_outputs."
     rationale: |
@@ -44,6 +44,8 @@ patterns:
       nf_logs, versions). After the record-types migration, modules emit a
       single record with named fields, and subworkflows emit two channels:
       sample_outputs (record passthrough) and run_outputs (aggregated).
+      Pattern matches both singular ("4-channel emission") and plural
+      ("emits 4 channels") phrasing.
 
   - id: D003
     pattern: 'Tuple<\s*Map\s*,'

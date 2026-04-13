@@ -43,7 +43,7 @@ For individual processes/modules that execute tools:
  *
  * @status <stable|beta|deprecated>
  * @keywords <comma, separated, keywords>
- * @tags complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<single|multiple> features:<features>
+ * @tags complexity:<simple|moderate|complex> input-type:<single|multiple|none> output-type:<single|multiple> features:<features>
  * @citation <comma, separated, bibtex_keys>
  *
  * @note <Optional: Additional note about behavior/requirements>
@@ -63,9 +63,9 @@ For individual processes/modules that execute tools:
 
 ### Module Tag Categories
 - **complexity**: `simple`, `moderate`, or `complex`
-- **input-type**: `single` or `multiple`
+- **input-type**: `single`, `multiple`, or `none` (utility modules with no sample/data channels — downloads, database setup)
 - **output-type**: `single` or `multiple`
-- **features**: Comma-separated list (NO SPACES after commas) of applicable features:
+- **features**: Comma-separated list (NO SPACES after commas) of applicable features. Common technical features are listed below; domain-specific values (e.g., `mlst`, `serotyping`, `phylogeny`, `virulence`) are also permitted:
   - `database-dependent`: Requires external database
   - `conditional-input`: Accepts optional `Path?` inputs
   - `conditional-logic`: Contains if/else statements
@@ -77,6 +77,7 @@ For individual processes/modules that execute tools:
   - `filtering`: Filters input data
   - `custom-outputs`: Non-standard output patterns
   - `aggregation`: Combines multiple results
+  - `no-test`: Module excluded from the test suite (typically downloads/database-init modules)
 
 **Example**: `features:database-dependent,conditional-logic,compression` (NOT `features:database-dependent, conditional-logic, compression`)
 
@@ -96,7 +97,7 @@ For workflow components that orchestrate modules/subworkflows:
  *
  * @status <stable|beta|deprecated>
  * @keywords <comma, separated, keywords>
- * @tags complexity:<simple|moderate|complex> input-type:<single|multiple> output-type:<multiple> features:<features>
+ * @tags complexity:<simple|moderate|complex> input-type:<single|multiple|none> output-type:<multiple> features:<features>
  * @citation <comma, separated, bibtex_keys>
  *
  * @subworkflows <optional> <comma, separated, list_of_subworkflows>

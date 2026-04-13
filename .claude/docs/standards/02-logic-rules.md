@@ -39,21 +39,21 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 ### None
 - **Definition**: No sample/data channels in the `take` block
 - **Use case**: Utility modules that download resources or perform setup tasks
-- **Note**: May have `Path`, `String`, or `Map` parameters but no `Channel<Tuple<...>>` inputs
+- **Note**: May have `Value<Path>`, `Value<String>`, or other non-channel parameters but no `Channel<Record>` inputs
 - **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
 
 ### Single Input
 - **Definition**: The `take` block defines exactly **1 Channel**
-- **Note**: Do not count `path` or `string` parameters
+- **Note**: Do not count `Value<Path>`, `Value<String>`, or other `Value<...>` parameters
 - **Examples**:
   ```nextflow
   workflow EXAMPLE {
       take:
-      fasta: Channel<Tuple<Map, Set<Path>>>  // Only 1 channel
+      assembly: Channel<Record>      // Only 1 channel
 
-      // String/Path parameters don't count
-      db: Path
-      species: String
+      // Value<...> parameters don't count
+      db: Value<Path>
+      species: Value<String>
   }
   ```
 
@@ -63,9 +63,9 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
   ```nextflow
   workflow EXAMPLE {
       take:
-      fasta: Channel<Tuple<Map, Set<Path>>>     // Channel 1
-      gff: Channel<Tuple<Map, Set<Path>>>       // Channel 2
-      parameters: Channel<Map>                  // Channel 3
+      assembly: Channel<Record>          // Channel 1
+      annotations: Channel<Record>       // Channel 2
+      reads: Channel<Record>             // Channel 3
   }
   ```
 
@@ -132,13 +132,13 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 
 #### custom-outputs
 - Non-standard output channel patterns
-- **Key indicators**: Complex output structure beyond standard 4-channel
+- **Key indicators**: Complex output structure beyond the standard `sample_outputs` / `run_outputs` emit
 
 ### Processing Features
 
 #### aggregation
 - Combines multiple results into summary
-- **Key indicators**: gather/flattenPaths usage, result merging
+- **Key indicators**: `gather()` / `gatherCsvtk()` / `gatherFields()` usage, result merging
 - Examples: csvtk concat, summary reports
 
 ## Component Classification Guide
@@ -149,9 +149,8 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 - Complexity determined by tool requirements and script logic
 
 ### Subworkflows
-- Always emit 4 standard channels: `results`, `logs`, `nf_logs`, `versions`
-- Must use `flattenPaths` for aggregate outputs
-- Must use `gather` for inputs to summarizing modules
+- Always emit 2 standard channels: `sample_outputs` (per-sample record passthrough) and `run_outputs` (aggregated)
+- Use `gather()`, `gatherCsvtk()`, or `gatherFields()` to feed aggregating modules (e.g., `CSVTK_CONCAT`)
 - Complexity based on orchestration complexity
 
 ### Entry Workflows
@@ -169,7 +168,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 
 ### Determining Input-Type
 1. Count channels in `take` block
-2. Ignore `path`, `string`, and `map` parameters (non-channel types)
+2. Ignore `Value<Path>`, `Value<String>`, and other `Value<...>` parameters (non-channel types)
 3. 0 channels → **None** (utility/setup modules)
 4. 1 channel → **Single**
 5. 2+ channels → **Multiple**

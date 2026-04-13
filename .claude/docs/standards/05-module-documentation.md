@@ -8,10 +8,10 @@ This guide provides a comprehensive methodology for creating consistent and accu
 ### 1.1 Module Structure
 Bactopia modules are individual process definitions that execute specific bioinformatics tools. Each module:
 - Wraps a single tool or closely related functionality
-- Accepts standardized inputs using Record syntax (e.g., `(meta: Record, assembly: Path): Record`)
+- Accepts standardized inputs using a multi-line `record(meta: Record, <field>: Path)` input block
 - Emits standardized outputs (including `logs`, `nf_logs`, `versions`)
 - Uses static typing throughout
-- Handles optional parameters via Path? workarounds
+- Handles optional inputs via `Path?` typed fields
 
 ### 1.2 Standard Module Components
 - **Header Block**: GroovyDoc with comprehensive metadata
@@ -93,14 +93,14 @@ Bactopia modules are individual process definitions that execute specific bioinf
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
-- **Pattern**: `(meta: Record, assembly: Path): Record` for assemblies
-- **Pattern**: `(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` for read-based modules
+- **Pattern**: `record(meta: Record, fna: Path)` for assemblies
+- **Pattern**: `record(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?)` for read-based modules
 - **Examples**: Most modules that process a single data type
 
 #### Multiple Inputs
 - **Definition**: Multiple data channels or complex multi-element records
-- **Pattern**: `(meta: Record, assembly: Path, meta_file: Path): Record` for multiple required files
-- **Examples**: quast (assembly + meta_file)
+- **Pattern**: `record(meta: Record, <file1>: Path, <file2>: Path)` for multiple required files
+- **Examples**: stecfinder (assembly + optional read slots)
 
 ### 3.3 Output-Type Classification
 
@@ -112,7 +112,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
 #### Multiple Outputs
 - **Definition**: Multiple distinct output channels
 - **Use Case**: Tools producing multiple file formats or result types
-- **Examples**: prokka (gff, gbk, fna, faa, etc.)
+- **Examples**: prokka (gff, gbff, fna, faa, etc.)
 
 ### 3.4 Feature Tags
 
@@ -160,9 +160,9 @@ The `@note` tag documents special requirements or context. Common patterns inclu
 ### 4.1 Primary Data Inputs (Assembly)
 
 ```groovy
-@input record(meta, assembly)
+@input record(meta, fna)
 - `meta`: Groovy Record containing sample information
-- `assembly`: Assembled contigs in FASTA format
+- `fna`: Assembled contigs in FASTA format
 ```
 
 ### 4.2 Read Inputs (Explicit Positional Slots)
@@ -214,11 +214,10 @@ Modules use `@output record(...)` to document their outputs. The record line lis
 1. **Single `@output record(...)` line** listing all fields from the process `record()` output block
 2. **Tool-specific fields only** get ` * - ` description lines
 3. **Skip standard fields** -- do NOT describe: `meta`, `results`, `logs`, `nf_logs`, `versions`
-4. **Skip convenience bundles** -- e.g., `annotations` (fna+faa+gff bundle) is listed in the record but not described since individual fields already cover it
-5. **Single line per field** -- each description must fit on one line, no wrapping
-6. **Field names must match** the actual `record()` output block exactly
-7. **Optional output fields** -- add `?` to fields that use `optional: true` in their `file()` call or conditional null passthrough
-8. **Standard fields never get `?`** -- even if `logs` uses `optional: true` for file matching, it is not semantically optional
+4. **Single line per field** -- each description must fit on one line, no wrapping
+5. **Field names must match** the actual `record()` output block exactly
+6. **Optional output fields** -- add `?` to fields that use `optional: true` in their `file()` call or conditional null passthrough
+7. **Standard fields never get `?`** -- even if `logs` uses `optional: true` for file matching, it is not semantically optional
 
 ### 5.3 Standard Fields (Never Described)
 
@@ -240,18 +239,18 @@ These fields appear in most `record()` outputs but are not documented with descr
 
 #### Multiple Tool-Specific Outputs
 ```groovy
- * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, annotations, results, logs, nf_logs, versions)
+ * @output record(meta, gff, gbff, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
- * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `gbff`: Annotation in GenBank format, containing both sequences and annotations
  * - `fna`: Nucleotide FASTA file of the input contig sequences
  * - `faa`: Protein FASTA file of the translated CDS sequences
  * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
  * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
- * - `fsa`: Nucleotide FASTA file of the input contig sequences (with adjusted headers)
- * - `tbl`: Feature table file for GenBank submission
- * - `txt`: Summary statistics of the annotation
- * - `tsv`: Tab-separated file of all annotated features
- * - `blastdb`: A compressed tar.gz archive of BLAST databases created from the input
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences, used by tbl2asn
+ * - `tbl`: Feature Table file for NCBI submission
+ * - `txt`: Summary statistics relating to the annotated features found
+ * - `tsv`: Tab-separated file of all features (locus_tag, ftype, len_bp, gene, EC_number, COG, product)
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
 ```
 
 #### No Tool-Specific Outputs
@@ -378,33 +377,47 @@ Some modules use `stage:` blocks to organize input file staging. This is useful 
 
 ```groovy
 stage:
-stageAs "input/*", assembly
+stageAs fna, "staging/fna/*"
 ```
+
+The argument order is `stageAs <var>, "<pattern>"` -- variable first, then the glob pattern for its staged location.
 
 **Multi-file staging example** (stecfinder):
 
 ```groovy
 stage:
-stageAs 'fna/*', fna
-stageAs 'reads/r1/*', r1
-stageAs 'reads/r2/*', r2
-stageAs 'reads/se/*', se
-stageAs 'reads/lr/*', lr
+stageAs fna, 'staging/fna/*'
+stageAs r1,  'staging/r1/*'
+stageAs r2,  'staging/r2/*'
+stageAs se,  'staging/se/*'
+stageAs lr,  'staging/lr/*'
 ```
 
 **Modules using stage blocks**: prokka, agrvate, fastani, roary, pirate, stecfinder
 
 ### 6.7 Runtime Meta Fields
 
-Some modules add runtime-determined fields to the meta map for internal use:
+Some modules need runtime-determined fields on `meta` (e.g. `single_end` derived from which read slots are populated). Because records are immutable, these values must be computed **before** the `record(...)` call and passed as named arguments -- post-construction assignment like `meta.single_end = ...` is not allowed.
 
 ```groovy
-meta.is_paired = has_r1 && has_r2
-meta.single_end = has_se && !has_r1 && !has_r2
-meta.runtype = _meta.runtype
+// Determine read type from explicit slots
+has_r1 = r1 != null
+has_r2 = r2 != null
+has_se = se != null
+
+// Include runtime-determined fields inline in the record constructor
+meta = record(
+    id: "${prefix}-${task.process}",
+    name: prefix,
+    scope: task.ext.scope,
+    output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+    logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+    process_name: task.ext.process_name,
+    single_end: has_se && !has_r1 && !has_r2
+)
 ```
 
-These fields are computed at runtime based on which inputs are provided.
+See `modules/snippy/run/main.nf` and `modules/bactopia/qc/main.nf` for live examples.
 
 ## 7. Examples by Complexity
 
@@ -425,9 +438,9 @@ These fields are computed at runtime based on which inputs are provided.
  * @note Database Required
  * Requires the MLST database (derived from PubMLST) to be available.
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input db
  * Directory or compressed tarball containing the MLST database schemes
@@ -450,19 +463,22 @@ These fields are computed at runtime based on which inputs are provided.
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
  * @citation quast
  *
- * @input record(meta, assembly, meta_file)
+ * @input record(meta, fna, tsv_meta)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Assembled contigs in FASTA format
- * - `meta_file`: Meta file containing reference size information
+ * - `fna`: Assembled contigs in FASTA format
+ * - `tsv_meta`: Meta file containing reference size information
  *
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Transposed report in TSV format
  *
  * @results supplemental
- * - `report.html`: Interactive HTML report with assembly metrics and plots
- * - `report.txt`: Plain text version of the assembly report
- * - `icarus.html`: Icarus contig size viewer
- * - `basic_stats/`: Directory containing GC content and coverage statistics
+ * - `report.html`: Interactive HTML report with assembly quality visualizations
+ * - `report.txt`: Plain text assembly quality report
+ * - `report.tsv`: Assembly metrics in TSV format
+ * - `icarus.html`: Contig alignment viewer (Icarus)
+ * - `icarus_viewers/`: Interactive contig size viewer files
+ * - `predicted_genes/`: Glimmer gene predictions for the assembly
+ * - `basic_stats/`: Cumulative plots and GC content statistics
  */
 ```
 
@@ -477,11 +493,11 @@ These fields are computed at runtime based on which inputs are provided.
  * @status stable
  * @keywords prokka, annotation, prokaryotic, bacteria, genbank, gff
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
- * @citation prokka
+ * @citation prokka, aragorn, barrnap, cdhit, hmmer, infernal, minced, nhmmer, prodigal, rnammer, signalp
  *
- * @input record(meta, assembly)
+ * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Assembled contigs in FASTA format
+ * - `fna`: Assembled contigs in FASTA format
  *
  * @input proteins?
  * FASTA file of trusted proteins to first annotate from
@@ -489,18 +505,18 @@ These fields are computed at runtime based on which inputs are provided.
  * @input prodigal_tf?
  * Training file to use for gene prediction
  *
- * @output record(meta, gff, gbk, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, annotations, results, logs, nf_logs, versions)
+ * @output record(meta, gff, gbff, fna, faa, ffn, sqn, fsa, tbl, txt, tsv, blastdb, results, logs, nf_logs, versions)
  * - `gff`: Annotation in GFF3 format, containing both sequences and annotations
- * - `gbk`: Annotation in GenBank format, containing both sequences and annotations
+ * - `gbff`: Annotation in GenBank format, containing both sequences and annotations
  * - `fna`: Nucleotide FASTA file of the input contig sequences
  * - `faa`: Protein FASTA file of the translated CDS sequences
  * - `ffn`: Nucleotide FASTA file of all prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
  * - `sqn`: An ASN1 format "Sequin" file for submission to GenBank
- * - `fsa`: Nucleotide FASTA file of the input contig sequences (with adjusted headers)
- * - `tbl`: Feature table file for GenBank submission
- * - `txt`: Summary statistics of the annotation
- * - `tsv`: Tab-separated file of all annotated features
- * - `blastdb`: A compressed tar.gz archive of BLAST databases created from the input
+ * - `fsa`: Nucleotide FASTA file of the input contig sequences, used by tbl2asn
+ * - `tbl`: Feature Table file for NCBI submission
+ * - `txt`: Summary statistics relating to the annotated features found
+ * - `tsv`: Tab-separated file of all features (locus_tag, ftype, len_bp, gene, EC_number, COG, product)
+ * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
 ```
 
@@ -863,7 +879,7 @@ nextflow_process {
                 input[0] = Channel.of(
                     record(
                         meta: [name: "{sample_id}"],
-                        assembly: file("${params.test_data_dir}/data/species/{species}/genome/{sample_id}.fna.gz")
+                        fna: file("${params.test_data_dir}/species/{species}/uncompressed/{sample_id}/main/assembler/{sample_id}.fna")
                     )
                 )
                 """
@@ -979,9 +995,8 @@ Before completing module documentation, verify:
 - [ ] Complexity level accurately reflects implementation
 - [ ] Feature tags match actual implementation
 - [ ] Tool name includes link to source repository
-- [ ] Optional parameters are marked as "(Optional)"
+- [ ] Optional parameters are marked with `?` suffix on the name (see §4.4)
 - [ ] Database requirements are clearly stated
-- [ ] Any Path? workarounds are noted in @note
 
 ## 13. What to Avoid
 

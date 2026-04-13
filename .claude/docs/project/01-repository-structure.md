@@ -39,7 +39,7 @@ bactopia/
   - `main.nf` - Process definition with GroovyDoc documentation
   - `module.config` - Module parameters and process configuration
   - `schema.json` - Parameter schema for validation
-- **Count**: 96 modules
+- **Count**: 97 modules
 - **Examples**: `abricate/`, `prokka/`, `kraken2/`
 
 ### `/subworkflows/` (Tier 2)
@@ -50,8 +50,8 @@ bactopia/
   - `{tool}/` - Tool-specific processing logic
 - **Contents**:
   - `main.nf` - Subworkflow definition with GroovyDoc documentation
-- **Count**: 87 subworkflows
-- **Key Requirement**: Must always emit 4 channels (results, logs, nf_logs, versions)
+- **Count**: 88 subworkflows
+- **Key Requirement**: Emit two record channels — `sample_outputs` (module record passthrough) and `run_outputs` (aggregated results)
 
 ### `/workflows/` (Tier 1)
 - **Purpose**: Entry point workflows for users
@@ -111,7 +111,7 @@ Subworkflows (Tier 2) - Combine related functionality
     ↓
 Modules (Tier 3) - Execute individual tools
     ↓
-Results (4 channels: results, logs, nf_logs, versions)
+Results (record channels: sample_outputs + run_outputs)
 ```
 
 ### Component Relationships
@@ -152,7 +152,7 @@ Results (4 channels: results, logs, nf_logs, versions)
 
 ### Workflow Organization
 - Entry points in root directory
-- Bactopia Tools in `workflows/bactopia-tools/` (66 workflows, 69 total across all tiers)
+- Bactopia Tools in `workflows/bactopia-tools/` (66 tools; 70 workflows total across all tiers)
 - Named workflows as separate directories under `workflows/`:
     - `workflows/cleanyerreads/` - Read cleaning workflow
     - `workflows/staphopia/` - Staphylococcus-focused analysis

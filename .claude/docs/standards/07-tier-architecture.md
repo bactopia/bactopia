@@ -189,7 +189,7 @@ Channel manipulation is standardized through named functions in the nf-bactopia 
 |----------|---------|---------|
 | `gather(ch, field, meta)` | Extract field, collect across samples, return record | Workflows (run-level input prep) |
 | `gatherCsvtk(ch, field, meta)` | Same as gather, output field renamed to `csv` | Subworkflows (CSVTK_CONCAT input) |
-| `gatherFields(ch, fieldMapping, meta)` | Multi-field gather with rename map | Future use |
+| `gatherFields(ch, fieldMapping, meta)` | Multi-field gather with rename map | Subworkflows |
 | `filterWithData(ch, fields)` | Filter records by non-null fields, project down | Subworkflows |
 | `collectNextflowLogs(ch)` | Extract nf_logs from records into [meta, file] tuples | All workflows |
 

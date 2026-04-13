@@ -73,9 +73,7 @@ For subworkflows accepting reads, use explicit positional slots for clarity:
 - `lr?`: Long reads (ONT/PacBio)
 ```
 
-The `?` suffix mirrors the `Path?` types, indicating each read slot may be null.
-
-**Subworkflows using this pattern**: ariba, kraken2, bracken, scrubber, teton
+The `?` suffix mirrors the `Path?` types, indicating each read slot may be null. Used by all read-accepting subworkflows (ariba, assembler, bracken, kraken2, merlin, scrubber, teton, and others).
 
 ### 2.4 Outputs
 
@@ -147,30 +145,30 @@ This section documents the Nextflow code patterns for subworkflow `emit:` blocks
 
 #### A. Standard Aggregating Pattern
 
-Used by most subworkflows (~49) that aggregate per-sample results via CSVTK_CONCAT:
+Used by most subworkflows that aggregate per-sample results via CSVTK_CONCAT. `gatherCsvtk()` is the canonical aggregation helper for CSV/TSV inputs (plain `gather()` is only used for non-CSV formats like JSON):
 
 ```groovy
     main:
-    MODULE(input)
-    CSVTK_CONCAT(gather(MODULE.out, 'tsv', [name: 'toolname']), 'tsv', 'tsv')
+    ch_module = MODULE(input)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_module, 'tsv', [name: 'toolname']), 'tsv', 'tsv')
 
     emit:
     // Published outputs
-    sample_outputs = MODULE.out
-    run_outputs = CSVTK_CONCAT.out
+    sample_outputs = ch_module
+    run_outputs = ch_csvtk_concat
 ```
 
 #### B. Leaf Pattern
 
-Used by subworkflows (~12) with no cross-sample aggregation:
+Used by subworkflows with no cross-sample aggregation:
 
 ```groovy
     main:
-    MODULE(input)
+    ch_module = MODULE(input)
 
     emit:
     // Published outputs
-    sample_outputs = MODULE.out
+    sample_outputs = ch_module
     run_outputs = channel.empty()
 ```
 
@@ -182,13 +180,13 @@ Used by subworkflows (bakta, prokka, assembler, gather, qc, scrubber) that provi
 
 ```groovy
     main:
-    MODULE(input)
+    ch_module = MODULE(input)
 
     emit:
     // Downstream inputs
-    annotations = filterWithData(MODULE.out, ['fna', 'faa', 'gff'])
+    annotations = filterWithData(ch_module, ['fna', 'faa', 'gff'])
     // Published outputs
-    sample_outputs = MODULE.out
+    sample_outputs = ch_module
     run_outputs = channel.empty()
 ```
 
@@ -196,27 +194,41 @@ Used by subworkflows (bakta, prokka, assembler, gather, qc, scrubber) that provi
 
 #### D. Composite Pattern
 
-Used by subworkflows (clonalframeml, gubbins, snippy/core, pangenome) with multiple pipeline stages:
+Used by subworkflows (clonalframeml, gubbins, snippy/core, pangenome) with multiple pipeline stages. `sample_outputs` is intentionally `channel.empty()` because the composite produces a run-level result, not per-sample records; `run_outputs` is a `.mix()` of every stage's `run_outputs`. Downstream-input emits (e.g., `alignment`) expose record-mapped channels for consumers like phylogeny subworkflows:
 
 ```groovy
-    emit:
+    main:
+    ch_iqtree = IQTREE(alignment.map { r -> ... })
+    ch_clonalframeml = CLONALFRAMEML_MODULE(ch_iqtree.run_outputs.map { r -> ... })
+    ch_snpdists = SNPDISTS(ch_clonalframeml.map { r -> ... })
+
+    emit: // bactopia-lint: ignore S005, S010
+    // Downstream inputs
+    alignment = ch_clonalframeml.map { r ->
+        record(meta: record(name: "core-genome", process_name: "iqtree"), aln: r.masked_aln)
+    }
     // Published outputs
-    sample_outputs = MODULE_A.out
-    snpdists_outputs = SNPDISTS.out.sample_outputs
-    run_outputs = channel.empty()
+    sample_outputs = channel.empty()
+    run_outputs = ch_clonalframeml.mix(ch_iqtree.run_outputs).mix(ch_snpdists.run_outputs)
 ```
+
+The `// bactopia-lint: ignore S005, S010` annotation on the `emit:` line is the standard escape hatch for composite subworkflows — both rules fire on the `sample_outputs = channel.empty()` shape, which is correct for this pattern.
 
 #### E. Orchestration Pattern
 
-Used by subworkflows (merlin, staphtyper, teton) that compose other subworkflows:
+Used by subworkflows (merlin, staphtyper, teton) that compose other subworkflows. Each child subworkflow exposes `sample_outputs` and `run_outputs`; the parent `.mix()`-es them into the standard two emits:
 
 ```groovy
+    main:
+    ch_subwf_a = SUBWORKFLOW_A(input)
+    ch_subwf_b = SUBWORKFLOW_B(input)
+
     emit:
     // Published outputs
-    sample_outputs = SUBWORKFLOW_A.out.sample_outputs
-        .mix(SUBWORKFLOW_B.out.sample_outputs)
-    run_outputs = SUBWORKFLOW_A.out.run_outputs
-        .mix(SUBWORKFLOW_B.out.run_outputs)
+    sample_outputs = ch_subwf_a.sample_outputs
+        .mix(ch_subwf_b.sample_outputs)
+    run_outputs = ch_subwf_a.run_outputs
+        .mix(ch_subwf_b.run_outputs)
 ```
 
 ### 2.6 The @note Tag
@@ -255,7 +267,7 @@ Common uses:
  *
  * @status stable
  * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics
- * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, conditional-logic
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,conditional-logic
  * @citation pirate, panaroo, roary, snpdists
  *
  * @subworkflows pirate, roary, panaroo, snpdists
@@ -271,17 +283,28 @@ Common uses:
  * Boolean flag to use Roary for pangenome analysis
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `aln`: Core-genome alignment in FASTA format
  * - `csv`: Gene presence/absence matrix
  * - `supplemental`: Intermediate files and detailed outputs
- *
- * @output snpdists_outputs
  * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
+ *
+ * @output alignment
+ * - `aln`: Core-genome alignment for downstream analysis (e.g., recombination detection)
+ *
+ * @output phylogeny_input
+ * - `aln`: Core-genome alignment with iqtree-ready meta for phylogeny construction
+ *
+ * @output csv
+ * - `csv`: Gene presence/absence matrix for downstream analysis (e.g., pan-GWAS)
  */
 ```
 **Key Features:**
 - Uses `@subworkflows` since all includes point to other subworkflows
-- Tags include `conditional-logic` for if/else branches and `aggregation` for merging results
+- Tags include `conditional-logic` for if/else branches and `aggregation` for run-level merging
+- Emits empty `sample_outputs` (composite pattern — no per-sample records) with all run-level results routed through `run_outputs`
+- Exposes three downstream-input emits (`alignment`, `phylogeny_input`, `csv`) as `record(...)`-mapped channels for consumers like gubbins/clonalframeml/iqtree
 - Documents Panaroo as the default tool (updated from PIRATE)
 
 ### 4.2 ARIBA (Moderate Complexity with Resource Download)
@@ -332,17 +355,23 @@ Common uses:
  * It first removes host reads using the scrubber subworkflow, then classifies reads,
  * and finally creates sample sheets with genome size estimates for downstream Bactopia analysis.
  *
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ *
  * @status stable
  * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, database-dependent, conditional-logic
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,database-dependent,conditional-logic
  * @citation kraken2, bracken
  *
+ * @modules bactopia_teton, csvtk_join, csvtk_concat
  * @subworkflows scrubber, bracken
- * @modules bactopia_samplesheet, csvtk_join, csvtk_concat
  *
- * @input record(meta, reads)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
- * - `reads`: FASTQ reads (Illumina or Nanopore)
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input db
  * Optional Kraken2 database path for taxonomic classification
@@ -350,32 +379,17 @@ Common uses:
  * @input use_srascrubber
  * Boolean flag to use SRA scrubber for host read removal
  *
- * @output scrubber_outputs
- * - `scrubbed`: Host-scrubbed reads
+ * @output sample_outputs
  *
- * @output bracken_outputs
- * - `bacteria_tsv`: Per-sample bacterial organism classifications
- * - `nonbacteria_tsv`: Per-sample non-bacterial organism classifications
- * - `sizemeup`: Per-sample genome size estimates
- *
- * @output report_outputs
- * - `tsv`: Joined TSV file combining scrubber and classification results
- *
- * @output merged_bacteria
- * - `csv`: Consolidated bacterial organisms across samples
- *
- * @output merged_nonbacteria
- * - `csv`: Consolidated non-bacterial organisms across samples
- *
- * @output merged_sizemeup
- * - `csv`: Consolidated genome size estimates across samples
+ * @output run_outputs
  */
 ```
 **Key Features:**
 - Complexity: `complex` due to multiple subworkflow calls and data joining
 - Mix of `@subworkflows` and `@modules` in dependencies
-- Multiple Boolean parameters for conditional execution
-- Shows proper handling of both optional database and conditional logic flags
+- Uses explicit positional read slots (`r1?, r2?, se?, lr?`) rather than a generic `reads` field
+- Orchestration shape: only `sample_outputs` and `run_outputs` are emitted, each constructed via `.mix()` across the child subworkflow outputs plus local aggregations
+- `@output` blocks carry no field descriptions — each emit is a passthrough/mix of records whose fields are documented on the upstream modules and subworkflows
 
 ### 4.4 SsuisSero (Simple with Aggregation)
 ```groovy
@@ -447,54 +461,50 @@ Common uses:
 - Shows comprehensive documentation of all outputs
 - Vertical alignment in output descriptions for readability
 
-### 4.6 Assembler (Complex with Automatic Tool Selection)
+### 4.6 Assembler (Moderate Complexity with Automatic Tool Selection)
 ```groovy
 /**
  * Assemble bacterial genomes using automated assembler selection.
  *
  * This subworkflow automatically selects the optimal assembly strategy based on input read types:
  * - **Short Paired-End Reads:** Uses [Shovill](https://github.com/tseemann/shovill) (SKESA/SPAdes wrapper)
- * - **Short Single-End Reads:** Uses [Shovill](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
+ * - **Short Single-End Reads:** Uses [Shovill-SE](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
  * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper)
  * - **Hybrid Assembly:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye with short-read polishing
  *
  * The workflow performs individual assemblies per sample and aggregates assembly statistics
- * across all samples using [assembly-scan](https://github.com/rpetit3/assembly-scan) for comprehensive quality assessment.
+ * across all samples using [assembly-scan](https://github.com/rpetit3/assembly-scan) for
+ * comprehensive quality assessment.
  *
  * @status stable
  * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
- * @tags complexity:complex input-type:single output-type:multiple features:aggregation, conditional-logic, alternative-execution
- * @citation any2fasta, assembly-scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill-se, skesa, spades, unicycler, velvet
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,alternative-execution
+ * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
  *
  * @modules bactopia_assembler, csvtk_concat
  *
- * @input record(meta, fq, extra)
+ * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
- * - `fq`: Primary reads (Illumina paired-end or Nanopore)
- * - `extra`: Secondary reads for hybrid assembly or polishing (Optional)
+ * - `r1?` : Illumina R1 reads (paired-end forward)
+ * - `r2?` : Illumina R2 reads (paired-end reverse)
+ * - `se?` : Single-end Illumina reads
+ * - `lr?` : Long reads (ONT/PacBio) for long-read or hybrid assembly
  *
- * @output assembly
- * - `assembly`: Assembled contigs in FASTA format
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
+ * - `supplemental`: Supplemental files including assembly graphs and tool-specific logs
+ * - `error`: Captured error messages if assembly fails
  *
- * @output assembly_reads
- * - `assembly`: Assembled contigs in FASTA format
- * - `r1`: Illumina R1 reads
- * - `r2`: Illumina R2 reads
- * - `se`: Single-end reads
- * - `lr`: Long reads
- *
- * @output tsv
- * - `tsv`: Per-sample tab-delimited assembly statistics (N50, length, coverage)
- *
- * @output merged_tsv
- * - `csv`: Consolidated assembly statistics report across all samples
+ * @output run_outputs
+ * - `csv`: Aggregated assembly statistics from all samples
  */
 ```
 **Key Features:**
 - Automatic assembler selection based on input read type (not Boolean flags)
-- Supports short reads (Shovill), long reads (Dragonflye), and hybrid assembly (Unicycler)
+- Supports short reads (Shovill / Shovill-SE), long reads (Dragonflye), and hybrid assembly (Unicycler)
 - Uses `alternative-execution` feature tag for multiple tool options
-- Three-element input tuple with optional extra reads for hybrid assembly
+- Explicit positional read slots (`r1?, r2?, se?, lr?`) carry all four possible read inputs through a single record
+- Documents only `sample_outputs` / `run_outputs` in GroovyDoc; the code additionally emits `assembly` and `assembly_reads` as `filterWithData`-derived downstream-input channels (Pattern C) that feed sibling subworkflows
 
 ## 5. What to Avoid
 - **Do not** reference `module.config` or `schema.json`.

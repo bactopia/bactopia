@@ -6,7 +6,7 @@ This document contains the technical specifications, conventions, and "gotchas" 
 ## Static Typing Conventions
 
 ### Universal Requirements
-- ALL Nextflow files must have `nextflow.preview.types = true` at the top (until Nextflow v26.04)
+- ALL Nextflow files must have `nextflow.preview.types = true` at the top (required while typed records are in preview)
 - Static typing is fully implemented across all components
 - No files should be missing type annotations
 
@@ -27,40 +27,84 @@ This document contains the technical specifications, conventions, and "gotchas" 
 **Key Rule**: Use `file()` for single, known files. Use `files()` for wildcards, optional files, or multiple files.
 
 ### Channel Type Declarations
-Standard pattern for workflow-level channels:
+
+Subworkflows declare channel types on `take:` block entries as `Channel<Record>`:
 
 ```nextflow
-ch_results = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-ch_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-ch_nf_logs = channel.empty() as Channel<Tuple<Map, Set<Path>>>
-ch_versions = channel.empty() as Channel<Tuple<Map, Set<Path>>>
+workflow ABRICATE {
+    take:
+    assembly: Channel<Record>
+
+    main:
+    ch_abricate_run = ABRICATE_RUN(assembly)
+    ...
+}
 ```
+
+Intermediate channels (e.g. `ch_abricate_run` above) inherit their `Channel<Record>` type from the module or subworkflow they are assigned from — no explicit `as Channel<...>` cast is needed.
 
 ### Standard Module Input Types
 
-The codebase uses Record-typed inputs with explicit named parameters:
+The first positional input is a typed `record (...)` block. Additional inputs are declared on separate lines.
 
-- **Single assemblies**: `(meta: Record, assembly: Path): Record` - For modules processing a single assembly file
-- **Multi-read inputs**: `(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record` - For modules accepting multiple read types:
-    - `r1`: Illumina paired-end forward
-    - `r2`: Illumina paired-end reverse
-    - `se`: Single-end Illumina reads
-    - `lr`: Long reads (ONT/PacBio)
-- **Multiple distinct inputs**: `(meta: Record, assembly: Path, meta_file: Path): Record` - For modules requiring multiple files (e.g., assembly + metadata)
-- **Additional inputs** are declared on separate lines: `db: Path`, `proteins: Path?`, etc.
+**Single assembly** (e.g. [modules/prokka/main.nf:45-51](../../../modules/prokka/main.nf#L45-L51)):
 
-**Note**: The codebase uses `Record` return types with named parameters (e.g., `meta: Record`) rather than `Tuple<>` type annotations. In module script blocks, `def _meta = meta` aliases the input before `meta = record(...)` constructs a new output meta record.
+```nextflow
+input:
+record (
+    meta: Record,
+    fna: Path
+)
+proteins   : Path?
+prodigal_tf: Path?
+```
+
+**Multi-read inputs** — modules accepting any mix of read types (e.g. [modules/bactopia/assembler/main.nf:51-59](../../../modules/bactopia/assembler/main.nf#L51-L59)):
+
+```nextflow
+input:
+record (
+    meta: Record,
+    r1: Path?,
+    r2: Path?,
+    se: Path?,
+    lr: Path?,
+    fna: Path?
+)
+```
+
+- `r1`: Illumina paired-end forward
+- `r2`: Illumina paired-end reverse
+- `se`: Single-end Illumina reads
+- `lr`: Long reads (ONT/PacBio)
+
+**Multiple distinct inputs** — reads plus a reference (e.g. [modules/snippy/run/main.nf:58-65](../../../modules/snippy/run/main.nf#L58-L65)):
+
+```nextflow
+input:
+record (
+    meta: Record,
+    r1: Path?,
+    r2: Path?,
+    se: Path?
+)
+reference: Path
+```
+
+**Note**: Input blocks use named `Record` fields rather than positional `Tuple<>` annotations. In the module `script:` block, `def _meta = meta` aliases the input record before `meta = record(...)` constructs a new output record.
 
 ## Path? Optional Parameters
 
 ### Declaration
 
-Optional file parameters use Nextflow's native `Path?` type:
+Optional file parameters use Nextflow's native `Path?` type. Mark the field with `?` inside the `record (...)` block when the slot itself is optional, or use `Path?` for additional inputs declared on their own line:
 
 ```groovy
-// In module take block
 input:
-(meta: Record, fna: Path): Record
+record (
+    meta: Record,
+    fna: Path
+)
 proteins   : Path?
 prodigal_tf: Path?
 ```
@@ -137,14 +181,24 @@ record(
 ### Subworkflow Output Pattern (2 emit channels)
 
 ```nextflow
-emit:
-sample_outputs = MODULE.out
-run_outputs = CSVTK_CONCAT.out
+workflow ABRICATE {
+    take:
+    assembly: Channel<Record>
+
+    main:
+    ch_abricate_run = ABRICATE_RUN(assembly)
+    ch_abricate_summary = ABRICATE_SUMMARY(gatherFields(ch_abricate_run, [tsv: 'reports'], [name: 'abricate']))
+
+    emit:
+    sample_outputs = ch_abricate_run
+    run_outputs = ch_abricate_summary
+}
 ```
 
-Subworkflows emit two channels:
-- `sample_outputs`: The module's record output (passed through directly)
-- `run_outputs`: Aggregated results from CSVTK_CONCAT (or similar aggregation module)
+Module results are assigned directly to intermediate variables (`ch_module = MODULE(...)`) and those variables are emitted — the old `MODULE.out` form is no longer used. Subworkflows emit two channels:
+
+- `sample_outputs`: The per-sample module record (passed through directly)
+- `run_outputs`: Aggregated results from a summary module (typically `CSVTK_CONCAT` or similar)
 
 ## Meta Record Structure
 
@@ -221,14 +275,16 @@ meta = record(
 
 ### Output Directory Patterns
 
-```groovy
-// Sample scope
-meta.output_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}"
-meta.logs_dir = "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}"
+Records are immutable, so `output_dir` and `logs_dir` must be set inside the `meta = record(...)` constructor shown above — never as post-construction assignments. The two standard forms are:
 
-// Run scope
-meta.output_dir = "${task.ext.process_name}"
-meta.logs_dir = "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}"
+```groovy
+// Sample scope (inside meta = record(...))
+output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+logs_dir:   "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+
+// Run scope (inside meta = record(...))
+output_dir: "${task.ext.process_name}",
+logs_dir:   "${task.ext.process_name}/logs/${task.ext.logs_subdir}/${task.ext.subdir}",
 ```
 
 ### Scope Values
@@ -317,10 +373,16 @@ Modules that process sequencing reads use a 5-slot positional tuple pattern to h
 
 ### The Pattern
 
-```groovy
+```nextflow
 // Input signature
 input:
-(meta: Record, r1: Path?, r2: Path?, se: Path?, lr: Path?): Record
+record (
+    meta: Record,
+    r1: Path?,
+    r2: Path?,
+    se: Path?,
+    lr: Path?
+)
 ```
 
 | Slot | Variable | Description |
@@ -378,60 +440,70 @@ When inputs are `Set<Path>` collections or need organized staging, `stageAs` cre
 
 ### Basic Pattern
 
-```groovy
+```nextflow
 stage:
-    stageAs '<directory_pattern>', <variable_name>
+    stageAs <variable_name>, '<directory_pattern>'
 ```
+
+The variable comes **first**, then the staging path. Current modules use a `staging/<input_type>/*` convention, where `<input_type>` matches the record field name (`fna`, `r1`, `r2`, `se`, `lr`, `gff`, `faa`, `csv`, `json`, etc.). This keeps scripts predictable — `staging/fna/*` always means assemblies, `staging/r1/*` always means R1 reads.
 
 ### Common Use Cases
 
-#### Organizing Reads by Type
+#### Single Collection
 
-```groovy
-// In modules/bactopia/gather/main.nf
+```nextflow
+// modules/roary/main.nf - pangenome GFF files
 stage:
-    stageAs '*???-r1', r1_files
-    stageAs '*???-r2', r2_files
-    stageAs '*???-se', se_files
-    stageAs '*???-lr', lr_files
+    stageAs gff, 'staging/gff/*'
 ```
 
-The `*???-r1` pattern creates unique names that `find -name "*-r1"` can locate.
+#### Multiple Input Types
 
-#### Staging File Collections
-
-```groovy
-// In modules/roary/main.nf - for pangenome GFF files
+```nextflow
+// modules/stecfinder/main.nf - mixed reads + assembly
 stage:
-    stageAs 'gff-tmp/*', gff
-
-// In script:
-mkdir gff
-cp -L gff-tmp/* gff/
+    stageAs fna, 'staging/fna/*'
+    stageAs r1,  'staging/r1/*'
+    stageAs r2,  'staging/r2/*'
+    stageAs se,  'staging/se/*'
+    stageAs lr,  'staging/lr/*'
 ```
 
-#### Organizing Multiple Input Types
+#### Assembly + Database
 
-```groovy
-// In modules/stecfinder/main.nf
+```nextflow
+// modules/gtdbtk/classifywf/main.nf
 stage:
-    stageAs 'fna/*', fna
-    stageAs 'reads/r1/*', r1
-    stageAs 'reads/r2/*', r2
-    stageAs 'reads/se/*', se
-    stageAs 'reads/lr/*', lr
+    stageAs fna, 'staging/fna/*'
+    stageAs db,  'staging/gtdb/*'
 ```
+
+#### Multi-Lane Reads (GATHER only)
+
+```nextflow
+// modules/bactopia/gather/main.nf - pre-merge, multiple files per slot
+stage:
+    stageAs r1_files,  "staging/r1/*???-r1"
+    stageAs r2_files,  "staging/r2/*???-r2"
+    stageAs se_files,  "staging/se/*???-se"
+    stageAs lr_files,  "staging/lr/*???-lr"
+    stageAs fna_files, "staging/fna/*???-assembly"
+```
+
+GATHER is the only module that appends a `*???-<type>` suffix — it runs before per-slot merging, so the suffix disambiguates multiple files in a single slot (e.g. lane-split R1 files). Post-GATHER modules always have one file per slot and use the plain `staging/<type>/*` form.
 
 ### Modules Using stageAs
 
-| Module | Pattern | Purpose |
-|--------|---------|---------|
-| `bactopia/gather` | `*???-r1`, etc. | Multi-lane read organization |
-| `roary`, `pirate`, `panaroo/run` | `gff-tmp/*` | GFF collection staging |
-| `csvtk/concat` | `inputs/*` | CSV file collection |
-| `gtdbtk/classifywf` | `fna-tmp/*`, `gtdb/*` | Assembly + database staging |
-| `tbprofiler/collate` | `results-tmp/*` | JSON result collection |
-| `prokka`, `agrvate` | `input/*` | Single assembly staging |
+| Module(s) | Pattern | Purpose |
+|-----------|---------|---------|
+| `bactopia/gather` | `staging/{r1,r2,se,lr,fna}/*???-{type}` | Multi-lane read consolidation (pre-merge) |
+| `bactopia/qc`, `stecfinder`, `amrfinderplus/run` | `staging/{r1,r2,se,lr,fna,...}/*` | Mixed reads + assembly inputs |
+| `roary`, `pirate`, `panaroo/run` | `staging/gff/*` | GFF collection for pangenome tools |
+| `csvtk/concat` | `staging/csv/*` | TSV/CSV file collection for aggregation |
+| `gtdbtk/classifywf` | `staging/fna/*`, `staging/gtdb/*` | Assembly + database staging |
+| `tbprofiler/collate` | `staging/json/*` | JSON result collection |
+| `prokka`, `agrvate`, `bakta/run` | `staging/fna/*` | Single assembly staging |
+| `defensefinder/run` | `staging/faa/*` | Protein FASTA staging |
 
 ## Database Handling Patterns
 
@@ -492,19 +564,25 @@ def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
 
 ## Utility Functions
 
-### gather
-Collects a specific field from module record outputs and merges them for aggregation:
+The `nf-bactopia` plugin exports a set of channel-manipulation helpers used throughout subworkflows. This section summarizes the ones most commonly needed when writing a new module or subworkflow — see [Plugin Functions](../reference/04-plugin-functions.md) for the full reference.
+
+| Function | Purpose |
+|----------|---------|
+| `gather` | Collect a single named field from records into a `Set`, emit one aggregated record. |
+| `gatherCsvtk` | Like `gather`, but renames the collected field to `csv` for direct feeding into `CSVTK_CONCAT`. |
+| `gatherFields` | Collect multiple fields with explicit input→output field name mapping. |
+| `filterWithData` | Drop records where every listed field is `null`; projects to `meta` + requested fields. |
+| `combineWith` | Cartesian product between a single-item channel and a multi-item channel, merging each item under a named field. |
+| `collectNextflowLogs` | Expand a record's `nf_logs` field into individual `[meta, file]` tuples for publishing. |
+
+Typical usage in a subworkflow:
 
 ```nextflow
-include { gather } from 'plugin/nf-bactopia'
-CSVTK_CONCAT(gather(MODULE.out, 'tool-name', field: 'tsv'), 'tsv', 'tsv')
+include { gatherFields } from 'plugin/nf-bactopia'
+
+ch_abricate_run = ABRICATE_RUN(assembly)
+ch_abricate_summary = ABRICATE_SUMMARY(gatherFields(ch_abricate_run, [tsv: 'reports'], [name: 'abricate']))
 ```
-
-The `field:` named parameter extracts the specified field from each record in the channel.
-
-### flattenPaths (deprecated)
-
-`flattenPaths` was previously used in subworkflows to convert `Tuple<Map, Set<Path>>` to `Tuple<Map, Path>`. It is no longer used in subworkflows — they now pass through module record outputs directly via `sample_outputs` and `run_outputs`.
 
 ## Container Directives
 
@@ -566,12 +644,12 @@ Expected format:
 ### Type Checking
 - Validate with `nextflow config` to check type annotations
 - Ensure consistent typing across connected components
-- Remember: `Tuple<Map, Set<Path>>` vs `Tuple<Map, Path>` is based on `files()` vs `file()`
+- Remember: `file()` returns `Path`; `files()` returns `Set<Path>`. Choose based on whether the field holds one known file or a wildcard / optional / multi-file collection.
 
 ## See Also
 
 - [Style Guide](../standards/01-style-guide.md) - For template formats
 - [Logic Rules](../standards/02-logic-rules.md) - For classification logic
-- [Plugin Functions](../reference/04-plugin-functions.md) - For gather() and flattenPaths() usage
+- [Plugin Functions](../reference/04-plugin-functions.md) - For gather() and related channel utilities
 - [task.ext Properties](../reference/05-task-ext-properties.md) - For module configuration
 - [Troubleshooting](../reference/02-troubleshooting.md) - For common error solutions
