@@ -8,7 +8,7 @@
  * @status stable
  * @keywords bacteria, salmonella, typhi, genotyping, mykrobe, parser
  * @tags complexity:simple input-type:single output-type:single features:conditional-logic
- * @citation genotyphi
+ * @citation genotyphi, mccortex
  *
  * @input record(meta, json)
  * - `meta`: Groovy Record containing sample information

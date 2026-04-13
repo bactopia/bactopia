@@ -8,7 +8,7 @@
  * @status stable
  * @keywords taxonomy, classification, phylogeny, gtdb, bacteria, archaea, marker genes
  * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic
- * @citation gtdb_tk
+ * @citation gtdb_tk, pplacer
  *
  * @note Database Required
  * Requires the massive GTDB-Tk database (~60GB+) to be available.

@@ -8,7 +8,7 @@
  * @status stable
  * @keywords bacteria, klebsiella, amr, virulence, typing, mlst, serotype, k-locus, o-locus
  * @tags complexity:moderate input-type:single output-type:single features:database-dependent,conditional-logic
- * @citation kleborate
+ * @citation kleborate, kaptive
  *
  * @note Database Bundled
  * Kleborate bundles the required databases for species identification, MLST,

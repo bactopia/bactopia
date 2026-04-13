@@ -11,7 +11,7 @@
  * @status stable
  * @keywords tuberculosis, mycobacterium, drug resistance, amr, typing, variant calling
  * @tags complexity:moderate input-type:single output-type:multiple features:compression,conditional-logic
- * @citation tbprofiler
+ * @citation tbprofiler, freebayes
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information

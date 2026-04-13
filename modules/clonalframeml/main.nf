@@ -9,7 +9,7 @@
  * @status stable
  * @keywords bacteria, recombination, phylogeny, alignment, msa, evolution
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,compression
- * @citation clonalframeml
+ * @citation clonalframeml, maskrc_svg
  *
  * @input record(meta, aln, nwk)
  * - `meta`: Groovy Record containing sample information

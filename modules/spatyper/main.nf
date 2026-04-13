@@ -8,7 +8,7 @@
  * @status stable
  * @keywords staphylococcus aureus, spa typing, repeat, mrsa, typing
  * @tags complexity:moderate input-type:single output-type:single features:compression,conditional-logic
- * @citation spatyper
+ * @citation spatyper, spatyper_db
  *
  * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information

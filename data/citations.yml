@@ -111,12 +111,6 @@ datasets_generic:
     cite: |
       Jolley KA, Bray JE, Maiden MCJ [Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications.](http://dx.doi.org/10.12688/wellcomeopenres.14826.1) _Wellcome Open Res_ 3, 124 (2018)
 
-  silva:
-    name: SILVA rRNA Database
-    link: https://www.arb-silva.de/
-    cite: |
-      Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO [The SILVA ribosomal RNA gene database project: improved data processing and web-based tools.](https://doi.org/10.1093/nar/gks1219) _Nucleic Acids Res._ 41, D590-6 (2013)
-
 datasets_minmer:
   mash_refseq:
     name: Mash Refseq (release 88) Sketch
@@ -133,6 +127,7 @@ datasets_minmer:
 influences:
     nfcore:
       name: nf-core
+      provenance_only: true
       link: https://nf-co.re/
       description: A community effort to collect a curated set of analysis pipelines built using Nextflow.
       cite: |
@@ -258,13 +253,6 @@ tools:
     cite: |
       Lu J, Breitwieser FP, Thielen P, and Salzberg SL [Bracken: estimating species abundance in metagenomics data.](https://doi.org/10.7717/peerj-cs.104) _PeerJ Computer Science_, 3, e104. (2017)
 
-  btyper2:
-    name: BTyper3
-    link: https://github.com/lmc297/BTyper3
-    description: In silico taxonomic classification of Bacillus cereus group genomes using whole-genome sequencing data
-    cite: |
-      Carroll LM, Wiedmann M, Kovac J [Proposal of a Taxonomic Nomenclature for the Bacillus cereus Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes.](https://doi.org/10.1128/mBio.00034-20) _mBio_, 11(1). (2020)
-
   btyper3:
     name: BTyper3
     link: https://github.com/lmc297/BTyper3
@@ -292,13 +280,6 @@ tools:
     description: Accelerated for clustering the next-generation sequencing data
     cite: |
       Li W, Godzik A [Cd-hit: a fast program for clustering and comparing large sets of protein or nucleotide sequences](http://dx.doi.org/10.1093/bioinformatics/btl158). _Bioinformatics_ 22, 1658-1659 (2006)
-
-  cd_hit_est:
-    name: CD-HIT-EST
-    link: https://github.com/weizhongli/cdhit
-    description: Accelerated for clustering the next-generation sequencing data
-    cite: |
-      Fu L, Niu B, Zhu Z, Wu S, Li W [CD-HIT: accelerated for clustering the next-generation sequencing data](http://dx.doi.org/10.1093/bioinformatics/bts565). _Bioinformatics_ 28, 3150-3152 (2012)
 
   checkm:
     name: CheckM
@@ -412,13 +393,6 @@ tools:
     cite: |
       Chen S, Zhou Y, Chen Y, and Gu J [fastp: an ultra-fast all-in-one FASTQ preprocessor.](https://doi.org/10.1093/bioinformatics/bty560) _Bioinformatics_, 34(17), i884-i890. (2018)
 
-  fasttree:
-    name: FastTree
-    link: http://www.microbesonline.org/fasttree
-    description: Approximately-maximum-likelihood phylogenetic trees
-    cite: |
-      Price MN, Dehal PS, Arkin AP [FastTree 2 - Approximately Maximum-Likelihood Trees for Large Alignments.](https://dx.doi.org/10.1371%2Fjournal.pone.0009490) _PLoS One_ 5, e9490 (2010)
-
   flash:
     name: FLASH
     link: https://ccb.jhu.edu/software/FLASH/
@@ -453,13 +427,6 @@ tools:
     description: Assign genotypes to Salmonella Typhi genomes based on Mykrobe results
     cite: |
       Wong VK, Baker S, Connor TR, Pickard D, Page AJ, Dave J, Murphy N, Holliman R, Sefton A, Millar M, Dyson ZA, Dougan G, Holt KE, & International Typhoid Consortium. [An extended genotyping framework for Salmonella enterica serovar Typhi, the cause of human typhoid](https://doi.org/10.1038/ncomms12827) _Nature Communications_ 7, 12827. (2016)
-
-  gnu_parallel:
-    name: GNU Parallel
-    link: https://www.gnu.org/software/parallel/
-    description: A shell tool for executing jobs in parallel
-    cite: |
-      Tange O [GNU Parallel](https://doi.org/10.5281/zenodo.1146014) (2018)
 
   gtdb_tk:
     name: GTDB-Tk
@@ -544,13 +511,6 @@ tools:
     description: Genotyping tool for _Klebsiella pneumoniae_ and its related species complex
     cite: |
       Lam MMC, Wick RR, Watts, SC, Cerdeira LT, Wyres KL, Holt KE [A genomic surveillance framework and genotyping tool for Klebsiella pneumoniae and its related species complex.](https://doi.org/10.1038/s41467-021-24448-3) _Nat Commun_ 12, 4188 (2021)
-
-  kmc:
-    name: KMC
-    link: https://github.com/refresh-bio/KMC
-    description: Fast and frugal disk based k-mer counter
-    cite: |
-      Deorowicz S, Kokot M, Grabowski Sz, Debudaj-Grabysz A [KMC 2: Fast and resource-frugal k-mer counting](https://doi.org/10.1093/bioinformatics/btv022) _Bioinformatics_ 31(10):1569-1576 (2015)
 
   kraken2:
     name: Kraken2
@@ -728,10 +688,19 @@ tools:
 
   nextflow:
     name: Nextflow
+    provenance_only: true
     link: https://github.com/nextflow-io/nextflow
     description: A DSL for data-driven computational pipelines.
     cite: |
       Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C [Nextflow enables reproducible computational workflows.](https://www.nature.com/articles/nbt.3820.pdf?origin=ppub) _Nat. Biotechnol._ 35, 316-319 (2017)
+
+  nftest:
+    name: nf-test
+    provenance_only: true
+    link: https://www.nf-test.com/
+    description: A simple testing framework for Nextflow pipelines
+    cite: |
+      Forer L, Schönherr S [Improving the reliability, quality, and maintainability of bioinformatics pipelines with nf-test.](https://doi.org/10.1093/gigascience/giaf130) _GigaScience_ 14, giaf130 (2025)
 
   ngmaster:
     name: ngmaster
@@ -774,13 +743,6 @@ tools:
     description: Prediction of prophages from bacterial genomes
     cite: |
       Akhter S, Aziz RK, and Edwards RA [PhiSpy: a novel algorithm for finding prophages in bacterial genomes that combines similarity- and composition-based strategies.](https://doi.org/10.1093/nar/gks406) _Nucleic Acids Research_, 40(16), e126. (2012)
-
-  phyloflash:
-    name: phyloFlash
-    link: https://github.com/HRGV/phyloFlash
-    description: A pipeline to rapidly reconstruct the SSU rRNAs and explore phylogenetic composition of an illumina (meta)genomic dataset.
-    cite: |
-      Gruber-Vodicka HR, Seah BKB, Pruesse E [phyloFlash: Rapid Small-Subunit rRNA Profiling and Targeted Assembly from Metagenomes](https://doi.org/10.1128/mSystems.00920-20) _mSystems_ 5 (2020)
 
   pigz:
     name: Pigz
@@ -1027,13 +989,6 @@ tools:
     cite: |
       Seemann T [snp-dists - Pairwise SNP distance matrix from a FASTA sequence alignment.](https://github.com/tseemann/snp-dists) (GitHub)
 
-  snpsites:
-    name: SNP-sites
-    link: https://github.com/sanger-pathogens/snp-sites
-    description: Rapidly extracts SNPs from a multi-FASTA alignment.
-    cite: |
-      Page AJ, Taylor B, Delaney AJ, Soares J, Seemann T, Keane JA, Harris SR [SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments.](https://dx.doi.org/10.1099%2Fmgen.0.000056) _Microbial Genomics_ 2.4 (2016)
-
   sourmash:
     name: Sourmash
     link: https://github.com/dib-lab/sourmash
@@ -1104,13 +1059,6 @@ tools:
     cite: |
       Phelan JE, O'Sullivan DM, Machado D, Ramos J, Oppong YEA, Campino S, O'Grady J, McNerney R, Hibberd ML, Viveiros M, Huggett JF, Clark TG [Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs.](https://doi.org/10.1186/s13073-019-0650-x) _Genome Med_ 11, 41 (2019)
 
-  trimmomatic:
-    name: Trimmomatic
-    link: http://www.usadellab.org/cms/index.php?page=trimmomatic
-    description: A flexible read trimming tool for Illumina NGS data
-    cite: |
-      Bolger AM, Lohse M, Usadel B [Trimmomatic: a flexible trimmer for Illumina sequence data.](https://doi.org/10.1093/bioinformatics/btu170) _Bioinformatics_ 30.15 2114-2120 (2014)
-
   unicycler:
     name: Unicycler
     link: https://github.com/rrwick/Unicycler
@@ -1138,13 +1086,6 @@ tools:
     description: Short read de novo assembler using de Bruijn graphs
     cite: |
       Zerbino DR, Birney E [Velvet: algorithms for de novo short read assembly using de Bruijn graphs.](http://www.genome.org/cgi/doi/10.1101/gr.074492.107) _Genome research_ 18.5 821-829 (2008)
-
-  vsearch:
-    name: VSEARCH
-    link: https://github.com/torognes/vsearch
-    description: Versatile open-source tool for metagenomics
-    cite: |
-      Rognes T, Flouri T, Nichols B, Quince C, Mahé F [VSEARCH: a versatile open source tool for metagenomics.](https://doi.org/10.7717/peerj.2584) _PeerJ_ 4, e2584 (2016)
 
   vt:
     name: vt

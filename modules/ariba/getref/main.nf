@@ -8,7 +8,7 @@
  * @status stable
  * @keywords bacteria, database, download, antimicrobial resistance, virulence, ariba, setup
  * @tags complexity:moderate input-type:none output-type:single features:internet-access,archive-output,compression,resource-download,no-test
- * @citation ariba
+ * @citation ariba, megares, srst2, virulencefinder
  *
  * @note Internet Required
  * This process requires an active internet connection to fetch the specified database.

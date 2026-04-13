@@ -9,7 +9,7 @@
  * @status stable
  * @keywords quality control, completeness, contamination, marker genes, lineage, bacteria, archaea
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent
- * @citation checkm
+ * @citation checkm, pplacer
  *
  * @note Database Required
  * Requires the CheckM reference database (~275GB uncompressed) to be configured via the

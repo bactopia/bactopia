@@ -11,7 +11,7 @@
  * @status stable
  * @keywords pneumocat, streptococcus pneumoniae, capsular typing, serotyping
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
- * @citation pneumocat
+ * @citation pneumocat, bowtie2
  *
  * @note
  * Negative results will cause non-0 exit codes from PneumoCaT

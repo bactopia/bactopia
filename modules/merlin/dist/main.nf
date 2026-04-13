@@ -9,7 +9,7 @@
  * @status stable
  * @keywords merlin, mash, routing, logic, genus-specific, automation
  * @tags complexity:complex input-type:multiple output-type:multiple features:conditional-logic
- * @citation mash
+ * @citation mash, ncbi_refseq
  *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information

@@ -8,7 +8,7 @@
  * @status stable
  * @keywords snippy, core genome, alignment, phylogeny, snp, bacteria
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
- * @citation snippy
+ * @citation snippy, bcftools, bedtools, freebayes, seqtk, snpeff, vcf_annotator, vcflib, vt
  *
  * @input record(meta, _vcf, _aligned_fa)
  * - `meta`: Groovy Record containing sample information

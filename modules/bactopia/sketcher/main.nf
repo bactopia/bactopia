@@ -9,7 +9,7 @@
  * @status stable
  * @keywords bacteria, taxonomy, classification, minhash, sketch, mash, sourmash, refseq, gtdb
  * @tags complexity:moderate input-type:single output-type:multiple features:database-dependent,compression
- * @citation mash, sourmash
+ * @citation mash, sourmash, mash_screen, ncbi_refseq
  *
  * @note Databases Required
  * Requires the pre-compiled RefSeq (Mash) and GTDB (Sourmash) databases, usually downloaded

@@ -9,7 +9,7 @@
  * @status stable
  * @keywords pan-genome, orthologs, core genome, gene presence-absence, graph-based, annotation
  * @tags complexity:complex input-type:multiple output-type:multiple features:compression
- * @citation panaroo
+ * @citation panaroo, mafft
  *
  * @input record(meta, gff)
  * - `meta`: Groovy Record containing sample information

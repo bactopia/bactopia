@@ -11,7 +11,7 @@
  * @status stable
  * @keywords amr, resistance, susceptibility, k-mer, fastq, bam, mykrobe
  * @tags complexity:moderate input-type:multiple output-type:multiple features:database-dependent
- * @citation mykrobe
+ * @citation mykrobe, mccortex
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information

@@ -8,7 +8,7 @@
  * @status stable
  * @keywords functional annotation, orthology, cog, kegg, go, proteins, eggnog
  * @tags complexity:complex input-type:single output-type:multiple features:database-dependent,conditional-logic
- * @citation eggnog_mapper
+ * @citation eggnog_mapper, diamond
  *
  * @note Database Required
  * Requires the eggNOG database (including the diamond database and taxonomic data) to be available.

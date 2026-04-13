@@ -8,7 +8,7 @@
  * @status stable
  * @keywords bacteria, annotation, genome, assembly, prodigal, compliant, genbank, ena
  * @tags complexity:complex input-type:multiple output-type:multiple features:database-dependent,conditional-logic,archive-output
- * @citation bakta
+ * @citation bakta, aragorn, diamond, hmmer, infernal, prodigal
  *
  * @note Database Required
  * Requires a Bakta database (directory or tarball) to be available.

@@ -11,7 +11,7 @@
  * @status stable
  * @keywords snippy, variant calling, snp, indel, alignment, bacteria
  * @tags complexity:moderate input-type:multiple output-type:multiple features:conditional-logic
- * @citation snippy
+ * @citation snippy, bcftools, bedtools, freebayes, seqtk, snpeff, vcf_annotator, vcflib, vt
  *
  * @input record(meta, r1?, r2?, se?)
  * - `meta`: Groovy Record containing sample information

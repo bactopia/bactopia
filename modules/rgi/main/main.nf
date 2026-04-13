@@ -8,7 +8,7 @@
  * @status stable
  * @keywords resistance, antimicrobial resistance, card, rgi, amr
  * @tags complexity:moderate input-type:single output-type:multiple features:conditional-logic
- * @citation rgi
+ * @citation rgi, diamond
  *
  * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information

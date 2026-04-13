@@ -7,7 +7,7 @@
  * @status stable
  * @keywords prokka, annotation, prokaryotic, bacteria, genbank, gff
  * @tags complexity:complex input-type:multiple output-type:multiple features:archive-output,compression,conditional-logic
- * @citation prokka
+ * @citation prokka, aragorn, barrnap, cdhit, hmmer, infernal, minced, nhmmer, prodigal, rnammer, signalp
  *
  * @input record(meta, fna)
  * - `meta`: Groovy Record containing sample information
