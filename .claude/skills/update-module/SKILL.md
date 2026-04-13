@@ -70,6 +70,8 @@ Check for newer versions of bioconda tools used in Bactopia modules and apply up
 - Multi-package toolName modules (pirate, lissero, clonalframeml) have `needs_user_review: true` and no `latest_*` fields -- present them for manual review, do not auto-edit
 - If `latest_version` is null for an entry (API failure), skip it and note the failure
 - The `--module` flag filters by tool name prefix (e.g., `bakta` matches both bakta_run and bakta_download)
+- **Ignore list**: filter these entries out before presenting results -- Anaconda metadata quirks, not real updates:
+    - `tool == "aria2" && module == "checkm2_download"` -- Anaconda reports 1.34.0 as "latest" while 1.36.0 is installed (spurious downgrade)
 
 ### JSON Output Fields
 
