@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-04-11T02:56:17Z",
+  "generated": "2026-04-13T22:28:47Z",
   "bactopia_version": "4.0.0",
   "bactopia_py_version": "2.0.2",
   "nf_bactopia_version": "2.0.1",
@@ -12,7 +12,7 @@
       "process_name": "abricate",
       "tool": {
         "name": "abricate",
-        "version": "1.2.0"
+        "version": "1.4.0"
       },
       "takes": [
         "fna"
@@ -36,7 +36,7 @@
       "process_name": "params.merge_folder",
       "tool": {
         "name": "abricate",
-        "version": "1.2.0"
+        "version": "1.4.0"
       },
       "takes": [
         "reports"
@@ -60,7 +60,7 @@
       "process_name": "abritamr",
       "tool": {
         "name": "abritamr",
-        "version": "1.0.20"
+        "version": "1.2.0"
       },
       "takes": [
         "fna"
@@ -1302,7 +1302,7 @@
       "process_name": "iqtree",
       "tool": {
         "name": "iqtree",
-        "version": "3.0.1"
+        "version": "3.1.1"
       },
       "takes": [
         "aln"
@@ -1441,7 +1441,7 @@
       "process_name": "lissero",
       "tool": {
         "name": "lissero",
-        "version": "0.4.9"
+        "version": "0.4.10"
       },
       "takes": [
         "fna"
@@ -1698,7 +1698,7 @@
       "process_name": "mlst",
       "tool": {
         "name": "mlst",
-        "version": "2.32.2"
+        "version": "2.33.1"
       },
       "takes": [
         "fna"
@@ -1841,7 +1841,7 @@
       "process_name": "ngmaster",
       "tool": {
         "name": "ngmaster",
-        "version": "1.1.1"
+        "version": "2.0.0"
       },
       "takes": [
         "fna"
@@ -2021,7 +2021,7 @@
       "process_name": "phispy",
       "tool": {
         "name": "phispy",
-        "version": "4.2.21"
+        "version": "5.0.6"
       },
       "takes": [
         "gbff"
@@ -2074,7 +2074,7 @@
       "process_name": "plasmidfinder",
       "tool": {
         "name": "plasmidfinder=2.1.6",
-        "version": "py310hdfd78af_1"
+        "version": "py314hdfd78af_2"
       },
       "takes": [
         "fna"
@@ -2821,7 +2821,7 @@
       "process_name": "tbprofiler-collate",
       "tool": {
         "name": "tb-profiler",
-        "version": "6.6.6"
+        "version": "6.7.0"
       },
       "takes": [
         "json"
@@ -2852,7 +2852,7 @@
       "process_name": "tbprofiler",
       "tool": {
         "name": "tb-profiler",
-        "version": "6.6.6"
+        "version": "6.7.0"
       },
       "takes": [
         "r1",
@@ -6041,7 +6041,9 @@
       "description": "Mass screening of contigs for antimicrobial resistance and virulence genes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/abricate/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "abricate"
       ]
@@ -6050,7 +6052,9 @@
       "description": "A NATA accredited tool for reporting the presence of antimicrobial resistance genes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/abritamr/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "abritamr"
       ]
@@ -6059,7 +6063,9 @@
       "description": "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants.",
       "type": "tool",
       "path": "workflows/bactopia-tools/agrvate/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "agrvate"
       ]
@@ -6068,7 +6074,11 @@
       "description": "Bactopia Tool: Amrfinderplus.",
       "type": "tool",
       "path": "workflows/bactopia-tools/amrfinderplus/",
-      "ext": [],
+      "ext": [
+        "fna",
+        "faa",
+        "gff"
+      ],
       "subworkflows": [
         "amrfinderplus",
         "bactopia_datasets"
@@ -6078,7 +6088,9 @@
       "description": "Gene identification through local assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/ariba/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "ariba"
       ]
@@ -6087,7 +6099,9 @@
       "description": "Rapid annotation of bacterial genomes and plasmids.",
       "type": "tool",
       "path": "workflows/bactopia-tools/bakta/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "bakta"
       ]
@@ -6096,7 +6110,9 @@
       "description": "Search against nucleotide BLAST databases using nucleotide queries.",
       "type": "tool",
       "path": "workflows/bactopia-tools/blastn/",
-      "ext": [],
+      "ext": [
+        "blastdb"
+      ],
       "subworkflows": [
         "blastn"
       ]
@@ -6105,7 +6121,9 @@
       "description": "Search against protein BLAST databases using protein queries.",
       "type": "tool",
       "path": "workflows/bactopia-tools/blastp/",
-      "ext": [],
+      "ext": [
+        "blastdb"
+      ],
       "subworkflows": [
         "blastp"
       ]
@@ -6114,7 +6132,9 @@
       "description": "Search against protein BLAST databases using translated nucleotide queries.",
       "type": "tool",
       "path": "workflows/bactopia-tools/blastx/",
-      "ext": [],
+      "ext": [
+        "blastdb"
+      ],
       "subworkflows": [
         "blastx"
       ]
@@ -6123,7 +6143,9 @@
       "description": "Estimate taxonomic abundance of metagenomic samples.",
       "type": "tool",
       "path": "workflows/bactopia-tools/bracken/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "bracken"
       ]
@@ -6132,7 +6154,9 @@
       "description": "Taxonomic classification of Bacillus cereus group isolates.",
       "type": "tool",
       "path": "workflows/bactopia-tools/btyper3/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "btyper3"
       ]
@@ -6141,7 +6165,9 @@
       "description": "Assessment of genome assembly completeness using evolutionarily informed expectations.",
       "type": "tool",
       "path": "workflows/bactopia-tools/busco/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "busco"
       ]
@@ -6150,7 +6176,9 @@
       "description": "Assessment of microbial genome assembly quality.",
       "type": "tool",
       "path": "workflows/bactopia-tools/checkm/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "checkm"
       ]
@@ -6159,7 +6187,9 @@
       "description": "Machine learning-based assessment of microbial genome assembly quality.",
       "type": "tool",
       "path": "workflows/bactopia-tools/checkm2/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "checkm2"
       ]
@@ -6168,7 +6198,9 @@
       "description": "In silico phylotyping of Escherichia genus.",
       "type": "tool",
       "path": "workflows/bactopia-tools/clermontyping/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "clermontyping"
       ]
@@ -6177,7 +6209,9 @@
       "description": "Systematic identification of anti-phage defense systems.",
       "type": "tool",
       "path": "workflows/bactopia-tools/defensefinder/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "defensefinder"
       ]
@@ -6186,7 +6220,9 @@
       "description": "In silico prediction of Escherichia coli serotype.",
       "type": "tool",
       "path": "workflows/bactopia-tools/ectyper/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "ectyper"
       ]
@@ -6195,7 +6231,9 @@
       "description": "Functional annotation of proteins using orthologous groups and phylogenies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/eggnog/",
-      "ext": [],
+      "ext": [
+        "faa"
+      ],
       "subworkflows": [
         "eggnog"
       ]
@@ -6204,7 +6242,9 @@
       "description": "emm-typing of Streptococcus pyogenes assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/emmtyper/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "emmtyper"
       ]
@@ -6213,7 +6253,9 @@
       "description": "Fast alignment-free computation of whole-genome Average Nucleotide Identity.",
       "type": "tool",
       "path": "workflows/bactopia-tools/fastani/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "fastani",
         "ncbigenomedownload"
@@ -6223,7 +6265,9 @@
       "description": "Identification, classification, and annotation of translated gene matches.",
       "type": "tool",
       "path": "workflows/bactopia-tools/gamma/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "gamma"
       ]
@@ -6232,7 +6276,9 @@
       "description": "Salmonella Typhi genotyping with lineage assignment.",
       "type": "tool",
       "path": "workflows/bactopia-tools/genotyphi/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "genotyphi"
       ]
@@ -6241,7 +6287,9 @@
       "description": "Identify marker genes and assign taxonomic classifications using GTDB.",
       "type": "tool",
       "path": "workflows/bactopia-tools/gtdb/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "gtdb"
       ]
@@ -6250,7 +6298,9 @@
       "description": "Identify cap locus serotype and structure in Haemophilus influenzae assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/hicap/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "hicap"
       ]
@@ -6259,7 +6309,9 @@
       "description": "Serotype prediction of Haemophilus parasuis assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/hpsuissero/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "hpsuissero"
       ]
@@ -6268,7 +6320,9 @@
       "description": "Identify insertion sequence positions in bacterial genomes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/ismapper/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "ismapper"
       ]
@@ -6277,7 +6331,9 @@
       "description": "Comprehensive screening of Klebsiella genomes for virulence and resistance determinants.",
       "type": "tool",
       "path": "workflows/bactopia-tools/kleborate/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "kleborate"
       ]
@@ -6286,7 +6342,9 @@
       "description": "Taxonomic classification of metagenomic sequence reads.",
       "type": "tool",
       "path": "workflows/bactopia-tools/kraken2/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "kraken2"
       ]
@@ -6295,7 +6353,9 @@
       "description": "Sequence Based Typing (SBT) of Legionella pneumophila.",
       "type": "tool",
       "path": "workflows/bactopia-tools/legsta/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "legsta"
       ]
@@ -6304,7 +6364,9 @@
       "description": "Serogroup typing prediction for Listeria monocytogenes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/lissero/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "lissero"
       ]
@@ -6313,7 +6375,9 @@
       "description": "Calculate Mash distances between sequences and reference genomes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/mashdist/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "mashdist"
       ]
@@ -6322,7 +6386,9 @@
       "description": "Rapid phylogenetic tree construction using Mash distances.",
       "type": "tool",
       "path": "workflows/bactopia-tools/mashtree/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "mashtree",
         "ncbigenomedownload"
@@ -6332,7 +6398,9 @@
       "description": "Sequence variation analysis of mcr-1 genes (mobilized colistin resistance).",
       "type": "tool",
       "path": "workflows/bactopia-tools/mcroni/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "mcroni"
       ]
@@ -6341,7 +6409,9 @@
       "description": "Comprehensive typing of Neisseria meningitidis.",
       "type": "tool",
       "path": "workflows/bactopia-tools/meningotype/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "meningotype"
       ]
@@ -6350,7 +6420,10 @@
       "description": "MinMER-assisted species-specific tool selection and execution.",
       "type": "tool",
       "path": "workflows/bactopia-tools/merlin/",
-      "ext": [],
+      "ext": [
+        "fna",
+        "fastq"
+      ],
       "subworkflows": [
         "bactopia_datasets",
         "merlin"
@@ -6360,7 +6433,9 @@
       "description": "Estimate species abundances from metagenomic samples.",
       "type": "tool",
       "path": "workflows/bactopia-tools/midas/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "midas"
       ]
@@ -6369,7 +6444,9 @@
       "description": "Automatic Multi-Locus Sequence Type (MLST) calling from assembled contigs.",
       "type": "tool",
       "path": "workflows/bactopia-tools/mlst/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "mlst"
       ]
@@ -6378,7 +6455,9 @@
       "description": "Reconstruction and annotation of plasmids from bacterial genome assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/mobsuite/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "mobsuite"
       ]
@@ -6387,7 +6466,9 @@
       "description": "Antimicrobial resistance detection for specific bacterial species.",
       "type": "tool",
       "path": "workflows/bactopia-tools/mykrobe/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "mykrobe"
       ]
@@ -6396,7 +6477,9 @@
       "description": "Multi-antigen sequence typing of Neisseria gonorrhoeae.",
       "type": "tool",
       "path": "workflows/bactopia-tools/ngmaster/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "ngmaster"
       ]
@@ -6405,7 +6488,9 @@
       "description": "Pangenome analysis with optional core-genome phylogeny.",
       "type": "tool",
       "path": "workflows/bactopia-tools/pangenome/",
-      "ext": [],
+      "ext": [
+        "gff"
+      ],
       "subworkflows": [
         "ncbigenomedownload",
         "prokka",
@@ -6419,7 +6504,9 @@
       "description": "In silico serogrouping of Pseudomonas aeruginosa isolates.",
       "type": "tool",
       "path": "workflows/bactopia-tools/pasty/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "pasty"
       ]
@@ -6428,7 +6515,9 @@
       "description": "Penicillin Binding Protein (PBP) typing for Streptococcus pneumoniae.",
       "type": "tool",
       "path": "workflows/bactopia-tools/pbptyper/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "pbptyper"
       ]
@@ -6437,7 +6526,9 @@
       "description": "Prediction of prophages in bacterial and archaeal genomes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/phispy/",
-      "ext": [],
+      "ext": [
+        "gbk"
+      ],
       "subworkflows": [
         "phispy"
       ]
@@ -6446,7 +6537,9 @@
       "description": "Bactopia Tool: Plasmidfinder.",
       "type": "tool",
       "path": "workflows/bactopia-tools/plasmidfinder/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "plasmidfinder"
       ]
@@ -6455,7 +6548,10 @@
       "description": "Capsular type assignment to Streptococcus pneumoniae from sequence reads.",
       "type": "tool",
       "path": "workflows/bactopia-tools/pneumocat/",
-      "ext": [],
+      "ext": [
+        "r1",
+        "r2"
+      ],
       "subworkflows": [
         "pneumocat"
       ]
@@ -6464,7 +6560,9 @@
       "description": "Rapid whole genome annotation of bacterial, archaeal, and viral genomes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/prokka/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "prokka"
       ]
@@ -6473,7 +6571,10 @@
       "description": "Quality assessment of assembled contigs using QUAST.",
       "type": "tool",
       "path": "workflows/bactopia-tools/quast/",
-      "ext": [],
+      "ext": [
+        "fna",
+        "tsv_meta"
+      ],
       "subworkflows": [
         "quast"
       ]
@@ -6482,7 +6583,9 @@
       "description": "Prediction of antibiotic resistance genes using RGI.",
       "type": "tool",
       "path": "workflows/bactopia-tools/rgi/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "rgi"
       ]
@@ -6491,7 +6594,9 @@
       "description": "Typing of SCCmec cassettes in Staphylococcus aureus assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/sccmec/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "sccmec"
       ]
@@ -6500,7 +6605,9 @@
       "description": "Removal of human and contaminant sequences from metagenomic reads.",
       "type": "tool",
       "path": "workflows/bactopia-tools/scrubber/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "scrubber"
       ]
@@ -6509,7 +6616,9 @@
       "description": "Salmonella serotype prediction from sequencing reads or assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/seqsero2/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "seqsero2"
       ]
@@ -6518,7 +6627,10 @@
       "description": "Serotyping of Streptococcus pneumoniae from Illumina paired-end reads.",
       "type": "tool",
       "path": "workflows/bactopia-tools/seroba/",
-      "ext": [],
+      "ext": [
+        "r1",
+        "r2"
+      ],
       "subworkflows": [
         "seroba"
       ]
@@ -6527,7 +6639,9 @@
       "description": "Prediction of Shigella serotypes and differentiation from EIEC.",
       "type": "tool",
       "path": "workflows/bactopia-tools/shigapass/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "shigapass"
       ]
@@ -6536,7 +6650,9 @@
       "description": "Rapid determination of Shigella serotypes from sequencing reads.",
       "type": "tool",
       "path": "workflows/bactopia-tools/shigatyper/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "shigatyper"
       ]
@@ -6545,7 +6661,9 @@
       "description": "In silico serotype prediction for Shigella and Enteroinvasive E. coli (EIEC).",
       "type": "tool",
       "path": "workflows/bactopia-tools/shigeifinder/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "shigeifinder"
       ]
@@ -6554,7 +6672,9 @@
       "description": "Serovar prediction of Salmonella enterica from assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/sistr/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "sistr"
       ]
@@ -6563,7 +6683,11 @@
       "description": "Rapid haplotype variant calling and core genome alignment.",
       "type": "tool",
       "path": "workflows/bactopia-tools/snippy/",
-      "ext": [],
+      "ext": [
+        "r1",
+        "r2",
+        "se"
+      ],
       "subworkflows": [
         "ncbigenomedownload",
         "snippy_run",
@@ -6576,7 +6700,9 @@
       "description": "spa typing of Staphylococcus aureus assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/spatyper/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "spatyper"
       ]
@@ -6585,7 +6711,9 @@
       "description": "Serotype prediction of Streptococcus suis assemblies.",
       "type": "tool",
       "path": "workflows/bactopia-tools/ssuissero/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "ssuissero"
       ]
@@ -6594,7 +6722,9 @@
       "description": "Comprehensive typing of Staphylococcus aureus genomes.",
       "type": "tool",
       "path": "workflows/bactopia-tools/staphtyper/",
-      "ext": [],
+      "ext": [
+        "fna"
+      ],
       "subworkflows": [
         "staphtyper"
       ]
@@ -6603,7 +6733,10 @@
       "description": "Serotype identification of Shiga toxin-producing E. coli.",
       "type": "tool",
       "path": "workflows/bactopia-tools/stecfinder/",
-      "ext": [],
+      "ext": [
+        "fna",
+        "fastq"
+      ],
       "subworkflows": [
         "stecfinder"
       ]
@@ -6612,7 +6745,9 @@
       "description": "Taxonomic profiling by abundance-corrected MinHash.",
       "type": "tool",
       "path": "workflows/bactopia-tools/sylph/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "sylph"
       ]
@@ -6621,7 +6756,9 @@
       "description": "Search against translated nucleotide databases using protein queries.",
       "type": "tool",
       "path": "workflows/bactopia-tools/tblastn/",
-      "ext": [],
+      "ext": [
+        "blastdb"
+      ],
       "subworkflows": [
         "tblastn"
       ]
@@ -6630,7 +6767,9 @@
       "description": "Search against translated nucleotide databases using translated nucleotide queries.",
       "type": "tool",
       "path": "workflows/bactopia-tools/tblastx/",
-      "ext": [],
+      "ext": [
+        "blastdb"
+      ],
       "subworkflows": [
         "tblastx"
       ]
@@ -6639,7 +6778,9 @@
       "description": "Detection of antimicrobial resistance and lineage typing of Mycobacterium tuberculosis.",
       "type": "tool",
       "path": "workflows/bactopia-tools/tbprofiler/",
-      "ext": [],
+      "ext": [
+        "fastq"
+      ],
       "subworkflows": [
         "tbprofiler"
       ]

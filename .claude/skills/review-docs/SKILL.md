@@ -1,6 +1,6 @@
 ---
 name: review-docs
-description: Review staleness of reference docs under .claude/docs/ using bactopia-docs --validate. Detects deprecated patterns (residue from past migrations like flattenPaths, the 4-channel emission framing, meta:Map) and ground-truth violations (stale module/subworkflow/workflow counts, wrong Nextflow version, references to nonexistent bactopia-* commands or lint rule IDs, broken markdown link targets). Use this skill whenever the user asks to review docs, check doc staleness, audit reference docs, find outdated documentation, verify doc claims, check if docs are current, or scan .claude/docs for drift after a migration.
+description: Review staleness of reference docs under .claude/docs/ using bactopia-docs --validate. Detects deprecated patterns (residue from past migrations like flattenPaths, the 4-channel emission framing, meta:Map) and ground-truth violations (stale module/subworkflow/workflow counts, wrong Nextflow version, references to nonexistent bactopia-* commands or lint rule IDs, skill-inventory drift between 06-skills.md and .claude/skills/, broken markdown link targets). Use this skill whenever the user asks to review docs, check doc staleness, audit reference docs, find outdated documentation, verify doc claims, check if docs are current, or scan .claude/docs for drift after a migration.
 ---
 
 # Review Docs
@@ -17,6 +17,7 @@ Two check families that don't fit the per-component lint rule model:
     - **D104** — Nextflow version (`nextflowVersion` in `nextflow.config`); informational mentions like `26.04+` or `until Nextflow X` are skipped.
     - **D105** — `` `bactopia-*` `` references inside backticks must resolve to a `[tool.poetry.scripts]` entry in `bactopia-py/pyproject.toml`. Bare prose mentions (`bactopia-tools`, `bactopia-py`) are ignored.
     - **D106** — `M0xx`/`S0xx`/`W0xx`/`MC0xx`/`JS0xx`/`FMT0xx` lint rule IDs must resolve to a `rid = "..."` assignment in `bactopia-py/bactopia/lint/rules/`.
+    - **D107** — skill inventory in [reference/06-skills.md](../../docs/reference/06-skills.md) must match `.claude/skills/*/SKILL.md`. Catches: skills on disk not listed in the table, rows referencing nonexistent skill directories, and purpose-cell drift from the SKILL.md `description:` first sentence.
     - **D108** — markdown link targets `[text](path)` must resolve to a real file. URLs and anchor-only links are skipped.
 
 Component-level checks live elsewhere:

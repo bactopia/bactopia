@@ -80,6 +80,10 @@ The pipeline uses standardized GroovyDoc documentation and static typing through
     - *Read this for*: Configuring module behavior via task.ext
     - Complete reference for all task.ext properties used in module.config files
 
+- **[Skills](.claude/docs/reference/06-skills.md)**
+    - *Read this for*: project-local skill inventory and when to invoke `skill-creator`
+    - Catalog of AI tooling built on top of `bactopia-*` CLIs
+
 ## AI Agent Instructions
 
 When working with this codebase:
@@ -108,6 +112,10 @@ When working with this codebase:
 1. Start with [Repository Structure](.claude/docs/project/01-repository-structure.md)
 2. Review three-tier architecture
 3. Study [Examples](.claude/docs/reference/01-examples.md)
+
+**Creating or editing a skill**:
+1. Use the `skill-creator` skill — do not hand-scaffold `SKILL.md` files
+2. See [Skills](.claude/docs/reference/06-skills.md) for the project's skill conventions and inventory
 
 ### Key Patterns
 

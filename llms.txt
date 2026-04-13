@@ -63,6 +63,7 @@ Key module categories:
 - [.claude/docs/project/01-repository-structure.md](.claude/docs/project/01-repository-structure.md): Full directory layout
 - [.claude/docs/project/02-development-workflow.md](.claude/docs/project/02-development-workflow.md): Step-by-step guide for adding new tools
 - [.claude/docs/reference/01-examples.md](.claude/docs/reference/01-examples.md): Annotated implementation examples
+- [.claude/docs/reference/06-skills.md](.claude/docs/reference/06-skills.md): Project skill inventory and when to invoke skill-creator
 
 ## Key Patterns for Agents
 
