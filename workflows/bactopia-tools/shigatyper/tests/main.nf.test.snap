@@ -78,7 +78,7 @@
                 "shigatyper.tsv:md5,eb390412945b4c27c7fe40de634ede88"
             ]
         ],
-        "timestamp": "2026-04-08T20:18:48.829496039",
+        "timestamp": "2026-04-14T10:15:10.064694531",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"

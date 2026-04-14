@@ -216,6 +216,15 @@ process ASSEMBLER {
                     Otherwise, adjust the --min_genome_size parameter to fit your need. Further assembly
                     based analysis of ${prefix} will be discontinued." | \
             sed 's/^\\s*//' > ${prefix}-assembly-error.txt
+        elif [ "\${TOTAL_CONTIG_SIZE}" -gt ${task.ext.max_genome_size} ]; then
+            mv ${prefix}.fna ${prefix}-error.fna
+            mv ${prefix}.tsv ${prefix}-error.tsv
+            echo "${prefix} assembled size [\${TOTAL_CONTIG_SIZE} bp] is greater than the maximum allowed genome
+                    size [${task.ext.max_genome_size} bp]. If this is unexpected, please investigate ${prefix} to
+                    determine a cause [e.g. metagenomic, contaminants, etc...] for the poor assembly.
+                    Otherwise, adjust the --max_genome_size parameter to fit your need. Further assembly
+                    based analysis of ${prefix} will be discontinued." | \
+            sed 's/^\\s*//' > ${prefix}-assembly-error.txt
         fi
     else
         mv ${prefix}.fna ${prefix}-error.fna

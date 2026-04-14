@@ -9,16 +9,16 @@
                 "process_name": "abritamr",
                 "scope": "sample"
             },
-            "GCF_001682305.abritamr.tsv:md5,b8dcaabeddd098a3b7c482a7f8163108",
-            "GCF_001682305.summary_matches.tsv:md5,4662e242327211daa23dea60e068e6be",
+            "GCF_001682305.abritamr.tsv:md5,18df68afa95e104c8f418efedd9146cf",
+            "GCF_001682305.summary_matches.tsv:md5,2da0b6cb548413f2721a95e55e17e295",
             "GCF_001682305.summary_partials.tsv:md5,db0255b99826900ecf4616eef7494806",
             "GCF_001682305.summary_virulence.tsv:md5,439b76b76818cbe8ec06bc82bd2711fe",
-            "GCF_001682305.amrfinder.out:md5,1070503be3c3b3506d29e143ba376f39",
+            "GCF_001682305.amrfinder.out:md5,5653ba9662232edc023dcc9606440e91",
             [
-                "versions.yml:md5,841bd82ed7ec489d37d2999552593e4d"
+                "versions.yml:md5,ebc49c238ebaaaa54c98e7276f3f2aff"
             ]
         ],
-        "timestamp": "2026-04-08T20:05:03.788433942",
+        "timestamp": "2026-04-14T10:10:06.899283387",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"
@@ -34,16 +34,16 @@
                 "process_name": "abritamr",
                 "scope": "sample"
             },
-            "GCF_001682305.abritamr.tsv:md5,b8dcaabeddd098a3b7c482a7f8163108",
-            "GCF_001682305.summary_matches.tsv:md5,4662e242327211daa23dea60e068e6be",
+            "GCF_001682305.abritamr.tsv:md5,18df68afa95e104c8f418efedd9146cf",
+            "GCF_001682305.summary_matches.tsv:md5,2da0b6cb548413f2721a95e55e17e295",
             "GCF_001682305.summary_partials.tsv:md5,db0255b99826900ecf4616eef7494806",
             "GCF_001682305.summary_virulence.tsv:md5,439b76b76818cbe8ec06bc82bd2711fe",
-            "GCF_001682305.amrfinder.out:md5,1070503be3c3b3506d29e143ba376f39",
+            "GCF_001682305.amrfinder.out:md5,5653ba9662232edc023dcc9606440e91",
             [
-                "versions.yml:md5,841bd82ed7ec489d37d2999552593e4d"
+                "versions.yml:md5,ebc49c238ebaaaa54c98e7276f3f2aff"
             ]
         ],
-        "timestamp": "2026-04-08T20:07:43.996733569",
+        "timestamp": "2026-04-14T10:14:28.374862633",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"

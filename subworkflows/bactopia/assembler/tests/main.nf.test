@@ -42,11 +42,44 @@ nextflow_workflow {
         }
     }
 
-    test("assembler (force error) - subworkflow - SRR2838702") {
+    test("assembler (force error w/ min_genome_size) - subworkflow - SRR2838702") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
                 min_genome_size = 42000000
+            }
+            workflow {
+                """
+                // PE reads assembly test
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702", runtype: "paired-end", single_end: false, genome_size: "358242", species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.assembly[0]
+            def full_record = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null }
+            )
+        }
+    }
+
+    test("assembler (force error w/ max_genome_size) - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                max_genome_size = 10000
             }
             workflow {
                 """

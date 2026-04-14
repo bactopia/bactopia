@@ -11,14 +11,14 @@
                 "scope": "sample",
                 "teton_reads": "paired-end"
             },
-            "SRR2838702.bacteria.tsv:md5,dfb6d31c093f155856c39307bdf288b5",
-            "SRR2838702.nonbacteria.tsv:md5,ccd17fd01f6e7ae3faa648c98bf28504",
+            "SRR2838702.bacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702.nonbacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
             "SRR2838702-sizemeup.txt:md5,7a47de9d8f6fde7a43c6d30ff54e2bfc",
             [
                 "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
             ]
         ],
-        "timestamp": "2026-04-08T20:02:22.831014361",
+        "timestamp": "2026-04-14T09:58:58.557896458",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"
@@ -36,14 +36,14 @@
                 "scope": "sample",
                 "teton_reads": "single-end"
             },
-            "SRR2838702.bacteria.tsv:md5,dfb6d31c093f155856c39307bdf288b5",
-            "SRR2838702.nonbacteria.tsv:md5,ccd17fd01f6e7ae3faa648c98bf28504",
+            "SRR2838702.bacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702.nonbacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
             "SRR2838702-sizemeup.txt:md5,7a47de9d8f6fde7a43c6d30ff54e2bfc",
             [
                 "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
             ]
         ],
-        "timestamp": "2026-04-08T20:02:33.256620329",
+        "timestamp": "2026-04-14T10:06:02.423986986",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"

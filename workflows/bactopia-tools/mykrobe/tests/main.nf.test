@@ -10,8 +10,8 @@ nextflow_pipeline {
         when {
             params {
                 bactopia_test = "/species/portiera/compressed"
-                test_dataset = "staph"
-                test_dataset2 = ""
+                test_dataset = ""
+                test_dataset2 = "staph"
                 test_dataset3 = ""
                 test_r1 = ""
                 test_r2 = ""

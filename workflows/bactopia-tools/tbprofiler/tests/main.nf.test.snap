@@ -44,11 +44,11 @@
                 "bactopia-runs/tbprofiler/nf-reports/tbprofiler-timeline.html"
             ],
             [
-                "versions.yml:md5,2d87e4df08df0f8c93f13d385d3a25f0",
-                "versions.yml:md5,0a6c2ee40d0bbc1c31e66a46cc130523"
+                "versions.yml:md5,f965da892cbe0e7c1fabc4376340e8ab",
+                "versions.yml:md5,d1d08404b1d56899be9ae1cf3c3aff3e"
             ]
         ],
-        "timestamp": "2026-04-08T20:20:36.347463603",
+        "timestamp": "2026-04-14T10:16:24.005489936",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"

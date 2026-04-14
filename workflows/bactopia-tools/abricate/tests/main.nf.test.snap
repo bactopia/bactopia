@@ -39,12 +39,12 @@
             ],
             [
                 "SRR2838702.tsv:md5,69af3321b0bc808b7ef85f102395736f",
-                "versions.yml:md5,560833e611613540427bf97dc53d156b",
+                "versions.yml:md5,efff7f0760b8d4ab0485a44db5c685b2",
                 "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30",
-                "versions.yml:md5,ff232e321a8b2b91adefba9a7b05d823"
+                "versions.yml:md5,c6b552151ca3a9ccc54d58594e65789b"
             ]
         ],
-        "timestamp": "2026-04-08T20:14:05.364479749",
+        "timestamp": "2026-04-14T10:12:21.167056328",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"
