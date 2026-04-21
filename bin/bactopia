@@ -78,6 +78,8 @@ elif [[ "$1" == "atb-downloader" ]]; then
     bactopia-atb-downloader "${@:2}"
 elif [[ "$1" == "version" ]] || [[ "$1" == "--version" ]]; then
     echo "bactopia ${VERSION}"
+elif [[ "$*" == *"--list_wfs"* ]]; then
+    bactopia-workflows --bactopia-path "${BACTOPIA_NF}" --list_wfs
 else
     # Check if Conda environments need to be built
     PREBUILD=1
