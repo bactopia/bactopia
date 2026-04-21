@@ -79,6 +79,8 @@ process MLST {
     fi
 
     mlst \\
+        --full \\
+        --label ${prefix} \\
         --threads ${task.cpus} \\
         --blastdb \$MLST_DB/blast/mlst.fa \\
         --datadir \$MLST_DB/pubmlst \\
