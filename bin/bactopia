@@ -115,6 +115,20 @@ else
         WORK_ARG="-w ${WORK_DIR}"
     fi
 
+    # Create custom work dir
+    OUTPUT_ARG=""
+    if echo "$*" | sed -r 's/ ([-]+)/\n\1/g' | grep "^-output-format" > /dev/null; then
+        # User specified an output format
+        OUTPUT_ARG=""
+    else
+        # User did not specify an output format, set it to 'none'
+        OUTPUT_ARG="-output-format none"
+    fi
+
+    # Auto-detect host RAM / CPUs for local profiles when user hasn't set caps.
+    # bactopia-sysinfo decides eligibility and emits the additions (or nothing).
+    SYSINFO_OPTS=$(bactopia-sysinfo "$@")
+
     # Get path to workflow
     WF_ARG="bactopia"
     WF_NEXT=0
@@ -138,7 +152,7 @@ else
     fi
 
     # Execute Bactopia Nextflow pipeline
-    OPTS="${WORK_ARG}"
+    OPTS="${WORK_ARG} ${OUTPUT_ARG} ${SYSINFO_OPTS}"
     if nextflow run ${WF_PATH} ${OPTS} "${@:1}"; then
         # bactopia finished successfully
         if [[ "${WORK_DIR_IS_DEFAULT}" -eq 1 ]]; then
