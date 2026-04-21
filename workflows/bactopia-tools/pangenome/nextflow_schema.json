@@ -114,6 +114,7 @@
             "properties": {
                 "prokka_proteins": {
                     "type": "string",
+                    "default": "${projectDir}/data/proteins.faa",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-font"
                 },
