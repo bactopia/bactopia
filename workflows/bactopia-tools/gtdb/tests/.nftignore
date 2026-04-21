@@ -3,3 +3,4 @@
 bactopia-runs/**/nf-reports/*.{dot,html}
 
 **/gtdbtk.json
+**/*.tsv

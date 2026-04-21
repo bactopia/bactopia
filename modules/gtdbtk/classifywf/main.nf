@@ -100,7 +100,6 @@ process GTDBTK_CLASSIFYWF {
         --pplacer_cpus ${task.cpus} \\
         --genome_dir ./fna \\
         --out_dir supplemental \\
-        --skip_ani_screen \\
         --prefix ${prefix}
     mv supplemental/*.log ./
     mv supplemental/classify/*.summary.tsv ./

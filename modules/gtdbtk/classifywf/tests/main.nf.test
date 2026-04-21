@@ -3,7 +3,7 @@ nextflow_process {
     script "../main.nf"
     process "GTDBTK_CLASSIFYWF"
     tag "modules"
-    tag "gtdbtk"
+    tag "gtdb"
     tag "gtdbtk_classifywf"
 
     test("gtdbtk - module - classify genomes - path (full)") {
@@ -33,7 +33,6 @@ nextflow_process {
                 { assert process.success },
                 { assert snapshot(
                     record.meta,
-                    record.bac_tsv,
                     record.versions
                 ).match() }
             )

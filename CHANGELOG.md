@@ -47,7 +47,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - `defense-finder`: 2.0.0 -> 2.0.1
     - `ectyper`: 1.0.0 -> 2.0.0
     - `eggnog-mapper`: 2.1.12 -> 2.1.13
-    - `gtdbtk`: 2.5.2 -> 2.6.1
+    - `gtdbtk`: 2.5.2 -> 2.7.1
     - `gubbins`: 3.4 -> 3.4.3
     - `iqtree`: 2.4.0 -> 3.1.1
     - `kleborate`: 3.1.3 -> 3.2.4

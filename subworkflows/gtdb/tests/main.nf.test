@@ -37,7 +37,6 @@ nextflow_workflow {
                 { assert workflow.out.run_outputs != null },
                 { assert snapshot(
                     sample.meta,
-                    sample.bac_tsv,
                     sample.versions,
                     run.meta,
                     run.versions

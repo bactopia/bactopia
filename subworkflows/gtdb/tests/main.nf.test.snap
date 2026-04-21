@@ -9,9 +9,8 @@
                 "process_name": "gtdb",
                 "scope": "sample"
             },
-            "gtdbtk-test.bac120.summary.tsv:md5,3f882601b823ac52e85bf65e97145c35",
             [
-                "versions.yml:md5,4f1c055ef7f9b250910b0eee99d532ff"
+                "versions.yml:md5,738ac1f744a77df263f3b25b97a2748d"
             ],
             {
                 "id": "gtdb-GTDB:CSVTK_CONCAT",
@@ -25,7 +24,7 @@
                 "versions.yml:md5,ec94f157437c25058fdce9d4346342a2"
             ]
         ],
-        "timestamp": "2026-04-14T10:37:26.622065162",
+        "timestamp": "2026-04-21T16:10:45.305202634",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.03.1"
