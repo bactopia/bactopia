@@ -59,7 +59,7 @@
                 },
                 "stecfinder_stx_depth": {
                     "type": "number",
-                    "default": 10.0,
+                    "default": 1.0,
                     "description": "Minimum depth for positive stx gene call (requires --stecfinder_use_reads)",
                     "fa_icon": "fas fa-percentage",
                     "hidden": true

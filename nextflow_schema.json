@@ -1008,6 +1008,7 @@
             "properties": {
                 "prokka_proteins": {
                     "type": "string",
+                    "default": "${projectDir}/data/proteins.faa",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-font",
                     "hidden": true
@@ -1818,7 +1819,7 @@
                 },
                 "stecfinder_stx_depth": {
                     "type": "number",
-                    "default": 10.0,
+                    "default": 1.0,
                     "description": "Minimum depth for positive stx gene call (requires --stecfinder_use_reads)",
                     "fa_icon": "fas fa-percentage",
                     "hidden": true

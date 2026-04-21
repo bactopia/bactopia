@@ -3,8 +3,8 @@ VERSION=4.0.0
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
-# set -x id -debug in args
-if [[ "$*" == *"--debug"* ]]; then
+# set -x if --verbose in args
+if [[ "$*" == *"--verbose"* ]]; then
     set -x
 fi
 
