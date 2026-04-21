@@ -3,6 +3,11 @@ VERSION=4.0.0
 CONDA_ENV=$(which bactopia | sed 's=bin/bactopia==')
 BACTOPIA_NF="${CONDA_ENV}/share/bactopia-${VERSION}" 
 
+# set -x id -debug in args
+if [[ "$*" == *"--debug"* ]]; then
+    set -x
+fi
+
 # If no user input, print usage
 if [[ $# == 0 ]]; then
     echo "bactopia - v${VERSION}"
@@ -83,8 +88,9 @@ else
         BUILD_TYPE="docker"
     fi
 
-    # If these are used, skip pre-build
+    # If these are used, skip pre-build/system check
     CHECKS=("help" "help_all" "nfconfig" "list_wfs")
+    SYSINFO_OPTS=""
     for check in "${CHECKS[@]}"; do
         if [[ "$*" == *"${check}"* ]]; then
             PREBUILD=0
@@ -100,6 +106,10 @@ else
 
         # Build conda/docker/singularity envs, rebuild out of sync envs, skip existing
         bactopia-download --bactopia-path "${BACTOPIA_NF}" --envtype "${BUILD_TYPE}" ${BUILD_OPTS} "${@:1}"
+
+        # Auto-detect host RAM / CPUs for local profiles when user hasn't set caps.
+        # bactopia-sysinfo decides eligibility and emits the additions (or nothing).
+        SYSINFO_OPTS=$(bactopia-sysinfo "$@")
     fi
 
     # Create custom work dir
@@ -124,10 +134,6 @@ else
         # User did not specify an output format, set it to 'none'
         OUTPUT_ARG="-output-format none"
     fi
-
-    # Auto-detect host RAM / CPUs for local profiles when user hasn't set caps.
-    # bactopia-sysinfo decides eligibility and emits the additions (or nothing).
-    SYSINFO_OPTS=$(bactopia-sysinfo "$@")
 
     # Get path to workflow
     WF_ARG="bactopia"

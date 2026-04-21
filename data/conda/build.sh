@@ -6,7 +6,7 @@ chmod 775 bin/*
 cp bin/* ${PREFIX}/bin
 
 # Move bactopia nextflow
-mv bin/ conf/ data/ modules/ subworkflows/ tests/ workflows/ main.nf nextflow.config nextflow_schema.json ${BACTOPIA}
+mv bin/ conf/ data/ modules/ subworkflows/ tests/ workflows/ main.nf catalog.json nextflow.config nextflow_schema.json ${BACTOPIA}
 
 # Setup the Bactopia env variables
 mkdir -p ${PREFIX}/etc/conda/activate.d ${PREFIX}/etc/conda/deactivate.d
