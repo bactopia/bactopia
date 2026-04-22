@@ -44,7 +44,7 @@ include { gatherCsvtk      } from 'plugin/nf-bactopia'
 workflow CHECKM2 {
     take:
     assembly: Channel<Record>
-    database: Value<Path>
+    database: Path
     download_checkm2: Boolean
 
     main:

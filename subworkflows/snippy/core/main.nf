@@ -45,8 +45,8 @@ include { SNPDISTS                          } from '../../snpdists/main'
 workflow SNIPPY_CORE {
     take:
     alignments: Channel<Record>
-    reference: Value<Path>
-    mask: Value<Path?>
+    reference: Path
+    mask: Path?
 
     main:
     ch_snippy_core = SNIPPY_CORE_MODULE(alignments, reference, mask)

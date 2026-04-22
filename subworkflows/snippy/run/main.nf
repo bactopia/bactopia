@@ -64,7 +64,7 @@ include { filterWithData } from 'plugin/nf-bactopia'
 workflow SNIPPY {
     take:
     reads : Channel<Record>
-    reference : Value<Path>
+    reference : Path
 
     main:
     ch_snippy_run = SNIPPY_RUN(reads, reference)

@@ -52,7 +52,7 @@ include { gatherCsvtk                           } from 'plugin/nf-bactopia'
 workflow BRACKEN {
     take:
     reads: Channel<Record>
-    database: Value<Path>
+    database: Path
 
     main:
     ch_bracken = BRACKEN_MODULE(reads, database)

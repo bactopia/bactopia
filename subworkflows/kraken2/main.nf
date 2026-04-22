@@ -40,7 +40,7 @@ include { KRAKEN2 as KRAKEN2_MODULE } from '../../modules/kraken2/main'
 workflow KRAKEN2 {
     take:
     reads: Channel<Record>
-    database: Value<Path>
+    database: Path
 
     main:
     ch_kraken2 = KRAKEN2_MODULE(reads, database)

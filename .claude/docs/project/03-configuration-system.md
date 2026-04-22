@@ -71,8 +71,8 @@ Parameters flow through multiple locations:
 
 **Subworkflow `take:` types** (channel-typed inputs — see [Technical Specifications](../standards/03-technical-specs.md)):
 - `Channel<Record>` - Per-sample record streams from upstream modules/subworkflows
-- `Value<Path>` - Required shared inputs (databases, reference genomes)
-- `Value<Path?>` - Optional shared inputs
+- `Path` - Required shared inputs (databases, reference genomes)
+- `Path?` - Optional shared inputs
 
 ## Module Configuration
 

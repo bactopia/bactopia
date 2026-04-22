@@ -55,7 +55,7 @@ include { gatherCsvtk } from 'plugin/nf-bactopia'
 workflow MERLINDIST {
     take:
     ch_seqs: Channel<Record>
-    ch_mash_db: Value<Path>
+    ch_mash_db: Path
 
     main:
     ch_merlin_dist = MERLIN_DIST(ch_seqs, ch_mash_db)

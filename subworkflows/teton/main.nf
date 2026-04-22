@@ -51,9 +51,9 @@ include { gatherCsvtk                              } from 'plugin/nf-bactopia'
 workflow TETON {
     take:
     reads: Channel<Record>
-    db: Value<Path?>
+    db: Path?
     use_srascrubber: Boolean
-    nohuman_db: Value<Path?>
+    nohuman_db: Path?
     download_nohuman: Boolean
     nohuman_save_as_tarball: Boolean
 

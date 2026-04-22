@@ -42,8 +42,8 @@ include { filterWithData              } from 'plugin/nf-bactopia'
 workflow ISMAPPER {
     take:
     reads: Channel<Record>
-    reference: Value<Path>
-    insertions: Value<Path>
+    reference: Path
+    insertions: Path
 
     main:
     ch_ismapper = ISMAPPER_MODULE(filterWithData(reads, ['r1', 'r2']), reference, insertions)

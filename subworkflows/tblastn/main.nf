@@ -35,7 +35,7 @@ include { gatherCsvtk                     } from 'plugin/nf-bactopia'
 workflow TBLASTN {
     take:
     blastdb: Channel<Record>
-    query: Value<Path>
+    query: Path
 
     main:
     ch_tblastn = TBLASTN_MODULE(blastdb, query)

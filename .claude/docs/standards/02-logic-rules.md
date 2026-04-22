@@ -39,12 +39,12 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 ### None
 - **Definition**: No sample/data channels in the `take` block
 - **Use case**: Utility modules that download resources or perform setup tasks
-- **Note**: May have `Value<Path>`, `Value<String>`, or other non-channel parameters but no `Channel<Record>` inputs
+- **Note**: May have `Path`, `Value<String>`, or other non-channel parameters but no `Channel<Record>` inputs
 - **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
 
 ### Single Input
 - **Definition**: The `take` block defines exactly **1 Channel**
-- **Note**: Do not count `Value<Path>`, `Value<String>`, or other `Value<...>` parameters
+- **Note**: Do not count `Path`, `Value<String>`, or other `Value<...>` parameters
 - **Examples**:
   ```nextflow
   workflow EXAMPLE {
@@ -52,7 +52,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
       assembly: Channel<Record>      // Only 1 channel
 
       // Value<...> parameters don't count
-      db: Value<Path>
+      db: Path
       species: Value<String>
   }
   ```
@@ -168,7 +168,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 
 ### Determining Input-Type
 1. Count channels in `take` block
-2. Ignore `Value<Path>`, `Value<String>`, and other `Value<...>` parameters (non-channel types)
+2. Ignore `Path`, `Value<String>`, and other `Value<...>` parameters (non-channel types)
 3. 0 channels → **None** (utility/setup modules)
 4. 1 channel → **Single**
 5. 2+ channels → **Multiple**

@@ -48,7 +48,7 @@ include { EGGNOG_MAPPER   } from '../../modules/eggnog/mapper/main'
 workflow EGGNOG {
     take:
     proteins: Channel<Record>
-    database: Value<Path?>
+    database: Path?
     download_eggnog: Boolean
     save_as_tarball: Boolean
 

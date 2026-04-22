@@ -106,16 +106,16 @@ params {
     // Reference genome parameters
     species            : String?
     accession          : String?
-    accessions         : Value<Path?>
+    accessions         : Path?
 
     // Prokka parameters
-    prokka_proteins    : Value<Path?>
-    prokka_prodigal_tf : Value<Path?>
+    prokka_proteins    : Path?
+    prokka_prodigal_tf : Path?
 
     // Analysis options
     skip_recombination : Boolean
     skip_phylogeny     : Boolean
-    scoary_traits      : Value<Path?>
+    scoary_traits      : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

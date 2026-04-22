@@ -39,7 +39,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    sylph_db : Value<Path>
+    sylph_db : Path
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

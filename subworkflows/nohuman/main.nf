@@ -42,7 +42,7 @@ include { NOHUMAN_RUN as NOHUMAN_MODULE } from '../../modules/nohuman/run/main'
 workflow NOHUMAN {
     take:
     reads: Channel<Record>
-    database: Value<Path?>
+    database: Path?
     download_nohuman: Boolean
     save_as_tarball: Boolean
 

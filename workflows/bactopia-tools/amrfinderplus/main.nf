@@ -40,7 +40,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    amrfinderplus_db : Value<Path?>
+    amrfinderplus_db : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

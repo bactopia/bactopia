@@ -51,7 +51,7 @@ include { gatherCsvtk    } from 'plugin/nf-bactopia'
 workflow MIDAS {
     take:
     reads: Channel<Record>
-    database: Value<Path?>
+    database: Path?
     download_midas: Boolean
     save_as_tarball: Boolean
 

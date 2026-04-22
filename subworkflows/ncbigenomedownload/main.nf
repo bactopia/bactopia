@@ -42,7 +42,7 @@ include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/
 workflow NCBIGENOMEDOWNLOAD {
 
     take:
-    accessions: Value<Path?>
+    accessions: Path?
 
     main:
     ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD_MODULE(accessions)

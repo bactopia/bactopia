@@ -36,7 +36,7 @@ include { gatherCsvtk       } from 'plugin/nf-bactopia'
 workflow AMRFINDERPLUS {
     take:
     fasta: Channel<Record>
-    db: Value<Path>
+    db: Path
 
     main:
     ch_amrfinderplus_run = AMRFINDERPLUS_RUN(fasta, db)

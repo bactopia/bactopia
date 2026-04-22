@@ -34,7 +34,7 @@ include { gatherCsvtk         } from 'plugin/nf-bactopia'
 workflow MLST {
     take:
     assembly: Channel<Record>
-    db: Value<Path>
+    db: Path
 
     main:
     ch_mlst = MLST_MODULE(assembly, db)

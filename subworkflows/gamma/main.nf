@@ -38,7 +38,7 @@ include { gatherCsvtk           } from 'plugin/nf-bactopia'
 workflow GAMMA {
     take:
     assembly: Channel<Record>
-    db: Value<Path>
+    db: Path
 
     main:
     ch_gamma = GAMMA_MODULE(assembly, db)

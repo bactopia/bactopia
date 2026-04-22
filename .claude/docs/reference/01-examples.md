@@ -133,7 +133,7 @@ include { gatherCsvtk         } from 'plugin/nf-bactopia'
 workflow MLST {
     take:
     assembly: Channel<Record>
-    db: Value<Path>
+    db: Path
 
     main:
     ch_mlst = MLST_MODULE(assembly, db)
@@ -148,7 +148,7 @@ workflow MLST {
 **Key Characteristics**:
 - **2-channel emit**: `sample_outputs` (module record passthrough) and `run_outputs` (aggregated)
 - **gatherCsvtk() for csvtk-friendly aggregation**: extracts the `tsv` field from each record into a single set keyed by `[name: 'mlst']`
-- **Typed take block**: `assembly: Channel<Record>`, `db: Value<Path>`
+- **Typed take block**: `assembly: Channel<Record>`, `db: Path`
 
 ## Entry Workflow Example
 

@@ -56,9 +56,9 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    kraken2_db              : Value<Path>
+    kraken2_db              : Path
     use_srascrubber         : Boolean
-    nohuman_db              : Value<Path?>
+    nohuman_db              : Path?
     download_nohuman        : Boolean
     nohuman_save_as_tarball : Boolean
 }

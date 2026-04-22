@@ -40,8 +40,8 @@ include { gatherCsvtk           } from 'plugin/nf-bactopia'
 workflow HICAP {
     take:
     assembly: Channel<Record>
-    database_dir: Value<Path?>
-    model_fp: Value<Path?>
+    database_dir: Path?
+    model_fp: Path?
 
     main:
     ch_hicap = HICAP_MODULE(assembly, database_dir, model_fp)

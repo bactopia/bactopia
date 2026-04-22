@@ -66,9 +66,9 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    reference          : Value<Path?>
+    reference          : Path?
     accession          : String
-    snippy_core_mask   : Value<Path?>
+    snippy_core_mask   : Path?
     skip_recombination : Boolean
     skip_phylogeny     : Boolean
 }

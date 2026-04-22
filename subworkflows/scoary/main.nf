@@ -32,7 +32,7 @@ include { SCOARY as SCOARY_MODULE } from '../../modules/scoary/main'
 workflow SCOARY {
     take:
     csv: Channel<Record>
-    traits: Value<Path?>
+    traits: Path?
 
     main:
     ch_scoary = SCOARY_MODULE(csv, traits)

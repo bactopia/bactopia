@@ -43,7 +43,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    midas_db       : Value<Path>
+    midas_db       : Path
     download_midas : Boolean
 }
 

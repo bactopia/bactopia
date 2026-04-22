@@ -38,8 +38,8 @@ include { SKETCHER as SKETCHER_MODULE } from '../../../modules/bactopia/sketcher
 workflow SKETCHER {
     take:
     assembly: Channel<Record>
-    mash_db: Value<Path>
-    sourmash_db: Value<Path>
+    mash_db: Path
+    sourmash_db: Path
 
     main:
     ch_sketcher = SKETCHER_MODULE(assembly, mash_db, sourmash_db)
