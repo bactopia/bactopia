@@ -43,7 +43,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    checkm2_db       : Path
+    checkm2_db       : Value<Path>
     download_checkm2 : Boolean
 }
 

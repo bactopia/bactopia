@@ -111,19 +111,19 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    adapters              : Path?
-    phix                  : Path?
+    adapters              : Value<Path?>
+    phix                  : Value<Path?>
     use_bakta             : Boolean
-    bakta_db              : Path?
+    bakta_db              : Value<Path?>
     download_bakta        : Boolean
     bakta_save_as_tarball : Boolean
-    bakta_proteins        : Path?
-    bakta_prodigal_tf     : Path?
-    bakta_replicons       : Path?
-    prokka_proteins       : Path?
-    prokka_prodigal_tf    : Path?
-    spatyper_repeats      : Path?
-    spatyper_repeat_order : Path?
+    bakta_proteins        : Value<Path?>
+    bakta_prodigal_tf     : Value<Path?>
+    bakta_replicons       : Value<Path?>
+    prokka_proteins       : Value<Path?>
+    prokka_prodigal_tf    : Value<Path?>
+    spatyper_repeats      : Value<Path?>
+    spatyper_repeat_order : Value<Path?>
 }
 
 // Core

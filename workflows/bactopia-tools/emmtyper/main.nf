@@ -37,7 +37,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    emmtyper_blastdb : Path?
+    emmtyper_blastdb : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

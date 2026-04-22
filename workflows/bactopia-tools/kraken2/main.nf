@@ -40,7 +40,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    kraken2_db : Path
+    kraken2_db : Value<Path>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

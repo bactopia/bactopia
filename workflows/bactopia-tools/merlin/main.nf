@@ -51,11 +51,11 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    emmtyper_blastdb      : Path?
-    hicap_database_dir    : Path?
-    hicap_model_fp        : Path?
-    spatyper_repeats      : Path?
-    spatyper_repeat_order : Path?
+    emmtyper_blastdb      : Value<Path?>
+    hicap_database_dir    : Value<Path?>
+    hicap_model_fp        : Value<Path?>
+    spatyper_repeats      : Value<Path?>
+    spatyper_repeat_order : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

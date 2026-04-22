@@ -41,8 +41,8 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    hicap_database_dir : Path?
-    hicap_model_fp     : Path?
+    hicap_database_dir : Value<Path?>
+    hicap_model_fp     : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

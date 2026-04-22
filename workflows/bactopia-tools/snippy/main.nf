@@ -66,9 +66,9 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    reference          : Path
+    reference          : Value<Path?>
     accession          : String
-    snippy_core_mask   : Path?
+    snippy_core_mask   : Value<Path?>
     skip_recombination : Boolean
     skip_phylogeny     : Boolean
 }
@@ -87,11 +87,11 @@ workflow {
     ch_bactopiatool = BACTOPIATOOL_INIT()
 
     // Download if applicable
-    ch_reference = channel.empty()
+    ch_reference = null
     if (params.reference) {
         ch_reference = params.reference
     } else if (params.accession) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD([])
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(null)
         ch_reference = ch_ncbigenomedownload.reference
     }
 

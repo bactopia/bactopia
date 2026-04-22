@@ -106,16 +106,16 @@ params {
     // Reference genome parameters
     species            : String?
     accession          : String?
-    accessions         : Path?
+    accessions         : Value<Path?>
 
     // Prokka parameters
-    prokka_proteins    : Path?
-    prokka_prodigal_tf : Path?
+    prokka_proteins    : Value<Path?>
+    prokka_prodigal_tf : Value<Path?>
 
     // Analysis options
     skip_recombination : Boolean
     skip_phylogeny     : Boolean
-    scoary_traits      : Path?
+    scoary_traits      : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -135,11 +135,11 @@ workflow {
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
         ch_prokka = PROKKA(
             ch_ncbigenomedownload.assemblies,
-            params.prokka_proteins ? file(params.prokka_proteins, checkIfExists: true) : [],
-            params.prokka_prodigal_tf ? file(params.prokka_prodigal_tf, checkIfExists: true) : []
+            params.prokka_proteins,
+            params.prokka_prodigal_tf
         )
         ch_samples = ch_samples.mix(ch_prokka.gffs)
     }

@@ -45,7 +45,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    gtdb                 : Path
+    gtdb                 : Value<Path>
     download_gtdb        : Boolean
     gtdb_save_as_tarball : Boolean
 }

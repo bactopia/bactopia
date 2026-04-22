@@ -46,7 +46,7 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    eggnog_db       : Path
+    eggnog_db       : Value<Path>
     download_eggnog : Boolean
 }
 

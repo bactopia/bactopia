@@ -50,11 +50,11 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    fastani_reference : Path?
+    fastani_reference : Value<Path?>
     fastani_pairwise  : Boolean
     species           : String?
     accession         : String?
-    accessions        : Path?
+    accessions        : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

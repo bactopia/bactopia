@@ -41,8 +41,8 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    spatyper_repeats      : Path?
-    spatyper_repeat_order : Path?
+    spatyper_repeats      : Value<Path?>
+    spatyper_repeat_order : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

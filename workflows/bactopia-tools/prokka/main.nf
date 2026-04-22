@@ -51,8 +51,8 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    prokka_proteins    : Path?
-    prokka_prodigal_tf : Path?
+    prokka_proteins    : Value<Path?>
+    prokka_prodigal_tf : Value<Path?>
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
