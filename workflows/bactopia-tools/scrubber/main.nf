@@ -42,7 +42,10 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    use_srascrubber : Boolean
+    use_srascrubber         : Boolean
+    nohuman_db              : Path?
+    download_nohuman        : Boolean
+    nohuman_save_as_tarball : Boolean
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -55,7 +58,7 @@ workflow {
     ch_scrubber = SCRUBBER(
         ch_bactopiatool.reads,
         params.use_srascrubber,
-        params.nohuman_db ? file(params.nohuman_db) : file("NO_DB"),
+        params.nohuman_db,
         params.download_nohuman,
         params.nohuman_save_as_tarball
     )

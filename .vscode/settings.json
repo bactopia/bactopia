@@ -1040,7 +1040,7 @@
         "https://www.schemastore.org/eslintrc.json": "file:///home/rpetit3/repos/bactopia/conf/workflows.yaml"
     },
     "nextflow.typeChecking": true,
-    "nextflow.errorReportingMode": "paranoid",
+    "nextflow.errorReportingMode": "warnings",
     "nextflow.completion.extended": true,
     "nextflow.debug": true,
     "nextflow.formatting.harshilAlignment": true,

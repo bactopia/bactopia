@@ -43,6 +43,11 @@ nextflow.preview.types = true
 
 params {
     rundir : String
+
+    // Tool-specific parameters
+    species    : String?
+    accession  : String?
+    accessions : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -58,7 +63,7 @@ workflow {
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions ? file(params.accessions) : [])
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
         ch_samples = ch_samples.mix(ch_ncbigenomedownload.assemblies)
     }
     ch_mashtree = MASHTREE(gather(ch_samples, 'fna', [name: 'mashtree']))
