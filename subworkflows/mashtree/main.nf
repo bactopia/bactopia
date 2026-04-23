@@ -18,11 +18,11 @@
  * - `fna`: Pre-gathered assembled contigs in FASTA format (multiple genomes)
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `nwk`: Phylogenetic tree in Newick format
  * - `tsv`: Pairwise distance matrix
  * - `sketches`: Individual Mash sketch files
- *
- * @output run_outputs
  */
 nextflow.preview.types = true
 

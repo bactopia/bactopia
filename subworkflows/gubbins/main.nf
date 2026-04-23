@@ -35,6 +35,9 @@
  * - `tree_labelled`: Annotated tree with node labels in Newick format
  * - `bootstrap_tree`: Bootstrapped phylogenetic tree in Newick format
  * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
+ *
+ * @output alignment
+ * - `aln`: Recombination-masked alignment for downstream phylogenetic analysis
  */
 nextflow.preview.types = true
 

@@ -47,6 +47,8 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - S022: @tags output-type value is valid
    - S023: @tags features values are valid
    - S024: GroovyDoc tag ordering
+   - S026: All emit channels have a corresponding @output tag
+   - S027: @output field descriptions must not exist for channel.empty() emits
 
    **Entry workflows (W-series):**
    - No dedicated GroovyDoc-accuracy W-rules exist. Workflow GroovyDoc review is a manual pass — check the workflow main.nf against `.claude/docs/standards/06-workflow-documentation.md`, verify `@subworkflows` directory keys match actual `include { ... }` imports (e.g., `utils_bactopia-tools`, `bactopia_qc`), validate `@citation` keys against `data/citations.yml`, confirm `@input` names match declared `params { }`, and ensure each `@section` has ≥1 `@publish`. The one-off drift-check approach used on 2026-04-10 lived at `/tmp/workflow_drift_check.py` and reused `parse_groovydoc_full()` + `parse_includes()` from `bactopia-py/bactopia/nf.py`.
@@ -76,6 +78,8 @@ Run bactopia-lint focused on GroovyDoc accuracy rules and present the results.
    - **S019 (FAIL)**: Check `data/citations.yml` for the correct key and update `@citation`
    - **S023 (FAIL)**: Fix invalid feature values or add missing commas
    - **S024 (WARN)**: Reorder tags: @status -> @keywords -> @tags -> @citation -> @modules -> @subworkflows -> @note -> @input -> @output
+   - **S026 (FAIL)**: Add `@output channel_name` for each undocumented emit channel, with field descriptions matching the emitted record shape (see pangenome subworkflow for pattern)
+   - **S027 (FAIL)**: Move field descriptions from the `channel.empty()` @output to the correct @output that actually emits data
 
 5. After fixes, re-run the lint to confirm all issues are resolved.
 

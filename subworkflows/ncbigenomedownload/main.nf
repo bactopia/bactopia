@@ -34,6 +34,12 @@
  * @output bactopia_tools  Downloaded files formatted for Bactopia Tools workflows
  *
  * @output run_outputs
+ *
+ * @output assemblies
+ * - `fna`: Individual downloaded assembly in FASTA format
+ *
+ * @output reference
+ * First downloaded assembly file for use as a reference genome
  */
 nextflow.preview.types = true
 

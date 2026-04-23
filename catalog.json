@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-04-13T22:28:47Z",
+  "generated": "2026-04-23T19:52:32Z",
   "bactopia_version": "4.0.0",
-  "bactopia_py_version": "2.0.2",
-  "nf_bactopia_version": "2.0.1",
+  "bactopia_py_version": "2.1.1",
+  "nf_bactopia_version": "2.0.2",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",
@@ -1167,7 +1167,7 @@
       "process_name": "gtdb",
       "tool": {
         "name": "gtdbtk",
-        "version": "2.6.1"
+        "version": "2.7.1"
       },
       "takes": [
         "fna"
@@ -1197,7 +1197,7 @@
       "process_name": "gtdbtk",
       "tool": {
         "name": "gtdbtk",
-        "version": "2.6.1"
+        "version": "2.7.1"
       },
       "emits": [
         "db",
@@ -1663,8 +1663,8 @@
       "scope": "sample",
       "process_name": "midas",
       "tool": {
-        "name": "midas=1.3.2",
-        "version": "pyh7cba7a3_7"
+        "name": "midas",
+        "version": "1.3.2"
       },
       "takes": [
         "r1",
@@ -2073,8 +2073,8 @@
       "scope": "sample",
       "process_name": "plasmidfinder",
       "tool": {
-        "name": "plasmidfinder=2.1.6",
-        "version": "py314hdfd78af_2"
+        "name": "plasmidfinder",
+        "version": "2.1.6"
       },
       "takes": [
         "fna"
@@ -3088,6 +3088,16 @@
         ],
         "run_outputs": [
           "csv"
+        ],
+        "assembly": [
+          "fna"
+        ],
+        "assembly_reads": [
+          "fna",
+          "r1",
+          "r2",
+          "se",
+          "lr"
         ]
       },
       "scope": "sample",
@@ -3147,6 +3157,13 @@
         ],
         "run_outputs": [
           "csv"
+        ],
+        "reads": [
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "fna"
         ]
       },
       "scope": "sample",
@@ -3195,7 +3212,14 @@
           "supplemental",
           "error"
         ],
-        "run_outputs": []
+        "run_outputs": [],
+        "reads": [
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "fna"
+        ]
       },
       "scope": "sample",
       "calls": {
@@ -3277,7 +3301,12 @@
           "txt",
           "blastdb"
         ],
-        "run_outputs": []
+        "run_outputs": [],
+        "annotations": [
+          "fna",
+          "faa",
+          "gff"
+        ]
       },
       "scope": "sample",
       "calls": {
@@ -3637,9 +3666,12 @@
           "aln",
           "nwk",
           "tsv"
+        ],
+        "alignment": [
+          "aln"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "clonalframeml"
@@ -3815,7 +3847,7 @@
           "csv"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "fastani",
@@ -3968,9 +4000,12 @@
           "tree_labelled",
           "bootstrap_tree",
           "tsv"
+        ],
+        "alignment": [
+          "aln"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "gubbins"
@@ -4062,14 +4097,14 @@
         "aln"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "nwk",
           "supplemental"
-        ],
-        "run_outputs": []
+        ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "iqtree"
@@ -4291,14 +4326,14 @@
         "fna"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "nwk",
           "tsv",
           "sketches"
-        ],
-        "run_outputs": []
+        ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "mashtree"
@@ -4681,7 +4716,11 @@
           "accessions"
         ],
         "bactopia_tools": [],
-        "run_outputs": []
+        "run_outputs": [],
+        "assemblies": [
+          "fna"
+        ],
+        "reference": []
       },
       "scope": "sample",
       "calls": {
@@ -4782,16 +4821,16 @@
         "gff"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "filtered_aln",
           "csv",
           "panaroo_csv",
           "supplemental"
-        ],
-        "run_outputs": []
+        ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "panaroo_run"
@@ -4834,7 +4873,7 @@
           "csv"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "subworkflows": [
           "pirate",
@@ -4957,14 +4996,14 @@
         "gff"
       ],
       "emits": {
-        "sample_outputs": [
+        "sample_outputs": [],
+        "run_outputs": [
           "aln",
           "csv",
           "supplemental"
-        ],
-        "run_outputs": []
+        ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "pirate"
@@ -5075,7 +5114,15 @@
           "tsv",
           "blastdb"
         ],
-        "run_outputs": []
+        "run_outputs": [],
+        "annotations": [
+          "fna",
+          "faa",
+          "gff"
+        ],
+        "gffs": [
+          "gff"
+        ]
       },
       "scope": "sample",
       "calls": {
@@ -5171,7 +5218,7 @@
           "supplemental"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "roary"
@@ -5233,7 +5280,7 @@
         "sample_outputs": [],
         "run_outputs": []
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "scoary"
@@ -5270,11 +5317,34 @@
         "nohuman_save_as_tarball"
       ],
       "emits": {
-        "sample_outputs": [],
-        "scrubbed": [],
-        "scrubbed_extra": [],
-        "special_tsv": [],
-        "run_outputs": []
+        "sample_outputs": [
+          "special_meta",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "scrub_report"
+        ],
+        "run_outputs": [
+          "csv"
+        ],
+        "scrubbed": [
+          "r1",
+          "r2",
+          "se",
+          "lr"
+        ],
+        "scrubbed_extra": [
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "fna"
+        ],
+        "special_tsv": [
+          "special_meta",
+          "scrub_report"
+        ]
       },
       "scope": "sample",
       "calls": {
@@ -5525,9 +5595,12 @@
           "samples",
           "supplemental",
           "tsv"
+        ],
+        "alignment": [
+          "aln"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "snippy_core"
@@ -5611,7 +5684,7 @@
           "tsv"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "snpdists"
@@ -5774,7 +5847,7 @@
           "csv"
         ]
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "subworkflows": [
           "agrvate",
@@ -6012,7 +6085,7 @@
         "sample_outputs": [],
         "run_outputs": []
       },
-      "scope": "sample",
+      "scope": "run",
       "calls": {
         "modules": [
           "bactopia_teton",

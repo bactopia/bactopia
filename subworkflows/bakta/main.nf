@@ -52,6 +52,11 @@
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  *
  * @output run_outputs
+ *
+ * @output annotations
+ * - `fna`: Annotated nucleotide sequences in FASTA format
+ * - `faa`: Protein sequences in FASTA format
+ * - `gff`: Annotations in GFF3 format
  */
 nextflow.preview.types = true
 

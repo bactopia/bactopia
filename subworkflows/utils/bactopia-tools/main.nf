@@ -21,6 +21,7 @@
  * @output proteins               Protein sequences: record(meta, proteins)
  * @output gff                    Annotation file: record(meta, gff)
  * @output gbff                   GenBank file: record(meta, gbff)
+ * @output blastdb                BLAST database: record(meta, blastdb)
  */
 nextflow.preview.types = true
 

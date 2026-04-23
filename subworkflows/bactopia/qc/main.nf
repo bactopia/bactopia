@@ -42,6 +42,13 @@
  * - `error`: Captured error messages if QC failed (e.g., reads empty after trimming)
  *
  * @output run_outputs
+ *
+ * @output reads
+ * - `r1?`: QC-filtered Illumina R1 reads
+ * - `r2?`: QC-filtered Illumina R2 reads
+ * - `se?`: QC-filtered single-end reads
+ * - `lr?`: QC-filtered long reads
+ * - `fna?`: Assembly file (passed through for assembly-based samples)
  */
 nextflow.preview.types = true
 

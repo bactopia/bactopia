@@ -18,13 +18,13 @@
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
  * @output sample_outputs
- *   - `aln`: Core genome alignment in FASTA format (optional)
- *   - `filtered_aln`: Core genome alignment with recombinant regions filtered out (optional)
- *   - `csv`: Gene presence/absence matrix in Roary-compatible CSV format (optional)
- *   - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
- *   - `supplemental`: Directory containing Panaroo intermediate files and data structures
  *
  * @output run_outputs
+ * - `aln`: Core genome alignment in FASTA format (optional)
+ * - `filtered_aln`: Core genome alignment with recombinant regions filtered out (optional)
+ * - `csv`: Gene presence/absence matrix in Roary-compatible CSV format (optional)
+ * - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
+ * - `supplemental`: Directory containing Panaroo intermediate files and data structures
  */
 nextflow.preview.types = true
 

@@ -29,6 +29,13 @@
  *
  * @output run_outputs
  * - `csv`: Aggregated metadata from all samples
+ *
+ * @output reads
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
+ * - `fna?`: Assembly file for assembly-based samples
  */
 // bactopia-lint: ignore S013
 nextflow.preview.types = true

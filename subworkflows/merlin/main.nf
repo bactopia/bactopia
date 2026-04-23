@@ -43,8 +43,12 @@
  * Staphylococcus aureus repeat order file for spa typing (optional)
  *
  * @output sample_outputs
+ * Mixed per-sample records from merlindist and all activated species-specific typing
+ * subworkflows (e.g., ectyper, sistr, kleborate). Each record carries tool-specific fields.
  *
  * @output run_outputs
+ * Mixed aggregated results from all activated species-specific typing subworkflows.
+ * Each record contains tool-specific cross-sample summaries.
  */
 nextflow.preview.types = true
 

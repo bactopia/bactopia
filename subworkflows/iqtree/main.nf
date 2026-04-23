@@ -20,11 +20,11 @@
  * - `aln`: Multiple sequence alignment in FASTA format
  *
  * @output sample_outputs
+ *
+ * @output run_outputs
  * - `aln`: Input multiple sequence alignment (passed through)
  * - `nwk`: Maximum-likelihood phylogenetic tree in Newick format
  * - `supplemental`: Detailed report, distance matrix, and model parameters
- *
- * @output run_outputs
  */
 nextflow.preview.types = true
 

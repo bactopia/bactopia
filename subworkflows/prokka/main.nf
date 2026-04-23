@@ -37,6 +37,14 @@
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases
  *
  * @output run_outputs
+ *
+ * @output annotations
+ * - `fna`: Annotated nucleotide sequences in FASTA format
+ * - `faa`: Protein sequences in FASTA format
+ * - `gff`: Annotations in GFF3 format
+ *
+ * @output gffs
+ * - `gff`: GFF3 annotation file for pangenome analysis
  */
 nextflow.preview.types = true
 

@@ -36,6 +36,9 @@
  * - `samples`: List of samples included in the core alignment
  * - `supplemental`: Individual sample alignments and intermediate files
  * - `tsv`: Pairwise SNP distance matrix from snp-dists
+ *
+ * @output alignment
+ * - `aln`: Core-SNP alignment for downstream phylogenetic analysis
  */
 nextflow.preview.types = true
 

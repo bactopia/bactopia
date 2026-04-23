@@ -18,11 +18,11 @@
  * - `gff`: Set of GFF3 annotation files representing the genomic annotations for each sample
  *
  * @output sample_outputs
- *   - `aln`: Core genome alignment in FASTA format (optional)
- *   - `csv`: Gene presence/absence matrix in CSV format
- *   - `supplemental`: Directory containing PIRATE intermediate files and detailed outputs
  *
  * @output run_outputs
+ * - `aln`: Core genome alignment in FASTA format (optional)
+ * - `csv`: Gene presence/absence matrix in CSV format
+ * - `supplemental`: Directory containing PIRATE intermediate files and detailed outputs
  */
 nextflow.preview.types = true
 

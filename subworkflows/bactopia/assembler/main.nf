@@ -32,6 +32,16 @@
  *
  * @output run_outputs
  * - `csv`: Aggregated assembly statistics from all samples
+ *
+ * @output assembly
+ * - `fna`: Assembled contigs for downstream annotation and analysis
+ *
+ * @output assembly_reads
+ * - `fna`: Assembled contigs
+ * - `r1?`: Illumina R1 reads (paired-end forward)
+ * - `r2?`: Illumina R2 reads (paired-end reverse)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
  */
 // bactopia-lint: ignore S013
 nextflow.preview.types = true

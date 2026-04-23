@@ -32,6 +32,9 @@
  * - `aln`: Input multiple sequence alignment (passed through from IQ-TREE)
  * - `nwk`: Quick-start maximum-likelihood phylogenetic tree from IQ-TREE
  * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
+ *
+ * @output alignment
+ * - `aln`: Recombination-masked alignment for downstream phylogenetic analysis
  */
 nextflow.preview.types = true
 

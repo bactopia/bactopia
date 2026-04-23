@@ -33,11 +33,33 @@
  * @input nohuman_save_as_tarball
  * Boolean flag to save downloaded nohuman database as tarball
  *
- * @output sample_outputs  Per-sample module record from the selected scrubbing tool
- * @output scrubbed        Clean metagenomic reads after contaminant removal
- * @output scrubbed_extra  Additional cleaned reads for extended filtering
- * @output special_tsv     Contamination reports keyed by special_meta for downstream joining
- * @output run_outputs     Merged contamination reports across all samples from CSVTK_CONCAT
+ * @output sample_outputs
+ * - `special_meta`: Simplified metadata record for downstream report joining
+ * - `r1?`: Scrubbed paired-end forward reads
+ * - `r2?`: Scrubbed paired-end reverse reads
+ * - `se?`: Scrubbed single-end reads
+ * - `lr?`: Scrubbed long reads
+ * - `scrub_report`: Contamination removal statistics report
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated contamination reports across all samples
+ *
+ * @output scrubbed
+ * - `r1?`: Scrubbed paired-end forward reads
+ * - `r2?`: Scrubbed paired-end reverse reads
+ * - `se?`: Scrubbed single-end reads
+ * - `lr?`: Scrubbed long reads
+ *
+ * @output scrubbed_extra
+ * - `r1?`: Scrubbed paired-end forward reads
+ * - `r2?`: Scrubbed paired-end reverse reads
+ * - `se?`: Scrubbed single-end reads
+ * - `lr?`: Scrubbed long reads
+ * - `fna?`: Assembly file (passed through)
+ *
+ * @output special_tsv
+ * - `special_meta`: Simplified metadata record for downstream report joining
+ * - `scrub_report`: Contamination removal statistics report
  */
 nextflow.preview.types = true
 
