@@ -66,10 +66,10 @@ process ASSEMBLER {
         // Named fields (used downstream)
         meta: meta,
         fna: file("${prefix}.{fna,fna.gz}", optional: true),
-        r1: r1 != null ? file("${r1}", optional: true) : null,
-        r2: r2 != null ? file("${r2}", optional: true) : null,
-        se: se != null ? file("${se}", optional: true) : null,
-        lr: lr != null ? file("${lr}", optional: true) : null,
+        r1: file("${prefix}_R1.fastq.gz", optional: true),
+        r2: file("${prefix}_R2.fastq.gz", optional: true),
+        se: file("${prefix}_SE.fastq.gz", optional: true),
+        lr: file("${prefix}_ONT.fastq.gz", optional: true),
         tsv: file("${prefix}.tsv", optional: true),
         // Generic fields (used for publishing)
         results: [
@@ -139,6 +139,10 @@ process ASSEMBLER {
         sed -r 's/^>([0-9]+)(.*)/>${prefix}_\\1\\2/' supplemental/assembly.fasta > ${prefix}.fna
         mv supplemental/assembly.fasta supplemental/unicycler-unpolished.fasta
         mv supplemental/assembly.gfa supplemental/unicycler-unpolished.gfa
+
+        # Illumina FASTQs should be used downstream
+        cp -L ${r1} ${prefix}_R1.fastq.gz
+        cp -L ${r2} ${prefix}_R2.fastq.gz
     elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" ]]; then
         #======================================================================================
         # Dragonflye Assembler
@@ -163,6 +167,9 @@ process ASSEMBLER {
             fi
         fi
         mv supplemental/contigs.fa ${prefix}.fna
+
+        # ONT FASTQ should be used downstream
+        cp -L ${lr} ${prefix}_ONT.fastq.gz
     else
         #======================================================================================
         # Shovill Assembler
@@ -198,6 +205,14 @@ process ASSEMBLER {
         if [ -f "supplemental/flye-info.txt" ]; then
             mv supplemental/flye-info.txt supplemental/flye.log
         fi
+
+        # Illumina FASTQs should be used downstream
+        if [ "${meta.single_end}" == "false" ]; then
+            cp -L ${r1} ${prefix}_R1.fastq.gz
+            cp -L ${r2} ${prefix}_R2.fastq.gz
+        else
+            cp -L ${se} ${prefix}_SE.fastq.gz
+        fi 
     fi
 
     #==========================================================================================
