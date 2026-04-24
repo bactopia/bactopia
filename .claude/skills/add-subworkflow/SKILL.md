@@ -14,7 +14,7 @@ Scaffold a Bactopia subworkflow that orchestrates one or more existing modules. 
 
 ## What a Subworkflow Contains
 
-A subworkflow is a single `main.nf` file plus optional tests:
+A subworkflow is a single `main.nf` file plus tests:
 
 ```
 subworkflows/{tool}/
@@ -37,8 +37,9 @@ Ask the user:
 
 1. **Which modules does this subworkflow use?** Get the module paths (e.g., `modules/nohuman/run`, `modules/mlst`).
    - Read each module's `main.nf` to understand its inputs and outputs.
+   - **Does it call other subworkflows?** If so, use `@subworkflows` tag (not `@modules`) for those includes.
 
-2. **Does it need result aggregation?** Most subworkflows aggregate per-sample results into a merged file using `CSVTK_CONCAT`. Ask:
+2. **Does it need result aggregation?** Most subworkflows aggregate per-sample results into a merged file using `CSVTK_CONCAT` + `gatherCsvtk()`. Ask:
    - Which output field should be aggregated? (e.g., `tsv`, `report`, `csv`)
    - What format? (`tsv` or `csv`)
    - If no aggregation needed, skip CSVTK_CONCAT.
@@ -46,342 +47,134 @@ Ask the user:
 3. **What inputs does the subworkflow take?** Derive from the primary module's inputs:
    - Assembly: `assembly: Channel<Record>`
    - Reads: `reads: Channel<Record>`
-   - Database: `db: Path`
-   - Other parameters: `param: Type`
+   - Database: `db: Path` or `db: Path?`
 
-4. **Subworkflow name**: UPPER_CASE matching the tool (e.g., `MLST`, `NOHUMAN`, `ABRICATE`)
+4. **What are the tool's outputs?** (Used for `@output` GroovyDoc tags)
 
-### Phase 2: Generate Files
+5. **Citation key and keywords** for GroovyDoc
 
-#### File 1: main.nf
+6. **Tool identity:**
+   - Tool name (snake_case) -- used for directory and process name
+   - Display name -- for GroovyDoc
+   - One-sentence description
 
-Determine which pattern to use based on complexity:
-
-**Pattern A: Simple -- single module + aggregation (most common)**
-
-Use when: one module, one aggregation step.
-
-```groovy
-/**
- * One-sentence summary of what this subworkflow does.
- *
- * This subworkflow uses [{ToolName}]({github_url}) to {description}.
- * It processes each sample individually and aggregates the results into
- * a single consolidated report.
- *
- * @status stable
- * @keywords {comma, separated, keywords}
- * @tags complexity:{simple|moderate} input-type:single output-type:multiple features:aggregation{,database-dependent}
- * @citation {tool}
- *
- * @modules csvtk_concat, {tool_module}
- *
- * @input record(meta, {input_field})
- * - `meta`: Groovy Record containing sample information
- * - `{input_field}`: {Description}
- *
- * @input {additional_input}
- * {Description of additional input}
- *
- * @output sample_outputs
- * - `{field}`: {Description of tool-specific output}
- *
- * @output run_outputs
- * - `csv`: A merged {format} file with {tool} results from all samples
- */
-nextflow.preview.types = true
-
-include { {TOOL} as {TOOL}_MODULE } from '../../modules/{tool_path}/main'
-include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'
-include { gather                  } from 'plugin/nf-bactopia'
-
-workflow {WORKFLOW_NAME} {
-    take:
-    {input_name}: Channel<Record>
-    {additional_inputs}
-
-    main:
-    {TOOL}_MODULE({input_name}{, additional_args})
-    CSVTK_CONCAT(gather({TOOL}_MODULE.out, '{field}', [name: '{tool}']), '{format}', '{format}')
-
-    emit:
-    // Published outputs
-    sample_outputs = {TOOL}_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
-}
-```
-
-**Pattern B: Simple -- single module, no aggregation**
-
-Use when: one module, output doesn't need merging (e.g., read scrubbing, annotation).
-
-```groovy
-nextflow.preview.types = true
-
-include { {TOOL} as {TOOL}_MODULE } from '../../modules/{tool_path}/main'
-
-workflow {WORKFLOW_NAME} {
-    take:
-    {input_name}: Channel<Record>
-    {additional_inputs}
-
-    main:
-    {TOOL}_MODULE({input_name}{, additional_args})
-
-    emit:
-    // Published outputs
-    sample_outputs = {TOOL}_MODULE.out
-    run_outputs = channel.empty()
-}
-```
-
-**Pattern C: Multi-module -- chained modules**
-
-Use when: module output feeds into another module.
-
-```groovy
-include { MODULE_A as MODULE_A_RUN } from '../../modules/{path_a}/main'
-include { MODULE_B as MODULE_B_RUN } from '../../modules/{path_b}/main'
-include { CSVTK_CONCAT             } from '../../modules/csvtk/concat/main'
-include { gather                   } from 'plugin/nf-bactopia'
-
-workflow {WORKFLOW_NAME} {
-    take:
-    {input_name}: Channel<Record>
-
-    main:
-    MODULE_A_RUN({input_name})
-    MODULE_B_RUN(MODULE_A_RUN.out.map { r ->
-        record(_meta: r.meta, {field}: r.{field})
-    })
-    CSVTK_CONCAT(gather(MODULE_B_RUN.out, '{field}', [name: '{tool}']), '{format}', '{format}')
-
-    emit:
-    // Published outputs
-    sample_outputs = MODULE_A_RUN.out.mix(MODULE_B_RUN.out)
-    run_outputs = CSVTK_CONCAT.out
-}
-```
-
-**Pattern D: Download + run -- conditional database download**
-
-Use when: module has a separate download module for its database.
-
-```groovy
-include { {TOOL}_DOWNLOAD              } from '../../modules/{tool}/download/main'
-include { {TOOL}_RUN as {TOOL}_MODULE  } from '../../modules/{tool}/run/main'
-include { CSVTK_CONCAT                 } from '../../modules/csvtk/concat/main'
-include { gather                       } from 'plugin/nf-bactopia'
-
-workflow {WORKFLOW_NAME} {
-    take:
-    {input_name}: Channel<Record>
-    database: Path?
-    download_{tool}: Boolean
-    save_as_tarball: Boolean
-
-    main:
-    if (download_{tool}) {
-        {TOOL}_DOWNLOAD()
-
-        if (save_as_tarball) {
-            {TOOL}_MODULE({input_name}, {TOOL}_DOWNLOAD.out.map { r -> r.db_tarball })
-        } else {
-            {TOOL}_MODULE({input_name}, {TOOL}_DOWNLOAD.out.map { r -> r.db })
-        }
-    } else {
-        {TOOL}_MODULE({input_name}, database)
-    }
-    CSVTK_CONCAT(gather({TOOL}_MODULE.out, '{field}', [name: '{tool}']), '{format}', '{format}')
-
-    emit:
-    // Published outputs
-    sample_outputs = {TOOL}_MODULE.out
-    run_outputs = CSVTK_CONCAT.out
-}
-```
-
-**Important notes for Pattern D:**
-- Download modules emit records: extract fields with `.out.map { r -> r.db }`, NOT `.out.db`
-- Download modules should emit `db` (directory), `db_tarball` (compressed), and `logs`
-- `database` parameter is `Path?` (nullable) since it's unused when downloading
-
-**Key rules for main.nf:**
-- ALWAYS include `nextflow.preview.types = true` before the workflow
-- Module aliases: use `{TOOL} as {TOOL}_MODULE` to avoid name conflicts with the workflow
-- Include paths: `../../modules/{path}/main` (relative from `subworkflows/{tool}/`)
-- CSVTK_CONCAT include: `../../modules/csvtk/concat/main`
-- gather import: `from 'plugin/nf-bactopia'`
-- Use 4 spaces for indentation
-- gather() args: `(module.out, 'fieldName', [name: 'tool-name'])`
-- CSVTK_CONCAT args: `(gathered_channel, 'input_format', 'output_format')`
-
-#### File 2: tests/main.nf.test
-
-```groovy
-nextflow_workflow {
-    name "Test {WORKFLOW_NAME} Subworkflow"
-    script "../main.nf"
-    workflow "{WORKFLOW_NAME}"
-    tag "subworkflows"
-    tag "{tool}"
-
-    test("{tool} - subworkflow - {sample_id}") {
-        when {
-            params {
-                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
-            }
-            workflow {
-                """
-                input[0] = Channel.of(
-                    record(
-                        _meta: [name: "{sample_id}"],
-                        {input_field}: file("${params.test_data_dir}/data/species/{species}/genome/{sample_id}.fna.gz")
-                    )
-                )
-                """
-            }
-        }
-
-        then {
-            def sample = workflow.out.sample_outputs[0]
-            def run = workflow.out.run_outputs[0]
-            assertAll(
-                { assert workflow.success },
-                { assert workflow.out.sample_outputs != null },
-                { assert workflow.out.run_outputs != null },
-                { assert snapshot(
-                    sample.meta,
-                    sample.{output_field},
-                    sample.versions,
-                    run.meta,
-                    run.versions
-                ).match() },
-                { assert sample.results != null },
-                { assert run.csv != null },
-                { assert run.results != null }
-            )
-        }
-    }
-}
-```
-
-**Note:** All subworkflows now emit both `sample_outputs` and `run_outputs` (using `channel.empty()` when no aggregation). Tests should always assert both exist.
-
-**Default test data:** Same as add-module -- Portiera for assembly, Portiera reads for read-based.
-
-#### File 3: tests/nextflow.config
-
-```groovy
-// Minimal config for subworkflow-level testing of {WORKFLOW_NAME}
-nextflow.preview.types = true
-nextflow.enable.strict = true
-
-params {
-    workflow {
-        name = "{tool}"
-        logo_name = "bactopia-tools"
-        description = "{Tool description}"
-        ext = "fna"
-    }
-    bactopia_version = '4.0.0'
-    bactopia_cache = System.getenv("BACTOPIA_CACHEDIR") ?: "${System.getenv('HOME')}/.bactopia"
-    condadir = "${params.bactopia_cache}/conda"
-    wf = params.workflow.name
-    merge_folder = "merged-results"
-    test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
-    is_ci = true
-    max_retry = 1
-    max_time = 2.h
-    max_memory = 8.GB
-    max_cpus = 2
-    registry = "quay.io"
-    singularity_cache = "${params.bactopia_cache}/singularity"
-    singularity_pull_docker_container = false
-    container_opts = ""
-}
-
-// Load module configs for ALL processes used by this subworkflow
-includeConfig "../../../modules/{tool_path}/module.config"
-includeConfig "../../../modules/csvtk/concat/module.config"
-
-// Base config (container resolution + resource labels)
-includeConfig "../../../conf/base.config"
-includeConfig "../../../conf/profiles.config"
-
-// Plugin
-plugins {
-    id 'nf-bactopia@2.0.2'
-}
-```
-
-**Critical:** The nextflow.config MUST include module.config for EVERY module called by the subworkflow, including CSVTK_CONCAT if used. For multi-process modules, use the full path (e.g., `../../../modules/bakta/run/module.config`).
-
-#### File 4: tests/nf-test.config
-
-Identical across all subworkflows:
-
-```groovy
-config {
-    testsDir "."
-    workDir System.getenv("NFT_WORKDIR") ?: ".nf-test"
-    configFile "nextflow.config"
-    profile "docker"
-    options "--is_ci --max_memory 8.GB"
-
-    plugins {
-        load "nft-utils@0.0.5"
-    }
-}
-```
-
-#### File 5: tests/.nftignore
-
-Standard for subworkflow tests:
-
-```
-**/*.{err,log,stderr,stdout}
-**/*.command.*
-```
+7. **Test data** -- which species/sample and any dataset paths
 
 ---
 
-### Phase 3: Summary
+### Phase 2: File Generation
 
-Present:
-1. List of all files created
-2. Remaining integration steps:
-   - Create workflow entry point (future `add-workflow` skill)
-   - Run tests: `cd subworkflows/{tool}/tests && nf-test test main.nf.test --update-snapshot`
+**Goal:** Generate the 5 subworkflow files using `bactopia-scaffold`.
 
-## Reference
+1. Also run the lookup command if package info is needed:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh lookup {package_name} --bactopia-path . --pretty
+   ```
 
-### gather() Function
+2. Construct the JSON config from the design decisions. Write it to `/tmp/scaffold-config.json`:
 
-```groovy
-gather(moduleOutput, fieldName, options)
-```
+   ```json
+   {
+       "tool": "{tool_name}",
+       "display_name": "{DisplayName}",
+       "description": "{One-sentence description}",
+       "process_name": "{TOOL_NAME}",
+       "package": "{package_name}",
+       "version": "{version}",
+       "build": "{build}",
+       "home_url": "{github_url}",
+       "input_type": "assembly",
+       "has_database": false,
+       "handles_gz": false,
+       "layout": "flat",
+       "resource_label": "process_low",
+       "version_command": "{version_command}",
+       "citation_key": "{citation_key}",
+       "keywords": ["{keyword1}", "{keyword2}"],
+       "aggregation": {
+           "strategy": "csvtk_concat",
+           "field": "{output_field}",
+           "format": "{tsv|csv}"
+       },
+       "outputs": [
+           {"name": "{field}", "extension": "{ext}", "description": "{desc}"}
+       ],
+       "parameters": [],
+       "container_refs": {
+           "toolName": "{from lookup}",
+           "docker": "{from lookup}",
+           "image": "{from lookup}"
+       },
+       "test_species": "{species}",
+       "test_sample_id": "{sample_id}",
+       "test_data_path": "{compressed_path}"
+   }
+   ```
 
-- `moduleOutput`: The `.out` channel from a module (e.g., `MLST_MODULE.out`)
-- `fieldName`: Name of the record field to extract and aggregate (e.g., `'tsv'`, `'report'`)
-- `options`: Map with at least `name` key: `[name: 'tool-name']`
-  - `name`: Used as the merge folder name and meta.id
-  - Optional: `args` for CSVTK_CONCAT args, `process_name` override
+   For database-dependent subworkflows, also include:
+   ```json
+   {
+       "database": {
+           "param_name": "{tool}_db",
+           "test_path": "datasets/{tool}/{db_file}"
+       }
+   }
+   ```
 
-### CSVTK_CONCAT Arguments
+3. Run the scaffold command:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh subworkflow --config /tmp/scaffold-config.json --bactopia-path . --pretty
+   ```
 
-```groovy
-CSVTK_CONCAT(gathered_channel, input_format, output_format)
-```
+4. The command creates 5 files:
+   - `subworkflows/{tool}/main.nf`
+   - `subworkflows/{tool}/tests/main.nf.test`
+   - `subworkflows/{tool}/tests/nextflow.config`
+   - `subworkflows/{tool}/tests/nf-test.config`
+   - `subworkflows/{tool}/tests/.nftignore`
 
-- `input_format`: `'tsv'` or `'csv'`
-- `output_format`: `'tsv'` or `'csv'`
+---
 
-### Module Aliasing Convention
+### Phase 3: Review & Customize
 
-Always alias modules to avoid name conflicts with the workflow:
-```groovy
-include { MLST as MLST_MODULE } from '../../modules/mlst/main'
-```
+**Goal:** Review generated files and make tool-specific adjustments.
 
-The workflow name and the module name would otherwise collide.
+1. **Subworkflow `main.nf`** -- review and customize:
+   - The `@input` GroovyDoc should match the subworkflow's take channel name
+   - For the CSVTK_CONCAT pattern, verify the gather field and format are correct
+   - If the subworkflow uses modules not in the standard pattern (e.g., calls other subworkflows), add the appropriate `@subworkflows` tag and adjust includes
+   - The `@modules` tag should use underscore-delimited directory keys: `csvtk_concat`, `{tool}`
+
+2. **Test `nextflow.config`** -- verify it includes ALL module.configs for processes in the subworkflow:
+   - The primary module's config
+   - `csvtk/concat/module.config` if using CSVTK_CONCAT
+   - Any other module configs
+
+3. **Test `main.nf.test`** -- verify:
+   - Test data paths match the species/sample chosen
+   - Database input lines are present if needed
+   - Snapshot fields include the right output field names
+
+4. **List all created files** with full paths.
+
+5. **Remind the user** that the subworkflow needs a workflow entry point to be usable -- use `/add-bactopia-tool` if this is a standalone bactopia-tool.
+
+---
+
+## Subworkflow Patterns
+
+The scaffold generates one of three patterns based on the `aggregation.strategy`:
+
+| Strategy | Pattern | Include | Emit |
+|----------|---------|---------|------|
+| `csvtk_concat` | CSVTK_CONCAT aggregation | `gatherCsvtk` from plugin | `sample_outputs` + `run_outputs` |
+| `dedicated_summary` | Tool's own summary command | `gatherFields` from plugin | `sample_outputs` + `run_outputs` |
+| `none` | No aggregation | No plugin | `sample_outputs` + `Channel.empty()` |
+
+**CSVTK_CONCAT** is the default and most common (~80% of subworkflows).
+
+## Edge Cases
+
+1. **Multi-module subworkflows** (e.g., snippy + snpdists + gubbins): The scaffold generates a single-module pattern. For complex orchestration, generate the scaffold then manually adjust the includes and channel wiring.
+
+2. **Composite subworkflows** that call other subworkflows: Add `@subworkflows` tag manually and adjust includes to point to `../../subworkflows/{name}/main` instead of `../../modules/{name}/main`.
