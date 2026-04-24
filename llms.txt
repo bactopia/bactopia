@@ -23,7 +23,7 @@ All components use standardized GroovyDoc documentation and static typing.
 - [workflows/cleanyerreads/](workflows/cleanyerreads/): Quality control and optional host read removal from raw sequencing reads.
 - [workflows/staphopia/](workflows/staphopia/): Comprehensive analysis pipeline for Staphylococcus aureus isolates.
 - [workflows/teton/](workflows/teton/): Taxonomic classification and abundance profiling of metagenomic reads.
-- [workflows/bactopia-tools/](workflows/bactopia-tools/): 66 comparative analysis workflows (pan-genome, phylogenetics, typing)
+- [workflows/bactopia-tools/](workflows/bactopia-tools/): 67 comparative analysis workflows (pan-genome, phylogenetics, typing)
 
 ## Subworkflows (Tier 2)
 
@@ -34,7 +34,7 @@ All components use standardized GroovyDoc documentation and static typing.
 
 ## Modules (Tier 3)
 
-97 tool-specific modules live under `modules/`. Each module directory contains:
+98 tool-specific modules live under `modules/`. Each module directory contains:
 - `main.nf`: Process definition with GroovyDoc header
 - `meta.yml`: Tool metadata, inputs, outputs, and parameter descriptions
 - `tests/`: nf-test test cases

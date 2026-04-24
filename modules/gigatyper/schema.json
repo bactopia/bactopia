@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/gigatyper/schema.json",
+    "title": "GigaTyper Module",
+    "description": "A module for run all available mlst schemes for a species against an assembly",
+    "type": "object",
+    "$defs": {
+        "gigatyper_parameters": {
+            "title": "GigaTyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gigatyper_species": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Force a specific species for scheme selection",
+                    "fa_icon": "fas fa-font"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gigatyper_parameters"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "gigatyper - subworkflow - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-GIGATYPER:GIGATYPER_MODULE",
+                "logs_dir": "GCF_001695515/tools/gigatyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/gigatyper/",
+                "process_name": "gigatyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,b9779736e54ac64cb867c2e3c6915892",
+            [
+                "versions.yml:md5,ab76006394d39e7aa3fe18f7f5d78b95"
+            ],
+            {
+                "id": "gigatyper-GIGATYPER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/gigatyper-concat/",
+                "name": "gigatyper",
+                "output_dir": "merged-results",
+                "process_name": "gigatyper-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,59922891ac61f5298b927f8e43eb5ae6"
+            ]
+        ],
+        "timestamp": "2026-04-24T17:19:01.384580023",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.03.1"
+        }
+    }
+}

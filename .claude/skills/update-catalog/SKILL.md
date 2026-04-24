@@ -9,11 +9,11 @@ Regenerate the machine-readable Bactopia component index (`catalog.json`) and th
 
 ## Steps
 
-1. **Check for uncommitted local edits** to `catalog.json` and `llms.txt`. Run:
+1. **Tell the user** you are checking for uncommitted local edits to `catalog.json` and `llms.txt`, then run:
     ```
     git -C /home/rpetit3/repos/bactopia/bactopia status --porcelain catalog.json llms.txt
     ```
-    If either file is dirty, show the user the diff and confirm before overwriting. `bactopia-catalog` has no `--force` flag and silently clobbers existing output files, so this check is the user's only safety net against losing in-flight edits.
+    If either file is dirty, show the user the diff and confirm before overwriting. `bactopia-catalog` has no `--force` flag and silently clobbers existing output files, so this check is the user's only safety net against losing in-flight edits. If neither file is dirty, proceed directly to Step 2.
 
 2. **Run the wrapper** to regenerate both files in one invocation:
     ```

@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-04-23T19:52:32Z",
+  "generated": "2026-04-24T23:21:23Z",
   "bactopia_version": "4.0.0",
-  "bactopia_py_version": "2.1.1",
-  "nf_bactopia_version": "2.0.2",
+  "bactopia_py_version": "2.1.2",
+  "nf_bactopia_version": "2.0.3",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",
@@ -1158,6 +1158,28 @@
         "features": [
           "conditional-logic"
         ]
+      }
+    },
+    "gigatyper": {
+      "description": "Run all available MLST schemes for a species against an assembly",
+      "path": "modules/gigatyper/",
+      "scope": "sample",
+      "process_name": "gigatyper",
+      "tool": {
+        "name": "gigatyper",
+        "version": "1.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": []
       }
     },
     "gtdbtk_classifywf": {
@@ -3940,6 +3962,36 @@
         ]
       }
     },
+    "gigatyper": {
+      "description": "Run all available MLST schemes for a species against an assembly",
+      "path": "subworkflows/gigatyper/",
+      "takes": [
+        "fna"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "gigatyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
     "gtdb": {
       "description": "Taxonomic classification with the Genome Taxonomy Database.",
       "path": "subworkflows/gtdb/",
@@ -6354,6 +6406,17 @@
       ],
       "subworkflows": [
         "genotyphi"
+      ]
+    },
+    "gigatyper": {
+      "description": "Run all available MLST schemes for a species against an assembly",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/gigatyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "gigatyper"
       ]
     },
     "gtdb": {
