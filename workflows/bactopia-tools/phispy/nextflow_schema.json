@@ -91,7 +91,7 @@
                 },
                 "phispy_opts": {
                     "type": "string",
-                    "description": "Extra options in quotes for Snippy",
+                    "description": "Extra options in quotes for PhiSpy",
                     "fa_icon": "fas fa-font"
                 }
             }
