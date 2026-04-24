@@ -60,6 +60,10 @@ process ASSEMBLER {
 
     stage:
     stageAs fna, "staging/fna/*"
+    stageAs r1,  "staging/reads/r1/*"
+    stageAs r2,  "staging/reads/r2/*"
+    stageAs se,  "staging/reads/se/*"
+    stageAs lr,  "staging/reads/lr/*"
 
     output:
     record(
@@ -123,6 +127,19 @@ process ASSEMBLER {
         # Skip assembly and use provided assembly
         echo "Using provided assembly for ${prefix} without re-assembly." > supplemental/assembly-info.txt
         gzip -cd ${fna} > ${prefix}.fna
+
+        # passthrough correct reads for downstream analysis
+        if [[ "${meta.runtype}" == "short_polish" ]] || [[ "${meta.runtype}" == "ont" ]]; then
+            cp -L ${lr} ${prefix}_ONT.fastq.gz
+            touch supplemental/ont.txt
+        elif [[ "${meta.single_end}" == "true" ]]; then
+            cp -L ${se} ${prefix}_SE.fastq.gz
+            touch supplemental/illumina.txt
+        else
+            cp -L ${r1} ${prefix}_R1.fastq.gz
+            cp -L ${r2} ${prefix}_R2.fastq.gz
+            touch supplemental/illumina.txt
+        fi
     elif [[ "${meta.runtype}" == "hybrid" || "${task.ext.use_unicycler}" == "true" ]]; then
         #======================================================================================
         # Unicycler Assembler
@@ -143,6 +160,7 @@ process ASSEMBLER {
         # Illumina FASTQs should be used downstream
         cp -L ${r1} ${prefix}_R1.fastq.gz
         cp -L ${r2} ${prefix}_R2.fastq.gz
+        touch supplemental/illumina.txt
     elif [[ "${meta.runtype}" == "ont" || "${meta.runtype}" == "short_polish" ]]; then
         #======================================================================================
         # Dragonflye Assembler
@@ -170,6 +188,7 @@ process ASSEMBLER {
 
         # ONT FASTQ should be used downstream
         cp -L ${lr} ${prefix}_ONT.fastq.gz
+        touch supplemental/ont.txt
     else
         #======================================================================================
         # Shovill Assembler
@@ -212,7 +231,8 @@ process ASSEMBLER {
             cp -L ${r2} ${prefix}_R2.fastq.gz
         else
             cp -L ${se} ${prefix}_SE.fastq.gz
-        fi 
+        fi
+        touch supplemental/illumina.txt
     fi
 
     #==========================================================================================

@@ -27,6 +27,15 @@ Before using this skill, read:
 - `.claude/docs/standards/05-module-documentation.md` -- Module GroovyDoc standards
 - `.claude/docs/standards/04-subworkflow-documentation.md` -- Subworkflow GroovyDoc standards
 
+## Interactive Questioning
+
+This skill is interactive -- ask the user early and often, especially before creating files.
+
+- **Multiple questions at once:** Use `AskUserQuestion` popups (up to 4 questions per batch).
+  Mark the recommended option with "(Recommended)" at the end of its label and place it first.
+- **Single simple question:** Just ask in chat, no popup needed.
+- **When in doubt:** Ask. It's cheaper to clarify upfront than to regenerate files.
+
 ## Phased Workflow
 
 Follow these phases in order. When unsure about ANYTHING, ask the user rather than guess.
@@ -57,20 +66,22 @@ Follow these phases in order. When unsure about ANYTHING, ask the user rather th
 
 ### Phase 2: Tool Design
 
-**Goal:** Gather all design decisions in one pass so files can be generated coherently.
+**Goal:** Gather all design decisions using interactive prompts so files can be generated coherently.
+
+**Important:** Use the `AskUserQuestion` tool for structured choices throughout this phase.
+Present up to 4 questions per batch. Mark the recommended option (based on WebFetch findings)
+with "(Recommended)" at the end of its label and place it first in the options list.
 
 1. **Fetch the tool's documentation** using WebFetch on the `home` URL from Phase 1.
    - Extract: command-line options, input file types, output files, version command
    - If WebFetch fails, ask the user directly
 
-2. **Ask the user to confirm or modify** the following (present what you found from docs):
+2. **Batch 1: Core design choices** (AskUserQuestion, up to 4 questions)
 
-   **a. Tool identity:**
-   - Tool name (snake_case, used for directories and param prefixes)
-   - Display name (for GroovyDoc headers)
-   - One-sentence description
+   Based on WebFetch findings, ask these structured questions:
 
-   **b. Input type** -- determines which BACTOPIATOOL_INIT channel to use:
+   **Question 1 -- Input type:**
+   Determines which BACTOPIATOOL_INIT channel to use.
 
    | Input Type | Channel | `params.workflow.ext` | Module record input |
    |---|---|---|---|
@@ -81,45 +92,89 @@ Follow these phases in order. When unsure about ANYTHING, ask the user rather th
    | GFF | `gff` | `['gff']` | `record(meta: Record, gff: Path)` |
    | GenBank | `gbff` | `['gbk']` | `record(meta: Record, gbff: Path)` |
 
-   **c. Additional inputs** -- "Does this tool require a database or other files?"
-   - Database: add `db: Path` as a separate input (affects subworkflow take + workflow params)
-   - Other files: add as typed inputs
+   Options (pick top 3 most relevant, "Other" is auto-added for the rest):
+   - Assembly -- takes FASTA assembly files
+   - Reads -- takes FASTQ read files
+   - Assembly + Reads -- takes both FASTA and FASTQ
 
-   **d. Output files** -- "What output files does this tool produce?"
-   - File extensions, descriptions, single vs multiple
-   - Which field to use for aggregation (e.g., `tsv`, `csv`, `report`)
+   **Question 2 -- Database requirement:**
+   - No database needed
+   - Yes, requires a user-provided database
 
-   **e. Parameters** -- "Which command-line options should be exposed?"
-   - Every parameter MUST be prefixed with the tool name: `{tool}_{param}`
-   - Ask for: name, type (string/integer/number/boolean), default value, description, CLI flag
+   **Question 3 -- Resource label:**
+   - process_low -- 4 CPU, 8GB, 4h (default for most tools)
+   - process_medium -- 8 CPU, 32GB, 12h (BLAST-based, database searches)
+   - process_high -- 12 CPU, 64GB, 24h (memory-intensive)
+   - process_single -- 1 CPU, 4GB, 2h (single-threaded only)
 
-   **f. Resource label:**
-   | Label | When to use |
-   |-------|-------------|
-   | `process_low` | Default for most tools (4 CPU, 8GB, 4h) |
-   | `process_medium` | BLAST-based, database searches (8 CPU, 32GB, 12h) |
-   | `process_high` | Memory-intensive (12 CPU, 64GB, 24h) |
-   | `process_single` | Single-threaded only (1 CPU, 4GB, 2h) |
+   **Question 4 -- Compressed input:**
+   - Yes, handles .gz natively
+   - No, needs decompression first
 
-   **g. Version command** -- how does this tool report its version?
+3. **Run test-data discovery** based on the input type selected in Batch 1:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh test-data --input-type {input_type} --bactopia-path . --pretty
+   ```
+   This returns species/accession combinations already used by similar modules, with
+   pre-computed `test_data_path`, `test_uncompressed_path`, `test_species`, and
+   `test_sample_id` values. Use the returned paths directly in the scaffold config
+   (Phase 3) -- do NOT construct paths manually.
 
-   **h. Compressed input** -- does this tool accept gzipped (.gz) input natively?
+4. **Batch 2: Aggregation and test data** (AskUserQuestion, up to 2 questions)
 
-   **i. Aggregation strategy:**
-   - **CSVTK_CONCAT** (default, most common) -- which output field, tsv or csv format
-   - **Dedicated summary module** (rare -- only when tool has its own aggregation command)
-   - **No aggregation** -- tool doesn't produce per-sample tabular output
+   **Question 1 -- Aggregation strategy:**
+   - CSVTK_CONCAT -- concatenate per-sample tabular output (most common)
+   - Dedicated summary module -- tool has its own aggregation command (rare)
+   - No aggregation -- tool doesn't produce per-sample tabular output
 
-   **j. Citation info** -- citation key, tool name, URL, description, citation text
+   **Question 2 -- Test data species:**
+   Present top 3-4 species from the test-data discovery results. Recommend species that
+   exercise the tool's functionality (e.g., species with multiple MLST schemes for
+   typing tools, species with known resistance genes for AMR tools). Include the accession
+   in each option's description.
 
-   **k. Keywords** for GroovyDoc
+5. **Present auto-detected details for confirmation.**
 
-   **l. Test data** -- which species/sample to use:
-   - Default: `portiera/GCF_000292685` for assembly tools
-   - Species-specific typing tools: `staphylococcus_aureus/GCF_000017085`
-   - Database-dependent: which test dataset path
+   After the structured choices, present these findings from WebFetch in a summary and
+   ask the user to confirm or request changes:
 
-3. **Summarize everything** and ask the user to confirm before generating files.
+   - **Tool identity**: name (snake_case), display name, one-sentence description
+   - **Output files**: extensions, descriptions, aggregation field
+   - **User parameters**: only flags representing user-meaningful analysis choices
+     (identity thresholds, scheme selection, algorithm toggles). Exclude infrastructure
+     params (see below).
+   - **Version command**: how the tool reports its version
+   - **Citation**: key, name, URL, description, citation text
+   - **Keywords**: for GroovyDoc
+
+   **Infrastructure vs. user parameters (do NOT expose these):**
+
+   | Tool flag | Wired to | Where |
+   |-----------|----------|-------|
+   | `--prefix`, `--label`, `--sample-name`, etc. | `prefix` variable (`task.ext.prefix ?: "${_meta.name}"`) | Shell block |
+   | `--threads`, `--cpus`, `-t`, `-p`, etc. | `${task.cpus}` | Shell block or `ext.args` in module.config |
+   | `--output`, `--outdir`, `-o`, etc. | Usually `.` or `${prefix}` | Shell block |
+
+   These are written directly in the module's shell block (e.g., `--prefix ${prefix}`,
+   `--threads ${task.cpus}`). The `prefix` variable is set in every module's script block
+   as `prefix = task.ext.prefix ?: "${_meta.name}"` and carries the sample name.
+
+   Only expose flags that represent **user-meaningful analysis choices**.
+
+   Every user parameter MUST be prefixed with the tool name: `{tool}_{param}`.
+
+   **Parameter defaults:**
+   - Do NOT assume a default is needed. Ask the user whether each parameter should have
+     a specific default value.
+   - If a string parameter needs a default, use an empty string `""`, never `null`.
+   - Only include a parameter in the config's `"parameters"` array if the user confirms
+     it should be exposed.
+
+6. **Final confirmation** (AskUserQuestion, 1 question)
+
+   After presenting the summary, ask:
+   - Looks good, proceed to file generation
+   - I need to make changes (user provides details via "Other" or notes)
 
 ---
 
@@ -202,7 +257,8 @@ The templates produce correct scaffolds but many tools need customization:
    - The actual tool command, flags, and I/O handling
    - Input decompression logic (if the tool doesn't handle .gz)
    - Database extraction logic (if database-dependent)
-   - Any cleanup steps
+   - **Always preserve the `# Cleanup` comment line** -- even if empty, it marks where
+     cleanup steps go and keeps the shell block structure consistent across all modules
    - Version extraction command
 
 2. **Module `module.config`** -- review the `ext.args` construction:
@@ -214,6 +270,16 @@ The templates produce correct scaffolds but many tools need customization:
    - The `@output` field descriptions are accurate
 
 4. **Workflow `main.nf`** -- check GroovyDoc `@publish` sections match actual outputs
+
+5. **Run the linter** to catch structural issues before proceeding:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-lint.sh {tool} --bactopia-path .
+   ```
+   This runs `bactopia-lint` scoped to the new module, subworkflow, and workflow.
+   Fix any FAILs before moving to Phase 5. Common issues:
+   - JS005: type/default mismatch in schema.json (e.g., `type=string` but `default=null`)
+   - S011: misaligned include braces in subworkflow
+   - M035/S019: citation key not found in `data/citations.yml`
 
 ---
 
@@ -253,12 +319,16 @@ The templates produce correct scaffolds but many tools need customization:
 
 5. **Component already exists**: The lookup output includes `existing_components`. Warn before proceeding.
 
-## Test Data Reference
+## Test Data Discovery
 
-| Species | Path | When to use |
-|---------|------|-------------|
-| **Portiera** | `portiera/compressed/GCF_000292685/main/assembler/GCF_000292685.fna.gz` | **Default for assembly tools** |
-| S. aureus | `staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz` | Species-specific typing tools |
-| Portiera reads | `portiera/illumina/SRR2838702_R{1,2}.fastq.gz` | **Default for read-based tools** |
+Test data paths are discovered dynamically from existing module tests using:
+```bash
+bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh test-data --input-type {type} --bactopia-path . --pretty
+```
 
-All paths are relative to `$BACTOPIA_TESTS/species/`.
+This scans `modules/*/tests/main.nf.test` for paths matching the input type and returns
+pre-computed template variables. Always use the discovered paths -- never construct test
+data paths manually. The output includes `test_data_path` (compressed, for subworkflow
+tests), `test_uncompressed_path` (for module tests), `test_species`, and `test_sample_id`.
+
+Supported input types: `assembly`, `reads`, `assembly_reads`, `proteins`, `gff`, `genbank`.

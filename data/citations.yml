@@ -428,6 +428,13 @@ tools:
     cite: |
       Wong VK, Baker S, Connor TR, Pickard D, Page AJ, Dave J, Murphy N, Holliman R, Sefton A, Millar M, Dyson ZA, Dougan G, Holt KE, & International Typhoid Consortium. [An extended genotyping framework for Salmonella enterica serovar Typhi, the cause of human typhoid](https://doi.org/10.1038/ncomms12827) _Nature Communications_ 7, 12827. (2016)
 
+  gigatyper:
+    name: GigaTyper
+    link: https://github.com/rpetit3/gigatyper
+    description: Run all available MLST schemes for a species against an assembly
+    cite: |
+      Petit III RA, Fearing T, Groves E [GigaTyper: Why choose one scheme when you can flex them all?](https://github.com/rpetit3/gigatyper) (GitHub)
+
   gtdb_tk:
     name: GTDB-Tk
     link: https://github.com/Ecogenomics/GTDBTk
