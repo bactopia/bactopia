@@ -19,7 +19,7 @@
  * - `assembly`: Assembly files in FASTA format for taxonomic classification
  *
  * @input database
- * Path to GTDB reference database (optional, will download if not provided)
+ * Path to GTDB reference database, or path to download to if `download_gtdb` is true
  *
  * @input download_gtdb
  * Boolean flag to trigger GTDB database download if not provided

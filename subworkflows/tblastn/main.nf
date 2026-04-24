@@ -15,7 +15,7 @@
  *
  * @input record(meta, blastdb)
  * - `meta`: Groovy Record containing sample information
- * - `blastdb`: A compressed tarball containing the nucleotide BLAST database
+ * - `blastdb`: A compressed tarball containing the BLAST database
  *
  * @input query
  * Path to protein query sequences for searching against translated nucleotide database

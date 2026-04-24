@@ -21,7 +21,7 @@
                 "gamma_percent_identity": {
                     "type": "integer",
                     "default": 90,
-                    "description": "The minimum nucleotide sequence identiy % used by the Blat search",
+                    "description": "The minimum nucleotide sequence identity % used by the Blat search",
                     "fa_icon": "fas fa-hashtag"
                 },
                 "gamma_all_matches": {

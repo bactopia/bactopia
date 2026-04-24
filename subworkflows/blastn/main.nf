@@ -15,7 +15,7 @@
  *
  * @input record(meta, assembly)
  * - `meta`: Groovy Record containing sample information
- * - `assembly`: Set of assembled contigs in FASTA format to be searched against the database
+ * - `blastdb`: A compressed tarball containing the BLAST database
  *
  * @input query
  * FASTA file containing nucleotide query sequences to search for in the assemblies
