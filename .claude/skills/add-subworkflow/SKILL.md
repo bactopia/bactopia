@@ -12,6 +12,15 @@ Scaffold a Bactopia subworkflow that orchestrates one or more existing modules. 
 - The module(s) this subworkflow will use must already exist under `modules/`
 - Read `.claude/docs/standards/04-subworkflow-documentation.md` for documentation standards
 
+## Interactive Questioning
+
+This skill is interactive -- ask the user early and often, especially before creating files.
+
+- **Multiple questions at once:** Use `AskUserQuestion` popups (up to 4 questions per batch).
+  Mark the recommended option with "(Recommended)" at the end of its label and place it first.
+- **Single simple question:** Just ask in chat, no popup needed.
+- **When in doubt:** Ask. It's cheaper to clarify upfront than to regenerate files.
+
 ## What a Subworkflow Contains
 
 A subworkflow is a single `main.nf` file plus tests:
@@ -33,32 +42,57 @@ subworkflows/{tool}/
 
 ### Phase 1: Gather Information
 
-Ask the user:
+**Goal:** Determine which modules to orchestrate and how, using interactive prompts.
 
-1. **Which modules does this subworkflow use?** Get the module paths (e.g., `modules/nohuman/run`, `modules/mlst`).
+**Important:** Use the `AskUserQuestion` tool for structured choices throughout this phase.
+Present up to 4 questions per batch. Mark the recommended option with "(Recommended)"
+at the end of its label and place it first in the options list.
+
+1. **Ask the user which modules this subworkflow uses.** Get the module paths (e.g., `modules/nohuman/run`, `modules/mlst`).
    - Read each module's `main.nf` to understand its inputs and outputs.
    - **Does it call other subworkflows?** If so, use `@subworkflows` tag (not `@modules`) for those includes.
 
-2. **Does it need result aggregation?** Most subworkflows aggregate per-sample results into a merged file using `CSVTK_CONCAT` + `gatherCsvtk()`. Ask:
-   - Which output field should be aggregated? (e.g., `tsv`, `report`, `csv`)
-   - What format? (`tsv` or `csv`)
-   - If no aggregation needed, skip CSVTK_CONCAT.
+2. **Run the lookup command** if package info is needed:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh lookup {package_name} --bactopia-path . --pretty
+   ```
 
-3. **What inputs does the subworkflow take?** Derive from the primary module's inputs:
-   - Assembly: `assembly: Channel<Record>`
-   - Reads: `reads: Channel<Record>`
-   - Database: `db: Path` or `db: Path?`
+3. **Determine the input type** from the primary module's inputs, then **run test-data discovery**:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh test-data --input-type {input_type} --bactopia-path . --pretty
+   ```
+   This returns species/accession combinations already used by similar modules, with
+   pre-computed `test_data_path`, `test_uncompressed_path`, `test_species`, and
+   `test_sample_id` values. Use the returned paths directly in the scaffold config
+   (Phase 2) -- do NOT construct paths manually. Subworkflow tests use the
+   **compressed** path (`test_data_path`).
 
-4. **What are the tool's outputs?** (Used for `@output` GroovyDoc tags)
+4. **Batch 1: Design choices** (AskUserQuestion, up to 3 questions)
 
-5. **Citation key and keywords** for GroovyDoc
+   **Question 1 -- Aggregation strategy:**
+   - CSVTK_CONCAT -- concatenate per-sample tabular output (most common) (Recommended)
+   - Dedicated summary module -- tool has its own aggregation command (rare)
+   - No aggregation -- tool doesn't produce per-sample tabular output
 
-6. **Tool identity:**
-   - Tool name (snake_case) -- used for directory and process name
-   - Display name -- for GroovyDoc
-   - One-sentence description
+   **Question 2 -- Test data species:**
+   Present top 3-4 species from the test-data discovery results. Recommend species that
+   exercise the tool's functionality. Include the accession in each option's description.
 
-7. **Test data** -- which species/sample and any dataset paths
+   **Question 3 -- Aggregation field** (if CSVTK_CONCAT or dedicated_summary selected):
+   Which output field should be aggregated? (e.g., `tsv`, `report`, `csv`)
+   What format? (`tsv` or `csv`)
+
+5. **Present the following for confirmation** (derive from module `main.nf` and lookup):
+
+   - **Tool identity**: name (snake_case), display name, one-sentence description
+   - **Outputs**: from the primary module's output block (for `@output` GroovyDoc tags)
+   - **Citation key** and **keywords** for GroovyDoc
+
+6. **Final confirmation** (AskUserQuestion, 1 question)
+
+   After presenting the summary, ask:
+   - Looks good, proceed to file generation
+   - I need to make changes (user provides details via "Other" or notes)
 
 ---
 
@@ -66,12 +100,7 @@ Ask the user:
 
 **Goal:** Generate the 5 subworkflow files using `bactopia-scaffold`.
 
-1. Also run the lookup command if package info is needed:
-   ```bash
-   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh lookup {package_name} --bactopia-path . --pretty
-   ```
-
-2. Construct the JSON config from the design decisions. Write it to `/tmp/scaffold-config.json`:
+1. Construct the JSON config from the design decisions. Write it to `/tmp/scaffold-config.json`:
 
    ```json
    {
@@ -107,7 +136,8 @@ Ask the user:
        },
        "test_species": "{species}",
        "test_sample_id": "{sample_id}",
-       "test_data_path": "{compressed_path}"
+       "test_data_path": "{compressed_path}",
+       "test_uncompressed_path": "{uncompressed_path}"
    }
    ```
 
@@ -121,12 +151,12 @@ Ask the user:
    }
    ```
 
-3. Run the scaffold command:
+2. Run the scaffold command:
    ```bash
    bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh subworkflow --config /tmp/scaffold-config.json --bactopia-path . --pretty
    ```
 
-4. The command creates 5 files:
+3. The command creates 5 files:
    - `subworkflows/{tool}/main.nf`
    - `subworkflows/{tool}/tests/main.nf.test`
    - `subworkflows/{tool}/tests/nextflow.config`
@@ -155,9 +185,34 @@ Ask the user:
    - Database input lines are present if needed
    - Snapshot fields include the right output field names
 
-4. **List all created files** with full paths.
+4. **Run the linter** to catch structural issues before proceeding:
+   ```bash
+   bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-lint.sh {tool} --bactopia-path .
+   ```
+   This runs `bactopia-lint` scoped to the new subworkflow (and module if it exists).
+   Fix any FAILs before moving on. Common issues:
+   - S011: misaligned include braces in subworkflow
+   - S019: citation key not found in `data/citations.yml`
 
-5. **Remind the user** that the subworkflow needs a workflow entry point to be usable -- use `/add-bactopia-tool` if this is a standalone bactopia-tool.
+5. **Update `data/citations.yml`** -- add the tool citation entry in alphabetical order
+   (if not already present from a prior `/add-module` run):
+   ```yaml
+   {tool}:
+     name: "{ToolName}"
+     link: "{github_url}"
+     description: "{One-sentence description}"
+     cite: "{Full citation text}"
+   ```
+
+6. **List all created files** with full paths.
+
+7. **Remind the user** to run these follow-up steps in order:
+   1. `/run-tests {tool} subworkflow --generate` -- generate snapshots and verify the subworkflow test passes (new subworkflows have no existing snapshots)
+   2. The subworkflow needs a workflow entry point to be usable -- use `/add-bactopia-tool` if this is a standalone bactopia-tool
+
+   The `--generate` flag is required because newly scaffolded subworkflows have no
+   snapshot files yet. Without it, nf-test will fail immediately on missing
+   snapshots.
 
 ---
 
@@ -178,3 +233,17 @@ The scaffold generates one of three patterns based on the `aggregation.strategy`
 1. **Multi-module subworkflows** (e.g., snippy + snpdists + gubbins): The scaffold generates a single-module pattern. For complex orchestration, generate the scaffold then manually adjust the includes and channel wiring.
 
 2. **Composite subworkflows** that call other subworkflows: Add `@subworkflows` tag manually and adjust includes to point to `../../subworkflows/{name}/main` instead of `../../modules/{name}/main`.
+
+## Test Data Discovery
+
+Test data paths are discovered dynamically from existing module tests using:
+```bash
+bash .claude/skills/add-bactopia-tool/scripts/run-bactopia-scaffold.sh test-data --input-type {type} --bactopia-path . --pretty
+```
+
+This scans `modules/*/tests/main.nf.test` for paths matching the input type and returns
+pre-computed template variables. Always use the discovered paths -- never construct test
+data paths manually. The output includes `test_data_path` (compressed, for subworkflow
+tests), `test_uncompressed_path` (for module tests), `test_species`, and `test_sample_id`.
+
+Supported input types: `assembly`, `reads`, `assembly_reads`, `proteins`, `gff`, `genbank`.
