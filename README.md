@@ -156,7 +156,6 @@ funded by the [CDC Emerging Infections Program (U50CK000485) PPHF/ACA: Enhancing
 the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), and
 the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/).
 
-
 ![Georgia Emerging Infections Program](data/gaeip-banner.png)
 ![Wyoming Public Health Division](data/wyphd-banner.jpg)
 ![Center for Applied Pathogen Epidemiology and Outbreak Control](data/cape-banner.png)

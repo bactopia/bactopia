@@ -1,6 +1,7 @@
 ---
-title: changelog
+title: Changelog
 description: A full list of Bactopia releases and a description of the changes.
+sidebar_position: 5000
 ---
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
@@ -9,23 +10,40 @@ description: A full list of Bactopia releases and a description of the changes.
 
 ### `Changed`
 
-- **Major Refactoring**: Complete conversion to Nextflow v25 syntax and architecture
+- **Major Refactoring**: Complete conversion to Nextflow 26.04 syntax and architecture
+    - Minimum Nextflow version now `>=26.03.4-edge`
     - Removed legacy `lib/` folder in favor of `nf-bactopia` plugin
-    - Updated all modules, subworkflows and workflows to support strict syntax requirements for Nextflow v25
+    - Updated all modules, subworkflows and workflows to support strict syntax requirements
     - Consolidated `params.config` and `process.config` into unified `module.config` files
-- Moved empty placeholder files to `data/empty/` directory
+    - Adopted Nextflow record types for all module/subworkflow I/O (replaces Map-based meta)
+    - Removed direct `.out` access in favor of result assignment
+- Replaced `EMPTY_*` placeholder files with `Path?` null inputs (removed `data/empty/`)
 - Updated output structure to use "supplemental" instead of "results" for consistency
-- Increased minimum Nextflow version requirement and updated plugin dependencies
 - Improved parameter naming consistency
     - common names for similar parameters across modules and workflows
     - tool name used as a prefix to prevent overlaps in names
 - Replaced `meta.yml` files with standardized GroovyDoc documentation in all .nf files
 - Implemented type annotations in all .nf files
 - Replaced `publishDir` with `output` block publishing
-- removed all `when` conditions in modules
+- Removed all `when` conditions in modules
+- Replaced `data/workflows.yml` with `catalog.json` at repo root for component indexing
+- Replaced `k2scrubber` with `nohuman` for human read removal in scrubber, cleanyerreads, and teton workflows
+- Migrated pipeline utility scripts from `bin/` to `bactopia-py` CLI commands
+- Moved `bactopia-prokka` to `modules/prokka/bin/`
+- Updated default `max_memory` from 128 GB to 144 GB and `max_cpus` from 4 to 12
 
 ### `Added`
 
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `gigatyper` - Run assemblies against all available MLST schemes
+- New module: `nohuman` for human read removal
+- `--list_wfs` to list available workflows
+- `--verbose` flag for debug output in bactopia wrapper
+- Output format validation in bactopia wrapper
+- MLST now includes headers and uses sample name as label
+- `--emmtyper_no_header` option to suppress header row in emmtyper output
+- `max_genome_size` enforcement during assembly
+- `bactopia-py >=2.0.2` as a pipeline dependency
 - Comprehensive documentation system (`.claude/docs/`)
     - Style guide and templates for GroovyDoc documentation
     - Logic rules and taxonomy for component classification
@@ -34,8 +52,7 @@ description: A full list of Bactopia releases and a description of the changes.
     - Reference materials with examples and troubleshooting
 - Help messages to modules for improved user guidance
 - Converted pytest tests to nf-test framework
-- YAML version of `workflows.config` for alternative configuration format
-- bump program versions in modules
+- Bump program versions in modules
     - `abricate`: 1.0.1 -> 1.4.0
     - `abritamr`: 1.0.19 -> 1.2.0
     - `ariba`: 2.14.6 -> 2.14.7
@@ -72,10 +89,20 @@ description: A full list of Bactopia releases and a description of the changes.
 - Missing configuration in Teton subworkflow
 - Config path resolution issues
 - Missing `fastq_only` parameter when using `ask_merlin`
+- Assembler now only passes the main FASTQ type forward
+- Config value using string type instead of `list<string>`
 - Various typos throughout the codebase
 - Debug information removal from production code
 - Container image descriptions and fixes
 - File existence checks when using `file()` function in Nextflow
+
+### `Removed`
+
+- `bin/` utility scripts (~14 Python/Bash scripts) migrated to `bactopia-py` CLI commands
+- `data/empty/` directory and all `EMPTY_*` placeholder files
+- `data/workflows.yml` (replaced by `catalog.json`)
+- Per-module `meta.yml` files (replaced by GroovyDoc)
+- Per-module `params.config` and `process.config` files (merged into `module.config`)
 
 ## v3.2.0 bactopia/bactopia "Black Bulls" 2025/03/21
 
