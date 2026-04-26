@@ -257,11 +257,34 @@ The templates produce correct scaffolds but many tools need customization:
 
 1. **Module `main.nf`** -- the shell script block is a placeholder. Customize:
    - The actual tool command, flags, and I/O handling
-   - Input decompression logic (if the tool doesn't handle .gz)
+   - Input decompression logic (if the tool doesn't handle .gz) -- use the standard
+     `is_compressed` pattern (see below)
    - Database extraction logic (if database-dependent)
    - **Always preserve the `# Cleanup` comment line** -- even if empty, it marks where
      cleanup steps go and keeps the shell block structure consistent across all modules
    - Version extraction command
+
+   **Standard decompression pattern** (for tools that don't handle .gz natively):
+
+   In the Groovy script block, before the shell heredoc:
+   ```groovy
+   def is_compressed = fna.getName().endsWith(".gz") ? true : false
+   def fna_name = fna.getName().replace(".gz", "")
+   ```
+
+   In the shell block:
+   ```bash
+   if [ "${is_compressed}" == "true" ]; then
+       gzip -c -d ${fna} > ${fna_name}
+   else
+       cp -L ${fna} ${fna_name}
+   fi
+   ```
+
+   Then use `${fna_name}` as the input filename for the tool command. This pattern is
+   used consistently across modules (e.g., staphopiasccmec, traitar). Do NOT use
+   alternative approaches like `fna.getName()[0..-4]` or inline `gunzip -c` with
+   `if [[ ... == *.gz ]]` shell tests.
 
 2. **Module `module.config`** -- review the `ext.args` construction:
    - Verify boolean/string/integer flag handling is correct for each parameter
