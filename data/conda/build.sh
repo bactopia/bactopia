@@ -10,7 +10,7 @@ mv bin/ conf/ data/ modules/ subworkflows/ tests/ workflows/ main.nf catalog.jso
 
 # Setup the Bactopia env variables
 mkdir -p ${PREFIX}/etc/conda/activate.d ${PREFIX}/etc/conda/deactivate.d
-echo "export NXF_VER=26.03.3-edge" > ${PREFIX}/etc/conda/activate.d/bactopia.sh
+echo "export NXF_VER=26.03.4-edge" > ${PREFIX}/etc/conda/activate.d/bactopia.sh
 chmod a+x ${PREFIX}/etc/conda/activate.d/bactopia.sh
 
 # Unset them
