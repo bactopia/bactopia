@@ -144,18 +144,18 @@ Your feedback is very valuable! If you run into any issues using Bactopia, have 
 # Citation
 Petit III RA, Read TD, *Bactopia: a flexible pipeline for complete analysis of bacterial genomes.* __mSystems__. 5 (2020), https://doi.org/10.1128/mSystems.00190-20.
 
-# Author 
+# Author
 
 * Robert A. Petit III
-* Twitter: [@rpetit3](https://twitter.com/rpetit3)
+* BlueSky: [@rpetit3](https://bsky.app/profile/rpetit3.bsky.social)
 
 ## Funding
 
 Support for this project came (in part) from an Emory Public Health Bioinformatics Fellowship
 funded by the [CDC Emerging Infections Program (U50CK000485) PPHF/ACA: Enhancing Epidemiology and Laboratory Capacity](https://dph.georgia.gov/EIP),
-the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), and
-the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/).
+the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/), and the [CZI Open Science Program (EOSS6)](https://chanzuckerberg.com/eoss/proposals/enhancing-the-bactopia-ecosystem-with-trainings-and-visual-reports/).
 
 ![Georgia Emerging Infections Program](data/gaeip-banner.png)
 ![Wyoming Public Health Division](data/wyphd-banner.jpg)
 ![Center for Applied Pathogen Epidemiology and Outbreak Control](data/cape-banner.png)
+![CZI Open Science Program](data/czi-banner.png)
