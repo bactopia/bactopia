@@ -6,7 +6,7 @@ dependencies:
   - conda >=22.11.0
   - coreutils
   - mamba >=1.1.0
-  - nextflow >=25
+  - nextflow >=26
   - nf-test
   - python >=3.9
   - sed
