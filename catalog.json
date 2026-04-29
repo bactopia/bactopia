@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-04-24T23:21:23Z",
+  "generated": "2026-04-29T11:30:57Z",
   "bactopia_version": "4.0.0",
   "bactopia_py_version": "2.1.2",
-  "nf_bactopia_version": "2.0.3",
+  "nf_bactopia_version": "2.1.0",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",

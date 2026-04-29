@@ -10,8 +10,9 @@ Skills are AI tooling — short instruction files that Claude invokes via the `S
 
 | Skill | Backend | Purpose |
 |---|---|---|
-| [add-module](../../skills/add-module/) | — | Scaffold a new Bactopia module from a bioconda/conda-forge package. |
-| [add-subworkflow](../../skills/add-subworkflow/) | — | Scaffold a new Bactopia subworkflow that orchestrates existing modules. |
+| [add-bactopia-tool](../../skills/add-bactopia-tool/) | `bactopia-scaffold` | Scaffold a complete Bactopia Tool across all three tiers -- module, subworkflow, and workflow entry point under workflows/bactopia-tools/. |
+| [add-module](../../skills/add-module/) | `bactopia-scaffold` | Scaffold a new Bactopia module from a bioconda/conda-forge package. |
+| [add-subworkflow](../../skills/add-subworkflow/) | `bactopia-scaffold` | Scaffold a new Bactopia subworkflow that orchestrates existing modules. |
 | [merge-schemas](../../skills/merge-schemas/) | `bactopia-merge-schemas` | Regenerate nextflow.config and nextflow_schema.json for Bactopia workflows by running bactopia-merge-schemas. |
 | [project-status](../../skills/project-status/) | `bactopia-status` | Show a live snapshot of the Bactopia project state — component counts, GroovyDoc coverage, nf-test coverage, and structural issues. |
 | [review-citations](../../skills/review-citations/) | `bactopia-citations` | Review citation integrity across data/citations.yml and @citation tags using bactopia-citations --validate. |
