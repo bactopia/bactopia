@@ -65,7 +65,6 @@ workflow BACTOPIATOOL_INIT {
     def gbff_list                  = []
 
     samples.each { sample ->
-    log.info("Processing sample: ${sample}")
         reads_list.add(
             record(meta: sample.meta, r1: sample.r1, r2: sample.r2, se: sample.se, lr: sample.lr)
         )
