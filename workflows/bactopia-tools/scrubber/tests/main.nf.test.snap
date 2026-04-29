@@ -44,10 +44,10 @@
                 "scrubber.tsv:md5,e957775ff85716621f5fdd536de5b417"
             ]
         ],
-        "timestamp": "2026-04-14T10:18:06.452360216",
+        "timestamp": "2026-04-29T11:26:47.921737698",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Scrubber (sra-human-scrubber) - SRR2838702|portiera|compressed_fastq": {
@@ -95,10 +95,10 @@
                 "scrubber.tsv:md5,9554a4a6929bbfd485e28acd4a716772"
             ]
         ],
-        "timestamp": "2026-04-14T10:18:35.102944527",
+        "timestamp": "2026-04-29T11:27:14.371261957",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

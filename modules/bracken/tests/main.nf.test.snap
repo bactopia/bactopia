@@ -19,10 +19,10 @@
                 "versions.yml:md5,1c58acfb3b27362db6c664d6757c6d53"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:51.678397066",
+        "timestamp": "2026-04-29T11:16:08.392324412",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "bracken - module - SRR2838702SE - path": {
@@ -45,10 +45,10 @@
                 "versions.yml:md5,1c58acfb3b27362db6c664d6757c6d53"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:09.044357394",
+        "timestamp": "2026-04-29T11:19:50.777475925",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

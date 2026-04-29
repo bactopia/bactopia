@@ -14,10 +14,10 @@
                 "versions.yml:md5,b34cfaa3dacca27f98634ce626aab7df"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:34.621222276",
+        "timestamp": "2026-04-29T11:15:49.829865356",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "amrfinderplus_run - module - SRR2838702 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,b34cfaa3dacca27f98634ce626aab7df"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:12.948543866",
+        "timestamp": "2026-04-29T11:16:12.919706335",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

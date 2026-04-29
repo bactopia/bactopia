@@ -14,10 +14,10 @@
                 "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
             ]
         ],
-        "timestamp": "2026-04-14T10:11:10.949740434",
+        "timestamp": "2026-04-29T11:17:48.441284413",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "tbprofiler - module - SRR2838702 (Single-End)": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
             ]
         ],
-        "timestamp": "2026-04-14T10:12:06.977350043",
+        "timestamp": "2026-04-29T11:18:45.03550605",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "tbprofiler - module - SRR2838702 (Long Read)": {
@@ -56,10 +56,10 @@
                 "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
             ]
         ],
-        "timestamp": "2026-04-14T10:13:11.763043954",
+        "timestamp": "2026-04-29T11:19:51.614736697",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

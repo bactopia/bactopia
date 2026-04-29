@@ -71,17 +71,17 @@
                 "ERR6005894SE-hits.tsv:md5,3a2660886597dbb4e9d6f3990a36785f",
                 "ERR6005894SE.tsv:md5,56b194ae479ed5118a2f1560d0365386",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
-                "SRR13039589-hits.tsv:md5,4ac60befc62506a7c7fce9b6e0204ac5",
-                "SRR13039589.tsv:md5,fe6566b6f5ea873c71b8cb31e788894b",
+                "SRR13039589-hits.tsv:md5,7bdab5d495d8424b2df3005773ef1364",
+                "SRR13039589.tsv:md5,8ab32470875fe923b8d338da4ca35d1c",
                 "versions.yml:md5,ae04a8f8ba5f8b41af9b6af75fecfd17",
                 "versions.yml:md5,c4954fe5c276fcd3b66857bacafa932e",
-                "shigatyper.tsv:md5,eb390412945b4c27c7fe40de634ede88"
+                "shigatyper.tsv:md5,6041948e454daeabef20a6f725047dca"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:10.064694531",
+        "timestamp": "2026-04-29T11:24:23.343691466",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

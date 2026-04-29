@@ -14,10 +14,10 @@
                 "versions.yml:md5,c203a84cc5b289951b70302549dcf08d"
             ]
         ],
-        "timestamp": "2026-04-14T09:58:52.227134794",
+        "timestamp": "2026-04-29T11:15:38.416605135",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "csvtk concat - module - CSV to TSV conversion": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,c203a84cc5b289951b70302549dcf08d"
             ]
         ],
-        "timestamp": "2026-04-14T10:01:11.084898123",
+        "timestamp": "2026-04-29T11:15:54.044146975",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

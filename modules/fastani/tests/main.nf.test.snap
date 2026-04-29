@@ -14,10 +14,10 @@
                 "versions.yml:md5,3c8fce061d0dc503f4830ad0f1e2ebba"
             ]
         ],
-        "timestamp": "2026-04-14T09:58:54.801420541",
+        "timestamp": "2026-04-29T11:15:33.056261848",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "fastani - module - fastani-test - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,3c8fce061d0dc503f4830ad0f1e2ebba"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:02.141564101",
+        "timestamp": "2026-04-29T11:15:47.327096724",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

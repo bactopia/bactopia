@@ -47,6 +47,7 @@ include { collectNextflowLogs } from 'plugin/nf-bactopia'
 workflow {
     main:
     ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_bactopiatool.reads.view()
     ch_shigatyper = SHIGATYPER(ch_bactopiatool.reads)
 
     publish:

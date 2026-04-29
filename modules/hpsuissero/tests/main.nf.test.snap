@@ -14,10 +14,10 @@
                 "versions.yml:md5,2e1e831c688899545872927bdf90d852"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:02.268670662",
+        "timestamp": "2026-04-29T11:15:55.922851305",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "hpsuissero - module - GCF_002777395 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,2e1e831c688899545872927bdf90d852"
             ]
         ],
-        "timestamp": "2026-04-14T09:58:54.936884051",
+        "timestamp": "2026-04-29T11:15:39.077032116",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

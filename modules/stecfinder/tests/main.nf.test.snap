@@ -14,10 +14,10 @@
                 "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:11.90881931",
+        "timestamp": "2026-04-29T11:17:24.705508456",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "stecfinder - module - GCF_002949675 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:02.303958132",
+        "timestamp": "2026-04-29T11:17:09.146129519",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "stecfinder - module - GCF_002949675 - uncompressed": {
@@ -56,10 +56,10 @@
                 "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:50.113737431",
+        "timestamp": "2026-04-29T11:16:54.388692462",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

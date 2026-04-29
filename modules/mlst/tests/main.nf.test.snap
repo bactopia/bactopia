@@ -9,15 +9,15 @@
                 "process_name": "mlst",
                 "scope": "sample"
             },
-            "GCF_000017085.tsv:md5,67e1b29068b46c7ccd845ec36d41da89",
+            "GCF_000017085.tsv:md5,c2faf73735d4ebc6fb0d8f4b263eb5b6",
             [
                 "versions.yml:md5,430105b9f7348fc38a47d20c19daf7fd"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:02.532615076",
+        "timestamp": "2026-04-29T11:15:42.575237329",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

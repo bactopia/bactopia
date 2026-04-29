@@ -14,10 +14,10 @@
                 "versions.yml:md5,1343a6174c619ccf3c2469b19ab0a757"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:48.007596286",
+        "timestamp": "2026-04-29T11:16:48.923659704",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "ssuissero - module - GCF_002285535 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,1343a6174c619ccf3c2469b19ab0a757"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:59.970495381",
+        "timestamp": "2026-04-29T11:17:04.393761797",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

@@ -19,10 +19,10 @@
                 "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-04-14T10:13:18.324427397",
+        "timestamp": "2026-04-29T11:26:46.3896525",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "nohuman - module - SRR2838702 - single-end": {
@@ -45,10 +45,10 @@
                 "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:54.772188644",
+        "timestamp": "2026-04-29T11:30:23.430469379",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "nohuman - module - SRR2838702 - tarball": {
@@ -71,10 +71,10 @@
                 "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:02.393848735",
+        "timestamp": "2026-04-29T11:22:42.057476779",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

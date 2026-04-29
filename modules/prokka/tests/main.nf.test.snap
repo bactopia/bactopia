@@ -15,10 +15,10 @@
                 "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:40.662033943",
+        "timestamp": "2026-04-29T11:16:48.191157898",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "prokka - module - SRR2838702 - compressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,edc57afe4ba0c950e15415ed95f1ff83"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:08.839024524",
+        "timestamp": "2026-04-29T11:17:22.119737635",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

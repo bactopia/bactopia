@@ -10,8 +10,8 @@ is to process your data with a broad set of tools, so that you can get to the fu
 analyses quicker!
 
 Bactopia can be split into two main parts:
-[Bactopia Analysis Pipeline](https://bactopia.github.io/latest/beginners-guide/), and
-[Bactopia Tools](https://bactopia.github.io/latest/bactopia-tools/).
+[Bactopia Analysis Pipeline](https://bactopia.io/beginners-guide/), and
+[Bactopia Tools](https://bactopia.io/bactopia-tools/).
 
 
 Bactopia Analysis Pipeline is the main *per-isolate* workflow in Bactopia. Built with
@@ -23,7 +23,7 @@ minmer sketch queries, sequence typing, and more.
 
 Bactopia Tools are a set a independent workflows for comparative analyses. The comparative analyses
 may include summary reports, pan-genome, or phylogenetic tree construction. Using the
-[predictable output structure](https://bactopia.github.io/latest/full-guide/) of Bactopia you can
+[predictable output structure](https://bactopia.io/full-guide/) of Bactopia you can
 pick and choose which samples to include for processing with a Bactopia Tool.
 
 Bactopia was inspired by [Staphopia](https://staphopia.github.io/), a workflow we (Tim Read and myself)
@@ -32,7 +32,7 @@ feedback, Bactopia was developed from scratch with usability, portability, and s
 the start.
 
 # Documentation
-Documentation for Bactopia is available at https://bactopia.github.io/. The documentation includes
+Documentation for Bactopia is available at https://bactopia.io/. The documentation includes
 a tutorial replicating [Staphopia](https://staphopia.github.io/) and a complete overview of
 Bactopia. I highly encourage you check it out!
 
@@ -95,7 +95,7 @@ And voilà, you are all set to get started processing your data!
 
 # Please Cite Datasets and Tools
 If you have used Bactopia in your work, please be sure to cite any datasets or tools you may
-have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.github.io/latest/impact-and-outreach/acknowledgements/). 
+have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.io/impact-and-outreach/acknowledgements/). 
 
 *If a citation needs to be updated please let me know!*
 

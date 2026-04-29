@@ -14,10 +14,10 @@
                 "versions.yml:md5,efa986cf837fac5b6e3bdd3dab8b424c"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:48.873293753",
+        "timestamp": "2026-04-29T11:16:51.320618453",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "staphopiasccmec - module - GCF_000017085 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,efa986cf837fac5b6e3bdd3dab8b424c"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:01.231382587",
+        "timestamp": "2026-04-29T11:17:06.354030176",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

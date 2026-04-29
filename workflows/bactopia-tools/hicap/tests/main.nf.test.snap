@@ -54,17 +54,17 @@
                 "GCA_000027305.tsv:md5,a4ffb126a74f38f0d7409027c982a84a",
                 "versions.yml:md5,583376a04d00362892444651f0f00a07",
                 "GCF_900478275.gbk:md5,562d026956903354ac80721f501335d4",
-                "GCF_900478275.svg:md5,4fb94871dd0fdd8b4496049668176631",
+                "GCF_900478275.svg:md5,d8701771f4f14e1ad818911605e57ccd",
                 "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
                 "versions.yml:md5,583376a04d00362892444651f0f00a07",
                 "hicap.tsv:md5,fdbf89f0a652b1186e6348eadb7fd4cb",
                 "versions.yml:md5,0c84033bcf201f320a96434ff2545e4a"
             ]
         ],
-        "timestamp": "2026-04-14T10:13:23.650865514",
+        "timestamp": "2026-04-29T11:22:50.299948987",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

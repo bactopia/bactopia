@@ -14,10 +14,10 @@
                 "versions.yml:md5,3aa6f0d34a8c44bd11c7d989667bd6f1"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:42.583474457",
+        "timestamp": "2026-04-29T11:16:45.805440428",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "shigeifinder - module - GCF_016726285 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,3aa6f0d34a8c44bd11c7d989667bd6f1"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:30.63450505",
+        "timestamp": "2026-04-29T11:16:31.145144861",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

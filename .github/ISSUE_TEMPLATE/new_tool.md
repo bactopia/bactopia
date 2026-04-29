@@ -5,7 +5,7 @@ title: "[bactopia-tool] "
 labels: add-bactopia-tool
 assignees: '@rpetit3'
 ---
-In order for a tool to be added to [Bactopia Tools](https://bactopia.github.io//bactopia-tools/#available-bactopia-tools),
+In order for a tool to be added to [Bactopia Tools](https://bactopia.io/bactopia-tools/),
 it should be available on [Bioconda](https://bioconda.github.io/). __But!!__ Don't let that stop you from suggesting a
 tool! Time permitting and depending on the feasibility I can help you get a tool on Bioconda.
 

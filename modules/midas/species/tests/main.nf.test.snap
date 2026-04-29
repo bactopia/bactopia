@@ -16,10 +16,10 @@
                 "versions.yml:md5,580a248b19c50e578df537679c14f459"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:23.350660317",
+        "timestamp": "2026-04-29T11:22:53.910500819",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "midas - module - SRR2838702 - path": {
@@ -39,10 +39,10 @@
                 "versions.yml:md5,580a248b19c50e578df537679c14f459"
             ]
         ],
-        "timestamp": "2026-04-14T10:11:21.12546948",
+        "timestamp": "2026-04-29T11:23:48.2696469",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

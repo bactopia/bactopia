@@ -13,10 +13,10 @@
                 "versions.yml:md5,7c9654347c5eee68869012773f03db28"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:12.844099203",
+        "timestamp": "2026-04-29T11:15:58.939802654",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "iqtree - module - test": {
@@ -33,10 +33,10 @@
                 "versions.yml:md5,7c9654347c5eee68869012773f03db28"
             ]
         ],
-        "timestamp": "2026-04-14T10:05:59.653627273",
+        "timestamp": "2026-04-29T11:15:42.55950921",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

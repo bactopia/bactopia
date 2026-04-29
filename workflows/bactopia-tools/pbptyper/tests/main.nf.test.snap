@@ -44,10 +44,10 @@
                 "pbptyper.tsv:md5,34edc1f9346b74b74ef4446d270e6d57"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:10.791727186",
+        "timestamp": "2026-04-29T11:24:22.709047733",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

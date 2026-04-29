@@ -17,7 +17,7 @@ requirements:
     - python >3.9,<3.14
     - wget
   run:
-    - bactopia-py >=2.1.3
+    - bactopia-py >=2.1.5
     - conda >=25
     - coreutils
     - mamba >=2
@@ -38,7 +38,7 @@ test:
     - "nextflow -version"
 
 about:
-  home: https://bactopia.github.io/
+  home: https://bactopia.io/
   license: MIT
   license_file: LICENSE
   summary: Bactopia is a flexible pipeline for complete analysis of bacterial genomes.

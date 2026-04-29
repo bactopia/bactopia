@@ -386,10 +386,10 @@
                 
             ]
         ],
-        "timestamp": "2026-04-14T10:15:57.122761146",
+        "timestamp": "2026-04-29T11:25:22.320393361",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Merlin (--full_merlin) - portiera|compressed_fasta_and_fastq": {
@@ -952,10 +952,10 @@
                 
             ]
         ],
-        "timestamp": "2026-04-14T10:17:50.927260966",
+        "timestamp": "2026-04-29T11:27:06.08576866",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

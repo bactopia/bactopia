@@ -28,10 +28,10 @@
                 "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
             ]
         ],
-        "timestamp": "2026-04-14T10:18:29.257493048",
+        "timestamp": "2026-04-29T11:27:56.470480451",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Kraken2 (tarball) - SRR2838702|portiera|compressed_fastq": {
@@ -63,10 +63,10 @@
                 "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
             ]
         ],
-        "timestamp": "2026-04-14T10:19:02.903050111",
+        "timestamp": "2026-04-29T11:28:24.885961361",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

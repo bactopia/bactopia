@@ -18,10 +18,10 @@
                 "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
             ]
         ],
-        "timestamp": "2026-04-14T09:58:58.557896458",
+        "timestamp": "2026-04-29T11:15:38.449618682",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "teton - module - single-end": {
@@ -43,10 +43,10 @@
                 "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:02.423986986",
+        "timestamp": "2026-04-29T11:15:55.492042681",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

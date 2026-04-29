@@ -37,15 +37,15 @@
                 "bactopia-runs/prokka/nf-reports/prokka-timeline.html"
             ],
             [
-                "SRR2838702.tsv:md5,e42c80d920d126ff5a35802abe96fd4b",
+                "SRR2838702.tsv:md5,8fdfc661e42e1c9cfa7c167f96e9180d",
                 "SRR2838702.txt:md5,3bb57f34e7d7ef4866cd475edf5bb9c1",
                 "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e"
             ]
         ],
-        "timestamp": "2026-04-14T10:14:50.136309157",
+        "timestamp": "2026-04-29T11:24:02.431203572",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

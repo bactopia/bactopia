@@ -50,17 +50,17 @@
             [
                 "SRR2838702.csv:md5,643005849779eff11e0efe92802b08b7",
                 "SRR2838702.json:md5,11d0f10a53184817ebadd0dfaa90dee0",
-                "SRR2838702.tsv:md5,57125b95efd9a10265c05a5933b624e1",
+                "SRR2838702.tsv:md5,57f85f8f41b2fb817f7693d07483d035",
                 "versions.yml:md5,d8debae1bdcd6e4662223d9b812dd3d7",
                 "versions.yml:md5,58cc026392506e5ec5266f0276d70c35",
-                "genotyphi.tsv:md5,57125b95efd9a10265c05a5933b624e1",
+                "genotyphi.tsv:md5,57f85f8f41b2fb817f7693d07483d035",
                 "versions.yml:md5,1e61ab9091b0ddd88b14c86fa3488bea"
             ]
         ],
-        "timestamp": "2026-04-14T10:13:11.499525671",
+        "timestamp": "2026-04-29T11:22:18.38582236",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

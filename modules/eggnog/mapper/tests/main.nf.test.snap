@@ -13,10 +13,10 @@
                 "versions.yml:md5,2784870d86d92b80930b2cc28c81757d"
             ]
         ],
-        "timestamp": "2026-04-14T10:17:51.871622169",
+        "timestamp": "2026-04-29T11:29:26.491545586",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "eggnog - module - SRR2838702 - path": {
@@ -33,10 +33,10 @@
                 "versions.yml:md5,2784870d86d92b80930b2cc28c81757d"
             ]
         ],
-        "timestamp": "2026-04-14T10:22:12.191783327",
+        "timestamp": "2026-04-29T11:33:43.79747669",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

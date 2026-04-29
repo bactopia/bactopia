@@ -14,10 +14,10 @@
                 "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:06.885865927",
+        "timestamp": "2026-04-29T11:17:08.770591985",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "quast - module - SRR2838702 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:48.79360173",
+        "timestamp": "2026-04-29T11:16:46.344863097",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "quast - module - SRR2838702 - uncompressed": {
@@ -56,10 +56,10 @@
                 "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:27.690392955",
+        "timestamp": "2026-04-29T11:16:20.405215733",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

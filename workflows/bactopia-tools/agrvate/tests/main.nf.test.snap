@@ -49,10 +49,10 @@
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-04-14T10:12:29.009889187",
+        "timestamp": "2026-04-29T11:21:27.682147015",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "agrvate - GCF_000017085|staphylococcus_aureus|uncompressed_fasta": {
@@ -105,10 +105,10 @@
                 "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
             ]
         ],
-        "timestamp": "2026-04-14T10:12:54.44521474",
+        "timestamp": "2026-04-29T11:21:51.115735364",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

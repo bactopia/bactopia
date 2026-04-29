@@ -14,10 +14,10 @@
                 "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:18.002981416",
+        "timestamp": "2026-04-29T11:25:13.069448253",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "checkm_lineagewf - module - SRR2838702 - compressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,26aa8d1005c5ccafccfe332302d24f80"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:08.230595239",
+        "timestamp": "2026-04-29T11:26:52.020682491",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

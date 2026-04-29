@@ -14,10 +14,10 @@
                 "versions.yml:md5,07c621229eb9346a10efc0afe9d15e42"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:03.86567958",
+        "timestamp": "2026-04-29T11:17:14.808148328",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "spatyper - module - GCF_000017085 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,07c621229eb9346a10efc0afe9d15e42"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:47.235399537",
+        "timestamp": "2026-04-29T11:16:54.28753732",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

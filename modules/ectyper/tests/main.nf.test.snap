@@ -15,10 +15,10 @@
                 "versions.yml:md5,8da5d25c63ebd770e9c1776106725972"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:31.713791953",
+        "timestamp": "2026-04-29T11:16:38.699285839",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "ectyper - module - GCF_001695515 - uncompressed": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,8da5d25c63ebd770e9c1776106725972"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:51.745534092",
+        "timestamp": "2026-04-29T11:15:59.994882882",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

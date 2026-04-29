@@ -17,10 +17,10 @@
                 "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:00.639832398",
+        "timestamp": "2026-04-29T11:17:05.661396493",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "qc - module - single-end": {
@@ -41,10 +41,10 @@
                 "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:57.316182039",
+        "timestamp": "2026-04-29T11:18:09.002888188",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "qc - module - hybrid": {
@@ -65,10 +65,10 @@
                 "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:09.611502244",
+        "timestamp": "2026-04-29T11:20:54.528982484",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "qc - module - long-read": {
@@ -89,10 +89,10 @@
                 "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:43.498231109",
+        "timestamp": "2026-04-29T11:19:01.400915676",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "qc - module - skip qc": {
@@ -113,10 +113,10 @@
                 "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:56.331250546",
+        "timestamp": "2026-04-29T11:21:35.403721612",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

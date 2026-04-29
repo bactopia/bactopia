@@ -15,10 +15,10 @@
                 "versions.yml:md5,375b8094ea3bcac7fbc91f023399030c"
             ]
         ],
-        "timestamp": "2026-04-14T10:09:39.324588192",
+        "timestamp": "2026-04-29T11:19:04.101178065",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "sylph - module - SRR2838702 (Paired End)": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,375b8094ea3bcac7fbc91f023399030c"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:43.564028096",
+        "timestamp": "2026-04-29T11:17:52.980299022",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

@@ -180,10 +180,10 @@
                 "versions.yml:md5,e99779aecd8dce47f4bef01bc23da898"
             ]
         ],
-        "timestamp": "2026-04-14T10:22:40.213568604",
+        "timestamp": "2026-04-29T11:31:16.523191261",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "teton (pe+srascrubber) - SRR2838702|portiera|compressed_fastq": {
@@ -367,10 +367,10 @@
                 "versions.yml:md5,e99779aecd8dce47f4bef01bc23da898"
             ]
         ],
-        "timestamp": "2026-04-14T10:25:43.145321895",
+        "timestamp": "2026-04-29T11:36:04.108243862",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

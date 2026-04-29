@@ -42,10 +42,10 @@
                 "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
             ]
         ],
-        "timestamp": "2026-04-14T10:12:57.002869876",
+        "timestamp": "2026-04-29T11:21:59.378233187",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "emmtyper (with --emmtyper_blastdb) - GCF_006364235|streptococcus_pyogenes|compressed_fasta": {
@@ -91,10 +91,10 @@
                 "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
             ]
         ],
-        "timestamp": "2026-04-14T10:13:18.09199018",
+        "timestamp": "2026-04-29T11:22:34.381814729",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

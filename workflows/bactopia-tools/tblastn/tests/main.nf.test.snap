@@ -42,10 +42,10 @@
                 "tblastn.tsv:md5,cc21dacd4745b135d856a1aa329df046"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:44.973518963",
+        "timestamp": "2026-04-29T11:25:02.939135967",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "tblastn (single-protein.faa) - SRR2838702|portiera|blastdb": {
@@ -91,10 +91,10 @@
                 "tblastn.tsv:md5,cc21dacd4745b135d856a1aa329df046"
             ]
         ],
-        "timestamp": "2026-04-14T10:16:04.458952203",
+        "timestamp": "2026-04-29T11:25:25.437151337",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

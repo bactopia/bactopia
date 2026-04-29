@@ -15,10 +15,10 @@
                 "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
             ]
         ],
-        "timestamp": "2026-04-14T10:08:15.2098167",
+        "timestamp": "2026-04-29T11:20:00.580493161",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "bakta - module - SRR2838702 - path (full)": {
@@ -37,10 +37,10 @@
                 "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:16.668377094",
+        "timestamp": "2026-04-29T11:22:53.418790016",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

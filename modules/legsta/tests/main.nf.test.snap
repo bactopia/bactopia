@@ -14,10 +14,10 @@
                 "versions.yml:md5,1ea80a08aa0a9efc6d82ffa9e668ad6d"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:34.380537056",
+        "timestamp": "2026-04-29T11:15:32.144911959",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

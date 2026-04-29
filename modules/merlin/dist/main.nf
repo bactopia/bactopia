@@ -1,7 +1,7 @@
 /**
  * Identify species to trigger genus-specific downstream analyses (Merlin).
  *
- * This is a specialized process for the [Merlin](https://bactopia.github.io/latest/bactopia-tools/merlin/)
+ * This is a specialized process for the [Merlin](https://bactopia.io/bactopia-tools/merlin/)
  * workflow. It runs `mash dist` against a reference database and parses the results to detect
  * specific genera (e.g., *Salmonella*, *Staphylococcus*). Based on the detected genus, it
  * outputs data into specific channels to trigger targeted tools (e.g., finding *Salmonella* triggers Sistr).

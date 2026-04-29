@@ -46,10 +46,10 @@
                 "mobsuite.tsv:md5,951dbd706ab78c4d00aa28735ab34e87"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:12.201310891",
+        "timestamp": "2026-04-29T11:24:21.232121928",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

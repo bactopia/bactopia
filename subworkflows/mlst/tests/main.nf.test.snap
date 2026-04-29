@@ -9,7 +9,7 @@
                 "process_name": "mlst",
                 "scope": "sample"
             },
-            "GCF_000017085.tsv:md5,60c6b969e31f29664e99c69e6d7bb0e9",
+            "GCF_000017085.tsv:md5,c2faf73735d4ebc6fb0d8f4b263eb5b6",
             [
                 "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee"
             ],
@@ -25,10 +25,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:10:25.217339648",
+        "timestamp": "2026-04-29T11:19:20.491288912",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

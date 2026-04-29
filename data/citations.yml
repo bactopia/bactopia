@@ -1,7 +1,7 @@
 workflows:
   bactopia:
     name: Bactopia
-    link: https://bactopia.github.io/
+    link: https://bactopia.io/
     description: An extensive workflow to process Nanopore and Illumina sequencing for bacterial genomes
     cite: |
       Petit III RA, Read TD [Bactopia - a flexible pipeline for complete analysis of bacterial genomes.](https://doi.org/10.1128/mSystems.00190-20) _mSystems_ 5 (2020)

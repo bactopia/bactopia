@@ -42,10 +42,10 @@
                 "ssuissero.tsv:md5,b1312d3041a6543154be554d5ec3b0b9"
             ]
         ],
-        "timestamp": "2026-04-14T10:15:10.739555936",
+        "timestamp": "2026-04-29T11:24:32.770143641",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

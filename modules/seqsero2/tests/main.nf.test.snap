@@ -13,10 +13,10 @@
                 "versions.yml:md5,5eae062ed95e0fb2e1bd8d268e0e1cdf"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:39.886639701",
+        "timestamp": "2026-04-29T11:16:38.436546661",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "seqsero2 - module - GCF_016028495 - uncompressed": {
@@ -33,10 +33,10 @@
                 "versions.yml:md5,5eae062ed95e0fb2e1bd8d268e0e1cdf"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:27.493981049",
+        "timestamp": "2026-04-29T11:16:24.056038097",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

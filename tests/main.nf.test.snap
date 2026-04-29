@@ -43,6 +43,7 @@
                 "SRR2838702/main/assembler/logs/shovill-se.log",
                 "SRR2838702/main/assembler/logs/versions.yml",
                 "SRR2838702/main/assembler/supplemental",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/shovill.corrections",
                 "SRR2838702/main/gather",
                 "SRR2838702/main/gather/SRR2838702-meta.tsv",
@@ -177,10 +178,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:25:24.571080861",
+        "timestamp": "2026-04-29T11:34:19.510530167",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (assembly error) - SRR2838702|portiera|illumina": {
@@ -206,6 +207,7 @@
                 "SRR2838702/main/assembler/supplemental",
                 "SRR2838702/main/assembler/supplemental/flash.hist",
                 "SRR2838702/main/assembler/supplemental/flash.histogram",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/shovill.corrections",
                 "SRR2838702/main/gather",
                 "SRR2838702/main/gather/SRR2838702-meta.tsv",
@@ -272,10 +274,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-14T10:45:30.69252065",
+        "timestamp": "2026-04-29T11:54:53.770105154",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (hybrid) - SRR2838702|portiera|illumina+nanopore": {
@@ -322,6 +324,7 @@
                 "SRR2838702/main/assembler/logs/unicycler.log",
                 "SRR2838702/main/assembler/logs/versions.yml",
                 "SRR2838702/main/assembler/supplemental",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/unicycler-unpolished.fasta.gz",
                 "SRR2838702/main/assembler/supplemental/unicycler-unpolished.gfa.gz",
                 "SRR2838702/main/gather",
@@ -471,10 +474,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:37:28.598820865",
+        "timestamp": "2026-04-29T11:46:42.824548983",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (short polish) - ERR3772599|portiera|illumina+nanopore": {
@@ -524,6 +527,7 @@
                 "ERR3772599/main/assembler/supplemental/flye-info.txt",
                 "ERR3772599/main/assembler/supplemental/flye-unpolished.fasta.gz",
                 "ERR3772599/main/assembler/supplemental/flye-unpolished.gfa.gz",
+                "ERR3772599/main/assembler/supplemental/ont.txt",
                 "ERR3772599/main/gather",
                 "ERR3772599/main/gather/ERR3772599-meta.tsv",
                 "ERR3772599/main/gather/logs",
@@ -671,10 +675,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:42:56.367387161",
+        "timestamp": "2026-04-29T11:52:17.954751264",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (low proportion) - SRR2838702|portiera|illumina": {
@@ -749,10 +753,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-14T10:43:37.794521507",
+        "timestamp": "2026-04-29T11:52:58.985162251",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (pe+bakta) - SRR2838702|portiera|illumina": {
@@ -804,6 +808,7 @@
                 "SRR2838702/main/assembler/supplemental",
                 "SRR2838702/main/assembler/supplemental/flash.hist",
                 "SRR2838702/main/assembler/supplemental/flash.histogram",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/shovill.corrections",
                 "SRR2838702/main/gather",
                 "SRR2838702/main/gather/SRR2838702-meta.tsv",
@@ -946,10 +951,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:22:26.309314317",
+        "timestamp": "2026-04-29T11:31:33.095335298",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (low coverage) - ERR3772599|portiera|nanopore": {
@@ -1013,10 +1018,10 @@
                 "versions.yml:md5,61924107a406c136f55c445d470721f7"
             ]
         ],
-        "timestamp": "2026-04-14T10:46:01.076181015",
+        "timestamp": "2026-04-29T11:55:24.978165937",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (ont) - ERR3772599|portiera|nanopore": {
@@ -1066,6 +1071,7 @@
                 "ERR3772599/main/assembler/supplemental/flye-info.txt",
                 "ERR3772599/main/assembler/supplemental/flye-unpolished.fasta.gz",
                 "ERR3772599/main/assembler/supplemental/flye-unpolished.gfa.gz",
+                "ERR3772599/main/assembler/supplemental/ont.txt",
                 "ERR3772599/main/gather",
                 "ERR3772599/main/gather/ERR3772599-meta.tsv",
                 "ERR3772599/main/gather/logs",
@@ -1196,10 +1202,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:30:01.182065976",
+        "timestamp": "2026-04-29T11:39:34.253436144",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "Bactopia (pe) - SRR2838702|portiera|illumina": {
@@ -1248,6 +1254,7 @@
                 "SRR2838702/main/assembler/supplemental",
                 "SRR2838702/main/assembler/supplemental/flash.hist",
                 "SRR2838702/main/assembler/supplemental/flash.histogram",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/shovill.corrections",
                 "SRR2838702/main/gather",
                 "SRR2838702/main/gather/SRR2838702-meta.tsv",
@@ -1389,10 +1396,10 @@
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
             ]
         ],
-        "timestamp": "2026-04-14T10:17:58.503466574",
+        "timestamp": "2026-04-29T11:27:11.243153114",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

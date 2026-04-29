@@ -16,10 +16,10 @@
                 "versions.yml:md5,78ab09ff9e54f2fbad4aa04b12b33c6d"
             ]
         ],
-        "timestamp": "2026-04-14T10:08:49.581680246",
+        "timestamp": "2026-04-29T11:18:53.83883245",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "srahumanscrubber - module - SRR2838702 - PE": {
@@ -39,10 +39,10 @@
                 "versions.yml:md5,78ab09ff9e54f2fbad4aa04b12b33c6d"
             ]
         ],
-        "timestamp": "2026-04-14T10:07:53.492551578",
+        "timestamp": "2026-04-29T11:18:00.849936857",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

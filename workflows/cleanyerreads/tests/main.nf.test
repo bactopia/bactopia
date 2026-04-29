@@ -52,7 +52,7 @@ nextflow_pipeline {
                 test_dataset3 = ""
                 test_r1 = ""
                 test_r2 = ""
-                test_se = "/species/mixed/reads/SRR2838702SE/main/qc/SRR2838702SE.fastq.gz"
+                test_se = "/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"
                 test_ont = ""
                 is_ci = true
                 outdir = "$outputDir"

@@ -45,6 +45,7 @@
                 "SRR2838702/main/assembler/supplemental",
                 "SRR2838702/main/assembler/supplemental/flash.hist",
                 "SRR2838702/main/assembler/supplemental/flash.histogram",
+                "SRR2838702/main/assembler/supplemental/illumina.txt",
                 "SRR2838702/main/assembler/supplemental/shovill.corrections",
                 "SRR2838702/main/gather",
                 "SRR2838702/main/gather/SRR2838702-meta.tsv",
@@ -265,10 +266,10 @@
                 "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793"
             ]
         ],
-        "timestamp": "2026-04-14T10:20:24.471480618",
+        "timestamp": "2026-04-29T11:29:39.249406285",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

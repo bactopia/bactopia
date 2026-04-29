@@ -14,10 +14,10 @@
                 "versions.yml:md5,b80d80628bb39bba336cff32fe502aac"
             ]
         ],
-        "timestamp": "2026-04-14T09:58:51.962985434",
+        "timestamp": "2026-04-29T11:15:35.884363273",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "csvtk join - module - CSV files by numeric index": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,b80d80628bb39bba336cff32fe502aac"
             ]
         ],
-        "timestamp": "2026-04-14T10:01:11.01545596",
+        "timestamp": "2026-04-29T11:15:51.646604522",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }

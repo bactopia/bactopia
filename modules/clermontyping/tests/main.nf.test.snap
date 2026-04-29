@@ -14,10 +14,10 @@
                 "versions.yml:md5,f4bd87be75db967a591cbfaef55ad136"
             ]
         ],
-        "timestamp": "2026-04-14T10:06:31.915237959",
+        "timestamp": "2026-04-29T11:16:43.324300019",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     },
     "clermontyping - module - GCF_001695515 - uncompressed": {
@@ -35,10 +35,10 @@
                 "versions.yml:md5,f4bd87be75db967a591cbfaef55ad136"
             ]
         ],
-        "timestamp": "2026-04-14T09:59:35.179189056",
+        "timestamp": "2026-04-29T11:16:04.914654129",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.03.1"
+            "nextflow": "26.04.0"
         }
     }
 }
