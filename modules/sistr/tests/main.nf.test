@@ -1,0 +1,65 @@
+nextflow_process {
+    name "Test SISTR"
+    script "../main.nf"
+    process "SISTR"
+    tag "modules"
+    tag "sistr"
+
+    test("sistr - module - GCF_016028495 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_016028495"],
+                        fna: file("${params.test_data_dir}/species/salmonella_enterica/uncompressed/GCF_016028495/main/assembler/GCF_016028495.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("sistr - module - GCF_016028495 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_016028495"],
+                        fna: file("${params.test_data_dir}/species/salmonella_enterica/compressed/GCF_016028495/main/assembler/GCF_016028495.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

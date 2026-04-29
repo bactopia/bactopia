@@ -1,0 +1,44 @@
+{
+    "csvtk concat - module - TSV files": {
+        "content": [
+            {
+                "id": "concat-test-CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/concat-test-concat/",
+                "name": "concat-test",
+                "output_dir": "merged-results",
+                "process_name": "concat-test-concat",
+                "scope": "run"
+            },
+            "concat-test.tsv:md5,cdc7f159c9868a42953e311456741e00",
+            [
+                "versions.yml:md5,c203a84cc5b289951b70302549dcf08d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:38.416605135",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "csvtk concat - module - CSV to TSV conversion": {
+        "content": [
+            {
+                "id": "csv-to-tsv-test-CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/csv-to-tsv-test-concat/",
+                "name": "csv-to-tsv-test",
+                "output_dir": "merged-results",
+                "process_name": "csv-to-tsv-test-concat",
+                "scope": "run"
+            },
+            "csv-to-tsv-test.tsv:md5,ef486706751ecd848244d7aa8fe4cfb5",
+            [
+                "versions.yml:md5,c203a84cc5b289951b70302549dcf08d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:54.044146975",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,9 +1,0 @@
-- name: eggnog-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf eggnog -c nextflow.config --help > eggnog-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - eggnog
-  files:
-    - path: eggnog-help.txt
-      contains: ['eggnog', 'bactopia', 'version', 'dependencies']

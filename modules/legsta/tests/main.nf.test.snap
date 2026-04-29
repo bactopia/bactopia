@@ -1,0 +1,23 @@
+{
+    "legsta - module - GCF_000048645": {
+        "content": [
+            {
+                "id": "GCF_000048645-LEGSTA",
+                "logs_dir": "GCF_000048645/tools/legsta//logs/",
+                "name": "GCF_000048645",
+                "output_dir": "GCF_000048645/tools/legsta/",
+                "process_name": "legsta",
+                "scope": "sample"
+            },
+            "GCF_000048645.tsv:md5,42debc0661bcdc021ea871efcef6fb39",
+            [
+                "versions.yml:md5,1ea80a08aa0a9efc6d82ffa9e668ad6d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:32.144911959",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

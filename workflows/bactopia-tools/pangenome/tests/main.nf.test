@@ -1,0 +1,194 @@
+nextflow_pipeline {
+    name "Test pangenome Workflow"
+    script "../main.nf"
+    config "../../../../conf/test.config"
+    tag "workflows"
+    tag "bactopia-tools"
+    tag "pangenome"
+
+    test("pangenome (panaroo) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                panaroo_core_threshold = 0.80
+                panaroo_threshold = 0.85
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            // Ignore aligned_gene_sequences (panaroo gene naming is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/aligned_gene_sequences/**'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("pangenome (panaroo --skip_recombination) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                panaroo_core_threshold = 0.80
+                panaroo_threshold = 0.85
+                skip_recombination = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            // Ignore aligned_gene_sequences (panaroo gene naming is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/aligned_gene_sequences/**'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("pangenome (pirate) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                use_pirate = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            // Ignore feature_sequences (pirate gene cluster numbering is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/feature_sequences/**'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("pangenome (roary) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                use_roary = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("pangenome (roary, --scoary_traits) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = "/datasets/generic/gene_traits.csv"
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                use_roary = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

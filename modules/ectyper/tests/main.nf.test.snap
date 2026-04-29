@@ -1,0 +1,46 @@
+{
+    "ectyper - module - GCF_001695515 - compressed": {
+        "content": [
+            {
+                "id": "GCF_001695515-ECTYPER",
+                "logs_dir": "GCF_001695515/tools/ectyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/ectyper/",
+                "process_name": "ectyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,def2ecdc6211f53c1ec322747af5048e",
+            "GCF_001695515.blast_alleles.txt:md5,8fefda3ab2f156e1a9fc8891076085b2",
+            [
+                "versions.yml:md5,8da5d25c63ebd770e9c1776106725972"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:38.699285839",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "ectyper - module - GCF_001695515 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_001695515-ECTYPER",
+                "logs_dir": "GCF_001695515/tools/ectyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/ectyper/",
+                "process_name": "ectyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,def2ecdc6211f53c1ec322747af5048e",
+            "GCF_001695515.blast_alleles.txt:md5,8fefda3ab2f156e1a9fc8891076085b2",
+            [
+                "versions.yml:md5,8da5d25c63ebd770e9c1776106725972"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:59.994882882",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

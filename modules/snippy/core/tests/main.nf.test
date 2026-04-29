@@ -1,0 +1,52 @@
+nextflow_process {
+    name "Test SNIPPY_CORE"
+    script "../main.nf"
+    process "SNIPPY_CORE"
+    tag "modules"
+    tag "snippy"
+    tag "snippy_core"
+
+    test("snippy_core - module - test") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "snippy-core-test"],
+                        _vcf: [
+                            file("${params.test_data_dir}/datasets/snippy/test1.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.vcf.gz")
+                        ],
+                        _aligned_fa: [
+                            file("${params.test_data_dir}/datasets/snippy/test1.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.aligned.fa.gz")
+                        ]
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/generic/GCF_000292685.gbk")
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

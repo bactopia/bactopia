@@ -1,9 +1,0 @@
-- name: emmtyper-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf emmtyper -c nextflow.config --help > emmtyper-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - emmtyper
-  files:
-    - path: emmtyper-help.txt
-      contains: ['emmtyper', 'bactopia', 'version', 'dependencies']

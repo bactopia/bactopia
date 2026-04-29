@@ -1,0 +1,22 @@
+{
+    "mashtree - module - multiple genomes": {
+        "content": [
+            {
+                "id": "mashtree-test-MASHTREE",
+                "logs_dir": "logs/",
+                "name": "mashtree-test",
+                "output_dir": "",
+                "process_name": "mashtree",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,6d51bcb025e39e73864f2236b1ce99e9"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:33.989920095",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

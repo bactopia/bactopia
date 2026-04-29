@@ -1,0 +1,52 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/defensefinder/run/schema.json",
+    "title": "defense-finder Module",
+    "description": "A module to identify anti-phage systems in assemblies",
+    "type": "object",
+    "$defs": {
+        "defensefinder_parameters": {
+            "title": "defense-finder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "defensefinder_coverage": {
+                    "type": "number",
+                    "description": "Minimal percentage of coverage for each profiles",
+                    "default": 0.4,
+                    "fa_icon": "fas fa-percentage"
+                },
+                "defensefinder_dbtype": {
+                    "type": "string",
+                    "description": "The macsyfinder --db-type option",
+                    "default": "ordered_replicon",
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "ordered_replicon",
+                        "gembase",
+                        "unordered"
+                    ]
+                },
+                "defensefinder_preserveraw": {
+                    "type": "boolean",
+                    "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "defensefinder_nocutga": {
+                    "type": "boolean",
+                    "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/defensefinder_parameters"
+        }
+    ]
+}

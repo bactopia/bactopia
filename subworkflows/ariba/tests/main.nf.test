@@ -1,0 +1,105 @@
+nextflow_workflow {
+    name "Test ARIBA Subworkflow"
+    script "../main.nf"
+    workflow "ARIBA"
+    tag "subworkflows"
+    tag "ariba"
+
+    test("ariba - subworkflow - se_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                input[1] = "card"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("ariba - subworkflow - lr_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR3772599"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
+                    )
+                )
+                input[1] = "card"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("ariba - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = "card"
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                { assert sample.report != null },
+                { assert sample.summary != null },
+                { assert sample.results != null }
+            )
+        }
+    }
+}

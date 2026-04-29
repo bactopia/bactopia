@@ -1,0 +1,82 @@
+/**
+ * Pan-genome wide association studies.
+ *
+ * Uses [Scoary](https://github.com/AdmiralenOla/Scoary) to score the components of the pan-genome
+ * for associations to specified traits (phenotypes). It is designed to work with the gene
+ * presence/absence output from Roary.
+ *
+ * @status stable
+ * @keywords scoary, pangenome, gwas, association, bacteria, roary
+ * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
+ * @citation scoary
+ *
+ * @input record(meta, csv)
+ * - `meta`: Groovy Record containing sample information
+ * - `csv`: Gene presence/absence CSV file (typically from Roary)
+ *
+ * @input traits
+ * CSV file containing trait information for the samples
+ *
+ * @output record(meta, results, logs, nf_logs, versions)
+ *
+ * @results gwas
+ * - `*.results.csv`: Per-trait GWAS results with gene associations and p-values
+ */
+nextflow.enable.types = true
+
+process SCOARY {
+    tag "${prefix}"
+    label 'process_low'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        csv: Path
+    )
+    traits: Path
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        // Generic fields (used for publishing)
+        results: [
+            files("*.results.csv")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        process_name: task.ext.process_name,
+        output_dir: "${task.ext.process_name}/",
+        logs_dir: "${task.ext.process_name}/logs"
+    )
+    """
+    scoary \\
+        ${task.ext.args} \\
+        --no-time \\
+        --threads ${task.cpus} \\
+        --traits ${traits} \\
+        --genes ${csv}
+
+    # Cleanup
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        scoary: \$( scoary --version 2>&1 )
+    END_VERSIONS
+    """
+}

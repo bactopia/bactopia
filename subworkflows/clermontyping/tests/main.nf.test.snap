@@ -1,0 +1,34 @@
+{
+    "clermontyping - subworkflow - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-CLERMONTYPING:CLERMONTYPING_MODULE",
+                "logs_dir": "GCF_001695515/tools/clermontyping//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/clermontyping/",
+                "process_name": "clermontyping",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,ada70bc3ddf029316f3f169c440f0b0b",
+            [
+                "versions.yml:md5,0af03e4bf500503c36d6425e4169eb18"
+            ],
+            {
+                "id": "clermontyping-CLERMONTYPING:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/clermontyping-concat/",
+                "name": "clermontyping",
+                "output_dir": "merged-results",
+                "process_name": "clermontyping-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,867a114cb8d26e2302391ce5a5a0a959"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:11.723431368",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

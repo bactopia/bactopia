@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/main/modules/gtdbtk/setupdb/schema.json",
+    "title": "GTDB-Tk Setup Database Module",
+    "description": "The schema for GTDB-Tk setup database parameters",
+    "type": "object",
+    "$defs": {
+        "gtdbtk_setupdb_parameters": {
+            "title": "GTDB-Tk Setup Database Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gtdb": {
+                    "type": "string",
+                    "description": "Tarball or path of a GTDB database. If a database is not found, you must use '--download_gtdb'",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "download_gtdb": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, even it exists",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "gtdb_save_as_tarball": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the latest GTDB database, and save it in a single tarball",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gtdbtk_setupdb_parameters"
+        }
+    ]
+}

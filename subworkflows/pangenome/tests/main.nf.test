@@ -1,0 +1,51 @@
+nextflow_workflow {
+    name "Test PANGENOME Subworkflow"
+    script "../main.nf"
+    workflow "PANGENOME"
+    tag "subworkflows"
+    tag "pangenome"
+
+    test("pangenome - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "portiera-test"],
+                        gff: [
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000292685.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000298385.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_002849995.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000300075.gff.gz")
+                        ]
+                    )
+                )
+                input[1] = false
+                input[2] = false
+                """
+            }
+        }
+
+        then {
+            def runs = workflow.out.run_outputs
+            def panaroo = runs.find { it.meta.process_name == 'panaroo_run' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists' }
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    panaroo.meta,
+                    panaroo.versions,
+                    snpdists.meta,
+                    snpdists.versions
+                ).match() },
+                { assert snpdists.tsv != null },
+                { assert panaroo.results != null },
+                { assert snpdists.results != null }
+            )
+        }
+    }
+}

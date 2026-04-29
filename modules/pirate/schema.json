@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/pirate/schema.json",
+    "title": "PIRATE Module",
+    "description": "A module for determining the building a pangenome",
+    "type": "object",
+    "$defs": {
+        "pirate_parameters": {
+            "title": "PIRATE Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "use_pirate": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use PIRATE instead of panaroo in the 'pangenome' subworkflow",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "pirate_steps": {
+                    "type": "string",
+                    "default": "50,60,70,80,90,95,98",
+                    "description": "Percent identity thresholds to use for pangenome construction",
+                    "fa_icon": "fas fa-font"
+                },
+                "pirate_features": {
+                    "type": "string",
+                    "default": "CDS",
+                    "description": "Comma-delimited features to use for pangenome construction",
+                    "fa_icon": "fas fa-font"
+                },
+                "pirate_para_off": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Switch off paralog identification",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "pirate_z": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Retain all PIRATE intermediate files",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "pirate_pan_opt": {
+                    "type": "string",
+                    "description": "Additional arguments to pass to pangenome construction.",
+                    "help": "Please see https://github.com/SionBayliss/PIRATE#advanced-examples for more details",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/pirate_parameters"
+        }
+    ]
+}

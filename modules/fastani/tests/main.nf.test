@@ -1,0 +1,73 @@
+nextflow_process {
+    name "Test FASTANI"
+    script "../main.nf"
+    process "FASTANI"
+    tag "modules"
+    tag "fastani"
+
+    test("fastani - module - fastani-test - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "fastani-test"],
+                        query: [
+                            file("${params.test_data_dir}/species/haemophilus_influenzae/uncompressed/GCF_900478275/main/assembler/GCF_900478275.fna")
+                        ],
+                        reference: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("fastani - module - fastani-test - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "fastani-test"],
+                        query: [
+                            file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/assembler/GCF_900478275.fna.gz")
+                        ],
+                        reference: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,5 +1,8 @@
+./bactopia/
+bactopia.github.io/
 bactopia-tests/
 temp/
+temp-test/
 data/datasets/*.gz
 data/datasets/*.msh
 data/datasets/*.db
@@ -8,9 +11,30 @@ test_data
 conda/envs
 conf/aws.config
 .nextflow*
+.test/
 work/
 trace.txt*
 *.simg
+**/.nf-test/*
+**/.nf-test-*.nf
+logs/
+
+# Conda Build
+data/conda/channeldata.json
+data/conda/index.html
+data/conda/linux-64/
+data/conda/noarch/
+
+# Claude
+.claude/plans/
+.claude/handoffs/
+
+# temp v4 folders
+old-bactopia/
+modules-old/
+subworkflows-old/
+.v4/
+.nextflow/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,33 @@
+{
+    "pangenome - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-test-PANGENOME:PANAROO:PANAROO_RUN",
+                "logs_dir": "panaroo/logs",
+                "name": "portiera-test",
+                "output_dir": "",
+                "process_name": "panaroo_run",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,5514295ba35a95ebb8417acd05766159"
+            ],
+            {
+                "id": "core-genome.distance-snpdists",
+                "logs_dir": "snpdists/logs/",
+                "name": "core-genome.distance",
+                "output_dir": "",
+                "process_name": "snpdists",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:06.006285694",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

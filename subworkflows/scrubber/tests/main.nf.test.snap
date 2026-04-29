@@ -1,0 +1,35 @@
+{
+    "scrubber - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SCRUBBER:NOHUMAN:NOHUMAN_MODULE",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,a8320e62273b53dca9cfffcb088d3ebb"
+            ],
+            {
+                "id": "scrubber-SCRUBBER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/scrubber-concat/",
+                "name": "scrubber",
+                "output_dir": "merged-results",
+                "process_name": "scrubber-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:25:01.657945097",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

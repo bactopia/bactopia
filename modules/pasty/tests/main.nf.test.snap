@@ -1,0 +1,25 @@
+{
+    "pasty - module - GCF_000006765": {
+        "content": [
+            {
+                "id": "GCF_000006765-PASTY",
+                "logs_dir": "GCF_000006765/tools/pasty//logs/",
+                "name": "GCF_000006765",
+                "output_dir": "GCF_000006765/tools/pasty/",
+                "process_name": "pasty",
+                "scope": "sample"
+            },
+            "GCF_000006765.tsv:md5,fdffd76c66ee57072cd5e8da474bba34",
+            "GCF_000006765.blastn.tsv:md5,dcaf63876416cd5c19d868cfbf446258",
+            "GCF_000006765.details.tsv:md5,1215b1d8dd346836e07404c0a13c79f1",
+            [
+                "versions.yml:md5,275841ecfb594907dd941a31a5e5f171"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:36.307925094",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

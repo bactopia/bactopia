@@ -1,0 +1,44 @@
+{
+    "fastani - module - fastani-test - uncompressed": {
+        "content": [
+            {
+                "id": "GCA_000027305-FASTANI",
+                "logs_dir": "GCA_000027305/logs",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305",
+                "process_name": "fastani",
+                "scope": "run"
+            },
+            "GCA_000027305.tsv:md5,3ae674d2a65ac802f53533de48c73730",
+            [
+                "versions.yml:md5,3c8fce061d0dc503f4830ad0f1e2ebba"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:33.056261848",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "fastani - module - fastani-test - compressed": {
+        "content": [
+            {
+                "id": "GCA_000027305-FASTANI",
+                "logs_dir": "GCA_000027305/logs",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305",
+                "process_name": "fastani",
+                "scope": "run"
+            },
+            "GCA_000027305.tsv:md5,3ae674d2a65ac802f53533de48c73730",
+            [
+                "versions.yml:md5,3c8fce061d0dc503f4830ad0f1e2ebba"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:47.327096724",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

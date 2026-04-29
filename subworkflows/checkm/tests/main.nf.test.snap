@@ -1,0 +1,34 @@
+{
+    "checkm - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-CHECKM:CHECKM_LINEAGEWF",
+                "logs_dir": "SRR2838702/tools/checkm//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm/",
+                "process_name": "checkm",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,8bca9541c38622e9b44e8f7e03a7a9c3",
+            [
+                "versions.yml:md5,a7ddd067ec3e18f6db31f3c12f9e5059"
+            ],
+            {
+                "id": "checkm-CHECKM:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/checkm-concat/",
+                "name": "checkm",
+                "output_dir": "merged-results",
+                "process_name": "checkm-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,9f9cdf7e89a396b859a6aec91820283a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:47.690709387",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/iqtree/schema.json",
+    "title": "IQ-TREE Module",
+    "description": "Phylogeny from a multiple sequence alignment using the maximum likelihood algorithm.",
+    "type": "object",
+    "$defs": {
+        "iqtree_parameters": {
+            "title": "IQ-TREE Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "iqtree_model": {
+                    "type": "string",
+                    "description": "Substitution model name",
+                    "default": "HKY",
+                    "fa_icon": "fas fa-font"
+                },
+                "iqtree_bb": {
+                    "type": "integer",
+                    "description": "Ultrafast bootstrap replicates",
+                    "default": 1000,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "iqtree_alrt": {
+                    "type": "integer",
+                    "description": "SH-like approximate likelihood ratio test replicates",
+                    "default": 1000,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "iqtree_asr": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ancestral state reconstruction by empirical Bayes",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "iqtree_opts": {
+                    "type": "string",
+                    "description": "Extra IQ-TREE options in quotes.",
+                    "help": "Useful if you would like to fine tune your IQ-TREE analysis.",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "skip_phylogeny": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip IQ-TREE execution in subworkflows",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/iqtree_parameters"
+        }
+    ]
+}

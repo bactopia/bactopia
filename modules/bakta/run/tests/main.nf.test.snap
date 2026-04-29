@@ -1,0 +1,46 @@
+{
+    "bakta - module - SRR2838702 - tarball (light)": {
+        "content": [
+            {
+                "id": "SRR2838702-BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
+                "process_name": "bakta",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
+            [
+                "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:00.580493161",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "bakta - module - SRR2838702 - path (full)": {
+        "content": [
+            {
+                "id": "SRR2838702-BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
+                "process_name": "bakta",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
+            [
+                "versions.yml:md5,370f7613e15ca17b54474b6c92316d6c"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:53.418790016",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,41 @@
+nextflow_process {
+    name "Test GTDBTK_CLASSIFYWF"
+    script "../main.nf"
+    process "GTDBTK_CLASSIFYWF"
+    tag "modules"
+    tag "gtdb"
+    tag "gtdbtk_classifywf"
+
+    test("gtdbtk - module - classify genomes - path (full)") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "gtdbtk-test"],
+                        fna: [
+                            file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz"),
+                            file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                        ]
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/gtdbtk/db")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

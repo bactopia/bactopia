@@ -1,0 +1,23 @@
+{
+    "snippy - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SNIPPY:SNIPPY_RUN",
+                "logs_dir": "SRR2838702/tools/snippy/SRR2838702/logs",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/snippy/SRR2838702",
+                "process_name": "snippy",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:00.828251895",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

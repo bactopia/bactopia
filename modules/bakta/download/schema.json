@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bakta/download/schema.json",
+    "title": "Bakta Module",
+    "description": "A module for rapidly annotating baterial genomes",
+    "type": "object",
+    "$defs": {
+        "bakta_download_parameters": {
+            "title": "Bakta Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "bakta_db": {
+                    "type": "string",
+                    "description": "Tarball or path to the Bakta database",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "bakta_db_type": {
+                    "type": "string",
+                    "default": "full",
+                    "description": "Which Bakta DB to download 'full' (~30GB) or 'light' (~2GB)",
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "full",
+                        "light"
+                    ]
+                },
+                "bakta_save_as_tarball": {
+                    "type": "boolean",
+                    "description": "Save the Bakta database as a tarball",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "download_bakta": {
+                    "type": "boolean",
+                    "description": "Download the Bakta database to the path given by --bakta_db",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/bakta_download_parameters"
+        }
+    ]
+}

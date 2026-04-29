@@ -1,0 +1,29 @@
+nextflow_workflow {
+    name "Test DATASETS Subworkflow"
+    script "../main.nf"
+    workflow "DATASETS"
+    tag "subworkflows"
+    tag "bactopia"
+    tag "bactopia_datasets"
+
+    // NOTE: This subworkflow has NO inputs - it downloads datasets from the internet.
+    // Tests require an active internet connection and may be slow.
+
+    test("datasets - subworkflow - download") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.amrfinderplus_db != null },
+                { assert workflow.out.mlst_db != null },
+                { assert workflow.out.mash_db != null },
+                { assert workflow.out.sourmash_db != null }
+            )
+        }
+    }
+}

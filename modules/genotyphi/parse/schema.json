@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/genotyphi/parse/schema.json",
+    "title": "GenoTyphi Module",
+    "description": "A module to genotype Salmonella Typhi from Mykrobe outputs",
+    "type": "object",
+    "$defs": {
+        "genotyphi_parameters": {
+            "title": "GenoTyphi Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "genotyphi_kmer": {
+                    "type": "integer",
+                    "default": 21,
+                    "description": "K-mer length",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "genotyphi_min_depth": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum depth",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "genotyphi_model": {
+                    "type": "string",
+                    "default": "kmer_count",
+                    "description": "Genotype model used.",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true,
+                    "enum": [
+                        "kmer_count",
+                        "median_depth"
+                    ]
+                },
+                "genotyphi_report_all_calls": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report all calls",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "genotyphi_mykrobe_opts": {
+                    "type": "string",
+                    "description": "Extra Mykrobe options in quotes",
+                    "help": "Useful if you would like to fine tune your Mykrobe analysis.",
+                    "fa_icon": "fas fa-font"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/genotyphi_parameters"
+        }
+    ]
+}

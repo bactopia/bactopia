@@ -1,0 +1,72 @@
+nextflow_process {
+    name "Test BACTOPIA_SAMPLESHEET"
+    script "../main.nf"
+    process "BACTOPIA_SAMPLESHEET"
+    tag "modules"
+    tag "bactopia"
+    tag "bactopia_teton"
+
+    test("teton - module - paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702", runtype: "ci", teton_reads: "paired-end"],
+                        classification: file("${params.test_data_dir}/datasets/bracken/SRR2838702.bracken.classification.txt")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.bacteria_tsv,
+                    record.nonbacteria_tsv,
+                    record.sizemeup,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("teton - module - single-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702", runtype: "ci", teton_reads: "single-end"],
+                        classification: file("${params.test_data_dir}/datasets/bracken/SRR2838702.bracken.classification.txt")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.bacteria_tsv,
+                    record.nonbacteria_tsv,
+                    record.sizemeup,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

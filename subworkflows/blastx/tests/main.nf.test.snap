@@ -1,0 +1,34 @@
+{
+    "blastx - subworkflow - SRX1390622": {
+        "content": [
+            {
+                "id": "SRR2838702-BLASTX:BLASTX_MODULE",
+                "logs_dir": "SRR2838702/tools/blastx//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/blastx/",
+                "process_name": "blastx",
+                "scope": "sample"
+            },
+            "SRR2838702.blastx.tsv:md5,54bf71afa132b0a2bee41b21d49cf615",
+            [
+                "versions.yml:md5,e8157c9d3a54ebec3ab501178357e284"
+            ],
+            {
+                "id": "blastx-BLASTX:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/blastx-concat/",
+                "name": "blastx",
+                "output_dir": "merged-results",
+                "process_name": "blastx-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,8634f578eba8a3c37f4edffd83aad444"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:32.589699334",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

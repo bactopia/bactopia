@@ -1,0 +1,100 @@
+{
+    "spatyper - GCF_000017085|staphylococcus_aureus|uncompressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/spatyper",
+                "GCF_000017085/tools/spatyper/GCF_000017085.tsv",
+                "GCF_000017085/tools/spatyper/logs",
+                "GCF_000017085/tools/spatyper/logs/nf.command.begin",
+                "GCF_000017085/tools/spatyper/logs/nf.command.err",
+                "GCF_000017085/tools/spatyper/logs/nf.command.log",
+                "GCF_000017085/tools/spatyper/logs/nf.command.out",
+                "GCF_000017085/tools/spatyper/logs/nf.command.run",
+                "GCF_000017085/tools/spatyper/logs/nf.command.sh",
+                "GCF_000017085/tools/spatyper/logs/nf.command.trace",
+                "GCF_000017085/tools/spatyper/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/spatyper",
+                "bactopia-runs/spatyper/merged-results",
+                "bactopia-runs/spatyper/merged-results/logs",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.begin",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.err",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.log",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.out",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.run",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.sh",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.trace",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/versions.yml",
+                "bactopia-runs/spatyper/merged-results/spatyper.tsv",
+                "bactopia-runs/spatyper/nf-reports",
+                "bactopia-runs/spatyper/nf-reports/spatyper-dag.dot",
+                "bactopia-runs/spatyper/nf-reports/spatyper-report.html",
+                "bactopia-runs/spatyper/nf-reports/spatyper-timeline.html"
+            ],
+            [
+                "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+                "versions.yml:md5,141b714186c6a50d0ead0ea074bf78db",
+                "versions.yml:md5,2be001b7db8743258dd915dfe57337f4",
+                "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:25:16.346934706",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "spatyper - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/spatyper",
+                "GCF_000017085/tools/spatyper/GCF_000017085.tsv",
+                "GCF_000017085/tools/spatyper/logs",
+                "GCF_000017085/tools/spatyper/logs/nf.command.begin",
+                "GCF_000017085/tools/spatyper/logs/nf.command.err",
+                "GCF_000017085/tools/spatyper/logs/nf.command.log",
+                "GCF_000017085/tools/spatyper/logs/nf.command.out",
+                "GCF_000017085/tools/spatyper/logs/nf.command.run",
+                "GCF_000017085/tools/spatyper/logs/nf.command.sh",
+                "GCF_000017085/tools/spatyper/logs/nf.command.trace",
+                "GCF_000017085/tools/spatyper/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/spatyper",
+                "bactopia-runs/spatyper/merged-results",
+                "bactopia-runs/spatyper/merged-results/logs",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.begin",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.err",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.log",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.out",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.run",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.sh",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/nf.command.trace",
+                "bactopia-runs/spatyper/merged-results/logs/spatyper-concat/versions.yml",
+                "bactopia-runs/spatyper/merged-results/spatyper.tsv",
+                "bactopia-runs/spatyper/nf-reports",
+                "bactopia-runs/spatyper/nf-reports/spatyper-dag.dot",
+                "bactopia-runs/spatyper/nf-reports/spatyper-report.html",
+                "bactopia-runs/spatyper/nf-reports/spatyper-timeline.html"
+            ],
+            [
+                "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+                "versions.yml:md5,141b714186c6a50d0ead0ea074bf78db",
+                "versions.yml:md5,2be001b7db8743258dd915dfe57337f4",
+                "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:24:33.661292996",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

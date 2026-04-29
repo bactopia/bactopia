@@ -1,0 +1,44 @@
+{
+    "shigeifinder - module - GCF_016726285 - compressed": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGEIFINDER",
+                "logs_dir": "GCF_016726285/tools/shigeifinder//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigeifinder/",
+                "process_name": "shigeifinder",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,aa4996a8f1027de2483b70687c0e8f00",
+            [
+                "versions.yml:md5,3aa6f0d34a8c44bd11c7d989667bd6f1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:45.805440428",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "shigeifinder - module - GCF_016726285 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGEIFINDER",
+                "logs_dir": "GCF_016726285/tools/shigeifinder//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigeifinder/",
+                "process_name": "shigeifinder",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,aa4996a8f1027de2483b70687c0e8f00",
+            [
+                "versions.yml:md5,3aa6f0d34a8c44bd11c7d989667bd6f1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:31.145144861",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

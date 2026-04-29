@@ -1,0 +1,43 @@
+/**
+ * Identify Staphylococcus aureus agr locus type and operon variants.
+ *
+ * This subworkflow uses [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) to rapidly identify the
+ * accessory gene regulator (agr) locus type and detect agr operon variants in Staphylococcus aureus.
+ * The agr system is a key quorum-sensing regulator of virulence in S. aureus.
+ *
+ * @status stable
+ * @keywords staphylococcus aureus, assembly, agr locus, virulence, quorum sensing
+ * @tags complexity:simple input-type:single output-type:multiple features:aggregation
+ * @citation agrvate
+ *
+ * @modules agrvate, csvtk_concat
+ *
+ * @input record(meta, assembly)
+ * - `meta`: Groovy Record containing sample information
+ * - `assembly`: Assembled contigs in FASTA format for agr locus detection
+ *
+ * @output sample_outputs
+ * - `summary`: Tab-delimited summary of agr locus type and operon variants
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
+ */
+nextflow.enable.types = true
+
+include { AGRVATE as AGRVATE_MODULE } from '../../modules/agrvate/main'
+include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk               } from 'plugin/nf-bactopia'
+
+workflow AGRVATE {
+    take:
+    assembly: Channel<Record>
+
+    main:
+    ch_agrvate = AGRVATE_MODULE(assembly)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_agrvate, 'tsv', [name: 'agrvate']), 'tsv', 'tsv')
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_agrvate
+    run_outputs = ch_csvtk_concat
+}

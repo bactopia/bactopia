@@ -1,0 +1,45 @@
+nextflow_workflow {
+    name "Test BRACKEN Subworkflow"
+    script "../main.nf"
+    workflow "BRACKEN"
+    tag "subworkflows"
+    tag "bracken"
+
+    test("bracken - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/kraken2/k2_viral_20251015.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert sample.meta != null },
+                { assert sample.tsv != null },
+                { assert sample.kraken2_report != null },
+                { assert sample.bracken_report != null },
+                { assert sample.abundances != null },
+                { assert sample.results != null },
+                { assert sample.versions != null }
+            )
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "gigatyper - module - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-GIGATYPER",
+                "logs_dir": "GCF_001695515/tools/gigatyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/gigatyper/",
+                "process_name": "gigatyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,f0a052717fd9439cd1b0f0050869999d",
+            [
+                "versions.yml:md5,ae98787b0c6ddf8f10515b895570a41a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:49.784505502",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

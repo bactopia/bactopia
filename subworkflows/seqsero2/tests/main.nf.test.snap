@@ -1,0 +1,33 @@
+{
+    "seqsero2 - subworkflow - GCF_016028495": {
+        "content": [
+            {
+                "id": "GCF_016028495-SEQSERO2:SEQSERO2_MODULE",
+                "logs_dir": "GCF_016028495/tools/seqsero2//logs/",
+                "name": "GCF_016028495",
+                "output_dir": "GCF_016028495/tools/seqsero2/",
+                "process_name": "seqsero2",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,e05fffa83523c10bcc49b5ac0a7aa8d7"
+            ],
+            {
+                "id": "seqsero2-SEQSERO2:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/seqsero2-concat/",
+                "name": "seqsero2",
+                "output_dir": "merged-results",
+                "process_name": "seqsero2-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,407bddfba34298df26d7fa5880a564e6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:11.602680544",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

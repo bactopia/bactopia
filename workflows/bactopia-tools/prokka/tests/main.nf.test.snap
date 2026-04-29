@@ -1,0 +1,51 @@
+{
+    "Prokka - SRR2838702|portiera|compressed_fasta": {
+        "content": [
+            1,
+            [
+                "SRR2838702",
+                "SRR2838702/main",
+                "SRR2838702/main/annotator",
+                "SRR2838702/main/annotator/prokka",
+                "SRR2838702/main/annotator/prokka/SRR2838702-blastdb.tar.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.faa.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.ffn.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.fna.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.fsa.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.gff.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.sqn.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.tbl.gz",
+                "SRR2838702/main/annotator/prokka/SRR2838702.tsv",
+                "SRR2838702/main/annotator/prokka/SRR2838702.txt",
+                "SRR2838702/main/annotator/prokka/logs",
+                "SRR2838702/main/annotator/prokka/logs/SRR2838702.err",
+                "SRR2838702/main/annotator/prokka/logs/SRR2838702.log",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.begin",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.err",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.log",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.out",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.run",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.sh",
+                "SRR2838702/main/annotator/prokka/logs/nf.command.trace",
+                "SRR2838702/main/annotator/prokka/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/prokka",
+                "bactopia-runs/prokka/nf-reports",
+                "bactopia-runs/prokka/nf-reports/prokka-dag.dot",
+                "bactopia-runs/prokka/nf-reports/prokka-report.html",
+                "bactopia-runs/prokka/nf-reports/prokka-timeline.html"
+            ],
+            [
+                "SRR2838702.tsv:md5,8fdfc661e42e1c9cfa7c167f96e9180d",
+                "SRR2838702.txt:md5,3bb57f34e7d7ef4866cd475edf5bb9c1",
+                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:24:02.431203572",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

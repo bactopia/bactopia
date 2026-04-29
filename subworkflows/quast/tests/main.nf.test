@@ -1,0 +1,46 @@
+nextflow_workflow {
+    name "Test QUAST Subworkflow"
+    script "../main.nf"
+    workflow "QUAST"
+    tag "subworkflows"
+    tag "quast"
+
+    test("quast - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz"),
+                        tsv_meta: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/gather/SRR2838702-meta.tsv")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

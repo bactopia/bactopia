@@ -1,0 +1,22 @@
+{
+    "defensefinder - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-DEFENSEFINDER:DEFENSEFINDER_RUN",
+                "logs_dir": "SRR2838702/tools/defensefinder//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/defensefinder/",
+                "process_name": "defensefinder",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,cac1e24b64c152890e712ac2077fc111"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:49.743429096",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

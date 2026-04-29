@@ -1,9 +1,0 @@
-- name: ectyper-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf ectyper -c nextflow.config --help > ectyper-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - ectyper
-  files:
-    - path: ectyper-help.txt
-      contains: ['ectyper', 'bactopia', 'version', 'dependencies']

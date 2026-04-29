@@ -1,0 +1,447 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia-tools.json",
+    "title": "legsta",
+    "description": "Sequence Based Typing (SBT) of Legionella pneumophila.",
+    "type": "object",
+    "$defs": {
+        "input_parameters": {
+            "title": "Required Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "",
+            "properties": {
+                "bactopia": {
+                    "type": "string",
+                    "description": "The path to bactopia results to use as inputs",
+                    "help": "The required inputs will be automatically selected by the subworkflow.",
+                    "fa_icon": "fas fa-bacterium",
+                    "header": "Bactopia Results"
+                }
+            }
+        },
+        "filter_parameters": {
+            "title": "Filtering Parameters",
+            "type": "object",
+            "description": "Use these parameters to specify which samples to include or exclude.",
+            "default": "",
+            "fa_icon": "fa-solid fa-filter",
+            "properties": {
+                "include": {
+                    "type": "string",
+                    "description": "A text file containing sample names (one per line) to include from the analysis",
+                    "help": "The expected format is a single sample per line.",
+                    "fa_icon": "far fa-square-plus"
+                },
+                "exclude": {
+                    "type": "string",
+                    "description": "A text file containing sample names (one per line) to exclude from the analysis",
+                    "help": "The expected format is a single sample per line.",
+                    "fa_icon": "far fa-square-minus"
+                }
+            }
+        },
+        "legsta_parameters": {
+            "title": "legsta Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "legsta_noheader": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't print header row",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        },
+        "csvtk_concat_parameters": {
+            "title": "csvtk concat Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "csvtk_concat_opts": {
+                    "type": "string",
+                    "description": "Extra csvtk concat options in quotes",
+                    "help": "",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                }
+            }
+        },
+        "optional_parameters": {
+            "title": "Optional Parameters",
+            "type": "object",
+            "description": "These optional parameters can be useful in certain settings.",
+            "default": "",
+            "fa_icon": "fa-solid fa-gears",
+            "properties": {
+                "outdir": {
+                    "type": "string",
+                    "default": "bactopia",
+                    "description": "Base directory to write results to",
+                    "fa_icon": "fas fa-folder"
+                },
+                "skip_compression": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output files will not be compressed",
+                    "help": "Using this parameter can lead to a significant increase in the size of the outputs",
+                    "fa_icon": "fas fa-expand-arrows-alt",
+                    "hidden": true
+                },
+                "datasets": {
+                    "type": "string",
+                    "fa_icon": "fas fa-folder",
+                    "description": "The path to cache datasets to",
+                    "hidden": true
+                },
+                "keep_all_files": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keeps all analysis files created",
+                    "help": "By default, intermediate files are removed. This will not affect the ability to resume Nextflow runs, and only occurs at the end of the process.",
+                    "fa_icon": "fas fa-trash-restore",
+                    "hidden": true
+                }
+            }
+        },
+        "max_job_request_parameters": {
+            "title": "Max Job Request Parameters",
+            "type": "object",
+            "fa_icon": "fa-solid fa-arrow-up-right-dots",
+            "description": "Set the top limit for requested resources for any single job.",
+            "hidden": true,
+            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "properties": {
+                "max_retry": {
+                    "type": "integer",
+                    "description": "Maximum times to retry a process before allowing it to fail.",
+                    "default": 3,
+                    "fa_icon": "fas fa-redo",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of retry attempts for each process. Should be an integer e.g. `--max_retry 1`"
+                },
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum number of CPUs that can be requested for any single job.",
+                    "default": 4,
+                    "fa_icon": "fas fa-microchip",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
+                },
+                "max_memory": {
+                    "type": "string",
+                    "description": "Maximum amount of memory that can be requested for any single job.",
+                    "default": "128.GB",
+                    "fa_icon": "fas fa-memory",
+                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory '8.GB'`"
+                },
+                "max_time": {
+                    "type": "string",
+                    "description": "Maximum amount of time that can be requested for any single job.",
+                    "default": "240.h",
+                    "fa_icon": "far fa-clock",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '1.h'`"
+                },
+                "max_downloads": {
+                    "type": "integer",
+                    "description": "Maximum number of samples to download at a time",
+                    "default": 3,
+                    "fa_icon": "fas fa-angle-double-up",
+                    "hidden": true,
+                    "help_text": "Use to set an upper-limit for the number of downloads at a time"
+                }
+            }
+        },
+        "nextflow_parameters": {
+            "title": "Nextflow Configuration Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "hidden": true,
+            "fa_icon": "fa-solid fa-screwdriver-wrench",
+            "properties": {
+                "nfconfig": {
+                    "type": "string",
+                    "description": "A Nextflow compatible config file for custom profiles, loaded last and will overwrite existing variables if set.",
+                    "help": "This allows you to create profiles specific to your environment (e.g. SGE, AWS, SLURM, etc...).",
+                    "fa_icon": "fas fa-cog",
+                    "hidden": true
+                },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "copy",
+                    "hidden": true,
+                    "description": "Method used to save pipeline results to output directory.",
+                    "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
+                    "fa_icon": "fas fa-copy",
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ]
+                },
+                "infodir": {
+                    "type": "string",
+                    "description": "Directory to keep pipeline Nextflow logs and reports.",
+                    "default": "${params.outdir}/pipeline_info",
+                    "fa_icon": "fas fa-cogs",
+                    "hidden": true
+                },
+                "force": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Nextflow will overwrite existing output files.",
+                    "fa_icon": "fas fa-recycle",
+                    "hidden": true
+                },
+                "cleanup_workdir": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "After Bactopia is successfully executed, the `work` directory will be deleted.",
+                    "help": "Warning: by doing this you lose the ability to resume workflows.",
+                    "fa_icon": "fas fa-trash-alt",
+                    "hidden": true
+                }
+            }
+        },
+        "institutional_config_options": {
+            "title": "Institutional config options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Parameters used to describe centralized config profiles. These should not be edited.",
+            "help_text": "The centralized nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "properties": {
+                "custom_config_version": {
+                    "type": "string",
+                    "description": "Git commit id for Institutional configs.",
+                    "default": "master",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "custom_config_base": {
+                    "type": "string",
+                    "description": "Base directory for Institutional configs.",
+                    "default": "https://raw.githubusercontent.com/nf-core/configs/master",
+                    "hidden": true,
+                    "help_text": "If you're running offline, Nextflow will not be able to fetch the institutional config files from the internet. If you don't need them, then this is not a problem. If you do need them, you should download the files from the repo and tell Nextflow where to find them with this parameter.",
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_name": {
+                    "type": "string",
+                    "description": "Institutional config name.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_description": {
+                    "type": "string",
+                    "description": "Institutional config description.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_contact": {
+                    "type": "string",
+                    "description": "Institutional config contact information.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_url": {
+                    "type": "string",
+                    "description": "Institutional config URL link.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                }
+            }
+        },
+        "nextflow_profile_parameters": {
+            "title": "Nextflow Profile Parameters",
+            "type": "object",
+            "description": "Parameters to fine-tune your Nextflow setup.",
+            "default": "",
+            "hidden": true,
+            "fa_icon": "fa-regular fa-address-card",
+            "properties": {
+                "condadir": {
+                    "type": "string",
+                    "description": "Directory to Nextflow should use for Conda environments",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "registry": {
+                    "type": "string",
+                    "default": "quay.io",
+                    "hidden": true,
+                    "description": "Registry to pull Docker containers from.",
+                    "fa_icon": "fas fa-box"
+                },
+                "datasets_cache": {
+                    "type": "string",
+                    "default": "<HOME>/.bactopia/datasets",
+                    "description": "Directory where downloaded datasets should be stored.",
+                    "help": "",
+                    "fa_icon": "fas fa-folder"
+                },
+                "singularity_cache": {
+                    "type": "string",
+                    "description": "Directory where remote Singularity images are stored.",
+                    "help": "If using a cluster, it must be accessible from all compute nodes. The NXF_SINGULARITY_CACHEDIR environment variable overrides this parameter",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                },
+                "singularity_pull_docker_container": {
+                    "type": "boolean",
+                    "description": "Instead of directly downloading Singularity images for use with Singularity, force the workflow to pull and convert Docker containers instead.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-toolbox",
+                    "help_text": "This may be useful for example if you are unable to directly pull Singularity containers to run the pipeline due to http/https proxy issues."
+                },
+                "force_rebuild": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Force overwrite of existing pre-built environments.",
+                    "fa_icon": "fas fa-recycle",
+                    "hidden": true
+                },
+                "queue": {
+                    "type": "string",
+                    "default": "general,high-memory",
+                    "description": "Comma-separated name of the queue(s) to be used by a job scheduler (e.g. AWS Batch or SLURM)",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "cluster_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to the executor. (e.g. SLURM: '--account=my_acct_name'",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "container_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options to pass to Apptainer, Docker, or Singularity. (e.g. Singularity: '-D `pwd`'",
+                    "fa_icon": "fas fa-clipboard-list",
+                    "hidden": true
+                },
+                "disable_scratch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "All intermediate files created on worker nodes of will be transferred to the head node.",
+                    "help": "Typically with clusters intermediate results are written to a 'scratch' space and only published result files are transferred back",
+                    "fa_icon": "fas fa-toggle-off",
+                    "hidden": true
+                }
+            }
+        },
+        "generic_parameters": {
+            "title": "Helpful Parameters",
+            "type": "object",
+            "fa_icon": "fa-solid fa-reply-all",
+            "description": "Uncommonly used parameters that might be useful.",
+            "properties": {
+                "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "fa_icon": "fas fa-palette",
+                    "hidden": true,
+                    "help_text": "Set to disable colourful command line output and live life in monochrome."
+                },
+                "nfdir": {
+                    "type": "boolean",
+                    "description": "Print directory Nextflow has pulled Bactopia to",
+                    "fa_icon": "fas fa-remove-format",
+                    "hidden": true
+                },
+                "sleep_time": {
+                    "type": "integer",
+                    "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
+                    "default": 5,
+                    "fa_icon": "far fa-clock",
+                    "hidden": true
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-tasks",
+                    "description": "Boolean whether to validate parameters against the schema at runtime",
+                    "hidden": true
+                },
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "wf": {
+                    "type": "string",
+                    "description": "Specify which workflow or Bactopia Tool to execute",
+                    "default": "bactopia",
+                    "fa_icon": "fas fa-bacteria"
+                },
+                "list_wfs": {
+                    "type": "boolean",
+                    "description": "List the available workflows and Bactopia Tools to use with '--wf'",
+                    "fa_icon": "fas fa-list"
+                },
+                "show_hidden_params": {
+                    "type": "boolean",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "far fa-eye",
+                    "hidden": true
+                },
+                "help_all": {
+                    "type": "boolean",
+                    "description": "An alias for --help --show_hidden_params",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "version": {
+                    "type": "boolean",
+                    "description": "Display version text.",
+                    "fa_icon": "fas fa-info"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/input_parameters"
+        },
+        {
+            "$ref": "#/$defs/filter_parameters"
+        },
+        {
+            "$ref": "#/$defs/legsta_parameters"
+        },
+        {
+            "$ref": "#/$defs/csvtk_concat_parameters"
+        },
+        {
+            "$ref": "#/$defs/optional_parameters"
+        },
+        {
+            "$ref": "#/$defs/max_job_request_parameters"
+        },
+        {
+            "$ref": "#/$defs/nextflow_parameters"
+        },
+        {
+            "$ref": "#/$defs/nextflow_profile_parameters"
+        },
+        {
+            "$ref": "#/$defs/generic_parameters"
+        }
+    ]
+}

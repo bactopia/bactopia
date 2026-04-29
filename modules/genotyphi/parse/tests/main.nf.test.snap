@@ -1,0 +1,23 @@
+{
+    "genotyphi_parse - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-GENOTYPHI_PARSE",
+                "logs_dir": "SRR2838702/tools/genotyphi//logs/genotyphi",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/genotyphi/",
+                "process_name": "genotyphi",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,57f85f8f41b2fb817f7693d07483d035",
+            [
+                "versions.yml:md5,359680888d6e4e84784879e6e92c3439"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:36.410818766",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

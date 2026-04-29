@@ -1,0 +1,22 @@
+{
+    "tbprofiler collate - module - test": {
+        "content": [
+            {
+                "id": "tbprofiler-TBPROFILER_COLLATE",
+                "logs_dir": "merged-results/logs/tbprofiler-collate",
+                "name": "tbprofiler",
+                "output_dir": "merged-results",
+                "process_name": "tbprofiler-collate",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,3c3d5fbb783c5cb96c154683bf56699a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:59.178764406",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

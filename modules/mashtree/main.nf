@@ -1,0 +1,89 @@
+/**
+ * Rapid alignment-free phylogenomic tree construction.
+ *
+ * Uses [Mashtree](https://github.com/lskatz/mashtree) to create a phylogenetic tree
+ * from genome sequences (FASTA, FASTQ, or GenBank) using MinHash distances. It computes
+ * pairwise distances between all inputs and uses the Neighbor-Joining algorithm to
+ * cluster genomes, effectively creating a "distance-based" tree without full alignment.
+ *
+ * @status stable
+ * @keywords phylogeny, tree, mash, minhash, alignment-free, distance, clustering, neighbor-joining
+ * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
+ * @citation mashtree
+ *
+ * @input record(meta, fna)
+ * - `meta`: Groovy Record containing sample information
+ * - `fna`: Assembled contigs in FASTA format
+ *
+ * @output record(meta, nwk, tsv, sketches?, results, logs, nf_logs, versions)
+ * - `nwk`: The final phylogenetic tree in Newick format (*.dnd)
+ * - `tsv`: The pairwise distance matrix used to build the tree (*.tsv)
+ * - `sketches?`: Directory containing the individual Mash sketches
+ */
+nextflow.enable.types = true
+
+process MASHTREE {
+    tag "${prefix}"
+    label 'process_medium'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        fna: Set<Path>
+    )
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        nwk: file("${prefix}.dnd"),
+        tsv: file("${prefix}.tsv"),
+        sketches: files("sketches/*", optional: true),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.dnd"),
+            files("${prefix}.tsv"),
+            files("sketches/*", optional: true)
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "",
+        logs_dir: "logs/",
+        process_name: task.ext.process_name
+    )
+    """
+    mkdir mashtree-tmp
+
+    mashtree \\
+        ${task.ext.args} \\
+        --numcpus ${task.cpus} \\
+        --outmatrix ${prefix}.tsv \\
+        --outtree ${prefix}.dnd \\
+        --tempdir mashtree-tmp/ \\
+        ${fna.join(' ')}
+
+    # Cleanup
+    rm -rf mashtree-tmp/
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        mash: \$(echo \$(mash 2>&1) | sed 's/^.*Mash version //;s/ .*\$//')
+        mashtree: \$( echo \$( mashtree --version 2>&1 ) | sed 's/^.*Mashtree //' )
+    END_VERSIONS
+    """
+}

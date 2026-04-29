@@ -1,0 +1,51 @@
+{
+    "ngmaster - GCF_001047255|neisseria_gonorrhoeae|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_001047255",
+                "GCF_001047255/tools",
+                "GCF_001047255/tools/ngmaster",
+                "GCF_001047255/tools/ngmaster/GCF_001047255.tsv",
+                "GCF_001047255/tools/ngmaster/logs",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.begin",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.err",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.log",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.out",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.run",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.sh",
+                "GCF_001047255/tools/ngmaster/logs/nf.command.trace",
+                "GCF_001047255/tools/ngmaster/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/ngmaster",
+                "bactopia-runs/ngmaster/merged-results",
+                "bactopia-runs/ngmaster/merged-results/logs",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.begin",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.err",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.log",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.out",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.run",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.sh",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/nf.command.trace",
+                "bactopia-runs/ngmaster/merged-results/logs/ngmaster-concat/versions.yml",
+                "bactopia-runs/ngmaster/merged-results/ngmaster.tsv",
+                "bactopia-runs/ngmaster/nf-reports",
+                "bactopia-runs/ngmaster/nf-reports/ngmaster-dag.dot",
+                "bactopia-runs/ngmaster/nf-reports/ngmaster-report.html",
+                "bactopia-runs/ngmaster/nf-reports/ngmaster-timeline.html"
+            ],
+            [
+                "GCF_001047255.tsv:md5,2be2b3dd6c45726d2a9d7f2540b34219",
+                "versions.yml:md5,dcc7b71de52c4fe65e10147be956aa05",
+                "versions.yml:md5,9dbc0e8b7902e955ec10c94c11074f06",
+                "ngmaster.tsv:md5,2be2b3dd6c45726d2a9d7f2540b34219"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:59.895408082",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

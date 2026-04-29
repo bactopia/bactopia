@@ -1,0 +1,67 @@
+nextflow_process {
+    name "Test GUBBINS"
+    script "../main.nf"
+    process "GUBBINS"
+    tag "modules"
+    tag "gubbins"
+
+    test("gubbins - module - test - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "test"],
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.masked_aln,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gubbins - module - test - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "test"],
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.masked_aln,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "blastp - module - SRX1390622": {
+        "content": [
+            {
+                "id": "SRR2838702-BLAST_BLASTP",
+                "logs_dir": "SRR2838702/tools/blastp//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/blastp/",
+                "process_name": "blastp",
+                "scope": "sample"
+            },
+            "SRR2838702.blastp.tsv:md5,3123ab793ea246b29eb99bf30f0259fc",
+            [
+                "versions.yml:md5,617451a4191edeef7d2c7fb101c1ac14"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:31.839259609",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

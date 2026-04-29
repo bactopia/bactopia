@@ -1,0 +1,35 @@
+nextflow_workflow {
+    name "Test NCBIGENOMEDOWNLOAD Subworkflow"
+    script "../main.nf"
+    workflow "NCBIGENOMEDOWNLOAD"
+    tag "subworkflows"
+    tag "ncbigenomedownload"
+
+    test("ncbigenomedownload - subworkflow - single accession") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // Use a small genome for fast testing (requires internet access)
+                accession = "GCF_000292685.1"
+                format = "fasta"
+                keep_downloads = true
+            }
+            workflow {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() }
+            )
+        }
+    }
+}

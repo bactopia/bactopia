@@ -1,0 +1,36 @@
+nextflow_process {
+    name "Test KLEBORATE"
+    script "../main.nf"
+    process "KLEBORATE"
+    tag "modules"
+    tag "kleborate"
+
+    test("kleborate - module - GCF_000009885") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000009885"],
+                        fna: file("${params.test_data_dir}/species/klebsiella_pneumoniae/GCF_000009885/main/assembler/GCF_000009885.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

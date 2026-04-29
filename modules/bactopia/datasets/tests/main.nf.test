@@ -1,0 +1,37 @@
+nextflow_process {
+    name "Test DATASETS"
+    script "../main.nf"
+    process "DATASETS"
+    tag "modules"
+    tag "bactopia"
+    tag "bactopia_datasets"
+
+    // NOTE: This process has NO inputs - it downloads datasets from the internet.
+    // Tests require an active internet connection and may be slow.
+    // Tag with "internet" so these can be excluded from offline CI runs.
+
+    test("datasets - module - download") {
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // No inputs required - DATASETS downloads from internet
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.amrfinderplus_db != null },
+                { assert record.mlst_db != null },
+                { assert record.mash_db != null },
+                { assert record.sourmash_db != null }
+            )
+        }
+    }
+}

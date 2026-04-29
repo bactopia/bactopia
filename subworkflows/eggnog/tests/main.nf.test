@@ -1,0 +1,44 @@
+nextflow_workflow {
+    name "Test EGGNOG Subworkflow"
+    script "../main.nf"
+    workflow "EGGNOG"
+    tag "subworkflows"
+    tag "eggnog"
+
+    test("eggnog - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/eggnog/eggnog.tar.gz")
+                input[2] = false
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                { assert sample.hits != null },
+                { assert sample.seed_orthologs != null },
+                { assert sample.annotations != null },
+                { assert sample.results != null }
+            )
+        }
+    }
+}

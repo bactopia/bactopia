@@ -1,0 +1,67 @@
+nextflow_process {
+    name "Test HPSUISSERO"
+    script "../main.nf"
+    process "HPSUISSERO"
+    tag "modules"
+    tag "hpsuissero"
+
+    test("hpsuissero - module - GCF_002777395 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002777395"],
+                        fna: file("${params.test_data_dir}/species/glaesserella_parasuis/uncompressed/GCF_002777395/main/assembler/GCF_002777395.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("hpsuissero - module - GCF_002777395 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002777395"],
+                        fna: file("${params.test_data_dir}/species/glaesserella_parasuis/compressed/GCF_002777395/main/assembler/GCF_002777395.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,36 @@
+nextflow_process {
+    name "Test NCBIGENOMEDOWNLOAD"
+    script "../main.nf"
+    process "NCBIGENOMEDOWNLOAD"
+    tag "modules"
+    tag "ncbigenomedownload"
+
+    test("ncbigenomedownload - module - single accession") {
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // Use a small genome for fast testing
+                accession = "GCF_000292685.1"
+                format = "fasta"
+                keep_downloads = true
+            }
+            process {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

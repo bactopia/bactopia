@@ -1,0 +1,108 @@
+/**
+ * Automatic Multi-Locus Sequence Typing (MLST) of genome assemblies.
+ *
+ * Uses [mlst](https://github.com/tseemann/mlst) to scan genome assemblies against traditional
+ * PubMLST schemes. It automatically detects the likely species scheme, identifies the alleles
+ * for the 7 housekeeping genes, and assigns a Sequence Type (ST).
+ *
+ * @status stable
+ * @keywords bacteria, typing, mlst, sequence type, pubmlst, alleles
+ * @tags complexity:simple input-type:single output-type:single features:database-dependent,conditional-logic
+ * @citation mlst
+ *
+ * @note Database Required
+ * Requires the MLST database (derived from PubMLST) to be available.
+ *
+ * @input record(meta, fna)
+ * - `meta`: Groovy Record containing sample information
+ * - `fna`: Assembled contigs in FASTA format
+ *
+ * @input db
+ * Directory or compressed tarball containing the MLST database schemes
+ *
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
+ */
+nextflow.enable.types = true
+
+process MLST {
+    tag "${prefix}"
+    label 'process_low'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        fna: Path
+    )
+    db: Path
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}",
+        logs_dir: "${prefix}/tools/${task.ext.process_name}/${task.ext.subdir}/logs/${task.ext.logs_subdir}",
+        process_name: task.ext.process_name
+    )
+
+    def is_tarball = db.getName().endsWith(".tar.gz") ? true : false
+    """
+    # Extract database
+    if [ "${is_tarball}" == "true" ]; then
+        mkdir database/
+        tar -xzf ${db} -C database
+        MLST_DB=\$(find database/ -name "mlst.fa" | sed 's=blast/mlst.fa==')
+    else
+        MLST_DB=\$(find ${db}/ -name "mlst.fa" | sed 's=blast/mlst.fa==')
+    fi
+
+    mlst \\
+        --full \\
+        --label ${prefix} \\
+        --threads ${task.cpus} \\
+        --blastdb \$MLST_DB/blast/mlst.fa \\
+        --datadir \$MLST_DB/pubmlst \\
+        ${task.ext.args} \\
+        ${fna} \\
+        > ${prefix}.tsv
+
+    if [[ -f "\$MLST_DB/DB_VERSION" ]]; then
+        DB_VERSION=\$(cat \$MLST_DB/DB_VERSION)
+    else
+        DB_VERSION="custom database"
+    fi
+
+    # Cleanup
+    if [ "${is_tarball}" == "true" ]; then
+        rm -rf database/
+    fi
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        mlst: \$( echo \$(mlst --version 2>&1) | sed 's/^.*mlst //' )
+        database: \$DB_VERSION
+    END_VERSIONS
+    """
+}

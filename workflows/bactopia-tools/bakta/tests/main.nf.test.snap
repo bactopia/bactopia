@@ -1,0 +1,112 @@
+{
+    "Bakta (tarball) - SRR2838702|portiera|compressed_fasta": {
+        "content": [
+            1,
+            [
+                "SRR2838702",
+                "SRR2838702/main",
+                "SRR2838702/main/annotator",
+                "SRR2838702/main/annotator/bakta",
+                "SRR2838702/main/annotator/bakta/SRR2838702-blastdb.tar.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.embl.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.faa.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.ffn.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.fna.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.gbff.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.gff3.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.hypotheticals.faa.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.hypotheticals.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.inference.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.json.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.png",
+                "SRR2838702/main/annotator/bakta/SRR2838702.svg.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.txt",
+                "SRR2838702/main/annotator/bakta/logs",
+                "SRR2838702/main/annotator/bakta/logs/SRR2838702.log",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.begin",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.err",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.log",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.out",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.run",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.sh",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.trace",
+                "SRR2838702/main/annotator/bakta/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/bakta",
+                "bactopia-runs/bakta/nf-reports",
+                "bactopia-runs/bakta/nf-reports/bakta-dag.dot",
+                "bactopia-runs/bakta/nf-reports/bakta-report.html",
+                "bactopia-runs/bakta/nf-reports/bakta-timeline.html"
+            ],
+            [
+                "SRR2838702.hypotheticals.tsv:md5,242759d129b529e2f5bfd0d0d6a5a6ad",
+                "SRR2838702.inference.tsv:md5,3b7e45ac9c61bde3789bd6fdb44aef2a",
+                "SRR2838702.png:md5,90cfbd53df590d7542498269d4dda97a",
+                "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+                "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
+                "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:27:21.862622123",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "Bakta - SRR2838702|portiera|compressed_fasta": {
+        "content": [
+            1,
+            [
+                "SRR2838702",
+                "SRR2838702/main",
+                "SRR2838702/main/annotator",
+                "SRR2838702/main/annotator/bakta",
+                "SRR2838702/main/annotator/bakta/SRR2838702-blastdb.tar.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.embl.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.faa.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.ffn.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.fna.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.gbff.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.gff3.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.hypotheticals.faa.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.hypotheticals.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.inference.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.json.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.png",
+                "SRR2838702/main/annotator/bakta/SRR2838702.svg.gz",
+                "SRR2838702/main/annotator/bakta/SRR2838702.tsv",
+                "SRR2838702/main/annotator/bakta/SRR2838702.txt",
+                "SRR2838702/main/annotator/bakta/logs",
+                "SRR2838702/main/annotator/bakta/logs/SRR2838702.log",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.begin",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.err",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.log",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.out",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.run",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.sh",
+                "SRR2838702/main/annotator/bakta/logs/nf.command.trace",
+                "SRR2838702/main/annotator/bakta/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/bakta",
+                "bactopia-runs/bakta/nf-reports",
+                "bactopia-runs/bakta/nf-reports/bakta-dag.dot",
+                "bactopia-runs/bakta/nf-reports/bakta-report.html",
+                "bactopia-runs/bakta/nf-reports/bakta-timeline.html"
+            ],
+            [
+                "SRR2838702.hypotheticals.tsv:md5,242759d129b529e2f5bfd0d0d6a5a6ad",
+                "SRR2838702.inference.tsv:md5,3b7e45ac9c61bde3789bd6fdb44aef2a",
+                "SRR2838702.png:md5,90cfbd53df590d7542498269d4dda97a",
+                "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+                "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
+                "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:54.843530718",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

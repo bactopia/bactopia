@@ -1,0 +1,100 @@
+nextflow_process {
+    name "Test EMMTYPER"
+    script "../main.nf"
+    process "EMMTYPER"
+    tag "modules"
+    tag "emmtyper"
+
+    test("emmtyper - module - GCF_006364235 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_006364235"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/uncompressed/GCF_006364235/main/assembler/GCF_006364235.fna")
+                    )
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("emmtyper - module - GCF_006364235 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_006364235"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
+                    )
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("emmtyper - module - GCF_006364235 - with db") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_006364235"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_pyogenes/compressed/GCF_006364235/main/assembler/GCF_006364235.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/emmtyper/emmtyper.tfa")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

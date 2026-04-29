@@ -1,0 +1,53 @@
+{
+    "SISTR - GCF_016028495|salmonella_enterica|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_016028495",
+                "GCF_016028495/tools",
+                "GCF_016028495/tools/sistr",
+                "GCF_016028495/tools/sistr/GCF_016028495-allele.fasta.gz",
+                "GCF_016028495/tools/sistr/GCF_016028495-allele.json.gz",
+                "GCF_016028495/tools/sistr/GCF_016028495-cgmlst.csv",
+                "GCF_016028495/tools/sistr/GCF_016028495.tsv",
+                "GCF_016028495/tools/sistr/logs",
+                "GCF_016028495/tools/sistr/logs/nf.command.begin",
+                "GCF_016028495/tools/sistr/logs/nf.command.err",
+                "GCF_016028495/tools/sistr/logs/nf.command.log",
+                "GCF_016028495/tools/sistr/logs/nf.command.out",
+                "GCF_016028495/tools/sistr/logs/nf.command.run",
+                "GCF_016028495/tools/sistr/logs/nf.command.sh",
+                "GCF_016028495/tools/sistr/logs/nf.command.trace",
+                "GCF_016028495/tools/sistr/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/sistr",
+                "bactopia-runs/sistr/merged-results",
+                "bactopia-runs/sistr/merged-results/logs",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.begin",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.err",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.log",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.out",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.run",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.sh",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/nf.command.trace",
+                "bactopia-runs/sistr/merged-results/logs/sistr-concat/versions.yml",
+                "bactopia-runs/sistr/merged-results/sistr.tsv",
+                "bactopia-runs/sistr/nf-reports",
+                "bactopia-runs/sistr/nf-reports/sistr-dag.dot",
+                "bactopia-runs/sistr/nf-reports/sistr-report.html",
+                "bactopia-runs/sistr/nf-reports/sistr-timeline.html"
+            ],
+            [
+                "GCF_016028495-cgmlst.csv:md5,ee363a38dd118e80b864bf34346867c1",
+                "versions.yml:md5,977ae550815197bc19c457d3c17aaf07",
+                "versions.yml:md5,683c9c1a0fff623520a6d84e3a7d0210"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:25:02.198301037",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "scoary - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "scoary-SCOARY:SCOARY_MODULE",
+                "logs_dir": "scoary/logs",
+                "name": "scoary",
+                "output_dir": "scoary/",
+                "process_name": "scoary",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,36d9b366d4941f258a248bf7a31aecc7"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:05.143988308",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

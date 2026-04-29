@@ -1,0 +1,51 @@
+
+🚀[1m nf-test 0.9.4[0m
+https://www.nf-test.com
+(c) 2021 - 2024 Lukas Forer and Sebastian Schoenherr
+
+Load .nf-test/plugins/nft-utils/0.0.5/nft-utils-0.0.5.jar
+
+[1mTest ABRICATE Subworkflow[0m
+
+  [1mTest[0m [2bfc484f] 'abricate - subworkflow - GCF_000292685' [31mFAILED[0m (9.012s)
+
+  [31mAssertion failed: 
+  
+  1 of 2 assertions failed
+  [0m
+  [31mNextflow stdout:
+  
+  Could not read parameters settings from JSON. java.nio.file.NoSuchFileException: /home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/nextflow_schema.json
+  
+  -[2m------------------------------------------------------------------[0m-
+  [0;34m   _                _              _         _              _              [0m
+  [0;34m  | |__   __ _  ___| |_ ___  _ __ (_) __ _  | |_ ___   ___ | |___          [0m
+  [0;34m  | '_ \ / _` |/ __| __/ _ \| '_ \| |/ _` | | __/ _ \ / _ \| / __|    [0m
+  [0;34m  | |_) | (_| | (__| || (_) | |_) | | (_| | | || (_) | (_) | \__ \        [0m
+  [0;34m  |_.__/ \__,_|\___|\__\___/| .__/|_|\__,_|  \__\___/ \___/|_|___/ [0m
+  [0;34m                            |_|                                            [0m
+  [0;36m  bactopia tools abricate vnull[0m
+  [0;36m  Mass screening of contigs for antimicrobial and virulence genes [0m
+  -[2m------------------------------------------------------------------[0m-
+  [1mCore Nextflow options[0m
+    [0;34mrunName    : [0;32mdisturbed_dalembert[0m
+    [0;34mlaunchDir  : [0;32m/home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/.nf-test/tests/2bfc484f6e406bec3639478fe4a4e856[0m
+    [0;34mworkDir    : [0;32m/home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/.nf-test/tests/2bfc484f6e406bec3639478fe4a4e856/work[0m
+    [0;34mprojectDir : [0;32m/home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests[0m
+    [0;34muserName   : [0;32mrpetit3[0m
+    [0;34mprofile    : [0;32mdocker[0m
+    [0;34mconfigFiles: [0;32m/home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/nextflow.config, /home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/nextflow.config, /home/rpetit3/repos/bactopia/bactopia/subworkflows/abricate/tests/nextflow.config[0m
+  
+  !! Only displaying parameters that differ from the defaults !!
+  -[2m------------------------------------------------------------------[0m-
+  
+  Nextflow stderr:
+  
+  [33mNextflow 26.02.0-edge is available - Please consider updating your version to it(B[m
+  [0m
+
+    Obsolete snapshots can only be checked if all tests of a file are executed successful.
+
+
+[1m[31mFAILURE: [0m[0mExecuted 1 tests in 9.027s (1 failed)
+

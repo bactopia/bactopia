@@ -1,0 +1,90 @@
+#!/usr/bin/env nextflow
+/**
+ * Search against translated nucleotide databases using translated nucleotide queries.
+ *
+ * This Bactopia Tool uses [TBLASTX](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=Blastdocs)
+ * to query translated nucleotide sequences against translated nucleotide databases for
+ * comprehensive homology search at the protein level.
+ *
+ * @status stable
+ * @keywords fasta, blast, alignment, protein, translation, bactopia-tool
+ * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,alignment,similarity-search
+ * @citation blast
+ *
+ * @subworkflows utils_bactopia-tools, tblastx
+ *
+ * @input rundir
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input tblastx_query
+ * Path to nucleotide query sequence in FASTA format
+ *
+ * @input tblastx_db
+ * Path to TBLASTX database for searching
+ *
+ * @section Per-Sample Results
+ * @publish *.tblastx.tsv      TBLASTX alignment results in tabular format
+ * @publish *.tblastx.html     Interactive HTML report of TBLASTX results
+ *
+ * @section Merged Results
+ * @publish tblastx.tsv        Merged TBLASTX results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**            Tool execution logs
+ * @publish logs/nf-*          Nextflow execution scripts and logs for debugging
+ *
+ * @section Versions
+ * @publish versions.yml       Software version information
+ */
+nextflow.enable.types = true
+
+params {
+    rundir : String
+
+    // Tool-specific parameters
+    tblastx_query : Path
+}
+
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { TBLASTX             } from '../../../subworkflows/tblastx/main'
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
+workflow {
+    main:
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_tblastx = TBLASTX(ch_bactopiatool.blastdb, params.tblastx_query)
+
+    publish:
+    // Per-sample
+    sample_outputs = ch_tblastx.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_tblastx.sample_outputs)
+    // Run-level
+    run_outputs = ch_tblastx.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_tblastx.run_outputs)
+}
+
+output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
+    }
+}

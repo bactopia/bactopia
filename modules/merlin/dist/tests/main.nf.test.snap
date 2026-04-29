@@ -1,0 +1,48 @@
+{
+    "merlin_dist - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MERLIN_DIST",
+                "logs_dir": "GCF_000017085/tools/merlindist/merlin/logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/merlindist/merlin",
+                "process_name": "merlindist",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            "GCF_000017085-dist.txt:md5,8565bcb836030c77d694951d67f673e4",
+            [
+                "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:56.070387534",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "merlin_dist - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-MERLIN_DIST",
+                "logs_dir": "GCF_000017085/tools/merlindist/merlin/logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/merlindist/merlin",
+                "process_name": "merlindist",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            "GCF_000017085-dist.txt:md5,d69a96ceed4720dd3923efa13877e565",
+            [
+                "versions.yml:md5,44524f1e9fb05faa952755ecf34bcd18"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:20.752298012",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

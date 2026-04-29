@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/hpsuissero/schema.json",
+    "title": "HpsuisSero Module",
+    "description": "A module serotype prediction of Haemophilus parasuis assemblies",
+    "type": "object",
+    "$defs": {
+        "hpsuissero_parameters": {
+            "title": "HpsuisSero Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/hpsuissero_parameters"
+        }
+    ]
+}

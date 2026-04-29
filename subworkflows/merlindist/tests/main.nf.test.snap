@@ -1,0 +1,25 @@
+{
+    "merlindist - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-MERLINDIST:MERLIN_DIST",
+                "logs_dir": "GCF_000017085/tools/merlindist/null/logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/merlindist/null",
+                "process_name": "merlindist",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            "GCF_000017085-dist.txt:md5,0d47ba81d3fc60514cf37afc3bb51f87",
+            [
+                "versions.yml:md5,a714676ea5e603813de6640079a3f847"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:03.900973384",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "abricate - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-ABRICATE:ABRICATE_RUN",
+                "logs_dir": "SRR2838702/tools/abricate/ncbi/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/abricate/ncbi",
+                "process_name": "abricate",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,69af3321b0bc808b7ef85f102395736f",
+            [
+                "versions.yml:md5,efff7f0760b8d4ab0485a44db5c685b2"
+            ],
+            {
+                "id": "abricate-ncbi-ABRICATE:ABRICATE_SUMMARY",
+                "logs_dir": "merged-results/logs/abricate-concat/ncbi",
+                "name": "abricate-ncbi",
+                "output_dir": "merged-results",
+                "process_name": "merged-results",
+                "scope": "run"
+            },
+            "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30",
+            [
+                [
+                    "abricate-ncbi.tsv:md5,e8391c1a2090cde184f6e350c0c3db30"
+                ]
+            ],
+            [
+                "versions.yml:md5,c6b552151ca3a9ccc54d58594e65789b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:01.332607084",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

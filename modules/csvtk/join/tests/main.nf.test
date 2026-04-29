@@ -1,0 +1,102 @@
+nextflow_process {
+    name "Test CSVTK_JOIN"
+    script "../main.nf"
+    process "CSVTK_JOIN"
+    tag "modules"
+    tag "csvtk"
+    tag "csvtk_join"
+
+    test("csvtk join - module - TSV files by sample column") {
+
+        when {
+            process {
+                """
+                // Create two TSV files with a common key column
+                def tsv1 = file("\${workDir}/resistance.tsv")
+                tsv1.text = [
+                    "sample\tgene\tresistance",
+                    "sample1\tblaTEM-1\tAMPICILLIN",
+                    "sample2\tmecA\tMETHICILLIN"
+                ].join("\\n") + "\\n"
+
+                def tsv2 = file("\${workDir}/coverage.tsv")
+                tsv2.text = [
+                    "sample\tcoverage\tidentity",
+                    "sample1\t100.00\t99.50",
+                    "sample2\t98.75\t97.00"
+                ].join("\\n") + "\\n"
+
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "join-test", subdir: null],
+                        csv1: tsv1,
+                        csv2: tsv2
+                    )
+                )
+                input[1] = Channel.of("tsv")
+                input[2] = Channel.of("tsv")
+                input[3] = Channel.of("sample")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.csv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("csvtk join - module - CSV files by numeric index") {
+
+        when {
+            process {
+                """
+                // Create two CSV files and join by first column (index)
+                def csv1 = file("\${workDir}/left.csv")
+                csv1.text = [
+                    "id,name,status",
+                    "1,sample_a,pass",
+                    "2,sample_b,fail"
+                ].join("\\n") + "\\n"
+
+                def csv2 = file("\${workDir}/right.csv")
+                csv2.text = [
+                    "id,coverage,depth",
+                    "1,95.5,30",
+                    "2,88.2,25"
+                ].join("\\n") + "\\n"
+
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "join-csv-test", subdir: null],
+                        csv1: csv1,
+                        csv2: csv2
+                    )
+                )
+                input[1] = Channel.of("csv")
+                input[2] = Channel.of("csv")
+                input[3] = Channel.of("1")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.csv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

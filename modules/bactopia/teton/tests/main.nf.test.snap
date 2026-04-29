@@ -1,0 +1,52 @@
+{
+    "teton - module - paired-end": {
+        "content": [
+            {
+                "id": "SRR2838702-BACTOPIA_SAMPLESHEET",
+                "logs_dir": "SRR2838702/teton/teton-prepare//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/teton/teton-prepare/",
+                "process_name": "teton-prepare",
+                "runtype": "ci",
+                "scope": "sample",
+                "teton_reads": "paired-end"
+            },
+            "SRR2838702.bacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702.nonbacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702-sizemeup.txt:md5,7a47de9d8f6fde7a43c6d30ff54e2bfc",
+            [
+                "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:38.449618682",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "teton - module - single-end": {
+        "content": [
+            {
+                "id": "SRR2838702-BACTOPIA_SAMPLESHEET",
+                "logs_dir": "SRR2838702/teton/teton-prepare//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/teton/teton-prepare/",
+                "process_name": "teton-prepare",
+                "runtype": "ci",
+                "scope": "sample",
+                "teton_reads": "single-end"
+            },
+            "SRR2838702.bacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702.nonbacteria.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+            "SRR2838702-sizemeup.txt:md5,7a47de9d8f6fde7a43c6d30ff54e2bfc",
+            [
+                "versions.yml:md5,7b812154dd8f427d515417e5cfa98423"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:55.492042681",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

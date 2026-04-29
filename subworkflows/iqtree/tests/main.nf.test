@@ -1,0 +1,38 @@
+nextflow_workflow {
+    name "Test IQTREE Subworkflow"
+    script "../main.nf"
+    workflow "IQTREE"
+    tag "subworkflows"
+    tag "iqtree"
+
+    test("iqtree - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "portiera", process_name: "iqtree"],
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert run.results != null }
+            )
+        }
+    }
+}

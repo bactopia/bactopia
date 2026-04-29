@@ -1,0 +1,44 @@
+{
+    "staphopiasccmec - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-STAPHOPIASCCMEC",
+                "logs_dir": "GCF_000017085/tools/staphopiasccmec//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/staphopiasccmec/",
+                "process_name": "staphopiasccmec",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,f631e5f4c80dc8ce004d72d9a3c56f58",
+            [
+                "versions.yml:md5,efa986cf837fac5b6e3bdd3dab8b424c"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:51.320618453",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "staphopiasccmec - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-STAPHOPIASCCMEC",
+                "logs_dir": "GCF_000017085/tools/staphopiasccmec//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/staphopiasccmec/",
+                "process_name": "staphopiasccmec",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,f631e5f4c80dc8ce004d72d9a3c56f58",
+            [
+                "versions.yml:md5,efa986cf837fac5b6e3bdd3dab8b424c"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:06.354030176",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

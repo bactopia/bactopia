@@ -1,0 +1,56 @@
+/**
+ * Initialize human read removal database for SRA Human Scrubber.
+ *
+ * Uses [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) to download and
+ * initialize the necessary k-mer database required for scrubbing human reads from
+ * sequencing data.
+ *
+ * @status stable
+ * @keywords human, database, scrubber, ncbi, download
+ * @tags complexity:simple input-type:none output-type:single features:internet-access,resource-download,no-test
+ * @citation srahumanscrubber
+ *
+ * @note Internet Required
+ * This process requires an active internet connection to fetch the database from NCBI FTP.
+ *
+ * @output record(db, logs)
+ * - `db`: The initialized SRA Human Scrubber database files
+ */
+nextflow.enable.types = true
+
+// bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028
+process SRAHUMANSCRUBBER_INITDB {
+    label 'process_single'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    output:
+    record(
+        db: files("${prefix}/*human_filter.db*"),
+        logs: files("${prefix}/logs/*", optional: true)
+    )
+
+    script:
+    prefix = task.ext.process_name
+    """
+    mkdir -p ${prefix}/logs
+    DBVERSION=\$(curl "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/current/version.txt")
+    curl -f "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/human_filter.db.\${DBVERSION}" -o "${prefix}/\${DBVERSION}.human_filter.db"
+
+    # Move outputs to tool specific folder
+    cp .command.begin ${prefix}/logs/nf.command.begin
+    cp .command.err ${prefix}/logs/nf.command.err
+    cp .command.log ${prefix}/logs/nf.command.log
+    cp .command.out ${prefix}/logs/nf.command.out
+    cp .command.run ${prefix}/logs/nf.command.run
+    cp .command.sh ${prefix}/logs/nf.command.sh
+    cp .command.trace ${prefix}/logs/nf.command.trace
+
+    cat <<-END_VERSIONS > ${prefix}/logs/versions.yml
+    "${task.process}":
+        sra-human-scrubber: 2.2.1
+        sra-human-scrubber-db: \$DBVERSION
+    END_VERSIONS
+    """
+}

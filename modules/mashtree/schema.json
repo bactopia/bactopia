@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mashtree/schema.json",
+    "title": "Mashtree Module",
+    "description": "A module to create a tree using Mash distance",
+    "type": "object",
+    "$defs": {
+        "mashtree_parameters": {
+            "title": "Mashtree Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "mashtree_trunclength": {
+                    "type": "integer",
+                    "description": "How many characters to keep in a filename",
+                    "default": 250,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "mashtree_sortorder": {
+                    "type": "string",
+                    "default": "ABC",
+                    "description": "For neighbor-joining, the sort order can make a difference.",
+                    "fa_icon": "fas fa-font",
+                    "enum": [
+                        "ABC",
+                        "random",
+                        "input-order"
+                    ]
+                },
+                "mashtree_genomesize": {
+                    "type": "integer",
+                    "description": "Genome size of the input samples",
+                    "default": 5000000,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "mashtree_mindepth": {
+                    "type": "integer",
+                    "description": "If mindepth is zero, then it will be chosen in a smart but slower method, to discard lower-abundance kmers.",
+                    "default": 5,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "mashtree_kmerlength": {
+                    "type": "integer",
+                    "description": "Hashes will be based on strings of this many nucleotides",
+                    "default": 21,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "mashtree_sketchsize": {
+                    "type": "integer",
+                    "description": "Each sketch will have at most this many non-redundant min-hashes",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "mashtree_save_sketches": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save sketches created during the process",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mashtree_parameters"
+        }
+    ]
+}

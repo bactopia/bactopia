@@ -1,0 +1,36 @@
+{
+    "midas - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-MIDAS:MIDAS_SPECIES",
+                "logs_dir": "SRR2838702/tools/midas//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/midas/",
+                "process_name": "midas",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
+            "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+            [
+                "versions.yml:md5,21b80d2d408cef2b3b2690914032a5e5"
+            ],
+            {
+                "id": "midas-MIDAS:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/midas-concat/",
+                "name": "midas",
+                "output_dir": "merged-results",
+                "process_name": "midas-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:26:15.831138628",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

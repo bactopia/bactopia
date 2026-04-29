@@ -1,0 +1,34 @@
+{
+    "busco - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-BUSCO:BUSCO_MODULE",
+                "logs_dir": "SRR2838702/tools/busco/bacteria_odb10/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/busco/bacteria_odb10",
+                "process_name": "busco",
+                "scope": "sample"
+            },
+            "SRR2838702-summary.txt:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
+            [
+                "versions.yml:md5,84a39022a8e62bb5b3eb9c860e79d49f"
+            ],
+            {
+                "id": "busco-bacteria_odb10-BUSCO:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/busco-bacteria_odb10-concat/",
+                "name": "busco-bacteria_odb10",
+                "output_dir": "merged-results",
+                "process_name": "busco-bacteria_odb10-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:05.722136134",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

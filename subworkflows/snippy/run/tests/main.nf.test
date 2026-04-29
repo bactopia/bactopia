@@ -1,0 +1,44 @@
+nextflow_workflow {
+    name "Test SNIPPY Subworkflow"
+    script "../main.nf"
+    workflow "SNIPPY"
+    tag "subworkflows"
+    tag "snippy"
+    tag "snippy_run"
+
+    test("snippy - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert sample.tab != null },
+                { assert sample.txt != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() }
+            )
+        }
+    }
+}

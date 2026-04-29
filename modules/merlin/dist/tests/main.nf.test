@@ -1,0 +1,82 @@
+nextflow_process {
+    name "Test MERLIN_DIST"
+    script "../main.nf"
+    process "MERLIN_DIST"
+    tag "modules"
+    tag "merlin"
+    tag "merlin_dist"
+
+    test("merlin_dist - module - GCF_000017085 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // Record input: assembly + reads (tuple-style with named fields)
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085", runtype: "paired-end", single_end: false],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna"),
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                    )
+                )
+                // Reference Mash database
+                input[1] = file("${params.test_data_dir}/datasets/sketcher/mash-refseq88.k21.msh.xz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.dist,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("merlin_dist - module - GCF_000017085 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // Record input: assembly + reads (tuple-style with named fields)
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085", runtype: "paired-end", single_end: false],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz"),
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                    )
+                )
+                // Reference Mash database
+                input[1] = file("${params.test_data_dir}/datasets/sketcher/mash-refseq88.k21.msh.xz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.dist,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

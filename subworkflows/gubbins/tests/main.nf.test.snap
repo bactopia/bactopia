@@ -1,0 +1,35 @@
+{
+    "gubbins - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-GUBBINS:GUBBINS_MODULE",
+                "logs_dir": "gubbins/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "gubbins",
+                "scope": "run"
+            },
+            "portiera.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719",
+            [
+                "versions.yml:md5,99bfa6c29403a77acf3449315065c245"
+            ],
+            {
+                "id": "core-snp.masked.distance-snpdists",
+                "logs_dir": "snpdists-masked/logs/",
+                "name": "core-snp.masked.distance",
+                "output_dir": "",
+                "process_name": "snpdists-masked",
+                "scope": "run"
+            },
+            "core-snp.masked.distance.tsv:md5,ea17608bc2c71dbec0f79749f1ec8e8c",
+            [
+                "versions.yml:md5,a8d93e0d6a006b32c088567301fe66c4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:39.624854003",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

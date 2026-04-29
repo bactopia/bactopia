@@ -1,0 +1,108 @@
+{
+    "MIDAS - SRR2838702|portiera|compressed_fastq": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/midas",
+                "SRR2838702/tools/midas/SRR2838702.midas.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.tsv",
+                "SRR2838702/tools/midas/logs",
+                "SRR2838702/tools/midas/logs/nf.command.begin",
+                "SRR2838702/tools/midas/logs/nf.command.err",
+                "SRR2838702/tools/midas/logs/nf.command.log",
+                "SRR2838702/tools/midas/logs/nf.command.out",
+                "SRR2838702/tools/midas/logs/nf.command.run",
+                "SRR2838702/tools/midas/logs/nf.command.sh",
+                "SRR2838702/tools/midas/logs/nf.command.trace",
+                "SRR2838702/tools/midas/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/midas",
+                "bactopia-runs/midas/merged-results",
+                "bactopia-runs/midas/merged-results/logs",
+                "bactopia-runs/midas/merged-results/logs/midas-concat",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.begin",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.err",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.log",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.out",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.run",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.sh",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.trace",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml",
+                "bactopia-runs/midas/merged-results/midas.tsv",
+                "bactopia-runs/midas/nf-reports",
+                "bactopia-runs/midas/nf-reports/midas-dag.dot",
+                "bactopia-runs/midas/nf-reports/midas-report.html",
+                "bactopia-runs/midas/nf-reports/midas-timeline.html"
+            ],
+            [
+                "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+                "SRR2838702.midas.adjusted.abundances.txt:md5,3658eb6a56f27a066c88eccd22490808",
+                "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
+                "versions.yml:md5,21b80d2d408cef2b3b2690914032a5e5",
+                "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1",
+                "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:24:15.40797744",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "MIDAS (tarball)- SRR2838702|portiera|compressed_fastq": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/midas",
+                "SRR2838702/tools/midas/SRR2838702.midas.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.adjusted.abundances.txt",
+                "SRR2838702/tools/midas/SRR2838702.midas.tsv",
+                "SRR2838702/tools/midas/logs",
+                "SRR2838702/tools/midas/logs/nf.command.begin",
+                "SRR2838702/tools/midas/logs/nf.command.err",
+                "SRR2838702/tools/midas/logs/nf.command.log",
+                "SRR2838702/tools/midas/logs/nf.command.out",
+                "SRR2838702/tools/midas/logs/nf.command.run",
+                "SRR2838702/tools/midas/logs/nf.command.sh",
+                "SRR2838702/tools/midas/logs/nf.command.trace",
+                "SRR2838702/tools/midas/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/midas",
+                "bactopia-runs/midas/merged-results",
+                "bactopia-runs/midas/merged-results/logs",
+                "bactopia-runs/midas/merged-results/logs/midas-concat",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.begin",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.err",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.log",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.out",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.run",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.sh",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/nf.command.trace",
+                "bactopia-runs/midas/merged-results/logs/midas-concat/versions.yml",
+                "bactopia-runs/midas/merged-results/midas.tsv",
+                "bactopia-runs/midas/nf-reports",
+                "bactopia-runs/midas/nf-reports/midas-dag.dot",
+                "bactopia-runs/midas/nf-reports/midas-report.html",
+                "bactopia-runs/midas/nf-reports/midas-timeline.html"
+            ],
+            [
+                "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+                "SRR2838702.midas.adjusted.abundances.txt:md5,3658eb6a56f27a066c88eccd22490808",
+                "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
+                "versions.yml:md5,21b80d2d408cef2b3b2690914032a5e5",
+                "versions.yml:md5,66c2179f6d22e371b66b5d12ec5b0af1",
+                "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:25:21.435687768",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

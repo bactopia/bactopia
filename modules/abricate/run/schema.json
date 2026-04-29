@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/abricate/run/schema.json",
+    "title": "Abricate Module",
+    "description": "A module for mass screening of contigs for antimicrobial and virulence genes",
+    "type": "object",
+    "$defs": {
+        "abricate_parameters": {
+            "title": "Abricate Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "abricate_db": {
+                    "type": "string",
+                    "default": "ncbi",
+                    "description": "Database to use",
+                    "fa_icon": "fas fa-font"
+                },
+                "abricate_minid": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent identity",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "abricate_mincov": {
+                    "type": "integer",
+                    "default": 80,
+                    "description": "Minimum DNA percent coverage",
+                    "fa_icon": "fas fa-hashtag"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/abricate_parameters"
+        }
+    ]
+}

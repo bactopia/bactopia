@@ -1,0 +1,25 @@
+{
+    "defensefinder - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-DEFENSEFINDER_RUN",
+                "logs_dir": "SRR2838702/tools/defensefinder//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/defensefinder/",
+                "process_name": "defensefinder",
+                "scope": "sample"
+            },
+            "SRR2838702_defense_finder_genes.tsv:md5,8fb79d4fe9b1ae30e2821b4a0b1750a6",
+            "SRR2838702_defense_finder_hmmer.tsv:md5,6a6d86542a0d4978713a6a6cab306cbb",
+            "SRR2838702_defense_finder_systems.tsv:md5,e84993a75030e2894183f8d0e3670aef",
+            [
+                "versions.yml:md5,96378138554cc40b07841aed5efb3e7d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:13.441035414",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "snpdists - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-snpdists",
+                "logs_dir": "snpdists/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "snpdists",
+                "scope": "run"
+            },
+            "portiera.tsv:md5,b9e6a08136215a15591b7f29880e50c2",
+            [
+                "versions.yml:md5,b7c9ec6305cc1637c144c82ba20a94d6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:37.293805741",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

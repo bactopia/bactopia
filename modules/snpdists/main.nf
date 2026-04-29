@@ -1,0 +1,74 @@
+/**
+ * Create a SNP distance matrix from a multiple sequence alignment.
+ *
+ * Uses [snp-dists](https://github.com/tseemann/snp-dists) to read a FASTA alignment and
+ * compute a pairwise SNP distance matrix between all sequences.
+ *
+ * @status stable
+ * @keywords snp, distance, matrix, alignment, phylogeny
+ * @tags complexity:simple input-type:single output-type:single features:conditional-logic
+ * @citation snpdists
+ *
+ * @input record(meta, aln)
+ * - `meta`: Groovy Record containing sample information
+ * - `aln`: Multiple sequence alignment in FASTA format
+ *
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Pairwise SNP distance matrix in TSV format
+ */
+nextflow.enable.types = true
+
+process SNPDISTS {
+    tag "${prefix}"
+    label 'process_low'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        aln: Path
+    )
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        tsv: file("${prefix}.tsv"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.tsv")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    prefix = task.ext.prefix ?: "${_meta.name}"
+    process_name = _meta.process_name ?: task.ext.process_name
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.ext.process_name}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "",
+        logs_dir: "${process_name}/logs/",
+        process_name: process_name
+    )
+    """
+    snp-dists \\
+        ${task.ext.args} \\
+        ${aln} > ${prefix}.tsv
+
+    # Cleanup
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        snp-dists: \$(snp-dists -v 2>&1 | sed 's/snp-dists //;')
+    END_VERSIONS
+    """
+}

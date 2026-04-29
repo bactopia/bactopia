@@ -1,0 +1,103 @@
+nextflow_workflow {
+    name "Test ISMAPPER Subworkflow"
+    script "../main.nf"
+    workflow "ISMAPPER"
+    tag "subworkflows"
+    tag "ismapper"
+
+    test("ismapper - subworkflow - se_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz")
+                input[2] = file("${params.test_data_dir}/datasets/ismapper/is1016.fasta")
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("ismapper - subworkflow - lr_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR3772599"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz")
+                input[2] = file("${params.test_data_dir}/datasets/ismapper/is1016.fasta")
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("ismapper - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz")
+                input[2] = file("${params.test_data_dir}/datasets/ismapper/is1016.fasta")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() }
+            )
+        }
+    }
+}

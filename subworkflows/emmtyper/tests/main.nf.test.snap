@@ -1,0 +1,34 @@
+{
+    "emmtyper - subworkflow - GCF_006364235": {
+        "content": [
+            {
+                "id": "GCF_006364235-EMMTYPER:EMMTYPER_MODULE",
+                "logs_dir": "GCF_006364235/tools/emmtyper//logs/",
+                "name": "GCF_006364235",
+                "output_dir": "GCF_006364235/tools/emmtyper/",
+                "process_name": "emmtyper",
+                "scope": "sample"
+            },
+            "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+            [
+                "versions.yml:md5,ca260192e0d49be5baa2933234bae4ac"
+            ],
+            {
+                "id": "emmtyper-EMMTYPER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/emmtyper-concat/",
+                "name": "emmtyper",
+                "output_dir": "merged-results",
+                "process_name": "emmtyper-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,f181bc0c0ea82cc9859e47cd3254e8d4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:58.904730441",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

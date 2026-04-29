@@ -1,0 +1,127 @@
+#!/usr/bin/env nextflow
+/**
+ * Fast alignment-free computation of whole-genome Average Nucleotide Identity.
+ *
+ * This Bactopia Tool uses [FastANI](https://github.com/ParBLiSS/FastANI) to calculate the average
+ * nucleotide identity (ANI) between samples. It can also calculate ANI against reference genomes
+ * by downloading RefSeq assemblies using NCBI genome download.
+ *
+ * @status stable
+ * @keywords ani, average nucleotide identity, similarity, comparative genomics, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
+ * @citation fastani
+ *
+ * @subworkflows utils_bactopia-tools, fastani, ncbigenomedownload
+ *
+ * @input rundir
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @input fastani_reference
+ * Path to reference FASTA file for ANI comparison
+ *
+ * @input fastani_pairwise
+ * Perform pairwise ANI calculation between all samples
+ *
+ * @input species
+ * Species name to download all RefSeq genomes for comparison
+ *
+ * @input accession
+ * Specific NCBI Assembly RefSeq accession to download
+ *
+ * @input accessions
+ * Path to file containing list of NCBI accessions to download
+ *
+ * @section Per-Sample Results
+ * @publish *.tsv            FastANI results of samples against reference
+ *
+ * @section Merged Results
+ * @publish fastani.tsv       Merged TSV file containing ANI results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**   Tool execution logs
+ * @publish logs/nf-* Nextflow execution scripts and logs for debugging
+ *
+ * @section Versions
+ * @publish versions.yml Software version information
+ */
+nextflow.enable.types = true
+
+params {
+    rundir : String
+
+    // Tool-specific parameters
+    fastani_reference : Path?
+    fastani_pairwise  : Boolean
+    species           : String?
+    accession         : String?
+    accessions        : Path?
+}
+
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { FASTANI             } from '../../../subworkflows/fastani/main'
+include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
+workflow {
+    main:
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+
+    // Reference if applicable
+    ch_reference = channel.empty() as Channel<Record>
+    if (params.fastani_reference) {
+        ch_reference = ch_reference.mix(channel.of(record(
+            meta: [id: params.fastani_reference.getSimpleName()],
+            fna: params.fastani_reference
+        )))
+    }
+
+    // Download if applicable
+    if (params.species || params.accession || params.accessions) {
+        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
+        ch_reference = ch_reference.mix(ch_ncbigenomedownload.assemblies)
+    }
+
+    // Add query if pairwise
+    ch_query = ch_bactopiatool.assembly
+    if (params.fastani_pairwise) {
+        ch_reference = ch_reference.mix(ch_query)
+        ch_query = ch_reference
+    }
+
+    // Run FastANI
+    ch_fastani = FASTANI(ch_query, ch_reference)
+
+    publish:
+    // Per-sample
+    sample_outputs = ch_fastani.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_fastani.sample_outputs)
+    // Run-level
+    run_outputs = ch_fastani.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_fastani.run_outputs)
+}
+
+output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
+    }
+}

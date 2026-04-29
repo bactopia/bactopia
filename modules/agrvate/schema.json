@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/agrvate/schema.json",
+    "title": "AgrVATE Module",
+    "description": "A module for determining the agr group of Staphylococcus aureus",
+    "type": "object",
+    "$defs": {
+        "agrvate_parameters": {
+            "title": "AgrVATE Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "agrvate_typing_only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "agr typing only. Skips agr operon extraction and frameshift detection",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/agrvate_parameters"
+        }
+    ]
+}

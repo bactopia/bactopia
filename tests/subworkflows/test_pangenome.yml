@@ -1,9 +1,0 @@
-- name: pangenome-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf pangenome -c nextflow.config --help > pangenome-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - pangenome
-  files:
-    - path: pangenome-help.txt
-      contains: ['pangenome', 'bactopia', 'version', 'dependencies']

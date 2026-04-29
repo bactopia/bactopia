@@ -1,0 +1,65 @@
+{
+    "quast - module - SRR2838702 - no reference": {
+        "content": [
+            {
+                "id": "SRR2838702-QUAST",
+                "logs_dir": "SRR2838702/tools/quast//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,79fa78c69537697be5eee30f630833d7",
+            [
+                "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:08.770591985",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "quast - module - SRR2838702 - compressed": {
+        "content": [
+            {
+                "id": "SRR2838702-QUAST",
+                "logs_dir": "SRR2838702/tools/quast//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,a02f798379d9982810a198ec9b389079",
+            [
+                "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:46.344863097",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "quast - module - SRR2838702 - uncompressed": {
+        "content": [
+            {
+                "id": "SRR2838702-QUAST",
+                "logs_dir": "SRR2838702/tools/quast//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,2e31a6f1283ca3a7aa253ab81266b85f",
+            [
+                "versions.yml:md5,951ec08af8a1a4466340060a5c95b6c5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:20.405215733",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

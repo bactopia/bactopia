@@ -1,0 +1,46 @@
+{
+    "gamma - module - SRR2838702 - uncompressed": {
+        "content": [
+            {
+                "id": "SRR2838702-GAMMA",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
+                "process_name": "gamma",
+                "scope": "sample"
+            },
+            "SRR2838702.gamma:md5,e2748b908aec89d7da03d032b8754ed7",
+            "SRR2838702.psl:md5,fc3003533d8232082c6e5c5788093a59",
+            [
+                "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:41.617890697",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "gamma - module - SRR2838702 - compressed": {
+        "content": [
+            {
+                "id": "SRR2838702-GAMMA",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
+                "process_name": "gamma",
+                "scope": "sample"
+            },
+            "SRR2838702.gamma:md5,ac083bb8cb217da1d58c75e5e1bf93d6",
+            "SRR2838702.psl:md5,d41d8cd98f00b204e9800998ecf8427e",
+            [
+                "versions.yml:md5,11f61b65b031ac9b3e1afcd127b93d49"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:58.34573894",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

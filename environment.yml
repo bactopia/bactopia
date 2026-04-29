@@ -1,0 +1,26 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  # bactopia
+  - conda >=22.11.0
+  - coreutils
+  - mamba >=1.1.0
+  - nextflow >=26
+  - nf-test
+  - python >=3.9
+  - sed
+  - wget
+  # bactopia-py
+  # need to cd into bactopia-py repo and 'just install'
+  - blast
+  - just
+  - pigz
+  - poetry
+  - pytest
+  - pyyaml
+  # nf-bactopia
+  - make
+  # bactopia.github.io
+  - jinja2
+  - nodejs=22

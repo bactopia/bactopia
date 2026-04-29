@@ -1,0 +1,44 @@
+{
+    "csvtk join - module - TSV files by sample column": {
+        "content": [
+            {
+                "id": "join-test-CSVTK_JOIN",
+                "logs_dir": "merged-results/logs/join-test-join/",
+                "name": "join-test",
+                "output_dir": "merged-results",
+                "process_name": "join-test-join",
+                "scope": "run"
+            },
+            "join-test.tsv:md5,4e9ad5005155a7fdd7f2f8c1422de6f0",
+            [
+                "versions.yml:md5,b80d80628bb39bba336cff32fe502aac"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:35.884363273",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "csvtk join - module - CSV files by numeric index": {
+        "content": [
+            {
+                "id": "join-csv-test-CSVTK_JOIN",
+                "logs_dir": "merged-results/logs/join-csv-test-join/",
+                "name": "join-csv-test",
+                "output_dir": "merged-results",
+                "process_name": "join-csv-test-join",
+                "scope": "run"
+            },
+            "join-csv-test.csv:md5,a85814cd13bac510d9e7087dfab32cc3",
+            [
+                "versions.yml:md5,b80d80628bb39bba336cff32fe502aac"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:51.646604522",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

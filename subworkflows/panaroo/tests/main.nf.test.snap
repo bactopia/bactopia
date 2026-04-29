@@ -1,0 +1,22 @@
+{
+    "panaroo - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-test-PANAROO:PANAROO_RUN",
+                "logs_dir": "panaroo/logs",
+                "name": "portiera-test",
+                "output_dir": "",
+                "process_name": "panaroo_run",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,6718c12232ea2c193a98b9723d0a2791"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:04.223957933",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

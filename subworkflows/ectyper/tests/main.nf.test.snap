@@ -1,0 +1,35 @@
+{
+    "ectyper - subworkflow - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-ECTYPER:ECTYPER_MODULE",
+                "logs_dir": "GCF_001695515/tools/ectyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/ectyper/",
+                "process_name": "ectyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,def2ecdc6211f53c1ec322747af5048e",
+            "GCF_001695515.blast_alleles.txt:md5,8fefda3ab2f156e1a9fc8891076085b2",
+            [
+                "versions.yml:md5,80932b27b22fcb0fd3d07bb31cb6edee"
+            ],
+            {
+                "id": "ectyper-ECTYPER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/ectyper-concat/",
+                "name": "ectyper",
+                "output_dir": "merged-results",
+                "process_name": "ectyper-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,c8ed62b01b9e766b6ba10622c55a02e1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:18.668546291",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

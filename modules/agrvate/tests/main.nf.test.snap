@@ -1,0 +1,44 @@
+{
+    "agrvate - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-AGRVATE",
+                "logs_dir": "GCF_000017085/tools/agrvate//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/agrvate/",
+                "process_name": "agrvate",
+                "scope": "sample"
+            },
+            null,
+            [
+                "versions.yml:md5,fbf8f6ba5629f99370082f5f837a7a2e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:55.590124401",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "agrvate - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-AGRVATE",
+                "logs_dir": "GCF_000017085/tools/agrvate//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/agrvate/",
+                "process_name": "agrvate",
+                "scope": "sample"
+            },
+            null,
+            [
+                "versions.yml:md5,fbf8f6ba5629f99370082f5f837a7a2e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:39.027066867",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

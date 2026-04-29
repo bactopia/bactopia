@@ -1,0 +1,36 @@
+{
+    "mykrobe - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-MYKROBE:MYKROBE_PREDICT",
+                "logs_dir": "SRR2838702/tools/mykrobe//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/mykrobe/",
+                "process_name": "mykrobe",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.csv:md5,a27c093fe0789e56a7100d16ae757766",
+            "SRR2838702.json:md5,c27fd2ccc9ffc107511fa83ef4920897",
+            [
+                "versions.yml:md5,0bb4264d1e075a8c456f1cb32275d24e"
+            ],
+            {
+                "id": "mykrobe-MYKROBE:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/mykrobe-concat/",
+                "name": "mykrobe",
+                "output_dir": "merged-results",
+                "process_name": "mykrobe-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,b61c6df6bd9d4c4092a94b7ebb604057"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:25.950112659",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,99 @@
+/**
+ * Join two CSV or TSV files based on common fields.
+ *
+ * Uses [csvtk join](https://github.com/shenwei356/csvtk) to merge two tabular files horizontally
+ * by matching values in a specified key column (similar to a SQL JOIN). It supports inner, left,
+ * right, and outer joins via optional arguments.
+ *
+ * @status stable
+ * @keywords utility, table, join, merge, csv, tsv, csvtk, relational
+ * @tags complexity:simple input-type:multiple output-type:single features:conditional-logic
+ * @citation csvtk
+ *
+ * @input record(meta, csv1, csv2)
+ * - `meta`: Groovy Record containing sample information
+ * - `csv1`: The first CSV/TSV file (Left table)
+ * - `csv2`: The second CSV/TSV file (Right table)
+ *
+ * @input in_format
+ * Input format string ('csv', 'tsv', or a specific delimiter character)
+ *
+ * @input out_format
+ * Output format string ('csv', 'tsv', or a specific delimiter character)
+ *
+ * @input key
+ * The column name(s) or index(es) to use as the join key (e.g., "sample_id" or "1")
+ *
+ * @output record(meta, csv, results, logs, nf_logs, versions)
+ * - `csv`: The joined tabular file (*.csv or *.tsv)
+ */
+nextflow.enable.types = true
+
+process CSVTK_JOIN {
+    tag "${prefix}"
+    label 'process_low'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        csv1: Path,
+        csv2: Path
+    )
+    in_format : String
+    out_format: String
+    key       : String
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        csv: file("${prefix}.${out_extension}"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${prefix}.${out_extension}")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    out_extension = out_format == "tsv" ? 'tsv' : 'csv'
+    subdir = _meta.subdir ? "${_meta.subdir}/" : ''
+    prefix = task.ext.prefix ?: "${_meta.name}"
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "merged-results",
+        logs_dir: "merged-results/logs/${prefix}-join/${subdir}",
+        process_name: "${prefix}-join"
+    )
+
+    def delimiter = in_format == "tsv" ? "--tabs" : (in_format == "csv" ? "" : "--delimiter '${in_format}'")
+    def out_delimiter = out_format == "tsv" ? "--out-tabs" : (out_format == "csv" ? "" : "--out-delimiter '${out_format}'")
+    """
+    csvtk \\
+        join \\
+        ${task.ext.args} \\
+        --fields ${key} \\
+        --num-cpus ${task.cpus} \\
+        ${delimiter}  \\
+        ${out_delimiter} \\
+        --out-file ${prefix}.${out_extension} \\
+        ${csv1} ${csv2}
+
+    # Cleanup
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        csvtk: \$(echo \$( csvtk version | sed -e "s/csvtk v//g" ))
+    END_VERSIONS
+    """
+}

@@ -1,0 +1,25 @@
+{
+    "mykrobe - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-MYKROBE_PREDICT",
+                "logs_dir": "SRR2838702/tools/mykrobe//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/mykrobe/",
+                "process_name": "mykrobe",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.csv:md5,a27c093fe0789e56a7100d16ae757766",
+            "SRR2838702.json:md5,c27fd2ccc9ffc107511fa83ef4920897",
+            [
+                "versions.yml:md5,3756fdfbed62cef8782098468ef3da9d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:40.218598288",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

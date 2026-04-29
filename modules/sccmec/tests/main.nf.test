@@ -1,0 +1,75 @@
+nextflow_process {
+    name "Test SCCMEC"
+    script "../main.nf"
+    process "SCCMEC"
+    tag "modules"
+    tag "sccmec"
+
+    test("sccmec - module - GCF_000017085 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.targets,
+                    record.target_details,
+                    record.regions,
+                    record.regions_details,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("sccmec - module - GCF_000017085 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.targets,
+                    record.target_details,
+                    record.regions,
+                    record.regions_details,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

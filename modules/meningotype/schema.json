@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/meningotype/schema.json",
+    "title": "meningotype Module",
+    "description": "A module for serotyping of Neisseria meningitidis",
+    "type": "object",
+    "$defs": {
+        "meningotype_parameters": {
+            "title": "meningotype Parameters",
+            "type": "object",
+            "description": "You can use these parameters to fine-tune your meningotype analysis",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "meningotype_finetype": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "perform porA and fetA fine typing",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "meningotype_porB": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "perform porB sequence typing (NEIS2020)",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "meningotype_bast": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "perform Bexsero antigen sequence typing (BAST)",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "meningotype_mlst": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "perform MLST",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "meningotype_all": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "perform MLST, porA, fetA, porB, BAST typing",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/meningotype_parameters"
+        }
+    ]
+}

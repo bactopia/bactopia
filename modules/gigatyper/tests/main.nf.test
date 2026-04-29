@@ -1,0 +1,37 @@
+nextflow_process {
+    name "Test GIGATYPER"
+    script "../main.nf"
+    process "GIGATYPER"
+    tag "modules"
+    tag "gigatyper"
+
+    test("gigatyper - module - GCF_001695515") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001695515"],
+                        fna: file("${params.test_data_dir}/species/escherichia_coli/uncompressed/GCF_001695515/main/assembler/GCF_001695515.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

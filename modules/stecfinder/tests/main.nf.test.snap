@@ -1,0 +1,65 @@
+{
+    "stecfinder - module - ERR6005894 - compressed": {
+        "content": [
+            {
+                "id": "GCF_002949675-STECFINDER",
+                "logs_dir": "GCF_002949675/tools/stecfinder//logs/",
+                "name": "GCF_002949675",
+                "output_dir": "GCF_002949675/tools/stecfinder/",
+                "process_name": "stecfinder",
+                "scope": "sample"
+            },
+            "GCF_002949675.tsv:md5,64b85870f8d0f9b13d7ca631c0f7dae4",
+            [
+                "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:24.705508456",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "stecfinder - module - GCF_002949675 - compressed": {
+        "content": [
+            {
+                "id": "GCF_002949675-STECFINDER",
+                "logs_dir": "GCF_002949675/tools/stecfinder//logs/",
+                "name": "GCF_002949675",
+                "output_dir": "GCF_002949675/tools/stecfinder/",
+                "process_name": "stecfinder",
+                "scope": "sample"
+            },
+            "GCF_002949675.tsv:md5,91a65684b28801f54a8681958ba90fe7",
+            [
+                "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:09.146129519",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "stecfinder - module - GCF_002949675 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_002949675-STECFINDER",
+                "logs_dir": "GCF_002949675/tools/stecfinder//logs/",
+                "name": "GCF_002949675",
+                "output_dir": "GCF_002949675/tools/stecfinder/",
+                "process_name": "stecfinder",
+                "scope": "sample"
+            },
+            "GCF_002949675.tsv:md5,91a65684b28801f54a8681958ba90fe7",
+            [
+                "versions.yml:md5,2c48214785500e9b7a54d6ce8949a1c1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:54.388692462",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

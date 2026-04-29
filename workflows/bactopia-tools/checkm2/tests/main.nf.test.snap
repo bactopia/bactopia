@@ -1,0 +1,57 @@
+{
+    "CheckM2 - SRR2838702|portiera|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/checkm2",
+                "SRR2838702/tools/checkm2/SRR2838702.tsv",
+                "SRR2838702/tools/checkm2/logs",
+                "SRR2838702/tools/checkm2/logs/checkm2.log",
+                "SRR2838702/tools/checkm2/logs/nf.command.begin",
+                "SRR2838702/tools/checkm2/logs/nf.command.err",
+                "SRR2838702/tools/checkm2/logs/nf.command.log",
+                "SRR2838702/tools/checkm2/logs/nf.command.out",
+                "SRR2838702/tools/checkm2/logs/nf.command.run",
+                "SRR2838702/tools/checkm2/logs/nf.command.sh",
+                "SRR2838702/tools/checkm2/logs/nf.command.trace",
+                "SRR2838702/tools/checkm2/logs/versions.yml",
+                "SRR2838702/tools/checkm2/supplemental",
+                "SRR2838702/tools/checkm2/supplemental/diamond_output",
+                "SRR2838702/tools/checkm2/supplemental/diamond_output/DIAMOND_RESULTS.tsv",
+                "SRR2838702/tools/checkm2/supplemental/protein_files",
+                "SRR2838702/tools/checkm2/supplemental/protein_files/SRR2838702.faa.gz",
+                "bactopia-runs",
+                "bactopia-runs/checkm2",
+                "bactopia-runs/checkm2/merged-results",
+                "bactopia-runs/checkm2/merged-results/checkm2.tsv",
+                "bactopia-runs/checkm2/merged-results/logs",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.begin",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.err",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.log",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.out",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.run",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.sh",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/nf.command.trace",
+                "bactopia-runs/checkm2/merged-results/logs/checkm2-concat/versions.yml",
+                "bactopia-runs/checkm2/nf-reports",
+                "bactopia-runs/checkm2/nf-reports/checkm2-dag.dot",
+                "bactopia-runs/checkm2/nf-reports/checkm2-report.html",
+                "bactopia-runs/checkm2/nf-reports/checkm2-timeline.html"
+            ],
+            [
+                "SRR2838702.tsv:md5,74b16d4449c799491deea540f6367e89",
+                "versions.yml:md5,08a22fc5436e8e0dfd2884ff9d64d75b",
+                "checkm2.tsv:md5,74b16d4449c799491deea540f6367e89",
+                "versions.yml:md5,b7cf6dd33e2fefeb729064b0d46f2081"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:25:59.277809912",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/tbprofiler/collate/schema.json",
+    "title": "bactopia/tbprofiler/collate module",
+    "description": "Collate TB-Profiler results from multiple samples",
+    "type": "object",
+    "$defs": {
+        "tbprofiler_collate_parameters": {
+            "title": "TB-Profiler Collate Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "tbprofiler_itol": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Generate itol config files",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "tbprofiler_full": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output mutations in main result file",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "tbprofiler_all_variants": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output all variants in variant matrix",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "tbprofiler_mark_missing": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "An asterisk will be used to mark predictions which are affected by missing data at a drug resistance position",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/tbprofiler_collate_parameters"
+        }
+    ]
+}

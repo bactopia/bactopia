@@ -1,0 +1,132 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/staphopia.json",
+    "title": "Staphopia pipeline parameters",
+    "description": "Use Bactopia's along with Staphtyper to process Staphylococcus genomes",
+    "type": "object",
+    "$defs": {
+        "input_parameters": {
+            "title": "Required Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "The following parameters are how you will provide either local or remote samples to be processed by Staphopia.",
+            "help_text": "",
+            "properties": {
+                "samples": {
+                    "type": "string",
+                    "description": "A FOFN (via bactopia prepare) with sample names and paths to FASTQ/FASTAs to process\n",
+                    "help": "Created using `bactopia prepare`. Cannot be used with `--r1 & --r2`, `--se`, or `--ont`",
+                    "fa_icon": "fas fa-file-alt",
+                    "header": "Processing Multiple Samples"
+                },
+                "r1": {
+                    "type": "string",
+                    "description": "First set of compressed (gzip) Illumina paired-end FASTQ reads (requires --r2 and --sample)",
+                    "help": "Requires `--r2` and `--sample`. Cannot be used with `--samples` or `--se`.",
+                    "fa_icon": "fas fa-file-archive",
+                    "header": "Processing A Single Sample"
+                },
+                "r2": {
+                    "type": "string",
+                    "description": "Second set of compressed (gzip) Illumina paired-end FASTQ reads (requires --r1 and --sample)",
+                    "help": "Requires `--r2` and `--sample`. Cannot be used with `--samples` or `--se`.",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "se": {
+                    "type": "string",
+                    "description": "Compressed (gzip) Illumina single-end FASTQ reads  (requires --sample)",
+                    "help": "Requires `--sample`. Cannot be used with `--samples` or `--r1 & --r2`",
+                    "fa_icon": "fas fa-file-archive"
+                },
+                "ont": {
+                    "type": "string",
+                    "description": "Compressed (gzip) Oxford Nanopore FASTQ reads  (requires --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
+                "hybrid": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Create hybrid assembly using Unicycler.  (requires --r1, --r2, --ont and --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
+                "short_polish": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Create hybrid assembly from long-read assembly and short read polishing.  (requires --r1, --r2, --ont and --sample)",
+                    "fa_icon": "fas fa-level-up"
+                },
+                "sample": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "help": "Required when using `--r1|--r2`, `--se`, or `--ont`",
+                    "fa_icon": "fas fa-file"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "A file containing ENA/SRA Experiment accessions or NCBI Assembly accessions to processed",
+                    "fa_icon": "fas fa-file-alt",
+                    "header": "Downloading from SRA/ENA or NCBI Assembly"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "Sample name to use for the input sequences\n",
+                    "fa_icon": "fas fa-font"
+                },
+                "assembly": {
+                    "type": "string",
+                    "description": "A assembled genome in compressed FASTA format. (requires --sample)",
+                    "help": "Error-free Illumina reads will be simulated for down stream processing",
+                    "fa_icon": "fas fa-file-archive",
+                    "header": "Processing an Assembly"
+                },
+                "check_samples": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Validate the input FOFN provided by --samples",
+                    "fa_icon": "fas fa-level-up"
+                }
+            }
+        },
+        "dataset_parameters": {
+            "title": "Dataset Parameters",
+            "type": "object",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "species": {
+                    "type": "string",
+                    "description": "Name of species for species-specific dataset to use",
+                    "help": "These datasets include MLST schemas, reference genomes, protein sets, etc...",
+                    "fa_icon": "fas fa-bacterium"
+                },
+                "coverage": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Reduce samples to a given coverage, requires a genome size",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "genome_size": {
+                    "type": "integer",
+                    "default": 2800000,
+                    "description": "Expected genome size (bp) for all samples, required for read error correction and read subsampling",
+                    "help": "If `--species` is used, `min`, `median`, `mean`, or `max` can be used for `--genome_size`",
+                    "fa_icon": "fas fa-arrows-alt-h"
+                },
+                "use_bakta": {
+                    "type": "boolean",
+                    "description": "Use Bakta for annotation, instead of Prokka",
+                    "fa_icon": "fas fa-print"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/input_parameters"
+        },
+        {
+            "$ref": "#/$defs/dataset_parameters"
+        }
+    ]
+}

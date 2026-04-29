@@ -1,0 +1,43 @@
+nextflow_workflow {
+    name "Test PANAROO Subworkflow"
+    script "../main.nf"
+    workflow "PANAROO"
+    tag "subworkflows"
+    tag "panaroo"
+
+    test("panaroo - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "portiera-test"],
+                        gff: [
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000292685.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000298385.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_002849995.gff.gz"),
+                            file("${params.test_data_dir}/datasets/generic/genome/gff/GCF_000300075.gff.gz")
+                        ]
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert run.results != null }
+            )
+        }
+    }
+}

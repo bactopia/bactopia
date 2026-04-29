@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/kleborate/schema.json",
+    "title": "Kleborate Module",
+    "description": "A module to screen for MLST, sub-species, and other Klebsiella related genes of interest",
+    "type": "object",
+    "$defs": {
+        "kleborate_parameters": {
+            "title": "Kleborate Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "kleborate_preset": {
+                    "type": "string",
+                    "default": "kpsc",
+                    "description": "Preset module to use for Kleborate",
+                    "fa_icon": "fas fa-font",
+                    "hidden": false,
+                    "enum": [
+                        "kpsc",
+                        "kosc",
+                        "escherichia"
+                    ]
+                },
+                "kleborate_opts": {
+                    "type": "string",
+                    "description": "Extra options in quotes for Kleborate",
+                    "fa_icon": "fas fa-font",
+                    "hidden": false
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/kleborate_parameters"
+        }
+    ]
+}

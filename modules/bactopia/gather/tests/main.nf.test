@@ -1,0 +1,297 @@
+nextflow_process {
+    name "Test GATHER"
+    script "../main.nf"
+    process "GATHER"
+    tag "modules"
+    tag "bactopia"
+    tag "bactopia_gather"
+
+    test("gather - module - paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
+                        r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
+                        se_files: [] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - single-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "single-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [] as Set,
+                        r2_files: [] as Set,
+                        se_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz")] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.se != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - long-read") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "ont", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [] as Set,
+                        r2_files: [] as Set,
+                        se_files: [] as Set,
+                        lr_files: [file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.lr != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - hybrid") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "hybrid", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
+                        r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
+                        se_files: [] as Set,
+                        lr_files: [file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.lr != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - assembly") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702", runtype: "assembly", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [] as Set,
+                        r2_files: [] as Set,
+                        se_files: [] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - merge paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "merge-pe", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
+                        r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
+                        se_files: [] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - error - low read count") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                min_reads = 999999999
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz")] as Set,
+                        r2_files: [file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz")] as Set,
+                        se_files: [] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("gather - module - error - empty input") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1_files: [file("${params.test_data_dir}/empty/EMPTY.fastq.gz")] as Set,
+                        r2_files: [file("${params.test_data_dir}/empty/EMPTY.fastq.gz")] as Set,
+                        se_files: [] as Set,
+                        lr_files: [] as Set,
+                        fna_files: [] as Set
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

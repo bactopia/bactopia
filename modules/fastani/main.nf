@@ -1,0 +1,100 @@
+/**
+ * Compute whole-genome Average Nucleotide Identity (ANI).
+ *
+ * Uses [FastANI](https://github.com/ParBLiSS/FastANI) to perform alignment-free computation
+ * of ANI between the input query genomes and a reference genome. This is the standard method
+ * for species definition (typically >95% ANI) and is much faster than traditional BLAST-based approaches.
+ *
+ * @status stable
+ * @keywords fastani, ani, average nucleotide identity, taxonomy, genomic distance, comparison
+ * @tags complexity:moderate input-type:multiple output-type:single features:conditional-logic
+ * @citation fastani
+ *
+ * @input record(meta, query, reference)
+ * - `meta`: Groovy Record containing sample information
+ * - `query`: One or more assembled contigs in FASTA format (Query genomes)
+ * - `reference`: The reference genome assembly in FASTA format to compare against
+ *
+ * @output record(meta, tsv, results, logs, nf_logs, versions)
+ * - `tsv`: Tab-delimited summary of ANI scores, matched fragments, and total fragments
+ */
+nextflow.enable.types = true
+
+// bactopia-lint: ignore M017
+process FASTANI {
+    tag "${prefix}"
+    label 'process_medium'
+
+    conda "${task.ext.condaDir}/${task.ext.toolName}"
+    container "${task.ext.container}"
+
+    input:
+    record (
+        meta: Record,
+        query: Set<Path>,
+        reference: Path
+    )
+
+    stage:
+    stageAs query, 'staging/query/*'
+
+    output:
+    record(
+        // Named fields (used downstream)
+        meta: meta,
+        tsv: file("${reference_name}.tsv"),
+        // Generic fields (used for publishing)
+        results: [
+            files("${reference_name}.tsv")
+        ],
+        logs: files("*.{log,err}", optional: true),
+        nf_logs: files(".command.*"),
+        versions: files("versions.yml")
+    )
+
+    script:
+    def _meta = meta
+    def is_compressed = reference.getName().endsWith(".gz") ? true : false
+    reference_fasta = reference.getName().replace(".gz", "")
+    reference_name = reference_fasta.replace(".fna", "")
+    prefix = task.ext.prefix ?: "${reference_name}"
+
+    // Create a new meta variable
+    meta = record(
+        id: "${prefix}-${task.process}",
+        name: prefix,
+        scope: task.ext.scope,
+        output_dir: "${prefix}",
+        logs_dir: "${prefix}/logs",
+        process_name: task.ext.process_name
+    )
+    """
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${reference} > ${reference_fasta}
+    fi
+
+    mkdir query
+    cp -L staging/query/* query/
+    find query/ -name '*.gz' -exec gunzip {} +
+    find query/ -name "*" -type f > query-list.txt
+
+    fastANI \\
+        --ql query-list.txt \\
+        -r ${reference_fasta} \\
+        -o fastani-result.tmp
+
+    echo "query<TAB>reference<TAB>ani<TAB>mapped_fragments<TAB>total_fragments" | sed 's/<TAB>/\t/g' > ${reference_name}.tsv
+    sed 's=^query/==' fastani-result.tmp >> ${reference_name}.tsv
+
+    # Cleanup
+    if [ "${is_compressed}" == "true" ]; then
+        rm -rf ${reference_fasta}
+    fi
+    rm -rf query/ query-list.txt fastani-result.tmp
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        fastani: \$(fastANI --version 2>&1 | sed 's/version//;')
+    END_VERSIONS
+    """
+}

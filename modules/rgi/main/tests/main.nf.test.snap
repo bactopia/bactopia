@@ -1,0 +1,44 @@
+{
+    "rgi - module - GCF_900478275": {
+        "content": [
+            {
+                "id": "GCF_900478275-RGI_MAIN",
+                "logs_dir": "GCF_900478275/tools/rgi_main//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/rgi_main/",
+                "process_name": "rgi_main",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,9d7754551163e020beed52a8bc14ce83",
+            [
+                "versions.yml:md5,238ddd7a4b55d8797a1d5bfc111ebbfd"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:22.355042061",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "rgi - module - GCA_000027305": {
+        "content": [
+            {
+                "id": "GCA_000027305-RGI_MAIN",
+                "logs_dir": "GCA_000027305/tools/rgi_main//logs/",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305/tools/rgi_main/",
+                "process_name": "rgi_main",
+                "scope": "sample"
+            },
+            "GCA_000027305.tsv:md5,4207abf2986a420c0fb15b33e77144a6",
+            [
+                "versions.yml:md5,238ddd7a4b55d8797a1d5bfc111ebbfd"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:41.325231847",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

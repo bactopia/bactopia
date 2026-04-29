@@ -1,0 +1,37 @@
+nextflow_workflow {
+    name "Test STAPHTYPER Subworkflow"
+    script "../main.nf"
+    workflow "STAPHTYPER"
+    tag "subworkflows"
+    tag "staphtyper"
+
+    test("staphtyper - subworkflow - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz")
+                    )
+                )
+                input[1] = null
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert workflow.out.sample_outputs.size() >= 1 },
+                { assert workflow.out.run_outputs.size() >= 1 }
+            )
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "hicap - subworkflow - GCF_900478275": {
+        "content": [
+            {
+                "id": "GCF_900478275-HICAP:HICAP_MODULE",
+                "logs_dir": "GCF_900478275/tools/hicap//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+            [
+                "versions.yml:md5,583376a04d00362892444651f0f00a07"
+            ],
+            {
+                "id": "hicap-HICAP:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/hicap-concat/",
+                "name": "hicap",
+                "output_dir": "merged-results",
+                "process_name": "hicap-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,0c84033bcf201f320a96434ff2545e4a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:43.986977664",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

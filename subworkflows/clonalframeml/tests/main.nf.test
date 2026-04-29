@@ -1,0 +1,52 @@
+nextflow_workflow {
+    name "Test CLONALFRAMEML Subworkflow"
+    script "../main.nf"
+    workflow "CLONALFRAMEML"
+    tag "subworkflows"
+    tag "clonalframeml"
+
+    test("clonalframeml - subworkflow - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "portiera"],
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def runs = workflow.out.run_outputs
+            def cfml = runs.find { it.meta.process_name == 'clonalframeml' }
+            def iqtree = runs.find { it.meta.process_name == 'iqtree-fast' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists-masked' }
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    cfml.meta,
+                    cfml.em,
+                    cfml.status,
+                    cfml.nwk,
+                    cfml.masked_aln,
+                    cfml.versions,
+                    iqtree.meta,
+                    iqtree.versions,
+                    snpdists.meta,
+                    snpdists.tsv,
+                    snpdists.versions
+                ).match() },
+                { assert cfml.results != null },
+                { assert iqtree.results != null },
+                { assert snpdists.results != null }
+            )
+        }
+    }
+}

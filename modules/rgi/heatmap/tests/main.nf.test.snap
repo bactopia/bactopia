@@ -1,0 +1,22 @@
+{
+    "rgi heatmap - module - two samples": {
+        "content": [
+            {
+                "id": "rgi-heatmap-RGI_HEATMAP",
+                "logs_dir": "rgi-heatmap/logs/rgi-heatmap",
+                "name": "rgi-heatmap",
+                "output_dir": "rgi-heatmap",
+                "process_name": "rgi_heatmap",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,632aee3b4ff52c9313a58f423eeed956"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:27.891122241",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

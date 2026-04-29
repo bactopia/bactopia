@@ -1,0 +1,44 @@
+{
+    "meningotype - module - GCF_003355215 - compressed": {
+        "content": [
+            {
+                "id": "GCF_003355215-MENINGOTYPE",
+                "logs_dir": "GCF_003355215/tools/meningotype//logs/",
+                "name": "GCF_003355215",
+                "output_dir": "GCF_003355215/tools/meningotype/",
+                "process_name": "meningotype",
+                "scope": "sample"
+            },
+            "GCF_003355215.tsv:md5,cdf1cbd9f28a9ce2138f072c6d0ab391",
+            [
+                "versions.yml:md5,8d3bfe53cfc5fc586e9dd9fba13d374e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:48.022863891",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "meningotype - module - GCF_003355215 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_003355215-MENINGOTYPE",
+                "logs_dir": "GCF_003355215/tools/meningotype//logs/",
+                "name": "GCF_003355215",
+                "output_dir": "GCF_003355215/tools/meningotype/",
+                "process_name": "meningotype",
+                "scope": "sample"
+            },
+            "GCF_003355215.tsv:md5,cdf1cbd9f28a9ce2138f072c6d0ab391",
+            [
+                "versions.yml:md5,8d3bfe53cfc5fc586e9dd9fba13d374e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:31.953507021",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

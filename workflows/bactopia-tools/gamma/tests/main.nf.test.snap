@@ -1,0 +1,54 @@
+{
+    "GAMMA - SRR2838702|portiera|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/gamma",
+                "SRR2838702/tools/gamma/gamma",
+                "SRR2838702/tools/gamma/gamma/SRR2838702.gamma",
+                "SRR2838702/tools/gamma/gamma/SRR2838702.psl",
+                "SRR2838702/tools/gamma/gamma/logs",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.begin",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.err",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.log",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.out",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.run",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.sh",
+                "SRR2838702/tools/gamma/gamma/logs/nf.command.trace",
+                "SRR2838702/tools/gamma/gamma/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/gamma",
+                "bactopia-runs/gamma/merged-results",
+                "bactopia-runs/gamma/merged-results/gamma.tsv",
+                "bactopia-runs/gamma/merged-results/logs",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.begin",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.err",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.log",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.out",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.run",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.sh",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/nf.command.trace",
+                "bactopia-runs/gamma/merged-results/logs/gamma-concat/versions.yml",
+                "bactopia-runs/gamma/nf-reports",
+                "bactopia-runs/gamma/nf-reports/gamma-dag.dot",
+                "bactopia-runs/gamma/nf-reports/gamma-report.html",
+                "bactopia-runs/gamma/nf-reports/gamma-timeline.html"
+            ],
+            [
+                "SRR2838702.gamma:md5,a0771b9c4b163fdb9421b21ec54b79f3",
+                "SRR2838702.psl:md5,f8f48c9bad20edd74f6540cb963113dd",
+                "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb",
+                "gamma.tsv:md5,a0771b9c4b163fdb9421b21ec54b79f3",
+                "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:12.28188556",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

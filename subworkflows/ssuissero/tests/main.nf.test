@@ -1,0 +1,45 @@
+nextflow_workflow {
+    name "Test SSUISSERO Subworkflow"
+    script "../main.nf"
+    workflow "SSUISSERO"
+    tag "subworkflows"
+    tag "ssuissero"
+
+    test("ssuissero - subworkflow - GCF_002285535") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002285535"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_suis/compressed/GCF_002285535/main/assembler/GCF_002285535.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

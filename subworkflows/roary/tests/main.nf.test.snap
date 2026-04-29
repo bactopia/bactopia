@@ -1,0 +1,22 @@
+{
+    "roary - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-test-ROARY:ROARY_MODULE",
+                "logs_dir": "roary/logs",
+                "name": "portiera-test",
+                "output_dir": "",
+                "process_name": "roary",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,d5496a62b5ffe9e5af444bfc53221551"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:14.562495592",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

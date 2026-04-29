@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/plasmidfinder/schema.json",
+    "title": "PlasmidFinder Module",
+    "description": "A module to identify plasmids in assemblies",
+    "type": "object",
+    "$defs": {
+        "plasmidfinder_parameters": {
+            "title": "PlasmidFinder Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "plasmidfinder_mincov": {
+                    "type": "number",
+                    "description": "Minimum percent coverage to be considered a hit",
+                    "default": 0.6,
+                    "fa_icon": "fas fa-percentage"
+                },
+                "plasmidfinder_threshold": {
+                    "type": "number",
+                    "description": "Minimum threshold for identity",
+                    "default": 0.9,
+                    "fa_icon": "fas fa-percentage"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/plasmidfinder_parameters"
+        }
+    ]
+}

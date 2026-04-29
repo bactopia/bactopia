@@ -1,0 +1,40 @@
+nextflow_process {
+    name "Test RGI_HEATMAP"
+    script "../main.nf"
+    process "RGI_HEATMAP"
+    tag "modules"
+    tag "rgi"
+    tag "rgi_heatmap"
+
+    test("rgi heatmap - module - two samples") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "rgi-heatmap"],
+                        json: [
+                            file("${params.test_data_dir}/datasets/rgi/sample1.json"),
+                            file("${params.test_data_dir}/datasets/rgi/sample2.json")
+                        ]
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

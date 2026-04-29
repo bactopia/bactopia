@@ -1,0 +1,40 @@
+nextflow_process {
+    name "Test SHIGATYPER"
+    script "../main.nf"
+    process "SHIGATYPER"
+    tag "modules"
+    tag "shigatyper"
+
+    test("shigatyper - module - ERR6005894 - PE") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR6005894"],
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

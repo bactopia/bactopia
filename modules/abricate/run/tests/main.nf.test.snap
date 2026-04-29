@@ -1,0 +1,23 @@
+{
+    "abricate_run - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-ABRICATE_RUN",
+                "logs_dir": "SRR2838702/tools/abricate/ncbi/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/abricate/ncbi",
+                "process_name": "abricate",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,69af3321b0bc808b7ef85f102395736f",
+            [
+                "versions.yml:md5,7baef5ee36e4b70a7227723d89bf97ea"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:41.488349212",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

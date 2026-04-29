@@ -1,0 +1,24 @@
+{
+    "bakta - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-BAKTA:BAKTA_RUN",
+                "logs_dir": "SRR2838702/main/annotator/bakta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/bakta/",
+                "process_name": "bakta",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,074e810bf77d707ac1a810dea1226b99",
+            "SRR2838702.txt:md5,f72db439101383df9e4036339c996b04",
+            [
+                "versions.yml:md5,e8bb3b82f221298fc735072f579e992b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:33.858162803",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "btyper3 - subworkflow - GCF_000008445": {
+        "content": [
+            {
+                "id": "GCF_000008445-BTYPER3:BTYPER3_MODULE",
+                "logs_dir": "GCF_000008445/tools/btyper3//logs/",
+                "name": "GCF_000008445",
+                "output_dir": "GCF_000008445/tools/btyper3/",
+                "process_name": "btyper3",
+                "scope": "sample"
+            },
+            "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803",
+            [
+                "versions.yml:md5,0556b7dd459aafcfd66bb694721633ba"
+            ],
+            {
+                "id": "btyper3-BTYPER3:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/btyper3-concat/",
+                "name": "btyper3",
+                "output_dir": "merged-results",
+                "process_name": "btyper3-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,40ee298a3f689113440883cada3337aa"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:27.531463029",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

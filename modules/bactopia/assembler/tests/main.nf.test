@@ -1,0 +1,294 @@
+nextflow_process {
+    name "Test ASSEMBLER"
+    script "../main.nf"
+    process "ASSEMBLER"
+    tag "modules"
+    tag "bactopia"
+    tag "bactopia_assembler"
+
+    test("assembler - module - paired-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - single-end") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "single-end", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null,
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - long-read") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "ont", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+
+    test("assembler - module - hybrid") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "hybrid", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - short_polish") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "short_polish", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - paired-end - megahit") {
+        // Note: megahit produces 0 contigs from this small test dataset,
+        // so this tests the assembly-error handling path
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                shovill_assembler = "megahit"
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna == null },
+                { assert record.tsv == null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - paired-end - spades") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                shovill_assembler = "spades"
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "paired-end", single_end: false, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null,
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("assembler - module - long-read - raven") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                dragonflye_assembler = "raven"
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "output", runtype: "ont", single_end: true, genome_size: 350000, species: "Portiera aleyrodidarum"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz"),
+                        fna: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.fna != null },
+                { assert record.tsv != null },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

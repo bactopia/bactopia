@@ -1,0 +1,34 @@
+{
+    "mashdist - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "mashdist-test-MASHDIST:MASH_DIST",
+                "logs_dir": "mashdist-test/tools/mashdist/null/logs/",
+                "name": "mashdist-test",
+                "output_dir": "mashdist-test/tools/mashdist/null",
+                "process_name": "mashdist",
+                "scope": "sample"
+            },
+            "mashdist-test-dist.txt:md5,630500729ddf987a8f487cd409d0afce",
+            [
+                "versions.yml:md5,a5e76b9a562b0b311239e1342781fb42"
+            ],
+            {
+                "id": "mashdist-MASHDIST:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/mashdist-concat/",
+                "name": "mashdist",
+                "output_dir": "merged-results",
+                "process_name": "mashdist-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,fa387a5652585c181be4884eb12f37b0"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:36.780964862",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

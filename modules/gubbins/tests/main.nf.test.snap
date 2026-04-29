@@ -1,0 +1,44 @@
+{
+    "gubbins - module - test - uncompressed": {
+        "content": [
+            {
+                "id": "test-GUBBINS",
+                "logs_dir": "gubbins/logs/",
+                "name": "test",
+                "output_dir": "",
+                "process_name": "gubbins",
+                "scope": "run"
+            },
+            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719",
+            [
+                "versions.yml:md5,623c400503380dab143c222d825e55f6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:53.545814148",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "gubbins - module - test - compressed": {
+        "content": [
+            {
+                "id": "test-GUBBINS",
+                "logs_dir": "gubbins/logs/",
+                "name": "test",
+                "output_dir": "",
+                "process_name": "gubbins",
+                "scope": "run"
+            },
+            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719",
+            [
+                "versions.yml:md5,623c400503380dab143c222d825e55f6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:30.454810404",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

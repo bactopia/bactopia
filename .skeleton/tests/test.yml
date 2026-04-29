@@ -1,8 +1,0 @@
-- name: SUBWORKFLOW_NAME-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf SUBWORKFLOW_NAME -c nextflow.config --help > SUBWORKFLOW_NAME-help.txt'
-  tags:
-    - bactopia_help
-    - SUBWORKFLOW_NAME
-  files:
-    - path: SUBWORKFLOW_NAME-help.txt
-      contains: ['SUBWORKFLOW_NAME', 'bactopia', 'version', 'dependencies']

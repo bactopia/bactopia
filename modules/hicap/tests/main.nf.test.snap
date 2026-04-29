@@ -1,0 +1,86 @@
+{
+    "hicap - module - GCF_900478275 - compressed": {
+        "content": [
+            {
+                "id": "GCF_900478275-HICAP",
+                "logs_dir": "GCF_900478275/tools/hicap//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+            [
+                "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:38.289081697",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "hicap - module - GCF_900478275 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_900478275-HICAP",
+                "logs_dir": "GCF_900478275/tools/hicap//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,52c7c28a47111a27722b3c36a83d7172",
+            [
+                "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:56.229487967",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "hicap - module - GCA_000027305 - nthi - compressed": {
+        "content": [
+            {
+                "id": "GCA_000027305-HICAP",
+                "logs_dir": "GCA_000027305/tools/hicap//logs/",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCA_000027305.tsv:md5,a4ffb126a74f38f0d7409027c982a84a",
+            [
+                "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:56.200188445",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "hicap - module - GCA_000027305 - nthi - uncompressed": {
+        "content": [
+            {
+                "id": "GCA_000027305-HICAP",
+                "logs_dir": "GCA_000027305/tools/hicap//logs/",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305/tools/hicap/",
+                "process_name": "hicap",
+                "scope": "sample"
+            },
+            "GCA_000027305.tsv:md5,a4ffb126a74f38f0d7409027c982a84a",
+            [
+                "versions.yml:md5,a4a5a455027f57fbd081f501832ec3d3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:16.975963914",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

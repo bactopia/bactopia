@@ -1,0 +1,35 @@
+{
+    "shigapass - subworkflow - GCF_016726285": {
+        "content": [
+            {
+                "id": "GCF_016726285-SHIGAPASS:SHIGAPASS_MODULE",
+                "logs_dir": "GCF_016726285/tools/shigapass//logs/",
+                "name": "GCF_016726285",
+                "output_dir": "GCF_016726285/tools/shigapass/",
+                "process_name": "shigapass",
+                "scope": "sample"
+            },
+            "GCF_016726285.tsv:md5,9982dbc252423a0507b7c397f66164f2",
+            null,
+            [
+                "versions.yml:md5,048657b953eef617c2b64ccb02cd1155"
+            ],
+            {
+                "id": "shigapass-SHIGAPASS:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/shigapass-concat/",
+                "name": "shigapass",
+                "output_dir": "merged-results",
+                "process_name": "shigapass-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,f481607e2b7526fd798b2375bb3cc9c4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:24.235477607",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "gamma - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-GAMMA:GAMMA_MODULE",
+                "logs_dir": "SRR2838702/tools/gamma/null/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/gamma/null",
+                "process_name": "gamma",
+                "scope": "sample"
+            },
+            "SRR2838702.gamma:md5,ac083bb8cb217da1d58c75e5e1bf93d6",
+            "SRR2838702.psl:md5,d41d8cd98f00b204e9800998ecf8427e",
+            [
+                "versions.yml:md5,92f7d3e34dc4f4dc607898c1d0cd95eb"
+            ],
+            {
+                "id": "gamma-GAMMA:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/gamma-concat/",
+                "name": "gamma",
+                "output_dir": "merged-results",
+                "process_name": "gamma-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,d05d2269217aebb5587ece87b0666cf1"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:06.233770567",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

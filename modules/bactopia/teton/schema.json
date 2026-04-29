@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/bactopia/teton/schema.json",
+    "title": "Bactopia Teton Module",
+    "description": "A schema for the Bactopia Teton module",
+    "type": "object",
+    "$defs": {
+        "teton_parameters": {
+            "title": "Teton Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/teton_parameters"
+        }
+    ]
+}

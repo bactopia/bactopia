@@ -1,7 +1,0 @@
-- name: iqtree-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf iqtree -c nextflow.config --help > iqtree-help.txt'
-  tags:
-    - skip_iqtree
-  files:
-    - path: iqtree-help.txt
-      contains: ['iqtree', 'bactopia', 'version', 'dependencies']

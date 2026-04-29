@@ -1,0 +1,76 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/gubbins/schema.json",
+    "title": "Gubbins Module",
+    "description": "A module for identifying recombination events in bacteria",
+    "type": "object",
+    "$defs": {
+        "gubbins_parameters": {
+            "title": "Gubbins Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gubbins_iterations": {
+                    "type": "integer",
+                    "description": "Maximum number of iterations",
+                    "default": 5,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "gubbins_min_snps": {
+                    "type": "integer",
+                    "description": "Min SNPs to identify a recombination block",
+                    "default": 3,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "gubbins_min_window_size": {
+                    "type": "integer",
+                    "description": "Minimum window size",
+                    "default": 100,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "gubbins_max_window_size": {
+                    "type": "integer",
+                    "description": "Maximum window size",
+                    "default": 10000,
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "gubbins_filter_percentage": {
+                    "type": "number",
+                    "description": "Filter out taxa with more than this percentage of gaps",
+                    "default": 25.0,
+                    "fa_icon": "fas fa-percentage",
+                    "hidden": true
+                },
+                "gubbins_remove_identical_sequences": {
+                    "type": "boolean",
+                    "description": "Remove identical sequences",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "gubbins_opts": {
+                    "type": "string",
+                    "description": "Extra Gubbins options in quotes",
+                    "help": "Useful if you would like to fine tune your Gubbins analysis. Example: '--bootstrap 100'",
+                    "fa_icon": "fas fa-font"
+                },
+                "skip_recombination": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip Gubbins execution in subworkflows",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gubbins_parameters"
+        }
+    ]
+}

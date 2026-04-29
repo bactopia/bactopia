@@ -1,9 +1,0 @@
-- name: agrvate-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf agrvate -c nextflow.config --help > agrvate-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - agrvate
-  files:
-    - path: agrvate-help.txt
-      contains: ['agrvate', 'bactopia', 'version', 'dependencies']

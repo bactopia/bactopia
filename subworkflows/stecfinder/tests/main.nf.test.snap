@@ -1,0 +1,34 @@
+{
+    "stecfinder - subworkflow - GCF_002949675": {
+        "content": [
+            {
+                "id": "GCF_002949675-STECFINDER:STECFINDER_MODULE",
+                "logs_dir": "GCF_002949675/tools/stecfinder//logs/",
+                "name": "GCF_002949675",
+                "output_dir": "GCF_002949675/tools/stecfinder/",
+                "process_name": "stecfinder",
+                "scope": "sample"
+            },
+            "GCF_002949675.tsv:md5,91a65684b28801f54a8681958ba90fe7",
+            [
+                "versions.yml:md5,39e1618911585279f2ad89b32f9ecfa6"
+            ],
+            {
+                "id": "stecfinder-STECFINDER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/stecfinder-concat/",
+                "name": "stecfinder",
+                "output_dir": "merged-results",
+                "process_name": "stecfinder-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,a4e0bfe59670d712011a3dc00f3abeb5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:57.771873873",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

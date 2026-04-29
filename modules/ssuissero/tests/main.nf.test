@@ -1,0 +1,67 @@
+nextflow_process {
+    name "Test SSUISSERO"
+    script "../main.nf"
+    process "SSUISSERO"
+    tag "modules"
+    tag "ssuissero"
+
+    test("ssuissero - module - GCF_002285535 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002285535"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_suis/uncompressed/GCF_002285535/main/assembler/GCF_002285535.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("ssuissero - module - GCF_002285535 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002285535"],
+                        fna: file("${params.test_data_dir}/species/streptococcus_suis/compressed/GCF_002285535/main/assembler/GCF_002285535.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

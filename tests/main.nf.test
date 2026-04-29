@@ -1,0 +1,366 @@
+nextflow_pipeline {
+    name "Test Bactopia Workflow"
+    script "../main.nf"
+    config "../conf/test.config"
+    tag "workflows"
+    tag "bactopia"
+
+    test("Bactopia (pe) - SRR2838702|portiera|illumina") {
+        tag "bactopia_pe"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (pe+bakta) - SRR2838702|portiera|illumina") {
+        tag "bactopia_pe_bakta"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = "/datasets/bakta/light/db-light"
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+                use_bakta = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (se) - SRR2838702|portiera|illumina") {
+        tag "bactopia_se"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = "/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (ont) - ERR3772599|portiera|nanopore") {
+        tag "bactopia_ont"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "ERR3772599"
+                genome_size = 358242
+                min_coverage = 10
+                min_reads = 4000
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (hybrid) - SRR2838702|portiera|illumina+nanopore") {
+        tag "bactopia_hybrid"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
+                test_se = ""
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+                min_reads = 4000
+                hybrid = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (short polish) - ERR3772599|portiera|illumina+nanopore") {
+        tag "bactopia_short_polish"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
+                test_se = ""
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "ERR3772599"
+                genome_size = 358242
+                min_coverage = 10
+                min_reads = 4000
+                short_polish = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    // Fail gracefully
+    test("Bactopia (low proportion) - SRR2838702|portiera|illumina") {
+        tag "bactopia_low_proportion"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2-low-proportion.fastq.gz"
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (assembly error) - SRR2838702|portiera|illumina") {
+        tag "bactopia_assembly_error"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = "/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"
+                test_r2 = "/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "SRR2838702"
+                genome_size = 358242
+                min_coverage = 10
+                min_genome_size = 400000000
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
+    test("Bactopia (low coverage) - ERR3772599|portiera|nanopore") {
+        tag "bactopia_low_coverage"
+        when {
+            params {
+                bactopia_test = ""
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = "/species/portiera/reads/nanopore/ERR3772599.fastq.gz"
+                is_ci = true
+                outdir = "$outputDir"
+                sample = "ERR3772599"
+                genome_size = 358242
+                min_coverage = 1000
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

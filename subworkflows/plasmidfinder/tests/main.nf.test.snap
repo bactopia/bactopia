@@ -1,0 +1,33 @@
+{
+    "plasmidfinder - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-PLASMIDFINDER:PLASMIDFINDER_MODULE",
+                "logs_dir": "GCF_000017085/tools/plasmidfinder//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/plasmidfinder/",
+                "process_name": "plasmidfinder",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,873840380638a54da24ad6169ac19b46"
+            ],
+            {
+                "id": "plasmidfinder-PLASMIDFINDER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/plasmidfinder-concat/",
+                "name": "plasmidfinder",
+                "output_dir": "merged-results",
+                "process_name": "plasmidfinder-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,4f95221cf6912e60932c0c0c6982fba5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:45.384910888",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

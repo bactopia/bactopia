@@ -1,0 +1,34 @@
+{
+    "ssuissero - subworkflow - GCF_002285535": {
+        "content": [
+            {
+                "id": "GCF_002285535-SSUISSERO:SSUISSERO_MODULE",
+                "logs_dir": "GCF_002285535/tools/ssuissero//logs/",
+                "name": "GCF_002285535",
+                "output_dir": "GCF_002285535/tools/ssuissero/",
+                "process_name": "ssuissero",
+                "scope": "sample"
+            },
+            "GCF_002285535.tsv:md5,b1312d3041a6543154be554d5ec3b0b9",
+            [
+                "versions.yml:md5,b86030bffe4cd25d5c43f77ca429de8d"
+            ],
+            {
+                "id": "ssuissero-SSUISSERO:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/ssuissero-concat/",
+                "name": "ssuissero",
+                "output_dir": "merged-results",
+                "process_name": "ssuissero-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,b273046b082dd70970b8f4e189aa5498"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:47.810631649",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

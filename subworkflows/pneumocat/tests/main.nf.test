@@ -1,0 +1,99 @@
+nextflow_workflow {
+    name "Test PNEUMOCAT Subworkflow"
+    script "../main.nf"
+    workflow "PNEUMOCAT"
+    tag "subworkflows"
+    tag "pneumocat"
+
+    test("pneumocat - subworkflow - se_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR1438863"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/streptococcus_pneumoniae/reads/ERR1438863/main/qc/ERR1438863SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("pneumocat - subworkflow - lr_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR3772599"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("pneumocat - subworkflow - ERR1438863") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR1438863"],
+                        r1: file("${params.test_data_dir}/species/streptococcus_pneumoniae/reads/ERR1438863/main/qc/ERR1438863_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/streptococcus_pneumoniae/reads/ERR1438863/main/qc/ERR1438863_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                { assert sample.results != null }
+            )
+        }
+    }
+}

@@ -1,0 +1,81 @@
+nextflow_process {
+    name "Test BRACKEN"
+    script "../main.nf"
+    process "BRACKEN"
+    tag "modules"
+    tag "bracken"
+
+    test("bracken - module - SRR2838702 - tarball") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/kraken2/k2_viral_20251015.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.kraken2_report,
+                    record.bracken_report,
+                    record.abundances,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("bracken - module - SRR2838702SE - path") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/kraken2/k2_standard_08_GB_20251015")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.kraken2_report,
+                    record.bracken_report,
+                    record.abundances,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

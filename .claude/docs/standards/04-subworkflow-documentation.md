@@ -1,0 +1,593 @@
+# Subworkflow Documentation Methodology
+
+## Overview
+This guide provides a comprehensive methodology for creating consistent and accurate GroovyDoc documentation for Bactopia subworkflows. It combines the style guidelines from [01-style-guide.md](01-style-guide.md) with the decision logic from [02-logic-rules.md](02-logic-rules.md) and implementation details from [03-technical-specs.md](03-technical-specs.md).
+
+## 1. Methodology
+To ensure accuracy and consistency, follow this step-by-step process for each subworkflow:
+
+### 1.1 Analyze `main.nf` (Subworkflow)
+1. **`take` block:** Identify input channels to determine `input-type` (1 Channel = `single`, 2+ Channels = `multiple`).
+2. **`include` statements:** Identify dependencies to populate `@modules` or `@subworkflows`.
+3. **`emit` block (Verification Step):**
+   - Confirm that named outputs map correctly to underlying module outputs.
+   - **Crucial:** Verify that the aggregated channels (`results`, `logs`, `nf_logs`, `versions`) are constructed to include the corresponding outputs from **every** module/subworkflow called in the `main` block.
+4. **Tag Verification:** Ensure all applicable tags are included:
+   - `aggregation` - if the workflow merges samples (e.g., csvtk_concat)
+   - `database-dependent` - if any tool requires an external database
+   - `conditional-logic` - if the workflow has conditional branches (if/else) based on boolean parameters
+   - `archive-output` - if the workflow creates compressed archives
+   - `resource-download` - if the workflow downloads external resources
+
+### 1.2 Analyze `main.nf` (Included Modules)
+- Read the module code to understand the content of the files listed in the subworkflow's `emit` block.
+
+### 1.3 Consult `data/citations.yml`
+- Retrieve the official Tool Name, Citation Key (`@citation`), and Source Code Repository URL.
+
+## 2. Style & Formatting Standards
+
+### 2.1 Header & Description
+- **Format:** One-sentence summary followed by a detailed description.
+- **Links:** Use Markdown `[Tool Name](https://repo)` format.
+  - **Protocol:** Always use `https`.
+  - **Target:** Link to the **Source Code Repository** (e.g., GitHub), not documentation aggregators.
+- **Updates:** Note that **Panaroo** is now the default for pangenome analysis (not PIRATE).
+
+### 2.2 Tags
+- **`@status`:** Always `stable`.
+- **`@keywords`:** Comma-separated list relevant to the tool/biology.
+- **`@tags`:**
+  - **`complexity`:** Determined by workflow characteristics:
+    - `simple`: Linear Input → Output. The process takes an input, runs a single command/utility, and produces an output. Little to no branching logic (if/else). Usually relies on a single tool. Very fast, low resource footprint.
+    - `moderate`: Analysis with Logic or Parameters. Includes conditional execution, multiple command steps within the script, or significant parameter handling. Often generates multiple distinct types of outputs. Wraps a standard bioinformatics tool that typically requires a specific database or reference file.
+    - `complex`: Orchestration and Heavy Lifting. Involves calling other subworkflows, complex branching (e.g., switching tools based on flags), or massive parallelization/aggregation patterns. Often involves joining multiple distinct data streams. High resource usage or long runtimes; often acts as a "pipeline-within-a-pipeline".
+  - **`input-type`:**
+    - `none`: No sample/data channels; only parameters (utility/setup subworkflows).
+    - `single`: The `take` block defines exactly **1 Channel** (plus any number of parameters).
+    - `multiple`: The `take` block defines **2 or more Channels**.
+  - **`output-type`:** Usually `multiple` for subworkflows.
+  - **`features`:** Include `aggregation` if the workflow merges samples (e.g., `csvtk_concat`).
+- **Dependencies:**
+  - Use **`@modules`** if `include` points to `../modules/...`.
+  - Use **`@subworkflows`** if `include` points to `../subworkflows/...`.
+
+### 2.3 Inputs
+
+- **Format:** `@input record(meta, variable_name)`
+- **Standard Renaming Rules:**
+    - `fasta` → **`assembly`**: "Assembled contigs in FASTA format"
+    - `fastq`/`reads` → **`reads`**: "FASTQ reads (Illumina or Nanopore)"
+    - `meta` → "Groovy Record containing sample information"
+
+#### Explicit Positional Read Slots
+
+For subworkflows accepting reads, use explicit positional slots for clarity:
+
+```groovy
+@input record(meta, r1?, r2?, se?, lr?)
+- `meta`: Groovy Record containing sample information
+- `r1?`: Illumina R1 reads (paired-end forward)
+- `r2?`: Illumina R2 reads (paired-end reverse)
+- `se?`: Single-end Illumina reads
+- `lr?`: Long reads (ONT/PacBio)
+```
+
+The `?` suffix mirrors the `Path?` types, indicating each read slot may be null. Used by all read-accepting subworkflows (ariba, assembler, bracken, kraken2, merlin, scrubber, teton, and others).
+
+### 2.4 Outputs
+
+Subworkflows use `@output sample_outputs` and `@output run_outputs` to document their emit channels. Both are always present. Only tool-specific fields are described.
+
+#### Standard Tool Subworkflows
+
+Most subworkflows emit `sample_outputs` (per-sample records from the main module) and `run_outputs` (cross-sample aggregation from CSVTK_CONCAT, or `channel.empty()` when no aggregation occurs):
+
+```groovy
+ * @output sample_outputs
+ * - `report`: A tab-delimited report of hits
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
+```
+
+#### Formatting Rules
+
+1. **Tool-specific fields only** -- do NOT describe `meta`, `results`, `logs`, `nf_logs`, `versions`
+2. **Single line per field** -- each ` * - ` description must fit on one line
+3. **Blank line between @output blocks** -- separate `sample_outputs` from `run_outputs` with ` *`
+4. **No inline descriptions** on the `@output` line itself
+5. **Field descriptions should match** the corresponding module's `@output record(...)` descriptions
+
+#### Passthrough Subworkflows
+
+Subworkflows that pass through module records without tool-specific fields still document both outputs:
+
+```groovy
+ * @output sample_outputs
+ *
+ * @output run_outputs
+```
+
+When `run_outputs` has no aggregation (`channel.empty()`), it is documented with no field descriptions.
+
+#### Composite Subworkflows
+
+Some composite subworkflows (e.g., clonalframeml, gubbins, pangenome, snippy/core) emit multiple named channels beyond the standard `sample_outputs`/`run_outputs`:
+
+```groovy
+ * @output sample_outputs
+ * - `masked_aln`: Recombination-masked alignment in FASTA format
+ *
+ * @output iqtree_outputs
+ * - `phylogeny`: Quick-start maximum-likelihood phylogenetic tree
+ *
+ * @output snpdists_outputs
+ * - `tsv`: Pairwise SNP distances from masked alignment in TSV format
+```
+
+#### Core/Infrastructure Subworkflows
+
+Utility subworkflows that do not process samples (bactopia/datasets, utils/bactopia, utils/bactopia-tools) use their own emit conventions. These subworkflows provide databases, initialization channels, or other infrastructure -- they do NOT emit `sample_outputs`/`run_outputs`.
+
+### 2.5 Emit Block Patterns
+
+This section documents the Nextflow code patterns for subworkflow `emit:` blocks. Every sample-processing subworkflow MUST emit both `sample_outputs` and `run_outputs`. Utility subworkflows that only emit databases or initialization channels (bactopia/datasets, utils/bactopia, utils/bactopia-tools) are exempt and follow their own conventions.
+
+#### Rules
+
+1. Every sample-processing subworkflow MUST emit both `sample_outputs` and `run_outputs`
+2. `run_outputs` is CSVTK_CONCAT output (aggregation) or `channel.empty()` (no aggregation)
+3. Filtered outputs via `filterWithData` are added only when a downstream consumer exists (as-needed policy)
+4. All emit blocks MUST use comments: `// Downstream inputs` and `// Published outputs`
+5. Blank line before `main:` and `emit:` blocks for visual separation
+6. `results`, `logs`, `nf_logs`, `versions` are publishing concerns -- they flow through `sample_outputs` and are unpacked in the workflow `output {}` block
+
+#### A. Standard Aggregating Pattern
+
+Used by most subworkflows that aggregate per-sample results via CSVTK_CONCAT. `gatherCsvtk()` is the canonical aggregation helper for CSV/TSV inputs (plain `gather()` is only used for non-CSV formats like JSON):
+
+```groovy
+    main:
+    ch_module = MODULE(input)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_module, 'tsv', [name: 'toolname']), 'tsv', 'tsv')
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_module
+    run_outputs = ch_csvtk_concat
+```
+
+#### B. Leaf Pattern
+
+Used by subworkflows with no cross-sample aggregation:
+
+```groovy
+    main:
+    ch_module = MODULE(input)
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_module
+    run_outputs = channel.empty()
+```
+
+`channel.empty()` flows through `.mix()`, `flatMap`, and `output {}` blocks harmlessly -- closures never fire on empty channels.
+
+#### C. Filtered Downstream Pattern
+
+Used by subworkflows (bakta, prokka, assembler, gather, qc, scrubber) that provide filtered records for downstream consumers:
+
+```groovy
+    main:
+    ch_module = MODULE(input)
+
+    emit:
+    // Downstream inputs
+    annotations = filterWithData(ch_module, ['fna', 'faa', 'gff'])
+    // Published outputs
+    sample_outputs = ch_module
+    run_outputs = channel.empty()
+```
+
+**As-needed policy**: Only add a `filterWithData` output when an actual downstream consumer requires it. Each filtered output documents a real data dependency. Adding a new one is a 1-line change.
+
+#### D. Composite Pattern
+
+Used by subworkflows (clonalframeml, gubbins, snippy/core, pangenome) with multiple pipeline stages. `sample_outputs` is intentionally `channel.empty()` because the composite produces a run-level result, not per-sample records; `run_outputs` is a `.mix()` of every stage's `run_outputs`. Downstream-input emits (e.g., `alignment`) expose record-mapped channels for consumers like phylogeny subworkflows:
+
+```groovy
+    main:
+    ch_iqtree = IQTREE(alignment.map { r -> ... })
+    ch_clonalframeml = CLONALFRAMEML_MODULE(ch_iqtree.run_outputs.map { r -> ... })
+    ch_snpdists = SNPDISTS(ch_clonalframeml.map { r -> ... })
+
+    emit: // bactopia-lint: ignore S005, S010
+    // Downstream inputs
+    alignment = ch_clonalframeml.map { r ->
+        record(meta: record(name: "core-genome", process_name: "iqtree"), aln: r.masked_aln)
+    }
+    // Published outputs
+    sample_outputs = channel.empty()
+    run_outputs = ch_clonalframeml.mix(ch_iqtree.run_outputs).mix(ch_snpdists.run_outputs)
+```
+
+The `// bactopia-lint: ignore S005, S010` annotation on the `emit:` line is the standard escape hatch for composite subworkflows — both rules fire on the `sample_outputs = channel.empty()` shape, which is correct for this pattern.
+
+#### E. Orchestration Pattern
+
+Used by subworkflows (merlin, staphtyper, teton) that compose other subworkflows. Each child subworkflow exposes `sample_outputs` and `run_outputs`; the parent `.mix()`-es them into the standard two emits:
+
+```groovy
+    main:
+    ch_subwf_a = SUBWORKFLOW_A(input)
+    ch_subwf_b = SUBWORKFLOW_B(input)
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_subwf_a.sample_outputs
+        .mix(ch_subwf_b.sample_outputs)
+    run_outputs = ch_subwf_a.run_outputs
+        .mix(ch_subwf_b.run_outputs)
+```
+
+### 2.6 The @note Tag
+
+Use `@note` to document special requirements, caveats, or important information:
+
+```groovy
+@note Database can be automatically downloaded or provided as pre-existing tarball
+```
+
+Common uses:
+- Database requirements
+- Optional features
+- Conditional behavior
+- Important caveats
+
+## 3. Information Sources
+- **Primary:** Subworkflow `main.nf` (for logic/flow) and Module `main.nf` (for file details).
+- **Secondary:** `data/citations.yml` (for official repository links).
+- **Reference:** Bactopia documentation (internal) and Tool Repositories (external).
+
+## 4. Examples of Successfully Updated Subworkflows
+
+### 4.1 Pangenome (Moderate Complexity with Conditional Logic)
+```groovy
+/**
+ * Perform pangenome analysis with optional core-genome phylogeny.
+ *
+ * This subworkflow creates a pangenome from GFF3 annotation files using one of three
+ * tools: [Panaroo](https://github.com/gtonkinhill/panaroo) (default),
+ * [PIRATE](https://github.com/SionBayliss/PIRATE), or
+ * [Roary](https://github.com/sanger-pathogens/roary). It generates core-genome alignments
+ * and gene presence/absence matrices, followed by SNP distance calculations using
+ * [snp-dists](https://github.com/tseemann/snp-dists). The workflow conditionally executes
+ * the selected pangenome tool based on Boolean parameters.
+ *
+ * @status stable
+ * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,conditional-logic
+ * @citation pirate, panaroo, roary, snpdists
+ *
+ * @subworkflows pirate, roary, panaroo, snpdists
+ *
+ * @input record(meta, gff)
+ * - `meta`: Groovy Record containing sample information
+ * - `gff`: Set of GFF3 annotation files from assembled genomes
+ *
+ * @input use_pirate
+ * Boolean flag to use PIRATE for pangenome analysis
+ *
+ * @input use_roary
+ * Boolean flag to use Roary for pangenome analysis
+ *
+ * @output sample_outputs
+ *
+ * @output run_outputs
+ * - `aln`: Core-genome alignment in FASTA format
+ * - `csv`: Gene presence/absence matrix
+ * - `supplemental`: Intermediate files and detailed outputs
+ * - `tsv`: Pairwise SNP distance matrix from core-genome alignment
+ *
+ * @output alignment
+ * - `aln`: Core-genome alignment for downstream analysis (e.g., recombination detection)
+ *
+ * @output phylogeny_input
+ * - `aln`: Core-genome alignment with iqtree-ready meta for phylogeny construction
+ *
+ * @output csv
+ * - `csv`: Gene presence/absence matrix for downstream analysis (e.g., pan-GWAS)
+ */
+```
+**Key Features:**
+- Uses `@subworkflows` since all includes point to other subworkflows
+- Tags include `conditional-logic` for if/else branches and `aggregation` for run-level merging
+- Emits empty `sample_outputs` (composite pattern — no per-sample records) with all run-level results routed through `run_outputs`
+- Exposes three downstream-input emits (`alignment`, `phylogeny_input`, `csv`) as `record(...)`-mapped channels for consumers like gubbins/clonalframeml/iqtree
+- Documents Panaroo as the default tool (updated from PIRATE)
+
+### 4.2 ARIBA (Moderate Complexity with Resource Download)
+```groovy
+/**
+ * Rapidly identify genes by creating local assemblies from paired-end reads.
+ *
+ * This subworkflow uses [ARIBA](https://github.com/sanger-pathogens/ariba)
+ * (Antimicrobial Resistance Identification By Assembly) to rapidly identify genes
+ * in a database by creating local assemblies. It first downloads and prepares an ARIBA database,
+ * then analyzes paired-end reads to identify genes, and finally aggregates results across all samples.
+ *
+ * @status stable
+ * @keywords bacteria, reads, antimicrobial resistance, virulence, local assembly
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation, database-dependent, resource-download
+ * @citation ariba
+ *
+ * @modules ariba_getref, ariba_run, csvtk_concat
+ *
+ * @input record(meta, reads)
+ * - `meta`: Groovy Record containing sample information
+ * - `reads`: Paired-end reads in FASTQ format
+ *
+ * @input db
+ * Database name for ARIBA analysis (e.g., ncbi, card, vfdb, resfinder, argannot)
+ *
+ * @output sample_outputs
+ * - `report`: Per-sample tab-delimited reports of gene findings
+ * - `summary`: Per-sample CSV summaries of gene detection results
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
+ */
+```
+**Key Features:**
+- Uses `@modules` since all includes point to modules
+- Tags include `resource-download` and `database-dependent` for ARIBA database prep
+- Shows vertical alignment in output descriptions
+
+### 4.3 Teton (Complex Orchestration)
+```groovy
+/**
+ * Perform taxonomic classification and estimate bacterial genome sizes.
+ *
+ * This subworkflow processes raw sequencing reads through a taxonomic classification
+ * pipeline using [Kraken2](https://github.com/DerrickWood/kraken2) and [Bracken](https://github.com/jenniferlu717/Bracken)
+ * to estimate bacterial genome sizes and separate bacterial from non-bacterial organisms.
+ * It first removes host reads using the scrubber subworkflow, then classifies reads,
+ * and finally creates sample sheets with genome size estimates for downstream Bactopia analysis.
+ *
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ *
+ * @status stable
+ * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
+ * @tags complexity:complex input-type:single output-type:multiple features:aggregation,database-dependent,conditional-logic
+ * @citation kraken2, bracken
+ *
+ * @modules bactopia_teton, csvtk_join, csvtk_concat
+ * @subworkflows scrubber, bracken
+ *
+ * @input record(meta, r1?, r2?, se?, lr?)
+ * - `meta`: Groovy Record containing sample information
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
+ *
+ * @input db
+ * Optional Kraken2 database path for taxonomic classification
+ *
+ * @input use_srascrubber
+ * Boolean flag to use SRA scrubber for host read removal
+ *
+ * @output sample_outputs
+ *
+ * @output run_outputs
+ */
+```
+**Key Features:**
+- Complexity: `complex` due to multiple subworkflow calls and data joining
+- Mix of `@subworkflows` and `@modules` in dependencies
+- Uses explicit positional read slots (`r1?, r2?, se?, lr?`) rather than a generic `reads` field
+- Orchestration shape: only `sample_outputs` and `run_outputs` are emitted, each constructed via `.mix()` across the child subworkflow outputs plus local aggregations
+- `@output` blocks carry no field descriptions — each emit is a passthrough/mix of records whose fields are documented on the upstream modules and subworkflows
+
+### 4.4 SsuisSero (Simple with Aggregation)
+```groovy
+/**
+ * Predict serotypes of Streptococcus suis from genome assemblies.
+ *
+ * This subworkflow uses [SsuisSero](https://github.com/jimmyliu1326/SsuisSero) to predict
+ * serotypes of *Streptococcus suis* strains from genome assemblies based on the presence
+ * of specific capsular genes. It processes each sample individually and aggregates the
+ * results into a single consolidated report.
+ *
+ * @status stable
+ * @keywords streptococcus suis, serotype, typing, prediction, capsular genes
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation ssuissero
+ *
+ * @modules ssuissero, csvtk_concat
+ *
+ * @input record(meta, assembly)
+ * - `meta`: Groovy Record containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
+ *
+ * @output sample_outputs
+ * - `tsv`: Per-sample TSV files containing serotype predictions
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated serotype predictions in CSV format
+ */
+```
+**Key Features:**
+- Input renamed from `fasta` to `assembly` per standard
+- Complexity: `moderate` due to multiple processing steps
+- Simple aggregation pattern with csvtk_concat
+
+### 4.5 SCCmec (Multiple Output Types)
+```groovy
+/**
+ * Identify SCCmec elements in Staphylococcus aureus genomes.
+ *
+ * This subworkflow uses [SCCmec](https://github.com/rpetit3/sccmec) to identify the
+ * Staphylococcal Cassette Chromosome mec (SCCmec) element in *Staphylococcus aureus*
+ * assemblies. It predicts the type based on the presence of specific *mec* and *ccr*
+ * gene complexes, generating detailed BLAST results and typing information.
+ *
+ * @status stable
+ * @keywords sccmec, staphylococcus aureus, mrsa, antimicrobial resistance, typing
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation
+ * @citation sccmec
+ *
+ * @modules sccmec, csvtk_concat
+ *
+ * @input record(meta, assembly)
+ * - `meta`: Groovy Record containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
+ *
+ * @output sample_outputs
+ * - `tsv`: Per-sample TSV files with SCCmec typing results
+ * - `targets`: Per-sample BLAST results for target sequences
+ * - `target_details`: Per-sample detailed results for target matches
+ * - `regions`: Per-sample BLAST results for SCCmec regions
+ * - `regions_details`: Per-sample detailed results for SCCmec region matches
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated SCCmec typing results in CSV format
+ */
+```
+**Key Features:**
+- Multiple output types from a single module
+- Shows comprehensive documentation of all outputs
+- Vertical alignment in output descriptions for readability
+
+### 4.6 Assembler (Moderate Complexity with Automatic Tool Selection)
+```groovy
+/**
+ * Assemble bacterial genomes using automated assembler selection.
+ *
+ * This subworkflow automatically selects the optimal assembly strategy based on input read types:
+ * - **Short Paired-End Reads:** Uses [Shovill](https://github.com/tseemann/shovill) (SKESA/SPAdes wrapper)
+ * - **Short Single-End Reads:** Uses [Shovill-SE](https://github.com/rpetit3/shovill) (SKESA/SPAdes wrapper)
+ * - **Long Reads:** Uses [Dragonflye](https://github.com/rpetit3/dragonflye) (Flye/Miniasm wrapper)
+ * - **Hybrid Assembly:** Uses [Unicycler](https://github.com/rrwick/Unicycler) or Dragonflye with short-read polishing
+ *
+ * The workflow performs individual assemblies per sample and aggregates assembly statistics
+ * across all samples using [assembly-scan](https://github.com/rpetit3/assembly-scan) for
+ * comprehensive quality assessment.
+ *
+ * @status stable
+ * @keywords bacteria, assembly, hybrid, shovill, dragonflye, unicycler, illumina, nanopore
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,alternative-execution
+ * @citation any2fasta, assembly_scan, bwa, dragonflye, flash, flye, medaka, megahit, miniasm, minimap2, nanoq, pigz, pilon, racon, rasusa, raven, samclip, samtools, shovill, shovill_se, skesa, spades, unicycler, velvet
+ *
+ * @modules bactopia_assembler, csvtk_concat
+ *
+ * @input record(meta, r1?, r2?, se?, lr?)
+ * - `meta`: Groovy Record containing sample information
+ * - `r1?` : Illumina R1 reads (paired-end forward)
+ * - `r2?` : Illumina R2 reads (paired-end reverse)
+ * - `se?` : Single-end Illumina reads
+ * - `lr?` : Long reads (ONT/PacBio) for long-read or hybrid assembly
+ *
+ * @output sample_outputs
+ * - `tsv`: Tab-delimited report of assembly statistics (N50, length, coverage)
+ * - `supplemental`: Supplemental files including assembly graphs and tool-specific logs
+ * - `error`: Captured error messages if assembly fails
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated assembly statistics from all samples
+ */
+```
+**Key Features:**
+- Automatic assembler selection based on input read type (not Boolean flags)
+- Supports short reads (Shovill / Shovill-SE), long reads (Dragonflye), and hybrid assembly (Unicycler)
+- Uses `alternative-execution` feature tag for multiple tool options
+- Explicit positional read slots (`r1?, r2?, se?, lr?`) carry all four possible read inputs through a single record
+- Documents only `sample_outputs` / `run_outputs` in GroovyDoc; the code additionally emits `assembly` and `assembly_reads` as `filterWithData`-derived downstream-input channels (Pattern C) that feed sibling subworkflows
+
+## 5. What to Avoid
+- **Do not** reference `module.config` or `schema.json`.
+- **Do not** include parameter defaults or version numbers in the text.
+- **Do not** count non-Channel parameters (Strings, Booleans, Paths) toward the `input-type` count.
+- **Do not** use `http` links; ensure SSL/TLS is used (`https`).
+
+## 6. Common Documentation Errors to Avoid
+
+### 6.1 Copy-Paste Errors
+When creating documentation for new subworkflows, ensure you update ALL fields. Common mistakes include:
+- **Wrong short description**: Leaving the original tool's description (e.g., "Mass screening of contigs for antimicrobial resistance" when documenting a variant caller)
+- **Wrong long description**: Referencing the wrong tool or its functionality
+- **Wrong citation**: Using the template's citation key instead of the correct one from `data/citations.yml`
+- **Generic output descriptions**: Single-word descriptions like "Vcf" or "Bam" instead of meaningful descriptions
+
+**Bad Example** (copy-paste error):
+```groovy
+/**
+ * Mass screening of contigs for antimicrobial and virulence genes.
+ *
+ * This subworkflow orchestrates the execution of abricate components.
+ * ...
+ * @citation abricate
+ * ...
+ * @output sample_outputs  Vcf
+ */
+```
+
+**Correct Example** (properly documented snippy):
+
+```groovy
+/**
+ * Call variants against a reference genome using Snippy.
+ *
+ * This subworkflow performs rapid haploid variant calling from bacterial sequence reads
+ * using [Snippy](https://github.com/tseemann/snippy). It maps reads to a reference genome,
+ * identifies SNPs and indels, and generates consensus sequences.
+ * ...
+ * @citation snippy
+ * ...
+ * @output sample_outputs
+ * - `vcf`: Filtered variant calls in VCF format
+ */
+```
+
+### 6.2 Legacy Comments
+Remove any old-style comment headers before the GroovyDoc block:
+
+```groovy
+// BAD: Legacy comment that should be removed
+//
+// busco - Assembly completeness based on evolutionarily informed expectations
+//
+
+/**
+ * Assess genome assembly completeness using BUSCO.
+ ...
+```
+
+Should be:
+
+```groovy
+/**
+ * Assess genome assembly completeness using BUSCO.
+ ...
+```
+
+### 6.3 Citation Verification
+**Always verify citations against `data/citations.yml`** before finalizing documentation:
+1. Open `data/citations.yml`
+2. Search for the tool name under the `tools:` section
+3. Use the exact key as your `@citation` value
+4. For multiple tools, use comma-separated format: `@citation tool1, tool2`
+
+### 6.4 Formatting Issues
+- **No extra blank lines** between the closing `*/` and `nextflow.enable.types = true`
+- **Consistent indentation** (4 spaces) within the GroovyDoc block
+- **Blank line** (` *`) between separate `@output` blocks
+- **No inline descriptions** on `@output` lines -- descriptions go on ` * - ` field lines
+- **Single space indent** for field descriptions: ` * - ` (not ` *   - `)
+
+## See Also
+- [Style Guide](01-style-guide.md) - For general GroovyDoc templates and formatting
+- [Logic Rules](02-logic-rules.md) - For complexity classification and tag definitions
+- [Technical Specifications](03-technical-specs.md) - For variable naming conventions and implementation details

@@ -1,0 +1,42 @@
+{
+    "iqtree - module - test (fast)": {
+        "content": [
+            {
+                "id": "test-IQTREE",
+                "logs_dir": "iqtree-fast/logs/",
+                "name": "test",
+                "output_dir": "",
+                "process_name": "iqtree-fast",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,7c9654347c5eee68869012773f03db28"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:58.939802654",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "iqtree - module - test": {
+        "content": [
+            {
+                "id": "test-IQTREE",
+                "logs_dir": "iqtree/logs/",
+                "name": "test",
+                "output_dir": "",
+                "process_name": "iqtree",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,7c9654347c5eee68869012773f03db28"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:42.55950921",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

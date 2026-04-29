@@ -1,9 +1,0 @@
-- name: ismapper-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf ismapper -c nextflow.config --help > ismapper-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - ismapper
-  files:
-    - path: ismapper-help.txt
-      contains: ['ismapper', 'bactopia', 'version', 'dependencies']

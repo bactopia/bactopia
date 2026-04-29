@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/staphopiasccmec/schema.json",
+    "title": "bactopia/staphopiasccmec module",
+    "description": "Predicts SCCmec types for Staphylococcus aureus genomes",
+    "type": "object",
+    "$defs": {
+        "staphopiasccmec_parameters": {
+            "title": "Staphopia SCCmec Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "staphopiasccmec_hamming": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Report the results as hamming distances",
+                    "help": "This is useful to determine how similar the hit was, the default is either perfect match or not",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/staphopiasccmec_parameters"
+        }
+    ]
+}

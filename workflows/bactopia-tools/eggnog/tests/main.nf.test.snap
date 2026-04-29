@@ -1,0 +1,38 @@
+{
+    "eggnog - SRR2838702|portiera|single_protein": {
+        "content": [
+            1,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/eggnog",
+                "SRR2838702/tools/eggnog/SRR2838702.emapper.annotations",
+                "SRR2838702/tools/eggnog/SRR2838702.emapper.hits",
+                "SRR2838702/tools/eggnog/SRR2838702.emapper.seed_orthologs",
+                "SRR2838702/tools/eggnog/logs",
+                "SRR2838702/tools/eggnog/logs/nf.command.begin",
+                "SRR2838702/tools/eggnog/logs/nf.command.err",
+                "SRR2838702/tools/eggnog/logs/nf.command.log",
+                "SRR2838702/tools/eggnog/logs/nf.command.out",
+                "SRR2838702/tools/eggnog/logs/nf.command.run",
+                "SRR2838702/tools/eggnog/logs/nf.command.sh",
+                "SRR2838702/tools/eggnog/logs/nf.command.trace",
+                "SRR2838702/tools/eggnog/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/eggnog",
+                "bactopia-runs/eggnog/nf-reports",
+                "bactopia-runs/eggnog/nf-reports/eggnog-dag.dot",
+                "bactopia-runs/eggnog/nf-reports/eggnog-report.html",
+                "bactopia-runs/eggnog/nf-reports/eggnog-timeline.html"
+            ],
+            [
+                "versions.yml:md5,1b179e895ab51b7321ae747976b92b31"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:27:15.558730769",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

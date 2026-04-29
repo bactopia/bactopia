@@ -1,0 +1,33 @@
+{
+    "kleborate - subworkflow - GCF_000009885": {
+        "content": [
+            {
+                "id": "GCF_000009885-KLEBORATE:KLEBORATE_MODULE",
+                "logs_dir": "GCF_000009885/tools/kleborate//logs/",
+                "name": "GCF_000009885",
+                "output_dir": "GCF_000009885/tools/kleborate/",
+                "process_name": "kleborate",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,aec7b340c249e69ce8f867062359afb9"
+            ],
+            {
+                "id": "kleborate-KLEBORATE:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/kleborate-concat/",
+                "name": "kleborate",
+                "output_dir": "merged-results",
+                "process_name": "kleborate-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,2351aac91e4aee5e9cfa2bd7a6a1bda0"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:56.739504497",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

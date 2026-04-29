@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/gamma/schema.json",
+    "title": "GAMMA Module",
+    "description": "A module for identification, classification, and annotation of translated gene matches",
+    "type": "object",
+    "$defs": {
+        "gamma_parameters": {
+            "title": "GAMMA Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "gamma_db": {
+                    "type": "string",
+                    "description": "A gene database (FASTA) for GAMMA",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "gamma_percent_identity": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "The minimum nucleotide sequence identity % used by the Blat search",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "gamma_all_matches": {
+                    "type": "boolean",
+                    "description": "Include all gene matches, even overlaps",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "gamma_extended": {
+                    "type": "boolean",
+                    "description": "Writes out all protein mutations",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "gamma_write_fasta": {
+                    "type": "boolean",
+                    "description": "Write FASTA of gene matches",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "gamma_write_gff": {
+                    "type": "boolean",
+                    "description": "Write gene matches as GFF file",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/gamma_parameters"
+        }
+    ]
+}

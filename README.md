@@ -1,7 +1,6 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/bactopia/bactopia)](https://github.com/bactopia/bactopia/releases)
 [![mSystems](https://img.shields.io/badge/DOI-mSystems.00190--20-blue)](https://doi.org/10.1128/mSystems.00190-20)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/bactopia/badges/downloads.svg)](https://anaconda.org/bioconda/bactopia)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/bactopia/bactopia)
 
 ![Bactopia Logo](data/bactopia-logo.png)
 
@@ -11,8 +10,8 @@ is to process your data with a broad set of tools, so that you can get to the fu
 analyses quicker!
 
 Bactopia can be split into two main parts:
-[Bactopia Analysis Pipeline](https://bactopia.github.io/latest/beginners-guide/), and
-[Bactopia Tools](https://bactopia.github.io/latest/bactopia-tools/).
+[Bactopia Analysis Pipeline](https://bactopia.io/beginners-guide/), and
+[Bactopia Tools](https://bactopia.io/bactopia-tools/).
 
 
 Bactopia Analysis Pipeline is the main *per-isolate* workflow in Bactopia. Built with
@@ -24,7 +23,7 @@ minmer sketch queries, sequence typing, and more.
 
 Bactopia Tools are a set a independent workflows for comparative analyses. The comparative analyses
 may include summary reports, pan-genome, or phylogenetic tree construction. Using the
-[predictable output structure](https://bactopia.github.io/latest/full-guide/) of Bactopia you can
+[predictable output structure](https://bactopia.io/full-guide/) of Bactopia you can
 pick and choose which samples to include for processing with a Bactopia Tool.
 
 Bactopia was inspired by [Staphopia](https://staphopia.github.io/), a workflow we (Tim Read and myself)
@@ -33,7 +32,7 @@ feedback, Bactopia was developed from scratch with usability, portability, and s
 the start.
 
 # Documentation
-Documentation for Bactopia is available at https://bactopia.github.io/. The documentation includes
+Documentation for Bactopia is available at https://bactopia.io/. The documentation includes
 a tutorial replicating [Staphopia](https://staphopia.github.io/) and a complete overview of
 Bactopia. I highly encourage you check it out!
 
@@ -96,7 +95,7 @@ And voilà, you are all set to get started processing your data!
 
 # Please Cite Datasets and Tools
 If you have used Bactopia in your work, please be sure to cite any datasets or tools you may
-have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.github.io/latest/impact-and-outreach/acknowledgements/). 
+have used. [A list of each dataset/tool used by Bactopia has been made available](https://bactopia.io/impact-and-outreach/acknowledgements/). 
 
 *If a citation needs to be updated please let me know!*
 
@@ -145,19 +144,18 @@ Your feedback is very valuable! If you run into any issues using Bactopia, have 
 # Citation
 Petit III RA, Read TD, *Bactopia: a flexible pipeline for complete analysis of bacterial genomes.* __mSystems__. 5 (2020), https://doi.org/10.1128/mSystems.00190-20.
 
-# Author 
+# Author
 
 * Robert A. Petit III
-* Twitter: [@rpetit3](https://twitter.com/rpetit3)
+* BlueSky: [@rpetit3](https://bsky.app/profile/rpetit3.bsky.social)
 
 ## Funding
 
 Support for this project came (in part) from an Emory Public Health Bioinformatics Fellowship
 funded by the [CDC Emerging Infections Program (U50CK000485) PPHF/ACA: Enhancing Epidemiology and Laboratory Capacity](https://dph.georgia.gov/EIP),
-the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), and
-the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/).
-
+the [Wyoming Public Health Division](https://health.wyo.gov/publichealth/), the [Center for Applied Pathogen Epidemiology and Outbreak Control (CAPE)](https://www.linkedin.com/company/center-for-applied-pathogen-epidemiology-and-outbreak-control/), and the [CZI Open Science Program (EOSS6)](https://chanzuckerberg.com/eoss/proposals/enhancing-the-bactopia-ecosystem-with-trainings-and-visual-reports/).
 
 ![Georgia Emerging Infections Program](data/gaeip-banner.png)
 ![Wyoming Public Health Division](data/wyphd-banner.jpg)
 ![Center for Applied Pathogen Epidemiology and Outbreak Control](data/cape-banner.png)
+![CZI Open Science Program](data/czi-banner.png)

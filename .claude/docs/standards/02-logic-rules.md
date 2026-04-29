@@ -1,0 +1,183 @@
+# Logic and Taxonomy
+
+## Overview
+This guide defines the decision-making logic and taxonomy used to classify Bactopia components. It provides clear rubrics for determining complexity, input/output types, and feature classifications.
+
+## Complexity Rubric
+
+### Simple
+- **Definition**: Linear execution, single tool wrapper
+- **Characteristics**:
+  - Straightforward input processing
+  - No conditional branching
+  - Minimal parameter configuration
+  - Single tool execution
+- **Examples**: abricate, ariba, blast
+
+### Moderate
+- **Definition**: Branching logic, database dependency, or basic aggregation
+- **Characteristics**:
+  - Conditional tool selection based on parameters
+  - Requires external database
+  - Basic result aggregation
+  - Multiple processing steps but linear flow
+- **Examples**: quast, mlst, emmtyper
+
+### Complex
+- **Definition**: Orchestration of subworkflows, massive databases, or multiple distinct aggregation steps
+- **Characteristics**:
+  - Coordinates multiple subworkflows/modules
+  - Complex conditional logic
+  - Multiple aggregation steps
+  - Large database requirements (e.g., Bakta, GTDB-Tk)
+  - Intricate output management
+  - Multiple execution paths or alternative tools
+- **Examples**: prokka, pangenome, bactopia (main workflow), kraken2, assembler, gtdbtk
+
+## Input-Type Logic
+
+### None
+- **Definition**: No sample/data channels in the `take` block
+- **Use case**: Utility modules that download resources or perform setup tasks
+- **Note**: May have `Path`, `Value<String>`, or other non-channel parameters but no `Channel<Record>` inputs
+- **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
+
+### Single Input
+- **Definition**: The `take` block defines exactly **1 Channel**
+- **Note**: Do not count `Path`, `Value<String>`, or other `Value<...>` parameters
+- **Examples**:
+  ```nextflow
+  workflow EXAMPLE {
+      take:
+      assembly: Channel<Record>      // Only 1 channel
+
+      // Value<...> parameters don't count
+      db: Path
+      species: Value<String>
+  }
+  ```
+
+### Multiple Inputs
+- **Definition**: The `take` block defines **2 or more Channels**
+- **Examples**:
+  ```nextflow
+  workflow EXAMPLE {
+      take:
+      assembly: Channel<Record>          // Channel 1
+      annotations: Channel<Record>       // Channel 2
+      reads: Channel<Record>             // Channel 3
+  }
+  ```
+
+## Output-Type Logic
+
+### Single Output
+- **Definition**: Component produces one primary output file/channel
+- **Typical for**: Simple conversion tools
+- **Example**: Single report file
+
+### Multiple Outputs
+- **Definition**: Component produces multiple distinct outputs
+- **Typical for**::
+  - Annotation tools (multiple file formats)
+  - Analysis tools (results + logs + versions)
+  - Subworkflows (aggregated results)
+
+## Feature Classification
+
+### Technical Features
+
+#### database-dependent
+- Component requires external database to function
+- Examples: abricate, kraken2, mlst
+- **Key indicators**: Database download/selection parameters
+
+#### conditional-input
+- Accepts optional `Path?` inputs that modify behavior
+- **Key indicators**: `Path?` types in take block, null checks in script
+- GroovyDoc uses `?` suffix on optional fields (e.g., `@input proteins?`)
+- Examples: prokka (proteins?, prodigal_tf?), bakta (proteins?, replicons?)
+
+#### conditional-logic
+- Contains if/else statements in script
+- Branching execution based on parameters
+- **Key indicators**: Multiple execution paths
+- Examples: pangenome tool selection, optional analysis steps
+
+#### compression
+- Handles file compression/decompression
+- **Key indicators**: .gz file handling, compression parameters
+
+#### archive-output
+- Creates compressed archives (tar/zip)
+- **Key indicators**: Archive creation, tar/zip outputs
+
+#### resource-download
+- Downloads external databases, datasets, or files
+- **Key indicators**: Download steps, external resource fetching
+
+#### internet-access
+- Requires active internet connection during execution
+- **Key indicators**: External URLs, download commands (wget, curl)
+- Examples: gather (SRA download), amrfinderplus/update
+
+#### alternative-execution
+- Multiple tool options for the same task
+- **Key indicators**: Tool selection logic, alternative implementations
+- Examples: assembler (shovill/dragonflye/unicycler)
+
+#### filtering
+- Filters input data based on criteria
+- **Key indicators**: Filtering parameters, subset selection
+
+#### custom-outputs
+- Non-standard output channel patterns
+- **Key indicators**: Complex output structure beyond the standard `sample_outputs` / `run_outputs` emit
+
+### Processing Features
+
+#### aggregation
+- Combines multiple results into summary
+- **Key indicators**: `gather()` / `gatherCsvtk()` / `gatherFields()` usage, result merging
+- Examples: csvtk concat, summary reports
+
+## Component Classification Guide
+
+### Modules
+- Always have `logs`, `nf_logs`, `versions` outputs
+- Additional outputs based on tool function
+- Complexity determined by tool requirements and script logic
+
+### Subworkflows
+- Always emit 2 standard channels: `sample_outputs` (per-sample record passthrough) and `run_outputs` (aggregated)
+- Use `gather()`, `gatherCsvtk()`, or `gatherFields()` to feed aggregating modules (e.g., `CSVTK_CONCAT`)
+- Complexity based on orchestration complexity
+
+### Entry Workflows
+- Organize outputs by `@section` groups
+- Use `@publish` for end-user files
+- Handle both run-level and sample-level outputs
+
+## Decision Trees
+
+### Determining Complexity
+1. Does it coordinate multiple components? → **Complex**
+2. Does it have conditional branching? → **Moderate** to **Complex**
+3. Does it require a database? → **Moderate**
+4. Is it a simple tool wrapper? → **Simple**
+
+### Determining Input-Type
+1. Count channels in `take` block
+2. Ignore `Path`, `Value<String>`, and other `Value<...>` parameters (non-channel types)
+3. 0 channels → **None** (utility/setup modules)
+4. 1 channel → **Single**
+5. 2+ channels → **Multiple**
+
+### Determining Output-Type
+1. Count distinct output files/channels
+2. 1 primary output → **Single**
+3. Multiple outputs → **Multiple**
+
+## See Also
+- [Style Guide](../standards/01-style-guide.md) - For template formats
+- [Technical Specifications](../standards/03-technical-specs.md) - For implementation details

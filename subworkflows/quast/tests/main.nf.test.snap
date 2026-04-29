@@ -1,0 +1,34 @@
+{
+    "quast - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-QUAST:QUAST_MODULE",
+                "logs_dir": "SRR2838702/tools/quast//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/quast/",
+                "process_name": "quast",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,a02f798379d9982810a198ec9b389079",
+            [
+                "versions.yml:md5,83128d552544124c01b8b5502f773fc6"
+            ],
+            {
+                "id": "quast-QUAST:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/quast-concat/",
+                "name": "quast",
+                "output_dir": "merged-results",
+                "process_name": "quast-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,f6625779099decc901ee6311371b1230"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:50.023328945",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

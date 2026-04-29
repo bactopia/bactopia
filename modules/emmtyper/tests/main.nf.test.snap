@@ -1,0 +1,65 @@
+{
+    "emmtyper - module - GCF_006364235 - compressed": {
+        "content": [
+            {
+                "id": "GCF_006364235-EMMTYPER",
+                "logs_dir": "GCF_006364235/tools/emmtyper//logs/",
+                "name": "GCF_006364235",
+                "output_dir": "GCF_006364235/tools/emmtyper/",
+                "process_name": "emmtyper",
+                "scope": "sample"
+            },
+            "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+            [
+                "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:48.369769489",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "emmtyper - module - GCF_006364235 - with db": {
+        "content": [
+            {
+                "id": "GCF_006364235-EMMTYPER",
+                "logs_dir": "GCF_006364235/tools/emmtyper//logs/",
+                "name": "GCF_006364235",
+                "output_dir": "GCF_006364235/tools/emmtyper/",
+                "process_name": "emmtyper",
+                "scope": "sample"
+            },
+            "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+            [
+                "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:04.878639906",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "emmtyper - module - GCF_006364235 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_006364235-EMMTYPER",
+                "logs_dir": "GCF_006364235/tools/emmtyper//logs/",
+                "name": "GCF_006364235",
+                "output_dir": "GCF_006364235/tools/emmtyper/",
+                "process_name": "emmtyper",
+                "scope": "sample"
+            },
+            "GCF_006364235.tsv:md5,48e7aa60590f702d57f33d3453acf995",
+            [
+                "versions.yml:md5,8028be40b22a6bec2ce48bbc811c663a"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:33.033869822",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "pirate - module - portiera pangenome": {
+        "content": [
+            {
+                "id": "portiera-pirate-PIRATE",
+                "logs_dir": "pirate/logs",
+                "name": "portiera-pirate",
+                "output_dir": "",
+                "process_name": "pirate",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,ce4d40e2b87e2e5cac6e755fcb0c023b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:02.881672069",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

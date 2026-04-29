@@ -1,0 +1,45 @@
+nextflow_workflow {
+    name "Test NGMASTER Subworkflow"
+    script "../main.nf"
+    workflow "NGMASTER"
+    tag "subworkflows"
+    tag "ngmaster"
+
+    test("ngmaster - subworkflow - GCF_001047255") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001047255"],
+                        fna: file("${params.test_data_dir}/species/neisseria_gonorrhoeae/compressed/GCF_001047255/main/assembler/GCF_001047255.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

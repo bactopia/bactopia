@@ -1,0 +1,24 @@
+{
+    "sylph - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SYLPH:SYLPH_PROFILE",
+                "logs_dir": "SRR2838702/tools/sylph//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/sylph/",
+                "process_name": "sylph",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.tsv:md5,c75165de3e75c147eacc50f941e3fb05",
+            [
+                "versions.yml:md5,2a85d1cd25d2a88c77d90030e05e17cf"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:08.970225804",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+nextflow_process {
+    name "Test SNIPPY_RUN"
+    script "../main.nf"
+    process "SNIPPY_RUN"
+    tag "modules"
+    tag "snippy"
+    tag "snippy_run"
+
+    test("snippy_run - module - paired-end - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // First record input: sample reads
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR6005894"],
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                // Second record input: reference genome (GenBank format required)
+                input[1] = file("${params.test_data_dir}/datasets/generic/GCF_000292685.gbk")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("snippy_run - module - paired-end - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                // First record input: sample reads
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702SE"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                // Second record input: reference genome (GenBank format required)
+                input[1] = file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702.gbk.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

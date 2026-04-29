@@ -1,0 +1,34 @@
+{
+    "tblastn - subworkflow - SRX1390622": {
+        "content": [
+            {
+                "id": "SRR2838702-TBLASTN:TBLASTN_MODULE",
+                "logs_dir": "SRR2838702/tools/tblastn//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tblastn/",
+                "process_name": "tblastn",
+                "scope": "sample"
+            },
+            "SRR2838702.tblastn.tsv:md5,cc21dacd4745b135d856a1aa329df046",
+            [
+                "versions.yml:md5,e895f43f7056d877a745f1286990d607"
+            ],
+            {
+                "id": "tblastn-TBLASTN:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/tblastn-concat/",
+                "name": "tblastn",
+                "output_dir": "merged-results",
+                "process_name": "tblastn-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,413650f494aaf14a524501ce6dc5c959"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:57.898688227",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

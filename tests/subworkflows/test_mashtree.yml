@@ -1,9 +1,0 @@
-- name: mashtree-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf mashtree -c nextflow.config --help > mashtree-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - mashtree
-  files:
-    - path: mashtree-help.txt
-      contains: ['mashtree', 'bactopia', 'version', 'dependencies']

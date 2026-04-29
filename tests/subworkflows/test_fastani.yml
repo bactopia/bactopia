@@ -1,9 +1,0 @@
-- name: fastani-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf fastani -c nextflow.config --help > fastani-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - fastani
-  files:
-    - path: fastani-help.txt
-      contains: ['fastani', 'bactopia', 'version', 'dependencies']

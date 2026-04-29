@@ -1,0 +1,48 @@
+{
+    "midas - module - SRR2838702 - tarball": {
+        "content": [
+            {
+                "id": "SRR2838702-MIDAS_SPECIES",
+                "logs_dir": "SRR2838702/tools/midas//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/midas/",
+                "process_name": "midas",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
+            "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+            [
+                "versions.yml:md5,580a248b19c50e578df537679c14f459"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:53.910500819",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "midas - module - SRR2838702 - path": {
+        "content": [
+            {
+                "id": "SRR2838702-MIDAS_SPECIES",
+                "logs_dir": "SRR2838702/tools/midas//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/midas/",
+                "process_name": "midas",
+                "scope": "sample",
+                "single_end": false
+            },
+            "SRR2838702.midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2",
+            "SRR2838702.midas.abundances.txt:md5,91f71c7f652445afe3d6d573155ec41b",
+            [
+                "versions.yml:md5,580a248b19c50e578df537679c14f459"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:48.2696469",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

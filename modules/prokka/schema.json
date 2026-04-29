@@ -1,0 +1,75 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/prokka/schema.json",
+    "title": "Prokka Module",
+    "description": "A module for annotating small genomes (bacterial, archeal, viral)",
+    "type": "object",
+    "$defs": {
+        "prokka_parameters": {
+            "title": "Prokka Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "prokka_proteins": {
+                    "type": "string",
+                    "default": "${projectDir}/data/proteins.faa",
+                    "description": "FASTA file of trusted proteins to first annotate from",
+                    "fa_icon": "fas fa-font"
+                },
+                "prokka_prodigal_tf": {
+                    "type": "string",
+                    "description": "Training file to use for Prodigal",
+                    "fa_icon": "fas fa-font"
+                },
+                "prokka_compliant": {
+                    "type": "boolean",
+                    "description": "Force Genbank/ENA/DDJB compliance",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "prokka_centre": {
+                    "type": "string",
+                    "default": "Bactopia",
+                    "description": "Sequencing centre ID",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "prokka_coverage": {
+                    "type": "integer",
+                    "description": "Minimum coverage on query protein",
+                    "default": 80,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "prokka_evalue": {
+                    "type": "string",
+                    "description": "Similarity e-value cut-off",
+                    "default": "1e-09",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "prokka_opts": {
+                    "type": "string",
+                    "description": "Extra Prokka options in quotes.",
+                    "default": "",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "prokka_debug": {
+                    "type": "boolean",
+                    "description": "Enable debug mode for Prokka",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/prokka_parameters"
+        }
+    ]
+}

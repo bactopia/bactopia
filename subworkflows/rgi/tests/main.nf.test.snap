@@ -1,0 +1,34 @@
+{
+    "rgi - subworkflow - GCF_900478275": {
+        "content": [
+            {
+                "id": "GCF_900478275-RGI:RGI_MAIN",
+                "logs_dir": "GCF_900478275/tools/rgi_main//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/rgi_main/",
+                "process_name": "rgi_main",
+                "scope": "sample"
+            },
+            "GCF_900478275.tsv:md5,9d7754551163e020beed52a8bc14ce83",
+            [
+                "versions.yml:md5,4a19310417d04abb9e1eeec05629f944"
+            ],
+            {
+                "id": "rgi-RGI:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/rgi-concat/",
+                "name": "rgi",
+                "output_dir": "merged-results",
+                "process_name": "rgi-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,c1294552ba205b057bd368875a4eac93"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:52.07740056",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "eggnog - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-EGGNOG:EGGNOG_MAPPER",
+                "logs_dir": "SRR2838702/tools/eggnog//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/eggnog/",
+                "process_name": "eggnog",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,1b179e895ab51b7321ae747976b92b31"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:32:14.279719669",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

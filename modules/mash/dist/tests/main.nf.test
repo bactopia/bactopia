@@ -1,0 +1,70 @@
+nextflow_process {
+    name "Test MASH_DIST"
+    script "../main.nf"
+    process "MASH_DIST"
+    tag "modules"
+    tag "mash"
+    tag "mash_dist"
+
+    test("mash dist - module - portiera vs refseq sketch - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "mashdist-test"],
+                        fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/variants/refseq-genomes.msh")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.dist,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("mash dist - module - portiera vs refseq sketch - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "mashdist-test"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/variants/refseq-genomes.msh")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.dist,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "sketcher - module - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SKETCHER",
+                "logs_dir": "SRR2838702/main/sketcher//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/sketcher/",
+                "process_name": "sketcher",
+                "scope": "sample"
+            },
+            "SRR2838702-mash-refseq88-k21.txt:md5,aadbd6ff4ce327f009ce511badceb040",
+            "SRR2838702-sourmash-gtdb-rs207-k31.txt:md5,70d7a4c2b99b7930e9b70c033f881e03",
+            [
+                "versions.yml:md5,559fcd38f7410952b8da3f25f165d6fd"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:09.554728941",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

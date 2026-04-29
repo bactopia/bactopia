@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/generic.json",
     "title": "Bactopia pipeline parameters",
     "description": "A flexible pipeline for complete analysis of bacterial genomes",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "optional_parameters": {
             "title": "Optional Parameters",
             "type": "object",
@@ -21,7 +21,7 @@
                 "skip_compression": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Ouput files will not be compressed",
+                    "description": "Output files will not be compressed",
                     "help": "Using this parameter can lead to a significant increase in the size of the outputs",
                     "fa_icon": "fas fa-expand-arrows-alt",
                     "hidden": true
@@ -213,19 +213,14 @@
                 },
                 "registry": {
                     "type": "string",
-                    "default": "dockerhub",
+                    "default": "quay.io",
                     "hidden": true,
-                    "description": "Docker registry to pull containers from.",
-                    "fa_icon": "fas fa-box",
-                    "enum": [
-                        "dockerhub",
-                        "quay",
-                        "github"
-                    ]
+                    "description": "Registry to pull Docker containers from.",
+                    "fa_icon": "fas fa-box"
                 },
                 "datasets_cache": {
                     "type": "string",
-                    "default": "<BACTOPIA_DIR>/data/datasets",
+                    "default": "<HOME>/.bactopia/datasets",
                     "description": "Directory where downloaded datasets should be stored.",
                     "help": "",
                     "fa_icon": "fas fa-folder"
@@ -268,7 +263,7 @@
                 "container_opts": {
                     "type": "string",
                     "default": "",
-                    "description": "Additional options to pass to Apptainer, Docker, or Singularityu. (e.g. Singularity: '-D `pwd`'",
+                    "description": "Additional options to pass to Apptainer, Docker, or Singularity. (e.g. Singularity: '-D `pwd`'",
                     "fa_icon": "fas fa-clipboard-list",
                     "hidden": true
                 },
@@ -354,19 +349,19 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/optional_parameters"
+            "$ref": "#/$defs/optional_parameters"
         },
         {
-            "$ref": "#/definitions/max_job_request_parameters"
+            "$ref": "#/$defs/max_job_request_parameters"
         },
         {
-            "$ref": "#/definitions/nextflow_parameters"
+            "$ref": "#/$defs/nextflow_parameters"
         },
         {
-            "$ref": "#/definitions/nextflow_profile_parameters"
+            "$ref": "#/$defs/nextflow_profile_parameters"
         },
         {
-            "$ref": "#/definitions/generic_parameters"
+            "$ref": "#/$defs/generic_parameters"
         }
     ]
 }

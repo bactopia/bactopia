@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/legsta/schema.json",
+    "title": "legsta Module",
+    "description": "A module for typing of Legionella pneumophila assemblies",
+    "type": "object",
+    "$defs": {
+        "legsta_parameters": {
+            "title": "legsta Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "legsta_noheader": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Don't print header row",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/legsta_parameters"
+        }
+    ]
+}

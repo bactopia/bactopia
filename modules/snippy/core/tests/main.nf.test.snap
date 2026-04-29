@@ -1,0 +1,22 @@
+{
+    "snippy_core - module - test": {
+        "content": [
+            {
+                "id": "snippy-core-test-SNIPPY_CORE",
+                "logs_dir": "snippy-core/logs",
+                "name": "snippy-core-test",
+                "output_dir": "",
+                "process_name": "snippy-core",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,af05caa4daa181fbe9d7bf82d3383d93"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:41.365495425",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/pbptyper/schema.json",
+    "title": "pbptyper Module",
+    "description": "A module Penicillin Binding Protein (PBP) typing of Streptococcus pneumoniae genomes",
+    "type": "object",
+    "$defs": {
+        "pbptyper_parameters": {
+            "title": "pbptyper Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "pbptyper_min_pident": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent identity to count a hit",
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "pbptyper_min_coverage": {
+                    "type": "integer",
+                    "default": 95,
+                    "description": "Minimum percent coverage to count a hit",
+                    "fa_icon": "fas fa-hashtag"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/pbptyper_parameters"
+        }
+    ]
+}

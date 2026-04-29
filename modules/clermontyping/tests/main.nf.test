@@ -1,0 +1,67 @@
+nextflow_process {
+    name "Test CLERMONTYPING"
+    script "../main.nf"
+    process "CLERMONTYPING"
+    tag "modules"
+    tag "clermontyping"
+
+    test("clermontyping - module - GCF_001695515 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001695515"],
+                        fna: file("${params.test_data_dir}/species/escherichia_coli/uncompressed/GCF_001695515/main/assembler/GCF_001695515.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("clermontyping - module - GCF_001695515 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001695515"],
+                        fna: file("${params.test_data_dir}/species/escherichia_coli/compressed/GCF_001695515/main/assembler/GCF_001695515.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

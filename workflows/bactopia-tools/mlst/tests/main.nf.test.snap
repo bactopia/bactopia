@@ -1,0 +1,51 @@
+{
+    "mlst - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/mlst",
+                "GCF_000017085/tools/mlst/GCF_000017085.tsv",
+                "GCF_000017085/tools/mlst/logs",
+                "GCF_000017085/tools/mlst/logs/nf.command.begin",
+                "GCF_000017085/tools/mlst/logs/nf.command.err",
+                "GCF_000017085/tools/mlst/logs/nf.command.log",
+                "GCF_000017085/tools/mlst/logs/nf.command.out",
+                "GCF_000017085/tools/mlst/logs/nf.command.run",
+                "GCF_000017085/tools/mlst/logs/nf.command.sh",
+                "GCF_000017085/tools/mlst/logs/nf.command.trace",
+                "GCF_000017085/tools/mlst/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/mlst",
+                "bactopia-runs/mlst/merged-results",
+                "bactopia-runs/mlst/merged-results/logs",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.begin",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.err",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.log",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.out",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.run",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.sh",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/nf.command.trace",
+                "bactopia-runs/mlst/merged-results/logs/mlst-concat/versions.yml",
+                "bactopia-runs/mlst/merged-results/mlst.tsv",
+                "bactopia-runs/mlst/nf-reports",
+                "bactopia-runs/mlst/nf-reports/mlst-dag.dot",
+                "bactopia-runs/mlst/nf-reports/mlst-report.html",
+                "bactopia-runs/mlst/nf-reports/mlst-timeline.html"
+            ],
+            [
+                "GCF_000017085.tsv:md5,c2faf73735d4ebc6fb0d8f4b263eb5b6",
+                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
+                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc",
+                "mlst.tsv:md5,c2faf73735d4ebc6fb0d8f4b263eb5b6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:42.139593519",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

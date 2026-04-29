@@ -1,0 +1,80 @@
+{
+    "nohuman - module - SRR2838702 - directory": {
+        "content": [
+            {
+                "id": "SRR2838702-NOHUMAN_RUN",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,4b0dcd803f7da2cc2d79b8cc5cac403c",
+            [
+                "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:26:46.3896525",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "nohuman - module - SRR2838702 - single-end": {
+        "content": [
+            {
+                "id": "SRR2838702-NOHUMAN_RUN",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "runtype": "se",
+                "scope": "sample",
+                "single_end": true
+            },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,0bc664ae0be37cb6ebd8490f3a11f973",
+            [
+                "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:30:23.430469379",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "nohuman - module - SRR2838702 - tarball": {
+        "content": [
+            {
+                "id": "SRR2838702-NOHUMAN_RUN",
+                "logs_dir": "SRR2838702/tools/nohuman//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/nohuman/",
+                "process_name": "nohuman",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,4b0dcd803f7da2cc2d79b8cc5cac403c",
+            [
+                "versions.yml:md5,12c5ca2725279a466f337e5a5de7b27b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:42.057476779",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "hpsuissero - module - GCF_002777395 - compressed": {
+        "content": [
+            {
+                "id": "GCF_002777395-HPSUISSERO",
+                "logs_dir": "GCF_002777395/tools/hpsuissero//logs/",
+                "name": "GCF_002777395",
+                "output_dir": "GCF_002777395/tools/hpsuissero/",
+                "process_name": "hpsuissero",
+                "scope": "sample"
+            },
+            "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+            [
+                "versions.yml:md5,2e1e831c688899545872927bdf90d852"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:55.922851305",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "hpsuissero - module - GCF_002777395 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_002777395-HPSUISSERO",
+                "logs_dir": "GCF_002777395/tools/hpsuissero//logs/",
+                "name": "GCF_002777395",
+                "output_dir": "GCF_002777395/tools/hpsuissero/",
+                "process_name": "hpsuissero",
+                "scope": "sample"
+            },
+            "GCF_002777395.tsv:md5,f7a0bb60a7b1b20cff538eb1b44886fc",
+            [
+                "versions.yml:md5,2e1e831c688899545872927bdf90d852"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:39.077032116",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "busco - module - SRR2838702 - compressed": {
+        "content": [
+            {
+                "id": "SRR2838702-BUSCO",
+                "logs_dir": "SRR2838702/tools/busco/bacteria_odb10/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/busco/bacteria_odb10",
+                "process_name": "busco",
+                "scope": "sample"
+            },
+            "SRR2838702-summary.txt:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
+            [
+                "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:54.42682481",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "busco - module - SRR2838702 - uncompressed": {
+        "content": [
+            {
+                "id": "SRR2838702-BUSCO",
+                "logs_dir": "SRR2838702/tools/busco/bacteria_odb10/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/busco/bacteria_odb10",
+                "process_name": "busco",
+                "scope": "sample"
+            },
+            "SRR2838702-summary.txt:md5,6f1755af3cdf443a46475b3cac0e37cf",
+            [
+                "versions.yml:md5,f0c1c6e03db9f8846867b50f08126e1b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:14.368804183",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

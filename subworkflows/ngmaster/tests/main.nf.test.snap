@@ -1,0 +1,34 @@
+{
+    "ngmaster - subworkflow - GCF_001047255": {
+        "content": [
+            {
+                "id": "GCF_001047255-NGMASTER:NGMASTER_MODULE",
+                "logs_dir": "GCF_001047255/tools/ngmaster//logs/",
+                "name": "GCF_001047255",
+                "output_dir": "GCF_001047255/tools/ngmaster/",
+                "process_name": "ngmaster",
+                "scope": "sample"
+            },
+            "GCF_001047255.tsv:md5,2be2b3dd6c45726d2a9d7f2540b34219",
+            [
+                "versions.yml:md5,dcc7b71de52c4fe65e10147be956aa05"
+            ],
+            {
+                "id": "ngmaster-NGMASTER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/ngmaster-concat/",
+                "name": "ngmaster",
+                "output_dir": "merged-results",
+                "process_name": "ngmaster-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,9dbc0e8b7902e955ec10c94c11074f06"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:44.012480256",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

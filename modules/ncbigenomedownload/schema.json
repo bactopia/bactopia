@@ -1,0 +1,77 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ncbigenomedownload/schema.json",
+    "title": "NCBI Genome Download Module",
+    "description": "A module to download assemblies from NCBI's Assembly database",
+    "type": "object",
+    "$defs": {
+        "ncbigenomedownload_parameters": {
+            "title": "NCBI Genome Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "species": {
+                    "type": "string",
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-font"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "fa_icon": "fas fa-font"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-font"
+                },
+                "format": {
+                    "type": "string",
+                    "default": "fasta",
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-font"
+                },
+                "section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "NCBI section to download",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "assembly_level": {
+                    "type": "string",
+                    "default": "complete",
+                    "description": "Comma separated list of assembly levels to download",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "kingdom": {
+                    "type": "string",
+                    "default": "bacteria",
+                    "description": "Comma separated list of formats to download",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Limit the number of assemblies to download",
+                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
+                    "fa_icon": "fas fa-font"
+                },
+                "keep_downloads": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/ncbigenomedownload_parameters"
+        }
+    ]
+}

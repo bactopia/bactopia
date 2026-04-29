@@ -1,0 +1,6 @@
+**/*.{err,gz,html,log,pdf,stderr,stdout}
+**/nf.command.*
+bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/phispy.tsv
+**/tools/phispy/*.tsv

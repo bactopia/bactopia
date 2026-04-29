@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/midas/species/schema.json",
+    "title": "MIDAS Species Module",
+    "description": "A module for identifying species using MIDAS",
+    "type": "object",
+    "$defs": {
+        "midas_species_parameters": {
+            "title": "MIDAS Species Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "midas_word_size": {
+                    "type": "integer",
+                    "description": "Word size for BLAST search",
+                    "default": 28,
+                    "fa_icon": "fas fa-hashtag"
+                },
+                "midas_aln_cov": {
+                    "type": "number",
+                    "description": "Discard reads with alignment coverage < ALN_COV",
+                    "default": 0.75,
+                    "fa_icon": "fas fa-percentage"
+                },
+                "midas_opts": {
+                    "type": "string",
+                    "description": "Extra MIDAS options",
+                    "fa_icon": "fas fa-font"
+                },
+                "midas_debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep all temporary files created by MIDAS",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/midas_species_parameters"
+        }
+    ]
+}

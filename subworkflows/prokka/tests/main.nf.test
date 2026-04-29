@@ -1,0 +1,42 @@
+nextflow_workflow {
+    name "Test PROKKA Subworkflow"
+    script "../main.nf"
+    workflow "PROKKA"
+    tag "subworkflows"
+    tag "prokka"
+
+    test("prokka - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                    )
+                )
+                input[1] = null
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.txt,
+                    sample.versions
+                ).match() },
+                { assert sample.results != null }
+            )
+        }
+    }
+}

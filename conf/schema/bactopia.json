@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/conf/schema/bactopia.json",
     "title": "Bactopia pipeline parameters",
     "description": "A flexible pipeline for complete analysis of bacterial genomes",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "input_parameters": {
             "title": "Required Parameters",
             "type": "object",
@@ -112,8 +112,8 @@
                     "fa_icon": "fas fa-angle-double-down"
                 },
                 "genome_size": {
-                    "type": "string",
-                    "default": "0",
+                    "type": "integer",
+                    "default": 0,
                     "description": "Expected genome size (bp) for all samples, required for read error correction and read subsampling",
                     "help": "If `--species` is used, `min`, `median`, `mean`, or `max` can be used for `--genome_size`",
                     "fa_icon": "fas fa-arrows-alt-h"
@@ -128,10 +128,10 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/input_parameters"
+            "$ref": "#/$defs/input_parameters"
         },
         {
-            "$ref": "#/definitions/dataset_parameters"
+            "$ref": "#/$defs/dataset_parameters"
         }
     ]
 }

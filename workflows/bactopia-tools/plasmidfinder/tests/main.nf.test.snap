@@ -1,0 +1,53 @@
+{
+    "PlasmidFinder - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/plasmidfinder",
+                "GCF_000017085/tools/plasmidfinder/GCF_000017085-hit_in_genome_seq.fsa.gz",
+                "GCF_000017085/tools/plasmidfinder/GCF_000017085-plasmid_seqs.fsa.gz",
+                "GCF_000017085/tools/plasmidfinder/GCF_000017085.json",
+                "GCF_000017085/tools/plasmidfinder/GCF_000017085.tsv",
+                "GCF_000017085/tools/plasmidfinder/GCF_000017085.txt",
+                "GCF_000017085/tools/plasmidfinder/logs",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.begin",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.err",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.log",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.out",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.run",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.sh",
+                "GCF_000017085/tools/plasmidfinder/logs/nf.command.trace",
+                "GCF_000017085/tools/plasmidfinder/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/plasmidfinder",
+                "bactopia-runs/plasmidfinder/merged-results",
+                "bactopia-runs/plasmidfinder/merged-results/logs",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.begin",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.err",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.log",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.out",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.run",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.sh",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/nf.command.trace",
+                "bactopia-runs/plasmidfinder/merged-results/logs/plasmidfinder-concat/versions.yml",
+                "bactopia-runs/plasmidfinder/merged-results/plasmidfinder.tsv",
+                "bactopia-runs/plasmidfinder/nf-reports",
+                "bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-dag.dot",
+                "bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-report.html",
+                "bactopia-runs/plasmidfinder/nf-reports/plasmidfinder-timeline.html"
+            ],
+            [
+                "versions.yml:md5,873840380638a54da24ad6169ac19b46",
+                "versions.yml:md5,4f95221cf6912e60932c0c0c6982fba5"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:57.039800861",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

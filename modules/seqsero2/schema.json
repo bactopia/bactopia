@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/seqsero2/schema.json",
+    "title": "SeqSero2 Module",
+    "description": "A module for Salmonella serotype prediction",
+    "type": "object",
+    "$defs": {
+        "seqsero2_parameters": {
+            "title": "SeqSero2 Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "seqsero2_run_mode": {
+                    "type": "string",
+                    "default": "k",
+                    "description": "Workflow to run. 'a' allele mode, or 'k' k-mer mode",
+                    "enum": [
+                        "a",
+                        "k"
+                    ],
+                    "fa_icon": "fas fa-font"
+                },
+                "seqsero2_input_type": {
+                    "type": "string",
+                    "default": "assembly",
+                    "description": "Input format to analyze. 'assembly' or 'fastq'",
+                    "enum": [
+                        "assembly",
+                        "fastq"
+                    ],
+                    "fa_icon": "fas fa-font"
+                },
+                "seqsero2_bwa_mode": {
+                    "type": "string",
+                    "default": "mem",
+                    "description": "Algorithms for bwa mapping for allele mode",
+                    "enum": [
+                        "mem",
+                        "sam"
+                    ],
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/seqsero2_parameters"
+        }
+    ]
+}

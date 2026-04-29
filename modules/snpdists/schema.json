@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/snpdists/schema.json",
+    "title": "SNP-Dists Module",
+    "description": "Pairwise SNP distance matrix from a FASTA sequence alignment",
+    "type": "object",
+    "$defs": {
+        "snpdists_parameters": {
+            "title": "SNP-Dists Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "snpdists_a": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Count all differences not just [AGTC]",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "snpdists_b": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep top left corner cell",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "snpdists_csv": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Output CSV instead of TSV",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "snpdists_k": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep case, don't uppercase all letters",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/snpdists_parameters"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "snippy-core - subworkflow - test": {
+        "content": [
+            {
+                "id": "snippy-core-test-SNIPPY_CORE:SNIPPY_CORE_MODULE",
+                "logs_dir": "snippy-core/logs",
+                "name": "snippy-core-test",
+                "output_dir": "",
+                "process_name": "snippy-core",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735"
+            ],
+            {
+                "id": "core-snp.distance-snpdists",
+                "logs_dir": "snpdists/logs/",
+                "name": "core-snp.distance",
+                "output_dir": "",
+                "process_name": "snpdists",
+                "scope": "run"
+            },
+            "core-snp.distance.tsv:md5,54972ea72ed1eb5ed7107437c9eb422a",
+            [
+                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:33.46198183",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,9 +1,0 @@
-- name: hicap-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf hicap -c nextflow.config --help > hicap-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - hicap
-  files:
-    - path: hicap-help.txt
-      contains: ['hicap', 'bactopia', 'version', 'dependencies']

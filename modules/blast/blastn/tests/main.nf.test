@@ -1,0 +1,39 @@
+nextflow_process {
+    name "Test BLAST_BLASTN"
+    script "../main.nf"
+    process "BLAST_BLASTN"
+    tag "modules"
+    tag "blast"
+    tag "blast_blastn"
+
+    test("blastn - module - SRX1390622") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        blastdb: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/annotator/prokka/SRR2838702-blastdb.tar.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/blast/single-gene.ffn")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

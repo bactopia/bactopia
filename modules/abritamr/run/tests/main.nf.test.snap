@@ -1,0 +1,52 @@
+{
+    "abritamr - module - GCF_001682305 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_001682305-ABRITAMR_RUN",
+                "logs_dir": "GCF_001682305/tools/abritamr//logs/",
+                "name": "GCF_001682305",
+                "output_dir": "GCF_001682305/tools/abritamr/",
+                "process_name": "abritamr",
+                "scope": "sample"
+            },
+            "GCF_001682305.abritamr.tsv:md5,18df68afa95e104c8f418efedd9146cf",
+            "GCF_001682305.summary_matches.tsv:md5,2da0b6cb548413f2721a95e55e17e295",
+            "GCF_001682305.summary_partials.tsv:md5,db0255b99826900ecf4616eef7494806",
+            "GCF_001682305.summary_virulence.tsv:md5,439b76b76818cbe8ec06bc82bd2711fe",
+            "GCF_001682305.amrfinder.out:md5,5653ba9662232edc023dcc9606440e91",
+            [
+                "versions.yml:md5,ebc49c238ebaaaa54c98e7276f3f2aff"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:00.097478921",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "abritamr - module - GCF_001682305 - compressed": {
+        "content": [
+            {
+                "id": "GCF_001682305-ABRITAMR_RUN",
+                "logs_dir": "GCF_001682305/tools/abritamr//logs/",
+                "name": "GCF_001682305",
+                "output_dir": "GCF_001682305/tools/abritamr/",
+                "process_name": "abritamr",
+                "scope": "sample"
+            },
+            "GCF_001682305.abritamr.tsv:md5,18df68afa95e104c8f418efedd9146cf",
+            "GCF_001682305.summary_matches.tsv:md5,2da0b6cb548413f2721a95e55e17e295",
+            "GCF_001682305.summary_partials.tsv:md5,db0255b99826900ecf4616eef7494806",
+            "GCF_001682305.summary_virulence.tsv:md5,439b76b76818cbe8ec06bc82bd2711fe",
+            "GCF_001682305.amrfinder.out:md5,5653ba9662232edc023dcc9606440e91",
+            [
+                "versions.yml:md5,ebc49c238ebaaaa54c98e7276f3f2aff"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:24:26.482969396",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

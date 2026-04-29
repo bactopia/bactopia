@@ -1,9 +1,0 @@
-- name: bakta-bactopia_help
-  command: bash -c 'nextflow run ./main.nf --wf bakta -c nextflow.config --help > bakta-help.txt'
-  tags:
-    - bactopia
-    - bactopia_help
-    - bakta
-  files:
-    - path: bakta-help.txt
-      contains: ['bakta', 'bactopia', 'version', 'dependencies']

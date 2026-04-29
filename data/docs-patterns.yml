@@ -1,0 +1,104 @@
+# Deprecated-pattern registry for bactopia-docs (`/review-docs` skill).
+#
+# Each entry flags a phrase that is no longer current — usually residue
+# from a past migration. Validator (`bactopia.lint.docs.validate_docs`)
+# greps every line of every doc under `.claude/docs/` against these
+# patterns; matches surface as D0xx FAILs.
+#
+# Schema (per entry):
+#   id        — D001+, the rule ID surfaced in output
+#   pattern   — regex, OR plain string when paired with `literal: true`
+#   literal   — optional; if true, escape `pattern` as plain text
+#   severity  — PASS | WARN | FAIL (default FAIL)
+#   hint      — short remediation hint shown in CLI output
+#   rationale — what migration / decision retired this term (free text)
+#
+# Adding a new pattern:
+#   1. Pick the next D0xx ID (skip D1xx — those are ground-truth checks).
+#   2. Use `literal: true` for plain-string matches; otherwise the
+#      pattern is interpreted as a Python regex (use `\b` for word
+#      boundaries).
+#   3. Suppress historical mentions in docs with an inline comment:
+#      `<!-- bactopia-docs: ignore D001 -->` on the same line.
+#
+# Run `bactopia-docs --bactopia-path . --validate` to scan; --json for
+# structured output.
+
+patterns:
+  - id: D001
+    pattern: flattenPaths
+    literal: true
+    severity: FAIL
+    hint: "Function removed from nf-bactopia plugin; remove or rephrase."
+    rationale: |
+      flattenPaths was retired during the record-types migration; subworkflows
+      now pass module record outputs through directly. Only mentions remaining
+      should be in nf-bactopia/CHANGELOG.md (which is out of scope here).
+
+  - id: D002
+    pattern: '\b(?:4[- ]channels?|three[- ]channels?|3[- ]channels?)\b'
+    severity: FAIL
+    hint: "Modules emit a single record(); subworkflows emit sample_outputs + run_outputs."
+    rationale: |
+      The pre-Record subworkflow contract emitted 4 channels (results, logs,
+      nf_logs, versions). After the record-types migration, modules emit a
+      single record with named fields, and subworkflows emit two channels:
+      sample_outputs (record passthrough) and run_outputs (aggregated).
+      Pattern matches both singular ("4-channel emission") and plural
+      ("emits 4 channels") phrasing.
+
+  - id: D003
+    pattern: 'Tuple<\s*Map\s*,'
+    severity: FAIL
+    hint: "Pre-Record typing — modules and subworkflows now use record(...) types."
+    rationale: |
+      Tuple<Map, Path>, Tuple<Map, Set<Path>>, etc. are the pre-Record I/O
+      types. Phases 1-3 migrated all modules and subworkflows to record(...)
+      single-emit + Channel<Record> takes.
+
+  - id: D004
+    pattern: '\bmeta:\s*Map\b'
+    severity: FAIL
+    hint: "meta is now a Record, not a Map (Phase 3 migration, 2026-04-10)."
+    rationale: |
+      Module input declarations and GroovyDoc descriptions all use
+      `meta: Record` after the Phase 3 migration. Catches both code (input
+      blocks) and prose ("meta: Map containing sample info").
+
+  - id: D005
+    pattern: '\bEMPTY_[A-Z_]+\b'
+    severity: FAIL
+    hint: "EMPTY_* placeholders were replaced with `Path?` typed nulls (2026-04-04)."
+    rationale: |
+      Optional inputs now use `Path?` types with explicit null passthrough
+      patterns instead of EMPTY_R1, EMPTY_GENOME_SIZE, etc. files.
+
+  - id: D006
+    pattern: 'data/catalog\.json'
+    literal: false
+    severity: FAIL
+    hint: "catalog.json moved to repo root (2026-04-10)."
+    rationale: |
+      The component catalog file is now `<repo>/catalog.json` rather than
+      `<repo>/data/catalog.json`. The `update-catalog` skill and
+      `bactopia-catalog` CLI both write to the root path.
+
+  - id: D007
+    pattern: bactopiatool_init
+    literal: true
+    severity: FAIL
+    hint: "Renamed to `utils_bactopia-tools`."
+    rationale: |
+      The bactopia-tools init subworkflow was renamed during the workflow
+      review (2026-03-29). All workflows now `include` from
+      `subworkflows/utils/bactopia-tools/main.nf`.
+
+  - id: D008
+    pattern: 'conf/workflows\.ya?ml'
+    literal: false
+    severity: FAIL
+    hint: "No such file — there is no workflow registry YAML."
+    rationale: |
+      Adding a new tool does not involve editing a `conf/workflows.yaml`.
+      Tool registration happens via the workflow's own nextflow.config and
+      catalog regeneration via `bactopia-catalog`.

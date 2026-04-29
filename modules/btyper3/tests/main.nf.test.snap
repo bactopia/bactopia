@@ -1,0 +1,44 @@
+{
+    "btyper3 - module - GCF_000008445 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000008445-BTYPER3",
+                "logs_dir": "GCF_000008445/tools/btyper3//logs/",
+                "name": "GCF_000008445",
+                "output_dir": "GCF_000008445/tools/btyper3/",
+                "process_name": "btyper3",
+                "scope": "sample"
+            },
+            "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803",
+            [
+                "versions.yml:md5,d417e0067e48969f3cc66f12727471ba"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:23.171937712",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "btyper3 - module - GCF_000008445 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000008445-BTYPER3",
+                "logs_dir": "GCF_000008445/tools/btyper3//logs/",
+                "name": "GCF_000008445",
+                "output_dir": "GCF_000008445/tools/btyper3/",
+                "process_name": "btyper3",
+                "scope": "sample"
+            },
+            "GCF_000008445.tsv:md5,4a242c5823bc16f6f6869ab8abac5803",
+            [
+                "versions.yml:md5,d417e0067e48969f3cc66f12727471ba"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:24.997856437",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "ncbigenomedownload - subworkflow - single accession": {
+        "content": [
+            {
+                "accession": "GCF_000292685.1",
+                "id": "ncbigenomedownload",
+                "limit": null,
+                "logs_dir": "ncbigenomedownload/logs",
+                "name": "ncbigenomedownload",
+                "output_dir": "ncbigenomedownload",
+                "process_name": "ncbigenomedownload",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,6ecc191283714fbb0fbc752c9911bf44"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:37.454604971",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,85 @@
+#!/usr/bin/env nextflow
+/**
+ * Detection of antimicrobial resistance and lineage typing of Mycobacterium tuberculosis.
+ *
+ * This Bactopia Tool uses [TBProfiler](https://github.com/jodyphelan/TBProfiler) to profile
+ * Mycobacterium tuberculosis genomes for resistance mutations and strain typing. The workflow
+ * processes sequencing reads to identify resistance-conferring variants and determine
+ * the lineage of each TB isolate.
+ *
+ * @status stable
+ * @keywords Mycobacterium tuberculosis, resistance, lineage, typing, TB
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation
+ * @citation tbprofiler
+ *
+ * @subworkflows utils_bactopia-tools, tbprofiler
+ *
+ * @input rundir
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @section Per-Sample Results
+ * @publish *.results.txt              Text file containing TBProfiler resistance and strain typing results
+ * @publish *.results.json             JSON file containing detailed TBProfiler analysis results
+ * @publish *.results.csv              CSV file containing TBProfiler results in tabular format
+ * @publish bam/*.bam                  BAM file with read alignment details against reference genomes
+ * @publish vcf/*.targets.csq.vcf.gz   VCF file with variant annotations and functional consequences
+ *
+ * @section Merged Results
+ * @publish tbprofiler.tsv             Merged TSV file containing TBProfiler results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/tbprofiler/*          Tool execution logs (stdout/stderr)
+ * @publish logs/nf-*                  Nextflow execution scripts and logs for debugging
+ *
+ * @section Versions
+ * @publish versions.yml               Software version information
+ */
+nextflow.enable.types = true
+
+params {
+    rundir : String
+}
+
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { TBPROFILER          } from '../../../subworkflows/tbprofiler/main'
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
+workflow {
+    main:
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_tbprofiler = TBPROFILER(ch_bactopiatool.reads)
+
+    publish:
+    // Per-sample
+    sample_outputs = ch_tbprofiler.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_tbprofiler.sample_outputs)
+    // Run-level
+    run_outputs = ch_tbprofiler.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_tbprofiler.run_outputs)
+}
+
+output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
+    }
+}

@@ -1,0 +1,84 @@
+nextflow_workflow {
+    name "Test MIDAS Subworkflow"
+    script "../main.nf"
+    workflow "MIDAS"
+    tag "subworkflows"
+    tag "midas"
+
+    test("midas - subworkflow - lr_only_filtered") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR3772599"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/midas/midas_db_v1.2.tar.gz")
+                input[2] = false
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.toList().size() == 0 },
+                { assert workflow.out.run_outputs.toList().size() == 0 }
+            )
+        }
+    }
+
+    test("midas - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/midas/midas_db_v1.2.tar.gz")
+                input[2] = false
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.tsv,
+                    sample.abundances,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

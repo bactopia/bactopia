@@ -1,0 +1,45 @@
+nextflow_workflow {
+    name "Test NOHUMAN Subworkflow"
+    script "../main.nf"
+    workflow "NOHUMAN"
+    tag "subworkflows"
+    tag "nohuman"
+
+    test("nohuman - subworkflow - SRR2838702") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/nohuman/HPRC.r2")
+                input[2] = false
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert sample.r1 != null },
+                { assert sample.r2 != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() }
+            )
+        }
+    }
+}

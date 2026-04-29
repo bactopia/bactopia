@@ -1,0 +1,33 @@
+{
+    "gtdb - subworkflow - gtdbtk-test": {
+        "content": [
+            {
+                "id": "gtdbtk-test-GTDB:GTDBTK_CLASSIFYWF",
+                "logs_dir": "gtdbtk-test/tools/gtdb//logs/",
+                "name": "gtdbtk-test",
+                "output_dir": "gtdbtk-test/tools/gtdb/",
+                "process_name": "gtdb",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,738ac1f744a77df263f3b25b97a2748d"
+            ],
+            {
+                "id": "gtdb-GTDB:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/gtdb-concat/",
+                "name": "gtdb",
+                "output_dir": "merged-results",
+                "process_name": "gtdb-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,ec94f157437c25058fdce9d4346342a2"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:23:21.173815412",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

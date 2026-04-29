@@ -1,0 +1,34 @@
+{
+    "staphopiasccmec - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-STAPHOPIASCCMEC:STAPHOPIASCCMEC_MODULE",
+                "logs_dir": "GCF_000017085/tools/staphopiasccmec//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/staphopiasccmec/",
+                "process_name": "staphopiasccmec",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,f631e5f4c80dc8ce004d72d9a3c56f58",
+            [
+                "versions.yml:md5,4bddaa70042adfd91f314e758e56296a"
+            ],
+            {
+                "id": "staphopiasccmec-STAPHOPIASCCMEC:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/staphopiasccmec-concat/",
+                "name": "staphopiasccmec",
+                "output_dir": "merged-results",
+                "process_name": "staphopiasccmec-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,f59d6534316ffe1998c60f98b212d80f"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:51.447164522",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

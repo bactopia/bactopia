@@ -1,0 +1,68 @@
+nextflow_process {
+    name "Test EGGNOG_MAPPER"
+    script "../main.nf"
+    process "EGGNOG_MAPPER"
+    tag "modules"
+    tag "eggnog"
+    tag "eggnog_mapper"
+
+    test("eggnog - module - SRR2838702 - tarball") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/eggnog/eggnog.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("eggnog - module - SRR2838702 - path") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        faa: file("${params.test_data_dir}/species/portiera/single/SRR2838702/main/annotator/prokka/SRR2838702.faa.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/eggnog/db")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

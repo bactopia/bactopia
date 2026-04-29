@@ -1,0 +1,22 @@
+{
+    "phispy - module - GCF_900478275": {
+        "content": [
+            {
+                "id": "GCF_900478275-PHISPY",
+                "logs_dir": "GCF_900478275/tools/phispy//logs/",
+                "name": "GCF_900478275",
+                "output_dir": "GCF_900478275/tools/phispy/",
+                "process_name": "phispy",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,5d58358ef1d0dba349319f20bc5c1602"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:13.916716092",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

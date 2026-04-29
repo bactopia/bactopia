@@ -1,0 +1,23 @@
+{
+    "abricate summary - module - multiple reports": {
+        "content": [
+            {
+                "id": "abricate-ncbi-ABRICATE_SUMMARY",
+                "logs_dir": "merged-results/logs/abricate-concat/ncbi",
+                "name": "abricate-ncbi",
+                "output_dir": "merged-results",
+                "process_name": "merged-results",
+                "scope": "run"
+            },
+            "abricate-ncbi.tsv:md5,2cdb23fc12e7f8da878f1b008af0bf07",
+            [
+                "versions.yml:md5,87422ca0c784de85ba93ac7352052d82"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:37.997794062",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

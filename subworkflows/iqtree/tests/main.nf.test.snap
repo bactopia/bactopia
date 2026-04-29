@@ -1,0 +1,22 @@
+{
+    "iqtree - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-IQTREE:IQTREE_MODULE",
+                "logs_dir": "iqtree/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "iqtree",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,e01256842798c2b435032141a36e34a4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:25.12719433",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

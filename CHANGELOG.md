@@ -1,11 +1,148 @@
 ---
-title: changelog
+title: Changelog
 description: A full list of Bactopia releases and a description of the changes.
+sidebar_position: 5000
 ---
+<!-- markdownlint-disable-next-line MD025 -->
 # Changelog
+
+## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
+
+<!-- markdownlint-disable-next-line MD036 -->
+_"Cream Puff" a key component of Mash Burnedead's Muscle Magic_
+
+### `Changed`
+
+- **Major Refactoring**: Complete conversion to Nextflow 26.04 syntax and architecture
+    - Minimum Nextflow version now `>=26.04.0`
+    - Removed legacy `lib/` folder in favor of `nf-bactopia` plugin
+    - Updated all modules, subworkflows and workflows to support strict syntax requirements
+    - Migrated from `nextflow.preview.types` to `nextflow.enable.types` (GA in Nextflow 26.04.0)
+    - Moved all modules from `modules/nf-core/` namespace to flat `modules/` directory
+    - Split single `workflows/bactopia-tools.nf` into 67 independent workflow entry points under `workflows/bactopia-tools/<name>/`
+    - Consolidated `params.config` and `process.config` into unified `module.config` files
+    - Adopted Nextflow record types for all module/subworkflow I/O (replaces Map-based meta)
+    - Removed direct `.out` access in favor of result assignment
+- Replaced `EMPTY_*` placeholder files with `Path?` null inputs (removed `data/empty/`)
+- Updated output structure to use "supplemental" instead of "results" for consistency
+- Improved parameter naming consistency
+    - common names for similar parameters across modules and workflows
+    - tool name used as a prefix to prevent overlaps in names
+- Replaced `meta.yml` files with standardized GroovyDoc documentation in all .nf files
+- Implemented type annotations in all .nf files
+- Replaced `publishDir` with `output` block publishing
+- Removed all `when` conditions in modules
+- Replaced `data/workflows.yml` with `catalog.json` at repo root — a comprehensive component index covering all modules, subworkflows, and workflows with metadata
+- Replaced `k2scrubber` with `nohuman` for human read removal in scrubber, cleanyerreads, and teton workflows
+- Migrated pipeline utility scripts from `bin/` to `bactopia-py` CLI commands
+- Moved `bactopia-prokka` to `modules/prokka/bin/`
+- Updated default `max_memory` from 128 GB to 144 GB and `max_cpus` from 4 to 12
+- Reverted to pre-2025 MLST database versions due to PubMLST licensing changes
+
+### `Added`
+
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `gigatyper` - Run all available MLST schemes for a species against an assembly
+- New module: `nohuman` for human read removal
+- `--list_wfs` to list available workflows
+- `--verbose` flag for debug output in bactopia wrapper
+- Output format validation in bactopia wrapper
+- MLST now includes headers and uses sample name as label
+- `--emmtyper_no_header` option to suppress header row in emmtyper output
+- `max_genome_size` enforcement during assembly
+- `bactopia-py >=2.0.2` as a pipeline dependency
+- Comprehensive documentation system (`.claude/docs/`)
+    - Style guide and templates for GroovyDoc documentation
+    - Logic rules and taxonomy for component classification
+    - Technical specifications and implementation details
+    - Project documentation including repository structure and development workflow
+    - Reference materials with examples and troubleshooting
+- Help messages to modules for improved user guidance
+- Converted pytest tests to nf-test framework
+- `llms.txt` for AI-readable project context
+- Claude Code skills for AI-assisted development (`.claude/skills/`)
+    - `add-bactopia-tool` - Scaffold a complete Bactopia Tool across all three tiers
+    - `add-module` - Scaffold a new module from a bioconda/conda-forge package
+    - `add-subworkflow` - Scaffold a new subworkflow that orchestrates existing modules
+    - `merge-schemas` - Regenerate nextflow.config and nextflow_schema.json for workflows
+    - `project-status` - Show a live snapshot of project state and coverage
+    - `review-citations` - Review citation integrity across citations.yml and @citation tags
+    - `review-docs` - Review staleness of reference docs under .claude/docs/
+    - `review-groovydoc` - Review GroovyDoc accuracy across modules and subworkflows
+    - `review-tests` - Review nf-test run results with diagnostic summary
+    - `run-tests` - Run nf-tests via bactopia-test with timestamped logs
+    - `update-catalog` - Regenerate catalog.json and llms.txt
+    - `update-module` - Check for newer tool versions and apply updates
+- Bump program versions in modules
+    - `abricate`: 1.0.1 -> 1.4.0
+    - `abritamr`: 1.0.19 -> 1.2.0
+    - `ariba`: 2.14.6 -> 2.14.7
+    - `bakta`: 1.11.0 -> 1.12.0
+    - `blast`: 2.16.0 -> 2.17.0
+    - `busco`: 5.8.2 -> 6.0.0
+    - `checkm-genome`: 1.2.3 -> 1.2.5
+    - `checkm2`: 1.0.2 -> 1.1.0
+    - `clonalframeml`: 1.12 -> 1.13
+    - `defense-finder`: 2.0.0 -> 2.0.1
+    - `ectyper`: 1.0.0 -> 2.0.0
+    - `eggnog-mapper`: 2.1.12 -> 2.1.13
+    - `gtdbtk`: 2.4.0 -> 2.7.1
+    - `gubbins`: 3.4 -> 3.4.3
+    - `iqtree`: 2.4.0 -> 3.1.1
+    - `kleborate`: 3.1.3 -> 3.2.4
+    - `legsta`: 0.5.1 -> 0.5.2
+    - `lissero`: 0.4.9 -> 0.4.10
+    - `meningotype`: 0.8.5 -> 0.8.6b
+    - `mlst`: 2.23.0 -> 2.33.1
+    - `ncbi-amrfinderplus`: 4.0.19 -> 4.2.7
+    - `ngmaster`: 0.5.8 -> 2.0.0
+    - `panaroo`: 1.5.1 -> 1.6.0
+    - `phispy`: 4.2.21 -> 5.0.6
+    - `prokka`: 1.14.6 -> 1.15.6
+    - `rgi`: 6.0.3 -> 6.0.5
+    - `seqsero2`: 1.3.1 -> 1.3.2
+    - `snp-dists`: 0.8.2 -> 1.2.0
+    - `sylph`: 0.8.0 -> 0.9.0
+    - `tb-profiler`: 6.6.3 -> 6.7.0
+- Bump internal bactopia-* pipeline tool versions
+    - `bactopia-assembler`: 1.0.4 -> 1.0.5
+    - `bactopia-gather`: 1.0.4 -> 1.0.5
+    - `bactopia-qc`: 1.0.3 -> 1.0.4
+    - `bactopia-sketcher`: 1.0.1 -> 1.0.3
+    - `bactopia-teton`: 1.1.1 -> 1.1.3
+    - `bactopia-variants`: 1.0.2 -> 1.0.4
+
+### `Fixed`
+
+- Corrected container build numbers for multiple modules
+- AbritAMR prefix handling to use sample-specific prefixes with safe renames
+- Missing configuration in Teton subworkflow
+- Config path resolution issues
+- Missing `fastq_only` parameter when using `ask_merlin`
+- Assembler now only passes the main FASTQ type forward
+- Config value using string type instead of `list<string>`
+- Various typos throughout the codebase
+- Debug information removal from production code
+- Container image descriptions and fixes
+- File existence checks when using `file()` function in Nextflow
+
+### `Removed`
+
+- `bin/` utility scripts (~14 Python/Bash scripts) migrated to `bactopia-py` CLI commands
+- `data/empty/` directory and all `EMPTY_*` placeholder files
+- `data/workflows.yml` (replaced by `catalog.json`)
+- Per-module `meta.yml` files (replaced by GroovyDoc)
+- Per-module `params.config` and `process.config` files (merged into `module.config`)
+- `phyloflash` module (both `makedb` and `phyloflash` submodules)
+- `custom/dumpsoftwareversions` module (replaced by `nf-bactopia` plugin)
+- `mlst/update` module due to PubMLST licensing
+- `custom/wget` module
+- `workflows/updater.nf`
+- Single monolithic `workflows/bactopia-tools.nf` (replaced by per-tool workflow directories)
 
 ## v3.2.0 bactopia/bactopia "Black Bulls" 2025/03/21
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Black Bulls" is related to the best magic squad in Black Clover my kids currently watching_
 
 ### `Added`
@@ -60,6 +197,7 @@ _"Black Bulls" is related to the best magic squad in Black Clover my kids curren
 
 ## v3.1.0 bactopia/bactopia "Dance Powder" 2024/09/22
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Dance Powder" is related to the Alabasta arc in One Piece which my kids currently on_
 
 ### `Added`
@@ -123,7 +261,7 @@ _"Dance Powder" is related to the Alabasta arc in One Piece which my kids curren
 
 ### `Enhancements to OSS`
 
-- pinn macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
+- pin macsyfinder version in defense-finder [bioconda/bioconda-recipes#46824](https://github.com/bioconda/bioconda-recipes/pull/46824)
 - add recipe for `camlhmp` [bioconda/bioconda-recipes#47453](https://github.com/bioconda/bioconda-recipes/pull/47453)
 - add recipe for `sccmec` [bioconda/bioconda-recipes#47600](https://github.com/bioconda/bioconda-recipes/pull/47600)
 - update recipe for genotyphi [bioconda/bioconda-recipes#47664](https://github.com/bioconda/bioconda-recipes/pull/47664)
@@ -134,6 +272,7 @@ _"Dance Powder" is related to the Alabasta arc in One Piece which my kids curren
 
 ## v3.0.1 bactopia/bactopia "That's My Girl" - 2024/03/25
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"That's My Girl" is a phrase my youngest says quite often when playing with her friends_
 
 ### `Added`
@@ -187,6 +326,7 @@ _"That's My Girl" is a phrase my youngest says quite often when playing with her
 
 ## v3.0.0 bactopia/bactopia "Black Cat and Brown Dog" - 2023/09/11
 
+<!-- markdownlint-disable-next-line MD036 -->
 _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Brown Dog")_
 
 ### `Added`
@@ -223,7 +363,7 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
     - `bakta`: 1.6.0 -> 1.8.2
     - `blast`: 2.11.0 -> 2.14.1
     - `busco`: 5.4.3 -> 5.5.0
-    - `csktk`: 0.25.0 -> 0.27.2
+    - `csvtk`: 0.25.0 -> 0.27.2
     - `eggnog-mapper`: 2.1.9 -> 2.1.12
     - `genotyphi`: 1.9.1 -> 2.0
     - `gtdbtk`: 2.1.1 -> 2.3.2
@@ -294,7 +434,7 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
     - `pbptyper` - In silico Penicillin Binding Protein (PBP) typer for _Streptococcus pneumoniae_ assemblies
     - `shigeifinder` - Serotyping Shigella and EIEC assemblies
 - bump program versions in modules
-    - `bakta` -> 1.5.1 
+    - `bakta` -> 1.5.1
     - `bbmap` -> 39.01
     - `checkm-genome` -> 1.2.2
     - `csvtk` -> 0.25.0
@@ -498,17 +638,18 @@ _"Black Cat and Brown Dog" are in memory of Stinky ("Black Cat") and Twotee ("Br
 - `options.suffix` now used as `prefix` in modules
 
 ## v2.0.0 bactopia/bactopia "Red Hawk" - 2021/12/05
-With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a siginificant contribution!
+
+With Bactopia v2 comes **a lot** of changes! I would like to extend a huge thanks to Davi Marcon and Abhinav Sharma for their work initially converting Bactopia to DSL2. Your efforts were the momentum I needed to get the ball rolling on Bactopia v2. Thank you very much for taking your time to make such a significant contribution!
 
 ### `Added`
 - support for Nanopore reads
 - `staphopia` as a named pipeline (alias for `bactopia --wf staphopia`) for _S. aureus_ genomes
 - `bactopia/bactopia-tests` repo with test data
 - walkthrough for testing
-- `bactopia-datasets/staphylococcus_aureus` repo with curatated _S. aureus_ datasets
+- `bactopia-datasets/staphylococcus_aureus` repo with curated _S. aureus_ datasets
 - per-module testing via `pytest` (100+ tests and 7000+ outputs tested)
 - per-module `meta.yml` and `params.json` for auto-building docs site
-- framefork for adding new Bactopia Tools
+- framework for adding new Bactopia Tools
 - 19 total Bactopia Tools (`bactopia --wf <NAME>`)
     - Subworkflows (3)
         - `eggnog`: Functional annotation of proteins using orthologous groups and phylogenies
@@ -552,7 +693,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 ### Process Consolidation
 - `makeblastdb` -> `assemble_genome`
 - `call_variants`, `download_reference` -> `call_variants`
-- `fastq_status`, `estiamte_genome_size` -> `gather_samples`
+- `fastq_status`, `estimate_genome_size` -> `gather_samples`
 - `count_31mers` -> `minmer_sketch`
 
 ### `Removed`
@@ -1014,7 +1155,7 @@ With Bactopia v2 comes __a lot__ of changes! I would like to extend a huge thank
 
 ### `Removed`
 - `--max_cpus` ability to limit total cores used, access to config is being deprecated in Nextflow
-- `--max_cpus` since it is redudant to `--cpus` now
+- `--max_cpus` since it is redundant to `--cpus` now
 
 ## v1.2.0 bactopia/bactopia "Beestinger" - 2019/10/16
 

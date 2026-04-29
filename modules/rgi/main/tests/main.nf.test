@@ -1,0 +1,68 @@
+nextflow_process {
+    name "Test RGI_MAIN"
+    script "../main.nf"
+    process "RGI_MAIN"
+    tag "modules"
+    tag "rgi"
+    tag "rgi_main"
+
+    test("rgi - module - GCF_900478275") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_900478275"],
+                        fna: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/assembler/GCF_900478275.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("rgi - module - GCA_000027305") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCA_000027305"],
+                        fna: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCA_000027305/main/assembler/GCA_000027305.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

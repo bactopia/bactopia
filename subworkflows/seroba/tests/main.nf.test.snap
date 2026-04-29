@@ -1,0 +1,34 @@
+{
+    "seroba - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-SEROBA:SEROBA_RUN",
+                "logs_dir": "SRR2838702/tools/seroba//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/seroba/",
+                "process_name": "seroba",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,8c20690cc5ca0fd77228c830001e0b86",
+            [
+                "versions.yml:md5,115e2b5bab3ac8b7d5ebc7334399cfaa"
+            ],
+            {
+                "id": "seroba-SEROBA:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/seroba-concat/",
+                "name": "seroba",
+                "output_dir": "merged-results",
+                "process_name": "seroba-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,4fd4f724e2f19016eff39a2b524a9007"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:21:01.497216213",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

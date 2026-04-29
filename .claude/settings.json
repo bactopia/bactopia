@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nf-test *)",
+      "WebFetch(domain:www.nf-test.com)",
+      "Bash(xargs ls:*)"
+    ],
+    "additionalDirectories": [
+      "/home/rpetit3/.claude/projects/-home-rpetit3-repos-bactopia-bactopia",
+      "/home/rpetit3/repos/bactopia/bactopia-py",
+      "/home/rpetit3/repos/bactopia/nf-bactopia",
+      "/home/rpetit3/repos/bactopia/bactopia.github.io"
+    ]
+  }
+}

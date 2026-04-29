@@ -1,0 +1,34 @@
+{
+    "checkm2 - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-CHECKM2:CHECKM2_PREDICT",
+                "logs_dir": "SRR2838702/tools/checkm2//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/checkm2/",
+                "process_name": "checkm2",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,74b16d4449c799491deea540f6367e89",
+            [
+                "versions.yml:md5,08a22fc5436e8e0dfd2884ff9d64d75b"
+            ],
+            {
+                "id": "checkm2-CHECKM2:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/checkm2-concat/",
+                "name": "checkm2",
+                "output_dir": "merged-results",
+                "process_name": "checkm2-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,b7cf6dd33e2fefeb729064b0d46f2081"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:31.986367958",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

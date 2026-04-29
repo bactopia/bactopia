@@ -1,0 +1,65 @@
+{
+    "tbprofiler - module - SRR2838702 (Paired-End)": {
+        "content": [
+            {
+                "id": "SRR2838702-TBPROFILER_PROFILE",
+                "logs_dir": "SRR2838702/tools/tbprofiler//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:48.441284413",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "tbprofiler - module - SRR2838702 (Single-End)": {
+        "content": [
+            {
+                "id": "SRR2838702-TBPROFILER_PROFILE",
+                "logs_dir": "SRR2838702/tools/tbprofiler//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": true
+            },
+            [
+                "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:45.03550605",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "tbprofiler - module - SRR2838702 (Long Read)": {
+        "content": [
+            {
+                "id": "ERR3772599-TBPROFILER_PROFILE",
+                "logs_dir": "ERR3772599/tools/tbprofiler//logs/",
+                "name": "ERR3772599",
+                "output_dir": "ERR3772599/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,f1c3cd99e94db777ec4d6163026785c3"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:51.614736697",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

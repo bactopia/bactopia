@@ -1,0 +1,24 @@
+{
+    "prokka - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-PROKKA:PROKKA_MODULE",
+                "logs_dir": "SRR2838702/main/annotator/prokka/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/main/annotator/prokka/",
+                "process_name": "prokka",
+                "scope": "sample"
+            },
+            "SRR2838702.tsv:md5,e42c80d920d126ff5a35802abe96fd4b",
+            "SRR2838702.txt:md5,3bb57f34e7d7ef4866cd475edf5bb9c1",
+            [
+                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:54.417731097",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "pirate - subworkflow - portiera": {
+        "content": [
+            {
+                "id": "portiera-test-PIRATE:PIRATE_MODULE",
+                "logs_dir": "pirate/logs",
+                "name": "portiera-test",
+                "output_dir": "",
+                "process_name": "pirate",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,424257d69beae21355dee29eac16ca77"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:26.662137554",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

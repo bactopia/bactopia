@@ -1,0 +1,44 @@
+{
+    "snippy_run - module - paired-end - compressed": {
+        "content": [
+            {
+                "id": "SRR2838702SE-SNIPPY_RUN",
+                "logs_dir": "SRR2838702SE/tools/snippy/SRR2838702/logs",
+                "name": "SRR2838702SE",
+                "output_dir": "SRR2838702SE/tools/snippy/SRR2838702",
+                "process_name": "snippy",
+                "scope": "sample",
+                "single_end": true
+            },
+            [
+                "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:53.084972353",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "snippy_run - module - paired-end - uncompressed": {
+        "content": [
+            {
+                "id": "ERR6005894-SNIPPY_RUN",
+                "logs_dir": "ERR6005894/tools/snippy/GCF_000292685/logs",
+                "name": "ERR6005894",
+                "output_dir": "ERR6005894/tools/snippy/GCF_000292685",
+                "process_name": "snippy",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,f9e5c81ae82caf719b7ce57287dad4f4"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:11.210462885",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/mcroni/schema.json",
+    "title": "mcroni Module",
+    "description": "A module sequence variation in mcr-1 genes (mobilized colistin resistance)",
+    "type": "object",
+    "$defs": {
+        "mcroni_parameters": {
+            "title": "mcroni Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/mcroni_parameters"
+        }
+    ]
+}

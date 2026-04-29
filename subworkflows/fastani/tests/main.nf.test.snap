@@ -1,0 +1,34 @@
+{
+    "fastani - subworkflow - haemophilus": {
+        "content": [
+            {
+                "id": "GCA_000027305-FASTANI:FASTANI_MODULE",
+                "logs_dir": "GCA_000027305/logs",
+                "name": "GCA_000027305",
+                "output_dir": "GCA_000027305",
+                "process_name": "fastani",
+                "scope": "run"
+            },
+            "GCA_000027305.tsv:md5,3ae674d2a65ac802f53533de48c73730",
+            [
+                "versions.yml:md5,4a463fc68a116f31d84fdf8da4103e35"
+            ],
+            {
+                "id": "fastani-FASTANI:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/fastani-concat/",
+                "name": "fastani",
+                "output_dir": "merged-results",
+                "process_name": "fastani-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:02.732052682",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

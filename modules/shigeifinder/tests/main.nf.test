@@ -1,0 +1,67 @@
+nextflow_process {
+    name "Test SHIGEIFINDER"
+    script "../main.nf"
+    process "SHIGEIFINDER"
+    tag "modules"
+    tag "shigeifinder"
+
+    test("shigeifinder - module - GCF_016726285 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_016726285"],
+                        fna: file("${params.test_data_dir}/species/shigella_boydii/uncompressed/GCF_016726285/main/assembler/GCF_016726285.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("shigeifinder - module - GCF_016726285 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_016726285"],
+                        fna: file("${params.test_data_dir}/species/shigella_boydii/compressed/GCF_016726285/main/assembler/GCF_016726285.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

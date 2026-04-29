@@ -1,0 +1,70 @@
+nextflow_process {
+    name "Test CHECKM2_PREDICT"
+    script "../main.nf"
+    process "CHECKM2_PREDICT"
+    tag "modules"
+    tag "checkm2"
+    tag "checkm2_predict"
+
+    test("checkm2_predict - module - SRR2838702 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/checkm2/checkm2.dmnd")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("checkm2_predict - module - SRR2838702 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/checkm2/checkm2.dmnd")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

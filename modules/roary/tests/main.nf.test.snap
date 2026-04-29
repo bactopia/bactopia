@@ -1,0 +1,22 @@
+{
+    "roary - module - portiera pangenome": {
+        "content": [
+            {
+                "id": "portiera-roary-ROARY",
+                "logs_dir": "roary/logs",
+                "name": "portiera-roary",
+                "output_dir": "",
+                "process_name": "roary",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,80c99c1b38b33ebcb7925eabba7ca2eb"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:54.404327622",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

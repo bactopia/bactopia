@@ -1,9 +1,0 @@
-.git
-conf/
-docs/
-lib/
-.simg
-.js
-template.txt
-.pytest_cache/
-workflows/

@@ -4,7 +4,6 @@ about: Found a bug? Let's squash it
 title: "[bug]"
 labels: bug
 assignees: ''
-
 ---
 
 **Description**
@@ -12,7 +11,8 @@ A description of the bug you are experiencing.
 
 **Steps to Reproduce**
 Steps to reproduce the behavior:
-```
+
+```{bash}
 bactopia ...
 bactopia tools ...
 !!ERROR!!

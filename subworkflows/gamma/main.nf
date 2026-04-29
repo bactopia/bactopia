@@ -1,0 +1,51 @@
+/**
+ * Gene Allele Mutation Microbial Assessment.
+ *
+ * This subworkflow performs rapid identification, classification, and annotation of
+ * translated gene matches from sequencing data using [GAMMA](https://github.com/rastanton/GAMMA).
+ * The tool screens input sequences against a protein database to identify gene
+ * variants, mutations, and allele types, providing detailed annotation and classification.
+ *
+ * @status stable
+ * @keywords gene, allele, mutation, variant, antimicrobial resistance
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent,aggregation
+ * @citation gamma
+ *
+ * @modules csvtk_concat, gamma
+ *
+ * @input record(meta, assembly)
+ * - `meta`: Groovy Record containing sample information
+ * - `assembly`: Assembly files in FASTA format for gene allele identification
+ *
+ * @input db
+ * Protein database file for sequence comparison (required)
+ *
+ * @output sample_outputs
+ * - `gamma`: Main GAMMA output file containing annotated gene matches
+ * - `psl`: Raw alignment details in PSL format
+ * - `gff`: Gene matches in GFF3 format
+ * - `fasta`: Extracted nucleotide sequences of the matched genes
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
+ */
+nextflow.enable.types = true
+
+include { GAMMA as GAMMA_MODULE } from '../../modules/gamma/main'
+include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk           } from 'plugin/nf-bactopia'
+
+workflow GAMMA {
+    take:
+    assembly: Channel<Record>
+    db: Path
+
+    main:
+    ch_gamma = GAMMA_MODULE(assembly, db)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_gamma, 'gamma', [name: 'gamma']), 'tsv', 'tsv')
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_gamma
+    run_outputs = ch_csvtk_concat
+}

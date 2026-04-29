@@ -1,0 +1,50 @@
+nextflow_workflow {
+    name "Test GTDB Subworkflow"
+    script "../main.nf"
+    workflow "GTDB"
+    tag "subworkflows"
+    tag "gtdb"
+
+    test("gtdb - subworkflow - gtdbtk-test") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "gtdbtk-test"],
+                        fna: [
+                            file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz"),
+                            file("${params.test_data_dir}/species/portiera/compressed/SRR2838702/main/assembler/SRR2838702.fna.gz")
+                        ]
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/gtdbtk/db")
+                input[2] = false
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "tbprofiler - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-TBPROFILER:TBPROFILER_PROFILE",
+                "logs_dir": "SRR2838702/tools/tbprofiler//logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/tbprofiler/",
+                "process_name": "tbprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,f965da892cbe0e7c1fabc4376340e8ab"
+            ],
+            {
+                "id": "tbprofiler-TBPROFILER:TBPROFILER_COLLATE",
+                "logs_dir": "merged-results/logs/tbprofiler-collate",
+                "name": "tbprofiler",
+                "output_dir": "merged-results",
+                "process_name": "tbprofiler-collate",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,d1d08404b1d56899be9ae1cf3c3aff3e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:01.745237267",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -1,0 +1,51 @@
+{
+    "gigatyper - GCF_001695515|escherichia_coli|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_001695515",
+                "GCF_001695515/tools",
+                "GCF_001695515/tools/gigatyper",
+                "GCF_001695515/tools/gigatyper/GCF_001695515.tsv",
+                "GCF_001695515/tools/gigatyper/logs",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.begin",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.err",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.log",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.out",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.run",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.sh",
+                "GCF_001695515/tools/gigatyper/logs/nf.command.trace",
+                "GCF_001695515/tools/gigatyper/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/gigatyper",
+                "bactopia-runs/gigatyper/merged-results",
+                "bactopia-runs/gigatyper/merged-results/gigatyper.tsv",
+                "bactopia-runs/gigatyper/merged-results/logs",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.begin",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.err",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.log",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.out",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.run",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.sh",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/nf.command.trace",
+                "bactopia-runs/gigatyper/merged-results/logs/gigatyper-concat/versions.yml",
+                "bactopia-runs/gigatyper/nf-reports",
+                "bactopia-runs/gigatyper/nf-reports/gigatyper-dag.dot",
+                "bactopia-runs/gigatyper/nf-reports/gigatyper-report.html",
+                "bactopia-runs/gigatyper/nf-reports/gigatyper-timeline.html"
+            ],
+            [
+                "GCF_001695515.tsv:md5,b9779736e54ac64cb867c2e3c6915892",
+                "versions.yml:md5,ab76006394d39e7aa3fe18f7f5d78b95",
+                "gigatyper.tsv:md5,b9779736e54ac64cb867c2e3c6915892",
+                "versions.yml:md5,59922891ac61f5298b927f8e43eb5ae6"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:22:29.075791227",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

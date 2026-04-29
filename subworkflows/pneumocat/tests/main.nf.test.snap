@@ -1,0 +1,22 @@
+{
+    "pneumocat - subworkflow - ERR1438863": {
+        "content": [
+            {
+                "id": "ERR1438863-PNEUMOCAT:PNEUMOCAT_MODULE",
+                "logs_dir": "ERR1438863/tools/pneumocat//logs/",
+                "name": "ERR1438863",
+                "output_dir": "ERR1438863/tools/pneumocat/",
+                "process_name": "pneumocat",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,4c8b3e01e7425c78f2849d2e585f9cec"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:20:04.755813798",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

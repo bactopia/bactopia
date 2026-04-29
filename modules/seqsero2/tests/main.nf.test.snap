@@ -1,0 +1,42 @@
+{
+    "seqsero2 - module - GCF_016028495 - compressed": {
+        "content": [
+            {
+                "id": "GCF_016028495-SEQSERO2",
+                "logs_dir": "GCF_016028495/tools/seqsero2//logs/",
+                "name": "GCF_016028495",
+                "output_dir": "GCF_016028495/tools/seqsero2/",
+                "process_name": "seqsero2",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,5eae062ed95e0fb2e1bd8d268e0e1cdf"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:38.436546661",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "seqsero2 - module - GCF_016028495 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_016028495-SEQSERO2",
+                "logs_dir": "GCF_016028495/tools/seqsero2//logs/",
+                "name": "GCF_016028495",
+                "output_dir": "GCF_016028495/tools/seqsero2/",
+                "process_name": "seqsero2",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,5eae062ed95e0fb2e1bd8d268e0e1cdf"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:24.056038097",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

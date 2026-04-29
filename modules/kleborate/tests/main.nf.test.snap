@@ -1,0 +1,22 @@
+{
+    "kleborate - module - GCF_000009885": {
+        "content": [
+            {
+                "id": "GCF_000009885-KLEBORATE",
+                "logs_dir": "GCF_000009885/tools/kleborate//logs/",
+                "name": "GCF_000009885",
+                "output_dir": "GCF_000009885/tools/kleborate/",
+                "process_name": "kleborate",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,9511fd36659702fc20722109151dca4b"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:02.985211375",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

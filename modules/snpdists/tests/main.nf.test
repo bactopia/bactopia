@@ -1,0 +1,37 @@
+nextflow_process {
+    name "Test SNPDISTS"
+    script "../main.nf"
+    process "SNPDISTS"
+    tag "modules"
+    tag "snpdists"
+
+    test("snpdists - module - portiera") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "portiera"],
+                        aln: file("${params.test_data_dir}/datasets/generic/genome/genome.aln.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

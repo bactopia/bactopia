@@ -1,0 +1,60 @@
+nextflow_workflow {
+    name "Test SNIPPY_CORE Subworkflow"
+    script "../main.nf"
+    workflow "SNIPPY_CORE"
+    tag "subworkflows"
+    tag "snippy"
+    tag "snippy_core"
+
+    test("snippy-core - subworkflow - test") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "snippy-core-test"],
+                        _vcf: [
+                            file("${params.test_data_dir}/datasets/snippy/test1.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.vcf.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.vcf.gz")
+                        ],
+                        _aligned_fa: [
+                            file("${params.test_data_dir}/datasets/snippy/test1.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test2.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test3.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test4.aligned.fa.gz"),
+                            file("${params.test_data_dir}/datasets/snippy/test5.aligned.fa.gz")
+                        ]
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/generic/GCF_000292685.gbk")
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def runs = workflow.out.run_outputs
+            def core = runs.find { it.meta.process_name == 'snippy-core' }
+            def snpdists = runs.find { it.meta.process_name == 'snpdists' }
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    core.meta,
+                    core.versions,
+                    snpdists.meta,
+                    snpdists.tsv,
+                    snpdists.versions
+                ).match() },
+                { assert core.results != null },
+                { assert snpdists.results != null }
+            )
+        }
+    }
+}

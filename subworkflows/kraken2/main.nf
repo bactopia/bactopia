@@ -1,0 +1,52 @@
+/**
+ * Classify metagenomic reads using Kraken2.
+ *
+ * This subworkflow performs taxonomic classification of metagenomic reads using [Kraken2](https://github.com/DerrickWood/kraken2),
+ * a fast taxonomic classification system. It assigns taxonomic labels to sequencing reads based on k-mer matching against a reference database.
+ *
+ * Uses explicit positional record fields for reads:
+ * - Input: record(meta, r1, r2, se, lr) where each read slot is Path?
+ *
+ * @status stable
+ * @keywords metagenomics, taxonomic classification, kraken2, k-mer
+ * @tags complexity:simple input-type:single output-type:multiple features:database-dependent
+ * @citation kraken2
+ *
+ * @modules kraken2
+ *
+ * @input record(meta, r1?, r2?, se?, lr?)
+ * - `meta`: Groovy Record containing sample information
+ * - `r1?`: Illumina R1 reads (paired-end)
+ * - `r2?`: Illumina R2 reads (paired-end)
+ * - `se?`: Single-end Illumina reads
+ * - `lr?`: Long reads (ONT/PacBio)
+ *
+ * @input database
+ * Path to the Kraken2 database for taxonomic classification.
+ *
+ * @output sample_outputs
+ * - `kraken2_report`: Standard Kraken2 report containing taxonomic abundance counts
+ * - `scrub_report`: Summary report of reads removed during host scrubbing (optional)
+ * - `special_meta`: A simplified metadata record for internal use
+ * - `classified`: Reads assigned to a taxon in the database (FASTQ)
+ * - `unclassified`: Reads NOT assigned to any taxon (FASTQ)
+ *
+ * @output run_outputs
+ */
+nextflow.enable.types = true
+
+include { KRAKEN2 as KRAKEN2_MODULE } from '../../modules/kraken2/main'
+
+workflow KRAKEN2 {
+    take:
+    reads: Channel<Record>
+    database: Path
+
+    main:
+    ch_kraken2 = KRAKEN2_MODULE(reads, database)
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_kraken2
+    run_outputs = channel.empty()
+}

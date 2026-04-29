@@ -1,0 +1,40 @@
+{
+    "agrvate - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-AGRVATE:AGRVATE_MODULE",
+                "logs_dir": "GCF_000017085/tools/agrvate//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/agrvate/",
+                "process_name": "agrvate",
+                "scope": "sample"
+            },
+            null,
+            [
+                "versions.yml:md5,d8702d484535c90e3d7fde2d1681d035"
+            ],
+            {
+                "id": "agrvate-AGRVATE:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/agrvate-concat/",
+                "name": "agrvate",
+                "output_dir": "merged-results",
+                "process_name": "agrvate-concat",
+                "scope": "run"
+            },
+            "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
+            [
+                [
+                    "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2"
+                ]
+            ],
+            [
+                "versions.yml:md5,bff857ba4a2070f0d89b811a8050494e"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:17:03.806343444",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

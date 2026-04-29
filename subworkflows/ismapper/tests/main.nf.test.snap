@@ -1,0 +1,22 @@
+{
+    "ismapper - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-ISMAPPER:ISMAPPER_MODULE",
+                "logs_dir": "SRR2838702/tools/ismapper/is1016.fasta/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/ismapper/is1016.fasta",
+                "process_name": "ismapper",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,5c8653f3402a5a6792c554eea616f71c"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:19:34.723180074",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

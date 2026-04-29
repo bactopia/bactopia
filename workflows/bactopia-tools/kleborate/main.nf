@@ -1,0 +1,83 @@
+#!/usr/bin/env nextflow
+/**
+ * Comprehensive screening of Klebsiella genomes for virulence and resistance determinants.
+ *
+ * This Bactopia Tool uses [Kleborate](https://github.com/katholt/Kleborate) to screen genome assemblies of
+ * _Klebsiella pneumoniae_ and the _Klebsiella pneumoniae_ species complex (KpSC). Kleborate predicts:
+ * MLST, species, ICEKp associated virulence loci, virulence plasmid associated loci,
+ * antimicrobial resistance determinants, and K (capsule) and O antigen (LPS) serotype.
+ *
+ * @status stable
+ * @keywords klebsiella, mlst, virulence, amr, serotyping, bactopia-tool
+ * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,virulence,resistance,typing
+ * @citation kleborate
+ *
+ * @subworkflows utils_bactopia-tools, kleborate
+ *
+ * @input rundir
+ * Directory containing results from a completed Bactopia analysis run
+ *
+ * @section Comprehensive Analysis
+ * @publish *.kleborate.tsv      Comprehensive Kleborate report
+ * @publish *-resistance.tsv     AMR determinant summary
+ * @publish *-virulence.tsv      Virulence gene summary
+ *
+ * @section Merged Results
+ * @publish kleborate.tsv        Merged TSV file containing Kleborate results from all samples
+ *
+ * @section Execution Logs
+ * @publish logs/**               Tool execution logs
+ * @publish logs/nf-*             Nextflow execution scripts and logs for debugging
+ *
+ * @section Versions
+ * @publish versions.yml          Software version information
+ */
+nextflow.enable.types = true
+
+params {
+    rundir : String
+}
+
+include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
+include { KLEBORATE           } from '../../../subworkflows/kleborate/main'
+include { collectNextflowLogs } from 'plugin/nf-bactopia'
+
+workflow {
+    main:
+    ch_bactopiatool = BACTOPIATOOL_INIT()
+    ch_kleborate = KLEBORATE(ch_bactopiatool.assembly)
+
+    publish:
+    // Per-sample
+    sample_outputs = ch_kleborate.sample_outputs
+    sample_nf_logs = collectNextflowLogs(ch_kleborate.sample_outputs)
+    // Run-level
+    run_outputs = ch_kleborate.run_outputs
+    run_nf_logs = collectNextflowLogs(ch_kleborate.run_outputs)
+}
+
+output {
+    // Sample-level outputs (stored in ${params.outdir}/<SAMPLE_NAME>/)
+    sample_outputs {
+        path { r ->
+            r.results.flatten()  >> "${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${r.meta.logs_dir}/"
+        }
+    }
+    sample_nf_logs {
+        path { meta, f -> f >> "${meta.logs_dir}/nf${f.name}" }
+    }
+
+    // Run-level outputs (stored in ${params.outdir}/bactopia-runs/<RUN_NAME>/)
+    run_outputs {
+        path { r ->
+            r.results.flatten()  >> "${params.rundir}/${r.meta.output_dir}/"
+            r.logs.flatten()     >> "${params.rundir}/${r.meta.logs_dir}/"
+            r.versions.flatten() >> "${params.rundir}/${r.meta.logs_dir}/"
+        }
+    }
+    run_nf_logs {
+        path { meta, f -> f >> "${params.rundir}/${meta.logs_dir}/nf${f.name}" }
+    }
+}

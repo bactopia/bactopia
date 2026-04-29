@@ -1,0 +1,42 @@
+{
+    "plasmidfinder - module - GCF_000017085 - uncompressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-PLASMIDFINDER",
+                "logs_dir": "GCF_000017085/tools/plasmidfinder//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/plasmidfinder/",
+                "process_name": "plasmidfinder",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,2de62652dc2eb6c95f17225e88da8d70"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:15:48.064199264",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "plasmidfinder - module - GCF_000017085 - compressed": {
+        "content": [
+            {
+                "id": "GCF_000017085-PLASMIDFINDER",
+                "logs_dir": "GCF_000017085/tools/plasmidfinder//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/plasmidfinder/",
+                "process_name": "plasmidfinder",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,2de62652dc2eb6c95f17225e88da8d70"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:10.853956728",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

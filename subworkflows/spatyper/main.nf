@@ -1,0 +1,52 @@
+/**
+ * Predict spa types of Staphylococcus aureus from genome assemblies.
+ *
+ * This subworkflow uses [spaTyper](https://github.com/HCGB-IGTP/spaTyper) to predict
+ * the spa types of *Staphylococcus aureus* strains from assembled genomes based on
+ * the polymorphic X region of the protein A gene (spa). It processes each sample
+ * individually and aggregates the results into a single consolidated report.
+ *
+ * @status stable
+ * @keywords staphylococcus aureus, spa typing, protein a, mrsa
+ * @tags complexity:moderate input-type:single output-type:multiple features:aggregation,database-dependent
+ * @citation spatyper
+ *
+ * @modules csvtk_concat, spatyper
+ *
+ * @input record(meta, assembly)
+ * - `meta`: Groovy Record containing sample information
+ * - `assembly`: Assembled contigs in FASTA format
+ *
+ * @input repeats
+ * Optional custom repeats database for spa typing
+ *
+ * @input repeat_order
+ * Optional custom repeat order file for spa typing
+ *
+ * @output sample_outputs
+ * - `tsv`: spa typing results in TSV format
+ *
+ * @output run_outputs
+ * - `csv`: Aggregated results in CSV format
+ */
+nextflow.enable.types = true
+
+include { SPATYPER as SPATYPER_MODULE } from '../../modules/spatyper/main'
+include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'
+include { gatherCsvtk                 } from 'plugin/nf-bactopia'
+
+workflow SPATYPER {
+    take:
+    assembly: Channel<Record>
+    repeats: Path?
+    repeat_order: Path?
+
+    main:
+    ch_spatyper = SPATYPER_MODULE(assembly, repeats, repeat_order)
+    ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_spatyper, 'tsv', [name: 'spatyper']), 'tsv', 'tsv')
+
+    emit:
+    // Published outputs
+    sample_outputs = ch_spatyper
+    run_outputs = ch_csvtk_concat
+}

@@ -1,0 +1,8 @@
+**/*.{err,gz,html,log,pdf,stderr,stdout}
+**/nf.command.*
+bactopia-runs/**/nf-reports/*.{dot,html}
+
+**/mashdist.tsv
+**/blast_output_alleles.txt
+**/*.{bai,bam,csv,json,tab,tsv,txt,xml,yml}
+**/*hmm*

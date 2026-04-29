@@ -1,0 +1,48 @@
+{
+    "clonalframeml - module - portiera - uncompressed": {
+        "content": [
+            {
+                "id": "portiera-clonalframeml",
+                "logs_dir": "clonalframeml/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "clonalframeml",
+                "scope": "run"
+            },
+            "portiera.em.txt:md5,8a93c4d39c326b3ec0c471f067384498",
+            "portiera.importation_status.txt:md5,cd67d32ee61ed2bb56dc6d8e302b1517",
+            "portiera.labelled_tree.newick:md5,66634ad58496ac73b7752ce0a7c02dad",
+            [
+                "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:16:42.71640291",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "clonalframeml - module - portiera - compressed": {
+        "content": [
+            {
+                "id": "portiera-clonalframeml",
+                "logs_dir": "clonalframeml/logs/",
+                "name": "portiera",
+                "output_dir": "",
+                "process_name": "clonalframeml",
+                "scope": "run"
+            },
+            "portiera.em.txt:md5,8a93c4d39c326b3ec0c471f067384498",
+            "portiera.importation_status.txt:md5,cd67d32ee61ed2bb56dc6d8e302b1517",
+            "portiera.labelled_tree.newick:md5,66634ad58496ac73b7752ce0a7c02dad",
+            [
+                "versions.yml:md5,34acb1ed178173aa1445f1f0a9238e64"
+            ]
+        ],
+        "timestamp": "2026-04-29T11:18:05.517482702",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

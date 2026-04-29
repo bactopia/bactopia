@@ -1,0 +1,76 @@
+nextflow_process {
+    name "Test ABRITAMR_RUN"
+    script "../main.nf"
+    process "ABRITAMR_RUN"
+    tag "modules"
+    tag "abritamr"
+    tag "abritamr_run"
+
+    test("abritamr - module - GCF_001682305 - uncompressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001682305"],
+                        fna: file("${params.test_data_dir}/species/escherichia_coli_mcr1/uncompressed/GCF_001682305/main/assembler/GCF_001682305.fna")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.summary,
+                    record.matches,
+                    record.partials,
+                    record.virulence,
+                    record.amrfinder,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("abritamr - module - GCF_001682305 - compressed") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_001682305"],
+                        fna: file("${params.test_data_dir}/species/escherichia_coli_mcr1/compressed/GCF_001682305/main/assembler/GCF_001682305.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.summary,
+                    record.matches,
+                    record.partials,
+                    record.virulence,
+                    record.amrfinder,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}
