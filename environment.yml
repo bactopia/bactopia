@@ -17,6 +17,7 @@ dependencies:
   - just
   - pigz
   - poetry
+  - pytest
   - pyyaml
   # nf-bactopia
   - make
