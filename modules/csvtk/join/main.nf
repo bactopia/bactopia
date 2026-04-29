@@ -27,7 +27,7 @@
  * @output record(meta, csv, results, logs, nf_logs, versions)
  * - `csv`: The joined tabular file (*.csv or *.tsv)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process CSVTK_JOIN {
     tag "${prefix}"

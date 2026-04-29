@@ -46,7 +46,7 @@
  * @output gffs
  * - `gff`: GFF3 annotation file for pangenome analysis
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PROKKA as PROKKA_MODULE } from '../../modules/prokka/main'
 include { filterWithData          } from 'plugin/nf-bactopia'

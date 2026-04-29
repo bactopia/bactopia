@@ -21,7 +21,7 @@
  * - `genome_seq`: FASTA sequences of plasmid hits found in the genome (gzipped)
  * - `plasmid_seq`: Reference plasmid sequences matched (gzipped)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PLASMIDFINDER {
     tag "${prefix}"

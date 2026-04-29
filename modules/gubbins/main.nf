@@ -28,7 +28,7 @@
  * - `*.node_labelled.final_tree.tre`: Final tree with internal node labels
  * - `*.summary_of_snp_distribution.vcf.gz`: SNP distribution summary in VCF format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process GUBBINS {
     tag "${prefix}"

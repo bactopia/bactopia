@@ -29,7 +29,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { AGRVATE  } from '../agrvate/main'
 include { SPATYPER } from '../spatyper/main'

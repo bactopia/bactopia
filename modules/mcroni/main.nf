@@ -19,7 +19,7 @@
  * - `tsv`: Tab-delimited mcr-1 gene variation results
  * - `fa?`: Extracted mcr-1 gene sequence in FASTA format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MCRONI {
     tag "${prefix}"

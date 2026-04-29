@@ -29,7 +29,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { BUSCO as BUSCO_MODULE } from '../../modules/busco/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'

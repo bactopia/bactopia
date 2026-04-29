@@ -20,7 +20,7 @@ The module is the basic building block that executes a specific tool.
    - `schema.json` - Parameter validation schema
 
 3. **Key requirements**:
-   - Include `nextflow.preview.types = true` at the top
+   - Include `nextflow.enable.types = true` at the top
    - Declare inputs as a multi-line `record (...)` block inside `input:`, with one `record (...)` per channel and additional `Path?` slots for optional database/auxiliary files:
      ```groovy
      input:

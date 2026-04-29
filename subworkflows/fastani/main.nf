@@ -29,7 +29,7 @@
  * - `csv`: Aggregated results in CSV format
  */
 // bactopia-lint: ignore S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { FASTANI as FASTANI_MODULE } from '../../modules/fastani/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'

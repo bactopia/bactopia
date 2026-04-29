@@ -24,7 +24,7 @@
  * - `tsv`: ShigaTyper serotype prediction results in TSV format
  * - `hits?`: Detailed gene hits from ShigaTyper analysis
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SHIGATYPER {
     tag "${prefix}"

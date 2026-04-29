@@ -29,7 +29,7 @@
  * @output run_outputs
  * - `csv`: Merged serotype predictions from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SHIGATYPER as SHIGATYPER_MODULE } from '../../modules/shigatyper/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'

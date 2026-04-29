@@ -19,7 +19,7 @@
  * - `nonbacteria_tsv`: A tab-delimited samplesheet for samples NOT identified as Bacteria
  * - `sizemeup`: A text file containing the predicted species and genome size
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BACTOPIA_SAMPLESHEET {
     tag "${prefix}"

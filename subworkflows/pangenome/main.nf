@@ -43,7 +43,7 @@
  * @output csv
  * - `csv`: Gene presence/absence matrix for downstream analysis (e.g., pan-GWAS)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PIRATE   } from '../pirate/main'
 include { ROARY    } from '../roary/main'

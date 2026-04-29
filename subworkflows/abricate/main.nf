@@ -22,7 +22,7 @@
  * @output run_outputs
  * - `report`: Aggregated tab-delimited summary of Abricate results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { ABRICATE_RUN     } from '../../modules/abricate/run/main'
 include { ABRICATE_SUMMARY } from '../../modules/abricate/summary/main'

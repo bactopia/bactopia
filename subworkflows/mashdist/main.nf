@@ -26,7 +26,7 @@
  * @output run_outputs
  * - `csv`: Merged Mash distance results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MASH_DIST    } from '../../modules/mash/dist/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'

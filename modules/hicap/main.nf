@@ -25,7 +25,7 @@
  * - `svg?`: SVG visualization of the capsule locus gene arrangement
  * - `tsv`: Tab-delimited summary of the predicted serotype and locus coverage
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process HICAP {
     tag "${prefix}"

@@ -31,7 +31,7 @@
  * - `mash`: A classification report of Mash Screen results against RefSeq database
  * - `sourmash`: A classification report from Sourmash LCA against GTDB database
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SKETCHER {
     tag "${prefix}"

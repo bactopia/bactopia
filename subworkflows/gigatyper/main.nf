@@ -22,7 +22,7 @@
  * @output run_outputs
  * - `csv`: A merged TSV file with gigatyper results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { GIGATYPER as GIGATYPER_MODULE } from '../../modules/gigatyper/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'

@@ -50,7 +50,7 @@
  * Mixed aggregated results from all activated species-specific typing subworkflows.
  * Each record contains tool-specific cross-sample summaries.
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MERLINDIST    } from '../merlindist/main';
 include { CLERMONTYPING } from '../clermontyping/main';

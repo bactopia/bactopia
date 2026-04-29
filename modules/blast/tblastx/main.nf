@@ -21,7 +21,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited translated nucleotide-to-translated nucleotide alignment results (BLAST outfmt 6)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BLAST_TBLASTX {
     tag "${prefix}"

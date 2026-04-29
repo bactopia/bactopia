@@ -34,7 +34,7 @@
  * - `classified?`: Reads assigned to a taxon in the database (FASTQ)
  * - `unclassified?`: Reads NOT assigned to any taxon (FASTQ)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process KRAKEN2 {
     tag "${prefix}"

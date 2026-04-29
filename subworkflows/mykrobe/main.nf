@@ -33,7 +33,7 @@
  * @output run_outputs
  * - `csv`: Merged AMR predictions from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MYKROBE_PREDICT } from '../../modules/mykrobe/predict/main'
 include { CSVTK_CONCAT    } from '../../modules/csvtk/concat/main'

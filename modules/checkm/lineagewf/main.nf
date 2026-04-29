@@ -28,7 +28,7 @@
  * - `lineage/`: Lineage-specific marker set information
  * - `storage/`: Intermediate CheckM data (HMM hits, compressed .faa.gz and .fasta.gz files)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process CHECKM_LINEAGEWF {
     tag "${prefix}"

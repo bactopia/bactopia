@@ -25,7 +25,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MCRONI as MCRONI_MODULE } from '../../modules/mcroni/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'

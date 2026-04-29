@@ -21,7 +21,7 @@
  * @results roary/
  * - `roary/*`: Full Roary output directory (cluster files, alignments, Rtab, etc.)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ROARY {
     tag "${prefix}"

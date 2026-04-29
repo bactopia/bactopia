@@ -21,7 +21,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: A tab-delimited report of hits, for full details please see [Abricate - Output](https://github.com/tseemann/abricate#output)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ABRICATE_RUN {
     tag "${prefix}"

@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Legionella pneumophila SBT results with allele numbers and sequence type
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process LEGSTA {
     tag "${prefix}"

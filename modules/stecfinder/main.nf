@@ -20,7 +20,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: TSV file with STEC gene markers results
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process STECFINDER {
     tag "${prefix}"

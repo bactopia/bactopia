@@ -23,7 +23,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { NGMASTER as NGMASTER_MODULE } from '../../modules/ngmaster/main'
 include { CSVTK_CONCAT                } from '../../modules/csvtk/concat/main'

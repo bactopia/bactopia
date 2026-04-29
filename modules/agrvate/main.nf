@@ -21,7 +21,7 @@
  * - `*-agr_operon.fna`: Extracted agr operon nucleotide sequence
  * - `*-frameshifts.tab`: Detected frameshift mutations in the agr operon
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process AGRVATE {
     tag "${prefix}"

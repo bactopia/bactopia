@@ -34,7 +34,7 @@
  * @output run_outputs
  * - `csv`: Aggregated profiling results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SYLPH_PROFILE } from '../../modules/sylph/profile/main'
 include { CSVTK_CONCAT  } from '../../modules/csvtk/concat/main'

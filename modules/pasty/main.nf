@@ -19,7 +19,7 @@
  * - `blast`: A tab-delimited file of all raw BLAST hits used for the prediction
  * - `details`: A tab-delimited file with detailed gene hits for each serogroup tested
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PASTY {
     tag "${prefix}"

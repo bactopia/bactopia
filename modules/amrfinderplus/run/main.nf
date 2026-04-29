@@ -26,7 +26,7 @@
  * - `report`: A tab-delimited report of identified AMR genes and virulence factors
  * - `mutation_report?`: Organism-specific point mutations associated with antimicrobial resistance
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process AMRFINDERPLUS_RUN {
     tag prefix

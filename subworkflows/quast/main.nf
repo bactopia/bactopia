@@ -26,7 +26,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { QUAST as QUAST_MODULE } from '../../modules/quast/main'
 include { CSVTK_CONCAT          } from '../../modules/csvtk/concat/main'

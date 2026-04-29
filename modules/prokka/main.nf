@@ -32,7 +32,7 @@
  * - `tsv`: Tab-separated file of all features (locus_tag, ftype, len_bp, gene, EC_number, COG, product)
  * - `blastdb`: A compressed tar.gz archive of BLAST+ databases of the contigs, genes, and proteins
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 nextflow.enable.moduleBinaries = true
 
 process PROKKA {

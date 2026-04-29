@@ -22,7 +22,7 @@
  * - `*.mash.tsv`: Mash screen results for phylogroup confirmation
  * - `*.html`: Interactive HTML report of the phylogroup assignment
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process CLERMONTYPING {
     tag "${prefix}"

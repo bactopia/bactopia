@@ -55,7 +55,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SNIPPY_RUN     } from '../../../modules/snippy/run/main'
 include { gatherCsvtk    } from 'plugin/nf-bactopia'

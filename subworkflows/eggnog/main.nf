@@ -40,7 +40,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { EGGNOG_DOWNLOAD } from '../../modules/eggnog/download/main'
 include { EGGNOG_MAPPER   } from '../../modules/eggnog/mapper/main'

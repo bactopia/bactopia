@@ -20,7 +20,7 @@
  * - `txt?`: MOB-typer results with replicon type, mobility, and incompatibility group
  * - `plasmids?`: Reconstructed plasmid sequences in gzipped FASTA format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MOBSUITE_RECON {
     tag "${prefix}"

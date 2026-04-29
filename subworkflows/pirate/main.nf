@@ -24,7 +24,7 @@
  * - `csv`: Gene presence/absence matrix in CSV format
  * - `supplemental`: Directory containing PIRATE intermediate files and detailed outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PIRATE as PIRATE_MODULE } from '../../modules/pirate/main'
 

@@ -24,7 +24,7 @@
  * - `*_bacteria.fasta`: Host bacterial sequences with prophages removed
  * - `*_phage.fasta`: Extracted prophage nucleotide sequences
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PHISPY {
     tag "${prefix}"

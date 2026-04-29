@@ -52,7 +52,7 @@
  * - `${prefix}.png`: Circular genome plot as PNG image
  * - `${prefix}.svg`: Circular genome plot as SVG image
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BAKTA_RUN {
     tag "${prefix}"

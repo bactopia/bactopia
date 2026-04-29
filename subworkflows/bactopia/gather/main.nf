@@ -38,7 +38,7 @@
  * - `fna?`: Assembly file for assembly-based samples
  */
 // bactopia-lint: ignore S013
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { GATHER as GATHER_MODULE } from '../../../modules/bactopia/gather/main'
 include { CSVTK_CONCAT            } from '../../../modules/csvtk/concat/main'

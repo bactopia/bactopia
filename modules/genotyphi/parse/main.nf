@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited report containing the assigned GenoTyphi genotype
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process GENOTYPHI_PARSE {
     tag "${prefix}"

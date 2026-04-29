@@ -46,7 +46,7 @@
  * - `tab`: A simple tab-separated summary of all variants
  * - `txt`: Tab-separated columnar list of alignment statistics
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SNIPPY_RUN {
     tag "${prefix} - ${reference_name}"

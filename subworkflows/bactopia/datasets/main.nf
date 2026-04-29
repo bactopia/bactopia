@@ -17,7 +17,7 @@
  * @output sourmash_db       Path to the Sourmash GTDB signatures
  */
 // bactopia-lint: ignore S005,S010
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { DATASETS as DATASETS_MODULE } from '../../../modules/bactopia/datasets/main'
 

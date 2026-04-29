@@ -34,7 +34,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { NOHUMAN_DOWNLOAD              } from '../../modules/nohuman/download/main'
 include { NOHUMAN_RUN as NOHUMAN_MODULE } from '../../modules/nohuman/run/main'

@@ -31,7 +31,7 @@
  * - `lr?`: Scrubbed long reads
  * - `scrub_report?`: Report of scrubbing statistics
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SRAHUMANSCRUBBER_SCRUB {
     tag "${prefix}"

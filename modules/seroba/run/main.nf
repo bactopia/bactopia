@@ -23,7 +23,7 @@
  * @results supplemental
  * - `detailed_serogroup_info.txt`: Detailed k-mer hit information per serogroup
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SEROBA_RUN {
     tag "${prefix}"

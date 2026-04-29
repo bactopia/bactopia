@@ -36,7 +36,7 @@
  * @output run_outputs
  */
 // bactopia-lint: ignore S013,S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SCRUBBER                                 } from '../scrubber/main'
 include { BRACKEN                                  } from '../bracken/main'

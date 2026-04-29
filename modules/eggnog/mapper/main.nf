@@ -31,7 +31,7 @@
  * - `no_anno?`: FASTA file of sequences that failed to be annotated
  * - `pfam?`: Raw PFAM domain hits
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process EGGNOG_MAPPER {
     tag "${prefix}"

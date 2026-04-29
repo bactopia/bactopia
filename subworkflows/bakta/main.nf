@@ -58,7 +58,7 @@
  * - `faa`: Protein sequences in FASTA format
  * - `gff`: Annotations in GFF3 format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { BAKTA_DOWNLOAD } from '../../modules/bakta/download/main'
 include { BAKTA_RUN      } from '../../modules/bakta/run/main'

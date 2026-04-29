@@ -37,7 +37,7 @@
  * - `variants_txt`: Collated variants in text format
  * - `itol`: iTOL formatted files for visualization
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { TBPROFILER_PROFILE } from '../../modules/tbprofiler/profile/main'
 include { TBPROFILER_COLLATE } from '../../modules/tbprofiler/collate/main'

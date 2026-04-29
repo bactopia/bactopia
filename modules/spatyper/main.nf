@@ -23,7 +23,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: spa typing results in TSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SPATYPER {
     tag "${prefix}"

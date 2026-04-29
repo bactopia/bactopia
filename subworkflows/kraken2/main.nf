@@ -33,7 +33,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { KRAKEN2 as KRAKEN2_MODULE } from '../../modules/kraken2/main'
 

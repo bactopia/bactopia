@@ -29,7 +29,7 @@
  * - `classify/`: Detailed classification results and tree placement files
  * - `identify/`: Marker gene identification results and translation tables
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process GTDBTK_CLASSIFYWF {
     tag "${prefix}"

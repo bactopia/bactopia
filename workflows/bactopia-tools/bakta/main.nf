@@ -51,7 +51,7 @@
  * @section Versions
  * @publish versions.yml            Software version information
    */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 params {
     rundir : String

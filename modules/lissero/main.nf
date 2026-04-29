@@ -18,7 +18,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited LisSero results with predicted serogroup and marker gene detection
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process LISSERO {
     tag "${prefix}"

@@ -24,7 +24,7 @@
  * - `gff?`: Gene matches in GFF3 format
  * - `fasta?`: Extracted nucleotide sequences of the matched genes
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process GAMMA {
     tag "${prefix}"

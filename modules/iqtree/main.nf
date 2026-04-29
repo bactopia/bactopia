@@ -21,7 +21,7 @@
  * @results iqtree (or iqtree-fast)
  * - `${prefix}.*`: IQ-TREE output files (model info, bootstrap trees, log, alninfo, etc.)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M026
 process IQTREE {

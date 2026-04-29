@@ -54,7 +54,7 @@
  * - `*_NanoPlot.tar.gz`: Full NanoPlot output archive for ONT reads
  * - `*.error-fastq.gz`: Original or processed reads preserved when QC fails
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M026
 process QC {

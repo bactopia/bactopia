@@ -16,7 +16,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Aggregated tab-delimited summary of Abricate results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ABRICATE_SUMMARY {
     tag "${prefix}"

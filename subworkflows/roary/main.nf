@@ -24,7 +24,7 @@
  *   - `csv`: Gene presence/absence table
  *   - `supplemental`: Supplemental files including accessory binary genes and graphs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { ROARY as ROARY_MODULE } from '../../modules/roary/main'
 

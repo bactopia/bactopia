@@ -41,7 +41,7 @@
  * @output reference
  * First downloaded assembly file for use as a reference genome
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { NCBIGENOMEDOWNLOAD as NCBIGENOMEDOWNLOAD_MODULE } from '../../modules/ncbigenomedownload/main'
 

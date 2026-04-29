@@ -24,7 +24,7 @@
  * @results panaroo/
  * - `panaroo/*`: Full Panaroo output directory (graphs, gene data, struct files, etc.)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PANAROO_RUN {
     tag "${prefix}"

@@ -31,7 +31,7 @@
  * - `*.bed.gz`: Insertion site coordinates in BED format
  * - `*.fastq.gz`: Supporting reads mapped to insertion sites
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ISMAPPER {
     tag "${prefix}"

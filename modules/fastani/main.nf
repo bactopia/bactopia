@@ -18,7 +18,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited summary of ANI scores, matched fragments, and total fragments
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M017
 process FASTANI {

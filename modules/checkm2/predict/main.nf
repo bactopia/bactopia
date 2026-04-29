@@ -28,7 +28,7 @@
  * - `protein_files/*.faa.gz`: Predicted protein sequences from Prodigal (compressed)
  * - `diamond_output/`: DIAMOND alignment results against the CheckM2 database
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process CHECKM2_PREDICT {
     tag "${prefix}"

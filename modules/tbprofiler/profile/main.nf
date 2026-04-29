@@ -30,7 +30,7 @@
  * - `*.bam.bai`: BAM index file
  * - `*.targets.csq.vcf.gz`: Variant calls with consequence annotations (VCF)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process TBPROFILER_PROFILE {
     tag "${prefix}"

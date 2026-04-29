@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: ShigEiFinder results in TSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SHIGEIFINDER {
     tag "${prefix}"

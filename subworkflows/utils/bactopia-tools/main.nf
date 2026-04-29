@@ -23,7 +23,7 @@
  * @output gbff                   GenBank file: record(meta, gbff)
  * @output blastdb                BLAST database: record(meta, blastdb)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { bactopiaToolInputs } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'

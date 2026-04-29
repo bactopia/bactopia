@@ -36,7 +36,7 @@
  * - `*-error.txt`: Error files from failed downloads, validation, or accession checks
  * - `*-merged.txt`: Log of merged read sets when multiple runs are combined
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M026
 process GATHER {

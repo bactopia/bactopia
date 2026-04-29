@@ -19,7 +19,7 @@
  * - `tsv`: A tab-delimited summary file with the predicted PBP type for each gene
  * - `blast`: A tab-delimited file of the raw TBLASTN hits used for gene identification
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PBPTYPER {
     tag "${prefix}"

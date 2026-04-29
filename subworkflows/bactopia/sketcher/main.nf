@@ -31,7 +31,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SKETCHER as SKETCHER_MODULE } from '../../../modules/bactopia/sketcher/main'
 

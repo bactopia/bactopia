@@ -32,7 +32,7 @@
  * - `txt`: Tab-separated list of alignment and core-size statistics
  * - `samples`: List of samples included in the core alignment
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SNIPPY_CORE {
     tag "${prefix}"

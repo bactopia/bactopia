@@ -27,7 +27,7 @@
  * @output run_outputs
  * - `csv`: A merged TSV file with AMRFinder+ results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { AMRFINDERPLUS_RUN } from '../../modules/amrfinderplus/run/main'
 include { CSVTK_CONCAT      } from '../../modules/csvtk/concat/main'

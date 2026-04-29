@@ -20,7 +20,7 @@
  * - `tsv`: The pairwise distance matrix used to build the tree (*.tsv)
  * - `sketches?`: Directory containing the individual Mash sketches
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MASHTREE {
     tag "${prefix}"

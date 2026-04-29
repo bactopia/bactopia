@@ -39,7 +39,7 @@
  * - `supplemental/*`: Assembler-specific intermediate files (graphs, logs, polishing info)
  * - `${prefix}-*-error.*`: Error files when assembly fails size or contig checks
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ASSEMBLER {
     tag "${prefix}"

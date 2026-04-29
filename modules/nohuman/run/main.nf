@@ -32,7 +32,7 @@
  * - `lr?`: Scrubbed long reads
  * - `scrub_report`: Summary report of reads removed during scrubbing
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process NOHUMAN_RUN {
     tag "${prefix}"

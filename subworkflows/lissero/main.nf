@@ -24,7 +24,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { LISSERO as LISSERO_MODULE } from '../../modules/lissero/main'
 include { CSVTK_CONCAT              } from '../../modules/csvtk/concat/main'

@@ -61,7 +61,7 @@
  * - `special_meta`: Simplified metadata record for downstream report joining
  * - `scrub_report`: Contamination removal statistics report
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SRAHUMANSCRUBBER } from '../srahumanscrubber/main'
 include { NOHUMAN          } from '../nohuman/main'

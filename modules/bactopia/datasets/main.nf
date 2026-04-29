@@ -18,7 +18,7 @@
  * - `mash_db`: Pre-computed [Mash](https://github.com/marbl/Mash) sketches (RefSeq)
  * - `sourmash_db`: Pre-computed [Sourmash](https://github.com/sourmash-bio/sourmash) signatures (GTDB)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M012,M013,M017,M018,M022,M023,M024,M025,M026,M027,M028
 process DATASETS {

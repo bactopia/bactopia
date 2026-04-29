@@ -15,7 +15,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: MLST results across all schemes
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process GIGATYPER {
     tag "${prefix}"

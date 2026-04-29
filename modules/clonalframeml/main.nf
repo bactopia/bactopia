@@ -25,7 +25,7 @@
  * - `pos_ref`: Position cross-reference table (*.txt.gz)
  * - `masked_aln`: The input alignment with recombinant regions masked (*.aln.gz)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process CLONALFRAMEML {
     tag "${prefix}"

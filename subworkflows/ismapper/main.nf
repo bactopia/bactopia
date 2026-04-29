@@ -34,7 +34,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { ISMAPPER as ISMAPPER_MODULE } from '../../modules/ismapper/main'
 include { filterWithData              } from 'plugin/nf-bactopia'

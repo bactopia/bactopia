@@ -20,7 +20,7 @@
  * @output record(meta, dist, results, logs, nf_logs, versions)
  * - `dist`: A tab-delimited summary of the Mash distances and p-values
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MASH_DIST {
     tag "${prefix}"

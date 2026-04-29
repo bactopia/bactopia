@@ -23,7 +23,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: A tab-delimited summary containing the Sample, Scheme, ST, and Allele IDs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MLST {
     tag "${prefix}"

@@ -47,7 +47,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MERLIN_DIST } from '../../modules/merlin/dist/main'
 include { gatherCsvtk } from 'plugin/nf-bactopia'

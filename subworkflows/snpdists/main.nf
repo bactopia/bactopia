@@ -23,7 +23,7 @@
  * @output run_outputs
  * - `tsv`: Pairwise SNP distance matrix in TSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SNPDISTS as SNPDISTS_MODULE } from '../../modules/snpdists/main'
 

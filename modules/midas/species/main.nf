@@ -31,7 +31,7 @@
  * - `abundances`: Detailed species abundance profile (*.abundances.txt)
  * - `adjusted_abundances`: Relative abundance estimates adjusted for genome size (*.adjusted.abundances.txt)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 nextflow.enable.moduleBinaries = true
 
 process MIDAS_SPECIES {

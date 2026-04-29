@@ -29,7 +29,7 @@
  * - `stats?`: Tab-delimited text file reporting assembly statistics
  * - `accessions?`: The generated accession list files
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M017,M026
 process NCBIGENOMEDOWNLOAD {

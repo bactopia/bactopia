@@ -22,7 +22,7 @@
  * @results pirate/
  * - `pirate/*`: Full PIRATE output directory (co-ords, modified GFFs, allele files, etc.)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PIRATE {
     tag "${prefix}"

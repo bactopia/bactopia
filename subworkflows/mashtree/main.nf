@@ -24,7 +24,7 @@
  * - `tsv`: Pairwise distance matrix
  * - `sketches`: Individual Mash sketch files
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MASHTREE as MASHTREE_MODULE } from '../../modules/mashtree/main'
 

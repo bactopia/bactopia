@@ -18,7 +18,7 @@
  * - `db`: The directory containing the uncompressed GTDB-Tk database files
  * - `db_tarball`: A compressed tarball of the database (if requested via parameters)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028,M033
 process GTDBTK_DOWNLOAD {

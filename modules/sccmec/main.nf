@@ -21,7 +21,7 @@
  * - `regions`: BLAST results for SCCmec regions
  * - `regions_details`: Detailed results for SCCmec region matches
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SCCMEC {
     tag "${prefix}"

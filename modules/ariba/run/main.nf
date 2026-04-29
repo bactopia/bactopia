@@ -31,7 +31,7 @@
  * - `log.clusters.gz`: Per-cluster log of assembly and mapping details
  * - `version_info.txt`: ARIBA version and database information
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ARIBA_RUN {
     tag "${prefix} - ${db.name}"

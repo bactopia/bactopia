@@ -26,7 +26,7 @@
  * - `nwk`: Maximum-likelihood phylogenetic tree in Newick format
  * - `supplemental`: Detailed report, distance matrix, and model parameters
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { IQTREE as IQTREE_MODULE } from '../../modules/iqtree/main'
 

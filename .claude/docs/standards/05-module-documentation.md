@@ -912,7 +912,7 @@ nextflow_process {
 
 ```groovy
 // Minimal config for module-level testing
-nextflow.preview.types = true
+nextflow.enable.types = true
 nextflow.enable.strict = true
 
 params {

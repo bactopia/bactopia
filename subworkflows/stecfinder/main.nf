@@ -27,7 +27,7 @@
  * @output run_outputs
  * - `csv`: Merged STEC results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { STECFINDER as STECFINDER_MODULE } from '../../modules/stecfinder/main'
 include { CSVTK_CONCAT                    } from '../../modules/csvtk/concat/main'

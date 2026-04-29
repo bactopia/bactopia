@@ -124,7 +124,7 @@ This section provides detailed examples of different component types in Bactopia
  * @output run_outputs
  * - `csv`: A merged TSV file with mlst results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MLST as MLST_MODULE } from '../../modules/mlst/main'
 include { CSVTK_CONCAT        } from '../../modules/csvtk/concat/main'

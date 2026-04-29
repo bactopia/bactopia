@@ -581,7 +581,7 @@ Should be:
 4. For multiple tools, use comma-separated format: `@citation tool1, tool2`
 
 ### 6.4 Formatting Issues
-- **No extra blank lines** between the closing `*/` and `nextflow.preview.types = true`
+- **No extra blank lines** between the closing `*/` and `nextflow.enable.types = true`
 - **Consistent indentation** (4 spaces) within the GroovyDoc block
 - **Blank line** (` *`) between separate `@output` blocks
 - **No inline descriptions** on `@output` lines -- descriptions go on ` * - ` field lines

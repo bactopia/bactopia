@@ -50,7 +50,7 @@
  * - `lr?`: QC-filtered long reads
  * - `fna?`: Assembly file (passed through for assembly-based samples)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { QC as QC_MODULE } from '../../../modules/bactopia/qc/main'
 include { filterWithData  } from 'plugin/nf-bactopia'

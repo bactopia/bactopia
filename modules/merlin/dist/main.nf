@@ -42,7 +42,7 @@
  * - `streptococcus?`: Conditional marker file triggering Streptococcus analysis tools
  * - `genus?`: Marker file indicating the detected genus
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M026
 process MERLIN_DIST {

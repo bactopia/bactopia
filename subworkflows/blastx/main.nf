@@ -26,7 +26,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { BLAST_BLASTX as BLASTX_MODULE } from '../../modules/blast/blastx/main'
 include { CSVTK_CONCAT                  } from '../../modules/csvtk/concat/main'

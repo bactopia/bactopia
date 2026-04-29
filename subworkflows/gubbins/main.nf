@@ -39,7 +39,7 @@
  * @output alignment
  * - `aln`: Recombination-masked alignment for downstream phylogenetic analysis
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { GUBBINS as GUBBINS_MODULE } from '../../modules/gubbins/main'
 include { SNPDISTS                  } from '../snpdists/main'

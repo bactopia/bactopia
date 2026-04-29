@@ -34,7 +34,7 @@
  * - `csv`: Aggregated results in CSV format
  */
 // bactopia-lint: ignore S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { ARIBA_GETREF                         } from '../../modules/ariba/getref/main'
 include { ARIBA_RUN                            } from '../../modules/ariba/run/main'

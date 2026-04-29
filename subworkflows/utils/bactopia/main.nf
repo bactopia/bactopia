@@ -22,7 +22,7 @@
  *
  * @output samples  Pre-merge 5-slot structure: record(meta, r1, r2, se, lr) as Record<Map, Set<Path>, Set<Path>, Set<Path>, Set<Path>>
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { bactopiaInputs     } from 'plugin/nf-bactopia'
 include { validateParameters } from 'plugin/nf-bactopia'

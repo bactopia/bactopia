@@ -41,7 +41,7 @@
  * - `classification`: Bracken per-read classification details
  * - `adjusted_abundances`: Bracken abundance estimates adjusted for unclassified reads
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BRACKEN {
     tag "${prefix}"

@@ -35,7 +35,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { GTDBTK_DOWNLOAD   } from '../../modules/gtdbtk/download/main'
 include { GTDBTK_CLASSIFYWF } from '../../modules/gtdbtk/classifywf/main'

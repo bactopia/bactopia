@@ -37,7 +37,7 @@
  *
  * @citation defensefinder
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 params {
     rundir : String

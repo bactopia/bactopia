@@ -36,7 +36,7 @@
  * @output alignment
  * - `aln`: Recombination-masked alignment for downstream phylogenetic analysis
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { CLONALFRAMEML as CLONALFRAMEML_MODULE } from '../../modules/clonalframeml/main'
 include { IQTREE                                } from '../iqtree/main'

@@ -29,7 +29,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PNEUMOCAT as PNEUMOCAT_MODULE } from '../../modules/pneumocat/main'
 include { filterWithData                } from 'plugin/nf-bactopia'

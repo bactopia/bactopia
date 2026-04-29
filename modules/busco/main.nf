@@ -23,7 +23,7 @@
  * - `single_copy_busco_sequences`: Nucleotide (.fna.gz) and protein (.faa.gz) sequences of single-copy BUSCOs
  * - `hmmer_output`: Raw HMMER search results for each BUSCO
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BUSCO {
     tag "${prefix} - ${task.ext.busco_lineage}"

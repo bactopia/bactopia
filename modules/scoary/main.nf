@@ -22,7 +22,7 @@
  * @results gwas
  * - `*.results.csv`: Per-trait GWAS results with gene associations and p-values
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SCOARY {
     tag "${prefix}"

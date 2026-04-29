@@ -28,7 +28,7 @@
  * - `proteins_index?`: Index file for the protein sequences
  * - `macsydata_raw?`: Compressed tarball of raw MacSyFinder data
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process DEFENSEFINDER_RUN {
     tag "${prefix}"

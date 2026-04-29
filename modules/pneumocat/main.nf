@@ -25,7 +25,7 @@
  * - `xml?`: The PneumoCaT result files in XML format
  * - `txt?`: A file containing the coverage information across the genes
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process PNEUMOCAT {
     tag "${prefix}"

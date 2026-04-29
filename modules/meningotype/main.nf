@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited meningotype results with serogroup, PorA, and FetA predictions
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MENINGOTYPE {
     tag "${prefix}"

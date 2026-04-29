@@ -6,7 +6,7 @@ This document contains the technical specifications, conventions, and "gotchas" 
 ## Static Typing Conventions
 
 ### Universal Requirements
-- ALL Nextflow files must have `nextflow.preview.types = true` at the top (required while typed records are in preview)
+- ALL Nextflow files must have `nextflow.enable.types = true` at the top (required while typed records are in preview)
 - Static typing is fully implemented across all components
 - No files should be missing type annotations
 

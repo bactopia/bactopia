@@ -20,7 +20,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited summary of the assigned emm type and cluster
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process EMMTYPER {
     tag "${prefix}"

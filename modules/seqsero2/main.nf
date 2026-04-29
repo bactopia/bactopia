@@ -17,7 +17,7 @@
  * - `tsv`: SeqSero2 serotype prediction results in TSV format
  * - `txt`: SeqSero2 serotype prediction results in text format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SEQSERO2 {
     tag "${prefix}"

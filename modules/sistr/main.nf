@@ -20,7 +20,7 @@
  * - `allele_json`: Alleles in JSON format
  * - `cgmlst_csv`: cgMLST profile in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SISTR {
     tag "${prefix}"

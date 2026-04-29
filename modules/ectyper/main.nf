@@ -18,7 +18,7 @@
  * - `tsv`: Tab-delimited E. coli serotype predictions (O and H antigens)
  * - `txt`: BLAST allele details for serotype determination
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ECTYPER {
     tag "${prefix}"

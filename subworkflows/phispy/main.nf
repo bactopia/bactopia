@@ -23,7 +23,7 @@
  * @output run_outputs
  * - `csv`: Merged prophage prediction results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PHISPY as PHISPY_MODULE } from '../../modules/phispy/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'

@@ -27,7 +27,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SCCMEC as SCCMEC_MODULE } from '../../modules/sccmec/main'
 include { CSVTK_CONCAT            } from '../../modules/csvtk/concat/main'

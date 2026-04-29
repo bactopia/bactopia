@@ -16,7 +16,7 @@
  * @output record(db, logs)
  * - `db`: A compressed tarball of the latest AMRFinder+ database
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M012,M017,M018,M022,M023,M024,M025,M026,M028
 process AMRFINDERPLUS_UPDATE {

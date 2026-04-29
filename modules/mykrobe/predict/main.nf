@@ -27,7 +27,7 @@
  * - `csv`: AMR predictions in machine-readable CSV format
  * - `json`: Detailed AMR prediction results in JSON format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process MYKROBE_PREDICT {
     tag "${prefix}"

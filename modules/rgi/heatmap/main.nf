@@ -17,7 +17,7 @@
  * @output record(meta, heatmap?, results, logs, nf_logs, versions)
  * - `heatmap?`: Heatmap files in various formats (CSV, EPS, PNG)
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process RGI_HEATMAP {
     tag "${prefix}"

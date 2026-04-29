@@ -40,7 +40,7 @@
  * @output run_outputs
  * - `csv`: Merged species abundance results from all samples
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { MIDAS_DOWNLOAD } from '../../modules/midas/download/main'
 include { MIDAS_SPECIES  } from '../../modules/midas/species/main'

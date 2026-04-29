@@ -26,7 +26,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: TSV file with profiling results
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SYLPH_PROFILE {
     tag "${prefix}"

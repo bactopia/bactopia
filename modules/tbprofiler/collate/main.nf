@@ -19,7 +19,7 @@
  * - `variants_txt`: Collated variants in text format
  * - `itol?`: iTOL formatted files for visualization
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process TBPROFILER_COLLATE {
     tag "${prefix}"

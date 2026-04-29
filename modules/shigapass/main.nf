@@ -18,7 +18,7 @@
  * - `tsv`: ShigaPass summary results in TSV format
  * - `flex_tsv?`: ShigaPass Flex summary results in TSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SHIGAPASS {
     tag "${prefix}"

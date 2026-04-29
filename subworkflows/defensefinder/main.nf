@@ -28,7 +28,7 @@
  * - `csv`: Aggregated results in CSV format
  */
 // bactopia-lint: ignore S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { DEFENSEFINDER_UPDATE           } from '../../modules/defensefinder/update/main'
 include { DEFENSEFINDER_RUN              } from '../../modules/defensefinder/run/main'

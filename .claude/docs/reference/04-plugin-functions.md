@@ -306,7 +306,7 @@ ch_tool = TOOL_MODULE(assembly, db)
 ### Subworkflow Standard Pattern
 
 ```groovy
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { TOOL_MODULE  } from '../../modules/tool/main'
 include { CSVTK_CONCAT } from '../../modules/csvtk/concat/main'

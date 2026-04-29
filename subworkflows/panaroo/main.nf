@@ -26,7 +26,7 @@
  * - `panaroo_csv`: Gene presence/absence matrix in Panaroo's native CSV format (optional)
  * - `supplemental`: Directory containing Panaroo intermediate files and data structures
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { PANAROO_RUN } from '../../modules/panaroo/run/main'
 

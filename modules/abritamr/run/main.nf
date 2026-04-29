@@ -22,7 +22,7 @@
  * - `virulence`: Tab-delimited list of detected virulence genes
  * - `amrfinder`: Raw AMRFinderPlus output
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process ABRITAMR_RUN {
     tag "${prefix}"

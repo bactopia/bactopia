@@ -16,7 +16,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Pairwise SNP distance matrix in TSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process SNPDISTS {
     tag "${prefix}"

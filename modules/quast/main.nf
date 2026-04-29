@@ -26,7 +26,7 @@
  * - `predicted_genes/`: Glimmer gene predictions for the assembly
  * - `basic_stats/`: Cumulative plots and GC content statistics
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process QUAST {
     tag "${prefix}"

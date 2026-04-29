@@ -40,7 +40,7 @@
  * @output alignment
  * - `aln`: Core-SNP alignment for downstream phylogenetic analysis
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SNIPPY_CORE as SNIPPY_CORE_MODULE } from '../../../modules/snippy/core/main'
 include { SNPDISTS                          } from '../../snpdists/main'

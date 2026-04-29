@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: TSV file with SCCmec typing results
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process STAPHOPIASCCMEC {
     tag "${prefix}"

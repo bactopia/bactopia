@@ -18,7 +18,7 @@
  * - `tsv`: RGI results in tab-separated format
  * - `json?`: RGI results in JSON format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process RGI_MAIN {
     tag "${prefix}"

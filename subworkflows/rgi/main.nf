@@ -24,7 +24,7 @@
  * - `csv`: Aggregated results in CSV format
  */
 // bactopia-lint: ignore S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { RGI_MAIN     } from '../../modules/rgi/main/main'
 include { RGI_HEATMAP  } from '../../modules/rgi/heatmap/main'

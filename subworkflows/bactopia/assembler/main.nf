@@ -44,7 +44,7 @@
  * - `lr?`: Long reads (ONT/PacBio)
  */
 // bactopia-lint: ignore S013
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { ASSEMBLER as ASSEMBLER_MODULE } from '../../../modules/bactopia/assembler/main'
 include { CSVTK_CONCAT                  } from '../../../modules/csvtk/concat/main'

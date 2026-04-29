@@ -56,10 +56,10 @@ Entry workflows must follow this exact structure:
  * @section <Another Section>
  * @publish <file_pattern>    <Description of published files>
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 ```
 
-**Important**: The GroovyDoc must immediately follow the shebang line (`#!/usr/bin/env nextflow`). The `nextflow.preview.types = true` declaration can come after the GroovyDoc.
+**Important**: The GroovyDoc must immediately follow the shebang line (`#!/usr/bin/env nextflow`). The `nextflow.enable.types = true` declaration can come after the GroovyDoc.
 
 ## 3. Header Format
 
@@ -513,7 +513,7 @@ Before completing workflow documentation, verify:
 
 - [ ] Shebang line is `#!/usr/bin/env nextflow`
 - [ ] GroovyDoc immediately follows the shebang line
-- [ ] `nextflow.preview.types = true` is included (usually after GroovyDoc)
+- [ ] `nextflow.enable.types = true` is included (usually after GroovyDoc)
 - [ ] Header format matches pattern (Bactopia Tool vs Workflow Name)
 - [ ] All required fields are present (@status, @keywords)
 - [ ] Parameters use simple @input format (not @input tuple)

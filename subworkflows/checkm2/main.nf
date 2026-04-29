@@ -34,7 +34,7 @@
  * @output run_outputs
  * - `csv`: Aggregated results in CSV format
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { CHECKM2_DOWNLOAD } from '../../modules/checkm2/download/main'
 include { CHECKM2_PREDICT  } from '../../modules/checkm2/predict/main'

@@ -25,7 +25,7 @@
  *
  * @output run_outputs
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { SCOARY as SCOARY_MODULE } from '../../modules/scoary/main'
 

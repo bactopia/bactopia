@@ -17,7 +17,7 @@
  * @output record(meta, tsv, results, logs, nf_logs, versions)
  * - `tsv`: Tab-delimited Haemophilus parasuis serotype prediction results
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process HPSUISSERO {
     tag "${prefix}"

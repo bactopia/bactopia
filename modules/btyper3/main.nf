@@ -25,7 +25,7 @@
  * - `*_panC.txt`: PanC clade assignment details
  * - `*_mlst.txt`: Multi-locus sequence typing results
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 process BTYPER3 {
     tag "${prefix}"

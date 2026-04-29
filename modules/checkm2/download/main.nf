@@ -16,7 +16,7 @@
  * - `db`: The CheckM2 Diamond database file (*.dmnd)
  * - `json`: Metadata file describing the database contents
  */
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 // bactopia-lint: ignore M012,M017,M018,M023,M024,M025,M026,M028
 process CHECKM2_DOWNLOAD {

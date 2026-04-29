@@ -42,7 +42,7 @@
  * - `csv`: Aggregated results in CSV format
  */
 // bactopia-lint: ignore S015
-nextflow.preview.types = true
+nextflow.enable.types = true
 
 include { BRACKEN as BRACKEN_MODULE             } from '../../modules/bracken/main'
 include { CSVTK_CONCAT as CSVTK_CONCAT_TSV      } from '../../modules/csvtk/concat/main'
