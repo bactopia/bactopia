@@ -6,7 +6,10 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
-## v4.0.0 bactopia/bactopia "TBD" YYYY/MM/DD
+## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
+
+<!-- markdownlint-disable-next-line MD036 -->
+_"Cream Puff" a key component of Mash Burnedead's Muscle Magic_
 
 ### `Changed`
 
