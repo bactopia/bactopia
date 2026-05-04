@@ -6,6 +6,12 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
+## v4.0.1 bactopia/bactopia "???" 2026/??/??
+
+### `Fixed`
+
+- float parameters being interpreted as strings in CLI
+
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
 <!-- markdownlint-disable-next-line MD036 -->
