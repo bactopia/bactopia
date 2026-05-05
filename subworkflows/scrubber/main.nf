@@ -80,13 +80,14 @@ workflow SCRUBBER {
     main:
     ch_sample_outputs = channel.empty()
     ch_special_report = channel.empty()
+    ch_reads = filterWithData(reads, ['r1', 'r2', 'se', 'lr'])
 
     if (use_srascrubber) {
-        ch_srahumanscrubber = SRAHUMANSCRUBBER(reads)
+        ch_srahumanscrubber = SRAHUMANSCRUBBER(ch_reads)
         ch_sample_outputs = ch_srahumanscrubber.sample_outputs
         ch_special_report = ch_srahumanscrubber.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
     } else {
-        ch_nohuman = NOHUMAN(reads, nohuman_db, download_nohuman, nohuman_save_as_tarball)
+        ch_nohuman = NOHUMAN(ch_reads, nohuman_db, download_nohuman, nohuman_save_as_tarball)
         ch_sample_outputs = ch_nohuman.sample_outputs
         ch_special_report = ch_nohuman.sample_outputs.map { r -> record(special_meta: r.special_meta, scrub_report: r.scrub_report) }
     }
