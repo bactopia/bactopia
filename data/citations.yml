@@ -1038,6 +1038,13 @@ tools:
     cite: |
       Lui J [SsuisSero: Rapid _Streptococcus suis_ serotyping](https://github.com/jimmyliu1326/SsuisSero) (GitHub)
 
+  staphscan:
+    name: StaphSCAN
+    link: https://github.com/riccabolla/StaphSCAN
+    description: Genome-based surveillance analysis of _Staphylococcus aureus_
+    cite: |
+      Bollini R [StaphSCAN (v0.3.0).](https://github.com/riccabolla/StaphSCAN) Zenodo (2026)
+
   staphopiasccmec:
     name: staphopia-sccmec
     link: https://github.com/staphopia/staphopia-sccmec
