@@ -7,11 +7,12 @@
  * 1. [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE) - agr locus type and operon variants
  * 2. [spaTyper](https://github.com/HCGB-IGTP/spaTyper) - spa type
  * 3. [sccmec](https://github.com/rpetit3/sccmec) - SCCmec type
+ * 4. [StaphSCAN](https://github.com/riccabolla/StaphSCAN) - genome-based surveillance
  *
  * @status stable
- * @keywords staphylococcus aureus, agr, spa, sccmec, typing, bactopia-tool
+ * @keywords staphylococcus aureus, agr, spa, sccmec, surveillance, typing, bactopia-tool
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,typing,workflow
- * @citation agrvate, spatyper, sccmec
+ * @citation agrvate, sccmec, spatyper, staphscan
  *
  * @subworkflows utils_bactopia-tools, staphtyper
  *
@@ -23,6 +24,9 @@
  *
  * @input spatyper_repeat_order
  * Path to a custom spaTyper repeat order file
+ *
+ * @input staphscan_db_mlst
+ * Path or tarball to custom MLST database for StaphSCAN
  *
  * @section Comprehensive Typing
  * @note Results from all included typing tools
@@ -43,6 +47,7 @@ params {
     // Tool-specific parameters
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
+    staphscan_db_mlst     : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -55,7 +60,8 @@ workflow {
     ch_staphtyper = STAPHTYPER(
         ch_bactopiatool.assembly,
         params.spatyper_repeats,
-        params.spatyper_repeat_order
+        params.spatyper_repeat_order,
+        params.staphscan_db_mlst
     )
 
     publish:
