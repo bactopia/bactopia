@@ -8,6 +8,13 @@ sidebar_position: 5000
 
 ## v4.0.1 bactopia/bactopia "???" 2026/??/??
 
+### `Added`
+
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `staphscan` - Genome-based surveillance analysis of _Staphylococcus aureus_
+    - `traitar` - Predict phenotypic traits from microbial genomes
+- Added StaphSCAN to the Staphtyper and Merlin subworkflows
+
 ### `Fixed`
 
 - float parameters being interpreted as strings in CLI
