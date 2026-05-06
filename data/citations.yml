@@ -1073,6 +1073,13 @@ tools:
     cite: |
       Phelan JE, O'Sullivan DM, Machado D, Ramos J, Oppong YEA, Campino S, O'Grady J, McNerney R, Hibberd ML, Viveiros M, Huggett JF, Clark TG [Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs.](https://doi.org/10.1186/s13073-019-0650-x) _Genome Med_ 11, 41 (2019)
 
+  traitar:
+    name: Traitar
+    link: https://github.com/nick-youngblut/traitar3/
+    description: Predict phenotypic traits from microbial genomes
+    cite: |
+      Weimann A, Mooren K, Frank J, Pope PB, Gronow S, So AP [From genomes to phenotypes: Traitar, the microbial trait analyzer.](https://doi.org/10.1128/mSystems.00101-16) _mSystems_ 1(6), e00101-16 (2016)
+
   unicycler:
     name: Unicycler
     link: https://github.com/rrwick/Unicycler

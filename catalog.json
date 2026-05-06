@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-05T19:22:52Z",
+  "generated": "2026-05-06T14:51:44Z",
   "bactopia_version": "4.0.1",
   "bactopia_py_version": "2.1.6",
   "nf_bactopia_version": "2.1.3",
@@ -2928,6 +2928,55 @@
         "output_type": "multiple",
         "features": [
           "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "traitar_download": {
+      "description": "Download the Pfam database required by Traitar.",
+      "path": "modules/traitar/download/",
+      "scope": "run",
+      "process_name": "traitar_download",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "traitar_run": {
+      "description": "Predict phenotypic traits from microbial genomes.",
+      "path": "modules/traitar/run/",
+      "scope": "sample",
+      "process_name": "traitar",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "majority_tsv",
+        "single_tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
           "conditional-logic"
         ]
       }
@@ -6220,6 +6269,45 @@
           "conditional-logic"
         ]
       }
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "path": "subworkflows/traitar/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "database",
+        "download_traitar"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "majority_tsv",
+          "single_tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "traitar_download",
+          "traitar_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
+        ]
+      }
     }
   },
   "workflows": {
@@ -6991,6 +7079,17 @@
       ],
       "subworkflows": [
         "tbprofiler"
+      ]
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/traitar/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "traitar"
       ]
     },
     "cleanyerreads": {
