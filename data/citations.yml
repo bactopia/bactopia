@@ -317,6 +317,13 @@ tools:
     cite: |
       Shen, W [csvtk: A cross-platform, efficient and practical CSV/TSV toolkit in Golang.](https://github.com/shenwei356/csvtk/) (GitHub)
 
+  deacon:
+    name: deacon
+    link: https://github.com/bede/deacon
+    description: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison
+    cite: |
+      Bede N. [deacon: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison.](https://github.com/bede/deacon) (GitHub)
+
   defensefinder:
     name: DefenseFinder
     link: https://github.com/mdmparis/defense-finder

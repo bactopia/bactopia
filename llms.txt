@@ -34,7 +34,7 @@ All components use standardized GroovyDoc documentation and static typing.
 
 ## Modules (Tier 3)
 
-101 tool-specific modules live under `modules/`. Each module directory contains:
+104 tool-specific modules live under `modules/`. Each module directory contains:
 - `main.nf`: Process definition with GroovyDoc header
 - `meta.yml`: Tool metadata, inputs, outputs, and parameter descriptions
 - `tests/`: nf-test test cases

@@ -13,7 +13,7 @@
  * @status stable
  * @keywords metagenomics, taxonomy, classification, kraken, bracken, genome size
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation,database-dependent,conditional-logic
- * @citation kraken2, bracken
+ * @citation deacon, kraken2, bracken
  *
  * @modules bactopia_teton, csvtk_join, csvtk_concat
  * @subworkflows scrubber, bracken
@@ -30,6 +30,24 @@
  *
  * @input use_srascrubber
  * Boolean flag to use SRA scrubber for host read removal
+ *
+ * @input use_nohuman
+ * Boolean flag to use nohuman for host read removal
+ *
+ * @input nohuman_db
+ * Path to nohuman database directory or tarball
+ *
+ * @input download_nohuman
+ * Boolean flag to download the nohuman database
+ *
+ * @input nohuman_save_as_tarball
+ * Boolean flag to save downloaded nohuman database as tarball
+ *
+ * @input deacon_db
+ * Path to deacon minimizer index file (.idx)
+ *
+ * @input download_deacon
+ * Boolean flag to download the deacon index
  *
  * @output sample_outputs
  *
@@ -53,13 +71,16 @@ workflow TETON {
     reads: Channel<Record>
     db: Path?
     use_srascrubber: Boolean
+    use_nohuman: Boolean
     nohuman_db: Path?
     download_nohuman: Boolean
     nohuman_save_as_tarball: Boolean
+    deacon_db: Path?
+    download_deacon: Boolean
 
     main:
     // Remove host reads
-    ch_scrubber = SCRUBBER(reads, use_srascrubber, nohuman_db, download_nohuman, nohuman_save_as_tarball)
+    ch_scrubber = SCRUBBER(reads, use_srascrubber, use_nohuman, nohuman_db, download_nohuman, nohuman_save_as_tarball, deacon_db, download_deacon)
 
     // Taxon Classification & Abundance
     ch_bracken = BRACKEN(ch_scrubber.scrubbed, db)

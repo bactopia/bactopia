@@ -1,4 +1,56 @@
 {
+    "Scrubber (deacon) - SRR2838702|portiera|compressed_fastq": {
+        "content": [
+            2,
+            [
+                "SRR2838702",
+                "SRR2838702/tools",
+                "SRR2838702/tools/scrubber",
+                "SRR2838702/tools/scrubber/SRR2838702.deacon.json",
+                "SRR2838702/tools/scrubber/SRR2838702.scrub.report.tsv",
+                "SRR2838702/tools/scrubber/SRR2838702_R1.scrubbed.fastq.gz",
+                "SRR2838702/tools/scrubber/SRR2838702_R2.scrubbed.fastq.gz",
+                "SRR2838702/tools/scrubber/logs",
+                "SRR2838702/tools/scrubber/logs/nf.command.begin",
+                "SRR2838702/tools/scrubber/logs/nf.command.err",
+                "SRR2838702/tools/scrubber/logs/nf.command.log",
+                "SRR2838702/tools/scrubber/logs/nf.command.out",
+                "SRR2838702/tools/scrubber/logs/nf.command.run",
+                "SRR2838702/tools/scrubber/logs/nf.command.sh",
+                "SRR2838702/tools/scrubber/logs/nf.command.trace",
+                "SRR2838702/tools/scrubber/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/scrubber",
+                "bactopia-runs/scrubber/merged-results",
+                "bactopia-runs/scrubber/merged-results/logs",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.begin",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.err",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.log",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.out",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.run",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.sh",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/nf.command.trace",
+                "bactopia-runs/scrubber/merged-results/logs/scrubber-concat/versions.yml",
+                "bactopia-runs/scrubber/merged-results/scrubber.tsv",
+                "bactopia-runs/scrubber/nf-reports",
+                "bactopia-runs/scrubber/nf-reports/scrubber-dag.dot",
+                "bactopia-runs/scrubber/nf-reports/scrubber-report.html",
+                "bactopia-runs/scrubber/nf-reports/scrubber-timeline.html"
+            ],
+            [
+                "SRR2838702.scrub.report.tsv:md5,c0ea3dcaa020751d8647c95a13fd362d",
+                "versions.yml:md5,e07f44b8fe13644174f75b5cc7193f10",
+                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5",
+                "scrubber.tsv:md5,c0ea3dcaa020751d8647c95a13fd362d"
+            ]
+        ],
+        "timestamp": "2026-05-06T15:45:32.588701069",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
     "Scrubber (nohuman) - SRR2838702|portiera|compressed_fastq": {
         "content": [
             2,
@@ -39,12 +91,12 @@
             ],
             [
                 "SRR2838702.scrub.report.tsv:md5,e957775ff85716621f5fdd536de5b417",
-                "versions.yml:md5,a8320e62273b53dca9cfffcb088d3ebb",
+                "versions.yml:md5,02561307297f583bd0d158052302fcf0",
                 "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5",
                 "scrubber.tsv:md5,e957775ff85716621f5fdd536de5b417"
             ]
         ],
-        "timestamp": "2026-04-29T11:26:47.921737698",
+        "timestamp": "2026-05-06T15:48:31.038388568",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -95,7 +147,7 @@
                 "scrubber.tsv:md5,9554a4a6929bbfd485e28acd4a716772"
             ]
         ],
-        "timestamp": "2026-04-29T11:27:14.371261957",
+        "timestamp": "2026-05-06T15:49:11.183710425",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-06T14:51:44Z",
+  "generated": "2026-05-06T20:36:40Z",
   "bactopia_version": "4.0.1",
   "bactopia_py_version": "2.1.6",
   "nf_bactopia_version": "2.1.4",
@@ -423,7 +423,7 @@
       "process_name": "teton-prepare",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "classification"
@@ -634,7 +634,7 @@
       "process_name": "bracken",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -902,6 +902,95 @@
         "output_type": "single",
         "features": [
           "conditional-logic"
+        ]
+      }
+    },
+    "deacon_fetch": {
+      "description": "Fetch a pre-built deacon index for host read filtering.",
+      "path": "modules/deacon/fetch/",
+      "scope": "run",
+      "process_name": "deacon_fetch",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "deacon_filter": {
+      "description": "Filter host reads from sequencing data using minimizer-based comparison.",
+      "path": "modules/deacon/filter/",
+      "scope": "sample",
+      "process_name": "deacon",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "scrub_report"
+      ],
+      "emits_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "deacon_index": {
+      "description": "Build a deacon minimizer index from a FASTA reference genome.",
+      "path": "modules/deacon/index/",
+      "scope": "run",
+      "process_name": "deacon_index",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "no-test"
         ]
       }
     },
@@ -1396,7 +1485,7 @@
       "process_name": "kraken2",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -1888,7 +1977,7 @@
       "process_name": "nohuman_download",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "emits": [
         "db",
@@ -1914,7 +2003,7 @@
       "process_name": "nohuman",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -2681,7 +2770,7 @@
       "process_name": "srahumanscrubber",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -3783,6 +3872,54 @@
         "output_type": "multiple",
         "features": [
           "aggregation"
+        ]
+      }
+    },
+    "deacon": {
+      "description": "Remove host reads from sequencing data using deacon.",
+      "path": "subworkflows/deacon/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database",
+        "download_deacon"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "special_meta",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "scrub_report"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "deacon_fetch",
+          "deacon_filter"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
         ]
       }
     },
@@ -5439,9 +5576,12 @@
       ],
       "takes_params": [
         "use_srascrubber",
+        "use_nohuman",
         "nohuman_db",
         "download_nohuman",
-        "nohuman_save_as_tarball"
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [
@@ -5480,7 +5620,8 @@
         ],
         "subworkflows": [
           "srahumanscrubber",
-          "nohuman"
+          "nohuman",
+          "deacon"
         ]
       },
       "tags": {
@@ -6241,7 +6382,13 @@
       ],
       "takes_params": [
         "db",
-        "use_srascrubber"
+        "use_srascrubber",
+        "use_nohuman",
+        "nohuman_db",
+        "download_nohuman",
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [],
