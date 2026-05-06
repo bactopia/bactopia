@@ -51,9 +51,8 @@
             "properties": {
                 "traitar_db": {
                     "type": "string",
-                    "description": "Path to the Pfam-A HMM file for Traitar",
-                    "fa_icon": "fas fa-font",
-                    "is_required": true
+                    "description": "Path a Traitar database (should contain the Pfam-A.hmm file)",
+                    "fa_icon": "fas fa-font"
                 },
                 "download_traitar": {
                     "type": "boolean",

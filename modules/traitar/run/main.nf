@@ -40,6 +40,9 @@ process TRAITAR_RUN {
     )
     db: Path
 
+    stage:
+    stageAs db, 'staging/db/*'
+
     output:
     record(
         // Named fields (used downstream)
