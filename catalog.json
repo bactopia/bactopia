@@ -299,7 +299,7 @@
       "process_name": "gather",
       "tool": {
         "name": "bactopia-gather",
-        "version": "1.0.5"
+        "version": "1.0.6"
       },
       "takes": [
         "r1_files",

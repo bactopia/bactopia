@@ -161,6 +161,7 @@ params {
     ask_merlin            : Boolean
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
+    staphscan_db_mlst     : Path?
 }
 
 // Core
@@ -260,7 +261,8 @@ workflow {
             params.hicap_model_fp,
             // staphtyper
             params.spatyper_repeats,
-            params.spatyper_repeat_order
+            params.spatyper_repeat_order,
+            params.staphscan_db_mlst
         )
         ch_sample_outputs = ch_sample_outputs.mix(ch_merlin.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(ch_merlin.run_outputs)
