@@ -6,6 +6,31 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
+## v4.0.1 bactopia/bactopia "???" 2026/??/??
+
+### `Added`
+
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `staphscan` - Genome-based surveillance analysis of _Staphylococcus aureus_
+    - `traitar` - Predict phenotypic traits from microbial genomes
+- Added StaphSCAN to the Staphtyper and Merlin subworkflows
+- Deacon as the default host read scrubber (replaces nohuman as default)
+- Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
+- Three-way scrubber selection: deacon (default), nohuman (`--use_nohuman`), SRA Human Scrubber (`--use_srascrubber`)
+- Bump internal bactopia-* pipeline tool versions
+    - `bactopia-gather`: 1.0.5 -> 1.0.6
+
+### `Changed`
+
+- Updated bactopia-teton meta-package from 1.1.3 to 1.1.4 (includes deacon)
+- Deacon modules now use bactopia-teton container instead of standalone deacon container
+- Teton and scrubber workflows default to deacon instead of nohuman for host read removal
+- cleanyerreads workflow supports `--use_deacon` flag for host read removal
+
+### `Fixed`
+
+- float parameters being interpreted as strings in CLI
+
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
 <!-- markdownlint-disable-next-line MD036 -->

@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/deacon/fetch/schema.json",
+    "title": "Deacon Fetch Module",
+    "description": "A module for fetching a pre-built deacon index for host read filtering",
+    "type": "object",
+    "$defs": {
+        "deacon_fetch_parameters": {
+            "title": "Deacon Fetch Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "deacon_index_name": {
+                    "type": "string",
+                    "default": "panhuman-1",
+                    "description": "Name of the pre-built deacon index to fetch",
+                    "fa_icon": "fas fa-font"
+                },
+                "download_deacon": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the deacon index to the datasets cache",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "use_deacon": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use deacon for host read filtering",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/deacon_fetch_parameters"
+        }
+    ]
+}

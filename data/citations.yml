@@ -317,6 +317,13 @@ tools:
     cite: |
       Shen, W [csvtk: A cross-platform, efficient and practical CSV/TSV toolkit in Golang.](https://github.com/shenwei356/csvtk/) (GitHub)
 
+  deacon:
+    name: deacon
+    link: https://github.com/bede/deacon
+    description: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison
+    cite: |
+      Bede N. [deacon: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison.](https://github.com/bede/deacon) (GitHub)
+
   defensefinder:
     name: DefenseFinder
     link: https://github.com/mdmparis/defense-finder
@@ -1038,6 +1045,13 @@ tools:
     cite: |
       Lui J [SsuisSero: Rapid _Streptococcus suis_ serotyping](https://github.com/jimmyliu1326/SsuisSero) (GitHub)
 
+  staphscan:
+    name: StaphSCAN
+    link: https://github.com/riccabolla/StaphSCAN
+    description: Genome-based surveillance analysis of _Staphylococcus aureus_
+    cite: |
+      Bollini R [StaphSCAN (v0.3.0).](https://github.com/riccabolla/StaphSCAN) Zenodo (2026)
+
   staphopiasccmec:
     name: staphopia-sccmec
     link: https://github.com/staphopia/staphopia-sccmec
@@ -1065,6 +1079,13 @@ tools:
     description: Profiling tool for _Mycobacterium tuberculosis_ to detect resistance and strain type
     cite: |
       Phelan JE, O'Sullivan DM, Machado D, Ramos J, Oppong YEA, Campino S, O'Grady J, McNerney R, Hibberd ML, Viveiros M, Huggett JF, Clark TG [Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs.](https://doi.org/10.1186/s13073-019-0650-x) _Genome Med_ 11, 41 (2019)
+
+  traitar:
+    name: Traitar
+    link: https://github.com/nick-youngblut/traitar3/
+    description: Predict phenotypic traits from microbial genomes
+    cite: |
+      Weimann A, Mooren K, Frank J, Pope PB, Gronow S, So AP [From genomes to phenotypes: Traitar, the microbial trait analyzer.](https://doi.org/10.1128/mSystems.00101-16) _mSystems_ 1(6), e00101-16 (2016)
 
   unicycler:
     name: Unicycler

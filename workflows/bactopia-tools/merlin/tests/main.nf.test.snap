@@ -386,7 +386,7 @@
                 
             ]
         ],
-        "timestamp": "2026-04-29T11:25:22.320393361",
+        "timestamp": "2026-05-05T13:26:46.601147931",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -394,7 +394,7 @@
     },
     "Merlin (--full_merlin) - portiera|compressed_fasta_and_fastq": {
         "content": [
-            48,
+            50,
             [
                 "SRR2838702",
                 "SRR2838702/tools",
@@ -679,6 +679,17 @@
                 "SRR2838702/tools/ssuissero/logs/nf.command.sh",
                 "SRR2838702/tools/ssuissero/logs/nf.command.trace",
                 "SRR2838702/tools/ssuissero/logs/versions.yml",
+                "SRR2838702/tools/staphscan",
+                "SRR2838702/tools/staphscan/SRR2838702.tsv",
+                "SRR2838702/tools/staphscan/logs",
+                "SRR2838702/tools/staphscan/logs/nf.command.begin",
+                "SRR2838702/tools/staphscan/logs/nf.command.err",
+                "SRR2838702/tools/staphscan/logs/nf.command.log",
+                "SRR2838702/tools/staphscan/logs/nf.command.out",
+                "SRR2838702/tools/staphscan/logs/nf.command.run",
+                "SRR2838702/tools/staphscan/logs/nf.command.sh",
+                "SRR2838702/tools/staphscan/logs/nf.command.trace",
+                "SRR2838702/tools/staphscan/logs/versions.yml",
                 "SRR2838702/tools/stecfinder",
                 "SRR2838702/tools/stecfinder/SRR2838702.tsv",
                 "SRR2838702/tools/stecfinder/logs",
@@ -909,6 +920,15 @@
                 "bactopia-runs/merlin/merged-results/logs/ssuissero-concat/nf.command.sh",
                 "bactopia-runs/merlin/merged-results/logs/ssuissero-concat/nf.command.trace",
                 "bactopia-runs/merlin/merged-results/logs/ssuissero-concat/versions.yml",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.begin",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.err",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.log",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.out",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.run",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.sh",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/nf.command.trace",
+                "bactopia-runs/merlin/merged-results/logs/staphscan-concat/versions.yml",
                 "bactopia-runs/merlin/merged-results/logs/stecfinder-concat",
                 "bactopia-runs/merlin/merged-results/logs/stecfinder-concat/nf.command.begin",
                 "bactopia-runs/merlin/merged-results/logs/stecfinder-concat/nf.command.err",
@@ -939,6 +959,7 @@
                 "bactopia-runs/merlin/merged-results/sistr.tsv",
                 "bactopia-runs/merlin/merged-results/spatyper.tsv",
                 "bactopia-runs/merlin/merged-results/ssuissero.tsv",
+                "bactopia-runs/merlin/merged-results/staphscan.tsv",
                 "bactopia-runs/merlin/merged-results/stecfinder.tsv",
                 "bactopia-runs/merlin/merged-results/tbprofiler.csv",
                 "bactopia-runs/merlin/merged-results/tbprofiler.variants.csv",
@@ -952,7 +973,7 @@
                 
             ]
         ],
-        "timestamp": "2026-04-29T11:27:06.08576866",
+        "timestamp": "2026-05-05T13:27:58.035964435",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -1,0 +1,38 @@
+nextflow_process {
+    name "Test STAPHSCAN"
+    script "../main.nf"
+    process "STAPHSCAN"
+    tag "modules"
+    tag "staphscan"
+
+    test("staphscan - module - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna")
+                    )
+                )
+                input[1] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

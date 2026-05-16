@@ -1,7 +1,7 @@
 {
     "staphtyper - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
         "content": [
-            6,
+            8,
             [
                 "GCF_000017085",
                 "GCF_000017085/tools",
@@ -46,6 +46,17 @@
                 "GCF_000017085/tools/spatyper/logs/nf.command.sh",
                 "GCF_000017085/tools/spatyper/logs/nf.command.trace",
                 "GCF_000017085/tools/spatyper/logs/versions.yml",
+                "GCF_000017085/tools/staphscan",
+                "GCF_000017085/tools/staphscan/GCF_000017085.tsv",
+                "GCF_000017085/tools/staphscan/logs",
+                "GCF_000017085/tools/staphscan/logs/nf.command.begin",
+                "GCF_000017085/tools/staphscan/logs/nf.command.err",
+                "GCF_000017085/tools/staphscan/logs/nf.command.log",
+                "GCF_000017085/tools/staphscan/logs/nf.command.out",
+                "GCF_000017085/tools/staphscan/logs/nf.command.run",
+                "GCF_000017085/tools/staphscan/logs/nf.command.sh",
+                "GCF_000017085/tools/staphscan/logs/nf.command.trace",
+                "GCF_000017085/tools/staphscan/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/staphtyper",
                 "bactopia-runs/staphtyper/merged-results",
@@ -78,8 +89,18 @@
                 "bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/nf.command.sh",
                 "bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/nf.command.trace",
                 "bactopia-runs/staphtyper/merged-results/logs/spatyper-concat/versions.yml",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.begin",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.err",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.log",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.out",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.run",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.sh",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/nf.command.trace",
+                "bactopia-runs/staphtyper/merged-results/logs/staphscan-concat/versions.yml",
                 "bactopia-runs/staphtyper/merged-results/sccmec.tsv",
                 "bactopia-runs/staphtyper/merged-results/spatyper.tsv",
+                "bactopia-runs/staphtyper/merged-results/staphscan.tsv",
                 "bactopia-runs/staphtyper/nf-reports",
                 "bactopia-runs/staphtyper/nf-reports/staphtyper-dag.dot",
                 "bactopia-runs/staphtyper/nf-reports/staphtyper-report.html",
@@ -99,15 +120,19 @@
                 "versions.yml:md5,4d90b86147c4eb115fc93edc4fa484b8",
                 "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
                 "versions.yml:md5,32d57feabda90e9fe6e0aeb96e5d2352",
+                "GCF_000017085.tsv:md5,c8d77f01e4a86869bc4ae82141b500cb",
+                "versions.yml:md5,9048a4caf373fcb35bb1f990c90ddcf0",
                 "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
                 "versions.yml:md5,d203f21af354f31f3d144e58af47cff3",
                 "versions.yml:md5,35f4a9f839e9fd13b2afb63fecea88b4",
                 "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793",
+                "versions.yml:md5,c707d4291d068c2b150937480568d0b0",
                 "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975",
-                "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54"
+                "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
+                "staphscan.tsv:md5,c8d77f01e4a86869bc4ae82141b500cb"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:45.385204274",
+        "timestamp": "2026-05-05T13:24:58.587861386",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

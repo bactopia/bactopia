@@ -1,18 +1,19 @@
 /**
- * Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.
+ * Determine the agr, spa, SCCmec types and perform genome-based surveillance for _Staphylococcus aureus_ genomes.
  *
  * This subworkflow performs comprehensive typing of *Staphylococcus aureus* genomes by
  * determining the agr locus type using [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE),
- * spa repeat type using [spaTyper](https://github.com/HCGB-IGTP/spaTyper), and SCCmec element
- * type using SCCmec typing. It combines results from multiple typing methods to provide
- * a complete characterization of *S. aureus* strains.
+ * spa repeat type using [spaTyper](https://github.com/HCGB-IGTP/spaTyper), SCCmec element
+ * type using SCCmec typing, and genome-based surveillance using
+ * [StaphSCAN](https://github.com/riccabolla/StaphSCAN). It combines results from multiple
+ * typing and surveillance methods to provide a complete characterization of *S. aureus* strains.
  *
  * @status stable
- * @keywords staphylococcus aureus, agr typing, spa typing, sccmec, strain characterization
+ * @keywords staphylococcus aureus, agr typing, spa typing, sccmec, surveillance, strain characterization
  * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation,database-dependent
- * @citation agrvate, spatyper, sccmec
+ * @citation agrvate, sccmec, spatyper, staphscan
  *
- * @subworkflows agrvate, spatyper, sccmec
+ * @subworkflows agrvate, sccmec, spatyper, staphscan
  *
  * @input record(meta, assembly)
  * - `meta`: Groovy Record containing sample information
@@ -24,6 +25,9 @@
  * @input repeat_order
  * Optional spa repeat order file for improved spa typing
  *
+ * @input staphscan_db_mlst
+ * Custom MLST database directory for StaphSCAN (optional)
+ *
  * @output sample_outputs
  *
  * @output run_outputs
@@ -31,15 +35,17 @@
  */
 nextflow.enable.types = true
 
-include { AGRVATE  } from '../agrvate/main'
-include { SPATYPER } from '../spatyper/main'
-include { SCCMEC   } from '../sccmec/main'
+include { AGRVATE   } from '../agrvate/main'
+include { SPATYPER  } from '../spatyper/main'
+include { SCCMEC    } from '../sccmec/main'
+include { STAPHSCAN } from '../staphscan/main'
 
 workflow STAPHTYPER {
     take:
     assembly: Channel<Record>
     repeats: Path?
     repeat_order: Path?
+    staphscan_db_mlst: Path?
 
     main:
     // agrvate - agr locus type and agr operon variants
@@ -51,8 +57,11 @@ workflow STAPHTYPER {
     // sccmec - SCCmec type based on targets and full cassettes
     ch_sccmec = SCCMEC(assembly)
 
+    // staphscan - genome-based surveillance
+    ch_staphscan = STAPHSCAN(assembly, staphscan_db_mlst)
+
     emit:
     // Published outputs
-    sample_outputs = ch_agrvate.sample_outputs.mix(ch_spatyper.sample_outputs, ch_sccmec.sample_outputs)
-    run_outputs = ch_agrvate.run_outputs.mix(ch_spatyper.run_outputs, ch_sccmec.run_outputs)
+    sample_outputs = ch_agrvate.sample_outputs.mix(ch_sccmec.sample_outputs, ch_spatyper.sample_outputs, ch_staphscan.sample_outputs)
+    run_outputs = ch_agrvate.run_outputs.mix(ch_sccmec.run_outputs, ch_spatyper.run_outputs, ch_staphscan.run_outputs)
 }

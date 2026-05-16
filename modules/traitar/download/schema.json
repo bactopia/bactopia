@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/traitar/download/schema.json",
+    "title": "Traitar Download Module",
+    "description": "A module for downloading the Pfam database required by Traitar",
+    "type": "object",
+    "$defs": {
+        "traitar_download_parameters": {
+            "title": "Traitar Download Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "traitar_db": {
+                    "type": "string",
+                    "description": "Path a Traitar database (should contain the Pfam-A.hmm file)",
+                    "fa_icon": "fas fa-font",
+                    "is_required": true
+                },
+                "download_traitar": {
+                    "type": "boolean",
+                    "description": "Download the Pfam database to the path given by --traitar_db",
+                    "default": false,
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/traitar_download_parameters"
+        }
+    ]
+}

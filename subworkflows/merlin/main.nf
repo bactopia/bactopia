@@ -12,8 +12,8 @@
  * @tags complexity:complex input-type:single output-type:multiple features:conditional-logic,components
  * @citation mash
  *
- * @subworkflows merlindist, clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,
- *              legsta, lissero, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
+ * @subworkflows clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,
+ *              legsta, lissero, merlindist, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
@@ -41,6 +41,9 @@
  *
  * @input staphtyper_repeat_order
  * Staphylococcus aureus repeat order file for spa typing (optional)
+ *
+ * @input staphscan_db_mlst
+ * Custom MLST database directory for StaphSCAN surveillance (optional)
  *
  * @output sample_outputs
  * Mixed per-sample records from merlindist and all activated species-specific typing
@@ -85,6 +88,7 @@ workflow MERLIN {
     hicap_model_fp: Path?
     staphtyper_repeats: Path?
     staphtyper_repeat_order: Path?
+    staphscan_db_mlst: Path?
 
     main:
     // ID potential species
@@ -141,7 +145,7 @@ workflow MERLIN {
 
     // Staphylococcus
     ch_staphylococcus = ch_merlindist.sample_outputs.filter { r -> r.staphylococcus != null }
-    ch_staphtyper = STAPHTYPER(ch_staphylococcus.map(forAssembly), staphtyper_repeats, staphtyper_repeat_order)
+    ch_staphtyper = STAPHTYPER(ch_staphylococcus.map(forAssembly), staphtyper_repeats, staphtyper_repeat_order, staphscan_db_mlst)
 
     // Streptococcus
     ch_streptococcus = ch_merlindist.sample_outputs.filter { r -> r.streptococcus != null }

@@ -1,0 +1,24 @@
+{
+    "deacon - subworkflow - SRR2838702": {
+        "content": [
+            {
+                "id": "SRR2838702-DEACON:DEACON_MODULE",
+                "logs_dir": "SRR2838702/tools/deacon/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/deacon",
+                "process_name": "deacon",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,9d3e1c1b5110e0048698861366ed5151"
+            ]
+        ],
+        "timestamp": "2026-05-06T14:31:09.736499752",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

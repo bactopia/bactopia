@@ -1,4 +1,4 @@
-{% set version = '4.0.0' %}
+{% set version = '4.0.1' %}
 
 package:
   name: bactopia
@@ -17,7 +17,7 @@ requirements:
     - python >3.9,<3.14
     - wget
   run:
-    - bactopia-py >=2.1.6
+    - bactopia-py >=2.2.0
     - conda >=25
     - coreutils
     - mamba >=2

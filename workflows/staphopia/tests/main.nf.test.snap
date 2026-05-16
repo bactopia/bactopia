@@ -1,7 +1,7 @@
 {
     "Staphopia (pe) - SRR2838702|portiera|illumina": {
         "content": [
-            17,
+            19,
             [
                 "SRR2838702",
                 "SRR2838702/main",
@@ -167,6 +167,17 @@
                 "SRR2838702/tools/spatyper/logs/nf.command.sh",
                 "SRR2838702/tools/spatyper/logs/nf.command.trace",
                 "SRR2838702/tools/spatyper/logs/versions.yml",
+                "SRR2838702/tools/staphscan",
+                "SRR2838702/tools/staphscan/SRR2838702.tsv",
+                "SRR2838702/tools/staphscan/logs",
+                "SRR2838702/tools/staphscan/logs/nf.command.begin",
+                "SRR2838702/tools/staphscan/logs/nf.command.err",
+                "SRR2838702/tools/staphscan/logs/nf.command.log",
+                "SRR2838702/tools/staphscan/logs/nf.command.out",
+                "SRR2838702/tools/staphscan/logs/nf.command.run",
+                "SRR2838702/tools/staphscan/logs/nf.command.sh",
+                "SRR2838702/tools/staphscan/logs/nf.command.trace",
+                "SRR2838702/tools/staphscan/logs/versions.yml",
                 "bactopia-runs",
                 "bactopia-runs/staphopia",
                 "bactopia-runs/staphopia/merged-results",
@@ -237,10 +248,20 @@
                 "bactopia-runs/staphopia/merged-results/logs/spatyper-concat/nf.command.sh",
                 "bactopia-runs/staphopia/merged-results/logs/spatyper-concat/nf.command.trace",
                 "bactopia-runs/staphopia/merged-results/logs/spatyper-concat/versions.yml",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.begin",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.err",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.log",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.out",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.run",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.sh",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/nf.command.trace",
+                "bactopia-runs/staphopia/merged-results/logs/staphscan-concat/versions.yml",
                 "bactopia-runs/staphopia/merged-results/meta.tsv",
                 "bactopia-runs/staphopia/merged-results/mlst.tsv",
                 "bactopia-runs/staphopia/merged-results/sccmec.tsv",
                 "bactopia-runs/staphopia/merged-results/spatyper.tsv",
+                "bactopia-runs/staphopia/merged-results/staphscan.tsv",
                 "bactopia-runs/staphopia/nf-reports",
                 "bactopia-runs/staphopia/nf-reports/staphopia-dag.dot",
                 "bactopia-runs/staphopia/nf-reports/staphopia-report.html",
@@ -257,16 +278,18 @@
                 "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
                 "versions.yml:md5,4d90b86147c4eb115fc93edc4fa484b8",
                 "versions.yml:md5,32d57feabda90e9fe6e0aeb96e5d2352",
+                "versions.yml:md5,9048a4caf373fcb35bb1f990c90ddcf0",
                 "versions.yml:md5,d203f21af354f31f3d144e58af47cff3",
                 "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
                 "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
                 "versions.yml:md5,61924107a406c136f55c445d470721f7",
                 "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc",
                 "versions.yml:md5,35f4a9f839e9fd13b2afb63fecea88b4",
-                "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793"
+                "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793",
+                "versions.yml:md5,c707d4291d068c2b150937480568d0b0"
             ]
         ],
-        "timestamp": "2026-04-29T11:29:39.249406285",
+        "timestamp": "2026-05-05T13:34:09.075806826",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

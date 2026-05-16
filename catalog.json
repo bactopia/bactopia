@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-04-29T11:30:57Z",
-  "bactopia_version": "4.0.0",
-  "bactopia_py_version": "2.1.2",
-  "nf_bactopia_version": "2.1.0",
+  "generated": "2026-05-06T20:36:40Z",
+  "bactopia_version": "4.0.1",
+  "bactopia_py_version": "2.1.6",
+  "nf_bactopia_version": "2.1.5",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",
@@ -299,7 +299,7 @@
       "process_name": "gather",
       "tool": {
         "name": "bactopia-gather",
-        "version": "1.0.5"
+        "version": "1.0.6"
       },
       "takes": [
         "r1_files",
@@ -423,7 +423,7 @@
       "process_name": "teton-prepare",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "classification"
@@ -634,7 +634,7 @@
       "process_name": "bracken",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -902,6 +902,95 @@
         "output_type": "single",
         "features": [
           "conditional-logic"
+        ]
+      }
+    },
+    "deacon_fetch": {
+      "description": "Fetch a pre-built deacon index for host read filtering.",
+      "path": "modules/deacon/fetch/",
+      "scope": "run",
+      "process_name": "deacon_fetch",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "deacon_filter": {
+      "description": "Filter host reads from sequencing data using minimizer-based comparison.",
+      "path": "modules/deacon/filter/",
+      "scope": "sample",
+      "process_name": "deacon",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "scrub_report"
+      ],
+      "emits_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "deacon_index": {
+      "description": "Build a deacon minimizer index from a FASTA reference genome.",
+      "path": "modules/deacon/index/",
+      "scope": "run",
+      "process_name": "deacon_index",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "no-test"
         ]
       }
     },
@@ -1396,7 +1485,7 @@
       "process_name": "kraken2",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -1888,7 +1977,7 @@
       "process_name": "nohuman_download",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "emits": [
         "db",
@@ -1914,7 +2003,7 @@
       "process_name": "nohuman",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -2681,7 +2770,7 @@
       "process_name": "srahumanscrubber",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -2752,6 +2841,31 @@
       "tool": {
         "name": "staphopia-sccmec",
         "version": "1.0.0"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "path": "modules/staphscan/",
+      "scope": "sample",
+      "process_name": "staphscan",
+      "tool": {
+        "name": "staphscan",
+        "version": "0.3.1"
       },
       "takes": [
         "fna"
@@ -2903,6 +3017,55 @@
         "output_type": "multiple",
         "features": [
           "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "traitar_download": {
+      "description": "Download the Pfam database required by Traitar.",
+      "path": "modules/traitar/download/",
+      "scope": "run",
+      "process_name": "traitar_download",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "traitar_run": {
+      "description": "Predict phenotypic traits from microbial genomes.",
+      "path": "modules/traitar/run/",
+      "scope": "sample",
+      "process_name": "traitar",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "majority_tsv",
+        "single_tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
           "conditional-logic"
         ]
       }
@@ -3712,6 +3875,54 @@
         ]
       }
     },
+    "deacon": {
+      "description": "Remove host reads from sequencing data using deacon.",
+      "path": "subworkflows/deacon/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database",
+        "download_deacon"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "special_meta",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "scrub_report"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "deacon_fetch",
+          "deacon_filter"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
+        ]
+      }
+    },
     "defensefinder": {
       "description": "Systematically search for anti-phage defense systems.",
       "path": "subworkflows/defensefinder/",
@@ -4484,7 +4695,8 @@
         "hicap_database_dir",
         "hicap_model_fp",
         "staphtyper_repeats",
-        "staphtyper_repeat_order"
+        "staphtyper_repeat_order",
+        "staphscan_db_mlst"
       ],
       "emits": {
         "sample_outputs": [],
@@ -5364,9 +5576,12 @@
       ],
       "takes_params": [
         "use_srascrubber",
+        "use_nohuman",
         "nohuman_db",
         "download_nohuman",
-        "nohuman_save_as_tarball"
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [
@@ -5405,7 +5620,8 @@
         ],
         "subworkflows": [
           "srahumanscrubber",
-          "nohuman"
+          "nohuman",
+          "deacon"
         ]
       },
       "tags": {
@@ -5883,15 +6099,49 @@
         ]
       }
     },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "path": "subworkflows/staphscan/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "staphscan",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
     "staphtyper": {
-      "description": "Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.",
+      "description": "Determine the agr, spa, SCCmec types and perform genome-based surveillance for _Staphylococcus aureus_ genomes.",
       "path": "subworkflows/staphtyper/",
       "takes": [
         "assembly"
       ],
       "takes_params": [
         "repeats",
-        "repeat_order"
+        "repeat_order",
+        "staphscan_db_mlst"
       ],
       "emits": {
         "sample_outputs": [],
@@ -5904,7 +6154,8 @@
         "subworkflows": [
           "agrvate",
           "spatyper",
-          "sccmec"
+          "sccmec",
+          "staphscan"
         ]
       },
       "tags": {
@@ -6131,7 +6382,13 @@
       ],
       "takes_params": [
         "db",
-        "use_srascrubber"
+        "use_srascrubber",
+        "use_nohuman",
+        "nohuman_db",
+        "download_nohuman",
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [],
@@ -6157,6 +6414,45 @@
           "aggregation",
           "database-dependent",
           "conditional-logic"
+        ]
+      }
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "path": "subworkflows/traitar/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "database",
+        "download_traitar"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "majority_tsv",
+          "single_tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "traitar_download",
+          "traitar_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
         ]
       }
     }
@@ -6854,6 +7150,17 @@
         "ssuissero"
       ]
     },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/staphscan/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "staphscan"
+      ]
+    },
     "staphtyper": {
       "description": "Comprehensive typing of Staphylococcus aureus genomes.",
       "type": "tool",
@@ -6919,6 +7226,17 @@
       ],
       "subworkflows": [
         "tbprofiler"
+      ]
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/traitar/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "traitar"
       ]
     },
     "cleanyerreads": {

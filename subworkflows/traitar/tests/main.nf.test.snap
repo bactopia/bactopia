@@ -1,0 +1,33 @@
+{
+    "traitar - subworkflow - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-TRAITAR:TRAITAR_RUN",
+                "logs_dir": "GCF_000017085/tools/traitar//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/traitar/",
+                "process_name": "traitar",
+                "scope": "sample"
+            },
+            [
+                "versions.yml:md5,f25ec232bc89b44f8f431a04aee60879"
+            ],
+            {
+                "id": "traitar-majority-TRAITAR:CSVTK_CONCAT_MAJORITY",
+                "logs_dir": "merged-results/logs/traitar-majority-concat/",
+                "name": "traitar-majority",
+                "output_dir": "merged-results",
+                "process_name": "traitar-majority-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,0876b2d126e96f86b158fe8dddf4f05f"
+            ]
+        ],
+        "timestamp": "2026-05-06T08:40:48.418831853",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

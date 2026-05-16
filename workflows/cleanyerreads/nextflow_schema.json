@@ -514,6 +514,87 @@
                 }
             }
         },
+        "deacon_fetch_parameters": {
+            "title": "Deacon Fetch Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "deacon_index_name": {
+                    "type": "string",
+                    "default": "panhuman-1",
+                    "description": "Name of the pre-built deacon index to fetch",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "download_deacon": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download the deacon index to the datasets cache",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "use_deacon": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use deacon for host read filtering",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                }
+            }
+        },
+        "deacon_filter_parameters": {
+            "title": "Deacon Filter Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "deacon_abs_threshold": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum absolute number of minimizer hits for a match",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "deacon_db": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to a pre-existing deacon index (.idx) for host read filtering",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "deacon_deplete": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Discard matching sequences instead of keeping them",
+                    "fa_icon": "fas fa-toggle-on",
+                    "hidden": true
+                },
+                "deacon_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional deacon filter options not covered by other parameters",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "deacon_prefix_length": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Search only the first N nucleotides per sequence (0 for all)",
+                    "fa_icon": "fas fa-hashtag",
+                    "hidden": true
+                },
+                "deacon_rel_threshold": {
+                    "type": "number",
+                    "default": 0.01,
+                    "description": "Minimum relative proportion (0.0-1.0) of minimizer hits for a match",
+                    "fa_icon": "fas fa-percentage",
+                    "hidden": true
+                }
+            }
+        },
         "optional_parameters": {
             "title": "Optional Parameters",
             "type": "object",
@@ -877,6 +958,12 @@
         },
         {
             "$ref": "#/$defs/nohuman_run_parameters"
+        },
+        {
+            "$ref": "#/$defs/deacon_fetch_parameters"
+        },
+        {
+            "$ref": "#/$defs/deacon_filter_parameters"
         },
         {
             "$ref": "#/$defs/optional_parameters"

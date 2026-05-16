@@ -1,0 +1,80 @@
+{
+    "deacon_filter - module - ERR3772599 - LR": {
+        "content": [
+            {
+                "id": "ERR3772599-DEACON_FILTER",
+                "logs_dir": "ERR3772599/tools/deacon/logs/",
+                "name": "ERR3772599",
+                "output_dir": "ERR3772599/tools/deacon",
+                "process_name": "deacon",
+                "runtype": "lr",
+                "scope": "sample",
+                "single_end": true
+            },
+            {
+                "name": "ERR3772599"
+            },
+            "ERR3772599.scrub.report.tsv:md5,09560c6e71aa935477497e7c70b09783",
+            [
+                "versions.yml:md5,7b45b6c5acaead3263ddcf10a6b7b1c3"
+            ]
+        ],
+        "timestamp": "2026-05-06T14:35:01.429376554",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "deacon_filter - module - SRR2838702 - SE": {
+        "content": [
+            {
+                "id": "SRR2838702-DEACON_FILTER",
+                "logs_dir": "SRR2838702/tools/deacon/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/deacon",
+                "process_name": "deacon",
+                "runtype": "se",
+                "scope": "sample",
+                "single_end": true
+            },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,e410acaf72867214ee63f0e2927141b7",
+            [
+                "versions.yml:md5,7b45b6c5acaead3263ddcf10a6b7b1c3"
+            ]
+        ],
+        "timestamp": "2026-05-06T14:34:44.548001567",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "deacon_filter - module - SRR2838702 - PE": {
+        "content": [
+            {
+                "id": "SRR2838702-DEACON_FILTER",
+                "logs_dir": "SRR2838702/tools/deacon/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/deacon",
+                "process_name": "deacon",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            {
+                "name": "SRR2838702"
+            },
+            "SRR2838702.scrub.report.tsv:md5,fa4967e6660c5d5939e60f387876500f",
+            [
+                "versions.yml:md5,7b45b6c5acaead3263ddcf10a6b7b1c3"
+            ]
+        ],
+        "timestamp": "2026-05-06T14:34:29.120029938",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

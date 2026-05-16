@@ -3,16 +3,16 @@
  * Removal of human and contaminant sequences from metagenomic reads.
  *
  * This Bactopia Tool removes human and other contaminant sequences from metagenomic reads using
- * either [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber) or
- * [nohuman](https://github.com/mbhall88/nohuman) with the HPRC human database. The tool provides flexible contamination removal
- * with detailed reporting of read classification and filtering statistics. It processes paired-end
- * or single-end reads, producing cleaned FASTQ files with human sequences removed and comprehensive
- * reports documenting the decontamination process.
+ * [deacon](https://github.com/bede/deacon) (default), [nohuman](https://github.com/mbhall88/nohuman),
+ * or [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber). The tool provides flexible
+ * contamination removal with detailed reporting of read classification and filtering statistics.
+ * It processes paired-end or single-end reads, producing cleaned FASTQ files with human sequences
+ * removed and comprehensive reports documenting the decontamination process.
  *
  * @status stable
  * @keywords metagenomics, decontamination, human removal, read filtering, bactopia-tool
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional
- * @citation kraken2, srahumanscrubber
+ * @citation deacon, kraken2, srahumanscrubber
  *
  * @subworkflows utils_bactopia-tools, scrubber
  *
@@ -20,7 +20,16 @@
  * Directory containing results from a completed Bactopia analysis run
  *
  * @input use_srascrubber
- * Boolean flag to choose between SRA Human Scrubber (true) or nohuman (false) for decontamination
+ * Boolean flag to use SRA Human Scrubber for decontamination
+ *
+ * @input use_nohuman
+ * Boolean flag to use nohuman for decontamination
+ *
+ * @input deacon_db
+ * Path to a pre-existing deacon minimizer index (.idx) for host read filtering
+ *
+ * @input download_deacon
+ * Download the deacon index to the datasets cache
  *
  * @section Per-Sample Results
  * @publish *.scrubbed.fastq.gz          Cleaned reads after human sequence removal
@@ -43,9 +52,12 @@ params {
 
     // Tool-specific parameters
     use_srascrubber         : Boolean
+    use_nohuman             : Boolean
     nohuman_db              : Path?
     download_nohuman        : Boolean
     nohuman_save_as_tarball : Boolean
+    deacon_db               : Path?
+    download_deacon         : Boolean
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -58,9 +70,12 @@ workflow {
     ch_scrubber = SCRUBBER(
         ch_bactopiatool.reads,
         params.use_srascrubber,
+        params.use_nohuman,
         params.nohuman_db,
         params.download_nohuman,
-        params.nohuman_save_as_tarball
+        params.nohuman_save_as_tarball,
+        params.deacon_db,
+        params.download_deacon
     )
 
     publish:
