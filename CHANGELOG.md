@@ -17,6 +17,8 @@ sidebar_position: 5000
 - Deacon as the default host read scrubber (replaces nohuman as default)
 - Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
 - Three-way scrubber selection: deacon (default), nohuman (`--use_nohuman`), SRA Human Scrubber (`--use_srascrubber`)
+- Bump internal bactopia-* pipeline tool versions
+    - `bactopia-gather`: 1.0.5 -> 1.0.6
 
 ### `Changed`
 

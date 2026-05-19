@@ -27,7 +27,7 @@
                 },
                 "genome_size": {
                     "type": "string",
-                    "default": "1",
+                    "default": "0",
                     "description": "Expected genome size (bp) for all samples",
                     "help": "If `--species` is used, `min`, `median`, `mean`, or `max` can be used for `--genome_size`",
                     "fa_icon": "fas fa-arrows-alt-h",

@@ -16,7 +16,7 @@ jobs:
           ref: dev
 
       - name: Setup Miniforge
-        uses: conda-incubator/setup-miniconda@v3
+        uses: conda-incubator/setup-miniconda@v4
         with:
           activate-environment: anaconda-client-env
           conda-remove-defaults: "true"
@@ -26,7 +26,7 @@ jobs:
         run: |
           # Start build
           conda install -c conda-forge -c bioconda anaconda-client conda-build conda-verify
-          cd data/conda/ && conda build -c conda-forge -c bioconda --output-folder . . 
+          cd data/conda/ && conda-build -c conda-forge -c bioconda --output-folder . . 
           anaconda upload --force ./noarch/*.conda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
