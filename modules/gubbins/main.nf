@@ -75,7 +75,7 @@ process GUBBINS {
     def is_compressed = aln.getName().endsWith(".gz") ? true : false
     def aln_name = aln.getName().replace(".gz", "")
     """
-    export NUMBA_CACHE_DIR = "${task.workDir}/numba_cache"
+    export NUMBA_CACHE_DIR="\${TMPDIR:-/tmp}"
 
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${aln} > ${aln_name}
