@@ -1066,6 +1066,13 @@ tools:
     cite: |
       Zhang X, Payne M, Kaur S, and Lan R [Improved Genomic Identification, Clustering, and Serotyping of Shiga Toxin-Producing Escherichia coli Using Cluster/Serotype-Specific Gene Markers.](https://doi.org/10.3389/fcimb.2021.772574) _Frontiers in Cellular and Infection Microbiology_, 11, 772574. (2021)
 
+  stxtyper:
+    name: StxTyper
+    link: https://github.com/ncbi/stxtyper
+    description: Identify and type Stx operons from assembled genomic sequences
+    cite: |
+      Feldgarden M, Brover V, Gonzalez-Escalona N, Frrat JG, Haendiges J, Haft DH, Hoffmann M, Pettengill JB, Prasad AB, Tillman GE, Tyson GH, Klimke W [AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence.](https://doi.org/10.1038/s41598-021-91456-0) _Scientific Reports_ 11, 12728 (2021)
+
   sylph:
     name: Sylph
     link: https://github.com/bluenote-1/sylph

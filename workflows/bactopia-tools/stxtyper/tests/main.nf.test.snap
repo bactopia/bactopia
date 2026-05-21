@@ -1,0 +1,51 @@
+{
+    "stxtyper - GCF_001695515|escherichia_coli|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_001695515",
+                "GCF_001695515/tools",
+                "GCF_001695515/tools/stxtyper",
+                "GCF_001695515/tools/stxtyper/GCF_001695515.tsv",
+                "GCF_001695515/tools/stxtyper/logs",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.begin",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.err",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.log",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.out",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.run",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.sh",
+                "GCF_001695515/tools/stxtyper/logs/nf.command.trace",
+                "GCF_001695515/tools/stxtyper/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/stxtyper",
+                "bactopia-runs/stxtyper/merged-results",
+                "bactopia-runs/stxtyper/merged-results/logs",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.begin",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.err",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.log",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.out",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.run",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.sh",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/nf.command.trace",
+                "bactopia-runs/stxtyper/merged-results/logs/stxtyper-concat/versions.yml",
+                "bactopia-runs/stxtyper/merged-results/stxtyper.tsv",
+                "bactopia-runs/stxtyper/nf-reports",
+                "bactopia-runs/stxtyper/nf-reports/stxtyper-dag.dot",
+                "bactopia-runs/stxtyper/nf-reports/stxtyper-report.html",
+                "bactopia-runs/stxtyper/nf-reports/stxtyper-timeline.html"
+            ],
+            [
+                "GCF_001695515.tsv:md5,001feff7db6e3fad984fdc36327122cc",
+                "versions.yml:md5,32d442d87815f24b2b14886add947195",
+                "versions.yml:md5,3eac79f1285e1d758e61e2f98bc6a78c",
+                "stxtyper.tsv:md5,99f9ffe60fe519d684ee7943641022d2"
+            ]
+        ],
+        "timestamp": "2026-05-21T13:59:39.436267755",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

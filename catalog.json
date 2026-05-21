@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-05-06T20:36:40Z",
+  "generated": "2026-05-21T19:57:48Z",
   "bactopia_version": "4.0.1",
-  "bactopia_py_version": "2.1.6",
-  "nf_bactopia_version": "2.1.5",
+  "bactopia_py_version": "2.2.0",
+  "nf_bactopia_version": "2.1.6",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",
@@ -299,7 +299,7 @@
       "process_name": "gather",
       "tool": {
         "name": "bactopia-gather",
-        "version": "1.0.6"
+        "version": "1.1.1"
       },
       "takes": [
         "r1_files",
@@ -2910,6 +2910,30 @@
       ],
       "tags": {
         "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "path": "modules/stxtyper/",
+      "scope": "sample",
+      "process_name": "stxtyper",
+      "tool": {
+        "name": "ncbi-stxtyper",
+        "version": "1.0.45"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
         "input_type": "single",
         "output_type": "single",
         "features": [
@@ -6209,6 +6233,36 @@
         ]
       }
     },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "path": "subworkflows/stxtyper/",
+      "takes": [
+        "fna"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "stxtyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
     "sylph": {
       "description": "Profile microbial composition using Sylph.",
       "path": "subworkflows/sylph/",
@@ -7182,6 +7236,17 @@
       ],
       "subworkflows": [
         "stecfinder"
+      ]
+    },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/stxtyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "stxtyper"
       ]
     },
     "sylph": {

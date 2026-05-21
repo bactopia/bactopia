@@ -1,0 +1,23 @@
+{
+    "stxtyper - module - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-STXTYPER",
+                "logs_dir": "GCF_001695515/tools/stxtyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/stxtyper/",
+                "process_name": "stxtyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,001feff7db6e3fad984fdc36327122cc",
+            [
+                "versions.yml:md5,f9ebd9c1f28e4ce3da541f707abeaa52"
+            ]
+        ],
+        "timestamp": "2026-05-21T13:54:27.24411333",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}
