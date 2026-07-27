@@ -87,10 +87,10 @@ bactopia/
 - **Contents**:
     - `conda/` - Development environment specifications
     - `citations.yml` - Tool citations and references
-    - `proteins.faa` - Protein reference file
+    - `proteins.faa` - Trusted protein reference used by Prokka (`--prokka_proteins`)
     - Image assets (logos, banners)
 
-Note: `catalog.json` (auto-generated component catalog) and `llms.txt` (AI discovery index) live at the repo root, not under `data/`.
+Note: `catalog.json` (auto-generated component catalog) and `llms.txt` (AI discovery index) live at the repo root, not under `data/`. Modules never ship their own data — vendored static files live here and are referenced from `module.config` via `${params.bactopia_dir}`; downloadable databases go through a `download`/`fetch` submodule instead.
 
 ### `/bin/`
 - **Purpose**: CLI wrapper scripts for the bioconda `bactopia` package

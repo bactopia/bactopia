@@ -40,10 +40,18 @@ sidebar_position: 5000
 - Deacon modules now use bactopia-teton container instead of standalone deacon container
 - Teton and scrubber workflows default to deacon instead of nohuman for host read removal
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal
+- Every generated workflow `nextflow.config` now declares `params.bactopia_dir`, an absolute
+  anchor to the Bactopia repo root, so `module.config` can reference vendored data under
+  `data/` regardless of tier or launch directory
 
 ### `Fixed`
 
 - float parameters being interpreted as strings in CLI
+- `--prokka_proteins` defaulting to `./data/proteins.faa`, which Nextflow resolves against the
+  launch directory rather than the repo. Only runs launched from the repo root picked up the
+  bundled protein set; every other run failed with
+  `Input file './data/proteins.faa' does not exist`. The default is now anchored on the new
+  `params.bactopia_dir` and resolves to `data/proteins.faa` from any working directory
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 

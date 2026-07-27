@@ -762,6 +762,18 @@ process {
 - First line is a section comment using the module name in snake_case: `// {tool}` or `// {tool}_{process}`
 - Modules with no parameters use `// No parameters` (capital N)
 - `fa_icon` in schema.json is determined by type: `string` = `fas fa-font`, `integer` = `fas fa-hashtag`, `number` = `fas fa-percentage`, `boolean` = `fas fa-toggle-on`
+- **Modules never ship their own data.** There is no `modules/{tool}/data/` directory in this
+  repo, and adding one is not the pattern: downloadable databases go through a
+  `download`/`fetch` submodule (see `bakta`, `checkm2`, `deacon`, `eggnog`, `gtdbtk`, `midas`,
+  `nohuman`, `traitar`), and the one vendored static file lives at the repo root in `data/`
+- Paths to that **vendored data** must be anchored on `${params.bactopia_dir}` (the repo root,
+  emitted into every generated workflow `nextflow.config`), e.g.
+  `prokka_proteins = "${params.bactopia_dir}/data/proteins.faa"`. A bare relative path such as
+  `"./data/proteins.faa"` resolves against **launchDir**, not the module, and `${projectDir}`
+  differs per tier. Enforced by lint rule `MC016`; the matching workflow-side anchor is
+  enforced by `W022`. Component `tests/nextflow.config` files that include such a
+  `module.config` must define `bactopia_dir = "${projectDir}/../../.."` (under nf-test,
+  `projectDir` is the `tests/` directory)
 
 ### 10.2 Key Properties
 

@@ -70,4 +70,40 @@ nextflow_process {
             )
         }
     }
+
+    test("prokka - module - SRR2838702 - bundled proteins default") {
+        // Exercises the shipped prokka_proteins default rather than overriding it.
+        // The default is anchored on params.bactopia_dir, so this fails if the
+        // anchor is wrong or the vendored FASTA is missing.
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        fna: file("${params.test_data_dir}/datasets/generic/GCF_000292685.fna")
+                    )
+                )
+                input[1] = file(params.prokka_proteins, checkIfExists: true)
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.txt,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
 }
