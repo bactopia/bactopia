@@ -1,4 +1,29 @@
 {
+    "mobsuite_recon - module - GCF_006364235 - no plasmids": {
+        "content": [
+            {
+                "id": "GCF_006364235-MOBSUITE_RECON",
+                "logs_dir": "GCF_006364235/tools/mobsuite//logs/",
+                "name": "GCF_006364235",
+                "output_dir": "GCF_006364235/tools/mobsuite/",
+                "process_name": "mobsuite",
+                "scope": "sample"
+            },
+            "GCF_006364235-chromosome.fasta.gz:md5,6a71b83161328f8b0d8df42f1d30e853",
+            "GCF_006364235-contig_report.txt:md5,8aa74842a7a0af81d899b4d64f5f7c5b",
+            [
+                
+            ],
+            [
+                "versions.yml:md5,ff6f105fca429e7482ac358949a11f93"
+            ]
+        ],
+        "timestamp": "2026-07-27T16:45:56.17998057",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
     "mobsuite_recon - module - GCF_000017085 - compressed": {
         "content": [
             {

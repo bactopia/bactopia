@@ -64,6 +64,11 @@ sidebar_position: 5000
 - `mlst` Bactopia Tool having no way to source the PubMLST database automatically. It passed
   `params.mlst_db` straight through, so `--mlst_db` was effectively required. It now falls back to
   the `bactopia_datasets` subworkflow, matching `amrfinderplus`
+- `mobsuite` failing on any sample with no reconstructed plasmids. After `chromosome.fasta` was
+  moved out of `supplemental/`, the cleanup step ran `gzip supplemental/*.fasta` on an unguarded
+  glob; with no plasmids nothing matched, `gzip` exited non-zero, and Nextflow's `bash -ue`
+  aborted the task even though `mob_recon` had succeeded. Cleanup now uses `find -exec`, which
+  is a no-op when there is nothing to compress
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
