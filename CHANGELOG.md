@@ -6,7 +6,7 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
-## v4.0.1 bactopia/bactopia "???" 2026/??/??
+## v4.1.0 bactopia/bactopia "???" 2026/??/??
 
 ### `Added`
 
@@ -52,6 +52,10 @@ sidebar_position: 5000
   bundled protein set; every other run failed with
   `Input file './data/proteins.faa' does not exist`. The default is now anchored on the new
   `params.bactopia_dir` and resolves to `data/proteins.faa` from any working directory
+- `fastani` documenting a `--fastani_skip_pairwise` parameter that does not exist. The parameter
+  the workflow actually reads is `--fastani_pairwise`, so neither `--help` nor the docs site
+  mentioned the only way to run FastANI without `--fastani_reference`, `--accession`,
+  `--accessions`, or `--species`. The requirement is now stated in the `fastani` GroovyDoc
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 

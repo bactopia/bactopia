@@ -6,6 +6,13 @@
  * nucleotide identity (ANI) between samples. It can also calculate ANI against reference genomes
  * by downloading NCBI assemblies using genome-dl.
  *
+ * If you do not provide `--fastani_pairwise` then you must provide at least one:
+ *
+ *   - `--fastani_reference` a local FASTA file to use as a reference for ANI comparison
+ *   - `--accession` a specific NCBI Assembly accession to download
+ *   - `--accessions` a path to a file containing list of NCBI Assembly accessions to download
+ *   - `--species` a species name to download all NCBI genomes for comparison
+ *
  * @status stable
  * @keywords ani, average nucleotide identity, similarity, comparative genomics, bactopia-tool
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,comparative
@@ -20,7 +27,7 @@
  * Path to reference FASTA file for ANI comparison
  *
  * @input fastani_pairwise
- * Perform pairwise ANI calculation between all samples
+ * Add every sample to the reference set, comparing each sample against every other sample
  *
  * @input species
  * Species name to download all NCBI genomes for comparison

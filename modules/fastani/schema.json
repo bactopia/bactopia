@@ -37,10 +37,10 @@
                     "description": "fragment length",
                     "fa_icon": "fas fa-hashtag"
                 },
-                "fastani_skip_pairwise": {
+                "fastani_pairwise": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Only use RefSeq or local assemblies for ANI calculations",
+                    "description": "Add every sample to the reference set, comparing each sample against every other sample in addition to any other references",
                     "fa_icon": "fas fa-toggle-on"
                 }
             }
