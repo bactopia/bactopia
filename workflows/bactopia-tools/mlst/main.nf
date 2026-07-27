@@ -12,13 +12,14 @@
  * @tags complexity:simple input-type:parameter output-type:multiple features:bactopia-tool,aggregation
  * @citation csvtk, mlst, pubmlst
  *
- * @subworkflows utils_bactopia-tools, mlst
+ * @subworkflows utils_bactopia-tools, mlst, bactopia_datasets
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
  *
  * @input mlst_db
- * Path to a pre-built MLST database directory (optional — auto-detected otherwise)
+ * Path to a custom MLST database, either a tarball or a directory. When omitted, the
+ * database is sourced from the Bactopia datasets.
  *
  * @section Per-Sample Results
  * @publish *.tsv                      Tab-delimited file with MLST results including scheme, ST, and allele profiles
@@ -44,12 +45,19 @@ params {
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
 include { MLST                } from '../../../subworkflows/mlst/main'
+include { DATASETS            } from '../../../subworkflows/bactopia/datasets/main'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
 workflow {
     main:
     ch_bactopiatool = BACTOPIATOOL_INIT()
-    ch_mlst = MLST(ch_bactopiatool.assembly, params.mlst_db)
+
+    if (params.mlst_db) {
+        ch_mlst = MLST(ch_bactopiatool.assembly, params.mlst_db)
+    } else {
+        ch_datasets = DATASETS()
+        ch_mlst = MLST(ch_bactopiatool.assembly, ch_datasets.mlst_db)
+    }
 
     publish:
     // Per-sample

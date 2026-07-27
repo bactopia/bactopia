@@ -67,7 +67,6 @@
                 },
                 "amrfinderplus_db": {
                     "type": "string",
-                    "default": "",
                     "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
                     "fa_icon": "fas fa-font",
                     "hidden": true

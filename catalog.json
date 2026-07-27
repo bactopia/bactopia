@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-07-27T20:46:58Z",
+  "generated": "2026-07-27T21:57:49Z",
   "bactopia_version": "4.0.1",
   "bactopia_py_version": "2.2.0",
   "nf_bactopia_version": "2.1.6",
@@ -6939,7 +6939,8 @@
         "fna"
       ],
       "subworkflows": [
-        "mlst"
+        "mlst",
+        "bactopia_datasets"
       ]
     },
     "mobsuite": {

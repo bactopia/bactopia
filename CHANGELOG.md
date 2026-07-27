@@ -56,6 +56,14 @@ sidebar_position: 5000
   the workflow actually reads is `--fastani_pairwise`, so neither `--help` nor the docs site
   mentioned the only way to run FastANI without `--fastani_reference`, `--accession`,
   `--accessions`, or `--species`. The requirement is now stated in the `fastani` GroovyDoc
+- `mlst` and `amrfinderplus` Bactopia Tools failing immediately with `ERROR ~ Path string cannot
+  be empty` when run without `--mlst_db` / `--amrfinderplus_db` ([#673](https://github.com/bactopia/bactopia/issues/673)).
+  Both params defaulted to `""`, and Nextflow's static typing coerces the default to a `Path` at
+  parameter declaration, before the workflow body runs, so `amrfinderplus`'s existing
+  `if (params.amrfinderplus_db)` fallback was unreachable. Both now default to `null`
+- `mlst` Bactopia Tool having no way to source the PubMLST database automatically. It passed
+  `params.mlst_db` straight through, so `--mlst_db` was effectively required. It now falls back to
+  the `bactopia_datasets` subworkflow, matching `amrfinderplus`
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
