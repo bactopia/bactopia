@@ -700,13 +700,6 @@ tools:
     cite: |
       Steinig E [Nanoq: Minimal but speedy quality control for nanopore reads in Rust](https://github.com/esteinig/nanoq) (GitHub)
 
-  ncbigenomedownload:
-    name: ncbi-genome-download
-    link: https://github.com/kblin/ncbi-genome-download
-    description: Scripts to download genomes from the NCBI FTP servers
-    cite: |
-      Blin K [ncbi-genome-download: Scripts to download genomes from the NCBI FTP servers](https://github.com/kblin/ncbi-genome-download) (GitHub)
-
   nextflow:
     name: Nextflow
     provenance_only: true

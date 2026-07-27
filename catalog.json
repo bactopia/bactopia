@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-07-27T18:54:11Z",
+  "generated": "2026-07-27T20:46:58Z",
   "bactopia_version": "4.0.1",
   "bactopia_py_version": "2.2.0",
   "nf_bactopia_version": "2.1.6",
@@ -1946,58 +1946,6 @@
         "output_type": "multiple",
         "features": [
           "database-dependent"
-        ]
-      }
-    },
-    "ncbigenomedownload": {
-      "description": "Download assemblies and annotation files from NCBI's Assembly database.",
-      "path": "modules/ncbigenomedownload/",
-      "scope": "run",
-      "process_name": "ncbigenomedownload",
-      "tool": {
-        "name": "ncbi-genome-download",
-        "version": "0.3.3"
-      },
-      "emits": [
-        "gbff",
-        "fna",
-        "rm",
-        "features",
-        "gff",
-        "faa",
-        "gpff",
-        "wgs_gbk",
-        "cds",
-        "rna",
-        "rna_fna",
-        "report",
-        "stats",
-        "accessions"
-      ],
-      "emits_optional": [
-        "gbff",
-        "fna",
-        "rm",
-        "features",
-        "gff",
-        "faa",
-        "gpff",
-        "wgs_gbk",
-        "cds",
-        "rna",
-        "rna_fna",
-        "report",
-        "stats",
-        "accessions"
-      ],
-      "tags": {
-        "complexity": "moderate",
-        "input_type": "single",
-        "output_type": "multiple",
-        "features": [
-          "internet-access",
-          "resource-download",
-          "conditional-logic"
         ]
       }
     },
@@ -5080,52 +5028,6 @@
         "features": [
           "database-dependent",
           "aggregation"
-        ]
-      }
-    },
-    "ncbigenomedownload": {
-      "description": "Download bacterial genomes from NCBI's RefSeq database.",
-      "path": "subworkflows/ncbigenomedownload/",
-      "takes_params": [
-        "accessions"
-      ],
-      "emits": {
-        "sample_outputs": [
-          "gbff",
-          "fna",
-          "gff",
-          "faa",
-          "gpff",
-          "wgs_gbk",
-          "cds",
-          "rna",
-          "rna_fna",
-          "features",
-          "rm",
-          "report",
-          "stats",
-          "accessions"
-        ],
-        "bactopia_tools": [],
-        "run_outputs": [],
-        "assemblies": [
-          "fna"
-        ],
-        "reference": []
-      },
-      "scope": "sample",
-      "calls": {
-        "modules": [
-          "ncbigenomedownload"
-        ]
-      },
-      "tags": {
-        "complexity": "moderate",
-        "input_type": "single",
-        "output_type": "multiple",
-        "features": [
-          "resource-download",
-          "database-dependent"
         ]
       }
     },

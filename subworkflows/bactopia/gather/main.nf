@@ -13,7 +13,7 @@
  * @status stable
  * @keywords validation, download, merging, simulation, metadata, fastq, sra, ena, art
  * @tags complexity:complex input-type:single output-type:multiple features:aggregation,resource-download,conditional-logic,no-test
- * @citation art, fastq_dl, fastq_scan, ncbigenomedownload, pigz
+ * @citation art, fastq_dl, fastq_scan, genome_dl, pigz
  *
  * @modules bactopia_gather, csvtk_concat
  *

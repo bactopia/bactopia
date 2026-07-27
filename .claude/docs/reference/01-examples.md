@@ -174,9 +174,9 @@ workflow MLST {
  * @status stable
  * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics, bactopia-tool
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
- * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
+ * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, genome_dl, panaroo, pirate, prokka, roary, scoary
  *
- * @subworkflows utils_bactopia-tools, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
+ * @subworkflows utils_bactopia-tools, pangenome, genome_dl, prokka, clonalframeml, iqtree, scoary
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
