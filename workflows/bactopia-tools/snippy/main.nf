@@ -12,7 +12,7 @@
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,comparative,phylogeny
  * @citation snippy, gubbins, iqtree
  *
- * @subworkflows utils_bactopia-tools, ncbigenomedownload, snippy_run, snippy_core, gubbins, iqtree
+ * @subworkflows utils_bactopia-tools, genomedl, snippy_run, snippy_core, gubbins, iqtree
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
@@ -21,7 +21,7 @@
  * Path to reference FASTA file for variant calling
  *
  * @input accession
- * NCBI Assembly RefSeq accession to use as reference
+ * NCBI Assembly accession to download with genome-dl and use as reference
  *
  * @input snippy_core_mask
  * Path to BED file containing core genome regions
@@ -74,7 +74,7 @@ params {
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
-include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { GENOMEDL            } from '../../../subworkflows/genomedl/main'
 include { SNIPPY              } from '../../../subworkflows/snippy/run/main'
 include { SNIPPY_CORE         } from '../../../subworkflows/snippy/core/main'
 include { GUBBINS             } from '../../../subworkflows/gubbins/main'
@@ -91,8 +91,8 @@ workflow {
     if (params.reference) {
         ch_reference = params.reference
     } else if (params.accession) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(null)
-        ch_reference = ch_ncbigenomedownload.reference
+        ch_genomedl = GENOMEDL(null)
+        ch_reference = ch_genomedl.reference
     }
 
     // Run Snippy per-sample

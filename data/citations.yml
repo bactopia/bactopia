@@ -428,6 +428,13 @@ tools:
     cite: |
       Stanton RA, Vlachos N, Halpin AL [GAMMA: a tool for the rapid identification, classification, and annotation of translated gene matches from sequencing data.](https://doi.org/10.1093/bioinformatics/btab607) _Bioinformatics_ (2021)
 
+  genome_dl:
+    name: genome-dl
+    link: https://github.com/rpetit3/genome-dl
+    description: Download genome assemblies from NCBI Datasets.
+    cite: |
+      Petit III RA [genome-dl: Download genomes from NCBI Datasets](https://github.com/rpetit3/genome-dl) (GitHub)
+
   genotyphi:
     name: GenoTyphi
     link: https://github.com/katholt/genotyphi

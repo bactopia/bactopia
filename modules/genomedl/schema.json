@@ -1,0 +1,75 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/genomedl/schema.json",
+    "title": "genome-dl Module",
+    "description": "A module to download genome assemblies from NCBI Datasets",
+    "type": "object",
+    "$defs": {
+        "genomedl_parameters": {
+            "title": "genome-dl Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "species": {
+                    "type": "string",
+                    "description": "Name of the species to download assemblies",
+                    "fa_icon": "fas fa-font"
+                },
+                "accession": {
+                    "type": "string",
+                    "description": "An NCBI Assembly accession to be downloaded",
+                    "help": "Version-less accessions (e.g. GCF_000005845) are resolved to the latest version.",
+                    "fa_icon": "fas fa-font"
+                },
+                "accessions": {
+                    "type": "string",
+                    "description": "An file of NCBI Assembly accessions (one per line) to be downloaded",
+                    "fa_icon": "fas fa-font"
+                },
+                "format": {
+                    "type": "string",
+                    "default": "fasta",
+                    "description": "Comma separated list of formats to download",
+                    "help": "Choose from fasta, genbank, wgs, gff, gtf, protein, genpept, cds, translated-cds, rna, feature-table, assembly-report, assembly-stats or all.",
+                    "fa_icon": "fas fa-font"
+                },
+                "section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "NCBI section to download",
+                    "help": "Only applies to `--species`. Choose from refseq, genbank or all.",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "assembly_level": {
+                    "type": "string",
+                    "default": "complete",
+                    "description": "Comma separated list of assembly levels to download",
+                    "help": "Only applies to `--species`. Choose from complete, chromosome, scaffold, contig or all.",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Limit the number of assemblies to download",
+                    "help": "Only applies to `--species`, limit to first N assemblies returned by NCBI. Use 0 for no limit.",
+                    "fa_icon": "fas fa-sort-numeric-up"
+                },
+                "genomedl_allow_outdated": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Download an explicitly requested outdated accession version instead of erroring",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/genomedl_parameters"
+        }
+    ]
+}

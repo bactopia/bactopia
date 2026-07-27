@@ -1,0 +1,131 @@
+nextflow_workflow {
+    name "Test GENOMEDL Subworkflow"
+    script "../main.nf"
+    workflow "GENOMEDL"
+    tag "subworkflows"
+    tag "genomedl"
+
+    test("genomedl - subworkflow - single accession") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // Portiera aleyrodidarum (~360 kb), version-less to test accession resolution
+                accession = "GCF_000292685"
+                format = "fasta"
+            }
+            workflow {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def assemblies = workflow.out.assemblies
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                // One downloaded genome fans out to one assembly record
+                { assert assemblies.size() == 1 },
+                { assert assemblies[0].meta.name == "GCF_000292685" },
+                { assert workflow.out.reference != null }
+            )
+        }
+    }
+
+    test("genomedl - subworkflow - accessions file") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                format = "fasta"
+            }
+            workflow {
+                """
+                input[0] = file("${params.test_data_dir}/datasets/generic/test-assembly-accessions.txt")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def assemblies = workflow.out.assemblies
+            def names = assemblies.collect { r -> r.meta.name }.sort()
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                // Two accessions in the file fan out to two assembly records
+                { assert assemblies.size() == 2 },
+                { assert names == ["GCF_002849975", "GCF_002849995"] }
+            )
+        }
+    }
+
+    test("genomedl - subworkflow - species with limit") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // The taxon has 14 complete RefSeq assemblies, --limit trims the download to two
+                species = "Candidatus Portiera aleyrodidarum"
+                assembly_level = "complete"
+                format = "fasta"
+                limit = 2
+            }
+            workflow {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def assemblies = workflow.out.assemblies
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions
+                ).match() },
+                // NCBI relevance order is not stable, so assert the shape rather than accessions
+                { assert assemblies.size() == 2 },
+                { assert assemblies.every { r -> r.meta.name.startsWith("GCF_") } },
+                { assert assemblies.every { r -> r.meta.name == r.meta.id } }
+            )
+        }
+    }
+
+    test("genomedl - subworkflow - genbank reference") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                accession = "GCF_000292685"
+                format = "genbank"
+            }
+            workflow {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def reference = workflow.out.reference
+            assertAll(
+                { assert workflow.success },
+                // Snippy needs the annotations, so `reference` must resolve to the GenBank
+                // download rather than falling back to an empty `fna` field
+                { assert reference != null },
+                { assert file(reference[0]).name.endsWith(".gbff.gz") },
+                // `--format genbank` writes no FASTA, so nothing fans out to `assemblies`
+                { assert workflow.out.assemblies.size() == 0 }
+            )
+        }
+    }
+}

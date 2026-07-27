@@ -1,0 +1,71 @@
+{
+    "genomedl - subworkflow - accessions file": {
+        "content": [
+            {
+                "accession": null,
+                "id": "genomedl",
+                "limit": 100,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,df087e43d695dee0f2bfffa1d15991e8"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:39:14.382642688",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "genomedl - subworkflow - species with limit": {
+        "content": [
+            {
+                "accession": null,
+                "id": "genomedl",
+                "limit": 2,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": "Candidatus Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,df087e43d695dee0f2bfffa1d15991e8"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:39:22.848479262",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "genomedl - subworkflow - single accession": {
+        "content": [
+            {
+                "accession": "GCF_000292685",
+                "id": "genomedl",
+                "limit": 100,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,df087e43d695dee0f2bfffa1d15991e8"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:39:06.172839858",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

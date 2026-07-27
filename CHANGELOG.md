@@ -17,12 +17,26 @@ sidebar_position: 5000
 - Deacon as the default host read scrubber (replaces nohuman as default)
 - Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
 - Three-way scrubber selection: deacon (default), nohuman (`--use_nohuman`), SRA Human Scrubber (`--use_srascrubber`)
+- `genomedl` module and subworkflow - download genome assemblies from NCBI Datasets with `genome-dl`
+    - resolves version-less accessions to the latest assembly version
+    - subsamples `--species` downloads with `--limit` instead of `shuf | head`
+    - `--limit` defaults to 100 to prevent accidentally downloading 50k+ genomes (`--limit 0` for no limit)
+    - subworkflow emits `assemblies` from the named `fna` field, and `reference` from `gbff` when
+      `--format genbank` is used (Snippy needs an annotated reference), otherwise `fna`
 - Bump internal bactopia-* pipeline tool versions
     - `bactopia-gather`: 1.0.5 -> 1.0.6
 
 ### `Changed`
 
 - Updated bactopia-teton meta-package from 1.1.3 to 1.1.4 (includes deacon)
+- `fastani`, `mashtree`, `pangenome` and `snippy` Bactopia Tools now download genomes with
+  `genomedl` instead of `ncbigenomedownload`
+    - `--kingdom` and `--keep_downloads` are no longer available to these tools
+    - `--limit` now defaults to 100 for `--species` (previously unlimited)
+    - downloaded genomes are named by accession (`GCF_020736045.1`) rather than by NCBI's full
+      assembly filename (`GCF_020736045.1_ASM2073604v1_genomic`), which changes output paths and
+      tree/matrix labels
+    - `snippy --accession` requires `--format genbank`, since Snippy needs an annotated reference
 - Deacon modules now use bactopia-teton container instead of standalone deacon container
 - Teton and scrubber workflows default to deacon instead of nohuman for host read removal
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal

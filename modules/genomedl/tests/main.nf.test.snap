@@ -1,0 +1,71 @@
+{
+    "genomedl - module - species with limit": {
+        "content": [
+            {
+                "accession": null,
+                "id": "genomedl",
+                "limit": 1,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": "Candidatus Portiera aleyrodidarum"
+            },
+            [
+                "versions.yml:md5,bb83b7d6091b1b7e8a93fba8cc9a3e7d"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:23:32.083383414",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "genomedl - module - single accession": {
+        "content": [
+            {
+                "accession": "GCF_000292685",
+                "id": "genomedl",
+                "limit": 100,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,bb83b7d6091b1b7e8a93fba8cc9a3e7d"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:23:24.497928112",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "genomedl - module - accessions file": {
+        "content": [
+            {
+                "accession": null,
+                "id": "genomedl",
+                "limit": 100,
+                "logs_dir": "genomedl/logs",
+                "name": "genomedl",
+                "output_dir": "genomedl",
+                "process_name": "genomedl",
+                "scope": "run",
+                "species": null
+            },
+            [
+                "versions.yml:md5,bb83b7d6091b1b7e8a93fba8cc9a3e7d"
+            ]
+        ],
+        "timestamp": "2026-07-27T10:23:39.277366568",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

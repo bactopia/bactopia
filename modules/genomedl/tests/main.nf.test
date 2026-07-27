@@ -1,0 +1,110 @@
+nextflow_process {
+    name "Test GENOMEDL"
+    script "../main.nf"
+    process "GENOMEDL"
+    tag "modules"
+    tag "genomedl"
+
+    test("genomedl - module - single accession") {
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // Portiera aleyrodidarum (~360 kb), version-less to test accession resolution
+                accession = "GCF_000292685"
+                format = "fasta"
+            }
+            process {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() },
+                // GCF_000292685 resolves to GCF_000292685.1, and the genomic FASTA glob must
+                // not also pick up the *.cds.fna.gz / *.rna.fna.gz variants
+                { assert record.fna.size() == 1 },
+                { assert record.fna[0].toString().endsWith("/GCF_000292685.1.fna.gz") },
+                { assert record.metadata.size() == 1 },
+                { assert record.summary.size() == 1 },
+                { assert record.json.size() == 1 }
+            )
+        }
+    }
+
+    test("genomedl - module - species with limit") {
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                // The taxon has 14 complete RefSeq assemblies, --limit trims the download to one
+                species = "Candidatus Portiera aleyrodidarum"
+                assembly_level = "complete"
+                format = "fasta"
+                limit = 1
+            }
+            process {
+                """
+                input[0] = null
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() },
+                { assert record.fna.size() == 1 },
+                { assert record.metadata.size() == 1 },
+                { assert record.summary.size() == 1 },
+                { assert record.json.size() == 1 }
+            )
+        }
+    }
+
+    test("genomedl - module - accessions file") {
+
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                format = "fasta"
+            }
+            process {
+                """
+                input[0] = file("${params.test_data_dir}/datasets/generic/test-assembly-accessions.txt")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            def published = record.results.flatten().collect { p -> p.toString() }
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() },
+                // Two accessions, one comment line that genome-dl must skip
+                { assert record.fna.size() == 2 },
+                { assert record.metadata.size() == 1 },
+                { assert record.summary.size() == 1 },
+                { assert record.json.size() == 1 },
+                // The staged input list must not be republished as a result
+                { assert published.every { p -> !p.endsWith("test-assembly-accessions.txt") } }
+            )
+        }
+    }
+}

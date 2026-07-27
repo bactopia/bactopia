@@ -83,6 +83,46 @@ nextflow_pipeline {
         }
     }
 
+    test("pangenome (panaroo --skip_recombination --accession) - multiple|portiera|compressed_gff") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/gffs"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                accession = "GCF_000300035"
+                panaroo_core_threshold = 0.80
+                panaroo_threshold = 0.85
+                skip_recombination = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            // Ignore aligned_gene_sequences (panaroo gene naming is non-deterministic)
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['**/aligned_gene_sequences/**'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+
     test("pangenome (pirate) - multiple|portiera|compressed_gff") {
         when {
             params {

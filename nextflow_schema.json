@@ -1008,7 +1008,7 @@
             "properties": {
                 "prokka_proteins": {
                     "type": "string",
-                    "default": "${projectDir}/data/proteins.faa",
+                    "default": "./data/proteins.faa",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-font",
                     "hidden": true
@@ -1761,6 +1761,28 @@
                 }
             }
         },
+        "staphscan_parameters": {
+            "title": "StaphSCAN Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "staphscan_modules": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Comma-separated list of modules to run",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                },
+                "staphscan_db_mlst": {
+                    "type": "string",
+                    "description": "Path or tarball to custom MLST database",
+                    "fa_icon": "fas fa-font",
+                    "hidden": true
+                }
+            }
+        },
         "stecfinder_parameters": {
             "title": "STECFinder Parameters",
             "type": "object",
@@ -2401,6 +2423,9 @@
         },
         {
             "$ref": "#/$defs/sccmec_parameters"
+        },
+        {
+            "$ref": "#/$defs/staphscan_parameters"
         },
         {
             "$ref": "#/$defs/stecfinder_parameters"

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-21T19:57:48Z",
+  "generated": "2026-07-27T18:54:11Z",
   "bactopia_version": "4.0.1",
   "bactopia_py_version": "2.2.0",
   "nf_bactopia_version": "2.1.6",
@@ -1221,6 +1221,62 @@
         "output_type": "multiple",
         "features": [
           "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "genomedl": {
+      "description": "Download genome assemblies and annotation files from NCBI Datasets.",
+      "path": "modules/genomedl/",
+      "scope": "run",
+      "process_name": "genomedl",
+      "tool": {
+        "name": "genome-dl",
+        "version": "1.0.0"
+      },
+      "emits": [
+        "fna",
+        "gbff",
+        "wgs_gbk",
+        "gff",
+        "gtf",
+        "faa",
+        "gpff",
+        "cds",
+        "translated_cds",
+        "rna",
+        "features",
+        "report",
+        "stats",
+        "metadata",
+        "summary",
+        "json"
+      ],
+      "emits_optional": [
+        "fna",
+        "gbff",
+        "wgs_gbk",
+        "gff",
+        "gtf",
+        "faa",
+        "gpff",
+        "cds",
+        "translated_cds",
+        "rna",
+        "features",
+        "report",
+        "stats",
+        "metadata",
+        "summary",
+        "json"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
           "conditional-logic"
         ]
       }
@@ -4157,6 +4213,53 @@
         ]
       }
     },
+    "genomedl": {
+      "description": "Download genome assemblies from NCBI Datasets.",
+      "path": "subworkflows/genomedl/",
+      "takes_params": [
+        "accessions"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "fna",
+          "gbff",
+          "wgs_gbk",
+          "gff",
+          "gtf",
+          "faa",
+          "gpff",
+          "cds",
+          "translated_cds",
+          "rna",
+          "features",
+          "report",
+          "stats",
+          "metadata",
+          "summary",
+          "json"
+        ],
+        "run_outputs": [],
+        "assemblies": [
+          "fna"
+        ],
+        "reference": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "genomedl"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "resource-download",
+          "internet-access"
+        ]
+      }
+    },
     "genotyphi": {
       "description": "Assign genotypes to Salmonella Typhi genomes.",
       "path": "subworkflows/genotyphi/",
@@ -6733,7 +6836,7 @@
       ],
       "subworkflows": [
         "fastani",
-        "ncbigenomedownload"
+        "genomedl"
       ]
     },
     "gamma": {
@@ -6877,7 +6980,7 @@
       ],
       "subworkflows": [
         "mashtree",
-        "ncbigenomedownload"
+        "genomedl"
       ]
     },
     "mcroni": {
@@ -6978,7 +7081,7 @@
         "gff"
       ],
       "subworkflows": [
-        "ncbigenomedownload",
+        "genomedl",
         "prokka",
         "pangenome",
         "clonalframeml",
@@ -7175,7 +7278,7 @@
         "se"
       ],
       "subworkflows": [
-        "ncbigenomedownload",
+        "genomedl",
         "snippy_run",
         "snippy_core",
         "gubbins",
