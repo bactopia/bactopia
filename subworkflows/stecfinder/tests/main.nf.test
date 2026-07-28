@@ -46,4 +46,43 @@ nextflow_workflow {
             )
         }
     }
+
+    test("stecfinder - subworkflow - reads mode drops read-less samples") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                stecfinder_use_reads = true
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_002949675"],
+                        fna: file("${params.test_data_dir}/species/shigella_dysenteriae/assembly/GCF_002949675/main/assembler/GCF_002949675.fna.gz"),
+                        r1: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/shigella_dysenteriae/reads/ERR6005894/main/qc/ERR6005894_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    ),
+                    record(
+                        meta: [name: "NOREADS"],
+                        fna: file("${params.test_data_dir}/species/shigella_dysenteriae/assembly/GCF_002949675/main/assembler/GCF_002949675.fna.gz"),
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: null
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs.size() == 1 },
+                { assert workflow.out.sample_outputs[0].meta.name == "GCF_002949675" }
+            )
+        }
+    }
 }
