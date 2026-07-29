@@ -24,11 +24,11 @@
                 "bactopia-runs/kraken2/nf-reports/kraken2-timeline.html"
             ],
             [
-                "SRR2838702.kraken2.report.txt:md5,dbc13f97657d22326cabf4bd19564174",
-                "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
+                "SRR2838702.kraken2.report.txt:md5,0d7991cf80613ba55baf774b0f1140e4",
+                "versions.yml:md5,121005727d1dfbf01116529f9640d2c5"
             ]
         ],
-        "timestamp": "2026-04-29T11:27:56.470480451",
+        "timestamp": "2026-07-28T17:14:20.333481913",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -60,10 +60,10 @@
             ],
             [
                 "SRR2838702.kraken2.report.txt:md5,055b6535f05d0342e7926ca9603340bf",
-                "versions.yml:md5,64abaf13d756f2c9443d3b814985e107"
+                "versions.yml:md5,121005727d1dfbf01116529f9640d2c5"
             ]
         ],
-        "timestamp": "2026-04-29T11:28:24.885961361",
+        "timestamp": "2026-07-28T17:15:00.893027942",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

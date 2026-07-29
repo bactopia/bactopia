@@ -24,13 +24,14 @@
  * @input db
  * Deacon minimizer index file (.idx) for host read filtering
  *
- * @output record(meta, special_meta, r1?, r2?, se?, lr?, scrub_report, results, logs, nf_logs, versions)
+ * @output record(meta, special_meta, r1?, r2?, se?, lr?, scrub_report, json_summary, results, logs, nf_logs, versions)
  * - `special_meta`: A simplified metadata record for downstream report joining
  * - `r1?`: Filtered paired-end forward reads
  * - `r2?`: Filtered paired-end reverse reads
  * - `se?`: Filtered single-end reads
  * - `lr?`: Filtered long reads
  * - `scrub_report`: Summary report of reads removed during filtering
+ * - `json_summary`: Deacon JSON summary of the filtering run
  */
 nextflow.enable.types = true
 

@@ -8,7 +8,7 @@ description: Run Bactopia nf-tests via bactopia-test and produce a timestamped l
 Run the Bactopia nf-test suite through `bactopia-test` for a specific component
 and present the live output to the user. This is the "before" half of the
 `run-tests` / `review-tests` pair: this skill **runs** the tests and writes a
-timestamped `logs/{timestamp}/` directory; `/review-tests` then **interprets**
+timestamped `logs/run-tests/{timestamp}/` directory; `/review-tests` then **interprets**
 that directory (grouping failures, reading stdout files, etc.). Keep the two
 responsibilities clearly separated -- do not try to do `/review-tests`' job here.
 
@@ -78,7 +78,7 @@ These flags are always added without asking the user:
 | `--test-data`     | `/home/rpetit3/repos/bactopia/bactopia-tests`| Canonical test-data location; sets `BACTOPIA_TESTS`.                          |
 | `--profile`       | `docker`                                     | Default execution profile. Docker is the baseline for reproducible tests.     |
 | `--keep`          | *(always)*                                   | Preserves `.nf-test/` dirs and logs on pass; `/review-tests` needs them.      |
-| `--outdir`        | `/home/rpetit3/repos/bactopia/bactopia`      | So `logs/{timestamp}/` lands at the repo root, where `/review-tests` reads.   |
+| `--outdir`        | `/home/rpetit3/repos/bactopia/bactopia`      | So `logs/run-tests/{timestamp}/` lands at the repo root, where `/review-tests` reads.   |
 
 ## When to ask the user first (never auto-fill)
 
@@ -111,7 +111,7 @@ time or delete work the user cares about.
   to read into them to diagnose undeclared outputs or assertion mismatches.
 
 - **ALWAYS pass `--outdir /home/rpetit3/repos/bactopia/bactopia`** so that
-  `logs/{timestamp}/` is written at the bactopia repo root. `/review-tests`
+  `logs/run-tests/{timestamp}/` is written at the bactopia repo root. `/review-tests`
   looks for logs relative to `--bactopia-path`; if `--outdir` is omitted the
   logs land in whatever directory the shell was invoked from and the
   downstream skill will not find them.
@@ -145,7 +145,7 @@ When `bactopia-test` finishes, do these four things -- nothing more:
 
 2. **Extract the run timestamp.** The CLI prints the path to the logs
    directory, which ends in a `YYYYMMDD_HHMMSS` directory (e.g.
-   `logs/20260410_143022/`). Pull that timestamp out and show it to the user.
+   `logs/run-tests/20260410_143022/`). Pull that timestamp out and show it to the user.
 
 3. **Point the user at `/review-tests`** with an exact next step:
 
@@ -225,7 +225,7 @@ Defaults in parentheses.
 ### Output layout written by the CLI
 
 ```
-{outdir}/logs/{YYYYMMDD_HHMMSS}/
+{outdir}/logs/run-tests/{YYYYMMDD_HHMMSS}/
 ├── summary.json                               # machine-readable rollup
 ├── summary.tsv                                # same data in TSV
 ├── modules/
@@ -269,7 +269,7 @@ are forwarded through `"$@"`.
 
 ### Sibling skills
 
-- `/review-tests` — the "after" half. Reads `logs/{timestamp}/`, groups
+- `/review-tests` — the "after" half. Reads `logs/run-tests/{timestamp}/`, groups
   failures by type, reads stdout files on request, and suggests next steps.
   Always point the user here after a run completes.
 - `/project-status` — component counts and coverage. Unrelated to the test

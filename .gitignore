@@ -18,6 +18,7 @@ trace.txt*
 **/.nf-test/*
 **/.nf-test-*.nf
 logs/
+WATCHDOG.yml
 
 # Conda Build
 data/conda/channeldata.json
@@ -28,6 +29,7 @@ data/conda/noarch/
 # Claude
 .claude/plans/
 .claude/handoffs/
+.claude/skills/*-workspace/
 
 # temp v4 folders
 old-bactopia/

@@ -120,8 +120,8 @@
                 "versions.yml:md5,4d90b86147c4eb115fc93edc4fa484b8",
                 "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
                 "versions.yml:md5,32d57feabda90e9fe6e0aeb96e5d2352",
-                "GCF_000017085.tsv:md5,c8d77f01e4a86869bc4ae82141b500cb",
-                "versions.yml:md5,9048a4caf373fcb35bb1f990c90ddcf0",
+                "GCF_000017085.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e",
+                "versions.yml:md5,70a740425288fd57db5b227c8a1b3723",
                 "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
                 "versions.yml:md5,d203f21af354f31f3d144e58af47cff3",
                 "versions.yml:md5,35f4a9f839e9fd13b2afb63fecea88b4",
@@ -129,10 +129,10 @@
                 "versions.yml:md5,c707d4291d068c2b150937480568d0b0",
                 "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975",
                 "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
-                "staphscan.tsv:md5,c8d77f01e4a86869bc4ae82141b500cb"
+                "staphscan.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e"
             ]
         ],
-        "timestamp": "2026-05-05T13:24:58.587861386",
+        "timestamp": "2026-07-28T17:13:34.568119151",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -11,7 +11,7 @@
             },
             "SRR2838702-summary.txt:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
             [
-                "versions.yml:md5,84a39022a8e62bb5b3eb9c860e79d49f"
+                "versions.yml:md5,bfe8448c1dd05af49ff6b67f38a9db01"
             ],
             {
                 "id": "busco-bacteria_odb10-BUSCO:CSVTK_CONCAT",
@@ -25,7 +25,7 @@
                 "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
             ]
         ],
-        "timestamp": "2026-04-29T11:18:05.722136134",
+        "timestamp": "2026-07-28T17:06:16.389757249",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

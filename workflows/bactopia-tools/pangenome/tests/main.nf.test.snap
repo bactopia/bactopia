@@ -132,15 +132,15 @@
             ],
             [
                 "versions.yml:md5,70f831abce5d4f7f4ad4177a0ad339cc",
-                "versions.yml:md5,2998af40c25f65e228af5938ff93448e",
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
+                "versions.yml:md5,a8001abd80c493ec7ae6d20498bcd5bf",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
                 "versions.yml:md5,15428b6f6c4a355e8944a4f92f0390c7",
                 "versions.yml:md5,36d9b366d4941f258a248bf7a31aecc7",
                 "versions.yml:md5,77f64a20eeab9152a61953ec5203b926",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-29T11:30:18.404904236",
+        "timestamp": "2026-07-28T20:08:29.948976259",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -307,14 +307,14 @@
             ],
             [
                 "versions.yml:md5,70f831abce5d4f7f4ad4177a0ad339cc",
-                "versions.yml:md5,2998af40c25f65e228af5938ff93448e",
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
+                "versions.yml:md5,a8001abd80c493ec7ae6d20498bcd5bf",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
                 "versions.yml:md5,826c93ad04efd1f51b1e1a009d5c0ba7",
                 "versions.yml:md5,77f64a20eeab9152a61953ec5203b926",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-29T11:27:43.40448099",
+        "timestamp": "2026-07-28T20:06:33.807080285",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -440,14 +440,14 @@
             ],
             [
                 "versions.yml:md5,70f831abce5d4f7f4ad4177a0ad339cc",
-                "versions.yml:md5,2998af40c25f65e228af5938ff93448e",
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
+                "versions.yml:md5,a8001abd80c493ec7ae6d20498bcd5bf",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
                 "versions.yml:md5,15428b6f6c4a355e8944a4f92f0390c7",
                 "versions.yml:md5,77f64a20eeab9152a61953ec5203b926",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-29T11:28:59.354294099",
+        "timestamp": "2026-07-28T20:07:31.819117432",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -524,6 +524,7 @@
                 "bactopia-runs/pangenome/panaroo.filtered.aln.gz",
                 "bactopia-runs/pangenome/panaroo/aligned_gene_sequences",
                 "bactopia-runs/pangenome/panaroo/alignment_entropy.csv",
+                "bactopia-runs/pangenome/panaroo/alignment_resume_state.json",
                 "bactopia-runs/pangenome/panaroo/combined_DNA_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt",
@@ -571,14 +572,14 @@
             ],
             [
                 "versions.yml:md5,70f831abce5d4f7f4ad4177a0ad339cc",
-                "versions.yml:md5,2998af40c25f65e228af5938ff93448e",
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
-                "versions.yml:md5,5514295ba35a95ebb8417acd05766159",
+                "versions.yml:md5,a8001abd80c493ec7ae6d20498bcd5bf",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
+                "versions.yml:md5,709f42df442c9f6cc5132ad147bd334e",
                 "versions.yml:md5,77f64a20eeab9152a61953ec5203b926",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-29T11:25:18.043114573",
+        "timestamp": "2026-07-28T20:03:47.313952314",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -620,6 +621,7 @@
                 "bactopia-runs/pangenome/panaroo.filtered.aln.gz",
                 "bactopia-runs/pangenome/panaroo/aligned_gene_sequences",
                 "bactopia-runs/pangenome/panaroo/alignment_entropy.csv",
+                "bactopia-runs/pangenome/panaroo/alignment_resume_state.json",
                 "bactopia-runs/pangenome/panaroo/combined_DNA_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt",
@@ -656,12 +658,12 @@
                 "bactopia-runs/pangenome/snpdists/logs/versions.yml"
             ],
             [
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
-                "versions.yml:md5,5514295ba35a95ebb8417acd05766159",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
+                "versions.yml:md5,709f42df442c9f6cc5132ad147bd334e",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-04-29T11:26:18.912862645",
+        "timestamp": "2026-07-28T20:04:27.323618465",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -703,6 +705,7 @@
                 "bactopia-runs/pangenome/panaroo.filtered.aln.gz",
                 "bactopia-runs/pangenome/panaroo/aligned_gene_sequences",
                 "bactopia-runs/pangenome/panaroo/alignment_entropy.csv",
+                "bactopia-runs/pangenome/panaroo/alignment_resume_state.json",
                 "bactopia-runs/pangenome/panaroo/combined_DNA_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_CDS.fasta.gz",
                 "bactopia-runs/pangenome/panaroo/combined_protein_cdhit_out.txt",
@@ -739,12 +742,12 @@
                 "bactopia-runs/pangenome/snpdists/logs/versions.yml"
             ],
             [
-                "versions.yml:md5,e01256842798c2b435032141a36e34a4",
-                "versions.yml:md5,5514295ba35a95ebb8417acd05766159",
+                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
+                "versions.yml:md5,709f42df442c9f6cc5132ad147bd334e",
                 "versions.yml:md5,3d37a0edadfd11d1e7e95ff8201e7f2a"
             ]
         ],
-        "timestamp": "2026-07-27T13:10:28.183576616",
+        "timestamp": "2026-07-28T20:05:19.973058681",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

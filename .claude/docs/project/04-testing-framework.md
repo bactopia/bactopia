@@ -69,6 +69,7 @@ config {
 // Minimal config for module-level testing
 nextflow.enable.types = true
 nextflow.enable.strict = true
+includeConfig "../../../conf/test_base.config"
 
 params {
     workflow {
@@ -78,25 +79,7 @@ params {
         ext = "fna"
     }
 
-    bactopia_version = '4.0.0'
-    bactopia_cache = System.getenv("BACTOPIA_CACHEDIR") ?: "${System.getenv('HOME')}/.bactopia"
-    condadir = "${params.bactopia_cache}/conda"
     wf = params.workflow.name
-    merge_folder = "merged-results"
-    test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
-    is_ci = true
-
-    // Max Job Request Parameters
-    max_retry = 1
-    max_time = 2.h
-    max_memory = 8.GB
-    max_cpus = 2
-
-    // Nextflow Profile Parameters
-    registry = "quay.io"
-    singularity_cache = "${params.bactopia_cache}/singularity"
-    singularity_pull_docker_container = false
-    container_opts = ""
 }
 
 includeConfig "../module.config"
@@ -105,7 +88,7 @@ includeConfig "../../../conf/profiles.config"
 ```
 
 > `params.workflow.ext` is a **string** at module-test scope (a single extension for the module's primary output). Workflow-level configs (`workflows/{name}/nextflow.config`) use the **list** form — e.g. `ext = ['fna']` — because workflows aggregate publishing across multiple module outputs. Match the surrounding layer when editing.
-> `bactopia_version` is a placeholder — keep it in sync with the repo's `manifest.version` in [nextflow.config](../../../nextflow.config) when it drifts.
+> The pipeline version and the `nf-bactopia@` plugin pin are **not** repeated per test config — they live in [conf/test_base.config](../../../conf/test_base.config), included at the top of every test config, and are propagated from `versions.yml` by `/bump-versions`. Only per-component params (`workflow{}`, `wf`, and any resource or tool-specific overrides) stay local.
 
 ## Writing Tests
 

@@ -26,7 +26,7 @@
                 "mashtree.dnd:md5,2b2d08b0bf16e25717f5db0eca6eba6b"
             ]
         ],
-        "timestamp": "2026-04-29T11:23:17.010786547",
+        "timestamp": "2026-07-28T17:11:37.241906731",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -59,7 +59,7 @@
                 "mashtree.dnd:md5,02f89fd1a5f4a3a92df0b016061f67dd"
             ]
         ],
-        "timestamp": "2026-07-27T12:38:27.600224868",
+        "timestamp": "2026-07-28T17:12:06.423579656",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

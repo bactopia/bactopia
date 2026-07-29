@@ -55,12 +55,12 @@
                 "bactopia-runs/phispy/nf-reports/phispy-timeline.html"
             ],
             [
-                "versions.yml:md5,6487fa342391eda548b492a099ee91ed",
-                "versions.yml:md5,6487fa342391eda548b492a099ee91ed",
+                "versions.yml:md5,5e1425957e8a8025744f6a4d4dbb24cf",
+                "versions.yml:md5,5e1425957e8a8025744f6a4d4dbb24cf",
                 "versions.yml:md5,07d57bb6615d099e188c1aad39da5c83"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:39.747961501",
+        "timestamp": "2026-07-28T17:12:55.882689995",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

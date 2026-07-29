@@ -62,10 +62,10 @@
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
-                "rgi_exclude_nudge": {
+                "rgi_include_nudge": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Exclude hits nudged from loose to strict hits",
+                    "description": "Include hits nudged from loose to strict hits",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },

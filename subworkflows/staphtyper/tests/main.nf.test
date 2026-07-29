@@ -20,6 +20,7 @@ nextflow_workflow {
                 )
                 input[1] = null
                 input[2] = null
+                input[3] = null
                 """
             }
         }

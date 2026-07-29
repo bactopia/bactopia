@@ -10,10 +10,10 @@
                 "scope": "sample"
             },
             [
-                "versions.yml:md5,5d58358ef1d0dba349319f20bc5c1602"
+                "versions.yml:md5,97542c4eb1d90b2b0a0375c916b75dc5"
             ]
         ],
-        "timestamp": "2026-04-29T11:18:13.916716092",
+        "timestamp": "2026-07-28T17:06:15.020944732",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

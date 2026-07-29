@@ -9,11 +9,14 @@ Check for newer versions of bioconda tools used in Bactopia modules and apply up
 
 ## Steps
 
-1. Run `bactopia-update` via the wrapper script:
+1. Run `bactopia-update` via the wrapper script, **saving the JSON to a timestamped record** so `/release-checklist` can later confirm module versions were checked this cycle:
    ```
-   bash .claude/skills/update-module/scripts/run-bactopia-update.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --json --silent
+   mkdir -p /home/rpetit3/repos/bactopia/bactopia/logs/module-updates
+   TS=$(date +%Y%m%d_%H%M%S)
+   bash .claude/skills/update-module/scripts/run-bactopia-update.sh --bactopia-path /home/rpetit3/repos/bactopia/bactopia --json --silent \
+       | tee /home/rpetit3/repos/bactopia/bactopia/logs/module-updates/$TS.json
    ```
-   If the user specified a module name, add `--module <name>` to the command.
+   Parse the JSON from that file. If the user specified a module name, add `--module <name>` to the command **and do not write the record** (a filtered run is not a full-repo check — only an unfiltered scan is a valid `/release-checklist` freshness record). `logs/` is gitignored, so the record is scratch, not a tracked file.
 
 2. Parse the JSON output. Separate entries into three categories:
    - **Needs update** (`needs_update: true`): ready for automatic update

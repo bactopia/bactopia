@@ -89,7 +89,7 @@ Bactopia modules are individual process definitions that execute specific bioinf
 - **Definition**: No sample/data channels; only parameters
 - **Pattern**: No record input block; may accept simple `Path` or `String` parameters
 - **Use Case**: Utility modules for downloads, database setup, or internal maintenance
-- **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
+- **Examples**: wget, ariba/getref, bactopia/datasets
 
 #### Single Input
 - **Definition**: One primary data channel (plus parameters)
@@ -554,7 +554,7 @@ Some tools are split across multiple modules (e.g., bakta/download, bakta/run):
 ### 8.4 Utility/Setup Modules
 Some modules are used for setup, downloading, or internal maintenance tasks rather than sample processing. These modules may have non-standard output structures:
 
-**Examples**: `wget`, `ariba/getref`, `amrfinderplus/update`, `bakta/download`, `bactopia/datasets`
+**Examples**: `wget`, `ariba/getref`, `bakta/download`, `bactopia/datasets`
 
 **Characteristics**:
 - May not include `nf_logs` and `versions` as separate outputs (logs may be bundled in a subdirectory)
@@ -926,6 +926,7 @@ nextflow_process {
 // Minimal config for module-level testing
 nextflow.enable.types = true
 nextflow.enable.strict = true
+includeConfig "../../../conf/test_base.config"
 
 params {
     workflow {
@@ -935,31 +936,15 @@ params {
         ext = "fna"
     }
 
-    bactopia_version = '4.0.0'
-    bactopia_cache = System.getenv("BACTOPIA_CACHEDIR") ?: "${System.getenv('HOME')}/.bactopia"
-    condadir = "${params.bactopia_cache}/conda"
     wf = params.workflow.name
-    merge_folder = "merged-results"
-    test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
-    is_ci = true
-
-    // Max Job Request Parameters
-    max_retry = 1
-    max_time = 2.h
-    max_memory = 8.GB
-    max_cpus = 2
-
-    // Nextflow Profile Parameters
-    registry = "quay.io"
-    singularity_cache = "${params.bactopia_cache}/singularity"
-    singularity_pull_docker_container = false
-    container_opts = ""
 }
 
 includeConfig "../module.config"
 includeConfig "../../../conf/base.config"
 includeConfig "../../../conf/profiles.config"
 ```
+
+`bactopia_version` and the `nf-bactopia@` plugin pin are inherited from [conf/test_base.config](../../../conf/test_base.config) (included at the top) — do not repeat them per file. `/bump-versions` propagates `versions.yml` into that single file.
 
 **Path depth for multi-process modules:** Use `../../../../conf/` instead of `../../../conf/` since the module.config is one level deeper (e.g., `modules/bakta/run/tests/nextflow.config`).
 

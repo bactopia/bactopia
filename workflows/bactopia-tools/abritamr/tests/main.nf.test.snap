@@ -47,12 +47,12 @@
                 "GCF_001682305.summary_matches.tsv:md5,2da0b6cb548413f2721a95e55e17e295",
                 "GCF_001682305.summary_partials.tsv:md5,db0255b99826900ecf4616eef7494806",
                 "GCF_001682305.summary_virulence.tsv:md5,439b76b76818cbe8ec06bc82bd2711fe",
-                "versions.yml:md5,aa30fa16abc1d1a9baefd6defd920a32",
+                "versions.yml:md5,ef1b96216865ffadde25334b59f3361c",
                 "abritamr.tsv:md5,18df68afa95e104c8f418efedd9146cf",
                 "versions.yml:md5,31f7f5153ed3b9aa6a6e432ec7939e0b"
             ]
         ],
-        "timestamp": "2026-04-29T11:22:41.756272676",
+        "timestamp": "2026-07-28T17:10:43.990646647",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

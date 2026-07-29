@@ -8,3 +8,4 @@ bactopia-runs/**/nf-reports/*.{dot,html}
 **/gene_presence_absence.csv
 **/gene_presence_absence_roary.csv
 **/pan_sequences.representative.fasta*
+**/alignment_resume_state.json

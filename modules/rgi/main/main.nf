@@ -68,7 +68,7 @@ process RGI_MAIN {
         ${task.ext.args} \\
         --clean \\
         --data wgs \\
-        --num_threads ${task.cpus} \\
+        --threads ${task.cpus} \\
         --output_file ${prefix} \\
         --input_sequence ${fna}
 

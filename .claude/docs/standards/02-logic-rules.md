@@ -40,7 +40,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 - **Definition**: No sample/data channels in the `take` block
 - **Use case**: Utility modules that download resources or perform setup tasks
 - **Note**: May have `Path`, `Value<String>`, or other non-channel parameters but no `Channel<Record>` inputs
-- **Examples**: wget, ariba/getref, bactopia/datasets, amrfinderplus/update
+- **Examples**: wget, ariba/getref, bactopia/datasets
 
 ### Single Input
 - **Definition**: The `take` block defines exactly **1 Channel**
@@ -119,7 +119,7 @@ This guide defines the decision-making logic and taxonomy used to classify Bacto
 #### internet-access
 - Requires active internet connection during execution
 - **Key indicators**: External URLs, download commands (wget, curl)
-- Examples: gather (SRA download), amrfinderplus/update
+- Examples: gather (SRA download), wget
 
 #### alternative-execution
 - Multiple tool options for the same task

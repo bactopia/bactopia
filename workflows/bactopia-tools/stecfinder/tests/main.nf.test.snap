@@ -72,7 +72,7 @@
                 "stecfinder.tsv:md5,d2b6d9a9ab37d918c58b4e8272e6055d"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:45.875265794",
+        "timestamp": "2026-07-28T17:13:23.504001293",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

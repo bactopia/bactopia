@@ -13,14 +13,17 @@ Skills are AI tooling — short instruction files that Claude invokes via the `S
 | [add-bactopia-tool](../../skills/add-bactopia-tool/) | `bactopia-scaffold` | Scaffold a complete Bactopia Tool across all three tiers -- module, subworkflow, and workflow entry point under workflows/bactopia-tools/. |
 | [add-module](../../skills/add-module/) | `bactopia-scaffold` | Scaffold a new Bactopia module from a bioconda/conda-forge package. |
 | [add-subworkflow](../../skills/add-subworkflow/) | `bactopia-scaffold` | Scaffold a new Bactopia subworkflow that orchestrates existing modules. |
+| [bump-versions](../../skills/bump-versions/) | — | Propagate the Bactopia and nf-bactopia versions declared in versions.yml into the hand-maintained files that carry a literal version (conf/test_base.config, CITATION.cff, bin/bactopia, data/conda/meta.yaml). |
 | [merge-schemas](../../skills/merge-schemas/) | `bactopia-merge-schemas` | Regenerate nextflow.config and nextflow_schema.json for Bactopia workflows by running bactopia-merge-schemas. |
 | [project-status](../../skills/project-status/) | `bactopia-status` | Show a live snapshot of the Bactopia project state — component counts, GroovyDoc coverage, nf-test coverage, and structural issues. |
+| [release-checklist](../../skills/release-checklist/) | — | Audit whether Bactopia is ready for a version release and produce a GO / NO-GO recommendation report. |
 | [review-citations](../../skills/review-citations/) | `bactopia-citations` | Review citation integrity across data/citations.yml and @citation tags using bactopia-citations --validate. |
 | [review-docs](../../skills/review-docs/) | `bactopia-docs` | Review staleness of reference docs under .claude/docs/ using bactopia-docs --validate. |
 | [review-groovydoc](../../skills/review-groovydoc/) | `bactopia-lint` | Review GroovyDoc accuracy across modules and subworkflows using bactopia-lint. |
 | [review-tests](../../skills/review-tests/) | — | Review nf-test run results and present a diagnostic summary with grouped error analysis. |
 | [run-tests](../../skills/run-tests/) | `bactopia-test` | Run Bactopia nf-tests via bactopia-test and produce a timestamped logs/ directory that /review-tests can interpret. |
 | [update-catalog](../../skills/update-catalog/) | `bactopia-catalog` | Regenerate catalog.json and llms.txt by running bactopia-catalog. |
+| [update-datasets](../../skills/update-datasets/) | — | Build and publish Bactopia's version-pinned datasets to Cloudflare R2. |
 | [update-module](../../skills/update-module/) | `bactopia-update` | Check for newer versions of tools used in Bactopia modules and apply updates to module.config files and CHANGELOG.md. |
 
 The `Purpose` column is the first sentence of each skill's `description:` frontmatter. Drift between the table and the source file is caught by **D107** in `/review-docs`. Full trigger-phrase lists live in each `SKILL.md` — read it directly when you need the exact phrasing.

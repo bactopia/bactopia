@@ -38,8 +38,7 @@ workflow STECFINDER {
     seqs: Channel<Record>
 
     main:
-    // If user passes --stecfinder_use_reads, we have to filter out any samples that
-    // have no reads.
+    // If user passes --stecfinder_use_reads, we have to filter out any samples without reads.
     def ch_seqs = (params.stecfinder_use_reads
         ? seqs.filter { r -> [r.r1, r.r2, r.se, r.lr].any { seq -> seq != null } }
         : seqs

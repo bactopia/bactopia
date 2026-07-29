@@ -81,7 +81,7 @@ process GATHER {
         ],
         logs: files("*.{log,err}", optional: true),
         nf_logs: files(".command.*"),
-        versions: files("versions.yml", optional: true)
+        versions: files("versions.yml")
     )
 
     script:
@@ -115,9 +115,7 @@ process GATHER {
     )
 
     // WF specific parameters
-    def String no_cache = task.ext.no_cache ? '-N' : ''
     def String archive = task.ext.use_ena ? (task.attempt >= 4 ? "SRA" : "ENA") : "SRA"
-    def String section = runtype == 'assembly_accession' ? (prefix.startsWith('GCF') ? 'refseq' : 'genbank') : ''
     def Integer fcov = task.ext.coverage.toInteger() == 0 ? 150 : Math.round(task.ext.coverage.toInteger() * 1.5)
 
     // Determine what reads we have based on the explicit slots
@@ -260,14 +258,12 @@ process GATHER {
                     rm check-assembly-accession.txt
                 fi
 
-                # Download from NCBI assembly and simulate reads
-                ncbi-genome-download bacteria -o ./ -F fasta -p ${task.cpus} \\
-                                            -u "https://ftp.ncbi.nlm.nih.gov/genomes" \\
-                                            -s ${section} -A accession.txt -r 50 ${no_cache}
+                # Download from NCBI Datasets and simulate reads
+                genome-dl --formats fasta --outdir ./ --cpus ${task.cpus} --max-attempts ${task.ext.max_retry} \\
+                          --prefix ${prefix} --accession ${prefix}
 
-                # Nested directories are not easy to predict, but there should only be a
-                # single assembly file. The assembly version (e.g., GCF_000005845.2 --> .2)
-                # is removed for consistency.
+                # genome-dl names the assembly by its resolved accession. The assembly version
+                # (e.g., GCF_000005845.2 --> .2) is removed for consistency.
                 find . -name "*${prefix}*.fna.gz" | xargs -I {} mv {} assembly/
                 rename 's/(GC[AF]_\\d+).*/\$1.fna.gz/' assembly/*
                 gzip -cd assembly/${prefix}.fna.gz > ${prefix}-art.fna
@@ -357,7 +353,7 @@ process GATHER {
         art: \$(echo \$(art_illumina --help 2>&1) | sed 's/^.*Version //;s/ .*\$//')
         fastq-dl: \$(echo \$(fastq-dl --version 2>&1) | sed 's/fastq-dl, version //')
         fastq-scan: \$(echo \$(fastq-scan -v 2>&1) | sed 's/fastq-scan //')
-        ncbi-genome-download: \$(echo \$(ncbi-genome-download --version 2>&1))
+        genomedl: \$(echo \$(genome-dl --version 2>&1) | sed 's/.*version //')
         pigz: \$(echo \$(pigz --version 2>&1) | sed 's/pigz //')
     END_VERSIONS
     """

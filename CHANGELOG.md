@@ -13,6 +13,8 @@ sidebar_position: 5000
 - Bactopia Tools (`bactopia --wf <NAME>`)
     - `staphscan` - Genome-based surveillance analysis of _Staphylococcus aureus_
     - `traitar` - Predict phenotypic traits from microbial genomes
+- New Skills
+    - `/update-datasets` to rebuild and publish version-pinned datasets
 - Added StaphSCAN to the Staphtyper and Merlin subworkflows
 - Deacon as the default host read scrubber (replaces nohuman as default)
 - Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
@@ -24,7 +26,21 @@ sidebar_position: 5000
     - subworkflow emits `assemblies` from the named `fna` field, and `reference` from `gbff` when
       `--format genbank` is used (Snippy needs an annotated reference), otherwise `fna`
 - Bump internal bactopia-* pipeline tool versions
-    - `bactopia-gather`: 1.0.5 -> 1.0.6
+    - `bactopia-gather`: 1.0.5 -> 1.2.0
+- bump program versions in modules  
+    - `abritamr`: 1.2.0 -> 1.3.0
+    - `busco`: 6.0.0 -> 6.1.0
+    - `defense-finder`: 2.0.1 -> 3.0.0
+    - `eggnog-mapper`: 2.1.13 -> 2.1.15
+    - `gtdbtk`: 2.7.1 -> 2.7.2
+    - `iqtree`: 3.1.1 -> 3.1.3
+    - `mash`: 2.3--hb105d93_10 -> 2.3--hf85e966_11
+    - `mlst`: 2.33.1 -> 2.35.0
+    - `ngmaster`: 2.0.0 -> 2.1.0
+    - `panaroo`: 1.6.0 -> 1.8.0
+    - `phispy`: 5.0.6 -> 5.0.10
+    - `rgi`: 6.0.5 -> 6.0.8
+    - `staphscan`: 0.3.1 -> 0.4.1
 
 ### `Changed`
 
@@ -37,38 +53,27 @@ sidebar_position: 5000
       assembly filename (`GCF_020736045.1_ASM2073604v1_genomic`), which changes output paths and
       tree/matrix labels
     - `snippy --accession` requires `--format genbank`, since Snippy needs an annotated reference
+- `bactopia gather` now downloads assemblies with `genome-dl` instead of `ncbi-genome-download`
+    - `--no_cache` is no longer available (it only tuned `ncbi-genome-download`'s summary cache)
 - Deacon modules now use bactopia-teton container instead of standalone deacon container
 - Teton and scrubber workflows default to deacon instead of nohuman for host read removal
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal
-- Every generated workflow `nextflow.config` now declares `params.bactopia_dir`, an absolute
-  anchor to the Bactopia repo root, so `module.config` can reference vendored data under
-  `data/` regardless of tier or launch directory
+- Added `params.bactopia_dir` which anchors to the Bactopia repo root so `data/` can be reference by all workflows
+- Centralized the pipeline version and `nf-bactopia@` plugin pin for module/subworkflow tests into `conf/test_base.config`; each `tests/nextflow.config` now `includeConfig`s it instead of repeating the values, so a version bump touches one file
 
 ### `Fixed`
 
 - float parameters being interpreted as strings in CLI
-- `--prokka_proteins` defaulting to `./data/proteins.faa`, which Nextflow resolves against the
-  launch directory rather than the repo. Only runs launched from the repo root picked up the
-  bundled protein set; every other run failed with
-  `Input file './data/proteins.faa' does not exist`. The default is now anchored on the new
-  `params.bactopia_dir` and resolves to `data/proteins.faa` from any working directory
-- `fastani` documenting a `--fastani_skip_pairwise` parameter that does not exist. The parameter
-  the workflow actually reads is `--fastani_pairwise`, so neither `--help` nor the docs site
-  mentioned the only way to run FastANI without `--fastani_reference`, `--accession`,
-  `--accessions`, or `--species`. The requirement is now stated in the `fastani` GroovyDoc
+- `--prokka_proteins` not being found in non-Bactopia workflows
+- `--fastani_skip_pairwise` parameter that does not exist
 - `mlst` and `amrfinderplus` Bactopia Tools failing immediately with `ERROR ~ Path string cannot
-  be empty` when run without `--mlst_db` / `--amrfinderplus_db` ([#673](https://github.com/bactopia/bactopia/issues/673)).
-  Both params defaulted to `""`, and Nextflow's static typing coerces the default to a `Path` at
-  parameter declaration, before the workflow body runs, so `amrfinderplus`'s existing
-  `if (params.amrfinderplus_db)` fallback was unreachable. Both now default to `null`
-- `mlst` Bactopia Tool having no way to source the PubMLST database automatically. It passed
-  `params.mlst_db` straight through, so `--mlst_db` was effectively required. It now falls back to
-  the `bactopia_datasets` subworkflow, matching `amrfinderplus`
-- `mobsuite` failing on any sample with no reconstructed plasmids. After `chromosome.fasta` was
-  moved out of `supplemental/`, the cleanup step ran `gzip supplemental/*.fasta` on an unguarded
-  glob; with no plasmids nothing matched, `gzip` exited non-zero, and Nextflow's `bash -ue`
-  aborted the task even though `mob_recon` had succeeded. Cleanup now uses `find -exec`, which
-  is a no-op when there is nothing to compress
+  be empty` when run without `--mlst_db` / `--amrfinderplus_db` ([#673](https://github.com/bactopia/bactopia/issues/673))
+- `mlst` Bactopia Tool not falling back on bactopia/datasets
+- `mobsuite` failing on any sample without plasmids due to compressing non-existent files
+- removed unused `amrfinderplus/update` module
+- `rgi` failing with `unrecognized arguments: --num_threads` after the 6.0.8 bump (renamed to `--threads`)
+- `rgi_exclude_nudge` emitting the removed `--exclude_nudge` flag; replaced with `rgi_include_nudge` which passes RGI 6's opt-in `--include_nudge`
+- `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404); `mlst_url` has been version-less since v4.0.0
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 

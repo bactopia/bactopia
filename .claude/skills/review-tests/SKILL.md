@@ -56,15 +56,15 @@ Run the review-tests CLI and present the results to the user.
 The initial summary should be compact and scannable. When the user asks for deeper detail:
 
 - **Specific component**: Read its stdout file at
-  `logs/{timestamp}/{tier}/{component}.stdout.txt` using the Read tool
+  `logs/run-tests/{timestamp}/{tier}/{component}.stdout.txt` using the Read tool
 - **Undeclared outputs**: Read the component's `.outputs.txt` file at
-  `logs/{timestamp}/{tier}/{component}.outputs.txt` for the full file list.
+  `logs/run-tests/{timestamp}/{tier}/{component}.outputs.txt` for the full file list.
   Then read the module's `main.nf` to see the current `results` and `logs`
   fields and advise where each undeclared file should go.
 - **Abort errors**: Read the nextflow.log for the component
   (focus on ERROR/WARN lines and last 50 lines).
   To find the log path, re-run with `--json` and check the `nextflow_log` field,
-  or look in `logs/{timestamp}/{tier}/{component}.stdout.txt` for the path.
+  or look in `logs/run-tests/{timestamp}/{tier}/{component}.stdout.txt` for the path.
 - **Assertion details**: Read the stdout file and look for specific assertion
   mismatch information
 
@@ -78,7 +78,7 @@ Do NOT read nextflow.log or stdout files during the initial summary.
   assertion failures -- snapshots were already regenerated during this run.
   These represent non-deterministic output or incorrect test assertions.
 - Always read `.stdout.txt` files for diagnostics, NOT `.stderr.txt`
-- The `logs/{timestamp}/` directory contains tier subdirectories based on what
+- The `logs/run-tests/{timestamp}/` directory contains tier subdirectories based on what
   was tested -- not all tiers are present in every run
 - The `.nf-test/` work directories under component test dirs only exist for
   failed tests (including `undeclared_outputs` failures -- preserved for review)

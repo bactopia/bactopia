@@ -93,6 +93,7 @@ When working with this codebase:
 3. **For documenting modules**: Read [.claude/docs/standards/05-module-documentation.md](.claude/docs/standards/05-module-documentation.md) for complete methodology and examples
 4. **For documenting subworkflows**: Read [.claude/docs/standards/04-subworkflow-documentation.md](.claude/docs/standards/04-subworkflow-documentation.md) for complete methodology and examples
 5. **Always check** [.claude/docs/standards/03-technical-specs.md](.claude/docs/standards/03-technical-specs.md) for variable naming and technical conventions
+6. **Always use the `bactopia-dev` conda env for all project tooling** — `ruff`, `bactopia-*` CLIs (`bactopia-lint`, `bactopia-test`, `bactopia-merge-schemas`, `bactopia-catalog`, `bactopia-citations`), and `nf-test`. Invoke via `conda run -n bactopia-dev <cmd>` (or activate the env first). Never report a check as SKIP because a tool is "not on PATH" without trying this env.
 
 ## Quick Reference
 

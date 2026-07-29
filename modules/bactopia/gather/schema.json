@@ -74,12 +74,6 @@
                     "description": "Download FASTQs from ENA",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
-                },
-                "no_cache": {
-                    "type": "boolean",
-                    "description": "Skip caching the assembly summary file from ncbi-genome-download",
-                    "fa_icon": "fas fa-toggle-on",
-                    "hidden": true
                 }
             }
         }
