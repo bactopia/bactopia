@@ -22,9 +22,20 @@
             },
             [
                 "versions.yml:md5,0876b2d126e96f86b158fe8dddf4f05f"
+            ],
+            {
+                "id": "traitar-single-TRAITAR:CSVTK_CONCAT_SINGLE",
+                "logs_dir": "merged-results/logs/traitar-single-concat/",
+                "name": "traitar-single",
+                "output_dir": "merged-results",
+                "process_name": "traitar-single-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,ec4bec02bbfd8002cdc3229b98111f6a"
             ]
         ],
-        "timestamp": "2026-07-28T19:49:48.509801502",
+        "timestamp": "2026-07-29T01:40:06.183091617",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

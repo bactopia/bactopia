@@ -46,7 +46,7 @@
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-07-28T17:12:30.355218637",
+        "timestamp": "2026-07-29T01:37:29.568331075",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -99,7 +99,7 @@
                 "midas.tsv:md5,6078fbf9d5c44a56afeb7a42836b14d2"
             ]
         ],
-        "timestamp": "2026-07-28T17:13:34.746758901",
+        "timestamp": "2026-07-29T01:38:33.559499623",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -45,16 +45,14 @@ sidebar_position: 5000
 ### `Changed`
 
 - Updated bactopia-teton meta-package from 1.1.3 to 1.1.4 (includes deacon)
+- Bumped required `bactopia-py` to `>=2.3.0` (conda `meta.yaml`)
+- `bactopia gather` now downloads assemblies with `genome-dl` instead of `ncbi-genome-download`
+    - `--no_cache` is no longer available (`ncbi-genome-download` specific param)
 - `fastani`, `mashtree`, `pangenome` and `snippy` Bactopia Tools now download genomes with
   `genomedl` instead of `ncbigenomedownload`
     - `--kingdom` and `--keep_downloads` are no longer available to these tools
     - `--limit` now defaults to 100 for `--species` (previously unlimited)
-    - downloaded genomes are named by accession (`GCF_020736045.1`) rather than by NCBI's full
-      assembly filename (`GCF_020736045.1_ASM2073604v1_genomic`), which changes output paths and
-      tree/matrix labels
     - `snippy --accession` requires `--format genbank`, since Snippy needs an annotated reference
-- `bactopia gather` now downloads assemblies with `genome-dl` instead of `ncbi-genome-download`
-    - `--no_cache` is no longer available (it only tuned `ncbi-genome-download`'s summary cache)
 - Deacon modules now use bactopia-teton container instead of standalone deacon container
 - Teton and scrubber workflows default to deacon instead of nohuman for host read removal
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal

@@ -26,7 +26,9 @@ nextflow_workflow {
 
         then {
             def sample = workflow.out.sample_outputs[0]
-            def run = workflow.out.run_outputs[0]
+            def runs = workflow.out.run_outputs
+            def majority = runs.find { it.meta.process_name == 'traitar-majority-concat' }
+            def single = runs.find { it.meta.process_name == 'traitar-single-concat' }
             assertAll(
                 { assert workflow.success },
                 { assert workflow.out.sample_outputs != null },
@@ -34,14 +36,18 @@ nextflow_workflow {
                 { assert snapshot(
                     sample.meta,
                     sample.versions,
-                    run.meta,
-                    run.versions
+                    majority.meta,
+                    majority.versions,
+                    single.meta,
+                    single.versions
                 ).match() },
                 { assert sample.majority_tsv != null },
                 { assert sample.single_tsv != null },
                 { assert sample.results != null },
-                { assert run.csv != null },
-                { assert run.results != null }
+                { assert majority.csv != null },
+                { assert majority.results != null },
+                { assert single.csv != null },
+                { assert single.results != null }
             )
         }
     }

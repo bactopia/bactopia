@@ -1,8 +1,8 @@
 {
   "version": "1.0",
-  "generated": "2026-07-28T22:44:08Z",
+  "generated": "2026-07-29T16:50:49Z",
   "bactopia_version": "4.1.0",
-  "bactopia_py_version": "2.2.0",
+  "bactopia_py_version": "2.3.0",
   "nf_bactopia_version": "2.1.6",
   "modules": {
     "abricate_run": {
@@ -930,7 +930,8 @@
         "r2",
         "se",
         "lr",
-        "scrub_report"
+        "scrub_report",
+        "json_summary"
       ],
       "emits_optional": [
         "r1",
