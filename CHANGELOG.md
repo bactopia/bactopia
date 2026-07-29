@@ -72,6 +72,7 @@ sidebar_position: 5000
 - `rgi` failing with `unrecognized arguments: --num_threads` after the 6.0.8 bump (renamed to `--threads`)
 - `rgi_exclude_nudge` emitting the removed `--exclude_nudge` flag; replaced with `rgi_include_nudge` which passes RGI 6's opt-in `--include_nudge`
 - `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404); `mlst_url` has been version-less since v4.0.0
+- `gubbins` failing under Singularity/Apptainer when Numba tried to write to read-only container ([#667](https://github.com/bactopia/bactopia/issues/667)) (@pvanheus)
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
