@@ -98,7 +98,6 @@ process GUBBINS {
     if [ "${is_compressed}" == "true" ]; then
         rm -rf ${aln_name}
     fi
-    rm -rf tmp/
     gzip *.masked.aln *.embl *.fasta *.gff *.vcf
 
     # Move supplemental outputs to gubbins folder
@@ -118,5 +117,8 @@ process GUBBINS {
     "${task.process}":
         gubbins: \$(run_gubbins.py --version 2>&1)
     END_VERSIONS
+
+    # gubbins --version causes numba cache to be recreated, so cleanup after version check
+    rm -rf tmp/
     """
 }
