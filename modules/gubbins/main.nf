@@ -75,7 +75,8 @@ process GUBBINS {
     def is_compressed = aln.getName().endsWith(".gz") ? true : false
     def aln_name = aln.getName().replace(".gz", "")
     """
-    export NUMBA_CACHE_DIR="\${TMPDIR:-/tmp}/numba_cache"
+    mkdir -p tmp/numba_cache
+    export NUMBA_CACHE_DIR="./tmp/numba_cache"
 
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${aln} > ${aln_name}
@@ -97,6 +98,7 @@ process GUBBINS {
     if [ "${is_compressed}" == "true" ]; then
         rm -rf ${aln_name}
     fi
+    rm -rf tmp/
     gzip *.masked.aln *.embl *.fasta *.gff *.vcf
 
     # Move supplemental outputs to gubbins folder
