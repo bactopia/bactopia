@@ -296,27 +296,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,99bfa6c29403a77acf3449315065c245",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,a8d93e0d6a006b32c088567301fe66c4",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:33:41.235800414",
+        "timestamp": "2026-07-30T00:52:34.38763914",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -619,27 +608,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,99bfa6c29403a77acf3449315065c245",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,a8d93e0d6a006b32c088567301fe66c4",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:34:40.096134031",
+        "timestamp": "2026-07-30T00:54:12.826260331",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -930,26 +908,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,35bdf120a286dc0efcc97ccb06895c0f",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:35:28.678459692",
+        "timestamp": "2026-07-30T00:55:12.658283959",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1220,25 +1188,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:37:05.876645538",
+        "timestamp": "2026-07-30T00:57:19.470508235",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1541,27 +1500,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,68fc7d4fdb61ddedc72a49ff68214a86",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,0cc5a62da2cd9c7c1aefa5446a7bfb4e",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,99bfa6c29403a77acf3449315065c245",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,a8d93e0d6a006b32c088567301fe66c4",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:36:27.029816169",
+        "timestamp": "2026-07-30T00:56:31.359136857",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1832,25 +1780,16 @@
             ],
             [
                 "ERR1438863.tab:md5,9b4987b8070848915b02b159eeac5886",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "ERR6005894SE.tab:md5,00cc7c3e06c9b26227ec6eda254ed410",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702.tab:md5,67e8a9cc497b74f40fad905e9c84e494",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE.tab:md5,9b94b3377f68e6901ef3634fca10241f",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702SE_2.tab:md5,9b94b3377f68e6901ef3634fca10241f",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
                 "SRR2838702_2.tab:md5,67e8a9cc497b74f40fad905e9c84e494",
-                "versions.yml:md5,3a20f15dd89e01a265cbbae4bacd7f30",
-                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1",
-                "versions.yml:md5,27ed685c7bc2cfe49934a9c45b1a2735",
-                "versions.yml:md5,8705955ac30d91d4bcce3b0571be3147"
+                "core-snp.distance.tsv:md5,035f4fc57bee2ee25160fe42ca8307d1"
             ]
         ],
-        "timestamp": "2026-07-29T11:37:48.147294697",
+        "timestamp": "2026-07-30T00:58:14.952886169",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

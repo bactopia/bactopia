@@ -23,12 +23,9 @@
                 "scope": "sample",
                 "single_end": false,
                 "teton_reads": "SRR2838702_R1.scrubbed.fastq.gz,SRR2838702_R2.scrubbed.fastq.gz"
-            },
-            [
-                "versions.yml:md5,7d27773f1e349726172140b0c615a73b"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:42:33.525627479",
+        "timestamp": "2026-07-30T00:49:55.974959825",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

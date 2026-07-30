@@ -10,9 +10,6 @@
                 "scope": "sample"
             },
             "SRR2838702.tsv:md5,a02f798379d9982810a198ec9b389079",
-            [
-                "versions.yml:md5,83128d552544124c01b8b5502f773fc6"
-            ],
             {
                 "id": "quast-QUAST:CSVTK_CONCAT",
                 "logs_dir": "merged-results/logs/quast-concat/",
@@ -25,7 +22,7 @@
                 "versions.yml:md5,f6625779099decc901ee6311371b1230"
             ]
         ],
-        "timestamp": "2026-07-29T01:32:58.257588548",
+        "timestamp": "2026-07-30T00:38:58.645483063",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

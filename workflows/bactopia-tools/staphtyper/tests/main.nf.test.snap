@@ -107,32 +107,12 @@
                 "bactopia-runs/staphtyper/nf-reports/staphtyper-timeline.html"
             ],
             [
-                "GCF_000017085.tsv:md5,b483a3d6ca1908ab813427b06751e51a",
-                "versions.yml:md5,c0b16a8b5ea1a55c72f38545beffb659",
                 "GCF_000017085-agr_gp.tab:md5,04031d5b20fabcc4b3ddeef707e94029",
                 "GCF_000017085-blastn_log.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "GCF_000017085.fna-error-report.tab:md5,44907dcabe3ed848aa68e87c0c6d00b2",
-                "GCF_000017085.regions.blastn.tsv:md5,ca426de41052a9f0bdcfb538610e5aa6",
-                "GCF_000017085.regions.details.tsv:md5,d8568654b8455ddebf37283918805b46",
-                "GCF_000017085.targets.blastn.tsv:md5,5cd7054ed50c7d360feac0e51db54ac6",
-                "GCF_000017085.targets.details.tsv:md5,8938065005a5f984229c09cd4d9f91e2",
-                "GCF_000017085.tsv:md5,da49131b3619e12fac7c1efef5e109d0",
-                "versions.yml:md5,4d90b86147c4eb115fc93edc4fa484b8",
-                "GCF_000017085.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
-                "versions.yml:md5,32d57feabda90e9fe6e0aeb96e5d2352",
-                "GCF_000017085.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e",
-                "versions.yml:md5,70a740425288fd57db5b227c8a1b3723",
-                "agrvate.tsv:md5,6acd3d01fc9d867f32435265331ff7b2",
-                "versions.yml:md5,d203f21af354f31f3d144e58af47cff3",
-                "versions.yml:md5,35f4a9f839e9fd13b2afb63fecea88b4",
-                "versions.yml:md5,db2a4ba0c195fd025b9a8068ad991793",
-                "versions.yml:md5,c707d4291d068c2b150937480568d0b0",
-                "sccmec.tsv:md5,7b28813993e6b0b48532bb2b161bc975",
-                "spatyper.tsv:md5,6afe7a90c591e32107d86c0e81029f54",
-                "staphscan.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e"
+                "GCF_000017085.fna-error-report.tab:md5,44907dcabe3ed848aa68e87c0c6d00b2"
             ]
         ],
-        "timestamp": "2026-07-29T01:38:27.622765241",
+        "timestamp": "2026-07-30T00:51:40.872100114",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

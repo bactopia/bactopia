@@ -9,12 +9,9 @@
                 "process_name": "gubbins",
                 "scope": "run"
             },
-            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719",
-            [
-                "versions.yml:md5,623c400503380dab143c222d825e55f6"
-            ]
+            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719"
         ],
-        "timestamp": "2026-07-29T11:30:36.102332079",
+        "timestamp": "2026-07-30T00:28:31.765803438",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -30,12 +27,9 @@
                 "process_name": "gubbins",
                 "scope": "run"
             },
-            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719",
-            [
-                "versions.yml:md5,623c400503380dab143c222d825e55f6"
-            ]
+            "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719"
         ],
-        "timestamp": "2026-07-29T11:31:06.432688377",
+        "timestamp": "2026-07-30T00:29:33.303400589",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

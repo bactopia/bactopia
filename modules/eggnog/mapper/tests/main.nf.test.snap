@@ -8,12 +8,9 @@
                 "output_dir": "SRR2838702/tools/eggnog/",
                 "process_name": "eggnog",
                 "scope": "sample"
-            },
-            [
-                "versions.yml:md5,591b018c5d70f26267582a8932b0271d"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:42:09.932051896",
+        "timestamp": "2026-07-30T00:47:20.595133302",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -28,12 +25,9 @@
                 "output_dir": "SRR2838702/tools/eggnog/",
                 "process_name": "eggnog",
                 "scope": "sample"
-            },
-            [
-                "versions.yml:md5,591b018c5d70f26267582a8932b0271d"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:46:27.638181705",
+        "timestamp": "2026-07-30T00:53:03.419968224",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

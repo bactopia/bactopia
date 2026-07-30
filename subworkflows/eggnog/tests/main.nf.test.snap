@@ -8,12 +8,9 @@
                 "output_dir": "SRR2838702/tools/eggnog/",
                 "process_name": "eggnog",
                 "scope": "sample"
-            },
-            [
-                "versions.yml:md5,56dfcc706d4c6949d6ff76e4274da031"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:45:10.522762836",
+        "timestamp": "2026-07-30T00:54:55.63046983",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

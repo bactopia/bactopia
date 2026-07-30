@@ -58,18 +58,16 @@
             ],
             [
                 "SRR2838702.tsv:md5,a02f798379d9982810a198ec9b389079",
-                "versions.yml:md5,83128d552544124c01b8b5502f773fc6",
                 "SRR2838702_glimmer_genes.gff:md5,36b7926c51f078321f2fd6867a4de85a",
                 "report.tex:md5,04c0dc621c59c716c7c99a57c6eba3c6",
                 "report.tsv:md5,8c0257e77c7bb49f734e68054cb3fcdc",
                 "report.txt:md5,d35e1ed08c41cc6e391297a2885ed278",
                 "transposed_report.tex:md5,92a642be48f2ed8e9d45f32aed4713a2",
                 "transposed_report.txt:md5,652a64d08ecdfe0b26fd918815575737",
-                "versions.yml:md5,f6625779099decc901ee6311371b1230",
                 "quast.tsv:md5,a02f798379d9982810a198ec9b389079"
             ]
         ],
-        "timestamp": "2026-07-29T01:37:40.847741354",
+        "timestamp": "2026-07-30T00:49:29.718406164",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

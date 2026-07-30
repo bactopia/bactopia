@@ -12,12 +12,9 @@
                 "scope": "sample",
                 "single_end": false,
                 "species": "Portiera aleyrodidarum"
-            },
-            [
-                "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:29:53.240079953",
+        "timestamp": "2026-07-30T00:29:03.659398485",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -36,12 +33,9 @@
                 "scope": "sample",
                 "single_end": true,
                 "species": "Portiera aleyrodidarum"
-            },
-            [
-                "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:30:53.187400287",
+        "timestamp": "2026-07-30T00:30:04.521158614",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -60,12 +54,9 @@
                 "scope": "sample",
                 "single_end": false,
                 "species": "Portiera aleyrodidarum"
-            },
-            [
-                "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:33:36.18953171",
+        "timestamp": "2026-07-30T00:32:40.710016356",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -84,12 +75,9 @@
                 "scope": "sample",
                 "single_end": true,
                 "species": "Portiera aleyrodidarum"
-            },
-            [
-                "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:31:45.972044885",
+        "timestamp": "2026-07-30T00:30:51.266979238",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -108,12 +96,9 @@
                 "scope": "sample",
                 "single_end": false,
                 "species": "Portiera aleyrodidarum"
-            },
-            [
-                "versions.yml:md5,039e8b06ff0140cc2616c36d90ded521"
-            ]
+            }
         ],
-        "timestamp": "2026-07-29T01:34:13.427660919",
+        "timestamp": "2026-07-30T00:33:22.799446708",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
