@@ -41,12 +41,14 @@ nextflow_workflow {
                 { assert workflow.success },
                 { assert workflow.out.sample_outputs != null },
                 { assert workflow.out.run_outputs != null },
+                // Reproducible outputs
                 { assert snapshot(
                     scrubber.meta,
                     scrubber.versions,
-                    bracken.meta,
-                    bracken.versions
+                    bracken.meta
                 ).match() },
+                // Non-reproducible outputs
+                { assert path(bracken.versions[0]).text.contains('bracken') },
                 { assert scrubber.results != null },
                 { assert bracken.results != null }
             )

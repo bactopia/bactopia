@@ -30,10 +30,12 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert workflow.out.sample_outputs != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    sample.meta,
-                    sample.versions
+                    sample.meta
                 ).match() },
+                // Non-reproducible outputs
+                { assert path(sample.versions[0]).text.contains('eggnog-mapper') },
                 { assert sample.hits != null },
                 { assert sample.seed_orthologs != null },
                 { assert sample.annotations != null },

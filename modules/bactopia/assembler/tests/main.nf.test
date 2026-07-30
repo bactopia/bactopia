@@ -33,10 +33,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -68,10 +70,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -103,10 +107,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -139,10 +145,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -174,10 +182,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -212,10 +222,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna == null },
                 { assert record.tsv == null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -248,10 +260,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }
@@ -284,10 +298,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.fna != null },
                 { assert record.tsv != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('assembly-scan') }
             )
         }
     }

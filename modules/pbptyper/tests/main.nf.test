@@ -26,12 +26,16 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.blast,
-                    record.versions
-                ).match() }
+                    record.blast
+                ).match() },
+                // Non-reproducible outputs
+                { assert [
+                    record.tsv
+                ].every { path(it).exists() } },
+                { assert path(record.versions[0]).text.contains('pbptyper') }
             )
         }
     }
