@@ -2,7 +2,7 @@
 #
 # Each entry flags a phrase that is no longer current — usually residue
 # from a past migration. Validator (`bactopia.lint.docs.validate_docs`)
-# greps every line of every doc under `.claude/docs/` against these
+# greps every line of every doc under `.agents/docs/` against these
 # patterns; matches surface as D0xx FAILs.
 #
 # Schema (per entry):

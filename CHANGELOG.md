@@ -58,6 +58,9 @@ sidebar_position: 5000
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal
 - Added `params.bactopia_dir` which anchors to the Bactopia repo root so `data/` can be reference by all workflows
 - Centralized the pipeline version and `nf-bactopia@` plugin pin for module/subworkflow tests into `conf/test_base.config`; each `tests/nextflow.config` now `includeConfig`s it instead of repeating the values, so a version bump touches one file
+- Migrated AI agent context to the community-standard layout: `CLAUDE.md` is now `AGENTS.md` (agents.md convention, read natively by omp/pi, Kimi Code, Codex, Cursor, and others), and `.claude/docs` + `.claude/skills` moved to `.agents/docs` + `.agents/skills`
+    - Claude Code compatibility is preserved via a one-line `CLAUDE.md` shim (`@AGENTS.md`) and a `.claude/skills` symlink
+    - `llms.txt` template updated: module layout corrected (`module.config`/`schema.json`, not `meta.yml`) and the full `.agents/docs/` index is now listed
 
 ### `Fixed`
 

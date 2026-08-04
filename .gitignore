@@ -26,10 +26,8 @@ data/conda/index.html
 data/conda/linux-64/
 data/conda/noarch/
 
-# Claude
-.claude/plans/
-.claude/handoffs/
-.claude/skills/*-workspace/
+# Agent skill workspaces
+.agents/skills/*-workspace/
 
 # temp v4 folders
 old-bactopia/

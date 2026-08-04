@@ -36,7 +36,8 @@ All components use standardized GroovyDoc documentation and static typing.
 
 104 tool-specific modules live under `modules/`. Each module directory contains:
 - `main.nf`: Process definition with GroovyDoc header
-- `meta.yml`: Tool metadata, inputs, outputs, and parameter descriptions
+- `module.config`: Default parameters and `task.ext` configuration
+- `schema.json`: JSON Schema for the module's parameters
 - `tests/`: nf-test test cases
 
 Key module categories:
@@ -53,17 +54,24 @@ Key module categories:
 
 ## AI Agent Documentation
 
-- [CLAUDE.md](CLAUDE.md): Master map for AI agents — architecture, conventions, and documentation index
-- [.claude/docs/standards/01-style-guide.md](.claude/docs/standards/01-style-guide.md): GroovyDoc templates and formatting rules
-- [.claude/docs/standards/02-logic-rules.md](.claude/docs/standards/02-logic-rules.md): Component classification logic
-- [.claude/docs/standards/03-technical-specs.md](.claude/docs/standards/03-technical-specs.md): Variable naming, types, Path? optional inputs
-- [.claude/docs/standards/04-subworkflow-documentation.md](.claude/docs/standards/04-subworkflow-documentation.md): Subworkflow documentation methodology
-- [.claude/docs/standards/05-module-documentation.md](.claude/docs/standards/05-module-documentation.md): Module documentation methodology
-- [.claude/docs/standards/07-tier-architecture.md](.claude/docs/standards/07-tier-architecture.md): Tier architecture rules, plugin functions, ext system, catalog.json
-- [.claude/docs/project/01-repository-structure.md](.claude/docs/project/01-repository-structure.md): Full directory layout
-- [.claude/docs/project/02-development-workflow.md](.claude/docs/project/02-development-workflow.md): Step-by-step guide for adding new tools
-- [.claude/docs/reference/01-examples.md](.claude/docs/reference/01-examples.md): Annotated implementation examples
-- [.claude/docs/reference/06-skills.md](.claude/docs/reference/06-skills.md): Project skill inventory and when to invoke skill-creator
+- [AGENTS.md](AGENTS.md): Master map for AI agents — architecture, conventions, and documentation index
+- [.agents/docs/standards/01-style-guide.md](.agents/docs/standards/01-style-guide.md): GroovyDoc templates and formatting rules
+- [.agents/docs/standards/02-logic-rules.md](.agents/docs/standards/02-logic-rules.md): Component classification logic
+- [.agents/docs/standards/03-technical-specs.md](.agents/docs/standards/03-technical-specs.md): Variable naming, types, Path? optional inputs
+- [.agents/docs/standards/04-subworkflow-documentation.md](.agents/docs/standards/04-subworkflow-documentation.md): Subworkflow documentation methodology
+- [.agents/docs/standards/05-module-documentation.md](.agents/docs/standards/05-module-documentation.md): Module documentation methodology
+- [.agents/docs/standards/06-workflow-documentation.md](.agents/docs/standards/06-workflow-documentation.md): Workflow documentation methodology
+- [.agents/docs/standards/07-tier-architecture.md](.agents/docs/standards/07-tier-architecture.md): Tier architecture rules, plugin functions, ext system, catalog.json
+- [.agents/docs/project/01-repository-structure.md](.agents/docs/project/01-repository-structure.md): Full directory layout
+- [.agents/docs/project/02-development-workflow.md](.agents/docs/project/02-development-workflow.md): Step-by-step guide for adding new tools
+- [.agents/docs/project/03-configuration-system.md](.agents/docs/project/03-configuration-system.md): Parameter hierarchy and profile management
+- [.agents/docs/project/04-testing-framework.md](.agents/docs/project/04-testing-framework.md): nf-test framework usage and patterns
+- [.agents/docs/reference/01-examples.md](.agents/docs/reference/01-examples.md): Annotated implementation examples
+- [.agents/docs/reference/02-troubleshooting.md](.agents/docs/reference/02-troubleshooting.md): Common error solutions
+- [.agents/docs/reference/03-glossary.md](.agents/docs/reference/03-glossary.md): Bactopia-specific terminology
+- [.agents/docs/reference/04-plugin-functions.md](.agents/docs/reference/04-plugin-functions.md): nf-bactopia channel utilities
+- [.agents/docs/reference/05-task-ext-properties.md](.agents/docs/reference/05-task-ext-properties.md): task.ext reference for module.config files
+- [.agents/docs/reference/06-skills.md](.agents/docs/reference/06-skills.md): Project skill inventory (.agents/skills/) and when to invoke skill-creator
 
 ## Key Patterns for Agents
 
