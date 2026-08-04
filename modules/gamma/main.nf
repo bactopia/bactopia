@@ -77,8 +77,8 @@ process GAMMA {
         process_name: task.ext.process_name
     )
 
-    def is_compressed = fna.getName().endsWith(".gz") ? true : false
-    def fna_name = fna.getName().replace(".gz", "")
+    def is_compressed = fna.fileName.name.endsWith(".gz") ? true : false
+    def fna_name = fna.fileName.name.replace(".gz", "")
 
     // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     def VERSION = '2.1'
@@ -86,7 +86,7 @@ process GAMMA {
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ./${fna_name}
     else
-        cp ${fna} ./${fna_name}
+        cp -L ${fna} ./${fna_name}
     fi
 
     GAMMA.py \\
@@ -96,9 +96,7 @@ process GAMMA {
         ${prefix}
 
     # Cleanup
-    if [ "${is_compressed}" == "true" ]; then
-        rm -rf ${fna_name}
-    fi
+    rm -rf ./${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

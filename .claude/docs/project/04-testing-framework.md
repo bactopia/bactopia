@@ -410,7 +410,7 @@ Sourced from `bactopia-test --help`:
 | `--outdir PATH` | Output | Where `logs/` is written |
 | `--json` | Output | Emit structured JSON summary |
 | `--keep` | Cleanup | Preserve `.nf-test/` dirs and logs on pass |
-| `--cleanup` | Cleanup | Remove all `.nf-test/` temp dirs and exit (no tests run) |
+| `--cleanup` | Cleanup | Remove `.nf-test/` temp dirs under `modules/`, `subworkflows/`, `workflows/`, `tests/` and exit (skips `logs/`; no tests run) |
 
 ### Raw `nf-test` (debugging)
 

@@ -209,7 +209,7 @@ Defaults in parentheses.
 - `--timeout` — per-test timeout in **minutes**, 0 to disable (default: 90)
 
 **Cleanup (operates instead of running tests)**
-- `--cleanup` — find and remove all `.nf-test/` temp files, then exit
+- `--cleanup` — remove `.nf-test/` temp files under `modules/`, `subworkflows/`, `workflows/`, `tests/`, then exit (skips `logs/` work dirs)
 - `--dry-run` — with `--cleanup`, list what would be removed
 
 **Output**

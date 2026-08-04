@@ -60,7 +60,7 @@
                 "bracken-species-abundance.tsv:md5,9f9ef5bab54b3cb593886171a47ed7b9"
             ]
         ],
-        "timestamp": "2026-07-30T00:56:52.050983859",
+        "timestamp": "2026-07-30T19:30:27.996338535",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -127,7 +127,7 @@
                 "bracken-species-abundance.tsv:md5,9f9ef5bab54b3cb593886171a47ed7b9"
             ]
         ],
-        "timestamp": "2026-07-30T00:48:52.84431721",
+        "timestamp": "2026-07-30T19:21:50.924466611",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

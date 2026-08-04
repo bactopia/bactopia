@@ -42,7 +42,7 @@
                 "mlst.tsv:md5,c2faf73735d4ebc6fb0d8f4b263eb5b6"
             ]
         ],
-        "timestamp": "2026-07-30T00:48:15.899678948",
+        "timestamp": "2026-07-30T19:21:36.849565541",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

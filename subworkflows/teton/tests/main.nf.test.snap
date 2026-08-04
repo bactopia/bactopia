@@ -25,7 +25,7 @@
                 "teton_reads": "SRR2838702_R1.scrubbed.fastq.gz,SRR2838702_R2.scrubbed.fastq.gz"
             }
         ],
-        "timestamp": "2026-07-30T00:49:55.974959825",
+        "timestamp": "2026-07-30T19:21:55.28532386",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

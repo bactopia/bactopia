@@ -11,7 +11,7 @@
             },
             "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719"
         ],
-        "timestamp": "2026-07-30T00:28:31.765803438",
+        "timestamp": "2026-07-30T19:01:52.976881269",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -29,7 +29,7 @@
             },
             "test.masked.aln.gz:md5,0aa89f5b52d36f88d6bbf52b9015a719"
         ],
-        "timestamp": "2026-07-30T00:29:33.303400589",
+        "timestamp": "2026-07-30T19:02:56.185234141",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

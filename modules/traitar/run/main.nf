@@ -74,19 +74,16 @@ process TRAITAR_RUN {
         process_name: task.ext.process_name
     )
 
-    def is_compressed = fna.getName().endsWith(".gz") ? true : false
-    def fna_name = fna.getName().replace(".gz", "")
+    def is_compressed = fna.fileName.name.endsWith(".gz") ? true : false
+    def fna_name = fna.fileName.name.replace(".gz", "")
     """
-    # Decompress input if needed
-    if [ "${is_compressed}" == "true" ]; then
-        gzip -c -d ${fna} > ${fna_name}
-    else
-        cp -L ${fna} ${fna_name}
-    fi
-
-    # Create input directory and sample file for traitar
+    # Materialize a real (non-symlink) copy of the input inside the traitar input directory
     mkdir -p input_dir
-    mv ${fna_name} input_dir/
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fna} > input_dir/${fna_name}
+    else
+        cp -L ${fna} input_dir/${fna_name}
+    fi
 
     cat > samples.tsv <<-SAMPLE_EOF
     sample_file_name\tsample_name

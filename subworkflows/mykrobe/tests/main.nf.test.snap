@@ -10,8 +10,6 @@
                 "scope": "sample",
                 "single_end": false
             },
-            "SRR2838702.csv:md5,a27c093fe0789e56a7100d16ae757766",
-            "SRR2838702.json:md5,c27fd2ccc9ffc107511fa83ef4920897",
             [
                 "versions.yml:md5,0bb4264d1e075a8c456f1cb32275d24e"
             ],
@@ -27,7 +25,7 @@
                 "versions.yml:md5,b61c6df6bd9d4c4092a94b7ebb604057"
             ]
         ],
-        "timestamp": "2026-07-30T00:37:05.95887141",
+        "timestamp": "2026-07-30T19:10:55.57576539",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

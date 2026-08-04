@@ -73,6 +73,15 @@ sidebar_position: 5000
 - `rgi_exclude_nudge` emitting the removed `--exclude_nudge` flag; replaced with `rgi_include_nudge` which passes RGI 6's opt-in `--include_nudge`
 - `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404); `mlst_url` has been version-less since v4.0.0
 - `gubbins` failing under Singularity/Apptainer when Numba tried to write to read-only container ([#667](https://github.com/bactopia/bactopia/issues/667)) (@pvanheus)
+- `agrvate`, `gamma`, and `traitar` modules failing under Conda with `cp: '...' are the same file`
+  when the staged input was copied onto its own path (used `fna.fileName.name` for the work-dir copy target)
+- Conda profile tool_errors from unconstrained transitive dependencies (docker/singularity unaffected); pinned in each module's `ext.toolName`:
+    - `ariba`, `ismapper`, `mykrobe`, `shigeifinder`, `sistr` - `setuptools=80` (`pkg_resources` removed in setuptools 81)
+    - `clonalframeml` (maskrc-svg) - `python=3.12` (stdlib `cgi` removed in Python 3.13)
+    - `hicap` - `biopython=1.79` (`SeqFeature.strand` removed in Biopython 1.80)
+    - `mcroni` - `numpy=2.0` (`reshape(newshape=)` removed in NumPy 2.1)
+    - `clermontyping` - `r-readr=2.1` (`quoted_na` promoted to a hard error)
+    - `snippy` (bactopia-variants) - `htslib=1.14` (bcftools 1.14/htslib 1.21 ABI mismatch segfaulted `bcftools consensus`)
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
