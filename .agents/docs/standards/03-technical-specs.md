@@ -505,6 +505,66 @@ GATHER is the only module that appends a `*???-<type>` suffix — it runs before
 | `prokka`, `agrvate`, `bakta/run` | `staging/fna/*` | Single assembly staging |
 | `defensefinder/run` | `staging/faa/*` | Protein FASTA staging |
 
+## Input Decompression Pattern
+
+Many tools do not accept gzip-compressed input (or cannot follow symlinks). Since assemblies
+and other inputs may arrive either compressed (`.gz`) or plain, modules that need a real file
+on disk use a standard decompress-or-copy guard. This is the convention used across ~34 modules
+(e.g., `agrvate`, `ectyper`, `mobsuite/recon`, `checkm2/predict`, `clonalframeml`).
+
+In the Groovy script block, before the shell heredoc:
+
+```groovy
+def is_compressed = fna.getName().endsWith(".gz") ? true : false
+def fna_name = fna.getName().replace(".gz", "")
+```
+
+In the shell block:
+
+```bash
+if [ "${is_compressed}" == "true" ]; then
+    gzip -c -d ${fna} > ${fna_name}
+fi
+```
+
+Then pass `${fna_name}` to the tool. Some tools also cannot follow symlinks, so the `else`
+branch copies the real file (`cp -L ${fna} ${fna_name}`); include it only when the tool needs
+a bare-named file at the task root in the uncompressed case too (e.g., `agrvate`).
+
+### `getName()` vs `fileName.name`
+
+`Path.getName()` (== the `.name` property) returns the path **relative to the task directory**,
+not necessarily the bare filename. For a normally-staged (flat) input the two are identical:
+
+```groovy
+flat.getName()          // a.fna.gz
+flat.fileName.name      // a.fna.gz   (same)
+```
+
+But for an input placed in a subdirectory via `stageAs 'staging/fna/*'`, `getName()` keeps the
+subdir prefix while `fileName.name` strips it:
+
+```groovy
+sub.getName()           // staging/fna/b.fna.gz
+sub.fileName.name       // b.fna.gz
+```
+
+(Verified empirically; see the Nextflow [Path docs](https://docs.seqera.io/nextflow/reference/stdlib-types/path) — "Use `fileName.name` for task paths to get only the file name.")
+
+**Prefer `getName()`** — it is the established default and works for the common flat-input case:
+- Suffix checks (`.endsWith(".gz")`, `is_tarball` detection) are unaffected by a subdir prefix, so `getName()` is always fine there.
+- When a module decompresses/reads the staged file **in place** (no `cp`), the subdir-relative
+    path from `getName()` is exactly what the shell needs (e.g., `prokka` — the `${fna_name}`
+    it builds must resolve to the staged `staging/fna/...` file).
+
+**Use `fileName.name` only** when the module copies/decompresses to a **fresh bare-named local
+file** the tool then reads (explicit `if/else` with `cp -L`), where a `staging/fna/` prefix
+would corrupt the output name (e.g., `agrvate`, `gamma`). The rule of thumb: match the shell
+strategy — `fileName.name` for copy-to-local, `getName()` for read-in-place.
+
+Do NOT use ad-hoc alternatives like `fna.getName()[0..-4]` or inline `gunzip -c` behind a
+`[[ ... == *.gz ]]` shell test — keep the guard uniform.
+
 ## Database Handling Patterns
 
 Many modules accept external databases. The codebase supports two formats:

@@ -276,15 +276,16 @@ The templates produce correct scaffolds but many tools need customization:
    ```bash
    if [ "${is_compressed}" == "true" ]; then
        gzip -c -d ${fna} > ${fna_name}
-   else
-       cp -L ${fna} ${fna_name}
    fi
    ```
 
    Then use `${fna_name}` as the input filename for the tool command. This pattern is
-   used consistently across modules (e.g., staphopiasccmec, traitar). Do NOT use
-   alternative approaches like `fna.getName()[0..-4]` or inline `gunzip -c` with
-   `if [[ ... == *.gz ]]` shell tests.
+   used consistently across modules (e.g., staphopiasccmec, traitar). Prefer `fna.getName()`;
+   it returns the task-relative staged path, which is what read-in-place tools need. Use
+   `fna.fileName.name` only when you copy/decompress to a fresh bare-named local file (explicit
+   `if/else` with `cp -L`) and this module `stageAs`'s the input into a subdir, where a
+   `staging/fna/` prefix would corrupt the output name (e.g., `agrvate`, `gamma`). Do NOT use
+   alternatives like `fna.getName()[0..-4]` or inline `gunzip -c` with `if [[ ... == *.gz ]]`.
 
 2. **Module `module.config`** -- review the `ext.args` construction:
    - Verify boolean/string/integer flag handling is correct for each parameter
