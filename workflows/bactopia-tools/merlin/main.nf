@@ -31,6 +31,9 @@
  * @input spatyper_repeat_order
  * Path to a custom spaTyper repeat order file
  *
+ * @input staphscan_db_mlst
+ * Path or tarball to custom MLST database for StaphSCAN surveillance
+ *
  * @section Species-Specific Analysis
  * @note Tools executed depend on detected species
  * @publish                         Analysis results from all executed species-specific tools
@@ -56,6 +59,7 @@ params {
     hicap_model_fp        : Path?
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
+    staphscan_db_mlst     : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -77,7 +81,9 @@ workflow {
         params.hicap_model_fp,
         // staphtyper
         params.spatyper_repeats,
-        params.spatyper_repeat_order
+        params.spatyper_repeat_order,
+        // staphscan
+        params.staphscan_db_mlst
     )
 
     publish:

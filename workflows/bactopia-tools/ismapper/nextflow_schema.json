@@ -424,13 +424,6 @@
                     "fa_icon": "far fa-clock",
                     "hidden": true
                 },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
-                    "hidden": true
-                },
                 "help": {
                     "type": "boolean",
                     "description": "Display help text.",

@@ -68,11 +68,10 @@
                 "versions.yml:md5,39e1618911585279f2ad89b32f9ecfa6",
                 "SRR13039589.tsv:md5,60b65486e8dec3be870de9504d6add63",
                 "versions.yml:md5,39e1618911585279f2ad89b32f9ecfa6",
-                "versions.yml:md5,a4e0bfe59670d712011a3dc00f3abeb5",
-                "stecfinder.tsv:md5,d2b6d9a9ab37d918c58b4e8272e6055d"
+                "versions.yml:md5,a4e0bfe59670d712011a3dc00f3abeb5"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:45.875265794",
+        "timestamp": "2026-07-31T13:21:50.78570325",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

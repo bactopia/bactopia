@@ -5,17 +5,17 @@
             [
                 "bactopia-runs",
                 "bactopia-runs/fastani",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/GCF_020736045.1_ASM2073604v1_genomic.tsv",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.begin",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.err",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.log",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.out",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.run",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.sh",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/nf.command.trace",
-                "bactopia-runs/fastani/GCF_020736045.1_ASM2073604v1_genomic/logs/versions.yml",
+                "bactopia-runs/fastani/GCF_020736045.1",
+                "bactopia-runs/fastani/GCF_020736045.1/GCF_020736045.1.tsv",
+                "bactopia-runs/fastani/GCF_020736045.1/logs",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.begin",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.err",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.log",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.out",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.run",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.sh",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/nf.command.trace",
+                "bactopia-runs/fastani/GCF_020736045.1/logs/versions.yml",
                 "bactopia-runs/fastani/merged-results",
                 "bactopia-runs/fastani/merged-results/fastani.tsv",
                 "bactopia-runs/fastani/merged-results/logs",
@@ -38,7 +38,7 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-29T11:23:18.750990614",
+        "timestamp": "2026-07-30T19:19:21.878600645",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -95,7 +95,7 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-29T11:22:34.677999189",
+        "timestamp": "2026-07-30T19:18:48.969197461",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -140,7 +140,7 @@
                 "versions.yml:md5,ec1c87c7160d76617e82583ad5b7740d"
             ]
         ],
-        "timestamp": "2026-04-29T11:22:00.063746589",
+        "timestamp": "2026-07-30T19:18:27.253450906",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

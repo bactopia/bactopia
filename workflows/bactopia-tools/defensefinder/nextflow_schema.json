@@ -68,12 +68,14 @@
                 },
                 "defensefinder_preserveraw": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "defensefinder_nocutga": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
@@ -392,13 +394,6 @@
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
                     "fa_icon": "far fa-clock",
-                    "hidden": true
-                },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
                     "hidden": true
                 },
                 "help": {

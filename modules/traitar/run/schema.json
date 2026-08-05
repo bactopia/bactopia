@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/traitar/run/schema.json",
+    "title": "Traitar Module",
+    "description": "A module for predicting phenotypic traits from microbial genomes",
+    "type": "object",
+    "$defs": {
+        "traitar_parameters": {
+            "title": "Traitar Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {}
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/traitar_parameters"
+        }
+    ]
+}

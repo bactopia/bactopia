@@ -51,6 +51,7 @@
             "properties": {
                 "prokka_proteins": {
                     "type": "string",
+                    "default": "${params.bactopia_dir}/data/proteins.faa",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-font"
                 },
@@ -398,13 +399,6 @@
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
                     "fa_icon": "far fa-clock",
-                    "hidden": true
-                },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
                     "hidden": true
                 },
                 "help": {

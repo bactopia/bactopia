@@ -5,7 +5,7 @@ nextflow_workflow {
     tag "subworkflows"
     tag "scrubber"
 
-    test("scrubber - subworkflow - SRR2838702") {
+    test("scrubber - subworkflow - SRR2838702 - nohuman") {
         when {
             params {
                 test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
@@ -22,9 +22,61 @@ nextflow_workflow {
                     )
                 )
                 input[1] = false
-                input[2] = file("${params.test_data_dir}/datasets/nohuman/HPRC.r2")
-                input[3] = false
+                input[2] = true
+                input[3] = file("${params.test_data_dir}/datasets/nohuman/HPRC.r2")
                 input[4] = false
+                input[5] = false
+                input[6] = null
+                input[7] = false
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert workflow.out.scrubbed != null },
+                { assert workflow.out.special_tsv != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.scrub_report != null },
+                { assert sample.results != null },
+                { assert run.results != null }
+            )
+        }
+    }
+
+    test("scrubber - subworkflow - SRR2838702 - deacon") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702", runtype: "paired-end"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = false
+                input[2] = false
+                input[3] = null
+                input[4] = false
+                input[5] = false
+                input[6] = file("${params.test_data_dir}/datasets/deacon/panhuman-1.idx")
+                input[7] = false
                 """
             }
         }

@@ -221,10 +221,6 @@
       "expected_seconds": 24.1,
       "tolerance_factor": 2.0
     },
-    "modules/ncbigenomedownload": {
-      "expected_seconds": 44.4,
-      "tolerance_factor": 2.0
-    },
     "modules/ngmaster": {
       "expected_seconds": 86.1,
       "tolerance_factor": 2.0
@@ -547,10 +543,6 @@
     },
     "subworkflows/mykrobe": {
       "expected_seconds": 28.5,
-      "tolerance_factor": 2.0
-    },
-    "subworkflows/ncbigenomedownload": {
-      "expected_seconds": 39.5,
       "tolerance_factor": 2.0
     },
     "subworkflows/ngmaster": {

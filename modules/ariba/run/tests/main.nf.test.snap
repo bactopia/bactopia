@@ -9,13 +9,13 @@
                 "process_name": "ariba",
                 "scope": "sample"
             },
-            "SRR2838702-report.tsv:md5,5ee10dd85eb51e673a8eb7e07298c69d",
-            "SRR2838702-summary.csv:md5,e973fbf0fffdcfc500bfba85549239e4",
+            "SRR2838702-report.tsv:md5,a7574299aadfff54270d5f7657ad5d54",
+            "SRR2838702-summary.csv:md5,39cbff7dcb0c255ea78dc6d9bfc19749",
             [
                 "versions.yml:md5,2d20a87ab1578332cae79c947a52e8f8"
             ]
         ],
-        "timestamp": "2026-04-29T11:16:11.163361868",
+        "timestamp": "2026-08-04T21:00:57.091217972",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

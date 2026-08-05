@@ -62,10 +62,10 @@
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
-                "rgi_exclude_nudge": {
+                "rgi_include_nudge": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Exclude hits nudged from loose to strict hits",
+                    "description": "Include hits nudged from loose to strict hits",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
@@ -426,13 +426,6 @@
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
                     "fa_icon": "far fa-clock",
-                    "hidden": true
-                },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
                     "hidden": true
                 },
                 "help": {

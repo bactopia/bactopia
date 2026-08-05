@@ -5,7 +5,8 @@
  * This workflow performs complete bacterial analysis including quality control,
  * assembly, annotation, antimicrobial resistance detection, MLST typing,
  * and Staphylococcus-specific analysis using [Spatyper](https://github.com/HCGB-IGTP/spaTyper),
- * [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE), and [SCCmecFinder](https://github.com/rpetit3/sccmec).
+ * [AgrVATE](https://github.com/VishnuRaghuram94/AgrVATE), [SCCmecFinder](https://github.com/rpetit3/sccmec),
+ * and [StaphSCAN](https://github.com/riccabolla/StaphSCAN).
  * It processes raw sequencing reads and produces a comprehensive genomic characterization for S. aureus isolates.
  *
  * @status stable
@@ -57,6 +58,9 @@
  *
  * @input spatyper_repeat_order
  * Path to repeat order file for Spatyper
+ *
+ * @input staphscan_db_mlst
+ * Path or tarball to custom MLST database for StaphSCAN
  *
  * @section Quality Control
  * @publish supplemental/*_fastqc.*         FastQC quality control reports for raw and cleaned reads
@@ -124,6 +128,7 @@ params {
     prokka_prodigal_tf    : Path?
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
+    staphscan_db_mlst     : Path?
 }
 
 // Core
@@ -198,7 +203,8 @@ workflow {
     ch_staphtyper = STAPHTYPER(
         ch_assembler.assembly,
         params.spatyper_repeats,
-        params.spatyper_repeat_order
+        params.spatyper_repeat_order,
+        params.staphscan_db_mlst
     )
 
     // Collect all outputs

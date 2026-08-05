@@ -1,9 +1,9 @@
 {
   "version": "1.0",
-  "generated": "2026-04-29T11:30:57Z",
-  "bactopia_version": "4.0.0",
-  "bactopia_py_version": "2.1.2",
-  "nf_bactopia_version": "2.1.0",
+  "generated": "2026-08-05T02:01:25Z",
+  "bactopia_version": "4.1.0",
+  "bactopia_py_version": "2.4.2",
+  "nf_bactopia_version": "2.1.7",
   "modules": {
     "abricate_run": {
       "description": "Mass screening of contigs for antimicrobial and virulence genes.",
@@ -60,7 +60,7 @@
       "process_name": "abritamr",
       "tool": {
         "name": "abritamr",
-        "version": "1.2.0"
+        "version": "1.3.0"
       },
       "takes": [
         "fna"
@@ -138,31 +138,6 @@
         "output_type": "multiple",
         "features": [
           "database-dependent"
-        ]
-      }
-    },
-    "amrfinderplus_update": {
-      "description": "Download and index the latest AMRFinder+ database.",
-      "path": "modules/amrfinderplus/update/",
-      "scope": "sample",
-      "process_name": "amrfinderplus_update",
-      "tool": {
-        "name": "ncbi-amrfinderplus",
-        "version": "4.2.7"
-      },
-      "emits": [
-        "db"
-      ],
-      "tags": {
-        "complexity": "simple",
-        "input_type": "none",
-        "output_type": "single",
-        "features": [
-          "internet-access",
-          "archive-output",
-          "compression",
-          "database-dependent",
-          "no-test"
         ]
       }
     },
@@ -299,7 +274,7 @@
       "process_name": "gather",
       "tool": {
         "name": "bactopia-gather",
-        "version": "1.0.5"
+        "version": "1.2.0"
       },
       "takes": [
         "r1_files",
@@ -423,7 +398,7 @@
       "process_name": "teton-prepare",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "classification"
@@ -634,7 +609,7 @@
       "process_name": "bracken",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -708,7 +683,7 @@
       "process_name": "busco",
       "tool": {
         "name": "busco",
-        "version": "6.0.0"
+        "version": "6.1.0"
       },
       "takes": [
         "fna"
@@ -905,6 +880,96 @@
         ]
       }
     },
+    "deacon_fetch": {
+      "description": "Fetch a pre-built deacon index for host read filtering.",
+      "path": "modules/deacon/fetch/",
+      "scope": "run",
+      "process_name": "deacon_fetch",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "deacon_filter": {
+      "description": "Filter host reads from sequencing data using minimizer-based comparison.",
+      "path": "modules/deacon/filter/",
+      "scope": "sample",
+      "process_name": "deacon",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "special_meta",
+        "r1",
+        "r2",
+        "se",
+        "lr",
+        "scrub_report",
+        "json_summary"
+      ],
+      "emits_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-logic"
+        ]
+      }
+    },
+    "deacon_index": {
+      "description": "Build a deacon minimizer index from a FASTA reference genome.",
+      "path": "modules/deacon/index/",
+      "scope": "run",
+      "process_name": "deacon_index",
+      "tool": {
+        "name": "bactopia-teton",
+        "version": "1.1.4"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "no-test"
+        ]
+      }
+    },
     "defensefinder_run": {
       "description": "Detect anti-phage defense systems using HMM profiles.",
       "path": "modules/defensefinder/run/",
@@ -912,7 +977,7 @@
       "process_name": "defensefinder",
       "tool": {
         "name": "defense-finder",
-        "version": "2.0.1"
+        "version": "3.0.0"
       },
       "takes": [
         "faa"
@@ -947,7 +1012,7 @@
       "process_name": "defensefinder",
       "tool": {
         "name": "defense-finder",
-        "version": "2.0.1"
+        "version": "3.0.0"
       },
       "emits": [
         "db"
@@ -996,7 +1061,7 @@
       "process_name": "eggnog",
       "tool": {
         "name": "eggnog-mapper",
-        "version": "2.1.13"
+        "version": "2.1.15"
       },
       "emits": [
         "db",
@@ -1020,7 +1085,7 @@
       "process_name": "eggnog",
       "tool": {
         "name": "eggnog-mapper",
-        "version": "2.1.13"
+        "version": "2.1.15"
       },
       "takes": [
         "faa"
@@ -1136,6 +1201,62 @@
         ]
       }
     },
+    "genomedl": {
+      "description": "Download genome assemblies and annotation files from NCBI Datasets.",
+      "path": "modules/genomedl/",
+      "scope": "run",
+      "process_name": "genomedl",
+      "tool": {
+        "name": "genome-dl",
+        "version": "1.0.0"
+      },
+      "emits": [
+        "fna",
+        "gbff",
+        "wgs_gbk",
+        "gff",
+        "gtf",
+        "faa",
+        "gpff",
+        "cds",
+        "translated_cds",
+        "rna",
+        "features",
+        "report",
+        "stats",
+        "metadata",
+        "summary",
+        "json"
+      ],
+      "emits_optional": [
+        "fna",
+        "gbff",
+        "wgs_gbk",
+        "gff",
+        "gtf",
+        "faa",
+        "gpff",
+        "cds",
+        "translated_cds",
+        "rna",
+        "features",
+        "report",
+        "stats",
+        "metadata",
+        "summary",
+        "json"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "conditional-logic"
+        ]
+      }
+    },
     "genotyphi_parse": {
       "description": "Parse Mykrobe results to genotype *Salmonella* Typhi.",
       "path": "modules/genotyphi/parse/",
@@ -1189,7 +1310,7 @@
       "process_name": "gtdb",
       "tool": {
         "name": "gtdbtk",
-        "version": "2.7.1"
+        "version": "2.7.2"
       },
       "takes": [
         "fna"
@@ -1219,7 +1340,7 @@
       "process_name": "gtdbtk",
       "tool": {
         "name": "gtdbtk",
-        "version": "2.7.1"
+        "version": "2.7.2"
       },
       "emits": [
         "db",
@@ -1324,7 +1445,7 @@
       "process_name": "iqtree",
       "tool": {
         "name": "iqtree",
-        "version": "3.1.1"
+        "version": "3.1.3"
       },
       "takes": [
         "aln"
@@ -1396,7 +1517,7 @@
       "process_name": "kraken2",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -1720,7 +1841,7 @@
       "process_name": "mlst",
       "tool": {
         "name": "mlst",
-        "version": "2.33.1"
+        "version": "2.35.0"
       },
       "takes": [
         "fna"
@@ -1804,58 +1925,6 @@
         ]
       }
     },
-    "ncbigenomedownload": {
-      "description": "Download assemblies and annotation files from NCBI's Assembly database.",
-      "path": "modules/ncbigenomedownload/",
-      "scope": "run",
-      "process_name": "ncbigenomedownload",
-      "tool": {
-        "name": "ncbi-genome-download",
-        "version": "0.3.3"
-      },
-      "emits": [
-        "gbff",
-        "fna",
-        "rm",
-        "features",
-        "gff",
-        "faa",
-        "gpff",
-        "wgs_gbk",
-        "cds",
-        "rna",
-        "rna_fna",
-        "report",
-        "stats",
-        "accessions"
-      ],
-      "emits_optional": [
-        "gbff",
-        "fna",
-        "rm",
-        "features",
-        "gff",
-        "faa",
-        "gpff",
-        "wgs_gbk",
-        "cds",
-        "rna",
-        "rna_fna",
-        "report",
-        "stats",
-        "accessions"
-      ],
-      "tags": {
-        "complexity": "moderate",
-        "input_type": "single",
-        "output_type": "multiple",
-        "features": [
-          "internet-access",
-          "resource-download",
-          "conditional-logic"
-        ]
-      }
-    },
     "ngmaster": {
       "description": "Serotyping and Multi-Antigen Sequence Typing (MAST) of *Neisseria gonorrhoeae*.",
       "path": "modules/ngmaster/",
@@ -1863,7 +1932,7 @@
       "process_name": "ngmaster",
       "tool": {
         "name": "ngmaster",
-        "version": "2.0.0"
+        "version": "2.1.0"
       },
       "takes": [
         "fna"
@@ -1888,7 +1957,7 @@
       "process_name": "nohuman_download",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "emits": [
         "db",
@@ -1914,7 +1983,7 @@
       "process_name": "nohuman",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -1959,7 +2028,7 @@
       "process_name": "panaroo_run",
       "tool": {
         "name": "panaroo",
-        "version": "1.6.0"
+        "version": "1.8.0"
       },
       "takes": [
         "gff"
@@ -2043,7 +2112,7 @@
       "process_name": "phispy",
       "tool": {
         "name": "phispy",
-        "version": "5.0.6"
+        "version": "5.0.10"
       },
       "takes": [
         "gbff"
@@ -2216,7 +2285,7 @@
       "process_name": "rgi_heatmap",
       "tool": {
         "name": "rgi",
-        "version": "6.0.5"
+        "version": "6.0.8"
       },
       "takes": [
         "json"
@@ -2243,7 +2312,7 @@
       "process_name": "rgi_main",
       "tool": {
         "name": "rgi",
-        "version": "6.0.5"
+        "version": "6.0.8"
       },
       "takes": [
         "fna"
@@ -2681,7 +2750,7 @@
       "process_name": "srahumanscrubber",
       "tool": {
         "name": "bactopia-teton",
-        "version": "1.1.3"
+        "version": "1.1.4"
       },
       "takes": [
         "r1",
@@ -2769,6 +2838,31 @@
         ]
       }
     },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "path": "modules/staphscan/",
+      "scope": "sample",
+      "process_name": "staphscan",
+      "tool": {
+        "name": "staphscan",
+        "version": "0.4.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "compression",
+          "conditional-logic"
+        ]
+      }
+    },
     "stecfinder": {
       "description": "Serotype of Shigatoxin producing E. coli using reads/assemblies.",
       "path": "modules/stecfinder/",
@@ -2796,6 +2890,30 @@
       ],
       "tags": {
         "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "conditional-logic"
+        ]
+      }
+    },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "path": "modules/stxtyper/",
+      "scope": "sample",
+      "process_name": "stxtyper",
+      "tool": {
+        "name": "ncbi-stxtyper",
+        "version": "1.0.45"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
         "input_type": "single",
         "output_type": "single",
         "features": [
@@ -2903,6 +3021,55 @@
         "output_type": "multiple",
         "features": [
           "compression",
+          "conditional-logic"
+        ]
+      }
+    },
+    "traitar_download": {
+      "description": "Download the Pfam database required by Traitar.",
+      "path": "modules/traitar/download/",
+      "scope": "run",
+      "process_name": "traitar_download",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "internet-access",
+          "resource-download",
+          "no-test"
+        ]
+      }
+    },
+    "traitar_run": {
+      "description": "Predict phenotypic traits from microbial genomes.",
+      "path": "modules/traitar/run/",
+      "scope": "sample",
+      "process_name": "traitar",
+      "tool": {
+        "name": "traitar",
+        "version": "3.0.1"
+      },
+      "takes": [
+        "fna"
+      ],
+      "emits": [
+        "majority_tsv",
+        "single_tsv"
+      ],
+      "tags": {
+        "complexity": "simple",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
           "conditional-logic"
         ]
       }
@@ -3712,6 +3879,54 @@
         ]
       }
     },
+    "deacon": {
+      "description": "Remove host reads from sequencing data using deacon.",
+      "path": "subworkflows/deacon/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "database",
+        "download_deacon"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "special_meta",
+          "r1",
+          "r2",
+          "se",
+          "lr",
+          "scrub_report"
+        ],
+        "run_outputs": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "deacon_fetch",
+          "deacon_filter"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
+        ]
+      }
+    },
     "defensefinder": {
       "description": "Systematically search for anti-phage defense systems.",
       "path": "subworkflows/defensefinder/",
@@ -3919,6 +4134,53 @@
         "features": [
           "database-dependent",
           "aggregation"
+        ]
+      }
+    },
+    "genomedl": {
+      "description": "Download genome assemblies from NCBI Datasets.",
+      "path": "subworkflows/genomedl/",
+      "takes_params": [
+        "accessions"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "fna",
+          "gbff",
+          "wgs_gbk",
+          "gff",
+          "gtf",
+          "faa",
+          "gpff",
+          "cds",
+          "translated_cds",
+          "rna",
+          "features",
+          "report",
+          "stats",
+          "metadata",
+          "summary",
+          "json"
+        ],
+        "run_outputs": [],
+        "assemblies": [
+          "fna"
+        ],
+        "reference": []
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "genomedl"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "resource-download",
+          "internet-access"
         ]
       }
     },
@@ -4484,7 +4746,8 @@
         "hicap_database_dir",
         "hicap_model_fp",
         "staphtyper_repeats",
-        "staphtyper_repeat_order"
+        "staphtyper_repeat_order",
+        "staphscan_db_mlst"
       ],
       "emits": {
         "sample_outputs": [],
@@ -4741,52 +5004,6 @@
         "features": [
           "database-dependent",
           "aggregation"
-        ]
-      }
-    },
-    "ncbigenomedownload": {
-      "description": "Download bacterial genomes from NCBI's RefSeq database.",
-      "path": "subworkflows/ncbigenomedownload/",
-      "takes_params": [
-        "accessions"
-      ],
-      "emits": {
-        "sample_outputs": [
-          "gbff",
-          "fna",
-          "gff",
-          "faa",
-          "gpff",
-          "wgs_gbk",
-          "cds",
-          "rna",
-          "rna_fna",
-          "features",
-          "rm",
-          "report",
-          "stats",
-          "accessions"
-        ],
-        "bactopia_tools": [],
-        "run_outputs": [],
-        "assemblies": [
-          "fna"
-        ],
-        "reference": []
-      },
-      "scope": "sample",
-      "calls": {
-        "modules": [
-          "ncbigenomedownload"
-        ]
-      },
-      "tags": {
-        "complexity": "moderate",
-        "input_type": "single",
-        "output_type": "multiple",
-        "features": [
-          "resource-download",
-          "database-dependent"
         ]
       }
     },
@@ -5364,9 +5581,12 @@
       ],
       "takes_params": [
         "use_srascrubber",
+        "use_nohuman",
         "nohuman_db",
         "download_nohuman",
-        "nohuman_save_as_tarball"
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [
@@ -5405,7 +5625,8 @@
         ],
         "subworkflows": [
           "srahumanscrubber",
-          "nohuman"
+          "nohuman",
+          "deacon"
         ]
       },
       "tags": {
@@ -5883,15 +6104,49 @@
         ]
       }
     },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "path": "subworkflows/staphscan/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "staphscan",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation"
+        ]
+      }
+    },
     "staphtyper": {
-      "description": "Determine the agr, spa and SCCmec types for _Staphylococcus aureus_ genomes.",
+      "description": "Determine the agr, spa, SCCmec types and perform genome-based surveillance for _Staphylococcus aureus_ genomes.",
       "path": "subworkflows/staphtyper/",
       "takes": [
         "assembly"
       ],
       "takes_params": [
         "repeats",
-        "repeat_order"
+        "repeat_order",
+        "staphscan_db_mlst"
       ],
       "emits": {
         "sample_outputs": [],
@@ -5904,7 +6159,8 @@
         "subworkflows": [
           "agrvate",
           "spatyper",
-          "sccmec"
+          "sccmec",
+          "staphscan"
         ]
       },
       "tags": {
@@ -5954,6 +6210,36 @@
         "output_type": "multiple",
         "features": [
           "database-dependent",
+          "aggregation"
+        ]
+      }
+    },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "path": "subworkflows/stxtyper/",
+      "takes": [
+        "fna"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "stxtyper",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
           "aggregation"
         ]
       }
@@ -6131,7 +6417,13 @@
       ],
       "takes_params": [
         "db",
-        "use_srascrubber"
+        "use_srascrubber",
+        "use_nohuman",
+        "nohuman_db",
+        "download_nohuman",
+        "nohuman_save_as_tarball",
+        "deacon_db",
+        "download_deacon"
       ],
       "emits": {
         "sample_outputs": [],
@@ -6157,6 +6449,45 @@
           "aggregation",
           "database-dependent",
           "conditional-logic"
+        ]
+      }
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "path": "subworkflows/traitar/",
+      "takes": [
+        "fna"
+      ],
+      "takes_params": [
+        "database",
+        "download_traitar"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "majority_tsv",
+          "single_tsv"
+        ],
+        "run_outputs": [
+          "csv"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "traitar_download",
+          "traitar_run",
+          "csvtk_concat"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "single",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "database-dependent",
+          "conditional-logic",
+          "resource-download"
         ]
       }
     }
@@ -6383,7 +6714,7 @@
       ],
       "subworkflows": [
         "fastani",
-        "ncbigenomedownload"
+        "genomedl"
       ]
     },
     "gamma": {
@@ -6527,7 +6858,7 @@
       ],
       "subworkflows": [
         "mashtree",
-        "ncbigenomedownload"
+        "genomedl"
       ]
     },
     "mcroni": {
@@ -6584,7 +6915,8 @@
         "fna"
       ],
       "subworkflows": [
-        "mlst"
+        "mlst",
+        "bactopia_datasets"
       ]
     },
     "mobsuite": {
@@ -6628,7 +6960,7 @@
         "gff"
       ],
       "subworkflows": [
-        "ncbigenomedownload",
+        "genomedl",
         "prokka",
         "pangenome",
         "clonalframeml",
@@ -6825,7 +7157,7 @@
         "se"
       ],
       "subworkflows": [
-        "ncbigenomedownload",
+        "genomedl",
         "snippy_run",
         "snippy_core",
         "gubbins",
@@ -6854,6 +7186,17 @@
         "ssuissero"
       ]
     },
+    "staphscan": {
+      "description": "Genome-based surveillance analysis of Staphylococcus aureus.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/staphscan/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "staphscan"
+      ]
+    },
     "staphtyper": {
       "description": "Comprehensive typing of Staphylococcus aureus genomes.",
       "type": "tool",
@@ -6875,6 +7218,17 @@
       ],
       "subworkflows": [
         "stecfinder"
+      ]
+    },
+    "stxtyper": {
+      "description": "Identify and type Stx operons from assembled genomic sequences",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/stxtyper/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "stxtyper"
       ]
     },
     "sylph": {
@@ -6919,6 +7273,17 @@
       ],
       "subworkflows": [
         "tbprofiler"
+      ]
+    },
+    "traitar": {
+      "description": "Predict phenotypic traits from microbial genomes",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/traitar/",
+      "ext": [
+        "fna"
+      ],
+      "subworkflows": [
+        "traitar"
       ]
     },
     "cleanyerreads": {

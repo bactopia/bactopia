@@ -1,0 +1,123 @@
+nextflow_process {
+    name "Test DEACON_FILTER"
+    script "../main.nf"
+    process "DEACON_FILTER"
+    tag "modules"
+    tag "deacon"
+    tag "deacon_filter"
+
+    test("deacon_filter - module - SRR2838702 - PE") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702_R2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/deacon/panhuman-1.idx")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.r1 != null },
+                { assert record.r2 != null },
+                { assert record.scrub_report != null },
+                { assert record.special_meta != null },
+                { assert snapshot(
+                    record.meta,
+                    record.special_meta,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("deacon_filter - module - SRR2838702 - SE") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "SRR2838702"],
+                        r1: null,
+                        r2: null,
+                        se: file("${params.test_data_dir}/species/portiera/reads/illumina/SRR2838702SE.fastq.gz"),
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/deacon/panhuman-1.idx")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.se != null },
+                { assert record.scrub_report != null },
+                { assert record.special_meta != null },
+                { assert snapshot(
+                    record.meta,
+                    record.special_meta,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("deacon_filter - module - ERR3772599 - LR") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR3772599"],
+                        r1: null,
+                        r2: null,
+                        se: null,
+                        lr: file("${params.test_data_dir}/species/portiera/reads/nanopore/ERR3772599.fastq.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/deacon/panhuman-1.idx")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert record.lr != null },
+                { assert record.scrub_report != null },
+                { assert record.special_meta != null },
+                { assert snapshot(
+                    record.meta,
+                    record.special_meta,
+                    record.scrub_report,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+}

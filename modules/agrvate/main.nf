@@ -69,14 +69,14 @@ process AGRVATE {
         process_name: task.ext.process_name
     )
 
-    def is_compressed = fna.getName().endsWith(".gz") ? true : false
-    def fna_name = fna.getName().replace(".gz", "")
+    def is_compressed = fna.fileName.name.endsWith(".gz") ? true : false
+    def fna_name = fna.fileName.name.replace(".gz", "")
     """
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${fna} > ./${fna_name}
     else
         # agrvate does not support symlinks
-        cp ${fna} ./${fna_name}
+        cp -L ${fna} ./${fna_name}
     fi
 
     agrvate \\
@@ -88,9 +88,7 @@ process AGRVATE {
     mv supplemental/${prefix}-summary.tab ./${prefix}.tsv
 
     # Cleanup
-    if [ "${is_compressed}" == "true" ]; then
-        rm -rf ${fna_name}
-    fi
+    rm -rf ./${fna_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

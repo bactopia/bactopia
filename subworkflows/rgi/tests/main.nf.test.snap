@@ -9,9 +9,9 @@
                 "process_name": "rgi_main",
                 "scope": "sample"
             },
-            "GCF_900478275.tsv:md5,9d7754551163e020beed52a8bc14ce83",
+            "GCF_900478275.tsv:md5,9dd0afe6946da9c6608e775f954813a1",
             [
-                "versions.yml:md5,4a19310417d04abb9e1eeec05629f944"
+                "versions.yml:md5,6a43ca3ba925940f762a035f862fc657"
             ],
             {
                 "id": "rgi-RGI:CSVTK_CONCAT",
@@ -25,7 +25,7 @@
                 "versions.yml:md5,c1294552ba205b057bd368875a4eac93"
             ]
         ],
-        "timestamp": "2026-04-29T11:20:52.07740056",
+        "timestamp": "2026-07-30T19:13:40.096773406",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

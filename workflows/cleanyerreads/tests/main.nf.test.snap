@@ -80,14 +80,10 @@
                 "bactopia-runs/cleanyerreads/nf-reports/cleanyerreads-timeline.html"
             ],
             [
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,74fd99ec158fe3e666d2ba871c809827",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:27:05.694544",
+        "timestamp": "2026-07-30T19:28:21.446025394",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -158,12 +154,10 @@
                 "bactopia-runs/cleanyerreads/nf-reports/cleanyerreads-timeline.html"
             ],
             [
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:26:09.174329984",
+        "timestamp": "2026-07-30T19:26:54.451358248",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

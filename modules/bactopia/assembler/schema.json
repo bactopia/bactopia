@@ -39,6 +39,7 @@
                 },
                 "use_unicycler": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Use unicycler for paired end assembly",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
@@ -159,18 +160,21 @@
                 },
                 "no_polish": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Skip the assembly polishing step",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "no_miniasm": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Skip miniasm+Racon bridging",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "no_rotate": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Do not rotate completed replicons to start at a standard gene",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true

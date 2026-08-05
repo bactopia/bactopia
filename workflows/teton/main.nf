@@ -4,13 +4,14 @@
  *
  * This workflow performs metagenomic classification using [Kraken2](https://github.com/DerrickWood/kraken2)
  * and [Bracken](https://github.com/jenniferlu717/Bracken), with optional host read removal
- * using SRA Scrubber. It processes metagenomic sequencing reads to estimate bacterial
- * genome sizes and separate bacterial from non-bacterial organisms.
+ * using [deacon](https://github.com/bede/deacon) (default), [nohuman](https://github.com/mbhall88/nohuman),
+ * or [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber). It processes metagenomic
+ * sequencing reads to estimate bacterial genome sizes and separate bacterial from non-bacterial organisms.
  *
  * @status stable
  * @keywords metagenomics, classification, kraken2, bracken, abundance, profiling
  * @tags complexity:complex input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
- * @citation bracken, kraken2, srahumanscrubber
+ * @citation bracken, deacon, kraken2, srahumanscrubber
  *
  * @subworkflows utils_bactopia, bactopia_gather, teton
  *
@@ -21,7 +22,10 @@
  * Path to Kraken2 database for classification
  *
  * @input use_srascrubber
- * Remove host reads using SRA scrubber before classification
+ * Use SRA Human Scrubber for host read removal
+ *
+ * @input use_nohuman
+ * Use nohuman for host read removal
  *
  * @input nohuman_db
  * Path to a pre-built nohuman HPRC database for host read removal
@@ -31,6 +35,12 @@
  *
  * @input nohuman_save_as_tarball
  * Save the downloaded nohuman database as a tarball for reuse
+ *
+ * @input deacon_db
+ * Path to a pre-existing deacon minimizer index (.idx) for host read filtering
+ *
+ * @input download_deacon
+ * Download the deacon index to the datasets cache
  *
  * @section Per-Sample Results
  * @publish bacteria.tsv               Per-sample TSV files containing bacterial organisms and their properties
@@ -58,9 +68,12 @@ params {
     // Tool-specific parameters
     kraken2_db              : Path
     use_srascrubber         : Boolean
+    use_nohuman             : Boolean
     nohuman_db              : Path?
     download_nohuman        : Boolean
     nohuman_save_as_tarball : Boolean
+    deacon_db               : Path?
+    download_deacon         : Boolean
 }
 
 include { BACTOPIA_INIT       } from '../../subworkflows/utils/bactopia'
@@ -80,9 +93,12 @@ workflow {
         ch_gather.reads,
         params.kraken2_db,
         params.use_srascrubber,
+        params.use_nohuman,
         params.nohuman_db,
         params.download_nohuman,
-        params.nohuman_save_as_tarball
+        params.nohuman_save_as_tarball,
+        params.deacon_db,
+        params.download_deacon
     )
 
     // Collect all outputs

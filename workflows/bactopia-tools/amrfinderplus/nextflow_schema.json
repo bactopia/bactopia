@@ -104,7 +104,6 @@
                 },
                 "amrfinderplus_db": {
                     "type": "string",
-                    "default": "",
                     "description": "A custom AMRFinder+ database to use, either a tarball or a folder",
                     "fa_icon": "fas fa-font",
                     "hidden": true
@@ -423,13 +422,6 @@
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
                     "fa_icon": "far fa-clock",
-                    "hidden": true
-                },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
                     "hidden": true
                 },
                 "help": {

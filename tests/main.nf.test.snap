@@ -165,20 +165,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:34:19.510530167",
+        "timestamp": "2026-07-30T19:31:16.008311548",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -268,13 +258,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:54:53.770105154",
+        "timestamp": "2026-07-30T19:55:01.74615677",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -461,20 +448,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:46:42.824548983",
+        "timestamp": "2026-07-30T19:45:20.929483058",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -662,20 +639,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:52:17.954751264",
+        "timestamp": "2026-07-30T19:51:41.483948316",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -748,12 +715,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:52:58.985162251",
+        "timestamp": "2026-07-30T19:52:35.190860588",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -937,21 +902,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "SRR2838702.png:md5,90cfbd53df590d7542498269d4dda97a",
-                "versions.yml:md5,e8bb3b82f221298fc735072f579e992b",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                "SRR2838702.png:md5,90cfbd53df590d7542498269d4dda97a"
             ]
         ],
-        "timestamp": "2026-04-29T11:31:33.095335298",
+        "timestamp": "2026-07-30T19:27:53.525188399",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1013,12 +967,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:55:24.978165937",
+        "timestamp": "2026-07-30T19:55:40.866556785",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1189,20 +1141,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:39:34.253436144",
+        "timestamp": "2026-07-30T19:36:11.058832397",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
@@ -1383,20 +1325,10 @@
                 "bactopia-runs/bactopia/nf-reports/bactopia-timeline.html"
             ],
             [
-                "versions.yml:md5,27f053a0892518f8b0fb60e2100e922e",
-                "versions.yml:md5,5d00225a5ad24de728e651fdd0d7d1e3",
-                "versions.yml:md5,cd4830d4b299d4776ea68dce5a1c9e73",
-                "versions.yml:md5,d86b6a7bb7117ed6a86a0bd9f45e0377",
-                "versions.yml:md5,e46de3078794860a978e2dd0b390c27c",
-                "versions.yml:md5,d4aac41b9e2c72836a9b2a1dfed2226c",
-                "versions.yml:md5,feb26d507cd4d8f25033d4950ba463ee",
-                "versions.yml:md5,c18211bbb02304cba7b3e93cbcaa44c6",
-                "versions.yml:md5,1913efda4329af168df4ab88555dbeb4",
-                "versions.yml:md5,61924107a406c136f55c445d470721f7",
-                "versions.yml:md5,082ad51a2f3d2c0b3a158586edc08efc"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:27:11.243153114",
+        "timestamp": "2026-07-30T19:21:32.093797996",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

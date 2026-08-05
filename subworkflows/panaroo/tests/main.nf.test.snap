@@ -10,10 +10,10 @@
                 "scope": "run"
             },
             [
-                "versions.yml:md5,6718c12232ea2c193a98b9723d0a2791"
+                "versions.yml:md5,0e38cb68a88a1a2911e751e9a8ffd648"
             ]
         ],
-        "timestamp": "2026-04-29T11:21:04.223957933",
+        "timestamp": "2026-07-30T19:12:37.415429867",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

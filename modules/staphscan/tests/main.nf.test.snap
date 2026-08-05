@@ -1,0 +1,23 @@
+{
+    "staphscan - module - GCF_000017085": {
+        "content": [
+            {
+                "id": "GCF_000017085-STAPHSCAN",
+                "logs_dir": "GCF_000017085/tools/staphscan//logs/",
+                "name": "GCF_000017085",
+                "output_dir": "GCF_000017085/tools/staphscan/",
+                "process_name": "staphscan",
+                "scope": "sample"
+            },
+            "GCF_000017085.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e",
+            [
+                "versions.yml:md5,251f3e6b35be5f660d5fc8bc8456bde6"
+            ]
+        ],
+        "timestamp": "2026-07-30T19:04:11.404109887",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

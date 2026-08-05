@@ -26,15 +26,19 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
                     record.targets,
+                    record.regions
+                ).match() },
+                // Non-reproducible outputs
+                { assert [
+                    record.tsv,
                     record.target_details,
-                    record.regions,
-                    record.regions_details,
-                    record.versions
-                ).match() }
+                    record.regions_details
+                ].every { path(it).exists() } },
+                { assert path(record.versions[0]).text.contains('sccmec') }
             )
         }
     }
@@ -60,15 +64,19 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
                     record.targets,
+                    record.regions
+                ).match() },
+                // Non-reproducible outputs
+                { assert [
+                    record.tsv,
                     record.target_details,
-                    record.regions,
-                    record.regions_details,
-                    record.versions
-                ).match() }
+                    record.regions_details
+                ].every { path(it).exists() } },
+                { assert path(record.versions[0]).text.contains('sccmec') }
             )
         }
     }

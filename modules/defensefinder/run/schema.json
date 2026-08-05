@@ -31,12 +31,14 @@
                 },
                 "defensefinder_preserveraw": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Preserve raw MacsyFinder outputs alongside Defense Finder results inside the output directory",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
                 },
                 "defensefinder_nocutga": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Advanced! Run macsyfinder in no-cut-ga mode. The validity of the genes and systems found is not guaranteed!",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true

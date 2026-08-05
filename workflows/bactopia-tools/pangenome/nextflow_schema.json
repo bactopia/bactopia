@@ -42,8 +42,8 @@
                 }
             }
         },
-        "ncbigenomedownload_parameters": {
-            "title": "NCBI Genome Download Parameters",
+        "genomedl_parameters": {
+            "title": "genome-dl Parameters",
             "type": "object",
             "description": "",
             "default": "",
@@ -57,6 +57,7 @@
                 "accession": {
                     "type": "string",
                     "description": "An NCBI Assembly accession to be downloaded",
+                    "help": "Version-less accessions (e.g. GCF_000005845) are resolved to the latest version.",
                     "fa_icon": "fas fa-font"
                 },
                 "accessions": {
@@ -68,12 +69,14 @@
                     "type": "string",
                     "default": "fasta",
                     "description": "Comma separated list of formats to download",
+                    "help": "Choose from fasta, genbank, wgs, gff, gtf, protein, genpept, cds, translated-cds, rna, feature-table, assembly-report, assembly-stats or all.",
                     "fa_icon": "fas fa-font"
                 },
                 "section": {
                     "type": "string",
                     "default": "refseq",
                     "description": "NCBI section to download",
+                    "help": "Only applies to `--species`. Choose from refseq, genbank or all.",
                     "fa_icon": "fas fa-font",
                     "hidden": true
                 },
@@ -81,26 +84,21 @@
                     "type": "string",
                     "default": "complete",
                     "description": "Comma separated list of assembly levels to download",
-                    "fa_icon": "fas fa-font",
-                    "hidden": true
-                },
-                "kingdom": {
-                    "type": "string",
-                    "default": "bacteria",
-                    "description": "Comma separated list of formats to download",
+                    "help": "Only applies to `--species`. Choose from complete, chromosome, scaffold, contig or all.",
                     "fa_icon": "fas fa-font",
                     "hidden": true
                 },
                 "limit": {
-                    "type": "string",
+                    "type": "integer",
+                    "default": 100,
                     "description": "Limit the number of assemblies to download",
-                    "help": "If the the number of available genomes exceeds the given limit, a random subset will be selected.",
-                    "fa_icon": "fas fa-font"
+                    "help": "Only applies to `--species`, limit to first N assemblies returned by NCBI. Use 0 for no limit.",
+                    "fa_icon": "fas fa-sort-numeric-up"
                 },
-                "keep_downloads": {
+                "genomedl_allow_outdated": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Save downloaded files into the bactopia-runs folder",
+                    "description": "Download an explicitly requested outdated accession version instead of erroring",
                     "fa_icon": "fas fa-toggle-on"
                 }
             }
@@ -114,6 +112,7 @@
             "properties": {
                 "prokka_proteins": {
                     "type": "string",
+                    "default": "${params.bactopia_dir}/data/proteins.faa",
                     "description": "FASTA file of trusted proteins to first annotate from",
                     "fa_icon": "fas fa-font"
                 },
@@ -815,13 +814,6 @@
                     "fa_icon": "far fa-clock",
                     "hidden": true
                 },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
-                    "hidden": true
-                },
                 "help": {
                     "type": "boolean",
                     "description": "Display help text.",
@@ -867,7 +859,7 @@
             "$ref": "#/$defs/filter_parameters"
         },
         {
-            "$ref": "#/$defs/ncbigenomedownload_parameters"
+            "$ref": "#/$defs/genomedl_parameters"
         },
         {
             "$ref": "#/$defs/prokka_parameters"

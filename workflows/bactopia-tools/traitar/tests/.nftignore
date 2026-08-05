@@ -1,0 +1,5 @@
+**/*.{err,gz,html,log,pdf,stderr,stdout}
+**/*.tsv
+**/nf.command.*
+**/supplemental/**
+bactopia-runs/**/nf-reports/*.{dot,html}

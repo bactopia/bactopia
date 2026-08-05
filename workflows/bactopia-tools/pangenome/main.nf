@@ -8,17 +8,17 @@
  * [Roary](https://github.com/sanger-pathogens/roary). It generates core-genome alignments
  * and gene presence/absence matrices, followed by SNP distance calculations.
  * You can supplement your pangenome with completed genomes using the --species or
- * --accessions parameters, which downloads genomes from RefSeq and annotates them with
- * Prokka. A phylogeny based on the core-genome alignment is created by IQ-Tree, with
+ * --accessions parameters, which downloads genomes from NCBI with genome-dl and annotates
+ * them with Prokka. A phylogeny based on the core-genome alignment is created by IQ-Tree, with
  * optional recombination masking using ClonalFrameML. Finally, pan-genome wide
  * association studies can be conducted using Scoary.
  *
  * @status stable
  * @keywords alignment, core-genome, pan-genome, phylogeny, comparative genomics, bactopia-tool
  * @tags complexity:complex input-type:parameter output-type:multiple features:bactopia-tool,aggregation,conditional-logic
- * @citation clonalframeml, iqtree, iqtree_modelfinder, iqtree_ufboot, ncbigenomedownload, panaroo, pirate, prokka, roary, scoary
+ * @citation clonalframeml, genome_dl, iqtree, iqtree_modelfinder, iqtree_ufboot, panaroo, pirate, prokka, roary, scoary
  *
- * @subworkflows utils_bactopia-tools, pangenome, ncbigenomedownload, prokka, clonalframeml, iqtree, scoary
+ * @subworkflows utils_bactopia-tools, pangenome, genomedl, prokka, clonalframeml, iqtree, scoary
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
@@ -30,10 +30,10 @@
  * Use Roary as the pangenome tool instead of Panaroo
  *
  * @input species
- * Species name used to supplement the pangenome with RefSeq assemblies
+ * Species name used to supplement the pangenome with NCBI assemblies
  *
  * @input accession
- * Single NCBI Assembly RefSeq accession to supplement the pangenome
+ * Single NCBI Assembly accession to supplement the pangenome
  *
  * @input accessions
  * Path to a file listing NCBI Assembly accessions to supplement the pangenome
@@ -119,7 +119,7 @@ params {
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
-include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { GENOMEDL            } from '../../../subworkflows/genomedl/main'
 include { PROKKA              } from '../../../subworkflows/prokka/main'
 include { PANGENOME           } from '../../../subworkflows/pangenome/main'
 include { CLONALFRAMEML       } from '../../../subworkflows/clonalframeml/main'
@@ -135,9 +135,9 @@ workflow {
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
+        ch_genomedl = GENOMEDL(params.accessions)
         ch_prokka = PROKKA(
-            ch_ncbigenomedownload.assemblies,
+            ch_genomedl.assemblies,
             params.prokka_proteins,
             params.prokka_prodigal_tf
         )

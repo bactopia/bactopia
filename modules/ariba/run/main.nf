@@ -104,6 +104,10 @@ process ARIBA_RUN {
     mv ${db_name}/summary.csv ./${prefix}-summary.csv
     mv ${db_name}/ supplemental/
 
+    # Prepend a sample column so merged results can be traced to the sample
+    sed -i -e '1s|^name|sample,database|' -e '1!s|^|${prefix},|' ${prefix}-summary.csv
+    sed -i -e '1s|^#ariba_ref_name|sample\tariba_ref_name|' -e '1!s|^|${prefix}\t|' ${prefix}-report.tsv
+
     # Cleanup
     rm -rf ${db_name}db
 

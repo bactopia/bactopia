@@ -42,7 +42,7 @@
                 "shigeifinder.tsv:md5,25be6cf1161e59d9a4eab8db8f9b9ebb"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:21.227838831",
+        "timestamp": "2026-07-30T19:23:57.511939415",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

@@ -12,10 +12,10 @@
                 "single_end": false
             },
             [
-                "versions.yml:md5,c7ccc6b38aecf3c08c8bc7c50814a452"
+                "versions.yml:md5,75d067d7ecc44ec6c90a321b8103c997"
             ]
         ],
-        "timestamp": "2026-04-29T11:24:05.709375483",
+        "timestamp": "2026-07-30T19:15:29.943725377",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

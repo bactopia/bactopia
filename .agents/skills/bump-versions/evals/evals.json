@@ -1,0 +1,23 @@
+{
+  "skill_name": "bump-versions",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just bumped versions.yml to bactopia 4.1.0. Can you get the rest of the repo's version files in sync?",
+      "expected_output": "Runs bump_versions.py --check, shows the dry-run (conf/test_base.config bactopia_version 4.0.0 -> 4.1.0, others already current), applies after confirmation, then recommends /merge-schemas + /update-catalog and verifying V001, without editing versions.yml.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "release-checklist says V001 is failing on conf/test_base.config, the version doesn't match versions.yml. Fix it.",
+      "expected_output": "Identifies this as a version-propagation task, dry-runs and applies bump_versions.py to bring conf/test_base.config in line with versions.yml, re-runs bactopia-lint to confirm V001 passes, and flags that generated artifacts may still need /merge-schemas + /update-catalog.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Do the version files need updating? versions.yml already says 4.1.0.",
+      "expected_output": "Runs bump_versions.py --check, reports every hand-maintained literal is already 4.1.0 (no writes needed), and notes that generated artifacts are verified via bactopia-lint V001 rather than by this skill.",
+      "files": []
+    }
+  ]
+}

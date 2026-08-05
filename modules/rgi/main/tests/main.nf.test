@@ -65,4 +65,35 @@ nextflow_process {
             )
         }
     }
+
+    test("rgi - module - GCF_900478275 - include_nudge") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+                rgi_include_nudge = true
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_900478275"],
+                        fna: file("${params.test_data_dir}/species/haemophilus_influenzae/compressed/GCF_900478275/main/assembler/GCF_900478275.fna.gz")
+                    )
+                )
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.tsv,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
 }

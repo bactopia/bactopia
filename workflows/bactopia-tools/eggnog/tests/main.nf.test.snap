@@ -26,10 +26,10 @@
                 "bactopia-runs/eggnog/nf-reports/eggnog-timeline.html"
             ],
             [
-                "versions.yml:md5,1b179e895ab51b7321ae747976b92b31"
+                
             ]
         ],
-        "timestamp": "2026-04-29T11:27:15.558730769",
+        "timestamp": "2026-07-30T19:23:16.719033924",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

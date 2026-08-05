@@ -27,11 +27,13 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.versions
-                ).match() }
+                    record.tsv
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('quast') }
             )
         }
     }
@@ -58,11 +60,13 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.versions
-                ).match() }
+                    record.tsv
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('quast') }
             )
         }
     }
@@ -89,11 +93,13 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.tsv,
-                    record.versions
-                ).match() }
+                    record.tsv
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('quast') }
             )
         }
     }

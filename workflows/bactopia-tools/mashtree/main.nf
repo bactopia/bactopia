@@ -4,26 +4,26 @@
  *
  * This Bactopia Tool uses [Mashtree](https://github.com/lskatz/mashtree) to create a phylogenetic tree
  * of samples using [Mash](https://github.com/marbl/Mash) distances. It can include reference
- * genomes from RefSeq by downloading them with NCBI genome download.
+ * genomes from NCBI by downloading them with genome-dl.
  *
  * @status stable
  * @keywords phylogeny, tree, mash, distance, comparative genomics, bactopia-tool
  * @tags complexity:moderate input-type:parameter output-type:multiple features:bactopia-tool,phylogeny,comparative
  * @citation mashtree
  *
- * @subworkflows utils_bactopia-tools, mashtree, ncbigenomedownload
+ * @subworkflows utils_bactopia-tools, mashtree, genomedl
  *
  * @input rundir
  * Directory containing results from a completed Bactopia analysis run
  *
  * @input species
- * Species name to download all RefSeq genomes for comparison
+ * Species name to download all NCBI genomes for comparison
  *
  * @input accession
- * Specific NCBI Assembly RefSeq accession to download
+ * Specific NCBI Assembly accession to download
  *
  * @input accessions
- * Path to file containing list of NCBI accessions to download
+ * Path to file containing list of NCBI Assembly accessions to download
  *
  * @section Phylogenetic Analysis
  * @publish mashtree.dnd          Newick format tree file
@@ -52,7 +52,7 @@ params {
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
 include { MASHTREE            } from '../../../subworkflows/mashtree/main'
-include { NCBIGENOMEDOWNLOAD  } from '../../../subworkflows/ncbigenomedownload/main'
+include { GENOMEDL            } from '../../../subworkflows/genomedl/main'
 include { gather              } from 'plugin/nf-bactopia'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 
@@ -63,8 +63,8 @@ workflow {
 
     // Download if applicable
     if (params.species || params.accession || params.accessions) {
-        ch_ncbigenomedownload = NCBIGENOMEDOWNLOAD(params.accessions)
-        ch_samples = ch_samples.mix(ch_ncbigenomedownload.assemblies)
+        ch_genomedl = GENOMEDL(params.accessions)
+        ch_samples = ch_samples.mix(ch_genomedl.assemblies)
     }
     ch_mashtree = MASHTREE(gather(ch_samples, 'fna', [name: 'mashtree']))
 

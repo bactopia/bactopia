@@ -1,0 +1,51 @@
+{
+    "staphscan - GCF_000017085|staphylococcus_aureus|compressed_fasta": {
+        "content": [
+            2,
+            [
+                "GCF_000017085",
+                "GCF_000017085/tools",
+                "GCF_000017085/tools/staphscan",
+                "GCF_000017085/tools/staphscan/GCF_000017085.tsv",
+                "GCF_000017085/tools/staphscan/logs",
+                "GCF_000017085/tools/staphscan/logs/nf.command.begin",
+                "GCF_000017085/tools/staphscan/logs/nf.command.err",
+                "GCF_000017085/tools/staphscan/logs/nf.command.log",
+                "GCF_000017085/tools/staphscan/logs/nf.command.out",
+                "GCF_000017085/tools/staphscan/logs/nf.command.run",
+                "GCF_000017085/tools/staphscan/logs/nf.command.sh",
+                "GCF_000017085/tools/staphscan/logs/nf.command.trace",
+                "GCF_000017085/tools/staphscan/logs/versions.yml",
+                "bactopia-runs",
+                "bactopia-runs/staphscan",
+                "bactopia-runs/staphscan/merged-results",
+                "bactopia-runs/staphscan/merged-results/logs",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.begin",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.err",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.log",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.out",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.run",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.sh",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/nf.command.trace",
+                "bactopia-runs/staphscan/merged-results/logs/staphscan-concat/versions.yml",
+                "bactopia-runs/staphscan/merged-results/staphscan.tsv",
+                "bactopia-runs/staphscan/nf-reports",
+                "bactopia-runs/staphscan/nf-reports/staphscan-dag.dot",
+                "bactopia-runs/staphscan/nf-reports/staphscan-report.html",
+                "bactopia-runs/staphscan/nf-reports/staphscan-timeline.html"
+            ],
+            [
+                "GCF_000017085.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e",
+                "versions.yml:md5,794f66edfdb0127b7c9b08a1bb6d3231",
+                "versions.yml:md5,3848bf66b301b2b06d040f81eaac7e9b",
+                "staphscan.tsv:md5,f13bc8d8aba4cf0f801e04a8d6148e1e"
+            ]
+        ],
+        "timestamp": "2026-07-30T19:25:01.709535343",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

@@ -75,6 +75,9 @@ process GUBBINS {
     def is_compressed = aln.getName().endsWith(".gz") ? true : false
     def aln_name = aln.getName().replace(".gz", "")
     """
+    mkdir -p tmp/numba_cache
+    export NUMBA_CACHE_DIR="./tmp/numba_cache"
+
     if [ "${is_compressed}" == "true" ]; then
         gzip -c -d ${aln} > ${aln_name}
     fi
@@ -114,5 +117,8 @@ process GUBBINS {
     "${task.process}":
         gubbins: \$(run_gubbins.py --version 2>&1)
     END_VERSIONS
+
+    # gubbins --version causes numba cache to be recreated, so cleanup after version check
+    rm -rf tmp/
     """
 }

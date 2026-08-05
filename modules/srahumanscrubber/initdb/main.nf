@@ -27,7 +27,7 @@ process SRAHUMANSCRUBBER_INITDB {
 
     output:
     record(
-        db: files("${prefix}/*human_filter.db*"),
+        db: file("${prefix}/sra-human-filter.db"),
         logs: files("${prefix}/logs/*", optional: true)
     )
 
@@ -36,7 +36,7 @@ process SRAHUMANSCRUBBER_INITDB {
     """
     mkdir -p ${prefix}/logs
     DBVERSION=\$(curl "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/current/version.txt")
-    curl -f "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/human_filter.db.\${DBVERSION}" -o "${prefix}/\${DBVERSION}.human_filter.db"
+    curl -f "https://ftp.ncbi.nlm.nih.gov/sra/dbs/human_filter/human_filter.db.\${DBVERSION}" -o "${prefix}/sra-human-filter.db"
 
     # Move outputs to tool specific folder
     cp .command.begin ${prefix}/logs/nf.command.begin

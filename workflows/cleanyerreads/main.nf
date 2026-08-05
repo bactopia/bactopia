@@ -4,14 +4,15 @@
  *
  * This workflow performs comprehensive read quality control including trimming,
  * adapter removal, quality filtering, and optionally removes host contamination
- * using [nohuman](https://github.com/mbhall88/nohuman) or [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber).
+ * using [deacon](https://github.com/bede/deacon), [nohuman](https://github.com/mbhall88/nohuman),
+ * or [SRA Human Scrubber](https://github.com/ncbi/sra-human-scrubber).
  * It processes raw sequencing reads to produce high-quality clean reads ready
  * for downstream analysis.
  *
  * @status stable
  * @keywords reads, quality control, trimming, filtering, host removal, preprocessing
  * @tags complexity:moderate input-type:parameter output-type:multiple features:aggregation,conditional-logic,database-dependent
- * @citation bbtools, fastp, fastqc, fastq_scan, kraken2, lighter, nanoplot, nanoq, porechop, rasusa, srahumanscrubber
+ * @citation bbtools, deacon, fastp, fastqc, fastq_scan, kraken2, lighter, nanoplot, nanoq, porechop, rasusa, srahumanscrubber
  *
  * @subworkflows utils_bactopia, bactopia_gather, bactopia_qc, scrubber
  *
@@ -24,6 +25,9 @@
  * @input use_srascrubber
  * Remove host reads using SRA Human Scrubber
  *
+ * @input use_deacon
+ * Remove host reads using deacon with minimizer-based filtering
+ *
  * @input nohuman_db
  * Path to a pre-built nohuman HPRC database
  *
@@ -32,6 +36,12 @@
  *
  * @input nohuman_save_as_tarball
  * Save the downloaded nohuman database as a tarball for reuse
+ *
+ * @input deacon_db
+ * Path to a pre-existing deacon minimizer index (.idx) for host read filtering
+ *
+ * @input download_deacon
+ * Download the deacon index to the datasets cache
  *
  * @input adapters
  * Path to adapter sequences file for removal
@@ -70,11 +80,14 @@ params {
     // Tool-specific parameters
     use_nohuman             : Boolean
     use_srascrubber         : Boolean
+    use_deacon              : Boolean
     adapters                : Path?
     phix                    : Path?
     nohuman_db              : Path?
     download_nohuman        : Boolean
     nohuman_save_as_tarball : Boolean
+    deacon_db               : Path?
+    download_deacon         : Boolean
 }
 
 // Core
@@ -97,14 +110,17 @@ workflow {
     ch_sample_outputs = ch_gather.sample_outputs
     ch_run_outputs = ch_gather.run_outputs
 
-    if (params.use_nohuman || params.use_srascrubber) {
+    if (params.use_nohuman || params.use_srascrubber || params.use_deacon) {
         // Remove host reads
         ch_scrubber = SCRUBBER(
             ch_gather.reads,
             params.use_srascrubber,
+            params.use_nohuman,
             params.nohuman_db,
             params.download_nohuman,
-            params.nohuman_save_as_tarball
+            params.nohuman_save_as_tarball,
+            params.deacon_db,
+            params.download_deacon
         )
         ch_sample_outputs = ch_sample_outputs.mix(ch_scrubber.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(ch_scrubber.run_outputs)

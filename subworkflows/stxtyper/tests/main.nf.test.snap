@@ -1,0 +1,34 @@
+{
+    "stxtyper - subworkflow - GCF_001695515": {
+        "content": [
+            {
+                "id": "GCF_001695515-STXTYPER:STXTYPER_MODULE",
+                "logs_dir": "GCF_001695515/tools/stxtyper//logs/",
+                "name": "GCF_001695515",
+                "output_dir": "GCF_001695515/tools/stxtyper/",
+                "process_name": "stxtyper",
+                "scope": "sample"
+            },
+            "GCF_001695515.tsv:md5,001feff7db6e3fad984fdc36327122cc",
+            [
+                "versions.yml:md5,32d442d87815f24b2b14886add947195"
+            ],
+            {
+                "id": "stxtyper-STXTYPER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/stxtyper-concat/",
+                "name": "stxtyper",
+                "output_dir": "merged-results",
+                "process_name": "stxtyper-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,3eac79f1285e1d758e61e2f98bc6a78c"
+            ]
+        ],
+        "timestamp": "2026-07-30T19:15:08.802639631",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

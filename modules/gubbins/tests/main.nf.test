@@ -26,11 +26,13 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.masked_aln,
-                    record.versions
-                ).match() }
+                    record.masked_aln
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('gubbins') }
             )
         }
     }
@@ -56,11 +58,13 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
                     record.meta,
-                    record.masked_aln,
-                    record.versions
-                ).match() }
+                    record.masked_aln
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('gubbins') }
             )
         }
     }

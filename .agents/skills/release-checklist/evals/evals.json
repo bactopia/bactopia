@@ -1,0 +1,44 @@
+{
+  "skill_name": "release-checklist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "are we ready to cut the v4.1.0 release? give me a go/no-go",
+      "expected_output": "A release-readiness report saved to logs/release-audit-<TS>.md and summarized in chat with an explicit GO / GO WITH CAVEATS / NO-GO verdict. Version consistency is sourced from bactopia-lint's repo rules (V001/V002), not re-derived in the skill; any version drift is reported via the failing V-rule. The audit makes no writes to tracked source or GitHub.",
+      "files": [],
+      "assertions": [
+        "delegates_version_to_lint: check 1 (version consistency) is sourced from bactopia-lint repo rules V001/V002, not a re-implemented scan",
+        "reports_version_drift_from_vrule: if version-bearing files disagree with versions.yml, the report cites the V001 (or V002) finding rather than inventing its own",
+        "emits_overall_verdict: the report contains an explicit GO / GO WITH CAVEATS / NO-GO verdict",
+        "saves_markdown_report: a report file is written under logs/ (release-audit-<TS>.md) and its path is surfaced to the user",
+        "read_only: no git commit/push/tag, no gh issue edit/comment/close, and no edits to tracked source files"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "run the release checklist and tell me what's blocking a release",
+      "expected_output": "The full 14-check audit report plus a condensed chat summary (verdict + checklist table + blocking list). Version/pin checks are attributed to bactopia-lint V001/V002/V003; the module tool-version check reads the offline /update-module record (no network); blocking (FAIL) items are separated from non-blocking (WARN) items.",
+      "files": [],
+      "assertions": [
+        "runs_all_checks: the report includes all 14 checklist rows with per-check status",
+        "version_check_via_lint: version and nf-bactopia pin findings are attributed to bactopia-lint (V001/V002/V003), not to a bespoke engine scan",
+        "module_versions_offline: check 2 reads the /update-module record (present/absent, log timestamp) and does not query the Anaconda API",
+        "separates_blocking_from_nonblocking: FAIL items are listed as blocking; WARN items as non-blocking/judgment",
+        "read_only: no git commit/push/tag, no gh mutation, no edits to tracked source files"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "do a pre-release audit across bactopia, bactopia-py, and nf-bactopia",
+      "expected_output": "A multi-repo audit report covering all three repos plus the docs site (bactopia.io), saved to logs/ and summarized in chat, including per-repo release state (latest tag, commits ahead, dirty files) from the engine and an open-issue summary that honors the release-ignore label.",
+      "files": [],
+      "assertions": [
+        "covers_all_repos: the report addresses bactopia, bactopia-py, nf-bactopia, and the docs site (bactopia.io)",
+        "reports_sibling_release_state: per-repo latest tag and commits-ahead are reported (from the engine's sibling_release_state)",
+        "includes_issue_summary: the report includes an open-issue count and a shortlist, and mentions the release-ignore ignore label plus the excluded count",
+        "emits_overall_verdict: the report contains an explicit GO / GO WITH CAVEATS / NO-GO verdict",
+        "read_only: no git commit/push/tag, no gh mutation, no edits to tracked source files"
+      ]
+    }
+  ]
+}

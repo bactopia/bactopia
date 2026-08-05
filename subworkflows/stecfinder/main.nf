@@ -38,7 +38,12 @@ workflow STECFINDER {
     seqs: Channel<Record>
 
     main:
-    ch_stecfinder = STECFINDER_MODULE(seqs)
+    // If user passes --stecfinder_use_reads, we have to filter out any samples without reads.
+    def ch_seqs = (params.stecfinder_use_reads
+        ? seqs.filter { r -> [r.r1, r.r2, r.se, r.lr].any { seq -> seq != null } }
+        : seqs
+    ).map { r -> record(meta: r.meta, fna: r.fna, r1: r.r1, r2: r.r2, se: r.se, lr: r.lr) }
+    ch_stecfinder = STECFINDER_MODULE(ch_seqs)
     ch_csvtk_concat = CSVTK_CONCAT(gatherCsvtk(ch_stecfinder, 'tsv', [name: 'stecfinder']), 'tsv', 'tsv')
 
     emit:

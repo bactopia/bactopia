@@ -317,6 +317,13 @@ tools:
     cite: |
       Shen, W [csvtk: A cross-platform, efficient and practical CSV/TSV toolkit in Golang.](https://github.com/shenwei356/csvtk/) (GitHub)
 
+  deacon:
+    name: deacon
+    link: https://github.com/bede/deacon
+    description: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison
+    cite: |
+      Bede N. [deacon: SIMD-accelerated filtering of DNA sequences using minimizer-based comparison.](https://github.com/bede/deacon) (GitHub)
+
   defensefinder:
     name: DefenseFinder
     link: https://github.com/mdmparis/defense-finder
@@ -420,6 +427,13 @@ tools:
     description: Gene Allele Mutation Microbial Assessment
     cite: |
       Stanton RA, Vlachos N, Halpin AL [GAMMA: a tool for the rapid identification, classification, and annotation of translated gene matches from sequencing data.](https://doi.org/10.1093/bioinformatics/btab607) _Bioinformatics_ (2021)
+
+  genome_dl:
+    name: genome-dl
+    link: https://github.com/rpetit3/genome-dl
+    description: Download genome assemblies from NCBI Datasets.
+    cite: |
+      Petit III RA [genome-dl: Download genomes from NCBI Datasets](https://github.com/rpetit3/genome-dl) (GitHub)
 
   genotyphi:
     name: GenoTyphi
@@ -685,13 +699,6 @@ tools:
     description: Minimal but speedy quality control for nanopore reads in Rust
     cite: |
       Steinig E [Nanoq: Minimal but speedy quality control for nanopore reads in Rust](https://github.com/esteinig/nanoq) (GitHub)
-
-  ncbigenomedownload:
-    name: ncbi-genome-download
-    link: https://github.com/kblin/ncbi-genome-download
-    description: Scripts to download genomes from the NCBI FTP servers
-    cite: |
-      Blin K [ncbi-genome-download: Scripts to download genomes from the NCBI FTP servers](https://github.com/kblin/ncbi-genome-download) (GitHub)
 
   nextflow:
     name: Nextflow
@@ -1038,6 +1045,13 @@ tools:
     cite: |
       Lui J [SsuisSero: Rapid _Streptococcus suis_ serotyping](https://github.com/jimmyliu1326/SsuisSero) (GitHub)
 
+  staphscan:
+    name: StaphSCAN
+    link: https://github.com/riccabolla/StaphSCAN
+    description: Genome-based surveillance analysis of _Staphylococcus aureus_
+    cite: |
+      Bollini R [StaphSCAN (v0.3.0).](https://github.com/riccabolla/StaphSCAN) Zenodo (2026)
+
   staphopiasccmec:
     name: staphopia-sccmec
     link: https://github.com/staphopia/staphopia-sccmec
@@ -1052,6 +1066,13 @@ tools:
     cite: |
       Zhang X, Payne M, Kaur S, and Lan R [Improved Genomic Identification, Clustering, and Serotyping of Shiga Toxin-Producing Escherichia coli Using Cluster/Serotype-Specific Gene Markers.](https://doi.org/10.3389/fcimb.2021.772574) _Frontiers in Cellular and Infection Microbiology_, 11, 772574. (2021)
 
+  stxtyper:
+    name: StxTyper
+    link: https://github.com/ncbi/stxtyper
+    description: Identify and type Stx operons from assembled genomic sequences
+    cite: |
+      Feldgarden M, Brover V, Gonzalez-Escalona N, Frrat JG, Haendiges J, Haft DH, Hoffmann M, Pettengill JB, Prasad AB, Tillman GE, Tyson GH, Klimke W [AMRFinderPlus and the Reference Gene Catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence.](https://doi.org/10.1038/s41598-021-91456-0) _Scientific Reports_ 11, 12728 (2021)
+
   sylph:
     name: Sylph
     link: https://github.com/bluenote-1/sylph
@@ -1065,6 +1086,13 @@ tools:
     description: Profiling tool for _Mycobacterium tuberculosis_ to detect resistance and strain type
     cite: |
       Phelan JE, O'Sullivan DM, Machado D, Ramos J, Oppong YEA, Campino S, O'Grady J, McNerney R, Hibberd ML, Viveiros M, Huggett JF, Clark TG [Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs.](https://doi.org/10.1186/s13073-019-0650-x) _Genome Med_ 11, 41 (2019)
+
+  traitar:
+    name: Traitar
+    link: https://github.com/nick-youngblut/traitar3/
+    description: Predict phenotypic traits from microbial genomes
+    cite: |
+      Weimann A, Mooren K, Frank J, Pope PB, Gronow S, So AP [From genomes to phenotypes: Traitar, the microbial trait analyzer.](https://doi.org/10.1128/mSystems.00101-16) _mSystems_ 1(6), e00101-16 (2016)
 
   unicycler:
     name: Unicycler

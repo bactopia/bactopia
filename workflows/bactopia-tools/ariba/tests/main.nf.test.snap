@@ -56,16 +56,16 @@
                 "bactopia-runs/ariba-card/nf-reports/ariba-timeline.html"
             ],
             [
-                "SRR2838702-report.tsv:md5,3d4492a0da3197a00e7a5da818e4c1ea",
-                "SRR2838702-summary.csv:md5,b6735bd13bad29a22a5c99fcabb1959f",
+                "SRR2838702-report.tsv:md5,963488ef79fccc1a281498f4700c2250",
+                "SRR2838702-summary.csv:md5,c61c9e5e1534314b727333f7fbd31571",
                 "versions.yml:md5,aaa688e30363067240a27dcbe85f29c6",
-                "card-report.tsv:md5,3d4492a0da3197a00e7a5da818e4c1ea",
-                "card-summary.csv:md5,b6735bd13bad29a22a5c99fcabb1959f",
+                "card-report.tsv:md5,963488ef79fccc1a281498f4700c2250",
+                "card-summary.csv:md5,c61c9e5e1534314b727333f7fbd31571",
                 "versions.yml:md5,ff3a06461ce07f813e0b9e2739bb05ca",
                 "versions.yml:md5,1a4d97856cb563f9b6c84132cd60d481"
             ]
         ],
-        "timestamp": "2026-04-29T11:21:57.975492018",
+        "timestamp": "2026-08-04T21:01:00.564375661",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

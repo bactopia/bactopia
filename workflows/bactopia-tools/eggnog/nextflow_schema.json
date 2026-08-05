@@ -62,9 +62,10 @@
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_save_as_tarball": {
-                    "type": "string",
+                    "type": "boolean",
+                    "default": false,
                     "description": "Save the eggNOG database as a single tarball",
-                    "fa_icon": "fas fa-font"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_skip_diamond": {
                     "type": "boolean",
@@ -433,13 +434,6 @@
                     "description": "The amount of time (seconds) Nextflow will wait after setting up datasets before execution.",
                     "default": 5,
                     "fa_icon": "far fa-clock",
-                    "hidden": true
-                },
-                "validate_params": {
-                    "type": "boolean",
-                    "default": true,
-                    "fa_icon": "fas fa-tasks",
-                    "description": "Boolean whether to validate parameters against the schema at runtime",
                     "hidden": true
                 },
                 "help": {

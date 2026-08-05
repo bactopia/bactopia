@@ -35,10 +35,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.r1 != null },
                 { assert record.r2 != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('fastp') }
             )
         }
     }
@@ -71,10 +73,12 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert record.se != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('fastp') }
             )
         }
     }
@@ -107,10 +111,12 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert record.lr != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('fastp') }
             )
         }
     }
@@ -147,10 +153,12 @@ nextflow_process {
                 { assert record.r1 != null },
                 { assert record.r2 != null },
                 { assert record.lr != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('fastp') }
             )
         }
     }
@@ -185,10 +193,12 @@ nextflow_process {
                 { assert process.success },
                 { assert record.r1 != null },
                 { assert record.r2 != null },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('fastp') }
             )
         }
     }

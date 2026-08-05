@@ -97,8 +97,8 @@ process MOBSUITE_RECON {
     fi
 
     # Cleanup
-    gzip supplemental/*.fasta
-    mv supplemental/*.fasta.gz ./
+    find supplemental/ -maxdepth 1 -name "*.fasta" -exec gzip {} \\;
+    find supplemental/ -maxdepth 1 -name "*.fasta.gz" -exec mv {} ./ \\;
     if [ "${is_compressed}" == "true" ]; then
         rm -rf ${fasta_name}
     fi

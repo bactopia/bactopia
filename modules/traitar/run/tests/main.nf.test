@@ -1,0 +1,74 @@
+nextflow_process {
+    name "Test TRAITAR_RUN"
+    script "../main.nf"
+    process "TRAITAR_RUN"
+    tag "modules"
+    tag "traitar"
+    tag "traitar_run"
+
+    test("traitar - module - GCF_000017085") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/uncompressed/GCF_000017085/main/assembler/GCF_000017085.fna")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/traitar")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() },
+                { assert record.majority_tsv != null },
+                { assert record.single_tsv != null },
+                { assert record.results != null }
+            )
+        }
+    }
+
+    test("traitar - module - GCF_000017085 - gz") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "GCF_000017085"],
+                        fna: file("${params.test_data_dir}/species/staphylococcus_aureus/compressed/GCF_000017085/main/assembler/GCF_000017085.fna.gz")
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/traitar")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() },
+                { assert record.majority_tsv != null },
+                { assert record.single_tsv != null },
+                { assert record.results != null }
+            )
+        }
+    }
+}

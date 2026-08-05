@@ -2,4 +2,4 @@
 **/nf.command.*
 bactopia-runs/**/nf-reports/*.{dot,html}
 
-**/*.{corrections,hist,histogram,json,msh,sig,tab,txt,tsv,zip}
+**/*.{corrections,hist,histogram,json,msh,sig,tab,txt,tsv,yml,zip}

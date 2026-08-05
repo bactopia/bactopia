@@ -226,4 +226,54 @@ nextflow_pipeline {
             )
         }
     }
+
+    test("Snippy (accession) - Mixed|compressed_fastq") {
+        when {
+            params {
+                bactopia_test = "/species/mixed/reads"
+                test_dataset = ""
+                test_dataset2 = ""
+                test_dataset3 = ""
+                test_r1 = ""
+                test_r2 = ""
+                test_se = ""
+                test_ont = ""
+                is_ci = true
+                outdir = "$outputDir"
+                // Take the reference from genome-dl instead of a local file. Snippy needs the
+                // annotations, so the download has to be GenBank rather than the default FASTA.
+                reference = null
+                accession = "GCF_000292685"
+                format = "genbank"
+                gubbins_min_window_size = 5000
+                gubbins_filter_percentage = 100.0
+                gubbins_iterations = 1
+                snippy_mincov = 1
+                snippy_minqual = 1
+                snippy_basequal = 1
+                snippy_mapqual = 1
+                snippy_maxsoft = 1
+                skip_recombination = true
+                skip_phylogeny = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: '.nftignore')
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
 }

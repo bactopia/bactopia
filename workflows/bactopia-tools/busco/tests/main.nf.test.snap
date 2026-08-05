@@ -280,14 +280,14 @@
             ],
             [
                 "SRR2838702-summary.txt:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
-                "versions.yml:md5,84a39022a8e62bb5b3eb9c860e79d49f",
-                "full_table.tsv:md5,395616b19c70bb4ff67982cfc4c32511",
-                "missing_busco_list.tsv:md5,05d02e7e8108d122094d4f90d5dc624b",
+                "versions.yml:md5,bfe8448c1dd05af49ff6b67f38a9db01",
+                "full_table.tsv:md5,3b9475a17a9dbfb5b605817bafd464f7",
+                "missing_busco_list.tsv:md5,e7b37790235c44f6491ed71a98e8e24d",
                 "busco-bacteria_odb10.tsv:md5,d1cbbfb9ab7dee0204bfa26f3b982620",
                 "versions.yml:md5,06546ad8c9dee85b74317666718ef698"
             ]
         ],
-        "timestamp": "2026-04-29T11:22:08.887451241",
+        "timestamp": "2026-07-30T19:17:30.444141942",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

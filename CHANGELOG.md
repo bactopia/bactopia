@@ -6,6 +6,89 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
+## v4.1.0 bactopia/bactopia "Cheyenne Frontier Days" 2026/08/05
+
+<!-- markdownlint-disable-next-line MD036 -->
+_"[Cheyenne Frontier Days (CFD)](https://cfdrodeo.com/)" ten days of rodeos, music, and carnival rides_
+
+### `Added`
+
+- Bactopia Tools (`bactopia --wf <NAME>`)
+    - `staphscan` - Genome-based surveillance analysis of _Staphylococcus aureus_
+    - `traitar` - Predict phenotypic traits from microbial genomes
+- New Skills
+    - `/update-datasets` to rebuild and publish version-pinned datasets
+- Added StaphSCAN to the Staphtyper and Merlin subworkflows
+- Deacon as the default host read scrubber (replaces nohuman as default)
+- Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
+- Three-way scrubber selection: deacon (default), nohuman (`--use_nohuman`), SRA Human Scrubber (`--use_srascrubber`)
+- `genomedl` module and subworkflow - download assemblies from NCBI Datasets with `genome-dl`
+    - resolves version-less accessions to the latest assembly version
+    - subsamples `--species` downloads with `--limit` instead of `shuf | head`
+    - `--limit` defaults to 100 to prevent downloading 50k+ genomes (`--limit 0` for no limit)
+    - subworkflow emits `assemblies` from the named `fna` field, and `reference` from `gbff`
+- Bump internal bactopia-* pipeline tool versions
+    - `bactopia-gather`: 1.0.5 -> 1.2.0
+- bump program versions in modules  
+    - `abritamr`: 1.2.0 -> 1.3.0
+    - `busco`: 6.0.0 -> 6.1.0
+    - `defense-finder`: 2.0.1 -> 3.0.0
+    - `eggnog-mapper`: 2.1.13 -> 2.1.15
+    - `gtdbtk`: 2.7.1 -> 2.7.2
+    - `iqtree`: 3.1.1 -> 3.1.3
+    - `mash`: 2.3--hb105d93_10 -> 2.3--hf85e966_11
+    - `mlst`: 2.33.1 -> 2.35.0
+    - `ngmaster`: 2.0.0 -> 2.1.0
+    - `panaroo`: 1.6.0 -> 1.8.0
+    - `phispy`: 5.0.6 -> 5.0.10
+    - `rgi`: 6.0.5 -> 6.0.8
+    - `staphscan`: 0.3.1 -> 0.4.1
+
+### `Changed`
+
+- Updated bactopia-teton meta-package from 1.1.3 to 1.1.4 (includes deacon)
+- Bumped required `bactopia-py` to `>=2.3.0` (conda `meta.yaml`)
+- `bactopia gather` now downloads assemblies with `genome-dl` instead of `ncbi-genome-download`
+    - `--no_cache` is no longer available (`ncbi-genome-download` specific param)
+- `fastani`, `mashtree`, `pangenome` and `snippy` Bactopia Tools now download genomes with
+  `genomedl` instead of `ncbigenomedownload`
+    - `--kingdom` and `--keep_downloads` are no longer available to these tools
+    - `--limit` now defaults to 100 for `--species` (previously unlimited)
+    - `snippy --accession` requires `--format genbank` for an annotated reference
+- Deacon modules now use bactopia-teton container instead of standalone deacon container
+- Teton and scrubber workflows default to deacon instead of nohuman for host read removal
+- cleanyerreads workflow supports `--use_deacon` flag for host read removal
+- Added `params.bactopia_dir` (repo root) so `data/` can be referenced by all workflows
+- Centralized configuration for module/subworkflow tests into `conf/test_base.config`
+- Transitioned LLM context to be provider agnostic
+    - `CLAUDE.md` is now `AGENTS.md` following agents.md standard
+    - `.claude/docs` and `.claude/skills` moved to `.agents/docs` + `.agents/skills`
+    - Preserved Claude Code compatibility via `CLAUDE.md` shim and symlinks in `.claude/skills`
+    - `llms.txt` and `catalog.json` updated with latest changes
+
+### `Fixed`
+
+- float parameters being interpreted as strings in CLI
+- `--prokka_proteins` not being found in non-Bactopia workflows
+- `--fastani_skip_pairwise` parameter that does not exist
+- `mlst` and `amrfinderplus` Bactopia Tools failing with `ERROR ~ Path string cannot be empty`
+- `mlst` Bactopia Tool not falling back on bactopia/datasets
+- `mobsuite` failing on any sample without plasmids due to compressing non-existent files
+- removed unused `amrfinderplus/update` module
+- `rgi` failing with `unrecognized arguments: --num_threads` (renamed to `--threads`)
+- `rgi_exclude_nudge` replaced with `rgi_include_nudge`
+- `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404)
+- `gubbins` failing under Singularity/Apptainer when Numba tried to write to read-only container ([#667](https://github.com/bactopia/bactopia/issues/667)) (@pvanheus)
+- `agrvate`, `gamma`, and `traitar` modules failing under Conda with `cp: '...' are the same file`
+- Conda errors due to loose pinnings
+    - `ariba`, `ismapper`, `mykrobe`, `shigeifinder`, `sistr` - `setuptools=80` (`pkg_resources` removed in setuptools 81)
+    - `clonalframeml` (maskrc-svg) - `python=3.12` (stdlib `cgi` removed in Python 3.13)
+    - `hicap` - `biopython=1.79` (`SeqFeature.strand` removed in Biopython 1.80)
+    - `mcroni` - `numpy=2.0` (`reshape(newshape=)` removed in NumPy 2.1)
+    - `clermontyping` - `r-readr=2.1` (`quoted_na` promoted to a hard error)
+    - `snippy` (bactopia-variants) - `htslib=1.14` (bcftools 1.14/htslib 1.21 ABI mismatch segfaulted `bcftools consensus`)
+- added sample samples to ariba outputs
+
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
 <!-- markdownlint-disable-next-line MD036 -->

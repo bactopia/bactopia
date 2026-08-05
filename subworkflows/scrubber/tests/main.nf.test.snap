@@ -1,5 +1,5 @@
 {
-    "scrubber - subworkflow - SRR2838702": {
+    "scrubber - subworkflow - SRR2838702 - nohuman": {
         "content": [
             {
                 "id": "SRR2838702-SCRUBBER:NOHUMAN:NOHUMAN_MODULE",
@@ -12,7 +12,7 @@
                 "single_end": false
             },
             [
-                "versions.yml:md5,a8320e62273b53dca9cfffcb088d3ebb"
+                "versions.yml:md5,02561307297f583bd0d158052302fcf0"
             ],
             {
                 "id": "scrubber-SCRUBBER:CSVTK_CONCAT",
@@ -26,7 +26,40 @@
                 "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
             ]
         ],
-        "timestamp": "2026-04-29T11:25:01.657945097",
+        "timestamp": "2026-07-30T19:17:27.153424719",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    },
+    "scrubber - subworkflow - SRR2838702 - deacon": {
+        "content": [
+            {
+                "id": "SRR2838702-SCRUBBER:DEACON:DEACON_MODULE",
+                "logs_dir": "SRR2838702/tools/scrubber/logs/",
+                "name": "SRR2838702",
+                "output_dir": "SRR2838702/tools/scrubber",
+                "process_name": "deacon",
+                "runtype": "paired-end",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,e07f44b8fe13644174f75b5cc7193f10"
+            ],
+            {
+                "id": "scrubber-SCRUBBER:CSVTK_CONCAT",
+                "logs_dir": "merged-results/logs/scrubber-concat/",
+                "name": "scrubber",
+                "output_dir": "merged-results",
+                "process_name": "scrubber-concat",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,7c379989d6fecf5c9291326ac25be5e5"
+            ]
+        ],
+        "timestamp": "2026-07-30T19:17:56.811494688",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

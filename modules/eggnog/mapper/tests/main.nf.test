@@ -28,10 +28,12 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('eggnog-mapper') }
             )
         }
     }
@@ -58,10 +60,12 @@ nextflow_process {
             def record = process.out[0][0]
             assertAll(
                 { assert process.success },
+                // Reproducible outputs
                 { assert snapshot(
-                    record.meta,
-                    record.versions
-                ).match() }
+                    record.meta
+                ).match() },
+                // Non-reproducible outputs
+                { assert path(record.versions[0]).text.contains('eggnog-mapper') }
             )
         }
     }
