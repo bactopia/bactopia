@@ -88,6 +88,7 @@ _"[Cheyenne Frontier Days (CFD)](https://cfdrodeo.com/)" ten days of rodeos, mus
     - `mcroni` - `numpy=2.0` (`reshape(newshape=)` removed in NumPy 2.1)
     - `clermontyping` - `r-readr=2.1` (`quoted_na` promoted to a hard error)
     - `snippy` (bactopia-variants) - `htslib=1.14` (bcftools 1.14/htslib 1.21 ABI mismatch segfaulted `bcftools consensus`)
+- added sample samples to ariba outputs
 
 ## v4.0.0 bactopia/bactopia "Cream Puff" 2026/04/29
 
