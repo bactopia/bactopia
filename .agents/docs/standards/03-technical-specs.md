@@ -509,7 +509,7 @@ GATHER is the only module that appends a `*???-<type>` suffix — it runs before
 
 Many tools do not accept gzip-compressed input (or cannot follow symlinks). Since assemblies
 and other inputs may arrive either compressed (`.gz`) or plain, modules that need a real file
-on disk use a standard decompress-or-copy guard. This is the convention used across ~34 modules
+on disk use a standard decompress-or-copy guard. This is the convention used across roughly three dozen modules
 (e.g., `agrvate`, `ectyper`, `mobsuite/recon`, `checkm2/predict`, `clonalframeml`).
 
 In the Groovy script block, before the shell heredoc:

@@ -6,7 +6,10 @@ sidebar_position: 5000
 <!-- markdownlint-disable-next-line MD025 -->
 # Changelog
 
-## v4.1.0 bactopia/bactopia "???" 2026/??/??
+## v4.1.0 bactopia/bactopia "Cheyenne Frontier Days" 2026/08/04
+
+<!-- markdownlint-disable-next-line MD036 -->
+_"[Cheyenne Frontier Days (CFD)](https://cfdrodeo.com/)" ten days of rodeos, music, and carnival rides_
 
 ### `Added`
 

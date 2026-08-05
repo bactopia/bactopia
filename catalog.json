@@ -1,8 +1,8 @@
 {
   "version": "1.0",
-  "generated": "2026-08-04T18:35:56Z",
+  "generated": "2026-08-05T02:01:25Z",
   "bactopia_version": "4.1.0",
-  "bactopia_py_version": "2.3.0",
+  "bactopia_py_version": "2.4.2",
   "nf_bactopia_version": "2.1.7",
   "modules": {
     "abricate_run": {
