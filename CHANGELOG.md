@@ -22,12 +22,11 @@ _"[Cheyenne Frontier Days (CFD)](https://cfdrodeo.com/)" ten days of rodeos, mus
 - Deacon as the default host read scrubber (replaces nohuman as default)
 - Deacon subworkflow orchestrating deacon/fetch and deacon/filter modules
 - Three-way scrubber selection: deacon (default), nohuman (`--use_nohuman`), SRA Human Scrubber (`--use_srascrubber`)
-- `genomedl` module and subworkflow - download genome assemblies from NCBI Datasets with `genome-dl`
+- `genomedl` module and subworkflow - download assemblies from NCBI Datasets with `genome-dl`
     - resolves version-less accessions to the latest assembly version
     - subsamples `--species` downloads with `--limit` instead of `shuf | head`
-    - `--limit` defaults to 100 to prevent accidentally downloading 50k+ genomes (`--limit 0` for no limit)
-    - subworkflow emits `assemblies` from the named `fna` field, and `reference` from `gbff` when
-      `--format genbank` is used (Snippy needs an annotated reference), otherwise `fna`
+    - `--limit` defaults to 100 to prevent downloading 50k+ genomes (`--limit 0` for no limit)
+    - subworkflow emits `assemblies` from the named `fna` field, and `reference` from `gbff`
 - Bump internal bactopia-* pipeline tool versions
     - `bactopia-gather`: 1.0.5 -> 1.2.0
 - bump program versions in modules  
@@ -55,33 +54,33 @@ _"[Cheyenne Frontier Days (CFD)](https://cfdrodeo.com/)" ten days of rodeos, mus
   `genomedl` instead of `ncbigenomedownload`
     - `--kingdom` and `--keep_downloads` are no longer available to these tools
     - `--limit` now defaults to 100 for `--species` (previously unlimited)
-    - `snippy --accession` requires `--format genbank`, since Snippy needs an annotated reference
+    - `snippy --accession` requires `--format genbank` for an annotated reference
 - Deacon modules now use bactopia-teton container instead of standalone deacon container
 - Teton and scrubber workflows default to deacon instead of nohuman for host read removal
 - cleanyerreads workflow supports `--use_deacon` flag for host read removal
-- Added `params.bactopia_dir` which anchors to the Bactopia repo root so `data/` can be reference by all workflows
-- Centralized the pipeline version and `nf-bactopia@` plugin pin for module/subworkflow tests into `conf/test_base.config`; each `tests/nextflow.config` now `includeConfig`s it instead of repeating the values, so a version bump touches one file
-- Migrated AI agent context to the community-standard layout: `CLAUDE.md` is now `AGENTS.md` (agents.md convention, read natively by omp/pi, Kimi Code, Codex, Cursor, and others), and `.claude/docs` + `.claude/skills` moved to `.agents/docs` + `.agents/skills`
-    - Claude Code compatibility is preserved via a one-line `CLAUDE.md` shim (`@AGENTS.md`) and a `.claude/skills` symlink
-    - `llms.txt` template updated: module layout corrected (`module.config`/`schema.json`, not `meta.yml`) and the full `.agents/docs/` index is now listed
+- Added `params.bactopia_dir` (repo root) so `data/` can be referenced by all workflows
+- Centralized configuration for module/subworkflow tests into `conf/test_base.config`
+- Transitioned LLM context to be provider agnostic
+    - `CLAUDE.md` is now `AGENTS.md` following agents.md standard
+    - `.claude/docs` and `.claude/skills` moved to `.agents/docs` + `.agents/skills`
+    - Preserved Claude Code compatibility via `CLAUDE.md` shim and symlinks in `.claude/skills`
+    - `llms.txt` and `catalog.json` updated with latest changes
 
 ### `Fixed`
 
 - float parameters being interpreted as strings in CLI
 - `--prokka_proteins` not being found in non-Bactopia workflows
 - `--fastani_skip_pairwise` parameter that does not exist
-- `mlst` and `amrfinderplus` Bactopia Tools failing immediately with `ERROR ~ Path string cannot
-  be empty` when run without `--mlst_db` / `--amrfinderplus_db` ([#673](https://github.com/bactopia/bactopia/issues/673))
+- `mlst` and `amrfinderplus` Bactopia Tools failing with `ERROR ~ Path string cannot be empty`
 - `mlst` Bactopia Tool not falling back on bactopia/datasets
 - `mobsuite` failing on any sample without plasmids due to compressing non-existent files
 - removed unused `amrfinderplus/update` module
-- `rgi` failing with `unrecognized arguments: --num_threads` after the 6.0.8 bump (renamed to `--threads`)
-- `rgi_exclude_nudge` emitting the removed `--exclude_nudge` flag; replaced with `rgi_include_nudge` which passes RGI 6's opt-in `--include_nudge`
-- `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404); `mlst_url` has been version-less since v4.0.0
+- `rgi` failing with `unrecognized arguments: --num_threads` (renamed to `--threads`)
+- `rgi_exclude_nudge` replaced with `rgi_include_nudge`
+- `bactopia datasets` tests requesting a version-pinned `mlst.tar.gz` (404)
 - `gubbins` failing under Singularity/Apptainer when Numba tried to write to read-only container ([#667](https://github.com/bactopia/bactopia/issues/667)) (@pvanheus)
 - `agrvate`, `gamma`, and `traitar` modules failing under Conda with `cp: '...' are the same file`
-  when the staged input was copied onto its own path (used `fna.fileName.name` for the work-dir copy target)
-- Conda profile tool_errors from unconstrained transitive dependencies (docker/singularity unaffected); pinned in each module's `ext.toolName`:
+- Conda errors due to loose pinnings
     - `ariba`, `ismapper`, `mykrobe`, `shigeifinder`, `sistr` - `setuptools=80` (`pkg_resources` removed in setuptools 81)
     - `clonalframeml` (maskrc-svg) - `python=3.12` (stdlib `cgi` removed in Python 3.13)
     - `hicap` - `biopython=1.79` (`SeqFeature.strand` removed in Biopython 1.80)
