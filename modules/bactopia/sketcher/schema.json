@@ -28,6 +28,7 @@
                 },
                 "no_winner_take_all": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Disable winner-takes-all strategy for identity estimates",
                     "help": "winner-take-all description: After counting hashes for each query, hashes that appear in multiple queries will be removed from all except the one with the best identity (ties broken by larger query), and other identities will be reduced. This removes output redundancy, providing a rough compositional outline.",
                     "fa_icon": "fas fa-toggle-on",

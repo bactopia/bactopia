@@ -62,9 +62,10 @@
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_save_as_tarball": {
-                    "type": "string",
+                    "type": "boolean",
+                    "default": false,
                     "description": "Save the eggNOG database as a single tarball",
-                    "fa_icon": "fas fa-font"
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "eggnog_skip_diamond": {
                     "type": "boolean",

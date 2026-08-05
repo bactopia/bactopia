@@ -92,6 +92,7 @@
                 },
                 "ariba_no_clean": {
                     "type": "boolean",
+                    "default": false,
                     "description": "Do not clean up intermediate files created by Ariba.",
                     "fa_icon": "fas fa-toggle-on",
                     "hidden": true
