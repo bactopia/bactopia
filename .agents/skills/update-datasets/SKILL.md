@@ -1,6 +1,6 @@
 ---
 name: update-datasets
-description: Build and publish Bactopia's version-pinned datasets to Cloudflare R2. Currently implements the AMRFinder+ database: verifies the amrfinderplus module is at the latest bioconda version, rebuilds amrfinderplus.tar.gz inside the module's pinned container, and (after confirmation) uploads it via rclone to datasets/v<version>/amrfinderplus.tar.gz. Use when asked to update datasets, rebuild the amrfinderplus database, publish a dataset bundle, refresh the version-pinned datasets, or prepare datasets for a release.
+description: Build and publish Bactopia's version-pinned datasets to Cloudflare R2. Currently implements the AMRFinder+ database. It verifies the amrfinderplus module is at the latest bioconda version, rebuilds amrfinderplus.tar.gz inside the module's pinned container, and (after confirmation) uploads it via rclone to datasets/v<version>/amrfinderplus.tar.gz. Use when asked to update datasets, rebuild the amrfinderplus database, publish a dataset bundle, refresh the version-pinned datasets, or prepare datasets for a release.
 ---
 
 # Update Datasets
