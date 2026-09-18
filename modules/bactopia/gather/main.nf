@@ -302,8 +302,9 @@ process GATHER {
         OPTS="--sample ${prefix} --min_basepairs ${task.ext.min_basepairs} --min_reads ${task.ext.min_reads} --min_proportion ${task.ext.min_proportion} --runtype ${runtype}"
         if [ -f  "fastqs/${prefix}_R2.fastq.gz" ]; then
             # Paired-end
-            gzip -cd fastqs/${prefix}_R1.fastq.gz | fastq-scan > r1.json
-            gzip -cd fastqs/${prefix}_R2.fastq.gz | fastq-scan > r2.json
+            gzip -cd fastqs/${prefix}_R1.fastq.gz | fastq-scan > r1.json &
+            gzip -cd fastqs/${prefix}_R2.fastq.gz | fastq-scan > r2.json &
+            wait
             if ! reformat.sh in1=fastqs/${prefix}_R1.fastq.gz in2=fastqs/${prefix}_R2.fastq.gz ${qin} out=/dev/null 2> ${prefix}-paired-end-error.txt; then
                 echo "${prefix} FASTQs contains an error. Please check the input FASTQs. Further analysis is discontinued." >> ${prefix}-paired-end-error.txt
                 ERROR=1
