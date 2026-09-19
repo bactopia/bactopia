@@ -403,20 +403,24 @@ process QC {
     if [ "\${ERROR}" -eq "0" ]; then
         # fastq-scan
         if is_paired; then
-            fastq_scan ${fq1} supplemental/${prefix}_R1-original.json
-            fastq_scan ${fq2} supplemental/${prefix}_R2-original.json
-            fastq_scan ${prefix}_R1.fastq.gz supplemental/${prefix}_R1-final.json
-            fastq_scan ${prefix}_R2.fastq.gz supplemental/${prefix}_R2-final.json
+            fastq_scan ${fq1} supplemental/${prefix}_R1-original.json &
+            fastq_scan ${fq2} supplemental/${prefix}_R2-original.json &
+            wait
+            fastq_scan ${prefix}_R1.fastq.gz supplemental/${prefix}_R1-final.json &
+            fastq_scan ${prefix}_R2.fastq.gz supplemental/${prefix}_R2-final.json &
+            wait
         fi
 
         if has_ont_reads; then
-            fastq_scan ${ont_fq} supplemental/${prefix}_ONT-original.json
-            fastq_scan ${prefix}_ONT.fastq.gz supplemental/${prefix}_ONT-final.json
+            fastq_scan ${ont_fq} supplemental/${prefix}_ONT-original.json &
+            fastq_scan ${prefix}_ONT.fastq.gz supplemental/${prefix}_ONT-final.json &
+            wait
         fi
 
         if is_illumina_se; then
-            fastq_scan ${fq1} supplemental/${prefix}_SE-original.json
-            fastq_scan ${prefix}_SE.fastq.gz supplemental/${prefix}_SE-final.json
+            fastq_scan ${fq1} supplemental/${prefix}_SE-original.json &
+            fastq_scan ${prefix}_SE.fastq.gz supplemental/${prefix}_SE-final.json &
+            wait
         fi
 
         # FastQC and NanoPlot
