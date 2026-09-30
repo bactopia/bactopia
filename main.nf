@@ -162,6 +162,7 @@ params {
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
     staphscan_db_mlst     : Path?
+    ntmprofiler_db        : Path?
 }
 
 // Core
@@ -262,7 +263,9 @@ workflow {
             // staphtyper
             params.spatyper_repeats,
             params.spatyper_repeat_order,
-            params.staphscan_db_mlst
+            params.staphscan_db_mlst,
+            // ntmprofiler
+            params.ntmprofiler_db
         )
         ch_sample_outputs = ch_sample_outputs.mix(ch_merlin.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(ch_merlin.run_outputs)

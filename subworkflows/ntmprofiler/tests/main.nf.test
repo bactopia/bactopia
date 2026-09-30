@@ -1,0 +1,52 @@
+nextflow_workflow {
+    name "Test NTMPROFILER Subworkflow"
+    script "../main.nf"
+    workflow "NTMPROFILER"
+    tag "subworkflows"
+    tag "ntmprofiler"
+
+    test("ntmprofiler - subworkflow - ERR1045534") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR1045534"],
+                        r1: file("${params.test_data_dir}/species/mycobacterium/reads/illumina/ERR1045534_1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/mycobacterium/reads/illumina/ERR1045534_2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/ntmprofiler/ntmprofiler.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def sample = workflow.out.sample_outputs[0]
+            def run = workflow.out.run_outputs[0]
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.sample_outputs != null },
+                { assert workflow.out.run_outputs != null },
+                { assert snapshot(
+                    sample.meta,
+                    sample.versions,
+                    run.meta,
+                    run.versions
+                ).match() },
+                { assert sample.csv != null },
+                { assert sample.json != null },
+                { assert sample.txt != null },
+                { assert sample.results != null },
+                { assert run.csv != null },
+                { assert run.variants_csv != null },
+                { assert run.results != null }
+            )
+        }
+    }
+}

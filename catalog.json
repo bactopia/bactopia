@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-08-05T02:01:25Z",
+  "generated": "2026-09-30T08:49:04Z",
   "bactopia_version": "4.1.0",
   "bactopia_py_version": "2.4.2",
   "nf_bactopia_version": "2.1.7",
@@ -2018,6 +2018,94 @@
         "features": [
           "database-dependent",
           "conditional-logic"
+        ]
+      }
+    },
+    "ntmprofiler_collate": {
+      "description": "Collate NTM-Profiler results from multiple samples.",
+      "path": "modules/ntmprofiler/collate/",
+      "scope": "run",
+      "process_name": "ntmprofiler-collate",
+      "tool": {
+        "name": "ntm-profiler",
+        "version": "0.8.2"
+      },
+      "takes": [
+        "json"
+      ],
+      "emits": [
+        "csv",
+        "variants_csv",
+        "snp_dist_json"
+      ],
+      "emits_optional": [
+        "snp_dist_json"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "aggregation"
+        ]
+      }
+    },
+    "ntmprofiler_profile": {
+      "description": "Identify NTM species and predict antimicrobial resistance from sequencing reads.",
+      "path": "modules/ntmprofiler/profile/",
+      "scope": "sample",
+      "process_name": "ntmprofiler",
+      "tool": {
+        "name": "ntm-profiler",
+        "version": "0.8.2"
+      },
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "emits": [
+        "csv",
+        "json",
+        "txt"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "database-dependent",
+          "conditional-input"
+        ]
+      }
+    },
+    "ntmprofiler_update": {
+      "description": "Download and prepare the NTM-Profiler database.",
+      "path": "modules/ntmprofiler/update/",
+      "scope": "run",
+      "process_name": "ntmprofiler",
+      "tool": {
+        "name": "ntm-profiler",
+        "version": "0.8.2"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "resource-download"
         ]
       }
     },
@@ -4747,7 +4835,11 @@
         "hicap_model_fp",
         "staphtyper_repeats",
         "staphtyper_repeat_order",
-        "staphscan_db_mlst"
+        "staphscan_db_mlst",
+        "ntmprofiler_db"
+      ],
+      "takes_params_optional": [
+        "ntmprofiler_db"
       ],
       "emits": {
         "sample_outputs": [],
@@ -4778,7 +4870,8 @@
           "ssuissero",
           "staphtyper",
           "stecfinder",
-          "tbprofiler"
+          "tbprofiler",
+          "ntmprofiler"
         ]
       },
       "tags": {
@@ -5080,6 +5173,57 @@
           "database-dependent",
           "conditional-logic",
           "resource-download"
+        ]
+      }
+    },
+    "ntmprofiler": {
+      "description": "Identify NTM species and predict antimicrobial resistance from sequencing reads.",
+      "path": "subworkflows/ntmprofiler/",
+      "takes": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_optional": [
+        "r1",
+        "r2",
+        "se",
+        "lr"
+      ],
+      "takes_params": [
+        "db"
+      ],
+      "takes_params_optional": [
+        "db"
+      ],
+      "emits": {
+        "sample_outputs": [
+          "csv",
+          "json",
+          "txt"
+        ],
+        "run_outputs": [
+          "csv",
+          "variants_csv",
+          "snp_dist_json"
+        ]
+      },
+      "scope": "sample",
+      "calls": {
+        "modules": [
+          "ntmprofiler_profile",
+          "ntmprofiler_collate",
+          "ntmprofiler_update"
+        ]
+      },
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "multiple",
+        "output_type": "multiple",
+        "features": [
+          "aggregation",
+          "database-dependent"
         ]
       }
     },
@@ -6950,6 +7094,17 @@
       ],
       "subworkflows": [
         "ngmaster"
+      ]
+    },
+    "ntmprofiler": {
+      "description": "Identify NTM species and predict antimicrobial resistance from sequencing reads.",
+      "type": "tool",
+      "path": "workflows/bactopia-tools/ntmprofiler/",
+      "ext": [
+        "fastq"
+      ],
+      "subworkflows": [
+        "ntmprofiler"
       ]
     },
     "pangenome": {

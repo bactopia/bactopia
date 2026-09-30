@@ -14,7 +14,8 @@
  *
  * @subworkflows clermontyping, ectyper, emmtyper, genotyphi, hicap, hpsuissero, kleborate,
  *              legsta, lissero, merlindist, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
- *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
+ *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler,
+ *              ntmprofiler
  *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
@@ -44,6 +45,11 @@
  *
  * @input staphscan_db_mlst
  * Custom MLST database directory for StaphSCAN surveillance (optional)
+ *
+ * @input ntmprofiler_db?
+ * Optional NTM-Profiler database directory or tarball created by `ntm-profiler update_db`;
+ * when omitted, the database is downloaded, prepared, and cached once;
+ * the tool default is used when omitted
  *
  * @output sample_outputs
  * Mixed per-sample records from merlindist and all activated species-specific typing
@@ -78,6 +84,7 @@ include { SSUISSERO     } from '../ssuissero/main';
 include { STAPHTYPER    } from '../staphtyper/main';
 include { STECFINDER    } from '../stecfinder/main';
 include { TBPROFILER    } from '../tbprofiler/main';
+include { NTMPROFILER   } from '../ntmprofiler/main';
 
 workflow MERLIN {
     take:
@@ -89,6 +96,7 @@ workflow MERLIN {
     staphtyper_repeats: Path?
     staphtyper_repeat_order: Path?
     staphscan_db_mlst: Path?
+    ntmprofiler_db: Path?
 
     main:
     // ID potential species
@@ -128,6 +136,9 @@ workflow MERLIN {
     // Mycobacterium
     ch_mycobacterium = ch_merlindist.sample_outputs.filter { r -> r.mycobacterium != null }
     ch_tbprofiler = TBPROFILER(ch_mycobacterium.map(forReads))
+    ch_ntmprofiler = NTMPROFILER(ch_mycobacterium.map(forReads), ntmprofiler_db)
+    ch_ntmprofiler_sample_outputs = ch_ntmprofiler.sample_outputs
+    ch_ntmprofiler_run_outputs = ch_ntmprofiler.run_outputs
 
     // Neisseria
     ch_neisseria = ch_merlindist.sample_outputs.filter { r -> r.neisseria != null }
@@ -178,7 +189,8 @@ workflow MERLIN {
         ch_sistr.sample_outputs,
         ch_ssuissero.sample_outputs,
         ch_staphtyper.sample_outputs,
-        ch_tbprofiler.sample_outputs
+        ch_tbprofiler.sample_outputs,
+        ch_ntmprofiler_sample_outputs
     )
     run_outputs = ch_merlindist.run_outputs.mix(
         ch_clermontyping.run_outputs,
@@ -202,6 +214,7 @@ workflow MERLIN {
         ch_sistr.run_outputs,
         ch_ssuissero.run_outputs,
         ch_staphtyper.run_outputs,
-        ch_tbprofiler.run_outputs
+        ch_tbprofiler.run_outputs,
+        ch_ntmprofiler_run_outputs
     )
 }

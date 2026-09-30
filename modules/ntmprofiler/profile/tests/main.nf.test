@@ -1,0 +1,42 @@
+nextflow_process {
+    name "Test NTMPROFILER_PROFILE"
+    script "../main.nf"
+    process "NTMPROFILER_PROFILE"
+    tag "modules"
+    tag "ntmprofiler"
+    tag "ntmprofiler_profile"
+
+    test("ntmprofiler - module - ERR1045534 (Paired-End)") {
+        when {
+            params {
+                test_data_dir = System.getenv("BACTOPIA_TESTS") ?: ""
+            }
+            process {
+                """
+                input[0] = Channel.of(
+                    record(
+                        meta: [name: "ERR1045534"],
+                        r1: file("${params.test_data_dir}/species/mycobacterium/reads/illumina/ERR1045534_1.fastq.gz"),
+                        r2: file("${params.test_data_dir}/species/mycobacterium/reads/illumina/ERR1045534_2.fastq.gz"),
+                        se: null,
+                        lr: null
+                    )
+                )
+                input[1] = file("${params.test_data_dir}/datasets/ntmprofiler/ntmprofiler.tar.gz")
+                """
+            }
+        }
+
+        then {
+            def record = process.out[0][0]
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    record.meta,
+                    record.versions
+                ).match() }
+            )
+        }
+    }
+
+}

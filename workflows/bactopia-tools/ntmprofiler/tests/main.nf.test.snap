@@ -1,0 +1,57 @@
+{
+    "NTMProfiler - ERR1045534": {
+        "content": [
+            2,
+            [
+                "ERR1045534",
+                "ERR1045534/tools",
+                "ERR1045534/tools/ntmprofiler",
+                "ERR1045534/tools/ntmprofiler/ERR1045534.csv",
+                "ERR1045534/tools/ntmprofiler/ERR1045534.results.json.gz",
+                "ERR1045534/tools/ntmprofiler/ERR1045534.txt",
+                "ERR1045534/tools/ntmprofiler/logs",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.begin",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.err",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.log",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.out",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.run",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.sh",
+                "ERR1045534/tools/ntmprofiler/logs/nf.command.trace",
+                "ERR1045534/tools/ntmprofiler/logs/versions.yml",
+                "ERR1045534/tools/ntmprofiler/supplemental",
+                "ERR1045534/tools/ntmprofiler/supplemental/ERR1045534.bam",
+                "ERR1045534/tools/ntmprofiler/supplemental/ERR1045534.bam.bai",
+                "ERR1045534/tools/ntmprofiler/supplemental/ERR1045534.delly.bcf",
+                "bactopia-runs",
+                "bactopia-runs/ntmprofiler",
+                "bactopia-runs/ntmprofiler/merged-results",
+                "bactopia-runs/ntmprofiler/merged-results/logs",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.begin",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.err",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.log",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.out",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.run",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.sh",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/nf.command.trace",
+                "bactopia-runs/ntmprofiler/merged-results/logs/ntmprofiler-collate/versions.yml",
+                "bactopia-runs/ntmprofiler/merged-results/ntmprofiler.csv",
+                "bactopia-runs/ntmprofiler/merged-results/ntmprofiler.csv.variants.csv",
+                "bactopia-runs/ntmprofiler/nf-reports",
+                "bactopia-runs/ntmprofiler/nf-reports/ntmprofiler-dag.dot",
+                "bactopia-runs/ntmprofiler/nf-reports/ntmprofiler-report.html",
+                "bactopia-runs/ntmprofiler/nf-reports/ntmprofiler-timeline.html"
+            ],
+            [
+                "versions.yml:md5,2ef3e8036c81483511d9ec92e7651284",
+                "ERR1045534.delly.bcf:md5,e25e428a1618b3dbcf8245945a31cda9",
+                "versions.yml:md5,c2b6337904b44e686ee3f654c1af0ae5"
+            ]
+        ],
+        "timestamp": "2026-09-23T07:02:20.175647815",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

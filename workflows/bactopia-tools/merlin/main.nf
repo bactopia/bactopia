@@ -34,6 +34,11 @@
  * @input staphscan_db_mlst
  * Path or tarball to custom MLST database for StaphSCAN surveillance
  *
+ * @input ntmprofiler_db?
+ * Optional NTM-Profiler database directory or tarball created by `ntm-profiler update_db`;
+ * when omitted, the database is downloaded, prepared, and cached once;
+ * the tool default is used when omitted
+ *
  * @section Species-Specific Analysis
  * @note Tools executed depend on detected species
  * @publish                         Analysis results from all executed species-specific tools
@@ -60,6 +65,7 @@ params {
     spatyper_repeats      : Path?
     spatyper_repeat_order : Path?
     staphscan_db_mlst     : Path?
+    ntmprofiler_db        : Path?
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
@@ -83,7 +89,9 @@ workflow {
         params.spatyper_repeats,
         params.spatyper_repeat_order,
         // staphscan
-        params.staphscan_db_mlst
+        params.staphscan_db_mlst,
+        // ntmprofiler
+        params.ntmprofiler_db
     )
 
     publish:

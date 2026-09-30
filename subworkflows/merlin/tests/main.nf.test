@@ -29,6 +29,7 @@ nextflow_workflow {
                 input[5] = null
                 input[6] = null
                 input[7] = null
+                input[8] = null
                 """
             }
         }

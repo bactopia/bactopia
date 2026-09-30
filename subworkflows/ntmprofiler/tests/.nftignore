@@ -1,0 +1,2 @@
+**/*.{err,log,stderr,stdout}
+**/*.command.*

@@ -1,0 +1,23 @@
+{
+    "ntmprofiler - module - ERR1045534 (Paired-End)": {
+        "content": [
+            {
+                "id": "ERR1045534-NTMPROFILER_PROFILE",
+                "logs_dir": "ERR1045534/tools/ntmprofiler//logs/",
+                "name": "ERR1045534",
+                "output_dir": "ERR1045534/tools/ntmprofiler/",
+                "process_name": "ntmprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,0a8b2bff62d6b0277a0b0b441c2a78f0"
+            ]
+        ],
+        "timestamp": "2026-09-23T06:28:42.281453026",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

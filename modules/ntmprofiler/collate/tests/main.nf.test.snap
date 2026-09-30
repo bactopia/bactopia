@@ -1,0 +1,24 @@
+{
+    "ntmprofiler collate - module - test": {
+        "content": [
+            {
+                "id": "ntmprofiler-NTMPROFILER_COLLATE",
+                "logs_dir": "merged-results/logs/ntmprofiler-collate",
+                "name": "ntmprofiler",
+                "output_dir": "merged-results",
+                "process_name": "ntmprofiler-collate",
+                "scope": "run"
+            },
+            "ntmprofiler.csv:md5,852dad46507b8fc295367ad19e0003aa",
+            "ntmprofiler.csv.variants.csv:md5,e6e7ac6b872afdd07a2b230c3d909cbf",
+            [
+                "versions.yml:md5,99d50a00307e9188a5986ddbc441f7a5"
+            ]
+        ],
+        "timestamp": "2026-09-23T06:31:14.149886109",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

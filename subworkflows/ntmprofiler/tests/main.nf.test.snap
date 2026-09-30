@@ -1,0 +1,34 @@
+{
+    "ntmprofiler - subworkflow - ERR1045534": {
+        "content": [
+            {
+                "id": "ERR1045534-NTMPROFILER:NTMPROFILER_PROFILE",
+                "logs_dir": "ERR1045534/tools/ntmprofiler//logs/",
+                "name": "ERR1045534",
+                "output_dir": "ERR1045534/tools/ntmprofiler/",
+                "process_name": "ntmprofiler",
+                "scope": "sample",
+                "single_end": false
+            },
+            [
+                "versions.yml:md5,2ef3e8036c81483511d9ec92e7651284"
+            ],
+            {
+                "id": "ntmprofiler-NTMPROFILER:NTMPROFILER_COLLATE",
+                "logs_dir": "merged-results/logs/ntmprofiler-collate",
+                "name": "ntmprofiler",
+                "output_dir": "merged-results",
+                "process_name": "ntmprofiler-collate",
+                "scope": "run"
+            },
+            [
+                "versions.yml:md5,c2b6337904b44e686ee3f654c1af0ae5"
+            ]
+        ],
+        "timestamp": "2026-09-23T06:40:25.565614352",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

@@ -730,6 +730,13 @@ tools:
     cite: |
       Wheeler TJ, Eddy SR [nhmmer: DNA homology search with profile HMMs.](https://doi.org/10.1093/bioinformatics/btt403) _Bioinformatics_ 29, 2487-2489 (2013)
 
+  ntmprofiler:
+    name: NTM-Profiler
+    link: https://github.com/jodyphelan/NTM-Profiler
+    description: Identify nontuberculous Mycobacterium species and predict antimicrobial resistance from WGS data
+    cite: |
+      Phelan J [NTM-Profiler: profiling tool for NTM species identification and resistance prediction from WGS data.](https://github.com/jodyphelan/NTM-Profiler) (GitHub)
+
   panaroo:
     name: Panaroo
     link: https://github.com/gtonkinhill/panaroo

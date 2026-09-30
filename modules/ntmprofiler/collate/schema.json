@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ntmprofiler/collate/schema.json",
+    "title": "bactopia/ntmprofiler/collate module",
+    "description": "Collate NTM-Profiler results from multiple samples",
+    "type": "object",
+    "$defs": {
+        "ntmprofiler_collate_parameters": {
+            "title": "NTM-Profiler Collate Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "ntmprofiler_distance_cutoff": {"type": "integer", "default": 10, "description": "Maximum SNP distance represented in the optional graph output", "fa_icon": "fas fa-hashtag"},
+                "ntmprofiler_min_species_relative_abundance": {"type": "number", "default": 2.0, "description": "Minimum relative abundance percentage for reporting a species", "fa_icon": "fas fa-percentage"}
+            }
+        }
+    },
+    "allOf": [{"$ref": "#/$defs/ntmprofiler_collate_parameters"}]
+}

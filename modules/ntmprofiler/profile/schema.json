@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/bactopia/bactopia/master/modules/ntmprofiler/profile/schema.json",
+    "title": "bactopia/ntmprofiler/profile module",
+    "description": "Identify NTM species and predict antimicrobial resistance from sequencing reads",
+    "type": "object",
+    "$defs": {
+        "ntmprofiler_profile_parameters": {
+            "title": "NTM-Profiler Profile Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "ntmprofiler_call_whole_genome": {"type": "boolean", "default": false, "description": "Call variants across the whole genome", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_caller": {"type": "string", "default": "freebayes", "enum": ["bcftools", "gatk", "freebayes"], "description": "Variant caller to use", "fa_icon": "fas fa-font"},
+                "ntmprofiler_calling_params": {"type": "string", "default": "", "description": "Override the default variant-calling parameters", "fa_icon": "fas fa-font"},
+                "ntmprofiler_db": {"type": "string", "description": "Optional custom NTM-Profiler database created by update_db, as a directory or tarball; the tool default is used when omitted", "fa_icon": "fas fa-font"},
+                "ntmprofiler_mapper": {"type": "string", "default": "bwa", "enum": ["bwa", "minimap2", "bowtie2", "bwa-mem2"], "description": "Read mapper to use", "fa_icon": "fas fa-font"},
+                "ntmprofiler_min_species_relative_abundance": {"type": "number", "default": 2.0, "description": "Minimum relative abundance percentage for reporting a species", "fa_icon": "fas fa-percentage"},
+                "ntmprofiler_no_coverage_qc": {"type": "boolean", "default": false, "description": "Disable coverage statistics", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_no_delly": {"type": "boolean", "default": false, "description": "Disable structural-variant calling with Delly", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_no_species": {"type": "boolean", "default": false, "description": "Skip species prediction", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_no_trim": {"type": "boolean", "default": false, "description": "Disable read trimming", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_opts": {"type": "string", "default": "", "description": "Additional NTM-Profiler profile options", "fa_icon": "fas fa-font"},
+                "ntmprofiler_species_only": {"type": "boolean", "default": false, "description": "Predict species without resistance profiling", "fa_icon": "fas fa-toggle-on"},
+                "ntmprofiler_taxonomic_software": {"type": "string", "default": "sylph", "enum": ["sourmash", "sylph"], "description": "Taxonomic identification method", "fa_icon": "fas fa-font"}
+            }
+        }
+    },
+    "allOf": [{"$ref": "#/$defs/ntmprofiler_profile_parameters"}]
+}
