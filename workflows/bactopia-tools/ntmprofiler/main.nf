@@ -18,7 +18,7 @@
  *
  * @input ntmprofiler_db?
  * Optional directory or compressed tarball created by `ntm-profiler update_db`.
- * When omitted, NTM-Profiler uses its default database location.
+ * When omitted, Bactopia downloads, prepares, and caches the database once.
  *
  * @section Per-Sample Results
  * @publish *.csv                      Per-sample profiling results in CSV format

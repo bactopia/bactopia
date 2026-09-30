@@ -13,8 +13,8 @@
  * - `meta`: Groovy Record containing sample information
  * - `json`: NTM-Profiler JSON result files
  *
- * @input db?
- * Optional directory or compressed tarball containing a custom NTM-Profiler database
+ * @input db
+ * Directory or compressed tarball containing an NTM-Profiler database
  *
  * @output record(meta, csv, variants_csv, snp_dist_json?, results, logs, nf_logs, versions)
  * - `csv`: Collated species, lineage, and resistance results
@@ -32,7 +32,7 @@ process NTMPROFILER_COLLATE {
 
     input:
     record(meta: Record, json: Set<Path>)
-    db: Path?
+    db: Path
 
     stage:
     stageAs json, 'staging/json/*'
@@ -58,10 +58,9 @@ process NTMPROFILER_COLLATE {
     script:
     def _meta = meta
     prefix = task.ext.prefix ?: "${_meta.name}"
-    has_db = db != null
-    is_tarball = has_db && db.getName().endsWith(".tar.gz")
-    db_setup = has_db ? (is_tarball ? "tar -xzf ${db} -C database" : "cp -rL ${db}/. database/") : ""
-    db_arg = has_db ? "--db_dir database" : ""
+    is_tarball = db.getName().endsWith(".tar.gz")
+    db_setup = is_tarball ? "mkdir -p database && tar -xzf ${db} -C database" : ""
+    db_arg = is_tarball ? "--db_dir database" : "--db_dir ${db}"
     meta = record(
         id: "${prefix}-${task.process}",
         name: prefix,
@@ -71,7 +70,7 @@ process NTMPROFILER_COLLATE {
         logs_dir: "merged-results/logs/${task.ext.process_name}"
     )
     """
-    mkdir -p database results
+    mkdir -p results
     ${db_setup}
     cp -L staging/json/* results/
     find results -name '*.json.gz' -exec gunzip {} \\;

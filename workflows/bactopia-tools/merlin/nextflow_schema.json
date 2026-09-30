@@ -967,7 +967,7 @@
                 },
                 "ntmprofiler_db": {
                     "type": "string",
-                    "description": "Optional custom NTM-Profiler database created by update_db, as a directory or tarball; the tool default is used when omitted",
+                    "description": "Optional custom NTM-Profiler database created by update_db, as a directory or tarball; Bactopia prepares and caches the default database when omitted",
                     "fa_icon": "fas fa-font"
                 },
                 "ntmprofiler_mapper": {

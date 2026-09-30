@@ -36,6 +36,7 @@
  *
  * @input ntmprofiler_db?
  * Optional NTM-Profiler database directory or tarball created by `ntm-profiler update_db`;
+ * when omitted, the database is downloaded, prepared, and cached once;
  * the tool default is used when omitted
  *
  * @section Species-Specific Analysis

@@ -9,7 +9,7 @@
  * @tags complexity:moderate input-type:multiple output-type:multiple features:aggregation,database-dependent
  * @citation ntmprofiler
  *
- * @modules ntmprofiler_profile, ntmprofiler_collate
+ * @modules ntmprofiler_update, ntmprofiler_profile, ntmprofiler_collate
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
@@ -19,7 +19,8 @@
  * - `lr?`: Long reads (ONT/PacBio)
  *
  * @input db?
- * Optional directory or compressed tarball containing a custom NTM-Profiler database
+ * Optional directory or compressed tarball containing a custom NTM-Profiler database.
+ * When omitted, the default database is prepared once and reused by all tasks.
  *
  * @output sample_outputs
  * - `csv`: Per-sample results in CSV format
@@ -35,6 +36,7 @@ nextflow.enable.types = true
 
 include { NTMPROFILER_PROFILE } from '../../modules/ntmprofiler/profile/main'
 include { NTMPROFILER_COLLATE } from '../../modules/ntmprofiler/collate/main'
+include { NTMPROFILER_UPDATE  } from '../../modules/ntmprofiler/update/main'
 include { gather              } from 'plugin/nf-bactopia'
 
 workflow NTMPROFILER {
@@ -43,10 +45,16 @@ workflow NTMPROFILER {
     db: Path?
 
     main:
-    ch_ntmprofiler_profile = NTMPROFILER_PROFILE(reads, db)
+    if (db == null) {
+        ch_ntmprofiler_db = NTMPROFILER_UPDATE().map { r -> r.db }
+    } else {
+        ch_ntmprofiler_db = db
+    }
+
+    ch_ntmprofiler_profile = NTMPROFILER_PROFILE(reads, ch_ntmprofiler_db)
     ch_ntmprofiler_collate = NTMPROFILER_COLLATE(
         gather(ch_ntmprofiler_profile, 'json', [name: 'ntmprofiler']),
-        db
+        ch_ntmprofiler_db
     )
 
     emit:

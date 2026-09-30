@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-09-23T10:48:47Z",
+  "generated": "2026-09-30T08:49:04Z",
   "bactopia_version": "4.1.0",
   "bactopia_py_version": "2.4.2",
   "nf_bactopia_version": "2.1.7",
@@ -2084,6 +2084,28 @@
         "features": [
           "database-dependent",
           "conditional-input"
+        ]
+      }
+    },
+    "ntmprofiler_update": {
+      "description": "Download and prepare the NTM-Profiler database.",
+      "path": "modules/ntmprofiler/update/",
+      "scope": "run",
+      "process_name": "ntmprofiler",
+      "tool": {
+        "name": "ntm-profiler",
+        "version": "0.8.2"
+      },
+      "emits": [
+        "db"
+      ],
+      "tags": {
+        "complexity": "moderate",
+        "input_type": "none",
+        "output_type": "single",
+        "features": [
+          "database-dependent",
+          "resource-download"
         ]
       }
     },
@@ -5191,7 +5213,8 @@
       "calls": {
         "modules": [
           "ntmprofiler_profile",
-          "ntmprofiler_collate"
+          "ntmprofiler_collate",
+          "ntmprofiler_update"
         ]
       },
       "tags": {

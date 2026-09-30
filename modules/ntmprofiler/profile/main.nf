@@ -11,7 +11,8 @@
  * @citation ntmprofiler
  *
  * @note Database Selection
- * Uses the NTM-Profiler default database unless a custom database is provided.
+ * Uses a database prepared once by the NTM-Profiler update module unless a
+ * custom database is provided.
  *
  * @input record(meta, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
@@ -20,8 +21,8 @@
  * - `se?`: Single-end Illumina reads
  * - `lr?`: Long reads (ONT/PacBio)
  *
- * @input db?
- * Optional directory or compressed tarball containing a custom NTM-Profiler database
+ * @input db
+ * Directory or compressed tarball containing an NTM-Profiler database
  *
  * @output record(meta, csv, json, txt, results, logs, nf_logs, versions)
  * - `csv`: Results in CSV format
@@ -50,7 +51,7 @@ process NTMPROFILER_PROFILE {
         se: Path?,
         lr: Path?
     )
-    db: Path?
+    db: Path
 
     output:
     record(
@@ -78,10 +79,9 @@ process NTMPROFILER_PROFILE {
     has_r2 = r2 != null
     has_se = se != null
     has_lr = lr != null
-    has_db = db != null
-    is_tarball = has_db && db.getName().endsWith(".tar.gz")
-    db_setup = has_db ? (is_tarball ? "tar -xzf ${db} -C database" : "cp -rL ${db}/. database/") : ""
-    db_arg = has_db ? "--db_dir database" : ""
+    is_tarball = db.getName().endsWith(".tar.gz")
+    db_setup = is_tarball ? "mkdir -p database && tar -xzf ${db} -C database" : ""
+    db_arg = is_tarball ? "--db_dir database" : "--db_dir ${db}"
     input_reads = has_lr ? "--read1 ${lr}" : (has_se ? "--read1 ${se}" : "--read1 ${r1} --read2 ${r2}")
     platform = has_lr ? "--platform nanopore" : "--platform illumina"
 
@@ -95,7 +95,7 @@ process NTMPROFILER_PROFILE {
         single_end: has_se && !has_r1 && !has_r2
     )
     """
-    mkdir -p database results supplemental
+    mkdir -p results supplemental
     ${db_setup}
 
     ntm-profiler \\
