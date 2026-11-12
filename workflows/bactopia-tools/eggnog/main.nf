@@ -46,8 +46,9 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    eggnog_db       : Path
-    download_eggnog : Boolean
+    eggnog_db              : Path
+    download_eggnog        : Boolean
+    eggnog_save_as_tarball : Boolean
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'
