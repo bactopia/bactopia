@@ -16,6 +16,10 @@
  *              legsta, lissero, merlindist, ngmaster, pasty, pbptyper, seqsero2, seroba, shigapass,
  *              shigatyper, shigeifinder, sistr, ssuissero, staphtyper, stecfinder, tbprofiler
  *
+ * @note Samples whose assembly is missing (`fna` is null) or empty (`fna` is `[]` or a
+ *       0-byte file), or that carry no reads, are ignored; they contribute nothing to
+ *       `sample_outputs` or `run_outputs`
+ *
  * @input record(meta, fna, r1?, r2?, se?, lr?)
  * - `meta`: Groovy Record containing sample information
  * - `fna`: Assembly file for species identification and typing
@@ -55,29 +59,30 @@
  */
 nextflow.enable.types = true
 
-include { MERLINDIST    } from '../merlindist/main';
-include { CLERMONTYPING } from '../clermontyping/main';
-include { ECTYPER       } from '../ectyper/main';
-include { EMMTYPER      } from '../emmtyper/main';
-include { HICAP         } from '../hicap/main';
-include { HPSUISSERO    } from '../hpsuissero/main';
-include { GENOTYPHI     } from '../genotyphi/main';
-include { KLEBORATE     } from '../kleborate/main';
-include { LEGSTA        } from '../legsta/main';
-include { LISSERO       } from '../lissero/main';
-include { NGMASTER      } from '../ngmaster/main';
-include { PASTY         } from '../pasty/main';
-include { PBPTYPER      } from '../pbptyper/main';
-include { SEQSERO2      } from '../seqsero2/main';
-include { SEROBA        } from '../seroba/main';
-include { SHIGAPASS     } from '../shigapass/main';
-include { SHIGATYPER    } from '../shigatyper/main';
-include { SHIGEIFINDER  } from '../shigeifinder/main';
-include { SISTR         } from '../sistr/main';
-include { SSUISSERO     } from '../ssuissero/main';
-include { STAPHTYPER    } from '../staphtyper/main';
-include { STECFINDER    } from '../stecfinder/main';
-include { TBPROFILER    } from '../tbprofiler/main';
+include { MERLINDIST                 } from '../merlindist/main';
+include { CLERMONTYPING              } from '../clermontyping/main';
+include { ECTYPER                    } from '../ectyper/main';
+include { EMMTYPER                   } from '../emmtyper/main';
+include { HICAP                      } from '../hicap/main';
+include { HPSUISSERO                 } from '../hpsuissero/main';
+include { GENOTYPHI                  } from '../genotyphi/main';
+include { KLEBORATE                  } from '../kleborate/main';
+include { LEGSTA                     } from '../legsta/main';
+include { LISSERO                    } from '../lissero/main';
+include { NGMASTER                   } from '../ngmaster/main';
+include { PASTY                      } from '../pasty/main';
+include { PBPTYPER                   } from '../pbptyper/main';
+include { SEQSERO2                   } from '../seqsero2/main';
+include { SEROBA                     } from '../seroba/main';
+include { SHIGAPASS                  } from '../shigapass/main';
+include { SHIGATYPER                 } from '../shigatyper/main';
+include { SHIGEIFINDER               } from '../shigeifinder/main';
+include { SISTR                      } from '../sistr/main';
+include { SSUISSERO                  } from '../ssuissero/main';
+include { STAPHTYPER                 } from '../staphtyper/main';
+include { STECFINDER                 } from '../stecfinder/main';
+include { TBPROFILER                 } from '../tbprofiler/main';
+include { filterWithRequiredAndOneOf } from 'plugin/nf-bactopia';
 
 workflow MERLIN {
     take:
@@ -91,8 +96,11 @@ workflow MERLIN {
     staphscan_db_mlst: Path?
 
     main:
+    // Samples must have an assembly (e.g. 0 contigs were assembled) and reads
+    ch_assembly = filterWithRequiredAndOneOf(assembly, ['fna'], ['r1', 'r2', 'se', 'lr'])
+
     // ID potential species
-    ch_merlindist = MERLINDIST(assembly, mash_db)
+    ch_merlindist = MERLINDIST(ch_assembly, mash_db)
 
     // Helper closures to build records from MERLINDIST output
     def forAssembly = { r -> record(meta: r.meta, fna: r.fna) }
