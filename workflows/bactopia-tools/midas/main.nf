@@ -43,8 +43,10 @@ params {
     rundir : String
 
     // Tool-specific parameters
-    midas_db       : Path
-    download_midas : Boolean
+    midas_db              : Path
+    download_midas        : Boolean
+    midas_save_as_tarball : Boolean
+    
 }
 
 include { BACTOPIATOOL_INIT   } from '../../../subworkflows/utils/bactopia-tools/main'

@@ -121,7 +121,11 @@ workflow {
 
     // Create core-snp phylogeny
     if (!params.skip_phylogeny) {
-        ch_iqtree = IQTREE(params.skip_recombination ? ch_snippy_core.alignment : ch_gubbins.alignment)
+        if (params.skip_recombination) {
+            ch_iqtree = IQTREE(ch_snippy_core.alignment)
+        } else {
+            ch_iqtree = IQTREE(ch_gubbins.alignment)
+        }
         ch_sample_outputs = ch_sample_outputs.mix(ch_iqtree.sample_outputs)
         ch_run_outputs = ch_run_outputs.mix(ch_iqtree.run_outputs)
     }

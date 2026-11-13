@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. The primary user surface is a set of channel-manipulation helpers — `gather`, `gatherCsvtk`, `gatherFields`, `filterWithData`, `combineWith`, and `collectNextflowLogs` — plus a handful of workflow-initialization helpers (`bactopiaInputs`, `bactopiaToolInputs`, `validateParameters`) that `utils_bactopia*` subworkflows wire in.
+The `nf-bactopia` plugin provides utility functions for channel manipulation that are used throughout Bactopia subworkflows. The primary user surface is a set of channel-manipulation helpers — `gather`, `gatherCsvtk`, `gatherFields`, `filterWithData`, `filterWithRequiredAndOneOf`, `combineWith`, and `collectNextflowLogs` — plus a handful of workflow-initialization helpers (`bactopiaInputs`, `bactopiaToolInputs`, `validateParameters`) that `utils_bactopia*` subworkflows wire in.
 
 All functions are exposed as Nextflow `@Function` extensions and are imported individually:
 
@@ -11,6 +11,7 @@ include { gather         } from 'plugin/nf-bactopia'
 include { gatherCsvtk    } from 'plugin/nf-bactopia'
 include { gatherFields   } from 'plugin/nf-bactopia'
 include { filterWithData } from 'plugin/nf-bactopia'
+include { filterWithRequiredAndOneOf } from 'plugin/nf-bactopia'
 include { combineWith    } from 'plugin/nf-bactopia'
 include { collectNextflowLogs } from 'plugin/nf-bactopia'
 ```
@@ -171,6 +172,32 @@ ch_ariba_run = ARIBA_RUN(filterWithData(reads, ['r1', 'r2']), ch_ariba_getref.ma
 ```
 
 Reference: [subworkflows/ariba/main.nf:53](../../../subworkflows/ariba/main.nf#L53)
+
+---
+
+### filterWithRequiredAndOneOf
+
+Keeps a record only when every field named in `required` has data AND, when `oneOf` is non-empty, at least one field named in `oneOf` has data. Surviving records are projected down to `meta` plus the fields named in either list, so downstream processes never receive extra record fields. Unlike `filterWithData`, which treats any non-null value as data, this function also treats a 0-byte file, a blank string, and an empty collection or map as "no data".
+
+#### Signature
+
+filterWithRequiredAndOneOf(input, required, oneOf)
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `input` | Channel or List of records | Yes | Records to filter |
+| `required` | List of String | Yes | Field names that must all have data |
+| `oneOf` | List of String | No | Field names of which at least one must have data; an empty list means no constraint (at least one of `required`/`oneOf` must be non-empty) |
+
+#### Returns
+
+Channel or List containing only the matching records, each projected to `meta` plus the named fields. Throws `IllegalArgumentException` for a null `input`, when both lists are empty, or when a field name is blank.
+
+#### Example
+
+filterWithRequiredAndOneOf(MERLIN_INPUT, ['fna'], ['r1', 'r2', 'se', 'lr'])
 
 ---
 
